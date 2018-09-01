@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Hexo生成博文插入图片 | Hexo</title>
+    <meta name="author" content="John Doe" />
+    <meta name="version" content="1.0.0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="发现问题学习的路上，真是艰辛，前面的语法标识学习都还好，这次遇到图片插入，已经转换成本地路径了，结果依旧是部署之后，显示不出来，看到这个，感觉有点方了！
+俗话说，世上无难事只怕有心人，遇到问题不可怕，可怕的是逃避问题，于是乎我搜索开始，然后终于解决，方法参考网上某位仁兄的方法，特别有效！
+思考问题第一步
+把主页配置文件_config.yml 里的post_asset_folder:这个选项设置为true
+在你的hexo目录下执行这样一句话npm install hexo-asset-image " />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="baidu-site-verification" content="F0CXvmUgA9" />
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/front">前端</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">工具</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/read">读书</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2d/">cocos2d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-lfs/">git-lfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书/">读书</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#发现问题"><span class="toc-number">1.</span> <span class="toc-text">发现问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思考问题"><span class="toc-number">2.</span> <span class="toc-text">思考问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#第一步"><span class="toc-number">2.0.1.</span> <span class="toc-text">第一步</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#第二步"><span class="toc-number">2.0.2.</span> <span class="toc-text">第二步</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">3.1.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Hexo生成博文插入图片
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/2018/06/06/skill/Hexo生成博文插入图片/">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2018-06-06T10:20:04.000Z" itemprop="datePublished">2018-06-06</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/hexo/">hexo</a>, <a class="article-tag-link" href="/tags/技术/">技术</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>学习的路上，真是艰辛，前面的语法标识学习都还好，这次遇到图片插入，已经转换成本地路径了，结果依旧是部署之后，显示不出来，看到这个，感觉有点方了！</p>
+<p>俗话说，世上无难事只怕有心人，遇到问题不可怕，可怕的是逃避问题，于是乎我搜索开始，然后终于解决，方法参考网上某位仁兄的方法，特别有效！</p>
+<h3 id="思考问题"><a href="#思考问题" class="headerlink" title="思考问题"></a>思考问题</h3><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><ul>
+<li>把主页配置文件<code>_config.yml</code> 里的<code>post_asset_folder:</code>这个选项设置为<code>true</code></li>
+<li>在你的hexo目录下执行这样一句话<code>npm install hexo-asset-image --save</code>，这是下载安装一个可以上传本地图片的插件，来自dalao：<a href="https://github.com/CodeFalling/hexo-asset-image" target="_blank" rel="noopener">dalao的git</a></li>
+<li>等待一小段时间后，再运行<code>hexo n &quot;xxxx&quot;</code>来生成md博文时，<code>/source/_posts</code>文件夹内除了<code>xxxx.md</code>文件还有一个<strong>同名的文件夹</strong></li>
+</ul>
+<h5 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h5><ul>
+<li><p>最后在<code>xxxx.md</code>中想引入图片时，先把图片复制到xxxx这个文件夹中，然后只需要在xxxx.md中按照markdown的格式引入图片：</p>
+<p><code>![你想输入的替代文字](xxxx/图片名.jpg)</code></p>
+</li>
+<li><p><strong>注意：</strong> xxxx是这个md文件的名字，也是同名文件夹的名字。只需要有文件夹名字即可，不需要有什么绝对路径。你想引入的图片就只需要放入xxxx这个文件夹内就好了，很像引用相对路径。</p>
+</li>
+<li><p>最后检查一下，<code>hexo g</code>生成页面后，进入<code>public\2017\02\26\index.html</code>文件中查看相关字段，可以发现，html标签内的语句是<code>&lt;img src=&quot;2017/02/26/xxxx/图片名.jpg&quot;&gt;</code>，而不是<code>&lt;img src=&quot;xxxx/图片名.jpg&gt;</code>。这很重要，关乎你的网页是否可以真正加载你想插入的图片。</p>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个是 相对路径和绝对路径的问题，HEXO 在编译 部署 发布过程中使用的是默认的相对路径，而我们插入图片的时候使用的是本地的绝对路径，这样就导致了图片显示不出来的问题。</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p>Noob的博客： <a href="https://blog.csdn.net/sugar_rainbow/article/details/57415705" target="_blank" rel="noopener">hexo生成博文插入图片</a></p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://yoursite.com/2018/06/06/skill/Hexo生成博文插入图片/';
+        this.page.title = 'Hexo生成博文插入图片';
+        this.page.identifier = '2018/06/06/skill/Hexo生成博文插入图片/';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://name.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

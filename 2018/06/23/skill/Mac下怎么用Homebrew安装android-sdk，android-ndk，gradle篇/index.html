@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇 | Hexo</title>
+    <meta name="author" content="John Doe" />
+    <meta name="version" content="1.0.0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="安装 Homebrew
+安装Homebrew：
+
+1/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
+小提示:如果想卸载Homebrew需要(其实就是把“install”改成“uninstall”)
+1/usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="baidu-site-verification" content="F0CXvmUgA9" />
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/front">前端</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">工具</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/read">读书</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2d/">cocos2d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-lfs/">git-lfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书/">读书</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-Homebrew"><span class="toc-number">1.</span> <span class="toc-text">安装 Homebrew</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-android-sdk"><span class="toc-number">2.</span> <span class="toc-text">安装 android-sdk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置Path环境"><span class="toc-number">2.1.</span> <span class="toc-text">配置Path环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-android-ndk"><span class="toc-number">3.</span> <span class="toc-text">安装 android-ndk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置Path环境-1"><span class="toc-number">3.1.</span> <span class="toc-text">配置Path环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Gradle"><span class="toc-number">4.</span> <span class="toc-text">安装Gradle</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置Path环境-2"><span class="toc-number">4.1.</span> <span class="toc-text">配置Path环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎么解决-Environment-variable-ANDROID-HOME-not-found"><span class="toc-number">5.</span> <span class="toc-text">怎么解决 Environment variable $ANDROID_HOME not found</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">5.1.</span> <span class="toc-text">配置</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/2018/06/23/skill/Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇/">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2018-06-23T02:13:44.000Z" itemprop="datePublished">2018-06-23</time>
+</a>
+
+            
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h3 id="安装-Homebrew"><a href="#安装-Homebrew" class="headerlink" title="安装 Homebrew"></a>安装 <a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">Homebrew</a></h3><ul>
+<li>安装Homebrew：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>小提示:</strong>如果想卸载Homebrew需要(<em>其实就是把“install”改成“uninstall”</em>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装软件，如：brew install oclint </p>
+<p>卸载软件，如：brew uninstall oclint</p>
+<p>搜索软件，如：brew search oclint </p>
+<p>更新软件，如：brew upgrade oclint </p>
+<p>查看安装列表， 如：brew list </p>
+<p>更新Homebrew，如：brew update</p>
+</blockquote>
+<p><img src="/2018/06/23/skill/Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇/001.png" alt="001"></p>
+<h3 id="安装-android-sdk"><a href="#安装-android-sdk" class="headerlink" title="安装 android-sdk"></a>安装 android-sdk</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install android-sdk</span><br></pre></td></tr></table></figure>
+<p><strong>小提示</strong>如果遇上Warning: File /Users/zjh/.android/repositories.cfg could not be loaded.</p>
+<p>解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch ~/.android/repositories.cfg</span><br></pre></td></tr></table></figure>
+<h4 id="配置Path环境"><a href="#配置Path环境" class="headerlink" title="配置Path环境"></a>配置Path环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>设置路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Setting PATH for android-sdk</span><br><span class="line">export ANDROID_SDK_ROOT=/usr/local/share/android-sdk</span><br><span class="line">export PATH=&quot;$&#123;PATH&#125;:$&#123;ANDROID_SDK_ROOT&#125;/tools:$&#123;ANDROID_SDK_ROOT&#125;/platform-tools&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装-android-ndk"><a href="#安装-android-ndk" class="headerlink" title="安装 android-ndk"></a>安装 android-ndk</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew cask install android-ndk</span><br></pre></td></tr></table></figure>
+<h4 id="配置Path环境-1"><a href="#配置Path环境-1" class="headerlink" title="配置Path环境"></a>配置Path环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>设置路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Setting PATH for android-ndk</span><br><span class="line">export ANDROID_NDK_ROOT=/usr/local/share/android-sdk</span><br><span class="line">export PATH=&quot;$&#123;PATH&#125;:$&#123;ANDROID_NDK_ROOT&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装Gradle"><a href="#安装Gradle" class="headerlink" title="安装Gradle"></a>安装Gradle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install gradle</span><br></pre></td></tr></table></figure>
+<h4 id="配置Path环境-2"><a href="#配置Path环境-2" class="headerlink" title="配置Path环境"></a>配置Path环境</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 写入</span><br><span class="line">export PATH=&quot;$&#123;PATH&#125;:/usr/local/Cellar/gradle/4.0.1/bin&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>检查</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle -v</span><br></pre></td></tr></table></figure>
+<h3 id="怎么解决-Environment-variable-ANDROID-HOME-not-found"><a href="#怎么解决-Environment-variable-ANDROID-HOME-not-found" class="headerlink" title="怎么解决 Environment variable $ANDROID_HOME not found"></a>怎么解决 Environment variable $ANDROID_HOME not found</h3><p>MacOS开发Android app经常会遇到环境的坑，$ANDROID_HOME 经常会遇到无法使用</p>
+<ul>
+<li>首先找到sdk路径</li>
+</ul>
+<p>安装有几个路径：</p>
+<ol>
+<li>从网站直接下载的 需要设置</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ANDROID_HOME= .../ADT/sdk</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用 Homebrew 下载的</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ANDROID_HOME=/usr/local/Cellar/android-sdk/&#123;YOUR_SDK_VERSION_NUMBER&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>跟随 Android Studio 一起安装</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ANDROID_HOME=/Users/&#123;YOUR_USER_NAME&#125;/Library/Android/sdk</span><br></pre></td></tr></table></figure>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export ANDROID_HOME=&#123;YOUR_PATH&#125;</span><br><span class="line">#mine: export ANDROID_HOME=/Users/zwwill/Library/Android/sdk</span><br><span class="line">#or  : export ANDROID_HOME=~/Library/Android/sdk</span><br><span class="line">export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools</span><br></pre></td></tr></table></figure>
+<p>或者将以上脚本配置到~/.bash_profile文件下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>注意</strong></p>
+<p>这样配置出来的环境 不一定适用于所有的机器，如果想全部安装最好还是安装 “Android Studio” 去安装SDK和NDK</p>
+<hr>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://yoursite.com/2018/06/23/skill/Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇/';
+        this.page.title = 'Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇';
+        this.page.identifier = '2018/06/23/skill/Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇/';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://name.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>怎么用HEXO+github搭建个人博客网站 | Hexo</title>
+    <meta name="author" content="John Doe" />
+    <meta name="version" content="1.0.0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="建站前的一些唠叨个生活的瞬间，总想着把自己的所想所感，所悟、所得记录下，哪怕是零星的，粗糙的，鄙俗的，都是自己对生活真相的一次次靠近的证明，于是催生了做个自己的博客的想法，2015年的使用了WordPress技术做了一个博客，自己买了云服务器，域名，终于有了自己的个人网站，后来服务器到期前的那段时间，正赶上项目上线，没有来得及迁移，就被付之一炬。
+前天seazhang童鞋发来几个建站教程，又一次萌生了开博客的想法，说干就干，栽种一棵树最好的时间是十年前或现在。于是乎，今年又开始了新的征程，活着，" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="baidu-site-verification" content="F0CXvmUgA9" />
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/front">前端</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">工具</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/read">读书</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cocos2d/">cocos2d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-lfs/">git-lfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书/">读书</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#建站前的一些唠叨"><span class="toc-number">1.</span> <span class="toc-text">建站前的一些唠叨</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建站准备"><span class="toc-number">2.</span> <span class="toc-text">建站准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装hexo"><span class="toc-number">3.1.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化"><span class="toc-number">3.2.</span> <span class="toc-text">初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署到GitHub上"><span class="toc-number">4.</span> <span class="toc-text">部署到GitHub上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个repository"><span class="toc-number">4.1.</span> <span class="toc-text">创建一个repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布网站到GitHub远程"><span class="toc-number">4.2.</span> <span class="toc-text">发布网站到GitHub远程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">5.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文档"><span class="toc-number">6.</span> <span class="toc-text">参考文档</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            怎么用HEXO+github搭建个人博客网站
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/2018/06/05/skill/怎么用HEXO-github搭建个人博客网站/">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2018-06-05T03:12:37.000Z" itemprop="datePublished">2018-06-05</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/hexo/">hexo</a>, <a class="article-tag-link" href="/tags/技术/">技术</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h2 id="建站前的一些唠叨"><a href="#建站前的一些唠叨" class="headerlink" title="建站前的一些唠叨"></a>建站前的一些唠叨</h2><p>个生活的瞬间，总想着把自己的所想所感，所悟、所得记录下，哪怕是零星的，粗糙的，鄙俗的，都是自己对生活真相的一次次靠近的证明，于是催生了做个自己的博客的想法，2015年的使用了<a href="https://cn.wordpress.org/" target="_blank" rel="noopener">WordPress</a>技术做了一个博客，自己买了云服务器，域名，终于有了自己的个人网站，后来服务器到期前的那段时间，正赶上项目上线，没有来得及迁移，就被付之一炬。</p>
+<p>前天<a href="https://seazhang.github.io/" target="_blank" rel="noopener">seazhang</a>童鞋发来几个建站教程，又一次萌生了开博客的想法，说干就干，栽种一棵树最好的时间是十年前或现在。于是乎，今年又开始了新的征程，活着，就要学习，2005 年乔布斯在斯坦福的演讲中说到“stay hungry stay foolish”，对世界怀有敬畏，好奇之心，才能保持自己活的永远年轻，永远热泪盈眶。</p>
+<h2 id="建站准备"><a href="#建站准备" class="headerlink" title="建站准备"></a>建站准备</h2><p>我自己建站的环境是Mac环境，下面主要以Mac环境为准：</p>
+<p>环境：</p>
+<ul>
+<li>Mac电脑，联网状态</li>
+<li><a href="https://www.git-scm.com/download/" target="_blank" rel="noopener">Git</a> 、<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">Node.js(npm)</a></li>
+<li><a href="https://github.com/" target="_blank" rel="noopener">GitHub账号</a></li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>node.js用来创建hexo博客框架的用的依赖，我安装的是node-v8.11.3；</li>
+<li>Git环境，你可以安装客户端或者 用<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> 安装git，关于<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>的安装不在本教程讨论之内，大家自行搜索。</li>
+</ul>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>利用npm命令就可以安装<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo</a>如果自己npm下载出错 可以用国内的一些网站镜像代替</p>
+<p>比如<a href="http://npm.taobao.org/" target="_blank" rel="noopener">淘宝 NPM 镜像</a> 可以参考这篇文档 <a href="http://riny.net/2014/cnpm/" target="_blank" rel="noopener">国内优秀npm镜像推荐及使用</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>如果 遇到权限报错 可以 在前面加上 “sudo” 这个时候 会让你输入电脑密码获得权限，以下所有的指令，如果遇到问题都可以在前面加上“sudo” 尝试解决。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>安装完毕，选择本地你要建站的文件夹，我的是 “/Users/hoolai/jsroads/myblog”，然后打开控制台执行命令，hexo 会初始化网站所需的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>接着安装 npm 依赖包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>上面的一切就绪之后，就可以开始本地测试一下了。关于hexo 指令可以参考 <a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">hexo指令</a> 运行生成静态文件的指令</p>
+<p>“hexo generate” 你也可以使用 “hexo g”代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<p>编译成功后 继续输入 “hexo deploy” 部署网站 可以用“hexo d” 代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>此时 可以用浏览器访问 <a href="http://localhost:4000%EF%BC%8C%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E9%BB%98%E8%AE%A4%E7%9A%84%E6%95%88%E6%9E%9C/" target="_blank" rel="noopener">http://localhost:4000，查看一下默认的效果</a> 此时网站还是只能本地看到，默认主题是landscape。</p>
+<h2 id="部署到GitHub上"><a href="#部署到GitHub上" class="headerlink" title="部署到GitHub上"></a>部署到GitHub上</h2><p>首先你要有一个GitHub账号，这个很简单，如果没有，去注册一个就好。</p>
+<h3 id="创建一个repository"><a href="#创建一个repository" class="headerlink" title="创建一个repository"></a>创建一个repository</h3><p>repository 相当于一个仓库，用来放置自己的网站的文件，登录进 GitHub 页面 选择 repositories 然后 创建一个新的 repository 这个时候很简单，写一个Repository 名字，名字格式是重点 必须是 yourname.github.io 比如 tom.github.io 我的是 asroads.github.io。</p>
+<h3 id="发布网站到GitHub远程"><a href="#发布网站到GitHub远程" class="headerlink" title="发布网站到GitHub远程"></a>发布网站到GitHub远程</h3><p>此时需要修改一下本地（/Users/hoolai/jsroads/myblog）的一个“_config.yml”记得一点 hexo 配置中 任何“:”后面都是带空格的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repository: https://github.com/asroads/asroads.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
+<p>如果你是第一次使用GitHub部署，还需要配置 SSH文件，另外如果已经配置了，或者多个账号用一台机器需要另行处理。以后这个详谈。首先我们需要检查一下本地有没有 SSH keys 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;asroads@163.com&quot;</span><br></pre></td></tr></table></figure>
+<p>然后用指令添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eval `ssh-agent -s`</span><br><span class="line">ssh-add</span><br></pre></td></tr></table></figure>
+<p>到了这里基本就搞定了，这个时候需要复制 key 到 github 上面 测试一下 输入以下指令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>这个时候 会看到输出警告，输入 “yes”</p>
+<p>此时 还需要安装 一个 hexo-deployer-git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>做完上面这些就表示已经搞定了。执行下面的命令，部署到github 上面吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p>最后打开你的网站博客查看效果吧。我的是 <a href="http://www.asroads.com/2018/06/29/%E6%8B%93%E5%B1%95/%E6%80%8E%E4%B9%88%E7%94%A8HEXO-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/asroads.github.io" target="_blank" rel="noopener">asroads.github.io</a> 。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在成功发布之后，禁不住内心一点小小的喜悦，学习过程中间经历了各种挫折、问题、报错、沮丧，经过辗转各大论坛终于得以解决，以后有空了，会慢慢的把自己所学所感写写出来。</p>
+<p>十多年前（2007）入行的时候，回忆起学校老师在课堂上曾说，做技术的人，要有一个自己的门面（技术博客），这个是自己的一份“自我经营”，先后在新浪、网易博客、CSDN开了博客，由于后期的工作繁忙，奔波，懒散懈怠，大都虎头蛇尾，偶尔去打开想写点什么的时候，总感觉自己学的知识过于零碎，繁琐，整理起来过于麻烦，很多问题网上已经很多人都给出最好的答案，图文并茂的解答。再去造几个轮子，显得冗余了些。这篇文章也参考了网上许多优秀人的博客和解答，在此，衷心的谢谢他们，好人一生平安！</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a href="http://yidao620c.github.io/2016/03/06/hexo.html" target="_blank" rel="noopener">使用hexo搭建GitHub博客</a></p>
+<p><a href="https://seazhang.github.io/" target="_blank" rel="noopener">麦田守望者</a></p>
+<p><a href="https://www.jianshu.com/p/12badb7e6c10" target="_blank" rel="noopener">Git 最著名报错 “ERROR: Permission to XXX.git denied to user”终极解决方案</a></p>
+<p><a href="https://blog.csdn.net/chenyufeng1991/article/details/47007979" target="_blank" rel="noopener">Xcode中Command Line Tools安装方法</a></p>
+<p><a href="http://emblemmatic.org/markmaker/#/" target="_blank" rel="noopener">个性化图标生成网站</a></p>
+<p><a href="https://github.com/Sanonz/hexo-theme-concise/blob/master/README.md" target="_blank" rel="noopener">HEXO主题配置网站</a></p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://yoursite.com/2018/06/05/skill/怎么用HEXO-github搭建个人博客网站/';
+        this.page.title = '怎么用HEXO+github搭建个人博客网站';
+        this.page.identifier = '2018/06/05/skill/怎么用HEXO-github搭建个人博客网站/';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://name.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>
