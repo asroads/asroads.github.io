@@ -18,6 +18,8 @@ Error: Could not symlink share/man/man5/git-lfs-config.5
 localhost:~ jsroads$
 ```
 
+<!-- more -->
+
 ### 解决办法
 
 This is probably an error related to permissions.

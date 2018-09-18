@@ -11,6 +11,8 @@ tags:
 - 安装 [WebStorm2018](https://www.jetbrains.com/webstorm)
 - 破解 WebStorm 破解文件 [JetbrainsCrack-2.9-release-enc.jar](http://idea.lanyus.com/jar/JetbrainsCrack-2.9-release-enc.jar)
 
+<!-- more -->
+
 ### 安装 WebStorm
 
 1.官网下载新版 [WebStorm2018](http://www.jetbrains.com/webstorm/)

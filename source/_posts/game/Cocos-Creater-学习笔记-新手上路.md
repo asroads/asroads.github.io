@@ -1,7 +1,7 @@
 ---
 title: Cocos Creater 学习笔记--新手上路
 date: 2018-06-31 16:55:41
-categories: "front"
+categories: "game"
 tags:
 - cocos2d
 ---
@@ -11,6 +11,8 @@ tags:
 随着公司项目越来蔽塞，自己的眼界变得狭窄，得自己开一扇窗，挖一口井，以备不时之需，人生路漫漫，总是要多走多看多思多想。子曰：“学而不思则罔，思而不学则殆”
 
 今天开始学习新的一门学习，其实说新，也不算新了，以前我在2015年的时候我就学习了一段时间的cocos2d-js 3.0，自己还做了一个本地消除小游戏——[candy](https://github.com/jsroads/candy)，地址是:<https://github.com/jsroads/candy>
+
+<!-- more -->
 
 时不我待，时间真快，转眼两年过去了，需要学习一些新的知识，在网上看了一遍，感觉最近学习 Cocos Creator还是一个不错的切入方式。
 

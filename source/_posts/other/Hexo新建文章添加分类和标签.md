@@ -11,6 +11,8 @@ tags:
 
 干货教程，不多废话，使用 [Typora](https://www.typora.io/) 打开编辑：添加tags和categories
 
+<!-- more -->
+
 ```
 title: Hexo新建文章添加分类和标签  #文章标题
 date:  2018-06-28 10:15:32 #文章日期
