@@ -64,10 +64,10 @@ npm install
 hexo generate
 ```
 
-编译成功后 继续输入 “hexo deploy” 部署网站 可以用“hexo d” 代替
+编译成功后 继续输入 “hexo server” 部署网站 可以用“hexo s” 代替
 
 ```
-hexo deploy
+hexo server
 ```
 
 此时 可以用浏览器访问 [http://localhost:4000，查看一下默认的效果](http://localhost:4000%EF%BC%8C%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E9%BB%98%E8%AE%A4%E7%9A%84%E6%95%88%E6%9E%9C/) 此时网站还是只能本地看到，默认主题是landscape。
