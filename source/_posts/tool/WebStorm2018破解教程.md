@@ -116,3 +116,21 @@ sudo spctl --master-disable
 
 
 
+---
+
+### 关于Webstorm2018.2.3 如何破解
+
+发现最新的2018.2.3 已经不能用这样的方法了，需要更换下载文件
+
+
+
+下载地址 还是 [IntelliJ IDEA 注册码](http://idea.lanyus.com/)  http://idea.lanyus.com/
+
+---
+
+
+
+![image-20180921170707351](WebStorm2018破解教程/image-20180921170707351.png)
+
+需要下载这个 按照上面的方法依旧可以破解。
+
