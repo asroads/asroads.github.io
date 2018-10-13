@@ -55,9 +55,28 @@ window.Parser = require("./js/dom_parser");
 
 
 
+注意:在使用 [BMFont (Windows)](http://www.angelcode.com/products/bmfont/)工具的时候，一开始导入你的TXT 如果你文本里面有汉字，请一定要设置
+
+![$}6TV43{GK`05NZF7AXVIOF](Layabox-学习笔记-3/001.png)
+
+请一定修改这个地方（有些字体字库里面没有汉字 所以 你每次读取你的txt 都是失败的）
 
 
 
+![002](Layabox-学习笔记-3/002.png)
+
+比如我修改成微软雅黑
 
 
 
+另外输出格式 和尺寸 以及文件类型都有修改
+
+![003](Layabox-学习笔记-3/003.png)
+
+
+
+如果要选择自己的 图片 和读取文本 就是下面的图片
+
+
+
+![004](Layabox-学习笔记-3/004.png)
