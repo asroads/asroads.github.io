@@ -54,8 +54,6 @@ let tsify = require(ideModuleDir + "tsify");
 
    ![1538047451421](Webstorm如何配置Layabox2-0项目/1538047451421.png)
 
-![1538047451421](Webstorm如何配置Layabox2.0项目/1538047451421.png)
-
 1. 我们看一下新建的目录。大概是这样子
 
 ![1538047718781](Webstorm如何配置Layabox2-0项目/1538047718781.png)
