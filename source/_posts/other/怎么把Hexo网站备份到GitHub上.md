@@ -61,25 +61,37 @@ Hexo的源文件说明：
 
 ### 可能用到的命令
 
-```
+```bash
 npm install hexo-cli -g
 ```
 
-```
+```bash
 npm install hexo --save
 ```
 
-```
+```bash
 npm install hexo-deployer-git --save
 ```
 
 如果没有 `hexo s` 命令 运行
 
-```
+```bash
 npm install hexo-server --save
 ```
 
 然后发现  `hexo s` 就可以正常用了！
+
+### 2018年11月02日 更新
+
+近期 刚刚换了新的电脑，结果更新的时候 发现一个现象  我更新之后 打开 发现 遇到了 访问 http://localhost:4000/ 的时候  就 `Cannot GET /`  后来 百度 发现 是 因为 没有在 博客项目文件夹内  安装 `npm install`  我重新运行 
+
+```bash
+sudo npm install 
+```
+
+成功 解决问题！
+
+
 
 ### 参考文章
 
