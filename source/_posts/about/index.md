@@ -1,6 +1,11 @@
 ---
-title: about
+title: About Me
 date: 2018-05-26 12:39:54
+categories: "life"
+tags:
+- 生活
+- 工作
+
 ---
 
 ## 简介

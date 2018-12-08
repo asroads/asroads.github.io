@@ -143,21 +143,25 @@ module asroads{
         private static _width:number;
         private static _height:number;
         static get height(): number {
-            return ConfigGame.size.height;
+            return GameConfig.size.height;
         }
         static get width(): number {
-            return ConfigGame.size.width;
+            return GameConfig.size.width;
         }
         static get  size(): Laya.Size {
-            if(ConfigGame.isLargeScreen())
-                this._size = {width:640,height:1386};
-            else
-                this._size = {width:640,height:1136};
+            this._size = {width:640,height:640*(Laya.Browser.clientHeight/Laya.Browser.clientWidth)};
             return this._size;
         }
-        public static isLargeScreen():boolean{
-            return (Laya.Browser.clientHeight/Laya.Browser.clientWidth)>(16.0/9.0)?true:false;
+        static get halfHeight(): number {
+            return GameConfig.size.height*0.5;
         }
+        static get halfWidth(): number {
+            return GameConfig.size.width*0.5;
+        }
+        public static isLargeScreen():boolean{
+            return (Laya.Browser.clientWidth/Laya.Browser.clientHeight)<=(414/896)?true:false;
+        }
+
     }
 }
 ```
