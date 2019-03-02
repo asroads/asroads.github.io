@@ -1,6 +1,6 @@
 ---
 title: Webstorm如何配置Layabox2.0项目
-date: 2018-09-24 23:27:23
+date: 2019-03-01 20:27:23
 categories: "tool"
 tags:
 - Layabox
@@ -39,32 +39,34 @@ tags:
 
 ### Layabox2.0配置教程
 
-新发布的编辑器（Layabox2.0）在创建项目的时候，添加了一些新的配置，使用了 npm里面的 几个模块 有 gulp、browserify、vinyl-source-stream、tsify等，这样在构建编译项目的时候，只生成一个js 文件，位于“bin/js/”
+新发布的编辑器（Layabox2.0）在创建项目的时候，添加了一些新的配置，使用了 npm里面的 几个模块 有 gulp、browserify、vinyl-source-stream、tsify等，这样在构建编译项目的时候，只生成一个js 文件，位于“bin/js/bundle.js”,看来官方做了优化，官网也说了他们是用了gulp的技术我们看到在.laya 文件夹下面的
+
+/test/laya/webstorm/.laya/compile.js 里面大概用了这几个插件
+
+####  LayaAir 新建项目 观察结构和插件
 
 ```javascript
-.laya/gulpfile.js文件里有详细 比如下面
 //引用插件模块
 let gulp = require(ideModuleDir + "gulp");
 let browserify = require(ideModuleDir + "browserify");
 let source = require(ideModuleDir + "vinyl-source-stream");
 let tsify = require(ideModuleDir + "tsify");
+
 ```
 
-1. 首先我们新建项目  比如 我的项目叫做 "wbtest" 项目地址位于“D:\SystemTemp\wbtest”，语言选择Typescript，然后点击创建按钮。
-
-   ![1538047451421](Webstorm如何配置Layabox2-0项目/1538047451421.png)
-
+1. 首先我们新建项目  比如 我的项目叫做 "webstorm" 项目地址位于“D:\SystemTemp\wbtest”，语言选择Typescript，然后点击创建按钮。
+1. ![image-20190302194908048](Webstorm如何配置Layabox2-0项目/image-20190302194908048.png)
 1. 我们看一下新建的目录。大概是这样子
 
-![1538047718781](Webstorm如何配置Layabox2-0项目/1538047718781.png)
+![image-20190302195047713](Webstorm如何配置Layabox2-0项目/image-20190302195047713.png)
 
 
 
-此时 我们的bin 目录下面 没有js 目录，我们点击上面的编译按钮就会生成一个名字为“bandle.js”的文件。
+4. 此时 我们的bin 目录下面 没有js 目录，我们点击上面的编译按钮就会生成一个名字为“/test/laya/webstorm/bin/js/bundle.js”的文件。
 
-![1538047833306](Webstorm如何配置Layabox2-0项目/1538047833306.png)
+![image-20190302195348459](Webstorm如何配置Layabox2-0项目/image-20190302195348459.png)
 
-我们可以打开看一下 编译后的文件，发现是编译后的js为了证明我们配置成功，我们需要在原来的代码里面添加一个输出比如`Main.ts`。
+5. 我们可以打开看一下 编译后的文件，发现是编译后的js为了证明我们配置成功，我们需要在原来的代码里面添加一个输出比如`Main.ts`。
 
 ```typescript
 onVersionLoaded(): void {
@@ -78,220 +80,251 @@ onVersionLoaded(): void {
 	}
 ```
 
-我们在`onConfigLoaded`函数里写上一行代码，比如
+6. 我们在`onConfigLoaded`函数里写上一行代码，比如
 
 ```typescript
 console.log("Hello,WebStorm");
 ```
 
-原来的函数变成
+7. 原来的函数变成
 
 ```typescript
 	onConfigLoaded(): void {
 		//加载IDE指定的场景
-		console.log("Hello,WebStorm");
 		GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
+		console.log("Hello,WebStorm");
 	}
 ```
 
-1. 因为有时候在国内用npm命令有问题，我们可以选择用cnpm代替，此时我认为你已经安装好了cnpm环境。
+8. 截图如下
 
-   - 首先我们需要安装一个全局的gulp(我是这样安装的，也许此步骤可以省去)
-
-   ```bash
-   cnpm install gulp -g
-   ```
-
-   - 我们此时用webstorm 打开我们的项目，选择我们的项目根目录即可。
-
-   ![1538048532988](Webstorm如何配置Layabox2-0项目/1538048532988.png)
-
-   - 我们打开项目后 输入"cnpm init -y" 命令生成 package.json
-
-   ```bash
-   cnpm init -y
-   ```
-
-   ![1538048735602](Webstorm如何配置Layabox2-0项目/1538048735602.png)
+![image-20190302195457565](Webstorm如何配置Layabox2-0项目/image-20190302195457565.png)
 
 
 
-- 此时我们的项目里生成了一个文件
+####使用webStorm 配置环境
 
-   ![1538048844393](Webstorm如何配置Layabox2-0项目/1538048844393.png)
+首先我们用
+
+![image-20190302195936577](Webstorm如何配置Layabox2-0项目/image-20190302195936577.png)
+
+因为有时候在国内用npm命令有问题，我们可以选择用cnpm代替，此时我认为你已经安装好了cnpm环境。
+
+- 首先我们需要安装一个全局的gulp(我是这样安装的，也许此步骤可以省去)
+
+```
+cnpm install gulp -g
+```
+
+- 然后全局安装 
+
+```
+ cnpm install browserify -g
+```
+
+```
+cnpm install vinyl-source-stream -g
+```
+
+```
+ cnpm install tsify -g
+```
+
+1. 此时我们的插件已经安装完毕，接下来需要我们调试 新建我们自己的`gulpfile.js`,选择`.laya/`目录下面 点击右键菜单选择 `新建命令` 
+
+![image-20190302200036860](Webstorm如何配置Layabox2-0项目/image-20190302200036860.png)
+
+
+
+![image-20190302200115158](Webstorm如何配置Layabox2-0项目/image-20190302200115158.png)
+
+2. 我们此时 复制 `/test/laya/webstorm/.laya/compile.js` 路径下面的js 的内容 粘贴到我们新建的文件里面
+
+```javascript
+// v1.0.0
+//是否使用IDE自带的node环境和插件，设置false后，则使用自己环境(使用命令行方式执行)
+let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
+//获取Node插件和工作路径
+let ideModuleDir = useIDENode ? process.argv[1].replace("gulp\\bin\\gulp.js", "").replace("gulp/bin/gulp.js", "") : "";
+let workSpaceDir = useIDENode ? process.argv[2].replace("--gulpfile=", "").replace("\\.laya\\compile.js", "").replace("/.laya/compile.js", "") : "./../";
+
+//引用插件模块
+let gulp = require(ideModuleDir + "gulp");
+let browserify = require(ideModuleDir + "browserify");
+let source = require(ideModuleDir + "vinyl-source-stream");
+let tsify = require(ideModuleDir + "tsify");
+
+// 如果是发布时调用编译功能，增加prevTasks
+let prevTasks = "";
+if (global.publish) {
+	prevTasks = ["loadConfig"];
+}
+
+//使用browserify，转换ts到js，并输出到bin/js目录
+gulp.task("compile", prevTasks, function () {
+	// 发布时调用编译功能，判断是否点击了编译选项
+	if (global.publish && !global.config.compile) {
+		return;
+	} else if (global.publish && global.config.compile) {
+		// 发布时调用编译，workSpaceDir使用publish.js里的变量
+		workSpaceDir = global.workSpaceDir;
+	}
+	return browserify({
+		basedir: workSpaceDir,
+		//是否开启调试，开启后会生成jsmap，方便调试ts源码，但会影响编译速度
+		debug: true,
+		entries: ['src/Main.ts'],
+		cache: {},
+		packageCache: {}
+	})
+		//使用tsify插件编译ts
+		.plugin(tsify)
+		.bundle()
+		//使用source把输出文件命名为bundle.js
+		.pipe(source('bundle.js'))
+		//把bundle.js复制到bin/js目录
+		.pipe(gulp.dest(workSpaceDir + "/bin/js"));
+});
+```
+
+3. 我们此时要修改上面的文件 我们要修改 路径和插件地址，下面是我修改好的文件内容
+
+```javascript
+// v1.0.0
+//是否使用IDE自带的node环境和插件，设置false后，则使用自己环境(使用命令行方式执行)
+let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
+//获取Node插件和工作路径
+let ideModuleDir = useIDENode ? process.argv[1].replace("gulp\\bin\\gulp.js", "").replace("gulp/bin/gulp.js", "") : "";
+let workSpaceDir = useIDENode ? process.argv[2].replace("--gulpfile=", "").replace("\\.laya\\compile.js", "").replace("/.laya/compile.js", "") : "./../";
+// console.log("jsroads------process.argv:" + JSON.stringify(process.argv[4]));
+//引用插件模块
+ideModuleDir = "/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/";
+workSpaceDir = process.argv[4].replace("/.laya/gulpfile.js", "");
+let gulp = require(ideModuleDir + "gulp");
+let browserify = require(ideModuleDir + "browserify");
+let source = require("/usr/local/lib/node_modules/" + "vinyl-source-stream");
+let tsify = require("/usr/local/lib/node_modules/" + "tsify");
+
+// 如果是发布时调用编译功能，增加prevTasks
+let prevTasks = "";
+if (global.publish) {
+    prevTasks = ["loadConfig"];
+}
+// console.log("jsroads------prevTasks:" + JSON.stringify(prevTasks));
+
+//使用browserify，转换ts到js，并输出到bin/js目录
+gulp.task("compile", prevTasks, function () {
+    // 发布时调用编译功能，判断是否点击了编译选项
+    if (global.publish && !global.config.compile) {
+        return;
+    } else if (global.publish && global.config.compile) {
+        // 发布时调用编译，workSpaceDir使用publish.js里的变量
+        workSpaceDir = global.workSpaceDir;
+    }
+    return browserify({
+        basedir: workSpaceDir,
+        //是否开启调试，开启后会生成jsmap，方便调试ts源码，但会影响编译速度
+        debug: true,
+        entries: ['src/Main.ts'],
+        cache: {},
+        packageCache: {}
+    })
+    //使用tsify插件编译ts
+        .plugin(tsify)
+        .bundle()
+        //使用source把输出文件命名为bundle.js
+        .pipe(source('bundle.js'))
+        //把bundle.js复制到bin/js目录
+        .pipe(gulp.dest(workSpaceDir + "/bin/js"));
+});
+```
+
+**注意** 里面的地址 需要你根据自己电脑的路径 分析 去设置 比如我`process.argv`的路径是:
 
 ```json
-   //json文件不能写注释，所以我以下的只为说明
-   {
-     "name": "wbtest",//项目名称（必须）
-     "version": "1.0.0", //项目版本（必须）
-     "description": "",//项目描述（必须）
-     "main": "index.js",//项目主页
-     "bin": {
-       "wbtest": "game.js"
-     },
-     "scripts": {
-       "test": "echo \"Error: no test specified\" && exit 1"
-     },
-     "keywords": [],
-     "author": "",//项目作者信息
-     "license": "ISC" //项目许可协议
-   }
-   
+["/usr/local/bin/node","/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js","--color","--gulpfile","/workspace/hotpot/.laya/gulpfile.js","compile"]
 ```
 
-- 然后，我们需要在项目本地安装插件（gulp、gulp-less、gulp-sass、browserify、vinyl-source-stream、tsify）
-- ![1538049294737](Webstorm如何配置Layabox2-0项目/1538049294737.png)
+4. 我们选择 我们新建的 gulpfile.js 文件 鼠标右键 选择 Show Gulp Tasks 菜单
+
+![image-20190302200911012](Webstorm如何配置Layabox2-0项目/image-20190302200911012.png)
+
+5. 我们看到报错  然后我们点击蓝色的文字 配置我们的路径 
+
+![image-20190302201010777](Webstorm如何配置Layabox2-0项目/image-20190302201010777.png)
+
+6. 然后继续点击蓝色的文字 选择
+
+![image-20190302201108359](Webstorm如何配置Layabox2-0项目/image-20190302201108359.png)
+
+7. 此时出现一个对话框 
+
+![image-20190302201138316](Webstorm如何配置Layabox2-0项目/image-20190302201138316.png)
+
+8.我们填入 本地机器上面 LayaAir 的里面的gulp的路径 比如我的是
 
 ```bash
-   cnpm install --save-dev
+/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/gulp
 ```
 
-- 然后安装 gulp、gulp-less、gulp-sass
+![image-20190302201345325](Webstorm如何配置Layabox2-0项目/image-20190302201345325.png)
+
+9. 点击确定 我们重新刷新我们的 gulp task 得到如下图所示
+
+![image-20190302201444587](Webstorm如何配置Layabox2-0项目/image-20190302201444587.png)
+
+此时我们双击compile 文本 开始编译文件
 
 ```bash
-   cnpm install gulp --save-dev
+/usr/local/bin/node "/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js" --color --gulpfile /test/laya/webstorm/.laya/gulpfile.js compile
+laya_ide_time.require.single.gulp-util: 37.976ms
+laya_ide_time.require.single.pretty-hrtime: 0.416ms
+laya_ide_time.require.single.chalk: 3.029ms
+laya_ide_time.require.single.semver: 1.742ms
+laya_ide_time.require.single.archy: 0.407ms
+laya_ide_time.require.single.liftoff: 44.879ms
+laya_ide_time.require.single.tildify: 0.752ms
+laya_ide_time.require.single.interpret: 0.491ms
+laya_ide_time.require.single.v8flags: 0.632ms
+laya_ide_time.require.single.../lib/completion: 0.272ms
+laya_ide_time.require.single.minimist: 0.545ms
+laya_ide_time.require.single.../lib/taskTree: 0.226ms
+laya_ide_time.require.single.path: 0.008ms
+laya_ide_time.gulp.all.require: 93.966ms
+laya_ide_time.require.single.../package: 0.245ms
+laya_ide_time.gulp.exec: 23.106ms
+[20:15:22] Working directory changed to /Applications/LayaAirIDE 2.app/Contents/Resources/app
+laya_ide_time.require.single./test/laya/webstorm/.laya/gulpfile.js: 120.108ms
+[20:15:22] Using gulpfile /test/laya/webstorm/.laya/gulpfile.js
+laya_ide_time.require.single./Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/gulp/index.js: 0.040ms
+[20:15:22] Starting 'compile'...
+laya_ide_time.gulp.taskcompile: 2735.874ms
+[20:15:25] Finished 'compile' after 2.74 s
+laya.ide.complete
+
+Process finished with exit code 0
+
 ```
-
-```bash
-   cnpm install gulp-less --save-dev
-```
-
-```bash
-   cnpm install gulp-sass --save-dev
-```
-
-   我的输出如下：
-
-```bash
-   √ Installed 1 packages
-   √ Linked 196 latest versions
-   √ Run 0 scripts
-   deprecate gulp@3.9.1 › gulp-util@^3.0.0 gulp-util is deprecated - replace it, following the guidelines at https://medium.com/gulpjs/gulp-util-ca3b
-   1f9f9ac5
-   deprecate gulp@3.9.1 › vinyl-fs@0.3.14 › graceful-fs@^3.0.0 please upgrade to graceful-fs 4 for compatibility with current and future versions of
-   Node.js
-   deprecate gulp@3.9.1 › vinyl-fs@0.3.14 › glob-stream@3.1.18 › minimatch@^2.0.1 Please update to minimatch 3.0.2 or higher to avoid a RegExp DoS is
-   sue
-   deprecate gulp@3.9.1 › vinyl-fs@0.3.14 › glob-watcher@0.0.6 › gaze@0.5.2 › globule@0.1.0 › minimatch@~0.2.11 Please update to minimatch 3.0.2 or h
-   igher to avoid a RegExp DoS issue
-   deprecate gulp@3.9.1 › vinyl-fs@0.3.14 › glob-watcher@0.0.6 › gaze@0.5.2 › globule@0.1.0 › glob@3.1.21 › graceful-fs@~1.2.0 please upgrade to grac
-   eful-fs 4 for compatibility with current and future versions of Node.js
-   √ All packages installed (224 packages installed from npm registry, used 2s(network 2s), speed 397.32kB/s, json 197(899.13kB), tarball 0B)
-   
-   D:\SystemTemp\wbtest\wbtest>cnpm install gulp-less --save-dev
-   √ Installed 1 packages
-   √ Linked 107 latest versions
-   √ Run 0 scripts
-   √ All packages installed (97 packages installed from npm registry, used 3s(network 3s), speed 350.76kB/s, json 108(1.05MB), tarball 0B)
-   
-   D:\SystemTemp\wbtest\wbtest>cnpm install gulp-sass --save-dev
-   √ Installed 1 packages
-   √ Linked 147 latest versions
-   Cached binary found at C:\Users\asroads\.npminstall_tarball\node-sass\4.9.3\win32-x64-57_binding.node
-   Binary found at D:\SystemTemp\wbtest\wbtest\node_modules\_node-sass@4.9.3@node-sass\vendor\win32-x64-57\binding.node
-   Testing binary
-   Binary is fine
-   √ Run 1 scripts
-   √ All packages installed (111 packages installed from npm registry, used 4s(network 3s), speed 354.04kB/s, json 148(940.7kB), tarball 0B)
-   
-   D:\SystemTemp\wbtest\wbtest>
-   
-```
-
-- 继续安装其他插件
-- 
-
-```bash
-   cnpm install browserify --save-dev
-```
-
-```bash
-   cnpm install vinyl-source-stream --save-dev
-```
-
-```bash
-   cnpm install tsify --save-dev
-```
-
-   我的本地输出结果如下
-
-```bash
-   D:\SystemTemp\wbtest\wbtest>cnpm install browserify --save-dev
-   √ Installed 1 packages
-   √ Linked 117 latest versions
-   √ Run 0 scripts
-   Recently updated (since 2018-09-20): 2 packages (detail see file D:\SystemTemp\wbtest\wbtest\node_modules\.recently_updates.txt)
-   √ All packages installed (108 packages installed from npm registry, used 3s(network 3s), speed 455.88kB/s, json 118(1.2MB), tarball 0B)
-   
-   D:\SystemTemp\wbtest\wbtest>cnpm install vinyl-source-stream --save-dev
-   √ Installed 1 packages
-   √ Linked 11 latest versions
-   √ Run 0 scripts
-   √ All packages installed (6 packages installed from npm registry, used 614ms(network 601ms), speed 114kB/s, json 12(68.52kB), tarball 0B)
-   
-   D:\SystemTemp\wbtest\wbtest>cnpm install tsify --save-dev
-   √ Installed 1 packages
-   √ Linked 11 latest versions
-   √ Run 0 scripts
-   peerDependencies WARNING tsify@* requires a peer of typescript@>= 2.x but none was installed
-   √ All packages installed (4 packages installed from npm registry, used 1s(network 1s), speed 469.4kB/s, json 12(635.1kB), tarball 0B)
-   
-   
-```
-
-- 我们还要给项目安装一个 Typescript模块
-
-```bash
-   cnpm install typescript --save-dev
-```
-
-   输出如下
-
-```bash
-   D:\SystemTemp\wbtest\wbtest>cnpm install typescript --save-dev
-   √ Installed 1 packages
-   √ Linked 0 latest versions
-   √ Run 0 scripts
-   √ All packages installed (1 packages installed from npm registry, used 1s(network 1s), speed 80.38kB/s, json 1(83.44kB), tarball 0B)
-   
-   D:\SystemTemp\wbtest\wbtest>
-   
-```
-
-
-
-   此时我们的插件已经安装完毕，接下来需要我们调试 `gulpfile.js`
-
-1. 我们选择`.laya/gulpfile.js`点击右键菜单选择 `Show gulp Tasks`
-
-   ![1538049906296](Webstorm如何配置Layabox2-0项目/1538049906296.png)
-
-2. 此时我们调出了一个gulp面板
-
-![1538050026889](Webstorm如何配置Layabox2-0项目/1538050026889.png)
-
-1. 点击这个default 开始构建项目
-
-![1538050428982](Webstorm如何配置Layabox2-0项目/1538050428982.png)
-
-1. 我们去 生成的文件 搜索 `console.log("Hello,WebStorm");`
-
-
-
-![1538050585525](Webstorm如何配置Layabox2-0项目/1538050585525.png)
 
 发现我们已经 构建编译成功！！
 
+### 验证结果
+
+1. 我们全局搜索 `console.log("Hello,WebStorm")`发现已经被编译到了 bundle.js 里面
+
+![image-20190302201733563](Webstorm如何配置Layabox2-0项目/image-20190302201733563.png)
+
+2. 我们选择 bin 目录下面的index.html 文件 debug 调试
+
+![image-20190302201842666](Webstorm如何配置Layabox2-0项目/image-20190302201842666.png)
+
+发现游戏可以正常玩，一切搞定。
+
+![image-20190302201925625](Webstorm如何配置Layabox2-0项目/image-20190302201925625.png)
+
 ### 总结
 
-总的来讲这中间，是要理解layabox 项目的结构和构造，在尽量少的情况下更改我们的项目，然后此时我们的根目录下面多了一个`package.json` 和一个你`npm` 生成的`node_modules`目录，我们可以参加我前面写的文章“[git忽略而不提交文件的3种情形](http://www.asroads.com/2018/08/19/tool/git忽略而不提交文件的3种情形/index.html)” 可以在团队开发的时候，保留自己的个性，不必把自己的个性化，强加给其他开发的伙伴们。
-
-
-
-#### 后期发现
-
-后面发现 上面的配置虽然能够正确的编译代码，但是运行的时候有问题，具体原因是 因为我们的.laya/gulpfile.js文件，里面的路径参数不同，我们这个时候有两种一种办法是 直接 在layaair 里面输出路径，然后给 上面的对应 变量赋值，另外一种办法是，把文件里面 每个对应的变量 的路径，设置成自己电脑环境的变量（最近比较忙，以后有空了再细细研究）。我用直接在layabair 里输出变量赋值的办法 成功解决了。亲测有效，也欢迎你去尝试自己设置，这样彻底解决的问题。
+总的来说，这次配置花费了我不少精力，之前一直找，没有遇到合适的方法，后面反复测试，查看官网Laya项目目录结构和文档，最后总算是配置成功了，当然里面也还有许多不足，比如个别路径不能改成 参数化，学习嘛，一点点进步，以后继续努力，继续加油！
 
 ### 参考文章
 
