@@ -102,9 +102,11 @@ console.log("Hello,WebStorm");
 
 
 
-####使用webStorm 配置环境
+#### Webstorm 配置项目
 
-首先我们用
+
+
+首先我们用webstorm 打开项目 查看目录
 
 ![image-20190302195936577](Webstorm如何配置Layabox2-0项目/image-20190302195936577.png)
 
