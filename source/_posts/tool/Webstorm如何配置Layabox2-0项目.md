@@ -198,9 +198,10 @@ let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
 //获取Node插件和工作路径
 let ideModuleDir = useIDENode ? process.argv[1].replace("gulp\\bin\\gulp.js", "").replace("gulp/bin/gulp.js", "") : "";
 let workSpaceDir = useIDENode ? process.argv[2].replace("--gulpfile=", "").replace("\\.laya\\compile.js", "").replace("/.laya/compile.js", "") : "./../";
-// console.log("jsroads------process.argv:" + JSON.stringify(process.argv[4]));
+// console.log("jsroads------process.argv:" + JSON.stringify(process.argv));
 //引用插件模块
-ideModuleDir = "/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/";
+// ideModuleDir = "/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/";
+ideModuleDir = process.argv[1].replace("gulp/bin/gulp.js", "");
 workSpaceDir = process.argv[4].replace("/.laya/gulpfile.js", "");
 let gulp = require(ideModuleDir + "gulp");
 let browserify = require(ideModuleDir + "browserify");
@@ -328,9 +329,123 @@ Process finished with exit code 0
 
 总的来说，这次配置花费了我不少精力，之前一直找，没有遇到合适的方法，后面反复测试，查看官网Laya项目目录结构和文档，最后总算是配置成功了，当然里面也还有许多不足，比如个别路径不能改成 参数化，学习嘛，一点点进步，以后继续努力，继续加油！
 
+### 后记
+
+2019 年3月5日更新，今天在群里，有群友提醒 可以用另外一种办法 就是 官方给了 命令行工具
+
+链接地址  ：https://npm.taobao.org/package/layaair2-cmd
+
+整个 2.0 的介绍  https://mp.weixin.qq.com/s/AMS7xEqVbLpbfo2F5li3vw
+
+> #### 1、layaair2-cmd 安装方式
+>
+> ```
+> npm install layaair2-cmd -g
+> ```
+>
+> > 如果有npm安装都不会用的开发者请面壁并跳过命令行发布文档，老老实实的用LayaAirIDE的界面发布。
+>
+> #### 2、layaair2-cmd 都支持哪些命令
+>
+> 我们通过输入 `layaair2-cmd -h` 回车后 可以查看到layaair2-cmd的帮助信息，
+>
+> 回车后输出内容如下：
+>
+> ```
+> Usage: layaair2-cmd [command] [args]
+> 
+> Options:
+>  -v, --version  output the version number
+>  -h, --help     output usage information
+> 
+> Commands:
+>  compile        compile project.
+>  publish        publish project.
+>  help [cmd]     display help for [cmd]
+> ```
+>
+> #### layaair2-cmd的帮助说明：
+>
+> 帮助中首先给出了命令的使用范例：
+>
+> ```
+> Usage: layaair2-cmd [command] [args]
+> ```
+>
+> 说明：layaair2-cmd 后面先是 具体对应命令，然后是该命令的参数。
+>
+> ```
+> Options:
+>  -v, --version  output the version number
+>  -h, --help     output usage information
+> ```
+>
+> 说明：不输入命令的时候 `-h` 打印输出的是刚刚看到的layaair2-cmd帮助说明。`-v`  打印输出的是layaair2-cmd版本号。当然，如果输入具体命令，那 -h 和 -v 就是对应命令的帮助说明和版本号了。
+>
+> ```
+> Commands:
+>  compile        compile project.
+>  publish        publish project.
+>  help [cmd]     display help for [cmd]
+> ```
+>
+> 说明：那layaair2-cmd都支持哪些命令呢，-h的帮助说明里也直接给出了三个命令，compile、publish、help。
+>
+> `compile`是项目编译命令，该命令会生成编译后的JavaScript文件，相当于IDE里的F8编译。这里需要注意的是，如果发布面板那里勾选了`是否重新编译项目`，那开发者在自己的命令行发布流程里就不要再调用这个命令了，否则会导致项目被编译两次，浪费发布时间。
+>
+> `publish`是项目发布，相当于发布面板里点击了发布按钮。这块比较重要，一会拿出来单独介绍。
+>
+> `help`是layaair2-cmd的帮助说明，与 `layaair2-cmd -h`显示效果一样。
+>
+> #### 3、项目发布命令的使用与注意事项
+>
+> 我们还是先通过`layaair2-cmd publish -h`查看一下发布命令的帮助。
+>
+> 回车后输入内容如下：
+>
+> ```
+>    Usage: layaair2-cmd publish [options]
+> 
+>    Options:
+>    -v, --version              output the version number
+>    -c, --config <configPlatform>  Set the publishing platform name[web|wxgame|qqw
+>    anyiwan|bdgame]
+>    -h, --help                     output usage information
+> ```
+>
+> 我们通过帮助可以看到，最关键的参数是 `-c` ，目前支持web、wxgame、qqwanyiwan、bdgame这四个参数。
+>
+> `web`是发布HTML5的web版本。
+>
+> `wxgame`是发布微信小游戏平台。
+>
+> `qqwanyiwan`是发布QQ轻游戏平台（也叫QQ玩一玩）。
+>
+> `bdgame`是发布百度小游戏平台。
+>
+> ##### 使用示例如下：
+>
+> ```
+> layaair2-cmd publish -c wxgame
+> ```
+>
+> #### 发布注意事项
+>
+> 1. layaair2-cmd的项目编译（compile）与项目发布（publish）命令必须要在项目的根目录来执行使用。
+> 2. 在调用项目发布命令行前要检查一下，是否有发布平台对应的json，比如发布web版，项目文件夹`.laya`目录下，应该有web.json。发布微信小游戏要有wxgame.json。同理，其它小游戏也要有对应的json。如果没有的，那先用LayaAirIDE的发布3.0工具选择对应的平台手工发布一次（特别提醒，一定要用3.0发布工具），发布工具会自动生成对应的json。json中保存的是发布工具中那些发布筛选规则与发布配置信息。
+
+我自己在电脑上运行了由于一些包的更新和不支持没有成功，但是群里有人是成功的，大家可以借鉴这些办法。
+
+**注意**：
+
+- layaair2-cmd依赖于gulp，使用前请确保已经正确安装全局gulp。
+
+- 所有命令都要在项目所在根目录运行。
+
+  
+
 ### 参考文章
 
 - [gulp详细入门教程](http://www.ydcss.com/archives/18)
 - [Typescript构建工具集成](https://www.tslang.cn/docs/handbook/integrating-with-build-tools.html)
 - [webstrom下运行gulp初试](https://blog.csdn.net/fc0511/article/details/78077035)
-
