@@ -26,7 +26,7 @@ tags:
 
 效果图如下
 
-![001](/blog/asroads.github.io/source/_posts/game/LayaBox2-0横向滑动特效/001.gif)
+![001](LayaBox2-0横向滑动特效/001.gif)
 
 
 
@@ -35,12 +35,12 @@ tags:
 1. 首先我们先建一个新的项目 比如我的项目叫做 "LayaScroll"的空项目
 2. 然后我们创建一个我们要显示的面板 MyScorllView  类别我选择 Scene
 
-![image-20190528190838430](/blog/asroads.github.io/source/_posts/game/LayaBox2-0横向滑动特效/image-20190528190838430.png)
+![image-20190528190838430](LayaBox2-0横向滑动特效/image-20190528190838430.png)
 
 3. 我们给 里面的对象分别命名 为 "container"、"nameText"、"leftBtn"、"rightBtn"
 4. 然后 我们再新建一个 view 对象  叫做  MyScrollItem 
 
-![image-20190528191757027](/blog/asroads.github.io/source/_posts/game/LayaBox2-0横向滑动特效/image-20190528191757027.png)
+![image-20190528191757027](LayaBox2-0横向滑动特效/image-20190528191757027.png)
 
 5. 里面的图片 我们设置 锚点 为中心 这个缩放的时候 就可以是以中心位置缩放  设置变量 为 porkImage
 6. 开始编写代码 如下 MyScrollView.ts 
