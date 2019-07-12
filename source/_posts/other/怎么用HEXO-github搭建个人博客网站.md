@@ -97,7 +97,13 @@ deploy:
 ssh-keygen -t rsa -C "asroads@163.com"
 ```
 
-然后用指令添加
+在Git Bash输入以下指令（任意位置点击鼠标右键），检查是否已经存在了SSH keys。
+
+```bash
+ls -al ~/.ssh
+```
+
+如果已经存在或者正常生成了，用指令添加
 
 ```
 eval `ssh-agent -s`
@@ -111,6 +117,11 @@ ssh -T git@github.com
 ```
 
 这个时候 会看到输出警告，输入 “yes”
+
+接下来需要我们配置一下 ‘~/.ssh/id_rsa.pub’ 里面的内容到GitHub上面
+
+- 我们先去用户下找到这个文件，用文本编辑器打开，复制内容
+- 打开GitHub网站，登录自己的账号 打开”settings“ — ”SSH and GPG keys” 然后添加一个“SSH keys”
 
 此时 还需要安装 一个 hexo-deployer-git
 
