@@ -24,7 +24,7 @@ let array:Array<string> = ['1','2','4','5','6','7','8','9','10'];
 let result = array[Math.floor(Math.random()*array.length)];
 ```
 
-###从数组array中中随机取几个元素
+### 从数组array中中随机取几个元素
 
 ```typescript
 function getRandomArrayElements(arr, count) {
