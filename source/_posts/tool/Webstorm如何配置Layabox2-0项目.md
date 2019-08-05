@@ -194,15 +194,20 @@ gulp.task("compile", prevTasks, function () {
 ```javascript
 // v1.0.0
 //是否使用IDE自带的node环境和插件，设置false后，则使用自己环境(使用命令行方式执行)
-let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
-//获取Node插件和工作路径
-let ideModuleDir = useIDENode ? process.argv[1].replace("gulp\\bin\\gulp.js", "").replace("gulp/bin/gulp.js", "") : "";
-let workSpaceDir = useIDENode ? process.argv[2].replace("--gulpfile=", "").replace("\\.laya\\compile.js", "").replace("/.laya/compile.js", "") : "./../";
-// console.log("jsroads------process.argv:" + JSON.stringify(process.argv));
+// let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
+// //获取Node插件和工作路径
+// let ideModuleDir = useIDENode ? process.argv[1].replace("gulp\\bin\\gulp.js", "").replace("gulp/bin/gulp.js", "") : "";
+// let workSpaceDir = useIDENode ? process.argv[2].replace("--gulpfile=", "").replace("\\.laya\\compile.js", "").replace("/.laya/compile.js", "") : "./../";
+//
+// //引用插件模块
+// let gulp = require(ideModuleDir + "gulp");
+// let browserify = require(ideModuleDir + "browserify");
+// let source = require(ideModuleDir + "vinyl-source-stream");
+// let tsify = require(ideModuleDir + "tsify");
+
 //引用插件模块
-// ideModuleDir = "/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/";
-ideModuleDir = process.argv[1].replace("gulp/bin/gulp.js", "");
-workSpaceDir = process.argv[4].replace("/.laya/gulpfile.js", "");
+let ideModuleDir = process.argv[1].replace("gulp/bin/gulp.js", "");
+let workSpaceDir = process.argv[4].replace("/.laya/gulpfile.js", "");
 let gulp = require(ideModuleDir + "gulp");
 let browserify = require(ideModuleDir + "browserify");
 let source = require("/usr/local/lib/node_modules/" + "vinyl-source-stream");
@@ -211,34 +216,33 @@ let tsify = require("/usr/local/lib/node_modules/" + "tsify");
 // 如果是发布时调用编译功能，增加prevTasks
 let prevTasks = "";
 if (global.publish) {
-    prevTasks = ["loadConfig"];
+	prevTasks = ["loadConfig"];
 }
-// console.log("jsroads------prevTasks:" + JSON.stringify(prevTasks));
 
 //使用browserify，转换ts到js，并输出到bin/js目录
 gulp.task("compile", prevTasks, function () {
-    // 发布时调用编译功能，判断是否点击了编译选项
-    if (global.publish && !global.config.compile) {
-        return;
-    } else if (global.publish && global.config.compile) {
-        // 发布时调用编译，workSpaceDir使用publish.js里的变量
-        workSpaceDir = global.workSpaceDir;
-    }
-    return browserify({
-        basedir: workSpaceDir,
-        //是否开启调试，开启后会生成jsmap，方便调试ts源码，但会影响编译速度
-        debug: true,
-        entries: ['src/Main.ts'],
-        cache: {},
-        packageCache: {}
-    })
-    //使用tsify插件编译ts
-        .plugin(tsify)
-        .bundle()
-        //使用source把输出文件命名为bundle.js
-        .pipe(source('bundle.js'))
-        //把bundle.js复制到bin/js目录
-        .pipe(gulp.dest(workSpaceDir + "/bin/js"));
+	// 发布时调用编译功能，判断是否点击了编译选项
+	if (global.publish && !global.config.compile) {
+		return;
+	} else if (global.publish && global.config.compile) {
+		// 发布时调用编译，workSpaceDir使用publish.js里的变量
+		workSpaceDir = global.workSpaceDir;
+	}
+	return browserify({
+		basedir: workSpaceDir,
+		//是否开启调试，开启后会生成jsmap，方便调试ts源码，但会影响编译速度
+		debug: true,
+		entries: ['src/Main.ts'],
+		cache: {},
+		packageCache: {}
+	})
+		//使用tsify插件编译ts
+		.plugin(tsify)
+		.bundle()
+		//使用source把输出文件命名为bundle.js
+		.pipe(source('bundle.js'))
+		//把bundle.js复制到bin/js目录
+		.pipe(gulp.dest(workSpaceDir + "/bin/js"));
 });
 ```
 
@@ -267,7 +271,7 @@ gulp.task("compile", prevTasks, function () {
 8.我们填入 本地机器上面 LayaAir 的里面的gulp的路径 比如我的是
 
 ```bash
-/Applications/LayaAirIDE 2.app/Contents/Resources/app/node_modules/gulp
+/Applications/LayaAirIDE2.app/Contents/Resources/app/node_modules/gulp
 ```
 
 ![image-20190302201345325](Webstorm如何配置Layabox2-0项目/image-20190302201345325.png)
@@ -324,6 +328,40 @@ Process finished with exit code 0
 发现游戏可以正常玩，一切搞定。
 
 ![image-20190302201925625](Webstorm如何配置Layabox2-0项目/image-20190302201925625.png)
+
+### LayaAir IDE 2.2.0beta2版本
+
+今天更新了引擎 这次发现官方更改了编译工具和插件需要新的配置。我鼓捣了半天，终于搞定，至于其中的根本内容我尚不清楚，目前先用一个可以编译的文件，我们知道 compile.js文件是官方的编译文件，我们的编译文件在同目录下面新建一个 名字为 gulpfile.js的文件。把compile.js 的全部内容复制过去。然后修改第一行代码
+
+原代码
+
+```javascript
+let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
+```
+
+修改为
+
+```javascript
+let addvalue = process.argv.splice(2,2)[1];
+process.argv[process.argv.length-2] = addvalue+"="+process.argv[process.argv.length-2].replace("gulpfile","compile");
+let useIDENode = process.argv[1].indexOf("LayaAir") > -1 ? true : false;
+```
+
+之所以这么修改是因为
+
+layaIde 编译 compile.js 打印的 process.argv  内容是
+
+```json
+["/Applications/LayaAirIDE2.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper","/Applications/LayaAirIDE2.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js","--gulpfile=/test/laya/ball/.laya/compile.js","compile"]
+```
+
+而我本地的 Webstorm 编译 gulpfile.js 打印的 process.argv  内容是
+
+```json
+["/usr/local/bin/node","/Applications/LayaAirIDE2.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js","--color","--gulpfile","/test/laya/ball/.laya/gulpfile.js","compile"]
+```
+
+读者可以根据自己的环境  更改内容，以上便是如果使用Webstorm 编译Laya2.0项目
 
 ### 总结
 
