@@ -3,7 +3,7 @@ title: 给JS包写TypeScript用的类型申明文件
 date: 2018-08-13 19:56:55
 categories: "tool"
 tags:
-- Typescript
+- ts
 ---
 
 ### 给JS包写TypeScript用的类型申明文件

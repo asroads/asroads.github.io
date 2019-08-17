@@ -3,7 +3,7 @@ title: LFS遇到“brew link git-lfs” 失败解决
 date: 2018-07-12 17:39:43
 categories: "tool"
 tags:
-- git-lfs
+- git
 ---
 
 ### 现象描述
