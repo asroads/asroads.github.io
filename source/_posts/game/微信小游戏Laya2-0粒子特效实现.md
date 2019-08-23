@@ -26,6 +26,50 @@ tags:
 
 ![image-20190823142029613](微信小游戏Laya2-0粒子特效实现/image-20190823142029613-6541232.png)
 
-3 最终效果如下
+3. 最终效果如下
 
 ![record](微信小游戏Laya2-0粒子特效实现/record.gif)
+
+4. 最后在代码里面加载并播放
+
+```typescript
+import {IPoint} from "../../common/core/IPoint";
+import Particle2D = Laya.Particle2D;
+import ParticleSetting = Laya.ParticleSetting;
+
+export default class GoldParticle {
+    private animation: Particle2D;
+    private callback: Function;
+
+    private static _ins: GoldParticle;
+
+    static get ins(): GoldParticle {
+        if (!this._ins) this._ins = new GoldParticle();
+        return this._ins;
+    }
+
+    public showAnimation(point: IPoint, callback) {
+        this.callback = callback;
+        if (!this.animation) {
+            let settings: ParticleSetting = Laya.loader.getRes("res/particles/test.part");
+            this.animation = new Particle2D(settings);
+            this.animation.autoPlay = false;
+            this.animation.emitter.start();
+            Laya.stage.addChild(this.animation);
+        }
+        this.animation.zOrder = 3000;
+        this.animation.x = point.x;
+        this.animation.y = point.y;
+        this.animation.play();
+      // 我设置的粒子播放时长是 3500 毫秒
+        this.animation.timerOnce(3500, this, this.completeParticle2D)
+    }
+
+    private completeParticle2D() {
+        this.animation.stop();
+        if (this.callback) this.callback();
+    }
+}
+```
+
+以上就是对粒子效果的简单应用。
