@@ -444,4 +444,31 @@ hello =  DeleteFiles()
 print("delete successfully")
 ```
 
+### 2019.08.17更新
+
+配置文件  config.json
+
+```json
+{
+  "platform": "wxgame",
+  "list": [
+    "bg",
+	"common",
+	"mykj",
+    "rank",
+    "luckywheel",
+    "bitmapfont",
+    "res/json/cloud",
+    "res/atlas/luckywheel.png",
+    "res/atlas/luckywheel.atlas",
+    "res/atlas/bg.png",
+    "res/atlas/bg.atlas"
+  ]
+}
+```
+
+
+
+
+
 Python是一门很容易上手的语言，用这个为游戏项目作为辅助，减少了很多麻烦，让开发效率增加很多。希望自己能坚持学习，为自己加油！
