@@ -329,7 +329,7 @@ Process finished with exit code 0
 
 ![image-20190302201925625](Webstorm如何配置Layabox2-0项目/image-20190302201925625.png)
 
-### LayaAir IDE 2.2.0beta2版本
+### LayaAir IDE 2.2.0beta4版本（更新于2019.08.24）
 
 今天更新了引擎 这次发现官方更改了编译工具和插件需要新的配置。我鼓捣了半天，终于搞定，至于其中的根本内容我尚不清楚，目前先用一个可以编译的文件，我们知道 compile.js文件是官方的编译文件，我们的编译文件在同目录下面新建一个 名字为 gulpfile.js的文件。把compile.js 的全部内容复制过去。然后修改第一行代码
 
@@ -344,7 +344,7 @@ let useIDENode = process.argv[0].indexOf("LayaAir") > -1 ? true : false;
 ```javascript
 let addvalue = process.argv.splice(2,2)[1];
 process.argv[process.argv.length-2] = addvalue+"="+process.argv[process.argv.length-2].replace("gulpfile","compile");
-let useIDENode = process.argv[1].indexOf("LayaAir") > -1 ? true : false;
+let useIDENode = process.argv[0].indexOf("node") > -1 ? true : false;
 ```
 
 之所以这么修改是因为
@@ -361,7 +361,69 @@ layaIde 编译 compile.js 打印的 process.argv  内容是
 ["/usr/local/bin/node","/Applications/LayaAirIDE2.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js","--color","--gulpfile","/test/laya/ball/.laya/gulpfile.js","compile"]
 ```
 
-读者可以根据自己的环境  更改内容，以上便是如果使用Webstorm 编译Laya2.0项目
+读者可以根据自己的环境  更改内容，以上便是如果使用Webstorm 编译Laya2.0项目.
+
+注意: 这样编译后，我们发现在调试的时候，编译器总是指向编译后的JavaScript文件，这个是个很头疼的时候，上次因为忙，今天得以进一步了解，其实还是参数的问题
+
+需要修改代码：
+
+原代码：
+
+```javascript
+//使用browserify，转换ts到js，并输出到bin/js目录
+gulp.task("compile", prevTasks, function () {
+	// 发布时调用编译功能，判断是否点击了编译选项
+	if (global.publish && !global.config.compile) {
+		return;
+	} else if (global.publish && global.config.compile) {
+		// 发布时调用编译，workSpaceDir使用publish.js里的变量
+		workSpaceDir = global.workSpaceDir;
+	}
+
+	return rollup.rollup({
+		input: workSpaceDir + '/src/Main.ts',
+		treeshake: true,//建议忽略
+		plugins: [
+			typescript({
+				check: false, //Set to false to avoid doing any diagnostic checks on the code
+				tsconfigOverride:{compilerOptions:{removeComments: true}}
+			}),
+			glsl({
+				// By default, everything gets included
+				include: /.*(.glsl|.vs|.fs)$/,
+				sourceMap: false,
+				compress:false
+			}),
+			/*terser({
+				output: {
+				},
+				numWorkers:1,//Amount of workers to spawn. Defaults to the number of CPUs minus 1
+				sourcemap: false
+			})*/        
+		]
+	}).then(bundle => {
+		return bundle.write({
+			file: workSpaceDir + '/bin/js/bundle.js',
+			format: 'iife',
+			name: 'laya',
+			sourcemap: false
+		});
+	});
+});
+```
+
+把后面的代码 修改:
+
+```javascript
+return bundle.write({
+			file: workSpaceDir + '/bin/js/bundle.js',
+			format: 'iife',
+			name: 'laya',
+			sourcemap: true
+		});
+```
+
+把 ”sourcemap“这个配置修改成为true 后 调试的文件就指向了我们编码的ts文。至此完美解决问题，升级引擎。
 
 ### 总结
 

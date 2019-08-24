@@ -195,9 +195,407 @@ export class MyDialog extends MyDialogUI {
 
 ![image-20190307202229138](LayaAir2-0-LayaBox-之小游戏开放域开发/image-20190307202229138.png)
 
+### 后续追加
 
+**2019-08-24：**
 
+以前在开放域里面获取自己的信息，找出哪个是自己的时候，总是从主域里面获取，这样就涉及到获取得到自己的信息，以前总是让用户去授权，然后得到自己的排行，后来发现，其实在子域里面可以直接获取自己的信息：
 
+代码如下：
+
+```typescript
+import GameConfig from "./GameConfig";
+import BigRank from "./BigRank";
+import BigData from "./BigData";
+export const RANK_LIST_CONST = {
+	RANK_OPEN : "rank_open"
+};
+class Main {
+	constructor() {
+		 //设置子域
+		Laya.isWXOpenDataContext = true;
+		Laya.isWXPosMsg = true;
+		//根据IDE设置初始化引擎		
+		Laya.init(GameConfig.width, GameConfig.height,false);
+		Laya.stage.scaleMode = GameConfig.scaleMode;
+		Laya.stage.screenMode = GameConfig.screenMode;
+		Laya.stage.alignV = GameConfig.alignV;
+		Laya.stage.alignH = GameConfig.alignH;
+		// 关于透传接口，请参考: https://ldc2.layabox.com/doc/?nav=zh-ts-5-0-7
+		var mark = 0;
+		if(Laya.Browser.onMiniGame){
+			let path = ["res/atlas/rank.atlas", "rank/fontclip_rank.png"];
+			Laya.Browser.window.wx.onMessage(function(data){//微信接受信息
+				console.log("jsroads------message:" + JSON.stringify(data.url));
+				if(data.url&&this.checkURL(path,data.url)){
+					mark ++;
+					if(mark == path.length)//确认数据全部接收后
+						// console.log("smile------path:" + JSON.stringify(path));
+						Laya.loader.load(path,Laya.Handler.create(this,()=>{
+							console.log("jsroads------:" + JSON.stringify("子域素材传送成功"));
+							wx.getUserInfo({
+								openIdList: ['selfOpenId'],
+								lang: 'zh_CN',
+								success: (res) => {
+									// console.log("userInfo"+JSON.stringify(res));
+									BigData.ins.user = res.data[0];
+								},
+								fail: () => {
+									console.log("userInfo"+JSON.stringify("fail"));
+								},
+								complete: () => {
+									// console.log("userInfo"+JSON.stringify(selfData));
+								}
+							});
+						}));
+				}else {
+					let code: string = data.code;
+					if(!code)return;
+					// console.log("jsroads------message.code:" + JSON.stringify(data.code));
+					switch (code) {
+						case RANK_LIST_CONST.RANK_OPEN:
+							BigRank.ins.open(false,data);
+							break;
+						default:
+							break;
+					}
+				}
+			}.bind(this));
+		} else{
+			Laya.loader.load("res/atlas/rank.atlas",Laya.Handler.create(this,()=>{
+				BigRank.ins.open(false,null);
+			}));
+		}
+	}
+
+	checkURL(list:Array<string>,testStr:string):boolean{
+		let bool:boolean = false;
+		for (let i = 0; i < list.length; i++) {
+			let  str = list[i];
+			if(testStr.indexOf(str)!=-1){
+				bool = true;
+				return bool
+			}
+
+		}
+
+		return bool;
+	}
+}
+//激活启动类
+new Main();
+
+```
+
+核心代码是：
+
+```typescript
+wx.getUserInfo({
+								openIdList: ['selfOpenId'],
+								lang: 'zh_CN',
+								success: (res) => {
+									// console.log("userInfo"+JSON.stringify(res));
+									BigData.ins.user = res.data[0];
+								},
+								fail: () => {
+									console.log("userInfo"+JSON.stringify("fail"));
+								},
+								complete: () => {
+									// console.log("userInfo"+JSON.stringify(selfData));
+								}
+							});
+```
+
+整理排行的代码，也做了一点更改：`BigRank.ts`
+
+```typescript
+import {ui} from "./ui/layaMaxUI"
+import BigData from "./BigData";
+import Browser = Laya.Browser;
+
+export default class BigRank extends ui.rank.BigUI {
+    public static AVATAR_URL: string = "";
+
+    public static get ins(): BigRank {
+        if (!this._ins) this._ins = new BigRank();
+        return this._ins;
+    }
+
+    private static _ins: BigRank;
+    // private  myRank: BigItem;
+
+    /**获取好友排行榜时的key */
+    private _key: String = 'test10086';
+    /**list初始化使用的数据 */
+    private arr: Array<any> = [
+        {index: 1, avatarIP: 'rank/head.png', UserName: "测试用户1", RankValue: 100},
+        {index: 2, avatarIP: 'rank/head.png', UserName: "测试用户2", RankValue: 75},
+        {index: 3, avatarIP: 'rank/head.png', UserName: "测试用户3", RankValue: 50},
+        {index: 4, avatarIP: 'rank/head.png', UserName: "测试用户4", RankValue: 25},
+        {index: 5, avatarIP: 'rank/head.png', UserName: "测试用户5", RankValue: 15},
+        {index: 6, avatarIP: 'rank/head.png', UserName: "测试用户6", RankValue: 10},
+        {index: 7, avatarIP: 'rank/head.png', UserName: "测试用户7", RankValue: 5},
+        {index: 8, avatarIP: 'rank/head.png', UserName: "测试用户8", RankValue: 1},
+    ]
+
+    constructor() {
+        super();
+    }
+    onOpened(param: any): void {
+        // console.log("jsroads------Sun:" + JSON.stringify("onOpened"));
+        param = param||{userInfo:{nickName:"薛定谔的猫",score:100,avatarUrl:""}};
+        this.size(param.width,param.height);
+        this.visible = false;
+        if(param.force&&BigData.ins[param.key]){
+            BigRank.ins.drawRankList(BigData.ins[param.key],param.score);
+        }else {
+            if(Browser.onMiniGame){
+                wx.getFriendCloudStorage({
+                    keyList: [param.key],
+                    success: function (res): void {
+                        //关于拿到的数据详细情况可以产看微信文档
+                        // //https://developers.weixin.qq.com/minigame/dev/api/UserGameData.html
+                        console.log('-----------------getFriendCloudStorage------------');
+                        // console.log("jsroads------res.data:" + JSON.stringify(res.data));
+                        BigData.ins[param.key] = BigRank.ins.processData(res.data,param.key);
+                        BigRank.ins.drawRankList(BigData.ins[param.key],param.score);
+                    }
+                    , fail: function (data): void {
+                        console.log('------------------获取托管数据失败--------------------');
+                        console.log(data);
+                    }
+                });
+            }else {
+                this.setlist(this.arr);
+                this.visible = true;
+            }
+
+        }
+    }
+    /**
+     * 设置list arr
+     * @param arr 赋值用的arr
+     */
+    private setlist(arr):void{
+        this._list.array =arr;
+        this._list.refresh();
+        Laya.stage.addChild(this);
+    }
+    public drawRankList(data: Array<any>,score): void {
+        // console.log("drawRankList:"+ JSON.stringify(data));
+        let index = 0;
+        if (BigData.ins.user) {
+            BigData.ins.user.score = score;
+            index = this.checkWhichIsMe(data);
+            if (index == -1) {
+                BigData.ins.user.index = index;
+            }
+        }
+        data.sort((one, another) => {
+            if (one.score > another.score) {
+                return -1
+            } else {
+                return 1
+            }
+        });
+        data.forEach(function (item, index, array) {
+            item.index = index;
+            if (item.avatarUrl == BigData.ins.user.avatarUrl) {
+                BigData.ins.user.index = index;
+            }
+        });
+        // console.log("jsroads------last:" + JSON.stringify(data));
+        // data =  data.concat(data)
+        this._list.array = data;
+        this._list.scrollTo(BigData.ins.user.index==-1?0:BigData.ins.user.index);
+        if(data.length){
+            this.initSetMyself(BigData.ins.user);
+            this.container.visible = true;
+        }else {
+            this.container.visible = false;
+        }
+        this.visible = true;
+    }
+
+    /**
+     *
+     * @param userInfo 用户自己信息
+     * @param data 数据列表
+     */
+    private checkWhichIsMe(data): any {
+        let item: any;
+        for (let i = 0; i < data.length; i++) {
+            let userInfoElement = data[i];
+            if (userInfoElement.avatarUrl == BigData.ins.user.avatarUrl) {
+                item = userInfoElement;
+                item.score = BigData.ins.user.score;
+                return item.index;
+            }
+        }
+        return -1;
+    }
+
+    private initSetMyself(userInfo:any){
+        // this.container.destroyChildren();
+        // this.myRank = new BigItem();
+        // this.container.addChild(this.myRank);
+        // this.myRank.setMyDataSource(userInfo)
+    }
+
+    public processData(data:Array<any>,_key) {
+        // 根据 data 做相应处理   有成绩且成绩数据格式正确
+        return data.map((player) => {
+            let score = player.KVDataList.find(({key}) => key === _key);
+            if (!score) return null;
+            // 为避免 score.value 中出现无法解析的意外数据
+            try {
+                player.score = Math.floor(JSON.parse(score.value).score);
+            } catch (e) {
+                return null
+            }
+            delete player.KVDataList;
+            return player
+            // 剔除无效数据
+        }).filter(data => data !== null).sort( // 按胜场排序
+            (one, another) => {
+                if (one.score > another.score) {
+                    return -1
+                } else {
+                    return 1
+                }
+            }
+        ).slice(0, 1000);// 取前100名
+    }
+
+    onClosed(type?: string): void {
+        BigRank._ins = null;
+    }
+    /**
+     * 接收信息
+     * @param message 收到的主域传过来的信息
+     */
+    private recevieData(message): void {
+        var _$this = this;
+        var type: String = message.type;
+        switch (type) {
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 上报自己的数据
+     * @param data 上报数据
+     */
+    private setSelfData(data: String): void {
+        var kvDataList = [];
+        var obj: any = {};
+        obj.wxgame = {};
+        obj.wxgame.value1 = data;
+        obj.wxgame.update_time = Laya.Browser.now();
+        kvDataList.push({"key": this._key, "value": JSON.stringify(obj)});
+        wx.setUserCloudStorage({
+            KVDataList: kvDataList,
+            success: function (e): void {
+                // console.log('-----success:' + JSON.stringify(e));
+            },
+            fail: function (e): void {
+                // console.log('-----fail:' + JSON.stringify(e));
+            },
+            complete: function (e): void {
+                // console.log('-----complete:' + JSON.stringify(e));
+            }
+        });
+    }
+}
+
+```
+
+`BigItem.ts`
+
+```typescript
+import {ui} from "./ui/layaMaxUI"
+import BigData from "./BigData";
+import {LanguageTrans} from "./LanguageTrans";
+
+export default class BigItem extends ui.rank.BigItemUI {
+    constructor() {
+        super();
+    }
+    public set dataSource(value) {
+        if (!value) return;
+        this.img_head.skin = value.avatarUrl;
+        this.text_name.text = value.nickname.slice(0,6);
+        this.scoreText.text = LanguageTrans.fomatCNByNumber(value.score);
+        this.rank_font.value = (value.index+1).toString();
+        if(BigData.ins.user.avatarUrl == value.avatarUrl){
+            this.bg.skin = "rank/img_1.png";
+        }else {
+            this.bg.skin = "rank/img_2.png";
+        }
+        if(value.index<3){
+            this.headBorder.skin = "rank/img_rank_"+(value.index+1)+".png";
+        }else {
+            this.headBorder.skin = "rank/img_rank_4.png";
+        }
+    }
+}
+
+```
+
+`BigData.ts`
+
+```typescript
+export default class BigData {
+    get user(): any {
+        return this._user;
+    }
+
+    set user(value: any) {
+        this._user = value;
+    }
+
+    get rankData(): any {
+        return this._rankData;
+    }
+
+    set rankData(value: any) {
+        this._rankData = value;
+    }
+
+    public static get ins(): BigData {
+        if (!this._ins) this._ins = new BigData();
+        return this._ins;
+    }
+
+    private _rankData: any;
+
+    private _user: any;
+
+    private static _ins: BigData;
+}
+```
+
+numberMin  方法：
+
+```typescript
+  /**
+     * 得到数字 从第三位开始全部更换成0
+     * @param n
+     */
+    public static numberMin(n: number) {
+        let num = Math.floor(n);
+        if (num >= LanguageTrans.K) {
+            let str = num.toString();
+            let headStr = str.slice(0, 2);
+            let endStr = str.slice(2, str.length);
+            let i = parseInt(headStr) * Math.pow(10, endStr.length);
+            return i;
+        } else {
+            return num;
+        }
+    }
+```
 
 ### 总结
 
