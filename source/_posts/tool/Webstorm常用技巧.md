@@ -28,7 +28,17 @@ tags:
 
      	- 在Webstorm 设置的 Web Browsers 下 大家自己调试的浏览器 点击编辑 在命令行里输入
 
-     ```
+     ```bash
       --args --disable-web-security --user-data-dir
      ```
+
+3. 隐藏指定文件(如.meta)不显示
+
+![image-20190903185643229](Webstorm常用技巧/image-20190903185643229.png)
+
+忽略文件加入:
+
+```javascript
+*.meta;
+```
 
