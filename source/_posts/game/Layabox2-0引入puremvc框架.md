@@ -19,7 +19,29 @@ tags:
 
 看上面的结构图，很容易理解，其实就是一个核心层Facade 下面分别控制着 M(model)、V(View)、C(command)实现了标准的MVC模式，通信采用了观察者模式，单例运行。
 
-在Layabox 如何使用呢？
+### 使用注意：
+
+> **Event，Notification，Command的区别**
+>
+> 在PureMVC中（其实在实际项目里），提到了3个很相似的概念：Event，Notification和Command。
+>
+> 这三者，是实际实现时，完全可以用同一套相似的方法来实现，那么，为什么还要提出三个概念呢？
+>
+> 在一个框架中，我们除了要关心底层的实现，更要关注这些概念的实际用途，简单的说：
+>
+> #### *Event* : 有事情发生
+>
+> Event用来告诉外部对象，有事情发生了，比如，一个动画播放完毕，一个网络请求结束了。
+>
+> #### *Notification* : 有状态变化
+>
+> Notification用来告诉外部对象，有状态/数据发生了变化，比如，玩家的金币增加了，玩家分数变化了。
+>
+> #### *Command* : 有事情要做
+>
+> Command用来告诉外部对象，需要执行某个动作了，比如玩家点击了开始游戏，需要开始游戏了。
+
+那么,在Layabox 如何使用呢？
 
 ### 步骤
 
@@ -265,3 +287,4 @@ tags:
 - [PureMVC 最佳实践](https://puremvc.org/docs/PureMVC_IIBP_Chinese.pdf)
 - https://github.com/PureMVC/puremvc-typescript-standard-framework
 - [PureMVC（AS3）剖析](https://www.cnblogs.com/skynet/archive/2012/12/29/2838303.html)
+- [PureMVC笔记  Event，Notification，Command的区别](https://xmanyou.com/puremvcbi-ji-event-notification/)
