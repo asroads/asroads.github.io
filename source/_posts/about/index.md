@@ -20,6 +20,8 @@ categories: "life"
 
 电子邮箱：[asroads@163.com](mailto:asroads@163.com)
 
+Cocos Creator QQ交流群：群号:532454212
+
 ## 个性签名
 
 自信是成功的第一法宝！
