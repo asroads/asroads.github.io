@@ -13,35 +13,35 @@ tags:
 
 ### 软件下载
 
-- Webstorm
-- Layabox
-- npm环境（安装教程不再赘述）
+- [Webstorm](http://www.jetbrains.com/webstorm/)
+- [Layabox](https://layabox.com/)
+- [npm](https://www.npmjs.cn/)环境（安装教程不再赘述）或者 [淘宝镜像npm](https://npm.taobao.org/)
 
 ### 环境配置
 
 1. 首先打开我们的Layabox 
 
-![image-20190924194713152](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924194713152.png)
+![image-20190924194713152](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924194713152.jpeg)
 
 2. 新建一个项目 我这边起名字 idedemo 
 
-![image-20190924194837296](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924194837296.png)
+![image-20190924194837296](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924194837296.jpeg)
 
 3. 我们看到 Layabox 的编译文件处于 .laya 文件夹下
 
-![image-20190924195013484](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195013484.png)
+![image-20190924195013484](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195013484.jpeg)
 
 4. 我们打开我们Webstorm软件
 
-![image-20190924195131072](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195131072.png)
+![image-20190924195131072](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195131072.jpeg)
 
 5. 我们用Webstorm 打开我们刚刚新建的项目 选择项目文件夹即可
 
-![image-20190924195313820](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195313820.png)
+![image-20190924195313820](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195313820.jpeg)
 
 6. 我们打印一下compile.js文件的里面的 process.argv,准备替换（我们用LayaboxIDE）点击那个编译按钮，然后就能看的参数的值
 
-![image-20190924195724793](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195724793.png)
+![image-20190924195724793](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924195724793.jpeg)
 
 ```javascript
 ["/Applications/LayaAirIDE_beta2.3.0.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper","/Applications/LayaAirIDE_beta2.3.0.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js","--gulpfile=/test/laya/demos/idedemo/.laya/compile.js","compile"]
@@ -57,25 +57,25 @@ tags:
 8. 我们接下来用npm 安装上面几个插件
 9. 安装成功后，在.laya目录下复制 compile.js 新建一个名字为 gulpfile.js (必须是这个名字)
 
-![image-20190924200252783](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200252783.png)
+![image-20190924200252783](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200252783.jpeg)
 
 10. 右键菜单 选择 
 
-![image-20190924200412048](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200412048.png)
+![image-20190924200412048](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200412048.jpeg)
 
 11. 修改我们这个参数配置
 
 
 
-![image-20190924200457724](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200457724.png)
+![image-20190924200457724](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200457724.jpeg)
 
 主要是修改我们这个 gulp 路径
 
-![image-20190924200526822](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200526822.png)
+![image-20190924200526822](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200526822.jpeg)
 
 选择 Layabox 自带的 gulp 文件夹
 
-![image-20190924200632868](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200632868.png)
+![image-20190924200632868](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924200632868.jpeg)
 
 具体路径地址(你根据自己地址写)
 
@@ -119,17 +119,17 @@ layaIde 编译 compile.js 打印的 process.argv  内容是
 
 
 
-![image-20190924201158236](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201158236.png)
+![image-20190924201158236](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201158236.jpeg)
 
-![image-20190924201231747](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201231747.png)
+![image-20190924201231747](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201231747.jpeg)
 
 我们写一行输出
 
-![image-20190924201346213](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201346213.png)
+![image-20190924201346213](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201346213.jpeg)
 
 然后重新编译
 
-![image-20190924201423882](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201423882.png)
+![image-20190924201423882](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201423882.jpeg)
 
 我们发现 正确输出 但是 文件路径指向了我们生成的 js 文件 这个不是我们要的
 
@@ -247,13 +247,18 @@ gulp.task("compile", prevTasks, function () {
 
 同理也是  sourcemap: true 然后重新编译我们的项目 
 
-![image-20190924201833740](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201833740.png)
+![image-20190924201833740](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201833740.jpeg)
 
 同理 也可以断点调试
 
-![image-20190924201904468](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201904468.png)
+![image-20190924201904468](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201904468.jpeg)
 
-![image-20190924201918327](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201918327.png)
+![image-20190924201918327](Layabox2-3-0如何配置代码编辑器-WebStorm2019/image-20190924201918327.jpeg)
 
 以上 全部搞定
+
+**另外关于Layabox1.x版本 和前面的2.x 版本 细节可以参考我的另外一篇文章**
+
+- [Webstorm如何配置Layabox2.0项目](http://www.asroads.com/2019/03/01/tool/Webstorm%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AELayabox2-0%E9%A1%B9%E7%9B%AE/)
+- [Mac下开启Chrome非安全模式](http://www.asroads.com/2019/04/12/tool/Mac%E4%B8%8B%E5%BC%80%E5%90%AFChrome%E9%9D%9E%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F/)
 
