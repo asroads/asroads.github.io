@@ -1,10 +1,11 @@
 ---
 title: Mac下怎么用Homebrew安装android-sdk，android-ndk，gradle篇
-date: 2018-06-23 10:13:44
-categories: "tool"
+categories: tool
 tags:
-- Mac
-- 技术
+  - Mac
+  - 技术
+abbrlink: 52abec8e
+date: 2018-06-23 10:13:44
 ---
 
 ### 安装 [Homebrew](https://brew.sh/index_zh-cn)

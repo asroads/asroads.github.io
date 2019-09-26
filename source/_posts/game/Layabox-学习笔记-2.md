@@ -1,9 +1,10 @@
 ---
 title: Layabox 学习笔记(2)
-date: 2018-08-07 15:48:38
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: db1475d2
+date: 2018-08-07 15:48:38
 ---
 
 ### 学习遇到的困惑

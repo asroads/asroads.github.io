@@ -1,9 +1,10 @@
 ---
 title: “WebStorm2018破解教程”
-date: 2018-06-22 12:52:48
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: 36cef1a0
+date: 2018-06-22 12:52:48
 ---
 
 ### 破解前准备

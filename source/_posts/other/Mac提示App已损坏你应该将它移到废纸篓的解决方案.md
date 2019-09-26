@@ -1,10 +1,11 @@
 ---
 title: Mac提示App已损坏你应该将它移到废纸篓的解决方案
-date: 2018-07-01 10:08:39
-categories: "other"
+categories: other
 tags:
-- 技术
-- Mac
+  - 技术
+  - Mac
+abbrlink: 13bdaddb
+date: 2018-07-01 10:08:39
 ---
 
     *很多朋友们在安装软件时Mac OS系统出现提示“XXXApp 已损坏”或“不是Mac Appstore下载的。您应该将它一道废纸篓”这样的提示，怎么回事呢?要怎么解决呢？*

@@ -1,10 +1,11 @@
 ---
 title: Windows下如何安装Python和pip
-date: 2018-09-13 12:11:18
-categories: "tool"
+categories: tool
 tags:
-- Layabox
-- 技术
+  - Layabox
+  - 技术
+abbrlink: ba6692cc
+date: 2018-09-13 12:11:18
 ---
 
 因为开发需要帮助同事电脑安装Python环境，因为我这两年开发一直用的是Mac电脑所以，在Windows上面如何安装Python和pip 这个确实还没有遇到过，遇到问题，上网查找答案，然后自己照做，遇到问题了，反思是件好事，于是我就按照网上的几个办法，一路下来，还真成功了！

@@ -1,10 +1,11 @@
 ---
 title: 怎么把Hexo网站备份到GitHub上
-date: 2018-08-10 20:56:51
-categories: "other"
+categories: other
 tags:
-- hexo
-- 技术
+  - hexo
+  - 技术
+abbrlink: 2a966218
+date: 2018-08-10 20:56:51
 ---
 
 ### 备份背景

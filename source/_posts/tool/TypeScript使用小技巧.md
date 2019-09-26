@@ -1,9 +1,10 @@
 ---
 title: TypeScript使用小技巧
-date: 2019-09-10 19:51:11
-categories: "tool"
+categories: tool
 tags:
-- ts
+  - ts
+abbrlink: 6526f49
+date: 2019-09-10 19:51:11
 ---
 
 在学习过程中使用TypeScript还是遇到了很多巧妙的解决办法，下面整理一下近期遇到的很多问题，和最后使用的解决方案。有些技巧还是很实用的，节省了很多时间和精力。

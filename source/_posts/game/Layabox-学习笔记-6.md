@@ -1,10 +1,10 @@
 ---
-
 title: Layabox-学习笔记-(6)
-date: 2018-08-26 14:32:33
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 13dab74
+date: 2018-08-26 14:32:33
 ---
 
 ### LayaBox怎么在加载游戏的时候添加进度条

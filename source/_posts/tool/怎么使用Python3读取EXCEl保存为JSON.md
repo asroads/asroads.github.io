@@ -1,10 +1,11 @@
 ---
 title: 怎么使用Python3读取EXCEl保存为JSON
-date: 2018-12-25 20:37:55
-categories: "tool"
+categories: tool
 tags:
-- 技术
-- Python3
+  - 技术
+  - Python3
+abbrlink: 5f6810ff
+date: 2018-12-25 20:37:55
 ---
 
 开发小游戏差不多四个月左右了，中间一直忙碌，很少有闲余时间来总结一下所感所想，今天就说说游戏里面怎么配置数据的，以前做Flash游戏的时候，那时候页游兴起，大家都用xml 作为配置文件，等到了手游时代 很多开始用json 和MySQL数据库作为配置读取文件，做小游戏之前遇到了xml 被拒绝的事情，所以我们的游戏采取了json的配置。下面就简单的说说怎么用Python读取Excel 然后保存成json格式的。

@@ -1,7 +1,8 @@
 ---
 title: About Me
+categories: life
+abbrlink: f0b34752
 date: 2018-05-26 12:39:54
-categories: "life"
 ---
 
 ## 简介

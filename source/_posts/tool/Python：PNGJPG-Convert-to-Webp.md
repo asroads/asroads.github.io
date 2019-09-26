@@ -1,9 +1,10 @@
 ---
 title: Python：PNGJPG Convert to Webp
-date: 2018-08-18 20:06:31
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: '1515441'
+date: 2018-08-18 20:06:31
 ---
 
 ### 学习背景

@@ -1,10 +1,11 @@
 ---
 title: 怎么用U盘安装Mac macOS High Sierra 系统
-date: 2018-10-30 20:04:52
-categories: "tool"
+categories: tool
 tags:
-- Mac
-- 技术
+  - Mac
+  - 技术
+abbrlink: a4ad570d
+date: 2018-10-30 20:04:52
 ---
 
 最近换了工作地方，开始用了新的Mac电脑办公，工作讲究效率，于是又买了一个新的固态移动硬盘，这样我需要把系统安装到固态硬盘里，做我的系统，之前安装了很多次Windows系统，Mac系统却很少安装。这次就自己安装一次。

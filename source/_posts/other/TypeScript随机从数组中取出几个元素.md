@@ -1,9 +1,10 @@
 ---
 title: TypeScript随机从数组中取出几个元素
-date: 2019-07-01 17:20:12
-categories: "other"
+categories: other
 tags:
-- ts
+  - ts
+abbrlink: c4d402bc
+date: 2019-07-01 17:20:12
 ---
 
 在游戏开发过程成随机是一种很常见的规则，有了随机，才有了彼此的不同，我们也经常会遇到从一个数组里面随机取出几个元素的需求，今天我也特意整理一下，以供以后参考。

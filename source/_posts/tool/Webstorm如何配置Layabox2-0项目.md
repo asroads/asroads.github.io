@@ -1,10 +1,11 @@
 ---
 title: Webstorm如何配置Layabox2.0项目
-date: 2019-03-01 20:27:23
-categories: "tool"
+categories: tool
 tags:
-- Layabox
-- 技术
+  - Layabox
+  - 技术
+abbrlink: 7ccbe150
+date: 2019-03-01 20:27:23
 ---
 
 2018年9月15日，Layabox官方发布了全新的2.0系列，包括引擎和编辑器（`LayaAir2.0`），随后又发布了一个修复的版本。对于用Layabox引擎开发的小伙伴们，及时拥抱变化，学习新技能，让自己的项目或者游戏跑的更快，效率更高。

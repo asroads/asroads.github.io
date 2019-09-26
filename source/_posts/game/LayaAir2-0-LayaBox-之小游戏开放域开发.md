@@ -1,9 +1,10 @@
 ---
 title: LayaAir2.0(LayaBox)之小游戏开放域开发
-date: 2019-03-07 19:50:17
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 477a1888
+date: 2019-03-07 19:50:17
 ---
 
 ### Laya2.0 开放域简介

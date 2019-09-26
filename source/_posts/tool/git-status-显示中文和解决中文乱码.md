@@ -1,9 +1,10 @@
 ---
 title: git status 显示中文和解决中文乱码
-date: 2019-07-10 14:08:52
-categories: "tool"
+categories: tool
 tags:
-- git
+  - git
+abbrlink: 709a4232
+date: 2019-07-10 14:08:52
 ---
 
 以前在用git的时候 使用 “git status” 的时候 都是正常的，结果最近一次安装之后，发现显示中文的时候是乱码，这个如果是拼音或者英文文件名字还好，遇到中文的就尴尬了，后来网上找到了解决办法：

@@ -1,10 +1,11 @@
 ---
 title: 怎么用HEXO+github搭建个人博客网站
-date: 2018-06-05 11:12:37
-categories: "other"
+categories: other
 tags:
-- hexo
-- 技术
+  - hexo
+  - 技术
+abbrlink: 3afcd4a3
+date: 2018-06-05 11:12:37
 ---
 
 ## 建站前的一些唠叨

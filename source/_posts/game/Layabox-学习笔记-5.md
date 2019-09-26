@@ -1,9 +1,10 @@
 ---
 title: Layabox-学习笔记-(5)
-date: 2018-08-24 20:45:33
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 2a10f8b7
+date: 2018-08-24 20:45:33
 ---
 
 ### Layabox 关于微信小游戏 用户授权 接入

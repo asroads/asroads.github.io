@@ -1,9 +1,10 @@
 ---
 title: GitHub项目本地如何上传到远端
-date: 2019-04-21 19:36:27
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: 5be06ede
+date: 2019-04-21 19:36:27
 ---
 
 我们有时候自己在GitHub上面创建的仓库 有时候需要自己下载到本地编辑更新后上传，前面的命令都是正确的到到了最后的上传远端的步骤报错"The requested URL returned error: 403 Forbidden while accessing"，这个时候我们如何解决呢

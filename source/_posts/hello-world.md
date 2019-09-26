@@ -1,9 +1,10 @@
 ---
 title: Hello World
-date: 2018-05-22 12:52:48
-categories: "other"
+categories: other
 tags:
-- 技术
+  - 技术
+abbrlink: 4a17b156
+date: 2018-05-22 12:52:48
 ---
 
 [TOC]

@@ -1,9 +1,10 @@
 ---
 title: Git 远程仓库clone时 密码输错后 如何修改
-date: 2018-11-02 20:31:32
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: 12189c29
+date: 2018-11-02 20:31:32
 ---
 
 在Windows10 当输错时 ，就没有再次提供给我输入密码的机会，直接报错

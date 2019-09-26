@@ -1,9 +1,10 @@
 ---
 title: Window7安装Adobe Audition找不到您的音频设备
-date: 2018-09-27 12:00:30
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: fbeecb91
+date: 2018-09-27 12:00:30
 ---
 
 因为开发需要一些音效，自己就去网上找了一些免费的音效，这些音效有的部分可以用，就拿起了大学学习的专业课，于是乎，说干就干，安装了adobe audition cs3，只是这次与以往不同，出现了一个问题，“找不到支持的音频设备.....” 。

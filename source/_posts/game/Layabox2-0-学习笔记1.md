@@ -1,9 +1,10 @@
 ---
 title: Layabox2.0 学习笔记1
-date: 2019-03-14 13:19:42
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 16692a87
+date: 2019-03-14 13:19:42
 ---
 
 ### LayaAir2.0小游戏使用 HTMLDivElement

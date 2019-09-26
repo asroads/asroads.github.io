@@ -1,9 +1,10 @@
 ---
 title: LayaBox2.0 圆形进度条制作
-date: 2019-03-27 19:48:39
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 1ccda286
+date: 2019-03-27 19:48:39
 ---
 
 前段时间看了Laya关于进度条的实现，官方给了一个横着的，看到很多小游戏都是自定义的圆形，于是也想实现一个圆形进度条。

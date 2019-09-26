@@ -1,9 +1,10 @@
 ---
 title: 'Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild 解决方法'
-date: 2019-09-04 19:32:14
-categories: "game"
+categories: game
 tags:
-- Cocos Creator
+  - Cocos Creator
+abbrlink: 2376105a
+date: 2019-09-04 19:32:14
 ---
 
 游戏开发，其中必不可少的就是动画，广义的动画其中包括动画师做的动画和程序实现的动画，动画师实现的动画有swf 和spine和龙骨动画，程序实现的动画一般都是能够用数学公式表达出来的动画，也叫叫缓动动画，对物体位置、角度，透明度这些基本属性的改变，这其中运行效率和开销成为了重中之重。作为一个搬砖几年的开发者，学会使用轮子造车是必不可少的一部分。以下就是我是如何在 Cocos Creator 项目里面使用 鼎鼎大名的 TweenMax（TweenLite同理）。

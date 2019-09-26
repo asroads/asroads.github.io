@@ -1,9 +1,10 @@
 ---
 title: Cocos Creater 学习笔记--新手上路
-date: 2019-09-02 19:55:41
-categories: "game"
+categories: game
 tags:
-- Cocos Creator
+  - Cocos Creator
+abbrlink: 18d6ec33
+date: 2019-09-02 19:55:41
 ---
 
 ### 前面的话

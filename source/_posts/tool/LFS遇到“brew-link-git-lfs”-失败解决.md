@@ -1,9 +1,10 @@
 ---
 title: LFS遇到“brew link git-lfs” 失败解决
-date: 2018-07-12 17:39:43
-categories: "tool"
+categories: tool
 tags:
-- git
+  - git
+abbrlink: e8cccada
+date: 2018-07-12 17:39:43
 ---
 
 ### 现象描述

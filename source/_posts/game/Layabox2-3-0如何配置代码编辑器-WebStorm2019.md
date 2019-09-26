@@ -1,10 +1,11 @@
 ---
 title: Layabox2.3.0如何配置代码编辑器(WebStorm2019)
-date: 2019-09-24 19:39:10
-categories: "game"
+categories: game
 tags:
-- Layabox
-- 技术
+  - Layabox
+  - 技术
+abbrlink: 3f34ea36
+date: 2019-09-24 19:39:10
 ---
 
 今天看到新闻，Laya官方更新了新版本，新版本很多优势，有了很多更新，看到公众号下面有人留言说，希望有个外置的代码编辑器，其实我从学习开发Layabox一直都是用的Webstorm外置编辑器，打开了两个IDE，Webstorm主攻代码，配置了编译，LayaboxIDE主攻美术和项目构建。整体来讲和Cocos开发差不多，效率很快，特别是再用上快捷键。下面我就把这个配置分享一下，希望更多的人能够提高效率。

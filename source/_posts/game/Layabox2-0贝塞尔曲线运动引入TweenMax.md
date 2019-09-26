@@ -1,9 +1,10 @@
 ---
 title: Layabox2.0贝塞尔曲线运动引入TweenMax
-date: 2019-08-13 19:36:41
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: b0aa25e3
+date: 2019-08-13 19:36:41
 ---
 
 游戏开发的同学都有同感，在物体运动的时候，曲线运动一直是一个常见的需求，常见的曲线运动有规则的，比如圆周运动，椭圆运动，加速减速运动，使用Layabox引擎的时候，官方已经提供了一个关于缓动的类，Tween，作为从AS3开发起步的人，一定会想到当年的greensock缓动库，基本解决了很多头疼动画需求，而且关键是这个类库文件小，效率还高。从AS3转到H5行业后，greensock 也升级到了2.0 更改了名字。

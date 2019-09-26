@@ -1,9 +1,10 @@
 ---
 title: Python2 到Python3的一些常见变化
-date: 2019-06-25 19:20:12
-categories: "tool"
+categories: tool
 tags:
-- Python3
+  - Python3
+abbrlink: 55244b76
+date: 2019-06-25 19:20:12
 ---
 
 有时候工作过程中需要用Python处理一些项目资源或者表格的转换，目前比较常用的都是Python3，但是因为很多以前的开发者用的都是Python2的语法，所以要想让Python2的写的文件，能在Python3环境正常运行，需要知道其中的一些变化，这样稍作处理和更改，便可以让原来的脚本可以在新的环境内正常运行。(持续更新)

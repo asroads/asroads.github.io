@@ -1,10 +1,11 @@
 ---
 title: Mac下怎么配置 Java JDK
-date: 2018-06-18 10:48:11
-categories: "tool"
+categories: tool
 tags:
-- Mac
-- 技术
+  - Mac
+  - 技术
+abbrlink: d2199953
+date: 2018-06-18 10:48:11
 ---
 
 - 首先打开.bash_profile 文件

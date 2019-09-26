@@ -1,9 +1,10 @@
 ---
 title: 给JS包写TypeScript用的类型申明文件
-date: 2018-08-13 19:56:55
-categories: "tool"
+categories: tool
 tags:
-- ts
+  - ts
+abbrlink: 8e083b5b
+date: 2018-08-13 19:56:55
 ---
 
 ### 给JS包写TypeScript用的类型申明文件

@@ -1,10 +1,11 @@
 ---
 title: Hexo生成博文插入图片
-date: 2018-06-06 18:20:04
-categories: "other"
+categories: other
 tags:
-- hexo
-- 技术
+  - hexo
+  - 技术
+abbrlink: 95d84581
+date: 2018-06-06 18:20:04
 ---
 
 ### 发现问题

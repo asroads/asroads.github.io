@@ -1,9 +1,10 @@
 ---
 title: Windows下Cmder使用技巧
-date: 2019-05-02 00:08:06
-categories: "other"
+categories: other
 tags:
-- Windows
+  - Windows
+abbrlink: fcab5eed
+date: 2019-05-02 00:08:06
 ---
 
  这几天在住的地方学习的时候，需要一个可以快速学习的工作环境，于是乎，又回到了Windows 环境下编程学习，之前好多事情都是在Mac下面做的，现在回归Windows了，又要拾起很多以前的工具，毕竟好几年不怎么用Windows环境编程了，下面说说一个Windows下面比较好用的命令行工具 Cmder。

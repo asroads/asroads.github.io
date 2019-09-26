@@ -1,9 +1,10 @@
 ---
 title: git忽略而不提交文件的3种情形
-date: 2018-08-19 20:12:55
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: 433c776b
+date: 2018-08-19 20:12:55
 ---
 
 ### git忽略而不提交文件的3种情形

@@ -1,9 +1,10 @@
 ---
 title: Layabox2-0-学习笔记2
-date: 2019-03-14 14:04:03
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 1152bf94
+date: 2019-03-14 14:04:03
 ---
 
 ### 微信小游戏Layabox2.0位图字体

@@ -1,9 +1,10 @@
 ---
 title: Layabox-学习笔记(8)
-date: 2018-12-01 18:37:40
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: 28b1df01
+date: 2018-12-01 18:37:40
 ---
 
 ### LayaBox 位图字体 解决微信小游戏不支持xml格式

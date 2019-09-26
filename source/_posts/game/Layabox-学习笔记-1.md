@@ -1,9 +1,10 @@
 ---
 title: Layabox 学习笔记(1)
-date: 2018-08-05 15:21:42
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: f0392611
+date: 2018-08-05 15:21:42
 ---
 
 ### 学习背景

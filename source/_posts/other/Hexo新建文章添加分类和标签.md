@@ -1,10 +1,11 @@
 ---
 title: Hexo新建文章添加分类和标签
-date: 2018-06-06 17:17:22
-categories: "other"
+categories: other
 tags:
-- hexo
-- 技术
+  - hexo
+  - 技术
+abbrlink: 110de5e8
+date: 2018-06-06 17:17:22
 ---
 
 #### 教程

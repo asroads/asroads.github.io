@@ -1,9 +1,10 @@
 ---
 title: Webstorm常用技巧
-date: 2019-06-15 20:59:27
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: 572cb29c
+date: 2019-06-15 20:59:27
 ---
 
 ### Webstorm 常用的一些技巧

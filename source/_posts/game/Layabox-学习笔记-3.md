@@ -1,9 +1,10 @@
 ---
 title: Layabox 学习笔记(3)
-date: 2018-08-09 18:55:38
-categories: "game"
+categories: game
 tags:
-- Layabox
+  - Layabox
+abbrlink: c20f4493
+date: 2018-08-09 18:55:38
 ---
 
 ### 问题描述:Layabox中位图字体(BitmapFont)关于微信小游戏无法正常显示

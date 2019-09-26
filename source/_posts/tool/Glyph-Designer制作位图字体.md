@@ -1,9 +1,10 @@
 ---
 title: Glyph Designer制作位图字体
-date: 2019-03-18 13:01:09
-categories: "tool"
+categories: tool
 tags:
-- 技术
+  - 技术
+abbrlink: c86ff3a8
+date: 2019-03-18 13:01:09
 ---
 
 游戏开发中，字体是很重要的一个展现方式，好的字体总是能做到锦上添花的效果，位图字体是一种常用的解决方案，常用的位图字体设计工具有[Hiero](https://github.com/libgdx/libgdx/wiki/Hiero)、[shoebox](http://renderhjs.net/shoebox/)、[littera](http://kvazars.com/littera/)、[Bitmap Font Generator](http://www.angelcode.com/products/bmfont/)、[Glyph Designer](https://www.71squared.com/en/glyphdesigner)，我们今天说说[Glyph Designer](https://www.71squared.com/en/glyphdesigner) 怎么开发字体。
