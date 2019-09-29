@@ -2,7 +2,7 @@
 title: 'Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild 解决方法'
 categories: game
 tags:
-  - Cocos Creator
+  - Cocos
 abbrlink: 2376105a
 date: 2019-09-04 19:32:14
 ---
