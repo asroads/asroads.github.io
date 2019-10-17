@@ -102,9 +102,9 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 - 最终效果
 
-![image-20191017160918319](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160918319.jp2)
+![image-20191017160918319](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160918319.jpeg)
 
-![image-20191017161004642](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161004642.jp2)
+![image-20191017161004642](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161004642.jpeg)
 
 - 安装ios 需要的Xcode 
 
@@ -121,47 +121,47 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 - 我们大家Cocos Creator新建一个项目,我这里叫 mynativedemo
 
-![image-20191017155805750](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017155805750.jp2)
+![image-20191017155805750](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017155805750.jpeg)
 
 - 等待项目生成
 
-![image-20191017155925239](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017155925239.jp2)
+![image-20191017155925239](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017155925239.jpeg)
 
 - 我们项目生成，我们需要更改一下项目的参数设置
 
-![image-20191017160017354](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160017354.jp2)
+![image-20191017160017354](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160017354.jpeg)
 
 - 打开菜单--> 偏好设置
 
-![image-20191017160057975](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160057975.jp2)
+![image-20191017160057975](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160057975.jpeg)
 
 - 偏好设置-->原生开发环境配置
   - **NDK 路径**，选择 `Android SDK Location` 路径下的 `ndk-bundle` 文件夹（NDK 是其根目录）
   - **Android SDK 路径**，选择刚才在 SDK Manager 中记下的 `Android SDK Location` 路径（Android SDK 的目录下应该包含 build-tools、platforms 等文件夹）
 
-![image-20191017160336544](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160336544.jp2)
+![image-20191017160336544](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160336544.jpeg)
 
 - 偏好设置-->预览运行 修改 我这里写 750 X 1334 竖屏 
 
-![image-20191017161435248](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161435248.jp2)
+![image-20191017161435248](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161435248.jpeg)
 
 - 打开  项目-->项目设置
 
-![image-20191017161602143](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161602143.jp2)
+![image-20191017161602143](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161602143.jpeg)
 
 - 项目设置-->项目预览  设置分辨率、 适配宽度
 
-![image-20191017161928244](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161928244.jp2)
+![image-20191017161928244](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017161928244.jpeg)
 
 ## 安卓平台（apk）
 
 - 选择  项目-->构建发布
 
-![image-20191017162024592](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162024592.jp2)
+![image-20191017162024592](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162024592.jpeg)
 
 - 设置需要的选项
 
-  ![image-20191017162631119](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162631119.jp2)
+  ![image-20191017162631119](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162631119.jpeg)
 
 > Portrait ---> 这个是竖屏展示；
 >
@@ -173,7 +173,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 - 等待发布成功
 
-![image-20191017162717336](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162717336.jp2)
+![image-20191017162717336](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162717336.jpeg)
 
 控制台没有输出错误log
 
@@ -190,13 +190,13 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 - 修改我们的项目 自定义部分
 - 然后点击 编译按钮
 
-![image-20191017162959672](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162959672.jp2)
+![image-20191017162959672](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162959672.jpeg)
 
 - 等待项目完成
 
-![image-20191017163025828](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017163025828.jp2)
+![image-20191017163025828](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017163025828.jpeg)
 
-![image-20191017164659108](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017164659108.jp2)
+![image-20191017164659108](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017164659108.jpeg)
 
 ```bash
 Skipping task ':hello_world:assembleRelease' as it has no actions.
@@ -210,11 +210,11 @@ Compile native project successfully.
 
 路径 `build/jsb-link/publish/android`下 生成我们的APK文件
 
-![image-20191017164915280](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017164915280.jp2)
+![image-20191017164915280](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017164915280.jpeg)
 
 - 点击安装 运行效果
 
-![image-20191017171806738](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017171806738.jp2)
+![image-20191017171806738](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017171806738.jpeg)
 
 关于返回键不能正常关掉游戏的问题，此处先不谈这些，只讨论如何正确发布，这个问题，后面再说如何解决
 
@@ -230,15 +230,15 @@ Compile native project successfully.
 
 - 选择  项目-->构建发布
 
-![image-20191017172508043](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162024592.jp2)
+![image-20191017172508043](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017162024592.jpeg)
 
 - 设置需要的选项
 
-  ![image-20191017172508043](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017172508043.jp2)
+  ![image-20191017172508043](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017172508043.jpeg)
 
 - 成功构建后
 
-![image-20191017172615058](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017172615058.jp2)
+![image-20191017172615058](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017172615058.jpeg)
 
 ```bash
 Checked Python Version [2.7.16]
@@ -252,7 +252,7 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 
 - 找到 构建目录.build 目录下面的 jsb-link-->frameworks-->runtime-src-->proj.ios_mac-->hello_world.xcodeproj 使用 Xcode 打开
 
-  ![image-20191017172921364](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017172921364.jp2)
+  ![image-20191017172921364](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017172921364.jpeg)
 
   
 
@@ -260,29 +260,29 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 
   - 修改秘钥
 
-  ![image-20191017173103276](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017173103276.jp2)
+  ![image-20191017173103276](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017173103276.jpeg)
 
   - 修改后
 
-    ![image-20191017174336649](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174336649.jp2)
+    ![image-20191017174336649](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174336649.jpeg)
 
 - 修改我们调试设备 Build Settings
 
-  ![image-20191017174454507](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174454507.jp2)
+  ![image-20191017174454507](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174454507.jpeg)
 
-  ![image-20191017174610543](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174610543.jp2)
+  ![image-20191017174610543](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174610543.jpeg)
 
   - 连接我们的设备 然后点击运行按钮等待
 
-  ![image-20191017174727660](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174727660.jp2)
+  ![image-20191017174727660](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174727660.jpeg)
 
-  ![image-20191017174758089](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174758089.jp2)
+  ![image-20191017174758089](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017174758089.jpeg)
 
   - 编译结束
 
-  ![image-20191017175007955](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175007955.jp2)
+  ![image-20191017175007955](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175007955.jpeg)
 
-  ![image-20191017175119545](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175119545.jp2)
+  ![image-20191017175119545](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175119545.jpeg)
 
   OK 调试结束
 
@@ -290,41 +290,41 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 
   - 选择 Achieve 
 
-    ![image-20191017175321044](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175321044.jp2)
+    ![image-20191017175321044](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175321044.jpeg)
 
     等待编译结束
 
-    ![image-20191017175349905](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175349905.jp2)
+    ![image-20191017175349905](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175349905.jpeg)
 
   - 结束后 会主动弹出一个窗口 或者我们自己打开 Window--> Organizer 打开窗口
 
-    ![image-20191017175936077](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175936077.jp2)
+    ![image-20191017175936077](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017175936077.jpeg)
 
     选择 Development 点击 Next 然后 继续 Next 
 
-    ![image-20191017181115155](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017181115155.jp2)
+    ![image-20191017181115155](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017181115155.jpeg)
 
     然后选择 Profile 点击 Next
 
-    ![image-20191017181139645](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017181139645.jp2)
+    ![image-20191017181139645](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017181139645.jpeg)
 
     
 
 - 最后选择 导出 export 我们的项目
 
-![image-20191017180543007](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017180543007.jp2)
+![image-20191017180543007](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017180543007.jpeg)
 
 选择导出目录
 
-![image-20191017180617273](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017180617273.jp2)
+![image-20191017180617273](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017180617273.jpeg)
 
 最后 打开已经生成 ipa文件
 
-![image-20191017180707333](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017180707333.jp2)
+![image-20191017180707333](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017180707333.jpeg)
 
 备注 导出的项目 目录 `/Users/smile/Library/Developer/Xcode/Archives` 点击小箭头 可以打开
 
-![image-20191017181525986](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017181525986.jp2)
+![image-20191017181525986](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017181525986.jpeg)
 
 
 
@@ -334,19 +334,19 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 - 安装iTools
 - 打开iTools软件
 
-![image-20191017182156967](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182156967.jp2)
+![image-20191017182156967](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182156967.jpeg)
 
 安装我们生成的ipa 文件
 
-![image-20191017182400689](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182400689.jp2)
+![image-20191017182400689](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182400689.jpeg)
 
 安装成功
 
-![image-20191017182429311](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182429311.jp2)
+![image-20191017182429311](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182429311.jpeg)
 
 打开运行成功
 
-![image-20191017182627753](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182627753.jp2)
+![image-20191017182627753](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182627753.jpeg)
 
 ## 总结
 
