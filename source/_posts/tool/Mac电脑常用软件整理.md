@@ -39,7 +39,7 @@ date: 2019-10-15 11:10:15
 | 应用名字     | 地址                                            | 推荐指数  | 授权 | 备注         |
 | ------------ | ----------------------------------------------- | --------- | ---- | ------------ |
 | Webstorm     | [进入官网](https://www.jetbrains.com/webstorm/) |      | 付费 | 代码编辑     |
-| Firefox      | [进入官网](https://code.visualstudio.com)       |       | 免费 | 开发调试     |
+| visualstudio | [进入官网](https://code.visualstudio.com)       |       | 免费 | 开发调试     |
 | Xcode        | [进入官网](https://developer.apple.com/xcode/)  |      | 免费 | 代码编辑     |
 | Atom         | [进入官网](https://atom.io)                     |        | 免费 | 代码编辑     |
 | Sublime Text | [进入官网](http://www.sublimetext.com/)         |        | 付费 | 代码文本编辑 |
