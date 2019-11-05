@@ -138,6 +138,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 - 偏好设置-->原生开发环境配置
   - **NDK 路径**，选择 `Android SDK Location` 路径下的 `ndk-bundle` 文件夹（NDK 是其根目录）
   - **Android SDK 路径**，选择刚才在 SDK Manager 中记下的 `Android SDK Location` 路径（Android SDK 的目录下应该包含 build-tools、platforms 等文件夹）
+  - 默认 `/Users/smile/Library/Android/sdk/ndk-bundle`
+  - 默认 `/Users/smile/Library/Android/sdk`
 
 ![image-20191017160336544](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160336544.jpeg)
 
@@ -347,6 +349,26 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 打开运行成功
 
 ![image-20191017182627753](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017182627753.jpeg)
+
+### 本地 模拟器删除缓存
+
+删除：`/Applications/CocosCreator.app/Contents/Resources/cocos2d-x/simulator/mac/Simulator.app/Contents/Resources/jsb.sqlite` 这个文件即可
+
+```bash
+/Applications/CocosCreator.app/Contents/Resources/cocos2d-x/simulator/mac/Simulator.app/Contents/Resources/jsb.sqlite
+```
+
+
+
+**注意：删除 整个 resources 文件夹 会导致运行不起来**
+
+关于安卓手机如何监听返回键
+
+```
+
+```
+
+
 
 ## 总结
 

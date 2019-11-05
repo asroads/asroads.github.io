@@ -705,3 +705,6 @@ SUCCESS! SDBOX creator GUI have been updated.
 ![image-20191019180749532](Cocos-Creator-手动安装更新-SDKBox/image-20191019180749532.jpeg)
 
 问题得以解决。
+
+参考链接  https://docs.sdkbox.com/zh/qa/sdkbox_installer_issue/
+
