@@ -28,7 +28,12 @@ sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createins
 ```
 
 3. 回车并执行该命令，这时会提示让你输入管理员密码,然后开始安装。
+
+   ![image-20191127184950361](怎么用U盘安装Mac-macOS-High-Sierra-系统/image-20191127184950361.png)
+
 4. 如果最后出现了 “Done”，说明已经安装成功。
+
+5. 注意：我这个截图是 macOS  Catalina 我这出现的是 Install media now available at "/Volumes/Install macOS Catalina"。
 
 ### 系统安装过程
 
@@ -49,6 +54,12 @@ sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createins
 7. 完成安装！搞定！
 
 ###  相关拓展
+
+如要制作 **macOS Catalina 启动盘**，U盘名称要改成「Catalina」(必须与下面命令对应)，然后拷贝这段命令
+
+```bash
+sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/Catalina /Applications/Install\ macOS\ Catalina.app --nointeraction
+```
 
 如要制作 **macOS Mojave 启动盘**，U盘名称要改成「Mojave」(必须与下面命令对应)，然后拷贝这段命令
 
