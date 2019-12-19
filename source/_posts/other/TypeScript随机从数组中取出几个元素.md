@@ -42,3 +42,16 @@ var array = ['1','2','4','5','6','7','8','9','10'];
 console.log( getRandomArrayElements(array, 5) );
 ```
 
+### 数组平均值与中值
+
+- 取得数组长度(length)
+- 求和(sum)
+- 取得平均值(`sum/length`)
+
+```javascript
+let values = [2, 56, 3, 41, 0, 4, 100, 23];
+let sum = values.reduce((previous, current) => current += previous);
+let avg = sum / values.length;
+// avg = 28
+```
+

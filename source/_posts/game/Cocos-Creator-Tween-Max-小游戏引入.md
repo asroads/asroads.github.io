@@ -95,3 +95,8 @@ TweenMax.to(this.sp, 0.75, {
 ![result](Cocos-Creator-Tween-Max-小游戏引入/result.gif)
 
 效果展示 OK
+
+### 参考
+
+- [微信小游戏使用TweenLite的问题](https://forum.cocos.org/t/tweenlite/59580)
+
