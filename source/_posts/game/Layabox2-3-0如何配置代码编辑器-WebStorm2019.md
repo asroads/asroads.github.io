@@ -258,6 +258,30 @@ gulp.task("compile", prevTasks, function () {
 
 以上 全部搞定
 
+**2019年12月20日 发现 本地环境更新 编译报错：**
+
+```bash
+semantic error TS2354: This syntax requires an imported helper but module 'tslib' cannot be found
+```
+
+**解决办法**：参考链接 [stackoverflow](https://stackoverflow.com/questions/52801814/this-syntax-requires-an-imported-helper-but-module-tslib-cannot-be-found-wit)
+
+> Noob mistake (which I just made). Try:
+>
+> ```js
+> npm install tslib
+> ```
+>
+> or
+>
+> ```js
+> npm i
+> ```
+>
+> Personally before signing off on Friday I did a `git clean -fxd`, but no `npm i` so all the npm packages were missing. Doh!
+
+我只用了 `npm install tslib` 就成功解决问题。
+
 **另外关于Layabox1.x版本 和前面的2.x 版本 细节可以参考我的另外一篇文章**
 
 - [Webstorm如何配置Layabox2.0项目](http://www.asroads.com/2019/03/01/tool/Webstorm%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AELayabox2-0%E9%A1%B9%E7%9B%AE/)
