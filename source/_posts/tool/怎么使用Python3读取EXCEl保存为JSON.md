@@ -2,8 +2,7 @@
 title: 怎么使用Python3读取EXCEl保存为JSON
 categories: tool
 tags:
-  - 技术
-  - Python3
+  - Python
 abbrlink: 5f6810ff
 date: 2018-12-25 20:37:55
 ---

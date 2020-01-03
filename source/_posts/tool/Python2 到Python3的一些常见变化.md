@@ -2,7 +2,7 @@
 title: Python2 到Python3的一些常见变化
 categories: tool
 tags:
-  - Python3
+  - Python
 abbrlink: 55244b76
 date: 2019-06-25 19:20:12
 ---

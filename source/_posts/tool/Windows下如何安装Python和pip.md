@@ -2,8 +2,8 @@
 title: Windows下如何安装Python和pip
 categories: tool
 tags:
-  - Layabox
   - 技术
+  - Python
 abbrlink: ba6692cc
 date: 2018-09-13 12:11:18
 ---
@@ -39,7 +39,45 @@ date: 2018-09-13 12:11:18
 10. 重新打开控制窗口（r+win），cmd下输入“pip”，如果能识别"pip"指令，则说明pip安装成功了。
 
     也就是说会出现关于pip的参数。
+    
+    
+    
+    最后，大功告成！！！参考文章：[windows下Python三步安装pip](https://www.cnblogs.com/babyfei/p/7079983.html)
+
+### Windows 10 Python2.x 与Python3.x 兼容并存
+
+> 前提：电脑上已经安装了Python 3.x
+> 1 到Python 官网下载 Python 2.7
+> https://www.python.org/
+> 2 按照平时安装软件的方法，进行安装，注意在安装过程中， 选择安装目录
+> 比如 C:\Python27 C:\Python36
+> 3 待安装完成后，配置Python2.7的环境变量(此处略)。
+> 4 上述3步都完成后，修改Python 2.7 与Python3.6.1的配置
+> 1) 将C:\Python36 路径中的 python.exe 修改为python3.exe ，pythonw.exe修改为 pythonw3.exe
+> 2) 将C:\Python27 路径中的python.exe 修改为python2.exe ,pythonw.exe修改为 pythonw2.exe
+> 5 pip2 和 pip3设置
+> Python 安装包需要用到包管理工具pip，但是当同时安装Python2.x和Python3.x的时候，pip只是其中一个版本，以下将提供一个修改方式，即重新安装两个版本的pip，使得两个python版本的pip能够共存。
+> 在DOS命令框，进入到python安装路径，输入命令，python3 -m pip install --upgrade pip --force-reinstall，显示重新安装成功。
+> 在DOS命令框，进入到python安装路径输入命令，python2 -m pip install --upgrade pip --force-reinstall，显示重新安装成功。
+> 现在可以通过pip2 -V 和 pip3-V 查看两个版本的pip信息，以后只需运行pip2 install XXX和pip3 install XXX即可安装各自的python包。
+> 至此，pip2和pip3 修改成功。
+
+参考链接：[Windows 10 Python2.x 与Python3.x 兼容并存](https://blog.csdn.net/liujingqiu/article/details/86645559)
+
+### 解决win10 cmd下运行python弹出windows应用商店
+
+Windows 10 的五月更新为 Microsoft Store 应用商店带来了 Python 3.7
+
+原因是这个环境变量“C:\Users\hongc\AppData\Local\Microsoft\WindowsApps”的优先级比我们创建的python环境变量优先级高
+
+所以我们只需要删除这个环境变量即可
+
+但是为了不影响正常功能
+
+推荐将Python的环境变量放在前面即可
+
+参考链接 [解决win10 cmd下运行python弹出windows应用商店](https://blog.csdn.net/u013421931/article/details/99736992)
 
 
-最后，大功告成！！！参考文章：[windows下Python三步安装pip](https://www.cnblogs.com/babyfei/p/7079983.html)
+
 
