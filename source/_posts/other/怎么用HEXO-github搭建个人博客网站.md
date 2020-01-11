@@ -71,7 +71,7 @@ hexo generate
 hexo server
 ```
 
-此时 可以用浏览器访问 [http://localhost:4000，查看一下默认的效果](http://localhost:4000%EF%BC%8C%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%B8%8B%E9%BB%98%E8%AE%A4%E7%9A%84%E6%95%88%E6%9E%9C/) 此时网站还是只能本地看到，默认主题是landscape。
+此时 可以用浏览器访问 `http://localhost:4000`，查看一下默认的效果 此时网站还是只能本地看到，默认主题是landscape。
 
 ## 部署到GitHub上
 
@@ -137,7 +137,7 @@ hexo generate
 hexo deploy
 ```
 
-最后打开你的网站博客查看效果吧。我的是 [asroads.github.io](http://www.asroads.com/2018/06/29/%E6%8B%93%E5%B1%95/%E6%80%8E%E4%B9%88%E7%94%A8HEXO-github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/asroads.github.io) 。
+最后打开你的网站博客查看效果吧。我的是 [asroads.github.io](http://blog.asroads.com/) 。
 
 ## 后记
 

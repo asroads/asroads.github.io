@@ -50,7 +50,7 @@ Using CLASSPATH:       /workspace/net/apache-tomcat-8.5.47/bin/bootstrap.jar:/wo
 
 ### 验证安装是否成功
 
-在浏览器地址栏输入:http://localhost:8080(或者在手机浏览器中输入电脑IP+端口号也可以访问)显示如下界面:
+在浏览器地址栏输入:`http://localhost:8080`(或者在手机浏览器中输入电脑IP+端口号也可以访问)显示如下界面:
 
 ![image-20191028155528844](Mac系统安装和配置Tomcat步骤详解/image-20191028155528844.png)
 
@@ -99,7 +99,7 @@ chmod u+x *.sh
           redirectPort="8443" />
 ```
 
-xml的标签都要关闭,还要重启tomcat. 重新打开http://localhost:xxxx到Tomcat主界面,点击 Manager App等按钮账号和密码输入tomcat即可登陆
+xml的标签都要关闭,还要重启tomcat. 重新打开`http://localhost:xxxx`到Tomcat主界面,点击 Manager App等按钮账号和密码输入tomcat即可登陆
 
 ### 访问host-manager出现403问题解决
 
@@ -177,7 +177,7 @@ Mac 查看自己IP 命令 `ifconfig`
 
 ### 配置问题 403 Access Denied
 
-**管理页面如：http://172.16.28.99:8080/manager/html出现如下错误：**
+`**管理页面如：http://172.16.28.99:8080/manager/html出现如下错误：**`
 
 403 Access Denied
 
