@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8" />
 
     
 
     
 
     <title>Cocos Creator 热更新（Mac） | Asroads&#39;Blog</title>
-    <meta name="author" content="asroads">
-    <meta name="version" content="1.0.0">
-    <meta name="keywords" content>
+    <meta name="author" content="asroads" />
+    <meta name="version" content="1.0.0" />
+    <meta name="keywords" content="" />
     <meta name="description" content="接触到原生开发，基本不可避免的要接触热更新游戏，有时候游戏需要平台审核，这个期间需要一些时间，遇到小版本的迭代，热更新也是必不可少的一部分，下面我们就用Cocos Creator 2.2.0实现一些热更新，项目开发语言采用 Typescript，环境是Mac环境 测试 为iOS 项目源码最后附上。
 
 
@@ -21,18 +21,20 @@ Typescript
 Webstorm（非必须）
 Mac 一台
 ios 手机一步
-TomCat 本地服务器（也可以采用自己熟悉的服务器">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+TomCat 本地服务器（也可以采用自己熟悉的服务器" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="baidu-site-verification" content="F0CXvmUgA9" />
 
     
     
     <link rel="icon" href="/favicon.png">
     
 
-    <link rel="stylesheet" href="/css/style.css">
-<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
 </head>
 <body>
 
@@ -86,7 +88,7 @@ TomCat 本地服务器（也可以采用自己熟悉的服务器">
         <span class="vm">Tags</span>
     </h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/" rel="tag">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/" rel="tag">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/" rel="tag">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97%E5%92%8C%E8%BF%9C%E6%96%B9/" rel="tag">诗和远方</a></li></ul>
     </div>
   </div>
 
@@ -123,7 +125,7 @@ TomCat 本地服务器（也可以采用自己熟悉的服务器">
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发环境"><span class="toc-number">1.</span> <span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发前期-预习"><span class="toc-number">2.</span> <span class="toc-text">开发前期 预习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发步骤"><span class="toc-number">3.</span> <span class="toc-text">开发步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#详细过程"><span class="toc-number">4.</span> <span class="toc-text">详细过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#项目具体步骤"><span class="toc-number">4.0.1.</span> <span class="toc-text">项目具体步骤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#项目附加"><span class="toc-number">4.0.2.</span> <span class="toc-text">项目附加</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#先去下载-生成本地配置文件的-脚本-version-generator-js-放在项目根目录下"><span class="toc-number">4.0.3.</span> <span class="toc-text">先去下载 生成本地配置文件的 脚本  version_generator.js 放在项目根目录下</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编写-更新代码-参考"><span class="toc-number">4.0.4.</span> <span class="toc-text">编写 更新代码 参考</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#搭建服务器"><span class="toc-number">4.0.5.</span> <span class="toc-text">搭建服务器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#构建远程项目"><span class="toc-number">4.0.6.</span> <span class="toc-text">构建远程项目</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决重启后不生效-问题"><span class="toc-number">4.1.</span> <span class="toc-text">解决重启后不生效 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-Xcode-真机测试，或者打包测试"><span class="toc-number">4.1.1.</span> <span class="toc-text">使用 Xcode 真机测试，或者打包测试</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-number">6.</span> <span class="toc-text">注意</span></a></li>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发环境"><span class="toc-number">1.</span> <span class="toc-text">开发环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发前期-预习"><span class="toc-number">2.</span> <span class="toc-text">开发前期 预习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发步骤"><span class="toc-number">3.</span> <span class="toc-text">开发步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#详细过程"><span class="toc-number">4.</span> <span class="toc-text">详细过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#项目具体步骤"><span class="toc-number">4.0.1.</span> <span class="toc-text">项目具体步骤</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#项目附加"><span class="toc-number">4.0.2.</span> <span class="toc-text">项目附加</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#先去下载-生成本地配置文件的-脚本-version-generator-js-放在项目根目录下"><span class="toc-number">4.0.3.</span> <span class="toc-text">先去下载 生成本地配置文件的 脚本  version_generator.js 放在项目根目录下</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#编写-更新代码-参考"><span class="toc-number">4.0.4.</span> <span class="toc-text">编写 更新代码 参考</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#搭建服务器"><span class="toc-number">4.0.5.</span> <span class="toc-text">搭建服务器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#构建远程项目"><span class="toc-number">4.0.6.</span> <span class="toc-text">构建远程项目</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决重启后不生效-问题"><span class="toc-number">4.1.</span> <span class="toc-text">解决重启后不生效 问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-Xcode-真机测试，或者打包测试"><span class="toc-number">4.1.1.</span> <span class="toc-text">使用 Xcode 真机测试，或者打包测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-number">6.</span> <span class="toc-text">注意</span></a></li></ol>
         
     </div>
 </aside>
@@ -149,7 +151,7 @@ TomCat 本地服务器（也可以采用自己熟悉的服务器">
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/Cocos/">Cocos</a>
+    <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
 </div>
 
 
@@ -335,7 +337,7 @@ TomCat 本地服务器（也可以采用自己熟悉的服务器">
         (d.head || d.body).appendChild(s);
     })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
 </div>
 
 </div>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>npm升级所有可更新包 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="version" content="1.0.0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="前端开发，避免不了安装npm 有时候依赖的包，升级了，自己用的版本老了，怎么办，肯定是升级，下面就说说如何查找 可以升级的包，怎么升级的。
+
+
+查找可以升级的包1npm -g outdated
+
+
+升级某个包1npm update &amp;lt;name&amp;gt; -g &amp;#x2F;&amp;#x2F;&amp;lt;name&amp;gt; 是你要升级的包
+
+比如这样 npm update tern -g
+
+检查 升级1npm-check -u -g &amp;#x2F;&amp;#x2F; 全局
+
+1npm-check -u &amp;#x2F;" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta name="baidu-site-verification" content="F0CXvmUgA9" />
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/" rel="tag">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/" rel="tag">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/" rel="tag">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/" rel="tag">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/" rel="tag">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/" rel="tag">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%97%E5%92%8C%E8%BF%9C%E6%96%B9/" rel="tag">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#查找可以升级的包"><span class="toc-number">1.</span> <span class="toc-text">查找可以升级的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#升级某个包"><span class="toc-number">2.</span> <span class="toc-text">升级某个包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查-升级"><span class="toc-number">3.</span> <span class="toc-text">检查 升级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到权限错误"><span class="toc-number">4.</span> <span class="toc-text">遇到权限错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">5.</span> <span class="toc-text">解决办法</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            npm升级所有可更新包
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/8ed10383.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-01-11T05:00:19.000Z" itemprop="datePublished">2020-01-11</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/npm/" rel="tag">npm</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>前端开发，避免不了安装npm 有时候依赖的包，升级了，自己用的版本老了，怎么办，肯定是升级，下面就说说如何查找 可以升级的包，怎么升级的。</p>
+<a id="more"></a>
+
+<h3 id="查找可以升级的包"><a href="#查找可以升级的包" class="headerlink" title="查找可以升级的包"></a>查找可以升级的包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -g outdated</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/8ed10383/image-20200111133947097.png" alt="image-20200111133947097"></p>
+<h3 id="升级某个包"><a href="#升级某个包" class="headerlink" title="升级某个包"></a>升级某个包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update &lt;name&gt; -g &#x2F;&#x2F;&lt;name&gt; 是你要升级的包</span><br></pre></td></tr></table></figure>
+
+<p>比如这样 <code>npm update tern -g</code></p>
+<p><img src="/post/8ed10383/image-20200111134108986.png" alt="image-20200111134108986"></p>
+<h3 id="检查-升级"><a href="#检查-升级" class="headerlink" title="检查 升级"></a>检查 升级</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm-check -u -g &#x2F;&#x2F; 全局</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm-check -u &#x2F;&#x2F;当前项目 目录</span><br></pre></td></tr></table></figure>
+
+<p>然后 使用 空格键 和 Enter键 操作 升级</p>
+<p><img src="/post/8ed10383/image-20200111154343608.png" alt="image-20200111154343608"></p>
+<p>最后升级完成 后</p>
+<p><img src="/post/8ed10383/image-20200111154129274.png" alt="image-20200111154129274"></p>
+<h3 id="遇到权限错误"><a href="#遇到权限错误" class="headerlink" title="遇到权限错误"></a>遇到权限错误</h3><p>比如 <code>checkPermissions Missing write access to /usr/local/lib/node_modules/typescript</code></p>
+<p><img src="/post/8ed10383/image-20200111132801125.png" alt="image-20200111132801125"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">bogon:~ smile$ npm update typescript -g</span><br><span class="line">npm WARN checkPermissions Missing write access to /usr/local/lib/node_modules/typescript</span><br><span class="line">npm ERR! code EACCES</span><br><span class="line">npm ERR! syscall access</span><br><span class="line">npm ERR! path /usr/local/lib/node_modules/typescript</span><br><span class="line">npm ERR! errno -13</span><br><span class="line">npm ERR! Error: EACCES: permission denied, access '/usr/local/lib/node_modules/typescript'</span><br><span class="line">npm ERR!  &#123; [Error: EACCES: permission denied, access '/usr/local/lib/node_modules/typescript']</span><br><span class="line">npm ERR!   stack:</span><br><span class="line">npm ERR!    'Error: EACCES: permission denied, access \'/usr/local/lib/node_modules/typescript\'',</span><br><span class="line">npm ERR!   errno: -13,</span><br><span class="line">npm ERR!   code: 'EACCES',</span><br><span class="line">npm ERR!   syscall: 'access',</span><br><span class="line">npm ERR!   path: '/usr/local/lib/node_modules/typescript' &#125;</span><br><span class="line">npm ERR!</span><br><span class="line">npm ERR! The operation was rejected by your operating system.</span><br><span class="line">npm ERR! It is likely you do not have the permissions to access this file as the current user</span><br><span class="line">npm ERR!</span><br><span class="line">npm ERR! If you believe this might be a permissions issue, please double-check the</span><br><span class="line">npm ERR! permissions of the file and its containing directories, or try running</span><br><span class="line">npm ERR! the command again as root/Administrator.</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $USER /usr/local/lib/node_modules</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>The first time you try to install a package globally using <a href="https://flaviocopes.com/npm/" target="_blank" rel="noopener">npm</a>, using the syntax <code>npm install -g</code> on a Mac, or Linux, you might get a weird error, saying something like</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Missing write access to &#x2F;usr&#x2F;local&#x2F;lib&#x2F;node_modules</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/8ed10383/error-npm-permission.png" alt="error-npm-permission"></p>
+<p>or something along those lines, followed by a long list of other errors of warnings, a consequence of the first error that’s printed to you.</p>
+<p>This error is preventing us to install the package.</p>
+<p>How do you fix this? It’s a permission error, which means you don’t have write access to that folder.</p>
+<p>This is how to solve it. Run this command:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R <span class="variable">$USER</span> /usr/<span class="built_in">local</span>/lib/node_modules</span><br></pre></td></tr></table></figure>
+
+<p>Let’s break it down:</p>
+<p><code>sudo</code> means we are running this command as <code>root</code>, the system super user. This is because we don’t have permission to write to that folder, but <code>root</code> will be able to fix any permission. This command also means the system will ask for your password to confirm.</p>
+<p><code>chown</code> is the command we use to change the owner of a file or folder. We set the <code>-R</code> option to change the owner recursively, so we also get owner access to all the files already contained in there.</p>
+<p><code>$USER</code> is an environment variable automatically set to your username.</p>
+<p>And the final piece is the folder path.</p>
+<p>Running this path will make the folder <em>yours</em>, so you can safely run your <code>npm install -g</code> commands!</p>
+<p>Pay attention to the folder listed by the error message. If it’s different, update the <code>chown</code> command accordingly.</p>
+</blockquote>
+<p>参考地址：<a href="https://flaviocopes.com/npm-fix-missing-write-access-error/" target="_blank" rel="noopener">How to fix the “Missing write access” error when using npm</a></p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/8ed10383.html';
+        this.page.title = 'npm升级所有可更新包';
+        this.page.identifier = 'post/8ed10383.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>
