@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Glyph Designer制作位图字体 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="游戏开发中，字体是很重要的一个展现方式，好的字体总是能做到锦上添花的效果，位图字体是一种常用的解决方案，常用的位图字体设计工具有Hiero、shoebox、littera、Bitmap Font Generator、Glyph Designer，我们今天说说Glyph Designer 怎么开发字体。
+
+
+知识背景
+Bitmap Font Generator - Documentation
+Glyph Designer
+
+开发步骤
+首先我们需要下载 Glyph Designer  然后打开软件
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#知识背景"><span class="toc-number">1.</span> <span class="toc-text">知识背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开发步骤"><span class="toc-number">2.</span> <span class="toc-text">开发步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可能用到的工具"><span class="toc-number">3.</span> <span class="toc-text">可能用到的工具</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Glyph Designer制作位图字体
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/c86ff3a8.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-03-18T05:01:09.000Z" itemprop="datePublished">2019-03-18</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/技术/">技术</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>游戏开发中，字体是很重要的一个展现方式，好的字体总是能做到锦上添花的效果，位图字体是一种常用的解决方案，常用的位图字体设计工具有<a href="https://github.com/libgdx/libgdx/wiki/Hiero" target="_blank" rel="noopener">Hiero</a>、<a href="http://renderhjs.net/shoebox/" target="_blank" rel="noopener">shoebox</a>、<a href="http://kvazars.com/littera/" target="_blank" rel="noopener">littera</a>、<a href="http://www.angelcode.com/products/bmfont/" target="_blank" rel="noopener">Bitmap Font Generator</a>、<a href="https://www.71squared.com/en/glyphdesigner" target="_blank" rel="noopener">Glyph Designer</a>，我们今天说说<a href="https://www.71squared.com/en/glyphdesigner" target="_blank" rel="noopener">Glyph Designer</a> 怎么开发字体。</p>
+<a id="more"></a>
+
+<h3 id="知识背景"><a href="#知识背景" class="headerlink" title="知识背景"></a>知识背景</h3><ul>
+<li><a href="http://www.angelcode.com/products/bmfont/documentation.html" target="_blank" rel="noopener">Bitmap Font Generator - Documentation</a></li>
+<li><a href="https://www.71squared.com/en/glyphdesigner" target="_blank" rel="noopener">Glyph Designer</a></li>
+</ul>
+<h3 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h3><ol>
+<li>首先我们需要下载 Glyph Designer  然后打开软件</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318131821866.png" alt="image-20190318131821866"></p>
+<ol start="2">
+<li>开始看里面各项的参数，比如 字号 颜色等，我们接下来说如何加载自己自定义的字体，先去网上下载一个字体，比如我们的是 FZQiTi-S14S.TTF ，华康勘亭流W9.TTF这个放到桌面上。</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318132108712.png" alt="image-20190318132108712"></p>
+<ol start="3">
+<li>我们选择菜单下面的 load font  然后选择我们 存放字体的位置，比如 我的在桌面</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318132211820.png" alt="image-20190318132211820"></p>
+<ol start="4">
+<li>稍等几秒，然后就可以看到我们字体被加载成功</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318132433387.png" alt="image-20190318132433387"></p>
+<ol start="5">
+<li>我们点击 上面的+号 </li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318132614761.png" alt="image-20190318132614761"></p>
+<ol start="6">
+<li><p>可以使用这三个选项 添加和 取消我们的字体 内容</p>
+<p><img src="/post/c86ff3a8/image-20190318132712029.png" alt="image-20190318132712029"></p>
+</li>
+<li><p>比如我想用 <code>最高成绩0123456789</code>作为内容那么就是</p>
+</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318132947136.png" alt="image-20190318132947136"></p>
+<ol start="8">
+<li>回到主界面 我们看到已经生效</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318133019670.png" alt="image-20190318133019670"></p>
+<ol start="9">
+<li>此时我们可以保存我们的项目，方便以后修改编辑打开</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318133117576.png" alt="image-20190318133117576"></p>
+<ol start="10">
+<li>我们打开菜单下面的 输出设置 </li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318133200990.png" alt="image-20190318133200990"></p>
+<ol start="11">
+<li>设置我们输出的格式，输出大小，输出名字</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318133310386.png" alt="image-20190318133310386"></p>
+<ol start="12">
+<li>最后我们选择输出我们的字体</li>
+</ol>
+<p><img src="/post/c86ff3a8/image-20190318133458065.png" alt="image-20190318133458065"></p>
+<p><strong>以上已经完成位图的制作</strong></p>
+<h3 id="可能用到的工具"><a href="#可能用到的工具" class="headerlink" title="可能用到的工具"></a>可能用到的工具</h3><ul>
+<li><a href="https://www.qqxiuzi.cn/zh/quchong/" target="_blank" rel="noopener">文本去重工具</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/c86ff3a8.html';
+        this.page.title = 'Glyph Designer制作位图字体';
+        this.page.identifier = 'post/c86ff3a8.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

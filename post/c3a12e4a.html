@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>LayaAir2.0(2.4)IDE里面设置滤镜项目运行报错解决办法 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="今天有群友问了一个关于Layabox滤镜(laya.effect.ColorFilterSetter,laya.effect.GlowFilterSetter,laya.effect.BlurFilterSetter)的问题，以前我自己使用滤镜大多是用代码实现的，编辑器很少用到，遇到的问题是 在编辑器用了滤镜组件后，运行项目报错。后面发现是滤镜的类没有注册，提前注册即可。下面记录一下这个问题的现象和解决办法。
+
+
+问题现象和原因分析
+首先我们再场景里面 放一个图片 添加滤镜 
+
+
+
+
+编辑器下，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题现象和原因分析"><span class="toc-number">1.</span> <span class="toc-text">问题现象和原因分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题解决方法"><span class="toc-number">2.</span> <span class="toc-text">问题解决方法</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            LayaAir2.0(2.4)IDE里面设置滤镜项目运行报错解决办法
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/c3a12e4a.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-12-18T14:19:42.000Z" itemprop="datePublished">2019-12-18</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Layabox/">Layabox</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>今天有群友问了一个关于Layabox滤镜(<code>laya.effect.ColorFilterSetter</code>,<code>laya.effect.GlowFilterSetter</code>,<code>laya.effect.BlurFilterSetter</code>)的问题，以前我自己使用滤镜大多是用代码实现的，编辑器很少用到，遇到的问题是 在编辑器用了滤镜组件后，运行项目报错。后面发现是滤镜的类没有注册，提前注册即可。下面记录一下这个问题的现象和解决办法。</p>
+<a id="more"></a>
+
+<h3 id="问题现象和原因分析"><a href="#问题现象和原因分析" class="headerlink" title="问题现象和原因分析"></a>问题现象和原因分析</h3><ul>
+<li>首先我们再场景里面 放一个图片 添加滤镜 </li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219182354898.png" alt="image-20191219182354898"></p>
+<p><img src="/post/c3a12e4a/image-20191219182345037.png" alt="image-20191219182345037"></p>
+<ul>
+<li>编辑器下，效果正常</li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219182532464.png" alt="image-20191219182532464"></p>
+<ul>
+<li>接下来编译项目 运行 发现  我….F,我佛慈悲 ！！居然报错了，编译是正常通过的</li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219182935551.png" alt="image-20191219182935551"></p>
+<ul>
+<li>我们打印一下 信息 发现</li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219183104874.png" alt="image-20191219183104874"></p>
+<p><img src="/post/c3a12e4a/image-20191219183128470.png" alt="image-20191219183128470"></p>
+<ul>
+<li>原来是 类不在，那么怎么让类可以正常呢，通常的做法是在编辑器里勾选我们要导入的类的类库（js文件）</li>
+</ul>
+<p>但是通过查找发现 滤镜的三个雷是 在laya.core.js文件里，也就是说，默认已经加载了，那么为什么依然找不到呢？</p>
+<p><img src="/post/c3a12e4a/image-20191219190027087.png" alt="image-20191219190027087"></p>
+<p>其实是因为没有把类注册进去，我们模仿其他类的注册方法，把我们需要的类也注册进去就可以了。</p>
+<h3 id="问题解决方法"><a href="#问题解决方法" class="headerlink" title="问题解决方法"></a>问题解决方法</h3><ul>
+<li>我们看看其他的类 都是这样注册的</li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219190223793.png" alt="image-20191219190223793"></p>
+<ul>
+<li>我们的类 在配置文件是这样被引用的</li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219190327293.png" alt="image-20191219190327293"></p>
+<p>所以我们在我们的Main.ts（Typescript项目） 或者 Main.js(JavaScript项目)里提前注册即可：</p>
+<p>代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Laya.ClassUtils.regClass(<span class="string">"laya.effect.ColorFilterSetter"</span>, Laya.ColorFilterSetter);</span><br><span class="line">Laya.ClassUtils.regClass(<span class="string">"laya.effect.GlowFilterSetter"</span>, Laya.GlowFilterSetter);</span><br><span class="line">Laya.ClassUtils.regClass(<span class="string">"laya.effect.BlurFilterSetter"</span>, Laya.BlurFilterSetter);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/c3a12e4a/image-20191219190622897.png" alt="image-20191219190622897"></p>
+<ul>
+<li>然后重新编译运行</li>
+</ul>
+<p><img src="/post/c3a12e4a/image-20191219190712090.png" alt="image-20191219190712090"></p>
+<p><img src="/post/c3a12e4a/image-20191219190753030.png" alt="image-20191219190753030"></p>
+<ul>
+<li>最后，成功运行，可以正常在编辑器里，使用我们的滤镜组件了。</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/c3a12e4a.html';
+        this.page.title = 'LayaAir2.0(2.4)IDE里面设置滤镜项目运行报错解决办法';
+        this.page.identifier = 'post/c3a12e4a.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

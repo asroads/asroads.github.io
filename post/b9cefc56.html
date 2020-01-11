@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Layabox2.0引入puremvc框架 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="之前开发小游戏的时候，使用引擎开发，都是把每个面板写成单例，然后需要展示的时候调用起方法，相比之下之前的游戏逻辑都不复杂这样基本都够用了，后面游戏稍微复杂了，开始使用每个模块都有个对外的代理文件，这样模块之间通信都用代理和代理之间接触，加上Layabox自带的自定义事件基本能够满足需要，随着游戏开发越来越复杂，功能越来越多，上面的模式支持起来不太好了，此时需要的是解耦和消息模式，至此我想到了以前用的puremvc 框架。
+
+
+框架介绍puremvc框架是个轻量级的mvc框架，，目前有多个语言版本">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#框架介绍"><span class="toc-number">1.</span> <span class="toc-text">框架介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用注意："><span class="toc-number">2.</span> <span class="toc-text">使用注意：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Event-有事情发生"><span class="toc-number">2.1.</span> <span class="toc-text">Event : 有事情发生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Notification-有状态变化"><span class="toc-number">2.2.</span> <span class="toc-text">Notification : 有状态变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Command-有事情要做"><span class="toc-number">2.3.</span> <span class="toc-text">Command : 有事情要做</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">3.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Event-有事情发生-1"><span class="toc-number">3.1.</span> <span class="toc-text">Event : 有事情发生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Notification-有状态变化-1"><span class="toc-number">3.2.</span> <span class="toc-text">Notification : 有状态变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Command-有事情要做-1"><span class="toc-number">3.3.</span> <span class="toc-text">Command : 有事情要做</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Layabox2.0引入puremvc框架
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/b9cefc56.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-06-24T10:24:33.000Z" itemprop="datePublished">2019-06-24</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Layabox/">Layabox</a>, <a class="article-tag-link" href="/tags/小游戏/">小游戏</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>之前开发小游戏的时候，使用引擎开发，都是把每个面板写成单例，然后需要展示的时候调用起方法，相比之下之前的游戏逻辑都不复杂这样基本都够用了，后面游戏稍微复杂了，开始使用每个模块都有个对外的代理文件，这样模块之间通信都用代理和代理之间接触，加上Layabox自带的自定义事件基本能够满足需要，随着游戏开发越来越复杂，功能越来越多，上面的模式支持起来不太好了，此时需要的是解耦和消息模式，至此我想到了以前用的puremvc 框架。</p>
+<a id="more"></a>
+
+<h3 id="框架介绍"><a href="#框架介绍" class="headerlink" title="框架介绍"></a>框架介绍</h3><p><a href="https://puremvc.org/" target="_blank" rel="noopener">puremvc</a>框架是个轻量级的mvc框架，，目前有多个语言版本，其中常见的C++,C#,GO,Java,JavaScript,PHP,ActionScript3,TypeScript等多种语言，另外很多语言都提供了标准版本和多核版本。该框架代码开源，资料很多，上手容易，概念清晰，容易移植，类库文件很小等优点。</p>
+<p><img src="/post/b9cefc56/image-20190824183550706-6642952.png" alt="image-20190824183550706"></p>
+<p>看上面的结构图，很容易理解，其实就是一个核心层Facade 下面分别控制着 M(model)、V(View)、C(command)实现了标准的MVC模式，通信采用了观察者模式，单例运行。</p>
+<h3 id="使用注意："><a href="#使用注意：" class="headerlink" title="使用注意："></a>使用注意：</h3><blockquote>
+<p><strong>Event，Notification，Command的区别</strong></p>
+<p>在PureMVC中（其实在实际项目里），提到了3个很相似的概念：Event，Notification和Command。</p>
+<p>这三者，是实际实现时，完全可以用同一套相似的方法来实现，那么，为什么还要提出三个概念呢？</p>
+<p>在一个框架中，我们除了要关心底层的实现，更要关注这些概念的实际用途，简单的说：</p>
+<h4 id="Event-有事情发生"><a href="#Event-有事情发生" class="headerlink" title="Event : 有事情发生"></a><em>Event</em> : 有事情发生</h4><p>Event用来告诉外部对象，有事情发生了，比如，一个动画播放完毕，一个网络请求结束了。</p>
+<h4 id="Notification-有状态变化"><a href="#Notification-有状态变化" class="headerlink" title="Notification : 有状态变化"></a><em>Notification</em> : 有状态变化</h4><p>Notification用来告诉外部对象，有状态/数据发生了变化，比如，玩家的金币增加了，玩家分数变化了。</p>
+<h4 id="Command-有事情要做"><a href="#Command-有事情要做" class="headerlink" title="Command : 有事情要做"></a><em>Command</em> : 有事情要做</h4><p>Command用来告诉外部对象，需要执行某个动作了，比如玩家点击了开始游戏，需要开始游戏了。</p>
+</blockquote>
+<p>那么,在Layabox 如何使用呢？</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>首先我们去官网给出的地址，去下载框架源码 下载地址：<a href="https://github.com/PureMVC/puremvc-typescript-standard-framework（[点击下载](https://github.com/PureMVC/puremvc-typescript-standard-framework)）" target="_blank" rel="noopener">https://github.com/PureMVC/puremvc-typescript-standard-framework（[点击下载](https://github.com/PureMVC/puremvc-typescript-standard-framework)）</a></p>
+</li>
+<li><p>然后找到类库里面的puremvc.d.ts 和puremvc.js文件</p>
+</li>
+<li><p>需要修改一下才能使用 具体修改如下：</p>
+<ul>
+<li>注释掉前面四行</li>
+</ul>
+<p><img src="/post/b9cefc56/image-20190824184345625-6643426.png" alt="image-20190824184345625"></p>
+<ul>
+<li>末尾修改如下</li>
+</ul>
+<p><img src="/post/b9cefc56/image-20190824184445658-6643487.png" alt="image-20190824184445658"></p>
+</li>
+<li><p>然后正常引入Layabox引擎项目即可</p>
+</li>
+<li><p>在导出微信项目的时候，puremvc 类库文件没有复制 应该laya官方有特殊的限制，我把名字修改成 <code>laya.puremvc.js</code> 后就可以成功复制，应该是他们监听了laya.类似这样的限制。</p>
+<p>然后再Main文件里面写：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">onConfigLoaded(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">//加载IDE指定的场景</span></span><br><span class="line">        <span class="comment">// GameConfig.startScene &amp;&amp; Laya.Scene.open(GameConfig.startScene);</span></span><br><span class="line">        <span class="comment">//初始化PureMVC框架，并启动游戏 传入 Laya.stage</span></span><br><span class="line">        <span class="keyword">let</span> app = ApplicationFacade.getInstance();</span><br><span class="line">        app.startup(Laya.stage);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ApplicationFacade.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019/6/14 . 17:15</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> StartupCommand <span class="keyword">from</span> <span class="string">"./controller/StartupCommand"</span>;</span><br><span class="line"><span class="keyword">import</span> IFacade = puremvc.IFacade;</span><br><span class="line"><span class="keyword">import</span> Facade = puremvc.Facade;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ApplicationFacade 类对象负责初始化Controller（控制器），建立Command与Notification 名之间的映射；</span></span><br><span class="line"><span class="comment"> * 并执行一个Command注册所有的 Model 和View。它是PureMVC应用程序的入口。</span></span><br><span class="line"><span class="comment"> * @author jsroads</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ApplicationFacade <span class="keyword">extends</span> Facade <span class="keyword">implements</span> IFacade &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里仅仅定义Notification（通知）常量    --    START_UP （private），标识应用程序启动</span></span><br><span class="line"><span class="comment">     * 其它Notification（通知）常量抽离到ApplicationConstants中定义，这样更简洁、清晰</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> START_UP: <span class="built_in">string</span> = <span class="string">"start_up"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> getInstance(): ApplicationFacade &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.instance) <span class="keyword">this</span>.instance = <span class="keyword">new</span> ApplicationFacade();</span><br><span class="line">        <span class="keyword">return</span> &lt;ApplicationFacade&gt;(<span class="keyword">this</span>.instance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 为了ApplicationFacade结构更清晰和简洁。</span></span><br><span class="line"><span class="comment">     * 将注册Command、Proxy、View&amp;Mediator的工作抽离到</span></span><br><span class="line"><span class="comment">     * ControllerCommands.ts、ModelPrepCommand.ts、ViewPrepCommand.ts。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 注册应用程序启动Startup命令，应用程序启动时执行 StartupCommand</span></span><br><span class="line"><span class="comment">     * StartupCommand中将执行以下操作：</span></span><br><span class="line"><span class="comment">     * ControllerCommand -- 初始化应用程序事件与Command之间的映射关系；</span></span><br><span class="line"><span class="comment">     * ModelPrepCommand --    Model 初始化，初始化应用程序启动过程中需要用到的Proxy，并注册；</span></span><br><span class="line"><span class="comment">     * ViewPrepCommand    --    View 初始化，唯一创建并注册ApplicationMediator，它包含其他所有View Component并在启动时创建它们</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> initializeFacade(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.initializeFacade();</span><br><span class="line">        <span class="keyword">this</span>.registerCommand(ApplicationFacade.START_UP, StartupCommand);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动PureMVC，在应用程序中调用此方法，并传递应用程序本身的引用</span></span><br><span class="line"><span class="comment">     * @param stage    -    PureMVC应用程序的根视图 root，包含其它所有的View Componet</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> startup(stage: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.sendNotification(ApplicationFacade.START_UP, stage);</span><br><span class="line">        <span class="keyword">this</span>.removeCommand(ApplicationFacade.START_UP);<span class="comment">//PureMVC初始化完成，注销STARUP命令</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>StartupCommand.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019/6/14 . 17:29</span></span><br><span class="line"><span class="comment"> * 应用程序启动时执行的 MacroCommand.</span></span><br><span class="line"><span class="comment"> * StartupCommand中将执行以下操作：</span></span><br><span class="line"><span class="comment"> *    ControllerCommands   --    初始化应用程序事件与Command之间的映射关系；</span></span><br><span class="line"><span class="comment"> *    ModelPrepCommand     --    Model 初始化，初始化应用程序启动过程中需要用到的Proxy，并注册；</span></span><br><span class="line"><span class="comment"> *    ViewPrepCommand      --    View 初始化，唯一创建并注册ApplicationMediator，包含其他所有View Component并在启动时创建它们</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> MacroCommand = puremvc.MacroCommand;</span><br><span class="line"><span class="keyword">import</span> ControllerCommands <span class="keyword">from</span> <span class="string">"./core/ControllerCommands"</span>;</span><br><span class="line"><span class="keyword">import</span> ModelPrepCommand <span class="keyword">from</span> <span class="string">"./core/ModelPrepCommand"</span>;</span><br><span class="line"><span class="keyword">import</span> ViewPrepCommand <span class="keyword">from</span> <span class="string">"./core/ViewPrepCommand"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> StartupCommand <span class="keyword">extends</span> MacroCommand &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//添加子Command 初始化MacroCommand.</span></span><br><span class="line">    <span class="keyword">public</span> initializeMacroCommand(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 命令会按照“先进先出”（FIFO）的顺序被执行.</span></span><br><span class="line"><span class="comment">         * 在用户与数据交互之前，Model必须处于一种一致的已知的状态.</span></span><br><span class="line"><span class="comment">         * 一旦Model 初始化完成，View视图就可以显示数据允许用户操作与之交互.</span></span><br><span class="line"><span class="comment">         * 因此，一般“ 开启”（startup ）过程首先Model初始化，然后View初始化。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">this</span>.addSubCommand(ControllerCommands);</span><br><span class="line">        <span class="keyword">this</span>.addSubCommand(ModelPrepCommand);</span><br><span class="line">        <span class="keyword">this</span>.addSubCommand(ViewPrepCommand);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ControllerCommands.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019/6/15 . 10:35</span></span><br><span class="line"><span class="comment"> * Note:注册Command ，建立 Command 与Notification 之间的映射</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> AppConstants <span class="keyword">from</span> <span class="string">"../../AppConstants"</span>;</span><br><span class="line"><span class="keyword">import</span> SimpleCommand = puremvc.SimpleCommand;</span><br><span class="line"><span class="keyword">import</span> INotification = puremvc.INotification;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> ControllerCommands <span class="keyword">extends</span> SimpleCommand &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> execute(note: INotification): <span class="built_in">void</span> &#123;</span><br><span class="line">    		<span class="comment">//游戏的command 都在这里注册</span></span><br><span class="line">        <span class="comment">//登录游戏</span></span><br><span class="line">        <span class="keyword">this</span>.facade.registerCommand(AppConstants.LOGIN, LoginCommand);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ModelPrepCommand.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019/6/14 . 18:39</span></span><br><span class="line"><span class="comment"> * Note: 创建Proxy 对象，并注册</span></span><br><span class="line"><span class="comment"> * Model的初始化通常比较简单：创建并注册在“开启”过程中需要用到的Proxy。</span></span><br><span class="line"><span class="comment"> * 这里Command并没有操作或初始任何的Model数据。Proxy 的职责才是取得，创建，和初始化数据对象。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> SimpleCommand = puremvc.SimpleCommand;</span><br><span class="line"><span class="keyword">import</span> INotification = puremvc.INotification;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> ModelPrepCommand <span class="keyword">extends</span> SimpleCommand &#123;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//由MacroCommand调用</span></span><br><span class="line">    <span class="keyword">public</span> execute(note: INotification): <span class="built_in">void</span> &#123;</span><br><span class="line">       		<span class="comment">//游戏的Proxy 都在这里注册</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ViewPrepCommand.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019/6/14 . 18:40</span></span><br><span class="line"><span class="comment"> * Note:创建Mediator，并把它注册到View.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> AppMediator <span class="keyword">from</span> <span class="string">"../../AppMediator"</span>;</span><br><span class="line"><span class="keyword">import</span> SimpleCommand = puremvc.SimpleCommand;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> ViewPrepCommand <span class="keyword">extends</span> SimpleCommand &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> execute(notification: puremvc.INotification): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">//游戏主舞台</span></span><br><span class="line">        <span class="keyword">this</span>.facade.registerMediator(<span class="keyword">new</span> AppMediator());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>AppMediator.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019/6/14 . 18:53</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> AppConstants <span class="keyword">from</span> <span class="string">"./AppConstants"</span>;</span><br><span class="line"><span class="keyword">import</span> Mediator = puremvc.Mediator;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> AppMediator <span class="keyword">extends</span> Mediator &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> NAME: <span class="built_in">string</span> = <span class="string">"AppMediator"</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">mediatorName?: <span class="built_in">string</span>, viewComponent?: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>(AppMediator.NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> onRegister(): <span class="built_in">void</span> &#123;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> getViewComponent(): MainScene &#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;MainScene&gt;<span class="keyword">super</span>.getViewComponent();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> listNotificationInterests(): <span class="built_in">string</span>[] &#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            AppConstants.LOADING_SUCCESS</span><br><span class="line">        ];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> handleNotification(notification: puremvc.INotification): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (notification.getName()) &#123;</span><br><span class="line">            <span class="keyword">case</span> AppConstants.LOADING_SUCCESS:</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上 就是如何在Layabox2.0项目使用 puremvc 框架</p>
+</li>
+<li><p>在PureMVC中（其实在实际项目里），提到了3个很相似的概念：Event，Notification和Command。</p>
+<p>这三者，是实际实现时，完全可以用同一套相似的方法来实现，那么，为什么还要提出三个概念呢？</p>
+<p>在一个框架中，我们除了要关心底层的实现，更要关注这些概念的实际用途，简单的说：</p>
+<h4 id="Event-有事情发生-1"><a href="#Event-有事情发生-1" class="headerlink" title="Event : 有事情发生"></a><em>Event</em> : 有事情发生</h4><p>Event用来告诉外部对象，有事情发生了，比如，一个动画播放完毕，一个网络请求结束了。</p>
+<h4 id="Notification-有状态变化-1"><a href="#Notification-有状态变化-1" class="headerlink" title="Notification : 有状态变化"></a><em>Notification</em> : 有状态变化</h4><p>Notification用来告诉外部对象，有状态/数据发生了变化，比如，玩家的金币增加了，玩家分数变化了。</p>
+<h4 id="Command-有事情要做-1"><a href="#Command-有事情要做-1" class="headerlink" title="Command : 有事情要做"></a><em>Command</em> : 有事情要做</h4><p>Command用来告诉外部对象，需要执行某个动作了，比如玩家点击了开始游戏，需要开始游戏了。</p>
+</li>
+<li><p>项目源码 <a href="https://github.com/jsroads/layademo-puremvc" target="_blank" rel="noopener">点击进入</a></p>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://puremvc.org/docs/PureMVC_IIBP_Chinese.pdf" target="_blank" rel="noopener">PureMVC 最佳实践</a></li>
+<li><a href="https://github.com/PureMVC/puremvc-typescript-standard-framework" target="_blank" rel="noopener">https://github.com/PureMVC/puremvc-typescript-standard-framework</a></li>
+<li><a href="https://www.cnblogs.com/skynet/archive/2012/12/29/2838303.html" target="_blank" rel="noopener">PureMVC（AS3）剖析</a></li>
+<li><a href="https://xmanyou.com/puremvcbi-ji-event-notification/" target="_blank" rel="noopener">PureMVC笔记  Event，Notification，Command的区别</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/b9cefc56.html';
+        this.page.title = 'Layabox2.0引入puremvc框架';
+        this.page.identifier = 'post/b9cefc56.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

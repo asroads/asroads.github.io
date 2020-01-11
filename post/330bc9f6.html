@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Layabox-学习笔记-(4) | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="Layabox 微信小游戏适配问题最近开始用Layabox开发微信小游戏，小游戏出来差不多半年多了，前面的开发者基本把该踩的坑都踩的差不多了，站在巨人的肩膀上，就会走的很快，看的很远，所以我遇到的很多问题都是前辈们遇到的问题，有些问题，Layabox官方已经解决，有些问题还没来得及解决，所以我记录下，便于以后自己查阅。
+
+
+微信小游戏，在IPhoneX机器上面适配问题问题描述：
+主要是屏幕显示问题有误，但是触摸位置还是对的
+
+查找问题
+首先去论坛看看别人怎么解决的，避免重复发明轮子
+再次认真的读">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Layabox-微信小游戏适配问题"><span class="toc-number">1.</span> <span class="toc-text">Layabox 微信小游戏适配问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信小游戏，在IPhoneX机器上面适配问题"><span class="toc-number">2.</span> <span class="toc-text">微信小游戏，在IPhoneX机器上面适配问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#问题描述："><span class="toc-number">2.1.</span> <span class="toc-text">问题描述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查找问题"><span class="toc-number">2.2.</span> <span class="toc-text">查找问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最后结论"><span class="toc-number">2.3.</span> <span class="toc-text">最后结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两套图适配"><span class="toc-number">3.</span> <span class="toc-text">两套图适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一套图适配"><span class="toc-number">4.</span> <span class="toc-text">一套图适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Layabox-学习笔记-(4)
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/330bc9f6.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2018-08-17T12:45:33.000Z" itemprop="datePublished">2018-08-17</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Layabox/">Layabox</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h3 id="Layabox-微信小游戏适配问题"><a href="#Layabox-微信小游戏适配问题" class="headerlink" title="Layabox 微信小游戏适配问题"></a>Layabox 微信小游戏适配问题</h3><p>最近开始用Layabox开发微信小游戏，小游戏出来差不多半年多了，前面的开发者基本把该踩的坑都踩的差不多了，站在巨人的肩膀上，就会走的很快，看的很远，所以我遇到的很多问题都是前辈们遇到的问题，有些问题，Layabox官方已经解决，有些问题还没来得及解决，所以我记录下，便于以后自己查阅。</p>
+<a id="more"></a>
+
+<h3 id="微信小游戏，在IPhoneX机器上面适配问题"><a href="#微信小游戏，在IPhoneX机器上面适配问题" class="headerlink" title="微信小游戏，在IPhoneX机器上面适配问题"></a>微信小游戏，在IPhoneX机器上面适配问题</h3><h4 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h4><ul>
+<li>主要是屏幕显示问题有误，但是触摸位置还是对的</li>
+</ul>
+<h4 id="查找问题"><a href="#查找问题" class="headerlink" title="查找问题"></a>查找问题</h4><ul>
+<li>首先去论坛看看别人怎么解决的，避免重复发明轮子</li>
+<li>再次认真的读了一遍 官方关于适配的方案</li>
+<li>利用百度、Google搜索问题</li>
+<li>去知名论坛比如知乎、博客园搜索问题</li>
+</ul>
+<h4 id="最后结论"><a href="#最后结论" class="headerlink" title="最后结论"></a>最后结论</h4><p>在很多问题里面找到了三篇认为比较靠谱的</p>
+<ol>
+<li><a href="https://ask.layabox.com/question/15359" target="_blank" rel="noopener">微信小游戏中iPhoneX的适配问题</a></li>
+<li><a href="https://ask.layabox.com/question/14023" target="_blank" rel="noopener">微信小游戏适配问题</a></li>
+<li><a href="https://tianbozhang.coding.me/minigame-screenadaptation.html" target="_blank" rel="noopener">微信小游戏屏幕适配</a></li>
+</ol>
+<p>其中前两篇 官方人员回复得到了部分答案以下是原文摘抄</p>
+<blockquote>
+<p>微信小游戏不允许引擎来控制canvas的大小。小游戏的canvas大小是自动拉伸的。而exactfit模式的stage宽高会一直等于设计宽高，当canvas无法控制的时候，exactfit的适配其实是失效了。这里建议你用fixedauto、或者full等无需考虑设计宽高，会自动改变stage宽高的适配模式，再结合一些其它适配方案来尝试一下。</p>
+<p>比如，<br>就拿你上传的DEMO来讲，使用fixedauto、或者full适配模式后，将bg的top、bottom、left、right属性设置为0，不就可以铺满全屏了么。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>以上问题解决方案，<br>1，小游戏用webGL模式不要用canvas模式。<br>2, webGL模式下，iphoneX显示确实是在部分适配模式下存在不准确的情况。核心原因是微信小游戏不允许引擎来控制canvas的大小。小游戏的canvas大小是自动拉伸的。所以有一些适配模式就失效了。这里建议采用fixedauto、或者full等模式，这些模式的适配原理是无需考虑设计宽高，会自动改变stage宽高。所以用这些适配模式可解决遇到的问题。如果存在背景图显示全屏铺满的需求，可以通过将背景图的top、bottom、left、right属性设置为0，就可以铺满全屏了。</p>
+</blockquote>
+<p>第三篇也给出了相应的两种方案两种可行的解决方案</p>
+<blockquote>
+<h3 id="两套图适配"><a href="#两套图适配" class="headerlink" title="两套图适配"></a>两套图适配</h3><p>iphonex 大分辨率与5s 小分辨率对比图见《游戏截图》文档</p>
+<hr>
+<p>按物理分辨率取比，以16：9为基础</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">//比例大于16:9的，标记为大分辨率</span></span><br><span class="line">&gt; <span class="keyword">this</span>.isLargeScreen= <span class="built_in">Math</span>.floor(height/width)&gt;<span class="built_in">Math</span>.floor(<span class="number">16</span>/<span class="number">9</span>)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>背景资源分别获取</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;  <span class="keyword">if</span>(<span class="keyword">this</span>.isLargeScreen) bg.skin = <span class="string">"大图"</span></span><br><span class="line">&gt;  </span><br><span class="line">&gt; <span class="keyword">else</span> bg.skin = <span class="string">"小图"</span>;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>不缩放(默认值，可不写)</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; Laya.stage.scaleMode = Laya.Stage.SCALE_NOSCALE</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>舞台尺寸设置为固定物理尺寸，保证各16:9 设备等比缩放，不会出现黑边typescripttypescript</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">if</span> (<span class="keyword">this</span>.isLargeScreen) &#123;</span><br><span class="line">&gt;            Laya.init(<span class="number">1125</span>, <span class="number">2436</span>, Laya.WebGL);</span><br><span class="line">&gt;        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">&gt;            Laya.init(<span class="number">640</span>, <span class="number">1136</span>, Laya.WebGL);</span><br><span class="line">&gt;        &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>原因：现有缩放模式不支持两边裁剪，至多为一边裁剪</p>
+</blockquote>
+<p><strong>纠正</strong>我认为作者这个判断有问题<code>this.isLargeScreen= Math.floor(height/width)&gt;Math.floor(16/9)</code></p>
+<p>应该是 <code>this.isLargeScreen= height/width&gt;Math.floor16.0/9.0</code></p>
+<blockquote>
+<h3 id="一套图适配"><a href="#一套图适配" class="headerlink" title="一套图适配"></a>一套图适配</h3><p>示例：<a href="http://tcxxm.y2game.net/" target="_blank" rel="noopener">天才削熊猫</a></p>
+<p><strong>思路</strong>：高度不变，宽度适配，水平居中，两边裁剪，元素相对布局，设计时设置安全区域</p>
+<p>实现：一套背景图，<code>1480x1920</code>，水平居中：centerx = 0，y = 0，启用相对父类布局<code>layoutEnable = true</code></p>
+<p>屏幕宽高：<code>1080x1920</code></p>
+<p>代码或UI 元素：启用相对父类布局，设置left,right top ,bottom，<code>layoutEnable = true</code></p>
+<p>缩放模式：<code>fixedHeight</code></p>
+<p>代码示例</p>
+<p>以<code>1080x1920</code>(具体看需求)尺寸图为标准、设计尺寸，路径以res为例</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">//舞台初始化</span></span><br><span class="line">&gt; Laya.init(<span class="number">1080</span>, <span class="number">1920</span>);</span><br><span class="line">&gt; <span class="comment">//缩放模式</span></span><br><span class="line">&gt; Laya.stage.scaleMode = Laya.Stage.SCALE_FIXED_HEIGHT;</span><br><span class="line">&gt; <span class="comment">//背景添加</span></span><br><span class="line">&gt; <span class="keyword">var</span> imageBg:Laya.Image = <span class="keyword">new</span> Laya.Image();  </span><br><span class="line">&gt; imageBg.skin = <span class="string">"res/bg_main.png"</span>;</span><br><span class="line">&gt; imageBg.centerX = <span class="number">0</span>;</span><br><span class="line">&gt; imageBg.layoutEnabled = <span class="literal">true</span>;</span><br><span class="line">&gt; imageBg.y = <span class="number">0</span>;</span><br><span class="line">&gt; Laya.stage.addChild(imageBg);</span><br><span class="line">&gt; <span class="comment">//UI元素添加，以添加到舞台为例</span></span><br><span class="line">&gt;  <span class="keyword">var</span> btn: Laya.Button = <span class="keyword">new</span> Laya.Button();</span><br><span class="line">&gt; btn.skin = <span class="string">"res/btn.png"</span>;</span><br><span class="line">&gt; btn.layoutEnabled = <span class="literal">true</span>;</span><br><span class="line">&gt; btn.left = <span class="number">165</span>;</span><br><span class="line">&gt; btn.bottom = <span class="number">50</span>;</span><br><span class="line">&gt; btn.stateNum = <span class="number">1</span>;</span><br><span class="line">&gt; Laya.stage.addChild(btn);</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<p>最后我自己的方案是先根据当前屏幕大小判断机型，然后去做处理</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> asroads&#123;</span><br><span class="line">    <span class="keyword">import</span> Size = Laya.Size;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> ConfigGame &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> _size:Size;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> _width:<span class="built_in">number</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> _height:<span class="built_in">number</span>;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> height(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> GameConfig.size.height;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> width(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> GameConfig.size.width;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span>  size(): Laya.Size &#123;</span><br><span class="line">            <span class="keyword">this</span>._size = &#123;width:<span class="number">640</span>,height:<span class="number">640</span>*(Laya.Browser.clientHeight/Laya.Browser.clientWidth)&#125;;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>._size;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> halfHeight(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> GameConfig.size.height*<span class="number">0.5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> halfWidth(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> GameConfig.size.width*<span class="number">0.5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> isLargeScreen():<span class="built_in">boolean</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (Laya.Browser.clientWidth/Laya.Browser.clientHeight)&lt;=(<span class="number">414</span>/<span class="number">896</span>)?<span class="literal">true</span>:<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后结合 LayaAir 自身带的布局属性，基本解决了问题。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a href="https://ask.layabox.com/question/15359" target="_blank" rel="noopener">微信小游戏中iPhoneX的适配问题</a></li>
+<li><a href="https://ask.layabox.com/question/14023" target="_blank" rel="noopener">微信小游戏适配问题</a></li>
+<li><a href="https://tianbozhang.coding.me/minigame-screenadaptation.html" target="_blank" rel="noopener">微信小游戏屏幕适配</a></li>
+</ol>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/330bc9f6.html';
+        this.page.title = 'Layabox-学习笔记-(4)';
+        this.page.identifier = 'post/330bc9f6.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

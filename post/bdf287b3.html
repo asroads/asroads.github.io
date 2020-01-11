@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Cocos Creator 采坑日记，看看你有没有遇到过 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="在开发游戏的过程中，多多少少都会采坑，有时候是自己对API理解的不够透彻，引起的误解，有时候是问题报错查找起来很费功夫，总的来讲，很多问题值得记录和分析参考，故而记下来，那么看看你再开发的过程中有没有遇到这样的坑呢？
+
+本文主要说Cocos Creator 引擎在开发游戏中遇到的点点滴滴，后面会不定时更新，及时添加遇到的新的问题。
+网页不报错，小游戏模拟器报错1Uncaught ReferenceError: loadBabelMod is not defined
+
+
+原因：游戏内我使用了ES6">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#网页不报错，小游戏模拟器报错"><span class="toc-number">1.</span> <span class="toc-text">网页不报错，小游戏模拟器报错</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#开启增强编译"><span class="toc-number">1.0.1.</span> <span class="toc-text">开启增强编译</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#其他选项"><span class="toc-number">1.0.2.</span> <span class="toc-text">其他选项</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#Button-的-interactable-属性设置-不生效"><span class="toc-number">2.</span> <span class="toc-text">Button 的 interactable 属性设置 不生效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟器报错-Cannot-read-property-‘0’-of-undefined"><span class="toc-number">3.</span> <span class="toc-text">模拟器报错 Cannot read property ‘0’ of undefined</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cannot-read-property-‘updateRenderData’-of-null"><span class="toc-number">4.</span> <span class="toc-text">Cannot read property ‘updateRenderData’ of null</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator 采坑日记，看看你有没有遇到过
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/bdf287b3.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-12-25T14:01:18.000Z" itemprop="datePublished">2019-12-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>在开发游戏的过程中，多多少少都会采坑，有时候是自己对API理解的不够透彻，引起的误解，有时候是问题报错查找起来很费功夫，总的来讲，很多问题值得记录和分析参考，故而记下来，那么看看你再开发的过程中有没有遇到这样的坑呢？</p>
+<a id="more"></a>
+<p>本文主要说Cocos Creator 引擎在开发游戏中遇到的点点滴滴，后面会不定时更新，及时添加遇到的新的问题。</p>
+<h3 id="网页不报错，小游戏模拟器报错"><a href="#网页不报错，小游戏模拟器报错" class="headerlink" title="网页不报错，小游戏模拟器报错"></a>网页不报错，小游戏模拟器报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught ReferenceError: loadBabelMod is not defined</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/bdf287b3/image-20191226092601253.png" alt="image-20191226092601253"></p>
+<p><strong>原因：</strong>游戏内我使用了ES6开发，编辑器内我勾选了 增强编译：</p>
+<p>关于增强编译可以参考这个地址：<a href="https://developers.weixin.qq.com/community/develop/doc/00066877c54eb0ff5488b54885b801" target="_blank" rel="noopener">微信开发者工具 1.02.1905081 更新说明</a></p>
+<blockquote>
+<p>新版工具增加了<code>增强编译</code>的选项来增强<code>ES6转ES5</code>的能力，启用后会使用新的编译逻辑以及提供额外的选项供开发者使用。</p>
+<p>启用<code>增强编译</code>后的编译能力的对比：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="center">原有逻辑</th>
+<th align="center">增强编译</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Babel版本</td>
+<td align="center">babel6</td>
+<td align="center">babel7</td>
+</tr>
+<tr>
+<td align="left">Presets</td>
+<td align="center">es2015、stage0</td>
+<td align="center">env {chrome:53, ios:8}</td>
+</tr>
+<tr>
+<td align="left">Helpers</td>
+<td align="center">单文件内联</td>
+<td align="center">跨文件共享</td>
+</tr>
+<tr>
+<td align="left">Async/Await</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="left">严格模式开关</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="left">忽略文件目录</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="left">代码压缩</td>
+<td align="center">uglify-js</td>
+<td align="center">terser</td>
+</tr>
+<tr>
+<td align="left">Babel插件</td>
+<td align="center">-</td>
+<td align="center">一系列proposal<code>*</code></td>
+</tr>
+<tr>
+<td align="left">polyfill</td>
+<td align="center">大部分es6</td>
+<td align="center">新增三个polyfill<code>*</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用<code>preset-env</code>,支持最新的<code>ECMAScript</code>语法</li>
+<li>共享helpers函数，默认放在项目<code>@babel/runtime</code>目录，可通过<code>项目配置文件</code>配置</li>
+<li>支持async/await语法，按需注入<code>regeneratorRuntime</code>，目录位置与helpers函数一致</li>
+<li>文件首行是<code>// use strict disable;</code>时，即可禁用文件严格模式</li>
+<li>可通过<code>项目配置文件</code>指定任意文件、目录不经过编译（如：miniprogram_npm）</li>
+<li>原有逻辑是支持<code>stage0</code>语法的，为了向前兼容，<a href="https://github.com/babel/babel/blob/master/packages/babel-preset-stage-0/README.md" target="_blank" rel="noopener">引入了一系列proposal插件</a></li>
+<li>关于polyfill，基础库中已经引入了大量的<code>es6</code>相关的polyfill <a href="https://developers.weixin.qq.com/miniprogram/dev/guide/runtime/js-support.html" target="_blank" rel="noopener">可参考文档</a>，增强编译下，新增：Array.prototype.includes<code>(es7)</code>、Object.entries<code>(es8)</code>、Object.values<code>(es8)</code></li>
+</ul>
+<h5 id="开启增强编译"><a href="#开启增强编译" class="headerlink" title="开启增强编译"></a>开启增强编译</h5><p>项目详情页中，勾选<code>增强编译</code>选项<br><img src="/post/bdf287b3/0.jpeg" alt="img"></p>
+<p>打开后，即可在项目中使用最新的js语法</p>
+<p><img src="/post/bdf287b3/0-20191226091649636.jpeg" alt="img"></p>
+<p>工具运行时，会按需注入一些辅助函数和regeneratorRuntime， 注入的目录路径可通过配置修改，上传代码时（包括预览时）这些文件会作为代码包的一部分</p>
+<p><img src="/post/bdf287b3/0-20191226091654928.jpeg" alt="img"></p>
+<h5 id="其他选项"><a href="#其他选项" class="headerlink" title="其他选项"></a>其他选项</h5><p>其他可选项详情请参考<a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html" target="_blank" rel="noopener">项目配置文档</a></p>
+</blockquote>
+<p>其实 看了上面的说明和解释，问题基本明了，就是开放域也要使用ES6 才行，解决问题大概有两个方向</p>
+<ul>
+<li>游戏内不用ES6语法，取消勾选 增强编译</li>
+<li>继续使用，语法格式保持统一</li>
+</ul>
+<p>作为追求进步的编码者，肯定是想尽办法也是用第二种策略，于是我找到我开放域的代码，重新写了一遍，代码成功运行，此处，也遇到一个问题是</p>
+<p><code>this is undefined</code> 这个错误，之前一直都是正常的，怎么突然就报了这个错呢，后面我再阅读文档遇到了一段解释，才算是 明白了。地址（<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">点击前往</a>）</p>
+<blockquote>
+<p>在箭头函数出现之前，每一个新函数根据它是被如何调用的来定义这个函数的this值：</p>
+<ul>
+<li>如果是该函数是一个构造函数，this指针指向一个新的对象</li>
+<li>在严格模式下的函数调用下，this指向undefined</li>
+<li>如果是该函数是一个对象的方法，则它的this指针指向这个对象</li>
+<li>等等</li>
+</ul>
+<p><code>This</code>被证明是令人厌烦的面向对象风格的编程。</p>
+</blockquote>
+<h3 id="Button-的-interactable-属性设置-不生效"><a href="#Button-的-interactable-属性设置-不生效" class="headerlink" title="Button 的 interactable 属性设置 不生效"></a>Button 的 interactable 属性设置 不生效</h3><p>编辑设置 这个属性，是正常的，但是在代码里 我动态调用后，输出值是正确的，但是UI没有生效</p>
+<p><img src="/post/bdf287b3/image-20191226093032830.png" alt="image-20191226093032830"></p>
+<p>我更改后输出打印的值：</p>
+<p><img src="/post/bdf287b3/image-20191226093106999.png" alt="image-20191226093106999"></p>
+<p>怪哉，怪哉！很奇怪，但是我再编辑器里 如果一开始设置了 就是正确的，其实后面通过我和之前正常的仔仔细细对比之后，得出结论是：</p>
+<p><strong>原因：</strong>我动态调用的代码运行在 这个脚本组件的 <code>onLoad</code> 函数之前，此时虽然我代码调用了这个属性，但是我的组件的<code>onLoad</code>函数还没有执行，我把调用的代码 放到 <code>onLoad</code> 函数调用 后 就可以正常显示！！这个是对组件的渲染和运行的模型了解不够透彻，才入坑，基本遇到后续这样的调用，都应该改成，提前调用只更改数据，等onLoad调用的时候，再去用数据 驱动UI的改变。</p>
+<h3 id="模拟器报错-Cannot-read-property-‘0’-of-undefined"><a href="#模拟器报错-Cannot-read-property-‘0’-of-undefined" class="headerlink" title="模拟器报错 Cannot read property ‘0’ of undefined"></a>模拟器报错 Cannot read property ‘0’ of undefined</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught TypeError: Cannot read property &apos;0&apos; of undefined</span><br></pre></td></tr></table></figure>
+
+<p>其实从错误 我们 看不太明白是什么问题 </p>
+<p><img src="/post/bdf287b3/image-20191226093700223.png" alt="image-20191226093700223"></p>
+<p>我们点击错误 看看报错的代码的地方</p>
+<p><img src="/post/bdf287b3/image-20191226093910764.png" alt="image-20191226093910764"></p>
+<p><strong>原因：</strong>既然直接指向了 这个组件脚本，那么肯定是这个脚本有问题，后面经过查找得知是 import的时候，文件的路径写的不正确，平时我自己写 引入 都是用 编辑器自动引入的，这个应该是别人从别的地方 复制，粘贴，导致的错误</p>
+<p>解决办法：既然是引入错误，修复引入路径即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> GameData <span class="keyword">from</span> <span class="string">"../../GameData"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> GameData <span class="keyword">from</span> <span class="string">"../GameData"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其实可以看出，如果 引入路径不正确，都会引发这个错误，所以我们再引入文件对象的时候，对文件路径要仔细校对。善用工具（快捷键 or 自动引入都是比较好的办法）。</p>
+<h3 id="Cannot-read-property-‘updateRenderData’-of-null"><a href="#Cannot-read-property-‘updateRenderData’-of-null" class="headerlink" title="Cannot read property ‘updateRenderData’ of null"></a>Cannot read property ‘updateRenderData’ of null</h3><p>在Chome 里面 正常的，打包发布到 微信小游戏后 报错 打印了 很多条这个信息</p>
+<p><img src="/post/bdf287b3/image-20200103151417985.png" alt="image-20200103151417985"></p>
+<p>原因：</p>
+<p><img src="/post/bdf287b3/image-20200103151520578.png" alt="image-20200103151520578"></p>
+<p>我的游戏内使用了 3D旋转的功能</p>
+<p><img src="/post/bdf287b3/image-20200103151557573.png" alt="image-20200103151557573"></p>
+<p>但是项目设置里面 没有勾选 这个 3D 的模块</p>
+<p><img src="/post/bdf287b3/image-20200103151657533.png" alt="image-20200103151657533"></p>
+<p>勾选这个 类库 或者 取消使用这个 功能即可。</p>
+<p>分析 ：这类Bug 比较隐蔽，需要细心才能发觉异常，毕竟没有栈信息 看</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。</p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/bdf287b3.html';
+        this.page.title = 'Cocos Creator 采坑日记，看看你有没有遇到过';
+        this.page.identifier = 'post/bdf287b3.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

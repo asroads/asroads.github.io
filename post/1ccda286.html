@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>LayaBox2.0 圆形进度条制作 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="前段时间看了Laya关于进度条的实现，官方给了一个横着的，看到很多小游戏都是自定义的圆形，于是也想实现一个圆形进度条。
+
+
+步骤新建项目 铺垫素材
+我们需要美术制作一个圆环形，其实最好是两个，另外一个作为下面的背景环形，我这里只是说说思路，一个环形。
+
+
+
+项目结构和素材名字大概如下
+
+
+
+我们的场景MiniLoading.scene放入素材 并且新建一个文本 名字叫 processText 
+
+
+编写代码逻辑
+我们新建一个Typescript文件，名字叫做MiniLoading.ts 继承 我">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#新建项目-铺垫素材"><span class="toc-number">1.1.</span> <span class="toc-text">新建项目 铺垫素材</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写代码逻辑"><span class="toc-number">1.2.</span> <span class="toc-text">编写代码逻辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">2.</span> <span class="toc-text">后记</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            LayaBox2.0 圆形进度条制作
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/1ccda286.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-03-27T11:48:39.000Z" itemprop="datePublished">2019-03-27</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Layabox/">Layabox</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>前段时间看了Laya关于进度条的实现，官方给了一个横着的，看到很多小游戏都是自定义的圆形，于是也想实现一个圆形进度条。</p>
+<a id="more"></a>
+
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="新建项目-铺垫素材"><a href="#新建项目-铺垫素材" class="headerlink" title="新建项目 铺垫素材"></a>新建项目 铺垫素材</h3><ol>
+<li>我们需要美术制作一个圆环形，其实最好是两个，另外一个作为下面的背景环形，我这里只是说说思路，一个环形。</li>
+</ol>
+<p><img src="/post/1ccda286/image-20190327195829575.png" alt="image-20190327195829575"></p>
+<ol start="2">
+<li>项目结构和素材名字大概如下</li>
+</ol>
+<p><img src="/post/1ccda286/image-20190327195911046.png" alt="image-20190327195911046"></p>
+<ol start="3">
+<li>我们的场景<code>MiniLoading.scene</code>放入素材 并且新建一个文本 名字叫 processText </li>
+</ol>
+<p><img src="/post/1ccda286/image-20190327200039711.png" alt="image-20190327200039711"></p>
+<h3 id="编写代码逻辑"><a href="#编写代码逻辑" class="headerlink" title="编写代码逻辑"></a>编写代码逻辑</h3><ol>
+<li>我们新建一个Typescript文件，名字叫做MiniLoading.ts 继承 我们场景创建的UI，代码结构如下</li>
+</ol>
+<p><img src="/post/1ccda286/image-20190327200429450.png" alt="image-20190327200429450"></p>
+<ol start="2">
+<li>我们编写逻辑，代码如下所示</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;ui&#125; <span class="keyword">from</span> <span class="string">"../ui/layaMaxUI"</span>;</span><br><span class="line"><span class="keyword">import</span> Sprite = Laya.Sprite;</span><br><span class="line"><span class="keyword">import</span> MiniLoadingUI = ui.test.MiniLoadingUI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> MiniLoading <span class="keyword">extends</span> MiniLoadingUI &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> Ins(): MiniLoading &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>._Ins) <span class="keyword">this</span>._Ins = <span class="keyword">new</span> MiniLoading();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._Ins;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> _Ins: MiniLoading;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> angle: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> sp: Sprite;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    open(closeOther?: <span class="built_in">boolean</span>, param?: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        Laya.Scene.load(<span class="string">"test/MiniLoading.scene"</span>, Laya.Handler.create(<span class="keyword">this</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            Laya.stage.addChild(<span class="keyword">this</span>);</span><br><span class="line">            <span class="comment">// 选择中心点 为坐标点</span></span><br><span class="line">            <span class="keyword">this</span>.mc.pivotX = <span class="keyword">this</span>.mc.width * <span class="number">0.5</span>;</span><br><span class="line">            <span class="keyword">this</span>.mc.pivotY = <span class="keyword">this</span>.mc.height * <span class="number">0.5</span>;</span><br><span class="line">            <span class="keyword">this</span>.processText.pos(<span class="keyword">this</span>.mc.x,<span class="keyword">this</span>.mc.y);</span><br><span class="line">            <span class="keyword">this</span>.sp = <span class="keyword">new</span> Sprite();</span><br><span class="line">            <span class="keyword">this</span>.sp.pos(<span class="keyword">this</span>.mc.pivotX, <span class="keyword">this</span>.mc.pivotY);</span><br><span class="line">            <span class="comment">// this.addChild(this.sp);</span></span><br><span class="line">            <span class="keyword">this</span>.mc.mask = <span class="keyword">this</span>.sp;</span><br><span class="line">            <span class="keyword">let</span> radius = <span class="built_in">Math</span>.max(<span class="keyword">this</span>.mc.width,<span class="keyword">this</span>.mc.height);</span><br><span class="line">            <span class="comment">// 用timer 模拟一个加载</span></span><br><span class="line">            Laya.timer.loop(<span class="number">10</span>, <span class="keyword">this</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.angle++;</span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">this</span>.angle&gt;<span class="number">360</span>)&#123;</span><br><span class="line">                    Laya.timer.clearAll(<span class="keyword">this</span>);</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"Happy------:"</span> + <span class="built_in">JSON</span>.stringify(<span class="string">"加载完成"</span>));</span><br><span class="line">                    <span class="comment">//TODO</span></span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">let</span> process = <span class="keyword">this</span>.angle==<span class="number">360</span>?<span class="string">"100"</span>:(<span class="keyword">this</span>.angle/<span class="number">360</span>*<span class="number">100</span>).toFixed(<span class="number">0</span>);</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"进度------:"</span> + <span class="built_in">JSON</span>.stringify(process));</span><br><span class="line">                <span class="keyword">this</span>.processText.text = process+<span class="string">"%"</span>;</span><br><span class="line">                <span class="comment">// this.sp.graphics.clear(true);//此代码打开后 在 90 180 270 360 度的时候 会闪一下</span></span><br><span class="line">                <span class="keyword">this</span>.sp.graphics.drawPie(<span class="number">0</span>, <span class="number">0</span>, radius, <span class="number">0</span>, <span class="keyword">this</span>.angle, <span class="string">"#00ffff"</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    onOpened(param: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>编译 查看效果</p>
+<p><img src="/post/1ccda286/image-20190327200710191.png" alt="image-20190327200710191"></p>
+<p><strong>制作完成</strong></p>
+</li>
+</ol>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>自从项目升级到Layabox2.0以后，各种新的坑也接踵而至，新的知识扑面而来，官方对于2.0的文档目前泛而不精，只有一些描述的轮廓和介绍，缺少了很多实例和讲解，有时候做东西，如果只是知其然，而不知其所以然，长此以往就会各种茫然，一旦后期遇到重构和优化，会遇到很多棘手的问题。学习要徐徐渐进，才能学有所得。</p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/1ccda286.html';
+        this.page.title = 'LayaBox2.0 圆形进度条制作';
+        this.page.identifier = 'post/1ccda286.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Cocos Creator Tween Max 小游戏引入 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="之前的文章里写过关于Layabox如何引入TweenMax类库的，对于Cocos Creator来讲基本大同小异，不同是是可以作为插件导入，直接使用，很是方便，只是在发布小游戏的时候，突然就冒出一个 TweenMax is not defined，于是查找了各方资料，得以解决。
+
+
+问题描述
+文章描述：在Web和模拟器下都是好的，发布小游戏后，报错显示 TweenMax is not defined
+类库导入关于TweenMax如何导入 可以参考两篇文章，一个是Cocos Creator官方的 ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类库导入"><span class="toc-number">2.</span> <span class="toc-text">类库导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修复问题"><span class="toc-number">3.</span> <span class="toc-text">修复问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator Tween Max 小游戏引入
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/d927b4f2.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-12-08T07:17:21.000Z" itemprop="datePublished">2019-12-08</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>之前的文章里写过关于Layabox如何引入TweenMax类库的，对于Cocos Creator来讲基本大同小异，不同是是可以作为插件导入，直接使用，很是方便，只是在发布小游戏的时候，突然就冒出一个 TweenMax is not defined，于是查找了各方资料，得以解决。</p>
+<a id="more"></a>
+
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><img src="/post/d927b4f2/image-20191209155240060.png" alt="image-20191209155240060"></p>
+<p>文章描述：在Web和模拟器下都是好的，发布小游戏后，报错显示 <code>TweenMax is not defined</code></p>
+<h3 id="类库导入"><a href="#类库导入" class="headerlink" title="类库导入"></a>类库导入</h3><p>关于TweenMax如何导入 可以参考两篇文章，一个是Cocos Creator官方的 插件导入</p>
+<ul>
+<li><a href="https://docs.cocos.com/creator/manual/zh/scripting/plugin-scripts.html" target="_blank" rel="noopener">插件脚本</a></li>
+<li><a href="http://blog.asroads.com/post/b0aa25e3.html" target="_blank" rel="noopener">Layabox2.0贝塞尔曲线运动引入TweenMax</a></li>
+<li><a href="http://blog.asroads.com/post/2376105a.html" target="_blank" rel="noopener">Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild 解决方法</a></li>
+</ul>
+<h3 id="修复问题"><a href="#修复问题" class="headerlink" title="修复问题"></a>修复问题</h3><ul>
+<li><p>第一种办法是在小游戏里面通过Require 引入文件，这样就能解决问题</p>
+<p><img src="/post/d927b4f2/image-20191209155413880.png" alt="image-20191209155413880"></p>
+<p>我们发现 此时 我们的 TweenMax类库 不在我们打包的代码里面</p>
+</li>
+</ul>
+<p><img src="/post/d927b4f2/image-20191209160225182.png" alt="image-20191209160225182"></p>
+<p>我们通过文件路径 找到了我们的 TweenMax 文件 然后通过 require方式进行导入 选择导入：方法是 在 game.js 前面添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.TweenMax = global.TweenMax = <span class="built_in">require</span>(<span class="string">'./src/assets/Script/libs/TweenMax'</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/d927b4f2/image-20191209160352310.png" alt="image-20191209160352310"></p>
+<ul>
+<li><p>第二种办法是 在代码里追加几行代码：</p>
+<ul>
+<li>A 方案</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.TweenMax = _gsScope._gsDefine.globals.TweenMax;</span><br><span class="line"><span class="built_in">window</span>.Back = _gsScope._gsDefine.globals.Back;</span><br><span class="line"><span class="built_in">window</span>.Bounce = _gsScope._gsDefine.globals.Bounce;</span><br><span class="line"><span class="built_in">window</span>.Circ = _gsScope._gsDefine.globals.Circ;</span><br><span class="line"><span class="built_in">window</span>.Cubic = _gsScope._gsDefine.globals.Cubic;</span><br><span class="line"><span class="built_in">window</span>.Elastic = _gsScope._gsDefine.globals.Elastic;</span><br><span class="line"><span class="built_in">window</span>.Expo = _gsScope._gsDefine.globals.Expo;</span><br><span class="line"><span class="built_in">window</span>.Linear = _gsScope._gsDefine.globals.Linear;</span><br><span class="line"><span class="built_in">window</span>.Quad = _gsScope._gsDefine.globals.Quad;</span><br><span class="line"><span class="built_in">window</span>.Quart = _gsScope._gsDefine.globals.Quart;</span><br><span class="line"><span class="built_in">window</span>.Quint = _gsScope._gsDefine.globals.Quint;</span><br><span class="line"><span class="built_in">window</span>.Sine = _gsScope._gsDefine.globals.Sine;</span><br></pre></td></tr></table></figure>
+
+<p>此时调用代码 可以这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TweenMax.to(<span class="keyword">this</span>.sp, <span class="number">0.75</span>, &#123;</span><br><span class="line">       bezier:&#123;<span class="attr">type</span>:<span class="string">"soft"</span>,<span class="attr">values</span>:[&#123;<span class="attr">x</span>:<span class="number">50</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">300</span>, <span class="attr">y</span>:<span class="number">300</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">600</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;], <span class="attr">autoRotate</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">       ease:Bounce.easeIn,<span class="attr">overwrite</span>:<span class="literal">true</span>,<span class="attr">repeat</span>:<span class="number">-1</span>,<span class="attr">yoyo</span>:<span class="literal">true</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>B方案 也可以只追加一行：比如</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.TweenMax = _gsScope._gsDefine.globals.TweenMax;</span><br></pre></td></tr></table></figure>
+
+<p>但是此时 如果需要用一些特效的时候 必须用 字符串 比如 </p>
+<p>写代码需比如  <code>Bounce.easeIn</code> 要这样写 ”Bounce.easeIn“：当然在A方案里 那样写B 方案这样的调用也是对的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TweenMax.to(<span class="keyword">this</span>.sp, <span class="number">0.75</span>, &#123;</span><br><span class="line">            bezier:&#123;<span class="attr">type</span>:<span class="string">"soft"</span>,<span class="attr">values</span>:[&#123;<span class="attr">x</span>:<span class="number">50</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">300</span>, <span class="attr">y</span>:<span class="number">300</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">600</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;], <span class="attr">autoRotate</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">            ease:<span class="string">"Bounce.easeIn"</span>,<span class="attr">overwrite</span>:<span class="literal">true</span>,<span class="attr">repeat</span>:<span class="number">-1</span>,<span class="attr">yoyo</span>:<span class="literal">true</span></span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>最后无论通过何种办法 结果运行 如下</p>
+<p><img src="/post/d927b4f2/image-20191209160447270.png" alt="image-20191209160447270"></p>
+<p><img src="/post/d927b4f2/result.gif" alt="result"></p>
+<p>效果展示 OK</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://forum.cocos.org/t/tweenlite/59580" target="_blank" rel="noopener">微信小游戏使用TweenLite的问题</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/d927b4f2.html';
+        this.page.title = 'Cocos Creator Tween Max 小游戏引入';
+        this.page.identifier = 'post/d927b4f2.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

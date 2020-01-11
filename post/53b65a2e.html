@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>记录一个抽奖算法（js） | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="有同事想要写一个抽奖的算法，找我帮忙写个算法展示给其他人看，最好是可以脱离编辑器的，首先，我就想到了用Chome的console 面板运行JavaScript，于是就写了一段代码实现了这个抽奖，其中包括模拟多少级，平均中奖次数，已经最多可以中奖多少次。下面就把源码贴出，做个留念。
+
+
+需求用户在每个等级有一次抽奖机会，初始概率是10%，如果当前等级抽奖没有抽中，则下次抽奖概率加上一个等级区间的的增量（这里是15%，25%，35%…..），如果本次中奖，则重新设置成初始的中奖概率，一个用户整个成长">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#需求"><span class="toc-number">1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体步骤"><span class="toc-number">2.</span> <span class="toc-text">具体步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            记录一个抽奖算法（js）
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/53b65a2e.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-12-15T14:20:14.000Z" itemprop="datePublished">2019-12-15</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/js/">js</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>有同事想要写一个抽奖的算法，找我帮忙写个算法展示给其他人看，最好是可以脱离编辑器的，首先，我就想到了用Chome的console 面板运行JavaScript，于是就写了一段代码实现了这个抽奖，其中包括模拟多少级，平均中奖次数，已经最多可以中奖多少次。下面就把源码贴出，做个留念。</p>
+<a id="more"></a>
+
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>用户在每个等级有一次抽奖机会，初始概率是10%，如果当前等级抽奖没有抽中，则下次抽奖概率加上一个等级区间的的增量（这里是15%，25%，35%…..），如果本次中奖，则重新设置成初始的中奖概率，一个用户整个成长期有个总共中奖的上限，中奖次数达到上限后，不能再次中奖，这里我设置了200，是远远超过的，相当于没有限制，可以设置这个数，限制中奖次数。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ul>
+<li>代码实现</li>
+</ul>
+<p>其实算法不难，急速先用闭包实现一个timer（以免模拟次数很大的时候，程序卡死），然后设置一些常量 运行函数。话不多说，Show  The Code！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">var</span> getCurrentValue = <span class="function"><span class="keyword">function</span> (<span class="params">list, value</span>) </span>&#123;</span><br><span class="line">               <span class="keyword">let</span> msg = &#123;<span class="attr">index</span>:<span class="number">0</span>,<span class="attr">count</span>:<span class="number">0</span>&#125;;</span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; list.length; j++) &#123;</span><br><span class="line">                   msg.index = j;</span><br><span class="line">                   msg.count = isRange(list[j], value);</span><br><span class="line">                   <span class="keyword">if</span> (msg.count &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                       <span class="keyword">return</span> msg;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> msg;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">var</span> isRange = <span class="function"><span class="keyword">function</span> <span class="title">range</span>(<span class="params">array, value</span>) </span>&#123;</span><br><span class="line">               <span class="keyword">if</span>(value==array[<span class="number">0</span>])&#123;</span><br><span class="line">                   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">               &#125;<span class="keyword">else</span> <span class="keyword">if</span> (value &gt; array[<span class="number">0</span>] &amp;&amp; value &lt;= array[<span class="number">1</span>]) &#123;</span><br><span class="line">                   <span class="keyword">return</span> array[<span class="number">2</span>];</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//size和数组里面的最大值对应 这里是 37</span></span><br><span class="line">           <span class="keyword">var</span> size = <span class="number">37</span>, value = <span class="number">0</span>, result = <span class="literal">false</span>, awardCount = <span class="number">0</span>, awardMax = <span class="number">200</span>,baseValue = <span class="number">0.1</span>,clock = <span class="number">-1</span>,awardList = [];</span><br><span class="line">           <span class="keyword">var</span> list = [[<span class="number">5</span>, <span class="number">10</span>, <span class="number">0.15</span>], [<span class="number">11</span>, <span class="number">15</span>, <span class="number">0.25</span>], [<span class="number">16</span>, <span class="number">19</span>, <span class="number">0.35</span>], [<span class="number">20</span>, <span class="number">23</span>, <span class="number">0.45</span>], [<span class="number">24</span>, <span class="number">27</span>, <span class="number">0.55</span>], [<span class="number">28</span>, <span class="number">30</span>, <span class="number">0.65</span>], [<span class="number">31</span>, <span class="number">37</span>, <span class="number">0.70</span>]];</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= size; i++) &#123;</span><br><span class="line">               <span class="keyword">if</span> (awardCount &gt;= awardMax) &#123;</span><br><span class="line">                   <span class="built_in">console</span>.log(<span class="string">"中奖超过"</span> + awardMax + <span class="string">"次"</span> + <span class="string">"不能再次中奖"</span>);</span><br><span class="line">                   <span class="keyword">continue</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">var</span> message = getCurrentValue(list, i);</span><br><span class="line">               <span class="keyword">if</span> (message.count &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                   <span class="built_in">console</span>.log(<span class="string">"等级为:"</span>, <span class="built_in">JSON</span>.stringify(i) + <span class="string">"不符合条件"</span>);</span><br><span class="line">                   <span class="keyword">continue</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span>(clock!=message.index)&#123;</span><br><span class="line">                   clock = message.index;</span><br><span class="line">                   value = baseValue;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span>(result)&#123;</span><br><span class="line">                   value = baseValue;</span><br><span class="line">               &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                   value += message.count;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">var</span> randomValue = <span class="built_in">Math</span>.random();</span><br><span class="line">               <span class="keyword">if</span> (randomValue &lt;= value) &#123;</span><br><span class="line">                   result = <span class="literal">true</span>;</span><br><span class="line">                   awardCount++;</span><br><span class="line">                   awardList.push(i)</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   result = <span class="literal">false</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">let</span> output = i+<span class="string">" "</span>+<span class="string">"当前概率："</span> + value.toFixed(<span class="number">3</span>) + <span class="string">"随机数是："</span> + randomValue.toFixed(<span class="number">4</span>) + <span class="string">"结果是："</span> + <span class="built_in">JSON</span>.stringify(result ? <span class="string">"中奖！"</span> : <span class="string">"很遗憾"</span>);</span><br><span class="line">               <span class="keyword">if</span>(result)&#123;</span><br><span class="line">                   <span class="built_in">console</span>.log(<span class="string">"%c"</span>+output,<span class="string">'color:#0033ee;'</span>);</span><br><span class="line">               &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="built_in">console</span>.log(output);</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">var</span> lastStr = awardList.join(<span class="string">" 次、"</span>);</span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">"%c中奖总次数是："</span>+awardList.length+<span class="string">" 分别是："</span>+lastStr,<span class="string">'color:#0099ee;'</span>);</span><br><span class="line">           <span class="keyword">return</span> awardList.length;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">var</span> totalList = [],totalCount = <span class="number">10</span>;<span class="comment">//模拟总次数</span></span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> n = <span class="number">0</span>; n &lt; totalCount; n++) &#123;</span><br><span class="line">               (<span class="function"><span class="keyword">function</span> (<span class="params">j</span>) </span>&#123;<span class="comment">//闭包</span></span><br><span class="line">                   setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                       <span class="keyword">var</span> res = foo();</span><br><span class="line">                       totalList.push(res);</span><br><span class="line">                       <span class="keyword">if</span>(totalCount<span class="number">-1</span> == j)&#123;</span><br><span class="line">                           <span class="keyword">var</span> sum = totalList.reduce(<span class="function">(<span class="params">previous, current</span>) =&gt;</span> current += previous);</span><br><span class="line">                           <span class="keyword">var</span> avg =   sum / totalList.length;</span><br><span class="line">                           <span class="built_in">console</span>.log(<span class="string">"数组："</span>+<span class="built_in">JSON</span>.stringify(totalList));</span><br><span class="line">                           <span class="built_in">console</span>.log(<span class="string">"%c总共模拟："</span>+n+<span class="string">"次 平均中奖次数："</span>+avg,<span class="string">'color:#ff99ee;'</span>);</span><br><span class="line">                       &#125;</span><br><span class="line">                       <span class="built_in">console</span>.log(j);<span class="comment">//分别输出i的值</span></span><br><span class="line">                   &#125;, n*<span class="number">100</span>)</span><br><span class="line">               &#125;)(n);<span class="comment">//闭包</span></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">       test();<span class="comment">//启动代码函数</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打开Chome 黏贴代码</li>
+</ul>
+<p><img src="/post/53b65a2e/image-20191219193006272.png" alt="image-20191219193006272"></p>
+<ul>
+<li>点击Enter 键 运行 代码 查看输出</li>
+</ul>
+<p><img src="/post/53b65a2e/image-20191219193043943.png" alt="image-20191219193043943"></p>
+<p>此处我模拟了十轮，输出每次 概率 和最后的中奖次数，和平均中奖概率，其中有意思的是 设计到了两个知识点，一个是闭包，一个是怎么用数组求平均数。</p>
+<p>闭包代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">	<span class="comment">// setTimeout(function()&#123;</span></span><br><span class="line">		<span class="built_in">console</span>.log(i);<span class="comment">//分别输出i的值</span></span><br><span class="line">	<span class="comment">// &#125;,2000)			</span></span><br><span class="line">	&#125;	</span><br><span class="line">&#125;;</span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+
+<p>求平均数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">2</span>, <span class="number">56</span>, <span class="number">3</span>, <span class="number">41</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">100</span>, <span class="number">23</span>];</span><br><span class="line"><span class="keyword">let</span> sum = values.reduce(<span class="function">(<span class="params">previous, current</span>) =&gt;</span> current += previous);</span><br><span class="line"><span class="keyword">let</span> avg = sum / values.length;</span><br><span class="line"><span class="comment">// avg = 28</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.jstips.co/zh_cn/javascript/array-average-and-median/" target="_blank" rel="noopener">数组平均值与中值</a></li>
+<li><a href="https://miss-me.github.io/2018/09/01/%E7%94%A8setTimeout%E5%AE%9E%E7%8E%B0for%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84%E8%AE%A1%E6%97%B6%E5%99%A8/" target="_blank" rel="noopener">用setTimeout实现for循环中的计时器</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/53b65a2e.html';
+        this.page.title = '记录一个抽奖算法（js）';
+        this.page.identifier = 'post/53b65a2e.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

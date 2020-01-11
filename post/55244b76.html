@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Python2 到Python3的一些常见变化 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="有时候工作过程中需要用Python处理一些项目资源或者表格的转换，目前比较常用的都是Python3，但是因为很多以前的开发者用的都是Python2的语法，所以要想让Python2的写的文件，能在Python3环境正常运行，需要知道其中的一些变化，这样稍作处理和更改，便可以让原来的脚本可以在新的环境内正常运行。(持续更新)
+
+
+python中的reload方法在python2中，reload()是内置函数，能够直接使用。但是在python3中，直接使用reload()会报错，需要从imp中导入。用">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#python中的reload方法"><span class="toc-number">1.</span> <span class="toc-text">python中的reload方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python中的reload方法-xrange-定义"><span class="toc-number">2.</span> <span class="toc-text">python中的reload方法 xrange 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#try…-except-Exception-e-不能用"><span class="toc-number">3.</span> <span class="toc-text">try… except Exception,e: 不能用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报“TypeError-a-bytes-like-object-is-required-not-‘str’-”"><span class="toc-number">4.</span> <span class="toc-text">报“TypeError: a bytes-like object is required, not ‘str’ ”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python中引入包的时候报错AttributeError-module-‘sys’-has-no-attribute-‘setdefaultencoding’"><span class="toc-number">5.</span> <span class="toc-text">python中引入包的时候报错AttributeError: module ‘sys’ has no attribute ‘setdefaultencoding’</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Python2 到Python3的一些常见变化
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/55244b76.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-06-25T11:20:12.000Z" itemprop="datePublished">2019-06-25</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Python/">Python</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>有时候工作过程中需要用Python处理一些项目资源或者表格的转换，目前比较常用的都是Python3，但是因为很多以前的开发者用的都是Python2的语法，所以要想让Python2的写的文件，能在Python3环境正常运行，需要知道其中的一些变化，这样稍作处理和更改，便可以让原来的脚本可以在新的环境内正常运行。(持续更新)</p>
+<a id="more"></a>
+
+<h3 id="python中的reload方法"><a href="#python中的reload方法" class="headerlink" title="python中的reload方法"></a>python中的reload方法</h3><p>在python2中，reload()是内置函数，能够直接使用。但是在python3中，直接使用reload()会报错，需要从imp中导入。用法为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> imp <span class="keyword">import</span> reload</span><br><span class="line">reload(xyz)</span><br></pre></td></tr></table></figure>
+
+<h3 id="python中的reload方法-xrange-定义"><a href="#python中的reload方法-xrange-定义" class="headerlink" title="python中的reload方法 xrange 定义"></a>python中的reload方法 xrange 定义</h3><p>解决办法：</p>
+<p>python3 中取消了 range 函数，而把 xrange 函数重命名为 range，所以现在直接用 range 函数即可。</p>
+<h3 id="try…-except-Exception-e-不能用"><a href="#try…-except-Exception-e-不能用" class="headerlink" title="try… except Exception,e: 不能用"></a>try… except Exception,e: 不能用</h3><p>解决办法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="报“TypeError-a-bytes-like-object-is-required-not-‘str’-”"><a href="#报“TypeError-a-bytes-like-object-is-required-not-‘str’-”" class="headerlink" title="报“TypeError: a bytes-like object is required, not ‘str’ ”"></a>报“TypeError: a bytes-like object is required, not ‘str’ ”</h3><p>意思是“<strong>类型错误：需要类似字节的对象，而不是字符串</strong>”。报错原因：python3和Python2在套接字返回值解码上有区别。</p>
+<p>解决办法不难，只需要用上python的bytes和str两种类型转换的函数encode()、decode()即可！</p>
+<ul>
+<li>str通过encode()方法可以编码为指定的bytes；</li>
+<li>反过来，如果我们从网络或磁盘上读取了字节流，那么读到的数据就是bytes。要把bytes变为str，就需要用decode()方法；</li>
+<li>因此：我只需要把上图中的代码改成下面的即可！</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"></span><br><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">fd = os.open(<span class="string">'foo.txt'</span>,os.O_RDWR|os.O_CREAT)</span><br><span class="line"></span><br><span class="line">str = <span class="string">'this is fujieace.com test'</span></span><br><span class="line">str = str.encode()</span><br><span class="line"></span><br><span class="line"><span class="comment">#写入字符串</span></span><br><span class="line">os.write(fd,str)</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭文件</span></span><br><span class="line">os.close(fd)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'关闭文件成功！'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="python中引入包的时候报错AttributeError-module-‘sys’-has-no-attribute-‘setdefaultencoding’"><a href="#python中引入包的时候报错AttributeError-module-‘sys’-has-no-attribute-‘setdefaultencoding’" class="headerlink" title="python中引入包的时候报错AttributeError: module ‘sys’ has no attribute ‘setdefaultencoding’"></a>python中引入包的时候报错AttributeError: module ‘sys’ has no attribute ‘setdefaultencoding’</h3><p>比如：下面这样写 会报错 AttributeError: module ‘sys’ has no attribute ‘setdefaultencoding’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> imp <span class="keyword">import</span> reload</span><br><span class="line">imp.reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>原因：Python3字符串默认编码unicode, 所以sys.setdefaultencoding也不存在了</p>
+<p>Python3解决办法：去掉，sys.setdefaultencoding</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sys.setdefaultencoding('utf-8')</span></span><br></pre></td></tr></table></figure>
+
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/55244b76.html';
+        this.page.title = 'Python2 到Python3的一些常见变化';
+        this.page.identifier = 'post/55244b76.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

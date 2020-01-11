@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="在使用Cocos Creator 开发游戏的时候，项目在模拟器下预览的时候 出现了 ”libpng warning: iCCP: known incorrect sRGB profile“ 这个警告，虽然没有影响运行，但是看起来太烦人了，于是去网上查找了原因和方案，得以解决。
+
+首先这个虽然不影响运行的警告是什么原因造成的呢，原因：libpng 对GIMP生成的png报错 libpng warning: i: known incorrect sRGB profile 原因是新版的libpng增强">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装-libpng"><span class="toc-number">1.1.</span> <span class="toc-text">安装 libpng</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装ImageMagick"><span class="toc-number">1.2.</span> <span class="toc-text">安装ImageMagick</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理素材目录"><span class="toc-number">1.3.</span> <span class="toc-text">处理素材目录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-number">2.</span> <span class="toc-text">参考地址</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/c841f719.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-19T02:06:46.000Z" itemprop="datePublished">2019-10-19</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>在使用Cocos Creator 开发游戏的时候，项目在模拟器下预览的时候 出现了 ”libpng warning: iCCP: known incorrect sRGB profile“ 这个警告，虽然没有影响运行，但是看起来太烦人了，于是去网上查找了原因和方案，得以解决。</p>
+<a id="more"></a>
+<p>首先这个虽然不影响运行的警告是什么原因造成的呢，原因：libpng 对<a href="https://link.jianshu.com/?t=https://www.baidu.com/s?wd=GIMP&tn=44039180_cpr&fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YLmH-Wmyu9PWbsujuhnhP-0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHb3rHDLnjc1PWbknj6srH6vPs" target="_blank" rel="noopener">GIMP</a>生成的png报错 libpng warning: i: known incorrect sRGB profile 原因是新版的libpng增强了检查，发出警告。此警告可以忽略。</p>
+<p><img src="/post/c841f719/image-20191019102551815.png" alt="image-20191019102551815"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libpng warning: iCCP: known incorrect sRGB profile</span><br></pre></td></tr></table></figure>
+
+<p>虽然可以忽略无视，但是这个看起来太烦人了，于是乎，想看看网上有没有人有上面好的解决方案，一搜索，发现还真有，问题得以顺利解决。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="安装-libpng"><a href="#安装-libpng" class="headerlink" title="安装 libpng"></a>安装 libpng</h4><p>ImageMagick 所依赖的库，因为我们的工程中仅仅用到了PNG的图，所以此处就以PNG库为例，其他类似。可以去官网下载。<a href="http://www.imagemagick.org/download/delegates/" target="_blank" rel="noopener">点击进入</a> 通过命令安装。也可以用 homebrew 安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install libpng</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装ImageMagick"><a href="#安装ImageMagick" class="headerlink" title="安装ImageMagick"></a>安装ImageMagick</h4><p>同样使用 homebrew</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ImageMagick</span><br></pre></td></tr></table></figure>
+
+<h4 id="处理素材目录"><a href="#处理素材目录" class="headerlink" title="处理素材目录"></a>处理素材目录</h4><p>安装好ImageMagick，convert函数便可以用了，在命令行 cd 到自己的工程资源目录，运行下面的 命令来解决上面提到的问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">"*.png"</span> -<span class="built_in">exec</span> convert &#123;&#125; -strip &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>比如我的 目录</p>
+<p><img src="/post/c841f719/image-20191019103804413.png" alt="image-20191019103804413"></p>
+<p>运行后，报警错误消除，因为这个是处理文件目录下面所有的 png 格式，有些正确的也被改变了，我就一个个还原，直到找到报错的几个图片，剩下的 都重置回去了，当然了，ImageMagick 的功能远远不至于此，还有很多强大的功能。</p>
+<h3 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h3><ul>
+<li><a href="http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451" target="_blank" rel="noopener">cocos2d-x 3.0 and libpng</a></li>
+<li><a href="https://www.cnblogs.com/ggband/p/10665312.html" target="_blank" rel="noopener">Permission denied的解决办法</a></li>
+<li><a href="https://www.jianshu.com/p/3016f1897e31" target="_blank" rel="noopener">Mac软件包管理神器Homebrew</a></li>
+<li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">ImageMagick 中文站</a></li>
+</ul>
+<p>最后附加一些 homebrew 常用的操作</p>
+<blockquote>
+<p>安装软件</p>
+<p><code>brew install 软件名</code>，如<code>brew install git</code>。</p>
+<p>卸载软件</p>
+<p><code>brew uninstall 软件名</code>，如<code>brew uninstall git</code>。</p>
+<p>查找软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; brew search 查询内容</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol>
+<li>普通查询，<code>brew search git</code></li>
+<li>正则查询，<code>brew search /gi*/</code></li>
+</ol>
+<p>升级软件</p>
+<ul>
+<li><code>brew upgrade 软件名</code>：更新指定软件，如<code>brew update git</code>。</li>
+<li><code>brew upgrade</code>：更新所有软件。</li>
+</ul>
+<p>清理软件</p>
+<ul>
+<li><code>brew cleanup -n</code>：查看哪些软件包要被清除。</li>
+<li><code>brew cleanup 软件名</code>：清除指定软件包的所有老版本。</li>
+<li><code>brew cleanup</code>：清除所有软件包的所有老版本。</li>
+</ul>
+<p>关联软件</p>
+<ul>
+<li><code>brew prune</code>：清理无用的symlink，且清理与之相关的位于<code>/Applications</code>和<code>~/Applications</code>中的无用App链接。</li>
+<li><code>brew link 软件名</code>：将指定软件的安装文件symlink到Homebrew上。</li>
+</ul>
+<blockquote>
+<p><code>brew install</code>安装的软件会自动执行link操作；<br>DIY安装的需要手动执行link操作；<br>加上<code>--overwrite</code>选项，会先删除旧的symlink，再进行新的link操作。</p>
+</blockquote>
+<p>信息查询</p>
+<ul>
+<li><code>brew -v</code>：查看Homebrew版本号。</li>
+<li><code>brew list</code>：列出已安装的软件。</li>
+<li><code>brew home</code>：用浏览器打开homebrew官网。</li>
+<li><code>brew info</code>：显示软件信息。</li>
+</ul>
+<p>其他操作</p>
+<ul>
+<li><code>brew update</code>：升级Homebrew自身。</li>
+<li><code>brew doctor</code>：检测系统中与Homebrew有关的潜在问题。</li>
+</ul>
+</blockquote>
+<p><strong>注意：如果遇到文件权限问题</strong> （Permission denied）</p>
+<p>解决的办法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod -R 777 某一目录</span><br></pre></td></tr></table></figure>
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/c841f719.html';
+        this.page.title = '如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告';
+        this.page.identifier = 'post/c841f719.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

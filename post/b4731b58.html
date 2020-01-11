@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>文件循环引用以及属性的延迟定义 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="公司决定项目开发全部转向Cocos Creator 作为学习开发了15个月Layabox的自然而然要切换引擎，带来的是一些新的挑战（入坑）和学习（填坑）的机会，我重新打开之前的学习整理的Cocos的资料，牛人博客和论坛上大家写的教程和讨论的话题，虽然这些学习不难，但时间紧，任务重，为了快速进入状态，还是有些迫切的，读到官方文档，关于循环引用和属性延迟这个小节，当时有些疑惑，查阅了一些资料，觉得值得记录一下。
+
+
+Cocos 官方是这样解释和给出方法
+属性延迟定义如果两个类相互引用，脚本加载阶段就">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cocos-官方是这样解释和给出方法"><span class="toc-number">1.</span> <span class="toc-text">Cocos 官方是这样解释和给出方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#属性延迟定义"><span class="toc-number">1.1.</span> <span class="toc-text">属性延迟定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查阅结果"><span class="toc-number">2.</span> <span class="toc-text">查阅结果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ts版本下的表现形式代码部分（无报错）"><span class="toc-number">2.1.</span> <span class="toc-text">ts版本下的表现形式代码部分（无报错）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#特别说明："><span class="toc-number">2.2.</span> <span class="toc-text">特别说明：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            文件循环引用以及属性的延迟定义
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/b4731b58.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-08-29T12:54:57.000Z" itemprop="datePublished">2019-08-29</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/ts/">ts</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>公司决定项目开发全部转向Cocos Creator 作为学习开发了15个月Layabox的自然而然要切换引擎，带来的是一些新的挑战（入坑）和学习（填坑）的机会，我重新打开之前的学习整理的Cocos的资料，牛人博客和论坛上大家写的教程和讨论的话题，虽然这些学习不难，但时间紧，任务重，为了快速进入状态，还是有些迫切的，读到官方文档，关于循环引用和属性延迟这个小节，当时有些疑惑，查阅了一些资料，觉得值得记录一下。</p>
+<a id="more"></a>
+
+<h3 id="Cocos-官方是这样解释和给出方法"><a href="#Cocos-官方是这样解释和给出方法" class="headerlink" title="Cocos 官方是这样解释和给出方法"></a>Cocos 官方是这样解释和给出方法</h3><blockquote>
+<h4 id="属性延迟定义"><a href="#属性延迟定义" class="headerlink" title="属性延迟定义"></a>属性延迟定义</h4><p>如果两个类相互引用，脚本加载阶段就会出现循环引用，循环引用将导致脚本加载出错：</p>
+<ul>
+<li><p>Game.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="keyword">var</span> Item = <span class="built_in">require</span>(<span class="string">"Item"</span>);</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="keyword">var</span> Game = cc.Class(&#123;</span><br><span class="line">&gt;        properties: &#123;</span><br><span class="line">&gt;            item: &#123;</span><br><span class="line">&gt;                <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;                type: Item</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;        &#125;</span><br><span class="line">&gt;    &#125;);</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="built_in">module</span>.exports = Game;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>Item.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;    <span class="keyword">var</span> Game = <span class="built_in">require</span>(<span class="string">"Game"</span>);</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="keyword">var</span> Item = cc.Class(&#123;</span><br><span class="line">&gt;        properties: &#123;</span><br><span class="line">&gt;            game: &#123;</span><br><span class="line">&gt;                <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;                type: Game</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;        &#125;</span><br><span class="line">&gt;    &#125;);</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="built_in">module</span>.exports = Item;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>上面两个脚本加载时，由于它们在 require 的过程中形成了闭环，因此加载会出现循环引用的错误，循环引用时 type 就会变为 undefined。<br>因此我们提倡使用以下的属性定义方式：</p>
+<ul>
+<li><p>Game.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;    <span class="keyword">var</span> Game = cc.Class(&#123;</span><br><span class="line">&gt;        properties: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">&gt;            item: &#123;</span><br><span class="line">&gt;                <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;                type: <span class="built_in">require</span>(<span class="string">"Item"</span>)</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;        &#125;)</span><br><span class="line">&gt;    &#125;);</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="built_in">module</span>.exports = Game;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>Item.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;   <span class="keyword">var</span> Item = cc.Class(&#123;</span><br><span class="line">&gt;        properties: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">&gt;            game: &#123;</span><br><span class="line">&gt;                <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;                type: <span class="built_in">require</span>(<span class="string">"Game"</span>)</span><br><span class="line">&gt;            &#125;</span><br><span class="line">&gt;        &#125;)</span><br><span class="line">&gt;    &#125;);</span><br><span class="line">&gt;   </span><br><span class="line">&gt;    <span class="built_in">module</span>.exports = Item;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>这种方式就是将 properties 指定为一个 ES6 的箭头函数（lambda 表达式），箭头函数的内容在脚本加载过程中并不会同步执行，而是会被 CCClass 以异步的形式在所有脚本加载成功后才调用。因此加载过程中并不会出现循环引用，属性都可以正常初始化。</p>
+<blockquote>
+<p>箭头函数的用法符合 JavaScript 的 ES6 标准，并且 Creator 会自动将 ES6 转义为 ES5，用户不用担心浏览器的兼容问题。</p>
+</blockquote>
+<p>你可以这样来理解箭头函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">// 箭头函数支持省略掉 `return` 语句，我们推荐的是这种省略后的写法：</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; properties: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;    <span class="comment">// &lt;- 箭头右边的括号 "(" 不可省略</span></span><br><span class="line">&gt;     game: &#123;</span><br><span class="line">&gt;         <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;         type: <span class="built_in">require</span>(<span class="string">"Game"</span>)</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt; &#125;)</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">// 如果要完整写出 `return`，那么上面的写法等价于：</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; properties: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">&gt;     <span class="keyword">return</span> &#123;</span><br><span class="line">&gt;         game: &#123;</span><br><span class="line">&gt;             <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;             type: <span class="built_in">require</span>(<span class="string">"Game"</span>)</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;     &#125;;      <span class="comment">// &lt;- 这里 return 的内容，就是原先箭头右边括号里的部分</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">// 我们也可以不用箭头函数，而是用普通的匿名函数：</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; properties: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">&gt;     <span class="keyword">return</span> &#123;</span><br><span class="line">&gt;         game: &#123;</span><br><span class="line">&gt;             <span class="keyword">default</span>: <span class="literal">null</span>,</span><br><span class="line">&gt;             type: <span class="built_in">require</span>(<span class="string">"Game"</span>)</span><br><span class="line">&gt;         &#125;</span><br><span class="line">&gt;     &#125;;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>我自己用的是typescript项目 查阅得到的两个答案：</p>
+<h3 id="查阅结果"><a href="#查阅结果" class="headerlink" title="查阅结果"></a>查阅结果</h3><blockquote>
+<h4 id="ts版本下的表现形式代码部分（无报错）"><a href="#ts版本下的表现形式代码部分（无报错）" class="headerlink" title="ts版本下的表现形式代码部分（无报错）"></a>ts版本下的表现形式代码部分（无报错）</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">// A.ts</span></span><br><span class="line">&gt; <span class="keyword">import</span> &#123; B &#125; <span class="keyword">from</span> <span class="string">"./B"</span>;</span><br><span class="line">&gt; <span class="keyword">const</span> &#123; ccclass, property &#125; = cc._decorator;</span><br><span class="line">&gt; <span class="meta">@ccclass</span></span><br><span class="line">&gt; <span class="keyword">export</span> <span class="keyword">class</span> A <span class="keyword">extends</span> cc.Component &#123;</span><br><span class="line">&gt;     <span class="meta">@property</span>(B)</span><br><span class="line">&gt;     x: B = <span class="literal">null</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">// B.ts</span></span><br><span class="line">&gt; <span class="keyword">import</span> &#123; A &#125; <span class="keyword">from</span> <span class="string">"./A"</span>;</span><br><span class="line">&gt; <span class="keyword">const</span> &#123; ccclass, property &#125; = cc._decorator;</span><br><span class="line">&gt; <span class="meta">@ccclass</span></span><br><span class="line">&gt; <span class="keyword">export</span> <span class="keyword">class</span> B <span class="keyword">extends</span> cc.Component &#123;</span><br><span class="line">&gt;     <span class="meta">@property</span>(A)</span><br><span class="line">&gt;     x: A = <span class="literal">null</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h4 id="特别说明："><a href="#特别说明：" class="headerlink" title="特别说明："></a>特别说明：</h4><p>在ts中，<code>import</code>语句是没有循环引用问题的，因为<code>import</code>输出的是一个值的引用，只有在具体使用时才会去取值，在这篇文章中有更具体的描述<a href="http://es6.ruanyifeng.com/#docs/module-loader#ES6-模块与-CommonJS-模块的差异。" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#docs/module-loader#ES6-模块与-CommonJS-模块的差异。</a></p>
+<p>但是通过<code>@property()</code>定义的属性，是直接通过编辑器初始化的，相当于直接使用了，则会造成循环引用的问题。</p>
+</blockquote>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li><p>设计好的分层，避免循环引用（老项目要重构许久）</p>
+</li>
+<li><p>传入cc.Node，在onLoad()中实现属性的延迟定义<br>这个方法就比较简单了，逻辑也比较顺畅，很适合新手去使用，实现方案如下所示：</p>
+</li>
+<li><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; A &#125; <span class="keyword">from</span> <span class="string">"./A"</span>;</span><br><span class="line"><span class="keyword">const</span> &#123; ccclass, property &#125; = cc._decorator;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> B <span class="keyword">extends</span> cc.Component &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.Node)</span><br><span class="line">    x: A = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    onLoad() &#123;</span><br><span class="line">        <span class="keyword">this</span>.x = <span class="keyword">this</span>.x.getComponent(A)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过箭头函数实现属性的延迟定义(和cocos 官方不谋而合)</p>
+</li>
+</ol>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>写代码尽量保持单向引用文件，如果不能引用的可以通过拆分重新设计结构，其实，后面的方法都是亡羊补牢，真正好的方法是避免灾难的发生。</p>
+<p>另外关于阮一峰博客的文章由于时间关系没有读太细，后续我会再认真读一下，把理解写出来。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="TS/CC，属性的延迟定义">TS/CC，属性的延迟定义</a></li>
+<li><a href="https://docs.cocos.com/creator/manual/zh/scripting/reference/class.html#属性延迟定义" target="_blank" rel="noopener">属性延迟定义</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/module-loader#ES6-%E6%A8%A1%E5%9D%97%E4%B8%8E-CommonJS-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B7%AE%E5%BC%82" target="_blank" rel="noopener">ES6 模块与 CommonJS 模块的差异</a></li>
+<li><a href="https://www.codeproject.com/Articles/616344/What-is-Circular-dependency-and-how-do-we-resolve" target="_blank" rel="noopener">What is Circular Dependency and How Do We Resolve It?</a></li>
+<li><a href="https://railsware.com/blog/how-to-analyze-circular-dependencies-in-es6/" target="_blank" rel="noopener">How to Analyze Circular Dependencies in ES6?</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/b4731b58.html';
+        this.page.title = '文件循环引用以及属性的延迟定义';
+        this.page.identifier = 'post/b4731b58.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

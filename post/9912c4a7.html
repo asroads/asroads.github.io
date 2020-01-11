@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>微信小游戏Laya2.0粒子特效实现 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="游戏要想有好的展现，除了美术UI展现和程序逻辑实现之外，音效和动画特效也是优秀游戏必不可少的部分，之前做动画的时候，基本都是使用Spine动画代替，要么是徒手写代码实现一些简陋的动画效果，以前看过官方的demo 知道粒子可以做出很绚丽和随机的动画，这次恰好有机会得以尝试。
+
+
+操作步骤
+其实在Layabox里面做粒子特效也非常简单，主要就是新建一个粒子文件，选择类型，然后调节参数，做出自己想要的效果，然后导出配置文件。
+程序里面加载配置文件，初始化粒子特效器，播放即可
+
+细节操作：
+新建粒子文件">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作步骤"><span class="toc-number">1.</span> <span class="toc-text">操作步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#细节操作："><span class="toc-number">1.1.</span> <span class="toc-text">细节操作：</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            微信小游戏Laya2.0粒子特效实现
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/9912c4a7.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-08-03T06:07:31.000Z" itemprop="datePublished">2019-08-03</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Layabox/">Layabox</a>, <a class="article-tag-link" href="/tags/小游戏/">小游戏</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>游戏要想有好的展现，除了美术UI展现和程序逻辑实现之外，音效和动画特效也是优秀游戏必不可少的部分，之前做动画的时候，基本都是使用Spine动画代替，要么是徒手写代码实现一些简陋的动画效果，以前看过官方的demo 知道粒子可以做出很绚丽和随机的动画，这次恰好有机会得以尝试。</p>
+<a id="more"></a>
+
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><ol>
+<li>其实在Layabox里面做粒子特效也非常简单，主要就是新建一个粒子文件，选择类型，然后调节参数，做出自己想要的效果，然后导出配置文件。</li>
+<li>程序里面加载配置文件，初始化粒子特效器，播放即可</li>
+</ol>
+<h4 id="细节操作："><a href="#细节操作：" class="headerlink" title="细节操作："></a>细节操作：</h4><ol>
+<li>新建粒子文件</li>
+</ol>
+<p><img src="/post/9912c4a7/image-20190823141529866.jpeg" alt="image-20190823141529866"></p>
+<ol start="2">
+<li>修改部分参数</li>
+</ol>
+<p><img src="/post/9912c4a7/image-20190823142029613.jpeg" alt="image-20190823142029613"></p>
+<ol start="3">
+<li>最终效果如下</li>
+</ol>
+<p><img src="/post/9912c4a7/record.gif" alt="record"></p>
+<ol start="4">
+<li>最后在代码里面加载并播放</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;IPoint&#125; <span class="keyword">from</span> <span class="string">"../../common/core/IPoint"</span>;</span><br><span class="line"><span class="keyword">import</span> Particle2D = Laya.Particle2D;</span><br><span class="line"><span class="keyword">import</span> ParticleSetting = Laya.ParticleSetting;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> GoldParticle &#123;</span><br><span class="line">    <span class="keyword">private</span> animation: Particle2D;</span><br><span class="line">    <span class="keyword">private</span> callback: <span class="built_in">Function</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> _ins: GoldParticle;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> ins(): GoldParticle &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>._ins) <span class="keyword">this</span>._ins = <span class="keyword">new</span> GoldParticle();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._ins;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> showAnimation(point: IPoint, callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.callback = callback;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.animation) &#123;</span><br><span class="line">            <span class="keyword">let</span> settings: ParticleSetting = Laya.loader.getRes(<span class="string">"res/particles/test.part"</span>);</span><br><span class="line">            <span class="keyword">this</span>.animation = <span class="keyword">new</span> Particle2D(settings);</span><br><span class="line">            <span class="keyword">this</span>.animation.autoPlay = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">this</span>.animation.emitter.start();</span><br><span class="line">            Laya.stage.addChild(<span class="keyword">this</span>.animation);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.animation.zOrder = <span class="number">3000</span>;</span><br><span class="line">        <span class="keyword">this</span>.animation.x = point.x;</span><br><span class="line">        <span class="keyword">this</span>.animation.y = point.y;</span><br><span class="line">        <span class="keyword">this</span>.animation.play();</span><br><span class="line">      <span class="comment">// 我设置的粒子播放时长是 3500 毫秒</span></span><br><span class="line">        <span class="keyword">this</span>.animation.timerOnce(<span class="number">3500</span>, <span class="keyword">this</span>, <span class="keyword">this</span>.completeParticle2D)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> completeParticle2D() &#123;</span><br><span class="line">        <span class="keyword">this</span>.animation.stop();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.callback) <span class="keyword">this</span>.callback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上就是对粒子效果的简单应用。</p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/9912c4a7.html';
+        this.page.title = '微信小游戏Laya2.0粒子特效实现';
+        this.page.identifier = 'post/9912c4a7.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

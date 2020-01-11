@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Layabox 学习笔记(3) | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="问题描述:Layabox中位图字体(BitmapFont)关于微信小游戏无法正常显示
+在LayaAir和Webstorm下面都能正常显示 在Web下也可以正常显示，到了微信模拟器就消失，这个办法在微信上，最后测试发现审核不通过，而我本地的机器都是好的，很奇怪，有知道原因的还希望告知我，我自己后面用了新的办法解决了，请看的我新的文章“LayaBox 位图字体 解决微信小游戏不支持xml格式”成功的解决了这个问题。
+
+
+
+原因分析
+在微信里面 解析fnt有问题，需要有xml 解析器
+
+解决方案
+下载">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题描述-Layabox中位图字体-BitmapFont-关于微信小游戏无法正常显示"><span class="toc-number">1.</span> <span class="toc-text">问题描述:Layabox中位图字体(BitmapFont)关于微信小游戏无法正常显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原因分析"><span class="toc-number">2.</span> <span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#需要配合的有"><span class="toc-number">4.</span> <span class="toc-text">需要配合的有</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#位图字体生产工具"><span class="toc-number">5.</span> <span class="toc-text">位图字体生产工具</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Layabox 学习笔记(3)
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/c20f4493.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2018-08-09T10:55:38.000Z" itemprop="datePublished">2018-08-09</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Layabox/">Layabox</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <h3 id="问题描述-Layabox中位图字体-BitmapFont-关于微信小游戏无法正常显示"><a href="#问题描述-Layabox中位图字体-BitmapFont-关于微信小游戏无法正常显示" class="headerlink" title="问题描述:Layabox中位图字体(BitmapFont)关于微信小游戏无法正常显示"></a>问题描述:Layabox中位图字体(BitmapFont)关于微信小游戏无法正常显示</h3><ul>
+<li>在LayaAir和Webstorm下面都能正常显示 在Web下也可以正常显示，到了微信模拟器就消失，这个办法在微信上，最后测试发现审核不通过，而我本地的机器都是好的，很奇怪，有知道原因的还希望告知我，我自己后面用了新的办法解决了，请看的我新的文章“LayaBox 位图字体 解决微信小游戏不支持xml格式”成功的解决了这个问题。</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h3><ul>
+<li>在微信里面 解析fnt有问题，需要有xml 解析器</li>
+</ul>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><ol>
+<li>下载<a href="http://fairygui.oss-cn-shenzhen.aliyuncs.com/js.rar" target="_blank" rel="noopener">xml解析库</a>，引入方式：</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.Parser = <span class="built_in">require</span>(<span class="string">"./js/dom_parser"</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>和此库相同的还有</strong> <a href="https://github.com/jindw/xmldom" target="_blank" rel="noopener">xmldom库</a>：<a href="https://github.com/jindw/xmldom" target="_blank" rel="noopener">https://github.com/jindw/xmldom</a></p>
+<ol>
+<li>需要在相应的文件目录下面放置 </li>
+</ol>
+<p><img src="/post/c20f4493/image-20180915193623298.png" alt="image-20180915193623298"></p>
+<hr>
+<p><img src="/post/c20f4493/image-20180915193734636.png" alt="image-20180915193734636"></p>
+<hr>
+<h3 id="需要配合的有"><a href="#需要配合的有" class="headerlink" title="需要配合的有"></a>需要配合的有</h3><ul>
+<li>微信小游戏fnt 最后要远程加载</li>
+<li>laya官网介绍的位图字体格式 要转成 utf-8 格式（反正我这边转了之后才能用，大家看自己的环境而定）</li>
+<li>因为引入了新的库导致了新的bug</li>
+<li>微信模拟器下报错<code>“gameThirdScriptError”</code>错误，找到最后原因竟然是“Laya.MiniAdpter.init(true, false);”</li>
+</ul>
+<p>这个方法的第一个参数为true导致。但是我又必须开放这个，如何？所以这个就是要远程加载字体的原因。</p>
+<p>位图字体制作原生发布代码库</p>
+<h3 id="位图字体生产工具"><a href="#位图字体生产工具" class="headerlink" title="位图字体生产工具"></a>位图字体生产工具</h3><ul>
+<li><a href="https://71squared.com/glyphdesigner" target="_blank" rel="noopener">Glyph Designer</a></li>
+<li><a href="https://github.com/libgdx/libgdx/wiki/Hiero" target="_blank" rel="noopener">Hiero</a></li>
+<li><a href="http://www.angelcode.com/products/bmfont/" target="_blank" rel="noopener">BMFont (Windows)</a></li>
+</ul>
+<p>注意:在使用 <a href="http://www.angelcode.com/products/bmfont/" target="_blank" rel="noopener">BMFont (Windows)</a>工具的时候，一开始导入你的TXT 如果你文本里面有汉字，请一定要设置</p>
+<p>![$}6TV43{GK`05NZF7AXVIOF](Layabox-学习笔记-3/001.png)</p>
+<p>请一定修改这个地方（有些字体字库里面没有汉字 所以 你每次读取你的txt 都是失败的）</p>
+<p><img src="/post/c20f4493/002.png" alt="002"></p>
+<p>比如我修改成微软雅黑</p>
+<p>另外输出格式 和尺寸 以及文件类型都有修改</p>
+<p><img src="/post/c20f4493/003.png" alt="003"></p>
+<p>如果要选择自己的 图片 和读取文本 就是下面的图片</p>
+<p><img src="/post/c20f4493/004.png" alt="004"></p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/c20f4493.html';
+        this.page.title = 'Layabox 学习笔记(3)';
+        this.page.identifier = 'post/c20f4493.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>Cocos Creator QQ小游戏采坑指南 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="从今年开始，国内大厂纷纷对小游戏发力，除了微信，其他平台相继推出了小游戏的发布，这个对于游戏开发来说，研发一款游戏，上不同的平台，有更多的用户进入是好事，虽然大厂之间默契的语法风格个项目结构，已经让小游戏发布在不同平台很轻松了，但不同平台之间还是有一些细微的差异，之前游戏上了微信平台和头条平台（字节跳动）如今腾讯再次发力，开放了QQ小游戏平台，作为开发者自然不会放过这个入口，下面简述一下本次发布遇到的坑
+
+因为项目是用JavaScript写的，遇到了这些问题，我自己用Typescript另外一个">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-number">1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原因查找"><span class="toc-number">2.</span> <span class="toc-text">原因查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-number">3.</span> <span class="toc-text">参考地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改实例"><span class="toc-number">4.</span> <span class="toc-text">修改实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">5.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator QQ小游戏采坑指南
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/ed3cfd44.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-10-12T02:31:57.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>从今年开始，国内大厂纷纷对小游戏发力，除了微信，其他平台相继推出了小游戏的发布，这个对于游戏开发来说，研发一款游戏，上不同的平台，有更多的用户进入是好事，虽然大厂之间默契的语法风格个项目结构，已经让小游戏发布在不同平台很轻松了，但不同平台之间还是有一些细微的差异，之前游戏上了微信平台和头条平台（字节跳动）如今腾讯再次发力，开放了QQ小游戏平台，作为开发者自然不会放过这个入口，下面简述一下本次发布遇到的坑</p>
+<a id="more"></a>
+<p>因为项目是用JavaScript写的，遇到了这些问题，我自己用Typescript另外一个项目测试是好的，总的来讲，Typescript是未来开发H5小游戏和小程序的趋势。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>现象环境：QQ小游戏ios平台</li>
+<li>语言 JavaScript</li>
+<li>系统：安卓正常 ios 异常</li>
+</ul>
+<p>错误内容</p>
+<ul>
+<li><img src="/post/ed3cfd44/image-20191012101543314.png" alt="image-20191012101543314"></li>
+<li><img src="/post/ed3cfd44/image-20191012101606372.png" alt="image-20191012101606372"></li>
+<li><img src="/post/ed3cfd44/image-20191012101615443.png" alt="image-20191012101615443"></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">28</span>) onLoad@/<span class="keyword">var</span>/mobile/Containers/Data/Application/D0A5D194<span class="number">-1302</span><span class="number">-4019</span>-B0B0<span class="number">-6E89</span>B97C5BDB/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">5989</span>:<span class="number">157154</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/D0A5D194<span class="number">-1302</span><span class="number">-4019</span>-B0B0<span class="number">-6E89</span>B97C5BDB/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">413624</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/D0A5D194<span class="number">-1302</span><span class="number">-4019</span>-B0B0<span class="number">-6E89</span>B97C5BDB/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">223033</span></span><br><span class="line">invoke@/<span class="keyword">var</span>/mobile/Containers/Data/Application/D0A5D194<span class="number">-1302</span><span class="number">-4019</span>-B0B0<span class="number">-6E89</span>B97C5BDB/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">222358</span></span><br><span class="line">activateNode@/<span class="keyword">var</span>/mobile/Containers/Data/Application/D0A5D194<span class="number">-1302</span><span class="number">-4019</span>-B0B0<span class="number">-6E89</span>B97C5BDB/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">415190</span></span><br><span class="line">_onHierarchyChanged@/<span class="keyword">var</span>/mobile/Containers/Data/Application/D0A5D194<span class="number">-1302</span><span class="number">-4019</span>-B0B0<span class="number">-6E89</span>B97C5BDB/Library/Caches/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">9</span>) 文件src/project.js执行出现异常</span><br><span class="line"><span class="built_in">TypeError</span>: Attempted to assign to readonly property., 在文件/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js(行<span class="number">140</span>,列<span class="number">10632</span>), 堆栈：/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">140</span>:<span class="number">10632</span></span><br><span class="line">l@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">140</span>:<span class="number">504</span></span><br><span class="line">a@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">140</span>:<span class="number">663</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">140</span>:<span class="number">679</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:1:15705</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:1:15833</span></span><br><span class="line">js@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">20</span>:<span class="number">901</span></span><br><span class="line">handle@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">392874</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">405979</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">406238</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">406238</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">406238</span></span><br><span class="line">flowIn@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">407126</span></span><br><span class="line">append@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">401377</span></span><br><span class="line">load@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">381201</span></span><br><span class="line">prepare@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">135102</span></span><br><span class="line">run@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">135280</span></span><br><span class="line">boot@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">137</span>:<span class="number">1103</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">152</span>:<span class="number">854</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:1:15705</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:1:15833</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">153</span>:<span class="number">13</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:1:15705</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:1:15833</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:9:205007</span></span><br><span class="line">u@native:<span class="comment">//service/sdkConfigJS:9:22638</span></span><br><span class="line">c@native:<span class="comment">//service/sdkConfigJS:9:22812</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:9:23015</span></span><br><span class="line">callback@native:<span class="comment">//service/sdkConfigJS:9:23194</span></span><br><span class="line">update@native:<span class="comment">//service/sdkConfigJS:9:20162</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:9:20921</span></span><br><span class="line">forEach@[native code]</span><br><span class="line">update@native:<span class="comment">//service/sdkConfigJS:9:20839</span></span><br><span class="line">native:<span class="comment">//service/sdkConfigJS:9:204232</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">49</span>) <span class="built_in">TypeError</span>: <span class="literal">null</span> is not an object (evaluating <span class="string">'this._components.push'</span>), 在文件/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js(行<span class="number">2</span>,列<span class="number">597691</span>), 堆栈：addComponent@/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">597691</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">5989</span>:<span class="number">102365</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">382879</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">381108</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/Containers/Data/Application/<span class="number">3</span>CD0E0A2<span class="number">-117</span>D<span class="number">-4501</span><span class="number">-9</span>AA6-B4596A056BC4/Library/Caches/MiniGame_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.js:<span class="number">2</span>:<span class="number">495697</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/ed3cfd44/image-20191012101830891.png" alt="image-20191012101830891"></p>
+<h3 id="原因查找"><a href="#原因查找" class="headerlink" title="原因查找"></a>原因查找</h3><blockquote>
+<p>(9) 文件src/project.js执行出现异常<br>TypeError: Attempted to assign to readonly property., 在文件/game.js(行137,列33533), 堆栈：/game.js:137:33533<br>r@/game.js:137:290<br>l@/game.js:137:449<br>/game.js:137:465</p>
+<p>js@/game.js:11:310<br>handle@/game.js:2:391721<br>a@/game.js:2:404282<br>a@/game.js:2:404541<br>a@/game.js:2:404541<br>a@/game.js:2:404541<br>flowIn@/game.js:2:405429<br>append@/game.js:2:399485<br>load@/game.js:2:380443<br>prepare@/game.js:2:131288<br>run@/game.js:2:131466<br>boot@/game.js:134:1103<br>/game.js:143:802</p>
+<p>/game.js:144:13</p>
+<p>i</p>
+<p>callback<br>update</p>
+<p>forEach@[native code]<br>update<br>creator打包微信小游戏发布到QQ平台上，开发者工具没有报错，网页和模拟器也没有报错，ios真机都会报这种错误，无法进入游戏，请问是什么原因？</p>
+<p><strong>已解决，QQ平台不支持window.Gobal={}的全局写法</strong></p>
+<p>请问你怎么改的？（window. 这种写法怎么改？）</p>
+<p>模块化脚本module.exports={},使用之前先在引用的脚本之前require</p>
+</blockquote>
+<h3 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h3><ul>
+<li><a href="https://forum.cocos.com/t/typeerror-attempted-to-assign-to-readonly/81682" target="_blank" rel="noopener">TypeError: Attempted to assign to readonly</a></li>
+<li><a href="https://docs.cocos.com/creator/manual/zh/scripting/modular-script.html" target="_blank" rel="noopener">模块化脚本</a></li>
+</ul>
+<h3 id="修改实例"><a href="#修改实例" class="headerlink" title="修改实例"></a>修改实例</h3><ul>
+<li>报错文件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Global= &#123;&#125;;</span><br><span class="line"><span class="comment">// window.Global = Global;</span></span><br><span class="line"></span><br><span class="line">Global.BigNumber = <span class="built_in">require</span>(<span class="string">"BigNumber"</span>);</span><br><span class="line"></span><br><span class="line">Global.Https = <span class="built_in">require</span>(<span class="string">"Https"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Global.Notification = require("Notification");</span></span><br><span class="line"></span><br><span class="line">Global.Const = <span class="built_in">require</span>(<span class="string">"Const"</span>);</span><br><span class="line"></span><br><span class="line">Global.Tools = <span class="built_in">require</span>(<span class="string">"Tools"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// window.Platform = new Platform();</span></span><br><span class="line">Global.Platform = <span class="built_in">require</span>(<span class="string">"platform"</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = Global;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>引用实例</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Platform = <span class="built_in">require</span>(<span class="string">'platform'</span>); <span class="comment">// 平台引入</span></span><br><span class="line"><span class="keyword">var</span> Global = <span class="built_in">require</span>(<span class="string">'Global'</span>); <span class="comment">// 全局</span></span><br><span class="line"><span class="keyword">var</span> Notification = <span class="built_in">require</span>(<span class="string">'Notification'</span>); <span class="comment">// 消息池</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.确保提审服游戏登陆加载，核心玩法、匹配功能能正常进行。（无此功能可忽略）<br>2.接入脏字接口（无用户输入，可忽略）<br><a href="https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_safe.html#security-imgseccheck" target="_blank" rel="noopener">https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_safe.html#security-imgseccheck</a><br>3.ios屏蔽任何与充值相关界面和引导。<br>4.ios和安卓同个账号不同数据。（纯广告变现的产品不需要区分）<br>5.不要有q群，公众号，论坛等引导出现。<br>6.检查游戏内新素材是否有违规。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>使用兼容性比较好，规范的写法，现在小程序小游戏越来越多，感觉和安卓手机在国内的发展很像，开发人员要不断的去兼容和适配每个平台。后面发现其实小游戏有个GameGlobal的属性</p>
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/ed3cfd44.html';
+        this.page.title = 'Cocos Creator QQ小游戏采坑指南';
+        this.page.identifier = 'post/ed3cfd44.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+
+    
+
+    
+
+    <title>TypeScript随机从数组中取出几个元素 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads">
+    <meta name="version" content="1.0.0">
+    <meta name="keywords" content>
+    <meta name="description" content="在游戏开发过程成随机是一种很常见的规则，有了随机，才有了彼此的不同，我们也经常会遇到从一个数组里面随机取出几个元素的需求，今天我也特意整理一下，以供以后参考。
+
+
+从数组array中随机取出一个元素假如 我们的数组是
+1let array:Array&amp;lt;string&amp;gt; = [&#39;1&#39;,&#39;2&#39;,&#39;4&#39;,&#39;5&#39;,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;10&#39;];
+
+那么实现的方法是：
+1let result = array[Math.floor(Math.random()*array.length">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="F0CXvmUgA9">
+
+    
+    
+    <link rel="icon" href="/favicon.png">
+    
+
+    <link rel="stylesheet" href="/css/style.css">
+<link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body>
+
+    <div class="app">
+        <header class="header clearfix">
+    <div id="nav" class="nav">
+    <button id="open-panel" class="open-panel"><i class="icon-library"></i></button>
+
+    <nav class="nav-inner">
+
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/game">手游</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/tool">技术</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/other">杂项</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/categories/life">感悟</a>
+        </li>
+        
+        
+        
+        <li class="nav-item nav-item-tag">
+            <a id="nav-tag" class="nav-link" href="#">标签</a>
+            <div id="nav-tags" class="nav-tag-wrap">
+                <i class="nav-tag-arrow"></i>
+                
+  <div class="widget-wrap">
+    <h3 class="widget-title">
+        <i class="icon-tag vm"></i>
+        <span class="vm">Tags</span>
+    </h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos/">Cocos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Layabox/">Layabox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Windows/">Windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ts/">ts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小游戏/">小游戏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技术/">技术</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗和远方/">诗和远方</a></li></ul>
+    </div>
+  </div>
+
+
+            </div>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/archives">归档</a>
+        </li>
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/about">关于</a>
+        </li>
+        
+        
+        
+
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#从数组array中随机取出一个元素"><span class="toc-number">1.</span> <span class="toc-text">从数组array中随机取出一个元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从数组array中中随机取几个元素"><span class="toc-number">2.</span> <span class="toc-text">从数组array中中随机取几个元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组平均值与中值"><span class="toc-number">3.</span> <span class="toc-text">数组平均值与中值</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content"><article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            TypeScript随机从数组中取出几个元素
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="/post/c4d402bc.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2019-07-01T09:20:12.000Z" itemprop="datePublished">2019-07-01</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/ts/">ts</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>在游戏开发过程成随机是一种很常见的规则，有了随机，才有了彼此的不同，我们也经常会遇到从一个数组里面随机取出几个元素的需求，今天我也特意整理一下，以供以后参考。</p>
+<a id="more"></a>
+
+<h3 id="从数组array中随机取出一个元素"><a href="#从数组array中随机取出一个元素" class="headerlink" title="从数组array中随机取出一个元素"></a>从数组array中随机取出一个元素</h3><p>假如 我们的数组是</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array:<span class="built_in">Array</span>&lt;<span class="built_in">string</span>&gt; = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>,<span class="string">'10'</span>];</span><br></pre></td></tr></table></figure>
+
+<p>那么实现的方法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let result = array[Math.floor(Math.random()*array.length)];</span><br></pre></td></tr></table></figure>
+
+<h3 id="从数组array中中随机取几个元素"><a href="#从数组array中中随机取几个元素" class="headerlink" title="从数组array中中随机取几个元素"></a>从数组array中中随机取几个元素</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomArrayElements</span>(<span class="params">arr, count</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> shuffled = arr.slice(<span class="number">0</span>), i = arr.length, min = i - count, temp, index;</span><br><span class="line">    <span class="keyword">while</span> (i-- &gt; min) &#123;</span><br><span class="line">        index = <span class="built_in">Math</span>.floor((i + <span class="number">1</span>) * <span class="built_in">Math</span>.random());</span><br><span class="line">        temp = shuffled[index];</span><br><span class="line">        shuffled[index] = shuffled[i];</span><br><span class="line">        shuffled[i] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> shuffled.slice(min);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> array = [<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'4'</span>,<span class="string">'5'</span>,<span class="string">'6'</span>,<span class="string">'7'</span>,<span class="string">'8'</span>,<span class="string">'9'</span>,<span class="string">'10'</span>];</span><br><span class="line"><span class="built_in">console</span>.log( getRandomArrayElements(array, <span class="number">5</span>) );</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组平均值与中值"><a href="#数组平均值与中值" class="headerlink" title="数组平均值与中值"></a>数组平均值与中值</h3><ul>
+<li>取得数组长度(length)</li>
+<li>求和(sum)</li>
+<li>取得平均值(<code>sum/length</code>)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">2</span>, <span class="number">56</span>, <span class="number">3</span>, <span class="number">41</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">100</span>, <span class="number">23</span>];</span><br><span class="line"><span class="keyword">let</span> sum = values.reduce(<span class="function">(<span class="params">previous, current</span>) =&gt;</span> current += previous);</span><br><span class="line"><span class="keyword">let</span> avg = sum / values.length;</span><br><span class="line"><span class="comment">// avg = 28</span></span><br></pre></td></tr></table></figure>
+
+
+        
+    </section>
+</article>
+
+
+
+<div class="comments">
+    <div id="disqus_thread">
+        <p class="comment-tips">国内查看评论需要代理~</p>
+    </div>
+    <script>
+    window.disqus_config = function () {
+        this.language = 'zh';
+        this.page.url = 'http://blog.www.asroads.com/post/c4d402bc.html';
+        this.page.title = 'TypeScript随机从数组中取出几个元素';
+        this.page.identifier = 'post/c4d402bc.html';
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://asroads.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+</footer>
+
+<script type="text/javascript" src="//s13.cnzz.com/z_stat.php?id=1234567890&amp;web_id=1234567890"></script>
+
+
+    </div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="/js/scrollspy.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function() {
+            var nodes = {
+                nav: $('#nav'),
+                aside: $('#aside'),
+                navTags: $('#nav-tags')
+            };
+
+            $('#open-panel, #aside-mask').on('click', function() {
+                nodes.aside.toggleClass('panel-show');
+            });
+            $('#nav-tag').on('click', function(event) {
+                event.preventDefault();console.log(nodes.navTags.attr('class'))
+                nodes.navTags.toggleClass('tag-show');console.log(nodes.navTags.attr('class'))
+            })/*.hover(function() {
+                nodes.navTags.addClass('tag-show');
+            }, function() {
+                nodes.navTags.removeClass('tag-show');
+            });*/
+
+            
+            $(document.body).scrollspy({target: '#aside-inner'});
+            
+        });
+    </script>
+
+</body>
+</html>
