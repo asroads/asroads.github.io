@@ -1,6 +1,15 @@
 <footer class="footer">
     <%= __('powered_by') %> <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    <% if( theme.baidu && theme.baidu.id ) { %>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?<%= theme.baidu.id %>";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <% } %>
 </footer>
-<% if( theme.umeng && theme.umeng.prefix && theme.umeng.id ) { %>
-<script type="text/javascript" src="//<%= theme.umeng.prefix %>.cnzz.com/z_stat.php?id=<%= theme.umeng.id %>&amp;web_id=<%= theme.umeng.id %>"></script>
-<% } %>
