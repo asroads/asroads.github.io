@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>CocosCreator导出Android项目采坑指南 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="新年伊始，一切开始，努力加油，今天，第一天在家里远程办公，年后可能要离开小游戏一段时间，去做原生开发，应该还是用Cocos Creator吧，只是发布平台不太一样了，新的平台，新的挑战，新的开始，新的触发！下面就记录以下，我在尝试新平台开发摸索中的遇到的各种问题，以及解决问题的方法和对问题的理解。Gradle认知和理解理解Gradle 和Gradle插件对于刚刚学习使用 Android Studio 的人来讲，如果不搞明白 这个 基本后面是一路懵逼，之前我只是知道Gradle 是帮..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gradle认知和理解"><span class="toc-number">1.</span> <span class="toc-text">Gradle认知和理解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#理解Gradle-和Gradle插件"><span class="toc-number">1.0.1.</span> <span class="toc-text">理解Gradle 和Gradle插件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#虽然下载构建时候下载很缓慢"><span class="toc-number">1.0.2.</span> <span class="toc-text">虽然下载构建时候下载很缓慢</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Could-not-install-Gradle-distribution"><span class="toc-number">2.</span> <span class="toc-text">Could not install Gradle distribution</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤："><span class="toc-number">2.1.</span> <span class="toc-text">步骤：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“Check-update”-is-not-working-in-android-studio"><span class="toc-number">3.</span> <span class="toc-text">“Check update” is not working in android studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’"><span class="toc-number">4.</span> <span class="toc-text">API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文章"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            CocosCreator导出Android项目采坑指南
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/d5575747.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-02-03T12:04:10.000Z" itemprop="datePublished">2020-02-03</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>新年伊始，一切开始，努力加油，今天，第一天在家里远程办公，年后可能要离开小游戏一段时间，去做原生开发，应该还是用Cocos Creator吧，只是发布平台不太一样了，新的平台，新的挑战，新的开始，新的触发！</p>
+<a id="more"></a>
+<p>下面就记录以下，我在尝试新平台开发摸索中的遇到的各种问题，以及解决问题的方法和对问题的理解。</p>
+<h3 id="Gradle认知和理解"><a href="#Gradle认知和理解" class="headerlink" title="Gradle认知和理解"></a>Gradle认知和理解</h3><h5 id="理解Gradle-和Gradle插件"><a href="#理解Gradle-和Gradle插件" class="headerlink" title="理解Gradle 和Gradle插件"></a>理解Gradle 和Gradle插件</h5><ol>
+<li><p>对于刚刚学习使用 Android Studio 的人来讲，如果不搞明白 这个 基本后面是一路懵逼，之前我只是知道Gradle 是帮助 Android Studio 构建项目的一个工具，其他的了解很浅</p>
+</li>
+<li><p>其实 Android Studio 官方网站写了很清楚，我摘抄几句</p>
+<blockquote>
+<p>Android Studio 构建系统以 Gradle 为基础，并且 Android Gradle 插件添加了几项专用于构建 Android 应用的功能。虽然 Android 插件通常会与 Android Studio 的更新步调保持一致，但插件（以及 Gradle 系统的其余部分）可独立于 Android Studio 运行并单独更新。</p>
+</blockquote>
+</li>
+<li><p>上面的意思很容易理解，Gradle 有自己的版本  ，Gradle 插件也有自己的版本，而且他们的版本号不是一致的，要想成功构建项目必须，保持二者匹配，看清楚是二者匹配，就是，这个 Gradle 和 Gradle 插件是两个东西。</p>
+</li>
+</ol>
+<blockquote>
+<p>在更新 Android Studio 时，您可能会收到一并将 Gradle 更新为最新可用版本的提示。您可以选择接受该更新，也可以根据项目的构建要求手动指定版本。<br>下表列出了各个 Android Gradle 插件版本所需的 Gradle 版本。要获得最佳性能，您应该使用 Gradle 和插件这两者的最新版本。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">插件版本</th>
+<th align="left">所需的 Gradle 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1.0.0 - 1.1.3</td>
+<td align="left">2.2.1 - 2.3</td>
+</tr>
+<tr>
+<td align="left">1.2.0 - 1.3.1</td>
+<td align="left">2.2.1 - 2.9</td>
+</tr>
+<tr>
+<td align="left">1.5.0</td>
+<td align="left">2.2.1 - 2.13</td>
+</tr>
+<tr>
+<td align="left">2.0.0 - 2.1.2</td>
+<td align="left">2.10 - 2.13</td>
+</tr>
+<tr>
+<td align="left">2.1.3 - 2.2.3</td>
+<td align="left">2.14.1+</td>
+</tr>
+<tr>
+<td align="left">2.3.0+</td>
+<td align="left">3.3+</td>
+</tr>
+<tr>
+<td align="left">3.0.0+</td>
+<td align="left">4.1+</td>
+</tr>
+<tr>
+<td align="left">3.1.0+</td>
+<td align="left">4.4+</td>
+</tr>
+<tr>
+<td align="left">3.2.0 - 3.2.1</td>
+<td align="left">4.6+</td>
+</tr>
+<tr>
+<td align="left">3.3.0 - 3.3.2</td>
+<td align="left">4.10.1+</td>
+</tr>
+<tr>
+<td align="left">3.4.0 - 3.4.1</td>
+<td align="left">5.1.1+</td>
+</tr>
+<tr>
+<td align="left">3.5.0+</td>
+<td align="left">5.4.1-5.6.4</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>您可以在 Android Studio 的 <strong>File</strong> &gt; <strong>Project Structure</strong> &gt; <strong>Project</strong> 菜单中指定 Gradle 版本，也可以通过在 <code>gradle/wrapper/gradle-wrapper.properties</code> 文件中修改 Gradle 分发引用来指定。以下示例在 <code>gradle-wrapper.properties</code> 文件中将 Gradle 的版本设置为 5.4.1。</p>
+</blockquote>
+<blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...  distributionUrl = https\://services.gradle.org/distributions/gradle-5.4.1-all.zip  ... </span><br></pre></td></tr></table></figure>
+</blockquote>
+<ol start="4">
+<li><p>所以在我们构建项目的时候 要保证二者 能够匹配才能正常的构建项目</p>
+</li>
+<li><p>build.gralde里的classpath ‘com.android.tools.build:gradle:3.0.1’指的是Android Studio的gradle插件版本，而gradle-wrapper.properties里的distributionUrl=https://services.gradle.org/distributions/gradle-4.4-all.zip才是指定的gradle版本！</p>
+<p>Gradle是开源的自动化构建工具，而Gradle插件是google开发的在Android Studio中使用Gradle的插件。</p>
+</li>
+</ol>
+<h5 id="虽然下载构建时候下载很缓慢"><a href="#虽然下载构建时候下载很缓慢" class="headerlink" title="虽然下载构建时候下载很缓慢"></a>虽然下载构建时候下载很缓慢</h5><p>这个是 因为配置文件里面 的下载地址 在某些地方无法正常下载，解决办法三种：A . 配置国内镜像</p>
+<p>B. 下载后覆盖本地文件 C 更改下载地址（2019年开始有 中国地区的CDN）</p>
+<ul>
+<li>配置国内镜像</li>
+</ul>
+<p>通过在 gradle.properties 中加大 connectionTimeout 和 socketTimeout 可以成功 gradle sync。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.gradle.jvmargs=-Xmx1536m -Dorg.gradle.internal.http.connectionTimeout=120000 -Dorg.gradle.internal.http.socketTimeout=120000</span><br></pre></td></tr></table></figure>
+
+<p>同时配置下面阿里云 镜像 （mirror）：修改项目根目录下的文件 build.gradle ：</p>
+<p>第一种配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        <span class="comment">//google()</span></span><br><span class="line">        <span class="comment">//jcenter()</span></span><br><span class="line">        maven &#123; url 'https://maven.aliyun.com/repository/public/' &#125;</span><br><span class="line">        maven &#123; url 'https://maven.aliyun.com/repository/google/'&#125;</span><br><span class="line">        maven &#123; url 'https://maven.aliyun.com/repository/jcenter/'&#125;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        <span class="comment">//google()</span></span><br><span class="line">        <span class="comment">//jcenter()</span></span><br><span class="line">        maven &#123; url 'https://maven.aliyun.com/repository/public/' &#125;</span><br><span class="line">        maven &#123; url 'https://maven.aliyun.com/repository/google/'&#125;</span><br><span class="line">        maven &#123; url 'https://maven.aliyun.com/repository/jcenter/'&#125;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        maven&#123; url 'http://maven.aliyun.com/nexus/content/groups/public/'&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        maven&#123; url 'http://maven.aliyun.com/nexus/content/groups/public/'&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.... 其他内容</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>本地配置</li>
+</ul>
+<p>关闭Android Studio,进入</p>
+<p>windows 系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\xxx\.gradle\wrapper\dists</span><br></pre></td></tr></table></figure>
+
+<p>Mac 系统</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;.gradle&#x2F;wrapper&#x2F;dists&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>点击这个<a href="https://gradle.org/install/" target="_blank" rel="noopener">https://gradle.org/install/</a> 参考 <a href="https://gradle.org/releases/" target="_blank" rel="noopener">https://gradle.org/releases/</a> </p>
+<p><a href="https://services.gradle.org/distributions/" target="_blank" rel="noopener">https://services.gradle.org/distributions/</a> 下载列表（建议用这个）</p>
+<p>选择下载 自己需要的版本</p>
+<p>最后将刚刚下好的zip文件放到这个目录</p>
+<p>windows 系统 注意 ：<code>gradle-4.10.3-all</code> 是你下载的版本的名字 这里只是举例 用 gradle-4.10.3-all</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\xxx\.gradle\wrapper\dists\gradle-4.10.3-all</span><br></pre></td></tr></table></figure>
+
+<p>Mac 系统 81msde2dx9p4vji0mjgtvxkcb 这个 可能 有所不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;.gradle&#x2F;wrapper&#x2F;dists&#x2F;gradle-4.10.3-all&#x2F;81msde2dx9p4vji0mjgtvxkcb</span><br></pre></td></tr></table></figure>
+
+<p>重新启动 Android Studio 即可</p>
+<ul>
+<li>更改下载地址</li>
+</ul>
+<p>值得 喜大普奔 的是 2019年 官方给出了 中国地区的 CDN 地址 </p>
+<p>就是 修改 </p>
+<h3 id="Could-not-install-Gradle-distribution"><a href="#Could-not-install-Gradle-distribution" class="headerlink" title="Could not install Gradle distribution"></a>Could not install Gradle distribution</h3><p><strong>报错如下</strong></p>
+<p><img src="/post/d5575747/image-20200203110227504.png" alt="image-20200203110227504"></p>
+<p>Event Log 如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Could not install Gradle distribution from <span class="string">'https://services.gradle.org/distributions/gradle-4.10.3-all.zip'</span>.</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<h4 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h4><ol>
+<li><p>在用户根目录下执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l ~/.gradle/wrapper/dists/</span><br></pre></td></tr></table></figure>
+
+<p>显示如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total 0</span><br><span class="line">drwxr-xr-x  4 smile  staff  128  2  3 10:55 gradle-4.10.3-all</span><br></pre></td></tr></table></figure>
+
+<p>发现有个 <code>gradle-4.10.3-all</code> 的目录</p>
+</li>
+<li><p>删除这个目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r gradle-4.10.3-all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从地址下载并解压在这个文件夹 ‘<a href="https://services.gradle.org/distributions/gradle-4.10.3-all.zip&#39;" target="_blank" rel="noopener">https://services.gradle.org/distributions/gradle-4.10.3-all.zip&#39;</a></p>
+</li>
+<li><p>重新打开android studio正常。</p>
+</li>
+</ol>
+<p><strong>注意： 后续 用了 上面的 就没有使用这个办法，但是觉得可能问题不同吧，这个方法也是极好的。</strong></p>
+<h3 id="“Check-update”-is-not-working-in-android-studio"><a href="#“Check-update”-is-not-working-in-android-studio" class="headerlink" title="“Check update” is not working in android studio"></a>“Check update” is not working in android studio</h3><p>打开 Help&gt;Check for Updates</p>
+<p>遇到错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Connection failed. Please check your network connection and try again</span><br></pre></td></tr></table></figure>
+
+<p>解决办法</p>
+<ol>
+<li>Open configuration</li>
+<li>Select Settings</li>
+<li>Select HTTP Proxy</li>
+<li>Set to use no proxy</li>
+<li>Restart Andriod studio</li>
+</ol>
+<h3 id="API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’"><a href="#API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’" class="headerlink" title="API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’."></a>API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’.</h3><p>警告如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">API &#39;variant.getMergeAssets()&#39; is obsolete and has been replaced with &#39;variant.getMergeAssetsProvider()&#39;.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/d5575747/image-20200204002803872-0786602.png" alt="image-20200204002803872"></p>
+<p>原因分析：</p>
+<p>是因为 Gradle 版本 比较新 造成的 版本回退 或者 修改</p>
+<p>app目录下build.grade中，更改variant.mergeAssets.doLast  为 variant.mergeAssetsProvider.get().doLast ：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">android.applicationVariants.all &#123; variant -&gt;</span><br><span class="line">    <span class="comment">// delete previous files first</span></span><br><span class="line">    delete <span class="string">"<span class="subst">$&#123;buildDir&#125;</span>/intermediates/assets/<span class="subst">$&#123;variant.dirName&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    variant.mergeAssets.doLast &#123;</span><br><span class="line">        copy &#123;</span><br><span class="line">           from <span class="string">"<span class="subst">$&#123;buildDir&#125;</span>/../../../../../res"</span></span><br><span class="line">           into <span class="string">"<span class="subst">$&#123;buildDir&#125;</span>/intermediates/assets/<span class="subst">$&#123;variant.dirName&#125;</span>/res"</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改后为</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">android.applicationVariants.all &#123; variant -&gt;</span><br><span class="line">    <span class="comment">// delete previous files first</span></span><br><span class="line">    delete <span class="string">"<span class="subst">$&#123;buildDir&#125;</span>/intermediates/assets/<span class="subst">$&#123;variant.dirName&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    variant.mergeAssetsProvider.<span class="keyword">get</span>().doLast &#123;</span><br><span class="line">        copy &#123;</span><br><span class="line">           from <span class="string">"<span class="subst">$&#123;buildDir&#125;</span>/../../../../../res"</span></span><br><span class="line">           into <span class="string">"<span class="subst">$&#123;buildDir&#125;</span>/intermediates/assets/<span class="subst">$&#123;variant.dirName&#125;</span>/res"</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>Android Studio 使用  </p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a href="https://www.zhihu.com/question/37810416" target="_blank" rel="noopener">大家都是怎样处理Gradle中的这个文件下载慢的问题的？</a></li>
+<li><a href="https://www.jianshu.com/p/647cd8e96472" target="_blank" rel="noopener">COCOS2DX 安卓getMergeAssets 过期</a></li>
+<li><a href="https://blog.csdn.net/zengsidou/article/details/79797417" target="_blank" rel="noopener">Android Studio报错：Error:Could not find com.android.tools.build:gradle:4.1 记一次不长记性的坑</a></li>
+<li><a href="https://www.bilibili.com/read/cv4224091/" target="_blank" rel="noopener">Cocos creator打包安卓APK</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/b3783407.html" class="article-next" title="Typescript写一个可以配置的日志管理器"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/post/db04f0eb.html" class="article-prev" title="字节跳动头条小游戏更多游戏跳转"><i class="icon-arrow-left"></i></a>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
