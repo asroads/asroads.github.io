@@ -7,10 +7,10 @@
 
     
 
-    <title>Mac下开启Chrome非安全模式 | Asroads&#39;Blog</title>
+    <title>Sourcetree操作Gitlab的项目 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="以前开发游戏的时候都是单机游戏呀，现在开发有服务器的游戏。调试的时候，就发现了跨域的问题。非安全模式要才可以，但是很网上给的例子，当时一试运行，每次都带打开命令有点麻烦。                                                                                                                                                                  ..." />
+    <meta name="description" content="疫情当前，免不了远程办公，公司的项目用的是SVN版本控制，这次在家远程办公后，准备把项目迁移到GitLab上面，本身这个没有什么可以记录的，但我还是在操作过程中遇到了一个错误，花费了几个小时时间搜索查找错误，最终得以解决。错误现象使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错1fatal: could not read Username for &#39;http://xxxxxx.com&#39;: Device not configured找了好些答案，有的说要git..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -105,7 +105,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webstorm-打开Chome-非安全模式"><span class="toc-number">1.</span> <span class="toc-text">webstorm  打开Chome 非安全模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#附上-windows-和Mac-简易-操作"><span class="toc-number">1.1.</span> <span class="toc-text">附上 windows 和Mac 简易 操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#windows"><span class="toc-number">1.1.1.</span> <span class="toc-text">windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MAC-解除chrome安全模式"><span class="toc-number">1.1.2.</span> <span class="toc-text">MAC 解除chrome安全模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-number">2.</span> <span class="toc-text">参考文章</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误现象"><span class="toc-number">1.</span> <span class="toc-text">错误现象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
         
     </div>
 </aside>
@@ -119,21 +119,21 @@
     <header class="article-header">
         
         <h1 itemprop="name">
-            Mac下开启Chrome非安全模式
+            Sourcetree操作Gitlab的项目
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/6b229175.html">
+            <a class="article-date" href="http://blog.www.asroads.com/post/d9ac0497.html">
     
     <i class="icon-calendar"></i>
     
-    <time datetime="2019-04-12T11:46:37.000Z" itemprop="datePublished">2019-04-12</time>
+    <time datetime="2020-02-10T12:05:51.000Z" itemprop="datePublished">2020-02-10</time>
 </a>
 
             
 <div class="article-tag-list">
     <i class="icon-tag"></i>
-    <a class="article-tag-link" href="/tags/Mac/" rel="tag">Mac</a>, <a class="article-tag-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a>
+    <a class="article-tag-link" href="/tags/Gitlab/" rel="tag">Gitlab</a>, <a class="article-tag-link" href="/tags/Sourcetree/" rel="tag">Sourcetree</a>
 </div>
 
 
@@ -142,41 +142,47 @@
     
     <section class="article-body markdown-body">
         
-        <p>以前开发游戏的时候都是单机游戏呀，现在开发有服务器的游戏。调试的时候，就发现了跨域的问题。非安全模式要才可以，但是很网上给的例子，当时一试运行，每次都带打开命令有点麻烦。                                                                                                                                                                       </p>
+        <p>疫情当前，免不了远程办公，公司的项目用的是SVN版本控制，这次在家远程办公后，准备把项目迁移到GitLab上面，本身这个没有什么可以记录的，但我还是在操作过程中遇到了一个错误，花费了几个小时时间搜索查找错误，最终得以解决。</p>
 <a id="more"></a>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Chrome &lt; 48</span></span><br><span class="line">open /Applications/Google\ Chrome.app --args -<span class="built_in">disable</span>-web-security</span><br><span class="line"></span><br><span class="line"><span class="comment"># Chrom &gt; 48</span></span><br><span class="line">open -a Google\ Chrome --args --<span class="built_in">disable</span>-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
+<h3 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h3><p>使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: could not read Username for 'http://xxxxxx.com': Device not configured</span><br></pre></td></tr></table></figure>
 
-<h2 id="webstorm-打开Chome-非安全模式"><a href="#webstorm-打开Chome-非安全模式" class="headerlink" title="webstorm  打开Chome 非安全模式"></a>webstorm  打开Chome 非安全模式</h2><ul>
-<li><p>打开 webstorm</p>
-<p><img src="/post/6b229175/image-20190412193030932.png" alt="image-20190412193030932"></p>
-</li>
-<li><p>设置 如下 </p>
-</li>
+<p>找了好些答案，有的说要git 改成系统的  我更改后 确实可以更新了，但是不显示 推送啥的 每次特别麻烦</p>
+<p>后面继续查找，找到了一个操作，终于得到解决：</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>原问题：</p>
+<blockquote>
+<p>我在mac OS上不像这篇文章：<a href="https://stackoverflow.com/questions/43085424/git-push-origin-branchname-throws-error-http-basic-access-denied" target="_blank" rel="noopener"><code>git push origin</code>throws error<code>HTTP Basic：Access denied</code></a> 我在GitLab中配置了密码。我在GitLab上创建项目后创建了SSL密钥。</p>
+<p>当我将现有文件夹用于新项目时，请按照以下步骤操作：</p>
+<p><strong>现有文件夹</strong></p>
+<ul>
+<li>cd existing_folder</li>
+<li>git init</li>
+<li>git remote add origin <a href="https://gitlab.com/sobopla/Geronimod.git" target="_blank" rel="noopener">https://gitlab.com/sobopla/Geronimod.git</a></li>
+<li>git add。</li>
+<li>git commit -m“初始提交”</li>
+<li>git push -u origin master</li>
 </ul>
-<p><img src="/post/6b229175/image-20190412193122773.png" alt="image-20190412193122773"></p>
-<p>内容是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
-
-<p>然后重启Chome  就搞定了</p>
-<h3 id="附上-windows-和Mac-简易-操作"><a href="#附上-windows-和Mac-简易-操作" class="headerlink" title="附上 windows 和Mac 简易 操作"></a>附上 windows 和Mac 简易 操作</h3><h4 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h4><p>第一步：确保所有chrome浏览器都已经关闭<br>第二步：打开你的chrome浏览器（快捷方式）的属性窗口，再路径后面添加</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
-
-<p>效果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files (x86)\Google\Chrome\Application\chrome.exe&quot; --args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
-
-<p><img src="/post/6b229175/image-20200205203455563.png" alt="image-20200205203455563"></p>
-<p>第三步：打开浏览器，如果出现这个横幅，就说明非安全模式开启完成。</p>
-<p><img src="/post/6b229175/image-20200205203615488.png" alt="image-20200205203615488"></p>
-<h4 id="MAC-解除chrome安全模式"><a href="#MAC-解除chrome安全模式" class="headerlink" title="MAC 解除chrome安全模式"></a>MAC 解除chrome安全模式</h4><p>打开终端输入</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> -a /Applications/Google\ Chrome.app --args --disable-web-security --user-<span class="keyword">data</span>-dir</span><br></pre></td></tr></table></figure>
-
-<p>OK  输入地址即可 。</p>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
-<li><a href="https://github.com/callmelaoda/communicate/issues/8" target="_blank" rel="noopener">Mac下开启Chrome非安全模式</a></li>
-<li><a href="https://www.jianshu.com/p/2db73311fcbe" target="_blank" rel="noopener">Mac上解决Chrome浏览器跨域问题</a></li>
-<li><a href="https://blog.csdn.net/fd214333890/article/details/39401677" target="_blank" rel="noopener">WebStorm中配置浏览器方法</a></li>
-<li><a href="https://www.jianshu.com/p/935a37d9af8b" target="_blank" rel="noopener">chrome 非安全模式解决开发跨域问题(windows与mas)</a></li>
+<p>我被提示输入我的GitLab用户名和密码。输入密码后，我得到：<code>remote: HTTP Basic: Access denied fatal: Authentication failed for &#39;https://gitlab.com/myname/myproject&#39;</code></p>
+</blockquote>
+<p>回答者：</p>
+<blockquote>
+<p>对于Mac用户：</p>
+<ol>
+<li>转到钥匙串并删除gitlab帐户</li>
+<li>转到终端中的项目路径，然后输入git pull</li>
+<li>然后，系统会要求您输入gitlab的用户名和密码</li>
+<li>输入您的用户名，您可以在配置文件部分的gitlab帐户中找到该用户名。</li>
+<li>然后在此输入您更新的密码。</li>
+<li>在这里，我们再次尝试推送您的代码，它可能会帮助你们。</li>
+</ol>
+</blockquote>
+<p>总结：</p>
+<p>我就是按照这个办法去操作，然后问他得以解决， 我猜想，我Gitlab 更改过用户名和密码 是不是我以前在电脑里有存储，所以报错呢？</p>
+<p>我按照他的这个回答，问他得以解决。</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><ul>
+<li><a href="https://xbuba.com/questions/47860772" target="_blank" rel="noopener">GitLab remote：HTTP Basic：拒绝访问和致命身份验证</a></li>
+<li><a href="https://www.jianshu.com/p/707de2a1046d" target="_blank" rel="noopener">mac下gitLab、sourceTree的配合使用</a></li>
 </ul>
 
         
@@ -185,10 +191,8 @@
 
 
 
-<a id="pagenext" href="/post/1ccda286.html" class="article-next" title="LayaBox2.0 圆形进度条制作"><i class="icon-arrow-right"></i></a>
+<a id="pagenext" href="/post/3e50bf38.html" class="article-next" title="Cocos Creator|Android 实战开发（上）"><i class="icon-arrow-right"></i></a>
 
-
-<a id="pageprev" href="/post/45f550f6.html" class="article-prev" title="如何下载微信公众号的文章和媒体文件"><i class="icon-arrow-left"></i></a>
 
 
 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Cocos Creator|Android 实战开发（上） | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="前面已经简单的介绍了如何配置Cocos Creator 原生平台环境，顺便简单的聊了聊导出包后的采坑，已经部分解决方案，接下来说说一些常见的游戏开发操作，记下来便于后续开发的时候查找。首先关于如何配置原生环境和导出包的可以参考另外两篇文章：Mac系统Cocos Creator Native 原生Android和ios打包CocosCreator导出Android项目采坑指南其实最好的学习文档莫过于官方文档：Android Gradle 插件版本说明NDK 下载探索 A..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#构建项目-日志查看-更换图标-amp-名字"><span class="toc-number">1.</span> <span class="toc-text">构建项目-日志查看-更换图标&amp;名字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更换-图标-amp-名字"><span class="toc-number">2.</span> <span class="toc-text">更换 图标&amp;名字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#图标更换"><span class="toc-number">2.1.</span> <span class="toc-text">图标更换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更换游戏名字"><span class="toc-number">2.2.</span> <span class="toc-text">更换游戏名字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卸载原来安装的-app-重新构建-运行"><span class="toc-number">3.</span> <span class="toc-text">卸载原来安装的 app 重新构建 运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator|Android 实战开发（上）
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/3e50bf38.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-02-06T12:13:18.000Z" itemprop="datePublished">2020-02-06</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>前面已经简单的介绍了如何配置Cocos Creator 原生平台环境，顺便简单的聊了聊导出包后的采坑，已经部分解决方案，接下来说说一些常见的游戏开发操作，记下来便于后续开发的时候查找。</p>
+<a id="more"></a>
+<p>首先关于如何配置原生环境和导出包的可以参考另外两篇文章：</p>
+<ul>
+<li><a href="http://blog.asroads.com/post/d130eaa6.html" target="_blank" rel="noopener">Mac系统Cocos Creator Native 原生Android和ios打包</a></li>
+<li><a href="http://blog.asroads.com/post/d5575747.html" target="_blank" rel="noopener">CocosCreator导出Android项目采坑指南</a></li>
+</ul>
+<p>其实最好的学习文档莫过于官方文档：</p>
+<ul>
+<li><a href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn" target="_blank" rel="noopener">Android Gradle 插件版本说明</a></li>
+<li><a href="https://developer.android.google.cn/ndk/downloads/" target="_blank" rel="noopener">NDK 下载</a></li>
+<li><a href="https://developer.android.com/studio/intro?hl=zh-cn" target="_blank" rel="noopener">探索 Android Studio</a></li>
+</ul>
+<p>虽然官网写了很详细，但有时候我们只是用常见的几种，而且对于 Cocos Creator 生成的项目，最好是有关于 Cocos Creator 定制的 操作 前面介绍的知识点 本文不再赘述，下面介绍一些常见的操作。</p>
+<h3 id="构建项目-日志查看-更换图标-amp-名字"><a href="#构建项目-日志查看-更换图标-amp-名字" class="headerlink" title="构建项目-日志查看-更换图标&amp;名字"></a>构建项目-日志查看-更换图标&amp;名字</h3><p>首先我们假设Cocos Creator 环境已经配置好 我们开始 构建项目。</p>
+<p><img src="/post/3e50bf38/image-20200206143123924.png" alt="image-20200206143123924"></p>
+<p>项目构建成功后 我们使用 Android Studio 打开 项目 项目路径是 build/jsb-link/frameworks/runtime-src/proj.android-studio</p>
+<p><img src="/post/3e50bf38/image-20200206143453770.png" alt="image-20200206143453770"></p>
+<p>一般来说 打开项目 后 会自动构建一次 </p>
+<p><img src="/post/3e50bf38/image-20200206143759598.png" alt="image-20200206143759598"></p>
+<p><img src="/post/3e50bf38/image-20200206143821558.png" alt="image-20200206143821558"></p>
+<p>如果 没有出现构建 这个进程  可以自己选择 File -&gt;Sync Project With Gradle Files</p>
+<p><img src="/post/3e50bf38/image-20200206143911086.png" alt="image-20200206143911086"></p>
+<p>此时 我们连上 我们的设备后 （需要开始开发者模式 USB调试 ）<img src="/post/3e50bf38/image-20200206144126101.png" alt="image-20200206144126101"></p>
+<p>这个时候 我们可以点击 <img src="/post/3e50bf38/image-20200206144154437.png" alt="image-20200206144154437">debug  或者 <img src="/post/3e50bf38/image-20200206144245375.png" alt="image-20200206144245375">运行游戏 此时 我们可以简单的预览游戏效果</p>
+<p><img src="/post/3e50bf38/image-20200206145116268.png" alt="image-20200206145116268"></p>
+<p>如果 出现这个 安装提示 点击 继续安装 即可 </p>
+<p><img src="/post/3e50bf38/image-20200206145151198.png" alt="image-20200206145151198"></p>
+<p>此时 我们可以看到 我们打出的 日志 Log 显示出来了</p>
+<p><img src="/post/3e50bf38/image-20200206150622467.png" alt="image-20200206150622467"></p>
+<p>此时 游戏 可以正常预览。但是 此时 我们游戏 在 安装的后的图标是 </p>
+<p><img src="/post/3e50bf38/image-20200206145502192.png" alt="image-20200206145502192"></p>
+<p>接下来 我们要修改一下我们的游戏的名字，比如我的游戏叫指南针 我们需要更换自定义的</p>
+<h3 id="更换-图标-amp-名字"><a href="#更换-图标-amp-名字" class="headerlink" title="更换 图标&amp;名字"></a>更换 图标&amp;名字</h3><h4 id="图标更换"><a href="#图标更换" class="headerlink" title="图标更换"></a>图标更换</h4><p>首先我们自己准备一张 1024X1024 的png 图片 然后打开这个网站 一键生成我们的图标</p>
+<p><a href="http://icon.wuruihong.com/" target="_blank" rel="noopener">图标工厂</a>    网站 <a href="http://icon.wuruihong.com/" target="_blank" rel="noopener">点击进入</a></p>
+<p><img src="/post/3e50bf38/image-20200206145759880.png" alt="image-20200206145759880"></p>
+<p><img src="/post/3e50bf38/image-20200206150013609.png" alt="image-20200206150013609"></p>
+<p>此时 我们这个 android 的文件夹 里面就是我们的图标</p>
+<p><img src="/post/3e50bf38/image-20200206145931912.png" alt="image-20200206145931912"></p>
+<p>这个是我们项目原来的图标文件 我们选择替换即可</p>
+<h4 id="更换游戏名字"><a href="#更换游戏名字" class="headerlink" title="更换游戏名字"></a>更换游戏名字</h4><p>首先 原来 游戏的名字是在这里配置的</p>
+<p><img src="/post/3e50bf38/image-20200206150810518.png" alt="image-20200206150810518"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span> <span class="attr">translatable</span>=<span class="string">"false"</span>&gt;</span>ccsyx<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们修改 “ccsyx” 即可 比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span> <span class="attr">translatable</span>=<span class="string">"false"</span>&gt;</span>指南针<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="卸载原来安装的-app-重新构建-运行"><a href="#卸载原来安装的-app-重新构建-运行" class="headerlink" title="卸载原来安装的 app 重新构建 运行"></a>卸载原来安装的 app 重新构建 运行</h3><p><img src="/post/3e50bf38/image-20200206151153513.png" alt="image-20200206151153513"></p>
+<p>以上我们成功的 更换了自定义的 游戏名字 和游戏图标。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/hqq39/article/details/49821607" target="_blank" rel="noopener">【cocos2dx】改安装包名、app名、图标、包名</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/db04f0eb.html" class="article-next" title="字节跳动头条小游戏更多游戏跳转"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/post/d9ac0497.html" class="article-prev" title="Sourcetree操作Gitlab的项目"><i class="icon-arrow-left"></i></a>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
