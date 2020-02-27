@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>小游戏|代码压缩Webstorm 或 VSCode | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="开发小游戏久了，就会写一些常用的组件和工具库或者一些写好的特效，甚至特别好用的第三方库，比如我特别喜欢的TweenMax（TweenLite）和puremvc（框架）这样就会引起有时候提审的时候，代码重合度过高被拒绝，那么代码混淆和压缩再一次被搬上历史舞台。总的来说，目前市场上场景的 就是几种插件，首先我们要理解什么是压缩，什么是混淆压缩 基本就是去掉不必要的部分。空白字符换行符评论阻止分隔符这样的 可以在最后生成的代码的时候 去掉很多常见的 比如 UglifyJS ..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#项目构建"><span class="toc-number">1.1.</span> <span class="toc-text">项目构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Webstorm中运行Gulp-Task"><span class="toc-number">1.2.</span> <span class="toc-text">Webstorm中运行Gulp  Task</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Visual-Studio-Code中运行Gulp-Task"><span class="toc-number">1.3.</span> <span class="toc-text">Visual Studio Code中运行Gulp  Task</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单说明一下"><span class="toc-number">2.</span> <span class="toc-text">简单说明一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附上-几个在线压缩JavaScript的地址"><span class="toc-number">3.</span> <span class="toc-text">附上 几个在线压缩JavaScript的地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">4.</span> <span class="toc-text">参考链接</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            小游戏|代码压缩Webstorm 或 VSCode
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/3e29e93b.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-02-27T04:27:56.000Z" itemprop="datePublished">2020-02-27</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/" rel="tag">小游戏</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>开发小游戏久了，就会写一些常用的组件和工具库或者一些写好的特效，甚至特别好用的第三方库，比如我特别喜欢的TweenMax（TweenLite）和puremvc（框架）这样就会引起有时候提审的时候，代码重合度过高被拒绝，那么代码混淆和压缩再一次被搬上历史舞台。</p>
+<a id="more"></a>
+<p>总的来说，目前市场上场景的 就是几种插件，首先我们要理解什么是压缩，什么是混淆</p>
+<p>压缩 基本就是去掉不必要的部分。</p>
+<ul>
+<li>空白字符</li>
+<li>换行符</li>
+<li>评论</li>
+<li>阻止分隔符</li>
+</ul>
+<p>这样的 可以在最后生成的代码的时候 去掉</p>
+<p>很多常见的 比如 UglifyJS 、Terser、babel-minify、gulp-javascript-obfuscator等众多插件，甚至有些在线压缩和混淆也做的相当不错。此话题和压缩图片资源一样，是个长期的话题，为了节省时间，下面简单的说说如何用<a href="https://github.com/javascript-obfuscator/javascript-obfuscator" target="_blank" rel="noopener">gulp-javascript-obfuscator</a> 这个插件进行对 Cocos Creator 构建后的 project.js 进行混淆的</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>压缩前提：</p>
+<ul>
+<li>首先用Cocos 新建一个项目比如 最简单的 Hello World</li>
+<li>然后安装 node js 环境</li>
+<li>安装 gulp 插件（我这边是4.0.2）</li>
+<li>安装 gulp-javascript-obfuscator 压缩插件</li>
+</ul>
+<h4 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h4><ol>
+<li>首先我们要用我们新建的项目 构建出一款小游戏，此处用 字节跳动开发工具（微信小游戏同理）<br><img src="/post/3e29e93b/image-20200227124905033.png" alt="image-20200227124905033"></li>
+<li>等待构建完成后，我们开始在我们的根目录下面 新建一个 gulpfile.js 文件 作为我们的 gulp task</li>
+<li><img src="/post/3e29e93b/image-20200227125159984.png" alt="image-20200227125159984"></li>
+</ol>
+<p>gulp.js 内容如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</span><br><span class="line"><span class="keyword">var</span> javascriptObfuscator = <span class="built_in">require</span>(<span class="string">"gulp-javascript-obfuscator"</span>);</span><br><span class="line">gulp.task(<span class="string">"default"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">cb</span>) </span>&#123;</span><br><span class="line">    gulp.src([<span class="string">"./build/wechatgame/src/project.js"</span>],&#123;<span class="attr">allowEmpty</span>: <span class="literal">true</span>&#125;)</span><br><span class="line">        .pipe(javascriptObfuscator(&#123;</span><br><span class="line">            <span class="comment">// compact: true,//类型：boolean默认：true</span></span><br><span class="line">            mangle: <span class="literal">true</span>, <span class="comment">//短标识符的名称，如a，b，c</span></span><br><span class="line">            stringArray: <span class="literal">false</span>,</span><br><span class="line">            target: <span class="string">"browser"</span>,</span><br><span class="line">        &#125;))</span><br><span class="line">        .pipe(gulp.dest(<span class="string">"./release/src"</span>)</span><br><span class="line">            .on(<span class="string">"end"</span>, cb));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Webstorm中运行Gulp-Task"><a href="#Webstorm中运行Gulp-Task" class="headerlink" title="Webstorm中运行Gulp  Task"></a>Webstorm中运行Gulp  Task</h4><ol>
+<li>选中项目内的gulp.js 鼠标右键</li>
+</ol>
+<p><img src="/post/3e29e93b/image-20200227131017350.png" alt="image-20200227131017350"></p>
+<ol start="2">
+<li>出现 gulp 窗口<br><img src="/post/3e29e93b/image-20200227131127371.png" alt="image-20200227131127371"></li>
+<li>双击这个 黑色的 default 运行我们的脚本<br><img src="/post/3e29e93b/image-20200227131206618.png" alt="image-20200227131206618"></li>
+<li>运行成功 查看我们的代码<br>混淆前：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.__require=<span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">e,r,o</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">n</span>(<span class="params">i,l</span>)</span>&#123;<span class="keyword">if</span>(!r[i])&#123;<span class="keyword">if</span>(!e[i])&#123;<span class="keyword">var</span> u=i.split(<span class="string">"/"</span>);<span class="keyword">if</span>(u=u[u.length<span class="number">-1</span>],!e[u])&#123;<span class="keyword">var</span> f=<span class="string">"function"</span>==<span class="keyword">typeof</span> __require&amp;&amp;__require;<span class="keyword">if</span>(!l&amp;&amp;f)<span class="keyword">return</span> f(u,!<span class="number">0</span>);<span class="keyword">if</span>(c)<span class="keyword">return</span> c(u,!<span class="number">0</span>);<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Cannot find module '"</span>+i+<span class="string">"'"</span>)&#125;&#125;<span class="keyword">var</span> p=r[i]=&#123;<span class="attr">exports</span>:&#123;&#125;&#125;;e[i][<span class="number">0</span>].call(p.exports,<span class="function"><span class="keyword">function</span>(<span class="params">t</span>)</span>&#123;<span class="keyword">return</span> n(e[i][<span class="number">1</span>][t]||t)&#125;,p,p.exports,t,e,r,o)&#125;<span class="keyword">return</span> r[i].exports&#125;<span class="keyword">for</span>(<span class="keyword">var</span> c=<span class="string">"function"</span>==<span class="keyword">typeof</span> __require&amp;&amp;__require,i=<span class="number">0</span>;i&lt;o.length;i++)n(o[i]);<span class="keyword">return</span> n&#125;(&#123;<span class="attr">Helloworld</span>:[<span class="function"><span class="keyword">function</span>(<span class="params">t,e,r</span>)</span>&#123;<span class="string">"use strict"</span>;cc._RF.push(e,<span class="string">"e1b90/rohdEk4SdmmEZANaD"</span>,<span class="string">"Helloworld"</span>);<span class="keyword">var</span> o=<span class="keyword">this</span>&amp;&amp;<span class="keyword">this</span>.__extends||<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">var</span> t=<span class="function"><span class="keyword">function</span>(<span class="params">e,r</span>)</span>&#123;<span class="keyword">return</span>(t=<span class="built_in">Object</span>.setPrototypeOf||&#123;<span class="attr">__proto__</span>:[]&#125;<span class="keyword">instanceof</span> <span class="built_in">Array</span>&amp;&amp;<span class="function"><span class="keyword">function</span>(<span class="params">t,e</span>)</span>&#123;t.__proto__=e&#125;||<span class="function"><span class="keyword">function</span>(<span class="params">t,e</span>)</span>&#123;<span class="keyword">for</span>(<span class="keyword">var</span> r <span class="keyword">in</span> e)e.hasOwnProperty(r)&amp;&amp;(t[r]=e[r])&#125;)(e,r)&#125;;<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">e,r</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">o</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.constructor=e&#125;t(e,r),e.prototype=<span class="literal">null</span>===r?<span class="built_in">Object</span>.create(r):(o.prototype=r.prototype,<span class="keyword">new</span> o)&#125;&#125;(),n=<span class="keyword">this</span>&amp;&amp;<span class="keyword">this</span>.__decorate||<span class="function"><span class="keyword">function</span>(<span class="params">t,e,r,o</span>)</span>&#123;<span class="keyword">var</span> n,c=<span class="built_in">arguments</span>.length,i=c&lt;<span class="number">3</span>?e:<span class="literal">null</span>===o?o=<span class="built_in">Object</span>.getOwnPropertyDescriptor(e,r):o;<span class="keyword">if</span>(<span class="string">"object"</span>==<span class="keyword">typeof</span> <span class="built_in">Reflect</span>&amp;&amp;<span class="string">"function"</span>==<span class="keyword">typeof</span> <span class="built_in">Reflect</span>.decorate)i=<span class="built_in">Reflect</span>.decorate(t,e,r,o);<span class="keyword">else</span> <span class="keyword">for</span>(<span class="keyword">var</span> l=t.length<span class="number">-1</span>;l&gt;=<span class="number">0</span>;l--)(n=t[l])&amp;&amp;(i=(c&lt;<span class="number">3</span>?n(i):c&gt;<span class="number">3</span>?n(e,r,i):n(e,r))||i);<span class="keyword">return</span> c&gt;<span class="number">3</span>&amp;&amp;i&amp;&amp;<span class="built_in">Object</span>.defineProperty(e,r,i),i&#125;;<span class="built_in">Object</span>.defineProperty(r,<span class="string">"__esModule"</span>,&#123;<span class="attr">value</span>:!<span class="number">0</span>&#125;);<span class="keyword">var</span> c=cc._decorator,i=c.ccclass,l=c.property,u=<span class="function"><span class="keyword">function</span>(<span class="params">t</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">e</span>(<span class="params"></span>)</span>&#123;<span class="keyword">var</span> e=<span class="literal">null</span>!==t&amp;&amp;t.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>)||<span class="keyword">this</span>;<span class="keyword">return</span> e.label=<span class="literal">null</span>,e.text=<span class="string">"hello"</span>,e&#125;<span class="keyword">return</span> o(e,t),e.prototype.start=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.label.string=<span class="keyword">this</span>.text&#125;,n([l(cc.Label)],e.prototype,<span class="string">"label"</span>,<span class="keyword">void</span> <span class="number">0</span>),n([l],e.prototype,<span class="string">"text"</span>,<span class="keyword">void</span> <span class="number">0</span>),e=n([i],e)&#125;(cc.Component);r.default=u,cc._RF.pop()&#125;,&#123;&#125;]&#125;,&#123;&#125;,[<span class="string">"Helloworld"</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>混淆后：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>[<span class="string">'__require'</span>]=<span class="function"><span class="keyword">function</span> <span class="title">t</span>(<span class="params">_0xb8615a,_0x34ed8f,_0x3c13d3</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">_0x45f71b</span>(<span class="params">_0x5f9f56,_0x1e6230</span>)</span>&#123;<span class="keyword">if</span>(!_0x34ed8f[_0x5f9f56])&#123;<span class="keyword">if</span>(!_0xb8615a[_0x5f9f56])&#123;<span class="keyword">var</span> _0x365d31=_0x5f9f56[<span class="string">'split'</span>](<span class="string">'/'</span>);<span class="keyword">if</span>(_0x365d31=_0x365d31[_0x365d31[<span class="string">'length'</span>]<span class="number">-0x1</span>],!_0xb8615a[_0x365d31])&#123;<span class="keyword">var</span> _0x7e877d=<span class="string">'function'</span>==<span class="keyword">typeof</span> __require&amp;&amp;__require;<span class="keyword">if</span>(!_0x1e6230&amp;&amp;_0x7e877d)<span class="keyword">return</span> _0x7e877d(_0x365d31,!<span class="number">0x0</span>);<span class="keyword">if</span>(_0x4cbfde)<span class="keyword">return</span> _0x4cbfde(_0x365d31,!<span class="number">0x0</span>);<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Cannot\x20find\x20module\x20\x27'</span>+_0x5f9f56+<span class="string">'\x27'</span>);&#125;&#125;<span class="keyword">var</span> _0x12926b=_0x34ed8f[_0x5f9f56]=&#123;<span class="string">'exports'</span>:&#123;&#125;&#125;;_0xb8615a[_0x5f9f56][<span class="number">0x0</span>][<span class="string">'call'</span>](_0x12926b[<span class="string">'exports'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">_0x406eb1</span>)</span>&#123;<span class="keyword">return</span> _0x45f71b(_0xb8615a[_0x5f9f56][<span class="number">0x1</span>][_0x406eb1]||_0x406eb1);&#125;,_0x12926b,_0x12926b[<span class="string">'exports'</span>],t,_0xb8615a,_0x34ed8f,_0x3c13d3);&#125;<span class="keyword">return</span> _0x34ed8f[_0x5f9f56][<span class="string">'exports'</span>];&#125;<span class="keyword">for</span>(<span class="keyword">var</span> _0x4cbfde=<span class="string">'function'</span>==<span class="keyword">typeof</span> __require&amp;&amp;__require,_0x54b8b0=<span class="number">0x0</span>;_0x54b8b0&lt;_0x3c13d3[<span class="string">'length'</span>];_0x54b8b0++)_0x45f71b(_0x3c13d3[_0x54b8b0]);<span class="keyword">return</span> _0x45f71b;&#125;(&#123;<span class="string">'Helloworld'</span>:[<span class="function"><span class="keyword">function</span>(<span class="params">_0x246df9,_0x3b700a,_0x22a66a</span>)</span>&#123;<span class="string">'use strict'</span>;cc[<span class="string">'_RF'</span>][<span class="string">'push'</span>](_0x3b700a,<span class="string">'e1b90/rohdEk4SdmmEZANaD'</span>,<span class="string">'Helloworld'</span>);<span class="keyword">var</span> _0x13840a=<span class="keyword">this</span>&amp;&amp;<span class="keyword">this</span>[<span class="string">'__extends'</span>]||<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">var</span> _0x4de8f0=<span class="function"><span class="keyword">function</span>(<span class="params">_0x4e9a12,_0x47e3c3</span>)</span>&#123;<span class="keyword">return</span>(_0x4de8f0=<span class="built_in">Object</span>[<span class="string">'setPrototypeOf'</span>]||&#123;<span class="string">'__proto__'</span>:[]&#125;<span class="keyword">instanceof</span> <span class="built_in">Array</span>&amp;&amp;<span class="function"><span class="keyword">function</span>(<span class="params">_0x1e86d7,_0x3ff343</span>)</span>&#123;_0x1e86d7[<span class="string">'__proto__'</span>]=_0x3ff343;&#125;||<span class="function"><span class="keyword">function</span>(<span class="params">_0x4537f2,_0x496368</span>)</span>&#123;<span class="keyword">for</span>(<span class="keyword">var</span> _0x4db7a3 <span class="keyword">in</span> _0x496368)_0x496368[<span class="string">'hasOwnProperty'</span>](_0x4db7a3)&amp;&amp;(_0x4537f2[_0x4db7a3]=_0x496368[_0x4db7a3]);&#125;)(_0x4e9a12,_0x47e3c3);&#125;;<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">_0x589dcb,_0x2a7d9e</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">_0x32aa1a</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>[<span class="string">'constructor'</span>]=_0x589dcb;&#125;_0x4de8f0(_0x589dcb,_0x2a7d9e),_0x589dcb[<span class="string">'prototype'</span>]=<span class="literal">null</span>===_0x2a7d9e?<span class="built_in">Object</span>[<span class="string">'create'</span>](_0x2a7d9e):(_0x32aa1a[<span class="string">'prototype'</span>]=_0x2a7d9e[<span class="string">'prototype'</span>],<span class="keyword">new</span> _0x32aa1a());&#125;;&#125;(),_0x4a1fad=<span class="keyword">this</span>&amp;&amp;<span class="keyword">this</span>[<span class="string">'__decorate'</span>]||<span class="function"><span class="keyword">function</span>(<span class="params">_0x24e01e,_0x4b486f,_0x3604dd,_0x55da47</span>)</span>&#123;<span class="keyword">var</span> _0x177a46,_0x3c5734=<span class="built_in">arguments</span>[<span class="string">'length'</span>],_0x321086=_0x3c5734&lt;<span class="number">0x3</span>?_0x4b486f:<span class="literal">null</span>===_0x55da47?_0x55da47=<span class="built_in">Object</span>[<span class="string">'getOwnPropertyDescriptor'</span>](_0x4b486f,_0x3604dd):_0x55da47;<span class="keyword">if</span>(<span class="string">'object'</span>==<span class="keyword">typeof</span> <span class="built_in">Reflect</span>&amp;&amp;<span class="string">'function'</span>==<span class="keyword">typeof</span> <span class="built_in">Reflect</span>[<span class="string">'decorate'</span>])_0x321086=<span class="built_in">Reflect</span>[<span class="string">'decorate'</span>](_0x24e01e,_0x4b486f,_0x3604dd,_0x55da47);<span class="keyword">else</span> <span class="keyword">for</span>(<span class="keyword">var</span> _0xc0b4c2=_0x24e01e[<span class="string">'length'</span>]<span class="number">-0x1</span>;_0xc0b4c2&gt;=<span class="number">0x0</span>;_0xc0b4c2--)(_0x177a46=_0x24e01e[_0xc0b4c2])&amp;&amp;(_0x321086=(_0x3c5734&lt;<span class="number">0x3</span>?_0x177a46(_0x321086):_0x3c5734&gt;<span class="number">0x3</span>?_0x177a46(_0x4b486f,_0x3604dd,_0x321086):_0x177a46(_0x4b486f,_0x3604dd))||_0x321086);<span class="keyword">return</span> _0x3c5734&gt;<span class="number">0x3</span>&amp;&amp;_0x321086&amp;&amp;<span class="built_in">Object</span>[<span class="string">'defineProperty'</span>](_0x4b486f,_0x3604dd,_0x321086),_0x321086;&#125;;<span class="built_in">Object</span>[<span class="string">'defineProperty'</span>](_0x22a66a,<span class="string">'__esModule'</span>,&#123;<span class="string">'value'</span>:!<span class="number">0x0</span>&#125;);<span class="keyword">var</span> _0x5f2d0e=cc[<span class="string">'_decorator'</span>],_0x215807=_0x5f2d0e[<span class="string">'ccclass'</span>],_0x21fa83=_0x5f2d0e[<span class="string">'property'</span>],_0x166402=<span class="function"><span class="keyword">function</span>(<span class="params">_0x329cc9</span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">_0x2266a3</span>(<span class="params"></span>)</span>&#123;<span class="keyword">var</span> _0x5320ac=<span class="literal">null</span>!==_0x329cc9&amp;&amp;_0x329cc9[<span class="string">'apply'</span>](<span class="keyword">this</span>,<span class="built_in">arguments</span>)||<span class="keyword">this</span>;<span class="keyword">return</span> _0x5320ac[<span class="string">'label'</span>]=<span class="literal">null</span>,_0x5320ac[<span class="string">'text'</span>]=<span class="string">'hello'</span>,_0x5320ac;&#125;<span class="keyword">return</span> _0x13840a(_0x2266a3,_0x329cc9),_0x2266a3[<span class="string">'prototype'</span>][<span class="string">'start'</span>]=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>[<span class="string">'label'</span>][<span class="string">'string'</span>]=<span class="keyword">this</span>[<span class="string">'text'</span>];&#125;,_0x4a1fad([_0x21fa83(cc[<span class="string">'Label'</span>])],_0x2266a3[<span class="string">'prototype'</span>],<span class="string">'label'</span>,<span class="keyword">void</span> <span class="number">0x0</span>),_0x4a1fad([_0x21fa83],_0x2266a3[<span class="string">'prototype'</span>],<span class="string">'text'</span>,<span class="keyword">void</span> <span class="number">0x0</span>),_0x2266a3=_0x4a1fad([_0x215807],_0x2266a3);&#125;(cc[<span class="string">'Component'</span>]);_0x22a66a[<span class="string">'default'</span>]=_0x166402,cc[<span class="string">'_RF'</span>][<span class="string">'pop'</span>]();&#125;,&#123;&#125;]&#125;,&#123;&#125;,[<span class="string">'Helloworld'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>5.替换文件后 模拟器运行：</p>
+<p><img src="/post/3e29e93b/image-20200227131556910.png" alt="image-20200227131556910"></p>
+<p><img src="/post/3e29e93b/image-20200227131606879.png" alt="image-20200227131606879"></p>
+<p>成功运行 没有报错。</p>
+<h4 id="Visual-Studio-Code中运行Gulp-Task"><a href="#Visual-Studio-Code中运行Gulp-Task" class="headerlink" title="Visual Studio Code中运行Gulp  Task"></a>Visual Studio Code中运行Gulp  Task</h4><ol>
+<li>首先我们要安装 Visual Studio Code，Visual Studio Code 作为一个轻量级的编辑器，Gulp task 运行 需要安装插件 。</li>
+</ol>
+<ul>
+<li>下载插件：Gulp Snippets===&gt;主要作用就是识别gulp </li>
+<li>下载插件Gulp Tasks==&gt;主要是管理任务</li>
+</ul>
+<p><img src="/post/3e29e93b/image-20200227131940763.png" alt="image-20200227131940763"></p>
+<ol start="2">
+<li>然后导入我们的项目 开始选择我们的gulp</li>
+</ol>
+<p><img src="/post/3e29e93b/image-20200227132209115.png" alt="image-20200227132209115"></p>
+<p>出现 Gulp Tasks 管理窗口 同理双击运行：</p>
+<p><img src="/post/3e29e93b/image-20200227132308389.png" alt="image-20200227132308389"></p>
+<ol start="3">
+<li>以上就是 用 VScode 运行Gulp Task</li>
+</ol>
+<h3 id="简单说明一下"><a href="#简单说明一下" class="headerlink" title="简单说明一下"></a>简单说明一下</h3><p><img src="/post/3e29e93b/image-20200227132506448.png" alt="image-20200227132506448"></p>
+<p>这个就是 gulp 函数压缩的配置，这个插件还有更多的选项：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</span><br><span class="line"><span class="keyword">var</span> javascriptObfuscator = <span class="built_in">require</span>(<span class="string">"gulp-javascript-obfuscator"</span>);</span><br><span class="line">gulp.task(<span class="string">"obfuscator"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">cb</span>) </span>&#123;</span><br><span class="line">    gulp.src([<span class="string">"./build/web-mobile/src/project.js"</span>], &#123;<span class="attr">allowEmpty</span>: <span class="literal">true</span>&#125;)</span><br><span class="line">        .pipe(javascriptObfuscator(&#123;</span><br><span class="line">            compact: <span class="literal">true</span>,</span><br><span class="line">            deadCodeInjection: <span class="literal">false</span>,</span><br><span class="line">            debugProtection: <span class="literal">false</span>,</span><br><span class="line">            debugProtectionInterval: <span class="literal">false</span>,</span><br><span class="line">            disableConsoleOutput: <span class="literal">false</span>,</span><br><span class="line">            domainLock: [<span class="string">".zz-game.com"</span>],</span><br><span class="line">            mangle: <span class="literal">true</span>,</span><br><span class="line">            renameGlobals: <span class="literal">false</span>,</span><br><span class="line">            rotateStringArray: <span class="literal">false</span>,</span><br><span class="line">            seed: <span class="number">0</span>,</span><br><span class="line">            selfDefending: <span class="literal">false</span>,</span><br><span class="line">            stringArrayEncoding: <span class="literal">false</span>,</span><br><span class="line">            stringArray: <span class="literal">false</span>,</span><br><span class="line">            target: <span class="string">"browser"</span>,</span><br><span class="line">            unicodeEscapeSequence: <span class="literal">false</span></span><br><span class="line">        &#125;))</span><br><span class="line">        .pipe(gulp.dest(<span class="string">"./build/web-mobile"</span>)</span><br><span class="line">            .on(<span class="string">"end"</span>, cb));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>但是更多的选项为 true 就混淆的更厉害，代码文件相应的会变大的更多。本人建议，适当即可。</p>
+<p>最后 附上 demo 地址：<a href="https://github.com/jsroads/codemix" target="_blank" rel="noopener">https://github.com/jsroads/codemix</a></p>
+<h3 id="附上-几个在线压缩JavaScript的地址"><a href="#附上-几个在线压缩JavaScript的地址" class="headerlink" title="附上 几个在线压缩JavaScript的地址"></a>附上 几个在线压缩JavaScript的地址</h3><ul>
+<li><a href="https://www.sojson.com/jsobfuscator.html" target="_blank" rel="noopener">https://www.sojson.com/jsobfuscator.html</a> （不太推荐 文件太大）</li>
+<li><a href="https://www.javascriptobfuscator.com/Javascript-Obfuscator.aspx" target="_blank" rel="noopener">https://www.javascriptobfuscator.com/Javascript-Obfuscator.aspx</a>  （别人介绍 未测试）</li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="https://juejin.im/post/5b44957b6fb9a04fae20f06e" target="_blank" rel="noopener">vscode中执行gulp的task</a></li>
+<li><a href="https://segmentfault.com/a/1190000012424893" target="_blank" rel="noopener">Cocos Creator—最佳构建部署实践</a></li>
+<li><a href="https://juejin.im/post/5d6cd666e51d4561cb5ddee6" target="_blank" rel="noopener">[译]Uglify vs Babel-minify vs Terser 一场代码压缩的pk</a></li>
+<li><a href="http://blog.w3cub.com/blog/2019/04/01/js-confusion/" target="_blank" rel="noopener">Javascript混淆与解混淆的那些事儿</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/d9ac0497.html" class="article-next" title="Sourcetree操作Gitlab的项目"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
