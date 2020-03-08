@@ -149,6 +149,31 @@ import GameData from "../GameData";
 
 分析 ：这类Bug 比较隐蔽，需要细心才能发觉异常，毕竟没有栈信息 看
 
+### Creator在修改模拟器的默认显示模式
+
+修改 ：
+
+```text
+CocosCreator\resources\cocos2d-x\simulator\win32\config.json
+```
+
+###  Cocos Creator 2.2.2 无法使用cc.Material.getBuiltinMaterial(‘gray-sprite’)
+
+有时候我们需要让一个图片或者一个 Sprite对象 变成灰色，新版本的官方已经自带了这个功能只是按照网上给的办法调用发现报错，后面得知升级后，这个名字也改了，新版本应该这么用：
+
+```typescript
+var mat: cc.Material = null;
+        if (isGray) {
+            mat = cc.Material.getBuiltinMaterial('2d-gray-sprite');
+        }
+        else {
+            mat = cc.Material.getBuiltinMaterial('2d-sprite')
+        }
+        sprite.setMaterial(0, mat);
+```
+
+name前面加上`2d-`即可。
+
 ### 总结
 
 在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。
