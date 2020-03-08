@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>介绍一个数字动画库CountUp.js | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="动画是游戏内必必不可少的功能，在AS3时代强大的类库TweenMax，在H5页游时代，各大引擎都有了自己的相对于TweenMax的部分功能的实现，Cocos Creator 还结合了Action 做了很多拓展，但是有时候我们需要一些常见的功能比如对于数字变化的效果，此时如果自己写就要控制好很多参数，那么网上有没有轮子呢，答案是：有介绍CountUp.js 是一个零依赖的轻量a级 JavaScript 库，可用于快速创建以更有趣的方式显示数字的动画。虽然这个是个H5页面的类库，但是不影..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#参数"><span class="toc-number">1.0.1.</span> <span class="toc-text">参数:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            介绍一个数字动画库CountUp.js
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/76506a91.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-03-05T07:30:56.000Z" itemprop="datePublished">2020-03-05</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/js/" rel="tag">js</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>动画是游戏内必必不可少的功能，在AS3时代强大的类库TweenMax，在H5页游时代，各大引擎都有了自己的相对于TweenMax的部分功能的实现，Cocos Creator 还结合了Action 做了很多拓展，但是有时候我们需要一些常见的功能比如对于数字变化的效果，此时如果自己写就要控制好很多参数，那么网上有没有轮子呢，答案是：有</p>
+<a id="more"></a>
+
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>CountUp.js</strong> 是一个零依赖的轻量a级 JavaScript 库，可用于快速创建以更有趣的方式显示数字的动画。虽然这个是个H5页面的类库，但是不影响把他迁移到Cocos Creator 项目里。这个库有Typescript和JavaScript版本，还有演示的官网。可以说对于游戏开发者和想省事的开发者确实是个福音。</p>
+<p>说干就干，接下来先放上两个链接：</p>
+<ul>
+<li>代码库地址：<a href="https://github.com/inorganik/countUp.js" target="_blank" rel="noopener">点击进入</a></li>
+<li>演示地址：<a href="https://inorganik.github.io/countUp.js/" target="_blank" rel="noopener">点击进入</a></li>
+</ul>
+<p>演示地址样式：</p>
+<p><img src="/post/76506a91/image-20200305155218350.png" alt="image-20200305155218350"></p>
+<p>可以看出 有很多可以配置的参数和选项：</p>
+<h5 id="参数"><a href="#参数" class="headerlink" title="参数:"></a>参数:</h5><ul>
+<li><code>target</code> =  html元素的id，input，svg text元素，或者计数发生时先前选择的元素/输入的var</li>
+<li><code>startVal</code> = 你要开始的值</li>
+<li><code>endVal</code> = 你想要达到的价值</li>
+<li><code>decimals</code> = （可选）数字中的小数位数，默认为0</li>
+<li><code>duration</code> = （可选）持续时间（以秒为单位），默认为2</li>
+<li><code>options</code> = （可选，请参阅demo）格式化/easing选项对象</li>
+</ul>
+<p>可以省略小数，持续时间和选项以使用默认值。</p>
+<p>比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numAnim = <span class="keyword">new</span> CountUp(<span class="string">"SomeElementYouWantToAnimate"</span>, <span class="number">24.02</span>, <span class="number">99.99</span>);</span><br><span class="line">numAnim.start();</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">numAnim.start(someMethodToCallOnComplete);</span><br><span class="line"></span><br><span class="line"><span class="comment">// or an anonymous function</span></span><br><span class="line">numAnim.start(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>接下来说说如何修改 其实 就是修改 ：<code>target</code> 和 <code>printValue()</code> 这个方法：</p>
+<p><code>target</code>赋值 原代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.el = (<span class="keyword">typeof</span> target === <span class="string">'string'</span>) ? <span class="built_in">document</span>.getElementById(target) : target;</span><br></pre></td></tr></table></figure>
+
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.el = target;</span><br></pre></td></tr></table></figure>
+
+<p><code>printValue()</code> 方法 原代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CountUp.prototype.printValue = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">this</span>.formattingFn(val);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.el.tagName === <span class="string">'INPUT'</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> input = <span class="keyword">this</span>.el;</span><br><span class="line">        input.value = result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.el.tagName === <span class="string">'text'</span> || <span class="keyword">this</span>.el.tagName === <span class="string">'tspan'</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.el.textContent = result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.el.innerHTML = result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CountUp.prototype.printValue = <span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">this</span>.formattingFn(val);</span><br><span class="line">   	<span class="keyword">this</span>.el.string = result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们应该这样调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  startVal: <span class="number">50</span>,<span class="comment">//开始的值</span></span><br><span class="line">  decimalPlaces: <span class="number">2</span>,<span class="comment">//小数点后几位</span></span><br><span class="line">  duration: <span class="number">2.0</span>,<span class="comment">//多久时间</span></span><br><span class="line">  useGrouping: <span class="literal">false</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> myTargetElement = XXXXX（类型为cc.Label类型）</span><br><span class="line"><span class="keyword">let</span> demo = <span class="keyword">new</span> CountUp(myTargetElement, <span class="number">94.62</span>, options);</span><br><span class="line"><span class="keyword">if</span> (!demo.error) &#123;</span><br><span class="line">  demo.start();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.error(demo.error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/76506a91/number.gif" alt="number"></p>
+<p>以上就是这个数字动画的用法。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://f2ex.cn/countup-js/" target="_blank" rel="noopener">CountUp.js – 有趣的数字动画库</a></li>
+<li><a href="https://inorganik.github.io/countUp.js/" target="_blank" rel="noopener">CountUp.js Demo</a> </li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/3e29e93b.html" class="article-next" title="小游戏|代码压缩Webstorm 或 VSCode"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/post/5a097fa7.html" class="article-prev" title="Cocos Creator|Android 实战开发(中)"><i class="icon-arrow-left"></i></a>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

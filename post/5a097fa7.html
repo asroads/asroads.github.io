@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Cocos Creator|Android 实战开发(中) | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="前面一篇文章简单的介绍了，Cocos Creator 开发Android APK 过程中遇到的一些坑，然后通过网上搜索，自己摸索找到了一些解惑和理解的东西，这篇文章再次带大家继续填坑之路，这些是我后面重新为开发项目中遇到的一些问题。下面是这几天遇到的问题：错误：1. ScriptEngine::onGetStringFromFile ./jsb-dragonbones.js not found, possible missing file.原因：很多做了小游戏的同学，在切换版本的时..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误："><span class="toc-number">1.</span> <span class="toc-text">错误：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-ScriptEngine-onGetStringFromFile-jsb-dragonbones-js-not-found-possible-missing-file"><span class="toc-number">1.1.</span> <span class="toc-text">1. ScriptEngine::onGetStringFromFile .&#x2F;jsb-dragonbones.js not found, possible missing file.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-Studio升级3-5后，Instant-Run不见了？"><span class="toc-number">1.2.</span> <span class="toc-text">Android Studio升级3.5后，Instant Run不见了？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安卓签名文件-报警告："><span class="toc-number">1.3.</span> <span class="toc-text">安卓签名文件 报警告：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator|Android 实战开发(中)
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/5a097fa7.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-03-08T11:27:16.000Z" itemprop="datePublished">2020-03-08</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Android/" rel="tag">Android</a>, <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>前面一篇文章简单的介绍了，Cocos Creator 开发Android APK 过程中遇到的一些坑，然后通过网上搜索，自己摸索找到了一些解惑和理解的东西，这篇文章再次带大家继续填坑之路，这些是我后面重新为开发项目中遇到的一些问题。</p>
+<a id="more"></a>
+
+<p>下面是这几天遇到的问题：</p>
+<h3 id="错误："><a href="#错误：" class="headerlink" title="错误："></a>错误：</h3><h4 id="1-ScriptEngine-onGetStringFromFile-jsb-dragonbones-js-not-found-possible-missing-file"><a href="#1-ScriptEngine-onGetStringFromFile-jsb-dragonbones-js-not-found-possible-missing-file" class="headerlink" title="1. ScriptEngine::onGetStringFromFile ./jsb-dragonbones.js not found, possible missing file."></a>1. ScriptEngine::onGetStringFromFile ./jsb-dragonbones.js not found, possible missing file.</h4><p><strong>原因：</strong>很多做了小游戏的同学，在切换版本的时候很容易入坑，这个其实是开发的时候，导入模块不够的问题，在开发web的时候一般为了包体或者游戏主文件更小，采取了用到哪些，勾选哪些，这样如果照搬到安卓平台，就有了这个报错。</p>
+<p><strong>现象：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">31.640</span> <span class="number">7446</span><span class="number">-7475</span>/org.mykj.train E/jswrapper: ScriptEngine::onGetStringFromFile ./jsb-dragonbones.js not found, possible missing file.</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">31.640</span> <span class="number">7446</span><span class="number">-7475</span>/org.mykj.train E/jswrapper: ScriptEngine::runScript script ./jsb-dragonbones.js, buffer is empty!</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-05</span> <span class="number">17</span>:<span class="number">30</span>:<span class="number">31.640</span> <span class="number">7446</span><span class="number">-7475</span>/org.mykj.train E/jswrapper: [ERROR] Failed to invoke <span class="built_in">require</span>, <span class="attr">location</span>: <span class="regexp">/Users/</span>smile/my/build/train/tt/jsb-<span class="keyword">default</span>/frameworks/cocos2d-x/cocos/scripting/js-bindings/manual/jsb_global.cpp:<span class="number">292</span></span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">27.935</span> <span class="number">28462</span><span class="number">-28469</span>/? E/os2d.helloworl: Unable to peek into adb socket due to error. Closing socket.: Connection reset by peer</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">28.584</span> <span class="number">28462</span><span class="number">-28497</span>/? E/jswrapper: ScriptEngine::onGetStringFromFile ./assemblers/motion-streak.js not found, possible missing file.</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">28.584</span> <span class="number">28462</span><span class="number">-28497</span>/? E/jswrapper: ScriptEngine::runScript script ./assemblers/motion-streak.js, buffer is empty!</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">28.584</span> <span class="number">28462</span><span class="number">-28497</span>/? E/jswrapper: [ERROR] Failed to invoke <span class="built_in">require</span>, <span class="attr">location</span>: <span class="regexp">/Users/</span>smile/my/build/ysx/android/jsb-<span class="keyword">default</span>/frameworks/cocos2d-x/cocos/scripting/js-bindings/manual/jsb_global.cpp:<span class="number">292</span></span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">28.585</span> <span class="number">28462</span><span class="number">-28497</span>/? E/jswrapper: ScriptEngine::onGetStringFromFile ./jsb-dragonbones.js not found, possible missing file.</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">28.585</span> <span class="number">28462</span><span class="number">-28497</span>/? E/jswrapper: ScriptEngine::runScript script ./jsb-dragonbones.js, buffer is empty!</span><br><span class="line"><span class="number">2020</span><span class="number">-03</span><span class="number">-06</span> <span class="number">18</span>:<span class="number">51</span>:<span class="number">28.585</span> <span class="number">28462</span><span class="number">-28497</span>/? E/jswrapper: [ERROR] Failed to invoke <span class="built_in">require</span>, <span class="attr">location</span>: <span class="regexp">/Users/</span>smile/my/build/ysx/android/jsb-<span class="keyword">default</span>/frameworks/cocos2d-x/cocos/scripting/js-bindings/manual/jsb_global.cpp:<span class="number">292</span></span><br></pre></td></tr></table></figure>
+
+<p>图片这样的</p>
+<p><img src="/post/5a097fa7/image-20200305173448471.png" alt="image-20200305173448471"></p>
+<p><img src="/post/5a097fa7/image-20200306185203146.png" alt="image-20200306185203146"></p>
+<p><strong>解决办法：</strong></p>
+<p><img src="/post/5a097fa7/image-20200308194344289.png" alt="image-20200308194344289"></p>
+<p><img src="/post/5a097fa7/image-20200308194421994.png" alt="image-20200308194421994"></p>
+<p>勾选 对应报错 缺失的 模块即可。</p>
+<h4 id="Android-Studio升级3-5后，Instant-Run不见了？"><a href="#Android-Studio升级3-5后，Instant-Run不见了？" class="headerlink" title="Android Studio升级3.5后，Instant Run不见了？"></a>Android Studio升级3.5后，Instant Run不见了？</h4><p>有时候看到软件或者编辑器新版本出来了，忍不住要更新尝试新版本的优化成果和新功能，顺便熟悉一波新版本带来的困惑。</p>
+<p>打开设置 -&gt; Build,Execution,Deployment -&gt; Debugger -&gt; HotSwap 选中右面的 Enable hot-swap agent for Groovy code</p>
+<p>直接搜Instant Run是搜不到的，用HotSwap代替了</p>
+<p>参考链接：<a href="https://www.jianshu.com/p/bf1c1c594cfa" target="_blank" rel="noopener">Android Studio升级3.5后，Instant Run去哪了？</a></p>
+<h4 id="安卓签名文件-报警告："><a href="#安卓签名文件-报警告：" class="headerlink" title="安卓签名文件 报警告："></a>安卓签名文件 报警告：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">生成后会提示:</span><br><span class="line">JKS 密钥库使用专用格式。建议使用 <span class="string">"keytool -importkeystore -srckeystore jhy-release-key.jks -destkeystore jhy-release-key.jks -deststoretype pkcs12"</span> 迁移到行业标准格式 PKCS12。</span><br></pre></td></tr></table></figure>
+
+<p>签名 生成步骤：</p>
+<ol>
+<li><p>生成签名文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -v -keystore jhy-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -<span class="built_in">alias</span> alias_jhy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输入的密码要记住，其他姓名地区等信息随便填吧，最好还是记住，成功之后在主目录下就生成了<code>jhy-release-key.keystore</code>文件，命令中jhy-release-key.keystore是生成文件的名字，<code>alias_jhy</code>是别名，随便起但是要记住，一会签名要用到，其他信息如加密、有效日期等就不说了，无需改动。</p>
+<p>生成后会提示:<br> <code>JKS 密钥库使用专用格式。建议使用 &quot;keytool -importkeystore -srckeystore jhy-release-key.jks -destkeystore jhy-release-key.jks -deststoretype pkcs12&quot; 迁移到行业标准格式 PKCS12。</code></p>
+</blockquote>
+</li>
+<li><p>执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -importkeystore -srckeystore jhy-release-key.jks -destkeystore jhy-release-key.jks -deststoretype pkcs12</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行结果：<code>Warning: 已将 &quot;jhy-release-key.jks&quot; 迁移到 Non JKS/JCEKS。将 JKS 密钥库作为 &quot;jhy-release-key.jks.old&quot; 进行了备份。</code></p>
+</blockquote>
+<p>参考链接：<a href="https://www.jianshu.com/p/7d2def9b93a8" target="_blank" rel="noopener">Android打包流程</a></p>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><p><a href="https://forum.cocos.org/t/cocoscreator-ios-j-s-jsb-webview-js-not-found/83662" target="_blank" rel="noopener">cocosCreator 构建IOS,j s调用原生方法没有问题！jsb-webview.js not found</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/bf1c1c594cfa" target="_blank" rel="noopener">Android Studio升级3.5后，Instant Run去哪了？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/7d2def9b93a8" target="_blank" rel="noopener">Android打包流程</a></p>
+</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/76506a91.html" class="article-next" title="介绍一个数字动画库CountUp.js"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
