@@ -1,10 +1,11 @@
 ---
 title: Cocos Creator|Android 实战开发（下）
 comments: true
-date: 2020-04-05 13:45:10
 categories: game
 tags:
   - Cocos
+abbrlink: 86ecd85d
+date: 2020-04-05 13:45:10
 ---
 
 前面写了关于Cocos Cretor游戏导出Android平台后的一些采坑，本节内容继续采坑和填坑，其实我们发布游戏后，往往不能算是结束，一般需要接入一些原生的语法，比如写一些Java类或者引入一些第三方库，二者结合才算结束。这些我们后续都会一一说明。
