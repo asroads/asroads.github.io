@@ -12,7 +12,15 @@ date: 2020-02-03 20:04:10
 <!--more-->
 下面就记录以下，我在尝试新平台开发摸索中的遇到的各种问题，以及解决问题的方法和对问题的理解。
 
-### Gradle认知和理解
+### APP ABI 版本 不能一个也不勾选
+
+![image-20200414140608308](CocosCreator导出Android项目采坑指南/image-20200414140608308.png)
+
+虽然 Cocos Creator 官方的构建面板上面是 多选 但是我们再实际构建的时候，却不能一个也不选择。这样会导致我们项目运行报错。
+
+### 勿要盲目的升级 Gradle 或者 Gradle插件（Android Studio插件）
+
+盲目的追求新版本，导致和 Cocos 引擎不兼容，对于新手采坑很难解决，所以奉劝新手打包，就采用默认即可。
 
 ##### 理解Gradle 和Gradle插件
 
@@ -23,7 +31,7 @@ date: 2020-02-03 20:04:10
    > Android Studio 构建系统以 Gradle 为基础，并且 Android Gradle 插件添加了几项专用于构建 Android 应用的功能。虽然 Android 插件通常会与 Android Studio 的更新步调保持一致，但插件（以及 Gradle 系统的其余部分）可独立于 Android Studio 运行并单独更新。
 
 3. 上面的意思很容易理解，Gradle 有自己的版本  ，Gradle 插件也有自己的版本，而且他们的版本号不是一致的，要想成功构建项目必须，保持二者匹配，看清楚是二者匹配，就是，这个 Gradle 和 Gradle 插件是两个东西。
-  
+
 
 > 在更新 Android Studio 时，您可能会收到一并将 Gradle 更新为最新可用版本的提示。您可以选择接受该更新，也可以根据项目的构建要求手动指定版本。
 > 下表列出了各个 Android Gradle 插件版本所需的 Gradle 版本。要获得最佳性能，您应该使用 Gradle 和插件这两者的最新版本。
@@ -57,9 +65,13 @@ date: 2020-02-03 20:04:10
 
 ##### 虽然下载构建时候下载很缓慢 
 
-这个是 因为配置文件里面 的下载地址 在某些地方无法正常下载，解决办法三种：A . 配置国内镜像
+这个是 因为配置文件里面 的下载地址 在某些地方无法正常下载，解决办法三种：
 
-B. 下载后覆盖本地文件 C 更改下载地址（2019年开始有 中国地区的CDN）
+A . 配置国内镜像
+
+B. 下载后覆盖本地文件 
+
+C 更改下载地址（2019年开始有 中国地区的CDN）
 
 - 配置国内镜像
 
@@ -158,7 +170,21 @@ Mac 系统 81msde2dx9p4vji0mjgtvxkcb 这个 可能 有所不同
 
 值得 喜大普奔 的是 2019年 官方给出了 中国地区的 CDN 地址 
 
-就是 修改 
+就是 gradle文件夹下面的gradle-wrapper.properties中的[http://services.gradle.org](http://link.zhihu.com/?target=http%3A//services.gradle.org)为[http://downloads.gradle-dn.com](http://link.zhihu.com/?target=http%3A//downloads.gradle-dn.com)即可
+
+### Android Studio中如何清理gradle缓存
+
+as使用过程中，经常会遇到gradle缓存问题，常用的清理方式如下：
+
+1、Build --> Clean Project
+
+2、Build --> Rebuild Project
+
+3、File -> Invalidate Caches/Restart
+
+4、删除项目根目录下.idea/caches和.idea/libraries目录，然后Invalidate Caches/Restart
+
+5、在as终端中执行./gradlew clean
 
 ### Could not install Gradle distribution
 
@@ -263,7 +289,32 @@ android.applicationVariants.all { variant ->
         }
 ```
 
-Android Studio 使用  
+### AndroidStudio开发安卓应用设置版本号
+
+build.gradle(Module:app)
+
+```json
+compileSdkVersion 22
+buildToolsVersion "21.1.2"
+ 
+defaultConfig {
+    applicationId "cn.wangbaiyuan.translate"
+    minSdkVersion 15
+    targetSdkVersion 22
+    versionCode 1
+    versionName "1.0"
+}
+```
+
+versionCode （整形数字）这个是防止用户用低版本置换高版本的apk。  versionName "1.0"是展示给用户看的
+
+### Android Studio 报错 “Cannot resolve symbol R”
+
+![image-20200414140823696](CocosCreator导出Android项目采坑指南/image-20200414140823696.png)
+
+找了一大圈原因 居然是 项目的AndroidManifest.xml中的manifest下的package标签标签有问题，定位不到到项目所在的包下面
+
+
 
 ### 参考文章
 
@@ -271,4 +322,5 @@ Android Studio 使用
 - [COCOS2DX 安卓getMergeAssets 过期](https://www.jianshu.com/p/647cd8e96472)
 - [Android Studio报错：Error:Could not find com.android.tools.build:gradle:4.1 记一次不长记性的坑](https://blog.csdn.net/zengsidou/article/details/79797417)
 - [Cocos creator打包安卓APK](https://www.bilibili.com/read/cv4224091/)
+- [Android Studio中如何清理gradle缓存](https://blog.csdn.net/qq_26287435/java/article/details/89842695)
 

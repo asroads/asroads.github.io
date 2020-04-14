@@ -110,7 +110,66 @@ date: 2020-02-06 20:13:18
 
 以上我们成功的 更换了自定义的 游戏名字 和游戏图标。
 
+### 更改Cocos Creator apk 默认输出的名字
+
+这个网上有很多方法：
+
+我这边 最后验证成功的是：需要在 `build.gradle`文件内的 `android.applicationVariants.all` 里面配置
+
+大概结构：
+
+```groovy
+android.applicationVariants.all { variant ->
+    // delete previous files first
+    delete "${buildDir}/intermediates/merged_assets/${variant.dirName}"
+
+    variant.mergeAssets.doLast {
+        def sourceDir = "${buildDir}/../../../../.."
+        .........
+        .........
+        if (variant.buildType.name == 'release') {
+        ..........
+        }
+    }
+}
+```
+
+具体细节：
+
+```groovy
+ if (variant.buildType.name == 'release') {
+        def buildTypeName = variant.buildType.name
+        def createTime = new Date().format("YYYY-MM-dd HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))
+        def releaseFileName = "${buildTypeName}-mobile ${createTime}"
+//        def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${android.defaultConfig.versionCode}-${buildTypeName}.apk"
+        def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${buildTypeName}.apk"
+        println("版本名称--->" + android.defaultConfig.versionName + " 版本号--->" + android.defaultConfig.versionCode)
+//        println(variant.getPackageApplication().outputDirectory)
+//        println(createTime)
+//        println(project.name)
+//        println(rootProject.name)
+        //新建一个文件夹 然后把输出app 放到新建的文件夹内
+        variant.getPackageApplication().outputDirectory = new File(variant.getPackageApplication().outputDirectory,releaseFileName)
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            //这个修改输出APK的文件名
+            println(apkData.outputFileName)
+            apkData.outputFileName = releaseApkName
+            println(apkData.outputFileName)
+        }
+    }
+```
+
+最初的输出路径：是在原有的  “release”目录下新建一个带时间 目录 （参考Xcode）然后修改APK 名字
+
+效果如下：
+
+![image-20200326201039411](Cocos-Creator-Android-实战开发（上）/image-20200326201039411.png)
+
 ### 参考
 
 - [【cocos2dx】改安装包名、app名、图标、包名](https://blog.csdn.net/hqq39/article/details/49821607)
+- [gradle脚本配置 记录](https://www.jianshu.com/p/b6c3f951b281)
+- [使用Gradle管理你的Android Studio工程](https://www.flysnow.org/2015/03/30/manage-your-android-project-with-gradle.html)
+- [android studio 打包自动生成版本号与日期，apk输入路径](https://blog.csdn.net/swer0808/article/details/78999949)
+- [gradle 3.3 修改打包apk路径](https://www.jianshu.com/p/e088b6f1a59a)
 

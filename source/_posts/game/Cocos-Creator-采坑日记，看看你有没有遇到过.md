@@ -174,6 +174,58 @@ var mat: cc.Material = null;
 
 name前面加上`2d-`即可。
 
+### Can not find class 'cc.EditBox'
+
+有时候游戏在本地调试环境不报错，打出web版本或者微信版本，Native包后就报 找不到某个系统自带的类，这个时候很多人都是根据栈信息去查找原因：
+
+注意：此时最佳操作是赶紧看看我们的项目设置--->模块设置 有没有勾选 这个没有找到的class
+
+![image-20200323132905658](Cocos-Creator-采坑日记，看看你有没有遇到过/image-20200323132905658.png)
+
+这样 就第一时间 缩短了寻找的时间。
+
+### loadScene: Failed to load scene '1208' because 'mainMenu' is already loading
+
+短时间内 钮触发了两次，已经在加载了  此时应该查看代码逻辑 是否有事件派发重复，或者重复执行的逻辑，应该避免此行为的发生。
+
+### Chrome下无法用window.close()关闭非脚本打开的页面
+
+```
+  window.location.href="about:blank";
+  window.close();
+```
+
+### 场景中 获取常驻节点
+
+```javascript
+cc.find("myNode");
+```
+
+或者：
+
+```javascript
+cc.director.getScene().getChildByName("你要找的常驻节点").getComponent("你的脚本");
+```
+
+注意：常驻节点的父对象 必须是根目录
+
+### 左下角 显示 FPS信息或者关闭
+
+```javascript
+cc.debug.setDisplayStats(true)//true or false
+```
+
+```javascript
+cc.debug.isDisplayStats()//获取FPS状态
+```
+
+
+
 ### 总结
 
 在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。
+
+### 参考
+
+- [Chrome下无法用window.close()关闭非脚本打开的页面](https://www.jianshu.com/p/9dc2752194b8)
+
