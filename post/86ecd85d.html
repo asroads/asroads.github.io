@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Cocos Creator|Android 实战开发（下） | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="前面写了关于Cocos Cretor游戏导出Android平台后的一些采坑，本节内容继续采坑和填坑，其实我们发布游戏后，往往不能算是结束，一般需要接入一些原生的语法，比如写一些Java类或者引入一些第三方库，二者结合才算结束。这些我们后续都会一一说明。常用操作先说说一般来讲 我们常用的一些操作文件夹和文件文件夹frameworks/runtime-src/proj.android-studio/app/resframeworks/runtime-src/proj.android..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#常用操作"><span class="toc-number">1.</span> <span class="toc-text">常用操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件夹"><span class="toc-number">1.1.</span> <span class="toc-text">文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件"><span class="toc-number">1.2.</span> <span class="toc-text">文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加全局文件"><span class="toc-number">2.</span> <span class="toc-text">添加全局文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地预览和debug的apk激励视频广告正常-release-包不能播放"><span class="toc-number">3.</span> <span class="toc-text">本地预览和debug的apk激励视频广告正常 release 包不能播放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安卓平台-游戏高度适配不正确-上下游黑边"><span class="toc-number">4.</span> <span class="toc-text">安卓平台 游戏高度适配不正确 上下游黑边</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator|Android 实战开发（下）
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/86ecd85d.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-04-05T05:45:10.000Z" itemprop="datePublished">2020-04-05</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>前面写了关于Cocos Cretor游戏导出Android平台后的一些采坑，本节内容继续采坑和填坑，其实我们发布游戏后，往往不能算是结束，一般需要接入一些原生的语法，比如写一些Java类或者引入一些第三方库，二者结合才算结束。这些我们后续都会一一说明。</p>
+<a id="more"></a>
+
+<h3 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h3><p>先说说一般来讲 我们常用的一些操作文件夹和文件</p>
+<h4 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h4><ul>
+<li>frameworks/runtime-src/proj.android-studio/app/res</li>
+<li>frameworks/runtime-src/proj.android-studio/app/src</li>
+</ul>
+<ol>
+<li>文件夹 res 是放置 资源 比如头像，修改app 名字 布局 等的一些操作修改的地方</li>
+<li>文件夹 src 是写代码的地方，一般来讲，我们新增的代码会放到这个文件夹里面</li>
+<li>此外可能会 添加新的文件夹，比如 libs 和 assets 这样的文件夹</li>
+</ol>
+<h4 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h4><ul>
+<li>frameworks/runtime-src/proj.android-studio/app/AndroidManifest.xml</li>
+<li>frameworks/runtime-src/proj.android-studio/app/build.gradle</li>
+<li>frameworks/runtime-src/proj.android-studio/app/proguard-rules.pro</li>
+</ul>
+<ol>
+<li>AndroidManifest.xml这个文件里面 会配置权限 全局的设置，屏幕等一些常见信息</li>
+<li>build.gradle 这个文件配置，主要是帮着配置打包信息的，比如SDK 版本，签名文件，打包的版本号，方式诸多信息</li>
+<li>proguard-rules.pro 这个文件是 如果我们打包的时候，启用了混淆，那么这里面可以设置 混淆白名单</li>
+</ol>
+<h3 id="添加全局文件"><a href="#添加全局文件" class="headerlink" title="添加全局文件"></a>添加全局文件</h3><p>比如我需要添加两个全局文件</p>
+<p><img src="/post/86ecd85d/image-20200414142005125.png" alt="image-20200414142005125"></p>
+<p>此时需要在 build.gradle 配置 assets.srcDir “assets”</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sourceSets.main &#123;</span><br><span class="line">    java.srcDir "src"</span><br><span class="line">    res.srcDir "res"</span><br><span class="line">    jniLibs.srcDir "libs"</span><br><span class="line">    manifest.srcFile "AndroidManifest.xml"</span><br><span class="line">    assets.srcDir "assets"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="本地预览和debug的apk激励视频广告正常-release-包不能播放"><a href="#本地预览和debug的apk激励视频广告正常-release-包不能播放" class="headerlink" title="本地预览和debug的apk激励视频广告正常 release 包不能播放"></a>本地预览和debug的apk激励视频广告正常 release 包不能播放</h3><p>前些时候一直以为release 包不能看日志，后面查找后得知是可以的。只需要  debuggable true  加入 buildTypes {} </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">buildTypes &#123;</span><br><span class="line">    release &#123;</span><br><span class="line">        minifyEnabled false</span><br><span class="line">        debuggable true  &#x2F;&#x2F;true代表开启  false 关闭</span><br><span class="line">        proguardFiles getDefaultProguardFile(&#39;proguard-android.txt&#39;), &#39;proguard-rules.pro&#39;</span><br><span class="line">        signingConfig signingConfigs.config</span><br><span class="line">    &#125;</span><br><span class="line">    debug &#123;</span><br><span class="line">        signingConfig signingConfigs.config</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原文链接：<a href="https://blog.csdn.net/suyimin2010/java/article/details/96472922" target="_blank" rel="noopener">android studio release版本下打印输出日志</a></p>
+<p>有了日志，基本定位就快了，于是很快找到了报错  J<code>avaScriptJavaBridge: Classloader failed to find class of xxxxx(我的包名)</code>  再次查找后，得知是release 打包的时候混淆代码，后面调用的时候，不认识了。</p>
+<p>在项目下的 混淆配置文件  proguard-rules.pro 里面 最后加上 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 自己游戏的包名 否则release 版本 有时候找不到 类的方法</span><br><span class="line">-keep class com.my.trainkwai.** &#123;*;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原文链接:<a href="https://forum.cocos.org/t/creator-release-js-java-java/73081" target="_blank" rel="noopener">creator 安卓release包 js调java找不到该java文件的问题</a></p>
+<p>这样 打出的包，就能顺利找到 方法。</p>
+<h3 id="安卓平台-游戏高度适配不正确-上下游黑边"><a href="#安卓平台-游戏高度适配不正确-上下游黑边" class="headerlink" title="安卓平台 游戏高度适配不正确 上下游黑边"></a>安卓平台 游戏高度适配不正确 上下游黑边</h3><p>游戏发布了新版本后，在AndroidManifest.xml中设置android:screenOrientation=”portrait”，升级gradle后这里会有警告，在有些手机上 会出现上下黑边</p>
+<p><img src="/post/86ecd85d/image-20200414143854727.png" alt="image-20200414143854727"></p>
+<p>设置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"com.my.trainkwai"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:installLocation</span>=<span class="string">"auto"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:glEsVersion</span>=<span class="string">"0x00020000"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>和 application 标签</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:usesCleartextTraffic</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">tools:ignore</span>=<span class="string">"LockedOrientationActivity"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在application标签里，加入<code>tool:ignore=&quot;LockedOrientationActivity&quot;</code>这句话，manifest标签里引入tool<code>xmlns:tool=&quot;http://schemas.android.com/tools&quot;</code></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://www.jianshu.com/p/400f62002784" target="_blank" rel="noopener">android:screenOrientation=”portrait” 一直警告报红</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/5a097fa7.html" class="article-next" title="Cocos Creator|Android 实战开发(中)"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
