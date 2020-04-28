@@ -98,12 +98,74 @@ JKS 密钥库使用专用格式。建议使用 "keytool -importkeystore -srckeys
 
    参考链接：[Android打包流程](https://www.jianshu.com/p/7d2def9b93a8)
 
+### 安卓禁止分屏
+
+由于游戏是竖屏玩的，安卓是可以分屏的，在分屏的时候，游戏布局就变了，在某些机器上面 还会引发一些问题，最好的办法就行禁止分屏：
+
+在AndroidManifest.xml文件中的application节点或者activity节点中添加如下：
+
+```xml
+android:resizeableActivity="false"
+```
+
+### Android Studio 手动安装 插件
+
+有时候 Android Studio 升级后，插件升级 404 失败，我们需要自己下载后 解压手动安装：
+
+安装目录：`/Applications/Android\ Studio.app/Contents/plugins/xxxx(xxxx是你的插件名字)`
+
+### 断网情况下 XMLHttpRequest 在原生端没有 网络错误回调
+
+需要代码监听 onerror 和 ontimeout 这俩
+
+```javascript
+				let xhr = new XMLHttpRequest();
+        xhr.timeout = 10 * 1000;
+        xhr.ontimeout = (ev) => {
+            console.log('http_post: request time out.....');
+        };
+        xhr.onabort = (ev)=>{
+            console.log('http_post: request onabort......');
+        }
+        xhr.onerror = (ev)=>{
+            console.log('http_post: request onerror......');
+        }
+        xhr.onreadystatechange = (ev) => {
+            if(xhr.readyState === 4){
+
+            }
+        };
+```
+
+### 编译报错Cannot fit requested classes in a single dex file (# methods: 74288 > 65536)
+
+添加了 新的 依赖包 就报了这个错误
+
+**问题分析**：当Android App中的方法数超过65535时，如果往下兼容到低版本设备时，就会报编译错误：
+
+原因是Android系统定义总方法数是一个short int，short int 最大值为65536。解决这个问题的方案是：
+
+在Android的模块gradle文件的defaultConfig默认配置里面增加：
+
+```
+multiDexEnabled true
+```
+
+如果 还报错继续同时在dependencies里面增加：
+
+```
+implementation 'com.android.support:multidex:1.0.3'
+```
+
+另外需要把AndroidMainfest.xml里面添加自定义的App继承自MultiDexApplication。
+
 ### 参考
 
 - [cocosCreator 构建IOS,j s调用原生方法没有问题！jsb-webview.js not found](https://forum.cocos.org/t/cocoscreator-ios-j-s-jsb-webview-js-not-found/83662)
-
 - [Android Studio升级3.5后，Instant Run去哪了？](https://www.jianshu.com/p/bf1c1c594cfa)
-
 - [Android打包流程](https://www.jianshu.com/p/7d2def9b93a8)
+- [安卓应用禁止分屏模式方法](https://blog.csdn.net/xiangzaixiansheng/article/details/83007411)
+- [多窗口支持](https://developer.android.com/guide/topics/ui/multi-window?hl=zh-cn)
+- [AndroidStudio 安装 ButterKnife插件 （手动安装）](https://blog.csdn.net/shanshan_1117/article/details/80333715)
+- [Android方法数methods超过65536](https://blog.csdn.net/zhangphil/article/details/803063)
 
-  

@@ -12,7 +12,9 @@ date: 2020-02-10 20:05:51
 疫情当前，免不了远程办公，公司的项目用的是SVN版本控制，这次在家远程办公后，准备把项目迁移到GitLab上面，本身这个没有什么可以记录的，但我还是在操作过程中遇到了一个错误，花费了几个小时时间搜索查找错误，最终得以解决。
 <!--more-->
 
-### 错误现象
+### 错误fatal: could not read Username for 'http://xxxxxx.com'
+
+#### 现象
 
 使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错
 
@@ -24,7 +26,7 @@ fatal: could not read Username for 'http://xxxxxx.com': Device not configured
 
 后面继续查找，找到了一个操作，终于得到解决：
 
-### 解决办法
+#### 解决办法
 
 原问题：
 
@@ -60,8 +62,23 @@ fatal: could not read Username for 'http://xxxxxx.com': Device not configured
 
 按照他的这个回答，成功解决这个报错。
 
+## 修改文件名大小写"造成的git上传文件丢失
+
+1、查看是否忽略大小写
+
+```
+git config core.ignorecase
+```
+
+  true为忽略大小写
+
+  false为不忽略大小写
+
+2、运行`git config core.ignorecase false`，关闭git忽略大小写配置
+
 ### 参考链接：
 
 - [GitLab remote：HTTP Basic：拒绝访问和致命身份验证](https://xbuba.com/questions/47860772)
 - [mac下gitLab、sourceTree的配合使用](https://www.jianshu.com/p/707de2a1046d)
+- [修改文件名大小写"造成的git上传文件丢失](https://my.oschina.net/huibaifa/blog/3096818) 
 
