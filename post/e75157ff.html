@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Cocos Creator 2.3.3升级说明 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="春节后，Cocos 团队发力，发布了Cocos Creator 新版本，看了一下更新日志，发现这次修复了很多问题，改善和提升了效率，特别是对于原生平台改善了不少，恰逢项目要出安卓包，正好凑个机会升级一下引擎。下面就是这次升级的步骤和遇到的问题，以及解决办法。官方给出了一长串 修复和改进策略 我们重点查看 和 2d 相关的部分：提升网页预览时的加载速度为了进一步提升开发效率，我们优化了网页预览时的脚本加载速度。不论是对引擎还是项目中的代码，载入速度都获得了提升。特别是在开启自定义引擎..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#提升网页预览时的加载速度"><span class="toc-number">1.</span> <span class="toc-text">提升网页预览时的加载速度</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#新增-Cocos-小秘书服务"><span class="toc-number">2.</span> <span class="toc-text">新增 Cocos 小秘书服务</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#具体步骤"><span class="toc-number"></span> <span class="toc-text">具体步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题"><span class="toc-number"></span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number"></span> <span class="toc-text">参考链接</span></a>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator 2.3.3升级说明
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/e75157ff.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-04-27T03:22:54.000Z" itemprop="datePublished">2020-04-27</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>春节后，Cocos 团队发力，发布了Cocos Creator 新版本，看了一下更新日志，发现这次修复了很多问题，改善和提升了效率，特别是对于原生平台改善了不少，恰逢项目要出安卓包，正好凑个机会升级一下引擎。下面就是这次升级的步骤和遇到的问题，以及解决办法。</p>
+<a id="more"></a>
+<p>官方给出了一长串 修复和改进策略 我们重点查看 和 2d 相关的部分：</p>
+<blockquote>
+<h6 id="提升网页预览时的加载速度"><a href="#提升网页预览时的加载速度" class="headerlink" title="提升网页预览时的加载速度"></a><strong>提升网页预览时的加载速度</strong></h6><p>为了进一步提升开发效率，我们优化了网页预览时的脚本加载速度。不论是对引擎还是项目中的代码，载入速度都获得了提升。特别是在开启自定义引擎，或者使用手机扫码预览时，开发者都能得到更顺畅的体验。</p>
+<h6 id="新增-Cocos-小秘书服务"><a href="#新增-Cocos-小秘书服务" class="headerlink" title="新增 Cocos 小秘书服务"></a>新增 Cocos 小秘书服务</h6><p>小秘书是由 Cocos 官方面向开发者推出的在线即时付费技术支持服务， 您可以采用 IM 即时沟通的方式，在 Cocos Creator 中直接连线引擎官方技术支持团队。小秘书服务旨在快速解答您在开发过中遇到的各种技术和商务问题，具有以下特点：官方专业团队、高效和私密性。<a href="https://www.cocos.com/7373" target="_blank" rel="noopener">服务申请入口&gt;</a></p>
+<p>………(省略 查看详细 去 官方文档)</p>
+<ul>
+<li>[Tween] Tween 增加 stopAll、stopAllByTag、stopAllByTarget 等接口，方便对播放进行控制 <a href="https://github.com/cocos-creator/engine/pull/6338" target="_blank" rel="noopener">#6338</a></li>
+<li>[Tween] 增加 bezierTo、bezierBy、flipX、flipY、blink 接口 <a href="https://github.com/cocos-creator/engine/pull/6327" target="_blank" rel="noopener">#6327</a></li>
+<li>[Tween] 优化 Tween.to、Tween.by 的 API 代码智能提示，可以智能展示 target 属性</li>
+<li>[3D] 增加 Node.forward、Node.right、Node.up API 用于获取节点在世界坐标系中的各个方向 <a href="https://github.com/cocos-creator/engine/pull/6287" target="_blank" rel="noopener">#6287</a></li>
+</ul>
+<p>………(省略 查看详细 去 官方文档)</p>
+<p>从 2.3.0 开始，定制安卓原生工程时，需注意 <strong>Android</strong> 与 <strong>Android Instant</strong> 使用了同一个构建模板。</p>
+<ul>
+<li>如果是 Android 平台单独使用的代码请放入 app/src 目录,  单独使用的第三方库请放入 app/libs 目录。</li>
+<li>如果是 Android Instant 单独使用的代码和第三方库请分别放入 game/src, game/libs 目录。</li>
+<li>如果是 Android 和 Android Instant 共用的代码和第三方库，请分别放入 proj.android-studio 根目录底下的 src 目录和 libs 目录。</li>
+<li>proj.android-studio 根目录底下 jni/CocosAndroid.mk , jni/CocosApplication.mk，主要用于配置引擎相关的配置，开发者的配置，建议 Android 放到 app/jni/Android.mk 和 app/jni/Application.mk中，Android Instant 请放入 game/jni/Android.mk 和 game/jni/Application.mk 中。</li>
+<li>此外，在 Cocos Creator 编译 Android 时会默认执行 assembleRelease/Debug，编译 Android Instant 时会执行 instant:assembleRelease/Debug。</li>
+</ul>
+<p><strong>如自定义了音频前后台切换时的暂停逻辑，升级到 2.3.0 后请移除。</strong></p>
+<p>目前 Creator 游戏在所有平台上前后台互相切换时，都会在内部自动暂停和恢复音频。如果开发者之前有对这一块进行过定制，监听并执行了 cc.audioEngine.pause()/resume() 之类的音频操作，可能会和引擎默认行为冲突。如果有遇到相关的音频问题，只需移除相应的定制代码即可。</p>
+</blockquote>
+<p>看了这么多，选择升级是势在必行了，说干就干开始吧。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ol>
+<li>去官网下载：<a href="https://www.cocos.com/creator" target="_blank" rel="noopener">https://www.cocos.com/creator</a></li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095602730.png" alt="image-20200401095602730"></p>
+<ol>
+<li>下载后 安装 文件：</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095630684.png" alt="image-20200401095630684"></p>
+<ol>
+<li>安装成功后 大概长这样：</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095730445.png" alt="image-20200401095730445"></p>
+<ol>
+<li>然后我们打开 登录以及设置：</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095844680.png" alt="image-20200401095844680"></p>
+<ol>
+<li>如果打开 显示英文，不习惯英文的 可以设置语言为 中文简体</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401100019890.png" alt="image-20200401100019890"></p>
+<ol>
+<li>可以设置 下载的编辑器的存放目录</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401102016622.png" alt="image-20200401102016622"></p>
+<p>如果 找不到，点击 右上角的 小齿轮 即可设置</p>
+<ol>
+<li>左边的Tab切换栏 分别是项目 和编辑器的管理 已经新闻动态（社区宣传和功能更新）以及一个新手入门的教程目录</li>
+<li>开始下载我们的编辑器</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401102256224.png" alt="image-20200401102256224"></p>
+<p>9.选择我们需要的编辑器版本 开始下载 成功后 </p>
+<p><img src="/post/e75157ff/image-20200427113511510.png" alt="image-20200427113511510"></p>
+<p>同样 如果我们已经下载好了引擎，可以选择添加本地版本即可。</p>
+<p>10.新的版本 变成了这样</p>
+<p><img src="/post/e75157ff/image-20200427113645197.png" alt="image-20200427113645197"></p>
+<p>里面 囊括了我们下载的引擎，然后 就可以 打开我们的引擎了。</p>
+<p><img src="/post/e75157ff/image-20200427113755660.png" alt="image-20200427113755660"></p>
+<p>至此，版本成功升级完毕。</p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>代码编辑器，使用Webstorm 习惯了，这次升级带来了一个问题是：打印log的时候 不显示 文件路径了</p>
+<p><img src="/post/e75157ff/Xnip2020-04-25_20-52-28.jpg" alt="Xnip2020-04-25_20-52-28"></p>
+<p><img src="/post/e75157ff/Xnip2020-04-25_20-52-08.jpg" alt="Xnip2020-04-25_20-52-08"></p>
+<p>发现 日志记录不在了，但是 用 Cocos Creator 或者 VSCode 甚至 Webstorm 打开的Chome 均显示正常</p>
+<p><img src="/post/e75157ff/Xnip2020-04-25_20-53-05.jpg" alt="Xnip2020-04-25_20-53-05"></p>
+<p>这个 问题 在论坛求助大佬，官方给出了解决方案：</p>
+<p>修改 .CocosCreator/profiles/features.json 文件 添加 “bundle-quick-compiler-project”: false 即可</p>
+<p><img src="/post/e75157ff/image-20200427115037380.png" alt="image-20200427115037380"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"xiaomi-runtime"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"bundle-quick-compiler-project"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后 感谢Cocos Creator 团队大佬！</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a href="https://www.cocos.com/creator" target="_blank" rel="noopener">Cocos Creator 官网</a></li>
+<li><a href="https://forum.cocos.org/t/cocos-creator-2-3-3-webstorm-console/91986" target="_blank" rel="noopener">Cocos Creator 2.3.3 Webstorm console 控制面板无法输出文件路径</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/86ecd85d.html" class="article-next" title="Cocos Creator|Android 实战开发（下）"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>

@@ -10,7 +10,7 @@
     <title>Sourcetree操作Gitlab的项目 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="疫情当前，免不了远程办公，公司的项目用的是SVN版本控制，这次在家远程办公后，准备把项目迁移到GitLab上面，本身这个没有什么可以记录的，但我还是在操作过程中遇到了一个错误，花费了几个小时时间搜索查找错误，最终得以解决。错误现象使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错1fatal: could not read Username for &#39;http://xxxxxx.com&#39;: Device not configured找了好些答案，有的说要git..." />
+    <meta name="description" content="疫情当前，免不了远程办公，公司的项目用的是SVN版本控制，这次在家远程办公后，准备把项目迁移到GitLab上面，本身这个没有什么可以记录的，但我还是在操作过程中遇到了一个错误，花费了几个小时时间搜索查找错误，最终得以解决。错误fatal: could not read Username for ‘http://xxxxxx.com&amp;#39;现象使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错1fatal: could not read Username for ..." />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -105,7 +105,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误现象"><span class="toc-number">1.</span> <span class="toc-text">错误现象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决办法"><span class="toc-number">2.</span> <span class="toc-text">解决办法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误fatal-could-not-read-Username-for-‘http-xxxxxx-com-39"><span class="toc-number">1.</span> <span class="toc-text">错误fatal: could not read Username for ‘http:&#x2F;&#x2F;xxxxxx.com&#39;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#现象"><span class="toc-number">1.1.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决办法"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改文件名大小写”造成的git上传文件丢失"><span class="toc-number"></span> <span class="toc-text">修改文件名大小写”造成的git上传文件丢失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">1.</span> <span class="toc-text">参考链接：</span></a></li></ol>
         
     </div>
 </aside>
@@ -145,12 +145,12 @@
         <p>疫情当前，免不了远程办公，公司的项目用的是SVN版本控制，这次在家远程办公后，准备把项目迁移到GitLab上面，本身这个没有什么可以记录的，但我还是在操作过程中遇到了一个错误，花费了几个小时时间搜索查找错误，最终得以解决。</p>
 <a id="more"></a>
 
-<h3 id="错误现象"><a href="#错误现象" class="headerlink" title="错误现象"></a>错误现象</h3><p>使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错</p>
+<h3 id="错误fatal-could-not-read-Username-for-‘http-xxxxxx-com-39"><a href="#错误fatal-could-not-read-Username-for-‘http-xxxxxx-com-39" class="headerlink" title="错误fatal: could not read Username for ‘http://xxxxxx.com&#39;"></a>错误fatal: could not read Username for ‘<a href="http://xxxxxx.com&#39;" target="_blank" rel="noopener">http://xxxxxx.com&#39;</a></h3><h4 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h4><p>使用 命令行 可以正常 更新项目，使用Sourcetree 更新报错</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: could not read Username for 'http://xxxxxx.com': Device not configured</span><br></pre></td></tr></table></figure>
 
 <p>找了好些答案，有的说要git 改成系统的  我更改后 确实可以更新了，但是不显示 推送啥的 每次特别麻烦</p>
 <p>后面继续查找，找到了一个操作，终于得到解决：</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>原问题：</p>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p>原问题：</p>
 <blockquote>
 <p>我在mac OS上不像这篇文章：<a href="https://stackoverflow.com/questions/43085424/git-push-origin-branchname-throws-error-http-basic-access-denied" target="_blank" rel="noopener"><code>git push origin</code>throws error<code>HTTP Basic：Access denied</code></a> 我在GitLab中配置了密码。我在GitLab上创建项目后创建了SSL密钥。</p>
 <p>当我将现有文件夹用于新项目时，请按照以下步骤操作：</p>
@@ -180,9 +180,16 @@
 <p>总结：</p>
 <p>我就是按照这个办法去操作，然后问题得以解决， 猜想，我Gitlab 更改过用户名和密码 是不是以前在电脑里有存储，所以报错呢？</p>
 <p>按照他的这个回答，成功解决这个报错。</p>
+<h2 id="修改文件名大小写”造成的git上传文件丢失"><a href="#修改文件名大小写”造成的git上传文件丢失" class="headerlink" title="修改文件名大小写”造成的git上传文件丢失"></a>修改文件名大小写”造成的git上传文件丢失</h2><p>1、查看是否忽略大小写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase</span><br></pre></td></tr></table></figure>
+
+<p>  true为忽略大小写</p>
+<p>  false为不忽略大小写</p>
+<p>2、运行<code>git config core.ignorecase false</code>，关闭git忽略大小写配置</p>
 <h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><ul>
 <li><a href="https://xbuba.com/questions/47860772" target="_blank" rel="noopener">GitLab remote：HTTP Basic：拒绝访问和致命身份验证</a></li>
 <li><a href="https://www.jianshu.com/p/707de2a1046d" target="_blank" rel="noopener">mac下gitLab、sourceTree的配合使用</a></li>
+<li><a href="https://my.oschina.net/huibaifa/blog/3096818" target="_blank" rel="noopener">修改文件名大小写”造成的git上传文件丢失</a> </li>
 </ul>
 
         

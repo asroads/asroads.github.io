@@ -105,7 +105,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误："><span class="toc-number">1.</span> <span class="toc-text">错误：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-ScriptEngine-onGetStringFromFile-jsb-dragonbones-js-not-found-possible-missing-file"><span class="toc-number">1.1.</span> <span class="toc-text">1. ScriptEngine::onGetStringFromFile .&#x2F;jsb-dragonbones.js not found, possible missing file.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-Studio升级3-5后，Instant-Run不见了？"><span class="toc-number">1.2.</span> <span class="toc-text">Android Studio升级3.5后，Instant Run不见了？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安卓签名文件-报警告："><span class="toc-number">1.3.</span> <span class="toc-text">安卓签名文件 报警告：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误："><span class="toc-number">1.</span> <span class="toc-text">错误：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-ScriptEngine-onGetStringFromFile-jsb-dragonbones-js-not-found-possible-missing-file"><span class="toc-number">1.1.</span> <span class="toc-text">1. ScriptEngine::onGetStringFromFile .&#x2F;jsb-dragonbones.js not found, possible missing file.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-Studio升级3-5后，Instant-Run不见了？"><span class="toc-number">1.2.</span> <span class="toc-text">Android Studio升级3.5后，Instant Run不见了？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安卓签名文件-报警告："><span class="toc-number">1.3.</span> <span class="toc-text">安卓签名文件 报警告：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安卓禁止分屏"><span class="toc-number">2.</span> <span class="toc-text">安卓禁止分屏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-Studio-手动安装-插件"><span class="toc-number">3.</span> <span class="toc-text">Android Studio 手动安装 插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#断网情况下-XMLHttpRequest-在原生端没有-网络错误回调"><span class="toc-number">4.</span> <span class="toc-text">断网情况下 XMLHttpRequest 在原生端没有 网络错误回调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译报错Cannot-fit-requested-classes-in-a-single-dex-file-methods-74288-gt-65536"><span class="toc-number">5.</span> <span class="toc-text">编译报错Cannot fit requested classes in a single dex file (# methods: 74288 &gt; 65536)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
         
     </div>
 </aside>
@@ -185,13 +185,33 @@
 <p>参考链接：<a href="https://www.jianshu.com/p/7d2def9b93a8" target="_blank" rel="noopener">Android打包流程</a></p>
 </li>
 </ol>
+<h3 id="安卓禁止分屏"><a href="#安卓禁止分屏" class="headerlink" title="安卓禁止分屏"></a>安卓禁止分屏</h3><p>由于游戏是竖屏玩的，安卓是可以分屏的，在分屏的时候，游戏布局就变了，在某些机器上面 还会引发一些问题，最好的办法就行禁止分屏：</p>
+<p>在AndroidManifest.xml文件中的application节点或者activity节点中添加如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:resizeableActivity="false"</span><br></pre></td></tr></table></figure>
+
+<h3 id="Android-Studio-手动安装-插件"><a href="#Android-Studio-手动安装-插件" class="headerlink" title="Android Studio 手动安装 插件"></a>Android Studio 手动安装 插件</h3><p>有时候 Android Studio 升级后，插件升级 404 失败，我们需要自己下载后 解压手动安装：</p>
+<p>安装目录：<code>/Applications/Android\ Studio.app/Contents/plugins/xxxx(xxxx是你的插件名字)</code></p>
+<h3 id="断网情况下-XMLHttpRequest-在原生端没有-网络错误回调"><a href="#断网情况下-XMLHttpRequest-在原生端没有-网络错误回调" class="headerlink" title="断网情况下 XMLHttpRequest 在原生端没有 网络错误回调"></a>断网情况下 XMLHttpRequest 在原生端没有 网络错误回调</h3><p>需要代码监听 onerror 和 ontimeout 这俩</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    xhr.timeout = <span class="number">10</span> * <span class="number">1000</span>;</span><br><span class="line">    xhr.ontimeout = <span class="function">(<span class="params">ev</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'http_post: request time out.....'</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    xhr.onabort = <span class="function">(<span class="params">ev</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'http_post: request onabort......'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    xhr.onerror = <span class="function">(<span class="params">ev</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'http_post: request onerror......'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    xhr.onreadystatechange = <span class="function">(<span class="params">ev</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译报错Cannot-fit-requested-classes-in-a-single-dex-file-methods-74288-gt-65536"><a href="#编译报错Cannot-fit-requested-classes-in-a-single-dex-file-methods-74288-gt-65536" class="headerlink" title="编译报错Cannot fit requested classes in a single dex file (# methods: 74288 &gt; 65536)"></a>编译报错Cannot fit requested classes in a single dex file (# methods: 74288 &gt; 65536)</h3><p>添加了 新的 依赖包 就报了这个错误</p>
+<p><strong>问题分析</strong>：当Android App中的方法数超过65535时，如果往下兼容到低版本设备时，就会报编译错误：</p>
+<p>原因是Android系统定义总方法数是一个short int，short int 最大值为65536。解决这个问题的方案是：</p>
+<p>在Android的模块gradle文件的defaultConfig默认配置里面增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multiDexEnabled true</span><br></pre></td></tr></table></figure>
+
+<p>如果 还报错继续同时在dependencies里面增加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation &#39;com.android.support:multidex:1.0.3&#39;</span><br></pre></td></tr></table></figure>
+
+<p>另外需要把AndroidMainfest.xml里面添加自定义的App继承自MultiDexApplication。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><p><a href="https://forum.cocos.org/t/cocoscreator-ios-j-s-jsb-webview-js-not-found/83662" target="_blank" rel="noopener">cocosCreator 构建IOS,j s调用原生方法没有问题！jsb-webview.js not found</a></p>
-</li>
-<li><p><a href="https://www.jianshu.com/p/bf1c1c594cfa" target="_blank" rel="noopener">Android Studio升级3.5后，Instant Run去哪了？</a></p>
-</li>
-<li><p><a href="https://www.jianshu.com/p/7d2def9b93a8" target="_blank" rel="noopener">Android打包流程</a></p>
-</li>
+<li><a href="https://forum.cocos.org/t/cocoscreator-ios-j-s-jsb-webview-js-not-found/83662" target="_blank" rel="noopener">cocosCreator 构建IOS,j s调用原生方法没有问题！jsb-webview.js not found</a></li>
+<li><a href="https://www.jianshu.com/p/bf1c1c594cfa" target="_blank" rel="noopener">Android Studio升级3.5后，Instant Run去哪了？</a></li>
+<li><a href="https://www.jianshu.com/p/7d2def9b93a8" target="_blank" rel="noopener">Android打包流程</a></li>
+<li><a href="https://blog.csdn.net/xiangzaixiansheng/article/details/83007411" target="_blank" rel="noopener">安卓应用禁止分屏模式方法</a></li>
+<li><a href="https://developer.android.com/guide/topics/ui/multi-window?hl=zh-cn" target="_blank" rel="noopener">多窗口支持</a></li>
+<li><a href="https://blog.csdn.net/shanshan_1117/article/details/80333715" target="_blank" rel="noopener">AndroidStudio 安装 ButterKnife插件 （手动安装）</a></li>
+<li><a href="https://blog.csdn.net/zhangphil/article/details/803063" target="_blank" rel="noopener">Android方法数methods超过65536</a></li>
 </ul>
 
         
