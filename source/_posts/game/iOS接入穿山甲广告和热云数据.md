@@ -102,6 +102,32 @@ tags:
 }
 ```
 
+**设置回调函数 线程兼容**
+
+```objective-c
+
++(void)callJsEngineCallBackStart:(BOOL) mustUpdate {
+    NSLog(@"callJsEngineCallBack...");
+    NSString *funcNameStr = @"startCallBackStart";
+    std::string funcName = [funcNameStr UTF8String];
+    std::string mustUpdateStr = "update";
+    if(mustUpdate == false){
+        mustUpdateStr = "no";
+    }
+    std::string jsCallStr = cocos2d::StringUtils::format("%s(\"%s\");",funcName.c_str(),mustUpdateStr.c_str());
+    NSLog(@"jsCallStr = %s", jsCallStr.c_str());
+//    se::ScriptEngine::getInstance()->evalString(jsCallStr.c_str());
+//    auto isDestroyed = _isDestroyed;
+       auto scheduler = Application::getInstance()->getScheduler();
+       scheduler->performFunctionInCocosThread([=](){
+        se::ScriptEngine::getInstance()->evalString(jsCallStr.c_str());
+        NSLog(@"performFunctionInCocosThread...");
+       });
+}
+```
+
+
+
 5. JavaScript 代码里面写入 初始化视频和播放视频 代码
 
 ```javascript
@@ -135,6 +161,25 @@ window.finishRewardVideo = function (flag) {
     console.log("smile----finishRewardVideo:", JSON.stringify(flag));
     Browser.isIOS()&&Global.WXComment&&Global.WXComment.videoCallBackSuccess(flag);
 }
+```
+
+广告播放时候 获取 **rootViewController**
+
+```objective-c
+if(isRewardedVideoAutoPlay){
+        NSLog(@"需要播放广告了!!");
+        isRewardedVideoAutoPlay = NO;
+//        [self.rewardVideoAd showAdFromRootViewController:self];
+        UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+        if (rootViewController != nil) {
+            isRewardedVideoPlayFinish = false;
+            [self.rewardVideoAd showAdFromRootViewController:rootViewController];
+        }else{
+            NSLog(@"视图空了 拉取");
+        }
+      }else{
+        NSLog(@"不需要播放广告!!");
+      }
 ```
 
 至此，穿山甲广告接入完毕

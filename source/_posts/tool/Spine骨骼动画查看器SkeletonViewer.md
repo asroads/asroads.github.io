@@ -44,6 +44,8 @@ java -jar skeletonViewer.jar path\to\skeleton.json
 java -jar /Users/smile/my/work/skeletonViewer/skeletonViewer-3.7.94.jar /Users/smile/my/work/skeletonViewer/jiejie.json
 ```
 
+如果报错 `Error: Unable to access jarfile XXX.jar` 可以尝试用 绝对路径试试
+
 ### 使用骨骼查看器（Using Skeleton Viewer）
 
 被选中的骨架加截并显示在右边的黑色区域。点击并拖拽可以移动骨骼。缩放Scale, 翻转Flip 和调试Debug用于更好地显示骨架的各个部分。

@@ -460,6 +460,137 @@ JS: JS 成功返回 输出 "you are niu B"
 
 此项目 我已经开源放在仓库里 [点击访问](https://github.com/jsroads/jstalktonative)
 
+#### 拓展学习：
+
+##### Objective c 回调JS （2020-05-25 新增）
+
+```objective-c
++(void)callJsEngineCallBackStart:(BOOL) mustUpdate {
+    NSLog(@"callJsEngineCallBack...");
+    NSString *funcNameStr = @"startCallBackStart";
+    std::string funcName = [funcNameStr UTF8String];
+    std::string mustUpdateStr = "update";
+    if(mustUpdate == false){
+        mustUpdateStr = "no";
+    }
+    std::string jsCallStr = cocos2d::StringUtils::format("%s(\"%s\");",funcName.c_str(),mustUpdateStr.c_str());
+    NSLog(@"jsCallStr = %s", jsCallStr.c_str());
+//    se::ScriptEngine::getInstance()->evalString(jsCallStr.c_str());
+//    auto isDestroyed = _isDestroyed;
+       auto scheduler = Application::getInstance()->getScheduler();
+       scheduler->performFunctionInCocosThread([=](){
+        se::ScriptEngine::getInstance()->evalString(jsCallStr.c_str());
+        NSLog(@"performFunctionInCocosThread...");
+       });
+}
+```
+
+##### Objective-C 一个方法如何传递多个参数
+
+一个方法可以包含多个参数，不过后面的参数都要写名字。
+
+多个参数的写法
+
+(方法的数据类型) 函数名: (参数1数据类型) 参数1值的名字 参数2的名字: (参数2数据类型) 参数2值的名字 …. ;
+
+举个例子，一个方法的定义：
+
+```objective-c
+-(void) setKids: (NSString *)myOldestKidName secondKid: (NSString *) mySecondOldestKidName thirdKid: (NSString *) myThirdOldestKidName;
+```
+
+实现这个函数的时候：
+
+```objective-c
+-(void) setKids: (NSString *)myOldestKidName secondKid: (NSString *) mySecondOldestKidName thirdKid: (NSString *) myThirdOldestKidName{
+大儿子 = myOldestKidName;
+二儿子 = mySecondOldestKidName;
+三儿子 = myThirdOldestKidName;
+}
+```
+
+调用的时候：
+
+```objective-c
+Kids *myKids = [[Kids alloc] init];
+[myKids setKids: @”张大力” secondKid: @”张二力” thirdKid: @”张小力”];
+```
+
+下面是initWithNibName方法，传入2个参数的示例代码（Objective-C）：
+
+注意：（1）除第一个参数之外，后面的参数需要写label标签的。
+
+##### Objective-C 方法调用
+
+> +表示类方法，-表示实例方法
+>
+> 总结一下几点：
+>
+> 1.类（static）方法
+>
+> a. 类方法的调用
+>
+> [类名称 类方法名称];
+>
+> [Human toString]; 
+>
+> 
+>
+> 注意：类方法
+> 1，类方法可以调用类方法。
+> 2，类方法不可以调用实例方法，但是类方法可以通过创建对象来访问实例方法。
+> 3，类方法不可以使用实例变量。类方法可以使用self，因为self不是实例变量。
+> 4，类方法作为消息，可以被发送到类或者对象里面去（实际上，就是可以通过类或者对象调用类方法的意思）。
+>
+> 
+>
+> 2.实例方法
+>
+> a.实例方法的调用
+>
+> 首先需要实例化该类
+>
+> Human *man = [Human new]; 或者 Human *man = [Human alloc] init];
+>
+> 
+>
+> [类的实例  实例方法名称];
+>
+>  [man showSex];   
+>
+>
+> 注意:此处实例化该类时，调用了该类的构造函数init
+>
+> 并且该类的构造函数调用[super init]的返回值 不等于 该类的self。
+>
+>
+> 定义子类的实例
+>
+> Woman *wife = [Woman new]; 
+>
+> 此处实例化该类时，调用了该类的构造函数init
+>
+> 并且该类的构造函数调用[super init]的返回值 等于 该类的self。
+>
+> 
+>
+> 3.OverWrite方法（覆写，重载）
+>
+> 覆写父类的+(void)toString 
+>
+> 调用[Woman toString]; 
+>
+> 
+>
+> 4.属性（property）
+>
+> 声明一个成员变量BOOL married; 
+>
+> 声明set方法-(void) setMarried:(BOOL)m; 
+>
+> 声明get方法-(BOOL) Married; 
+>
+
 ### 总结
 
 总的来讲，这次技术摸索了很久，特别是原生的语法格式，函数调用，中间也查阅了很多API 和文档，也向公司内同事请教了很多问题，最终算是简单实现了，相互调用。
@@ -468,3 +599,6 @@ JS: JS 成功返回 输出 "you are niu B"
 
 - [Cocos Creator iOS 互相调用看我的就够了](https://www.jianshu.com/p/b92d63b2a773) -简书
 - [Cocos creator ios开发—Javascript和Objective-C交互](https://www.jianshu.com/p/116826d2570c) -简书
+- [Objective-C 一个方法如何传递多个参数？](https://blog.csdn.net/zhuhai__yizhi/article/details/42197473)-CSDN
+- [Objective-C-类（static）方法、实例方法、overwrite（覆写）、属性（property）](https://blog.csdn.net/Mars2639/article/details/7282527)-CSDN
+
