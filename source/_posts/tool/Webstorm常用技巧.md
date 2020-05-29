@@ -126,7 +126,11 @@ File>Setting>Editor>File Encodings，将Global Encoding、Project Encoding、Def
 
 我们设置字体（能显示中文的字体）
 
-![image-20200529132452722](Webstorm常用技巧/image-20200529132452722.png)
+![image-20200529133841482](Webstorm常用技巧/image-20200529133841482.png)
 
-最后 重启 Webstorm 即可解决乱码问题。
+最后成功了！
+
+![image-20200529133857201](Webstorm常用技巧/image-20200529133857201.png)
+
+最后 重启 Webstorm 即可解决乱码问题。(注意 一定是完全退出，不是关闭项目打开 是退出Webstorm 重新打开)
 
