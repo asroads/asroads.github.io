@@ -105,7 +105,7 @@
         
 
         
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤一：环境支持"><span class="toc-number">1.</span> <span class="toc-text">步骤一：环境支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤二：流程"><span class="toc-number">2.</span> <span class="toc-text">步骤二：流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目源码"><span class="toc-number">3.</span> <span class="toc-text">项目源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤一：环境支持"><span class="toc-number">1.</span> <span class="toc-text">步骤一：环境支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤二：流程"><span class="toc-number">2.</span> <span class="toc-text">步骤二：流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目源码"><span class="toc-number">3.</span> <span class="toc-text">项目源码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拓展学习："><span class="toc-number">3.1.</span> <span class="toc-text">拓展学习：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Objective-c-回调JS-（2020-05-25-新增）"><span class="toc-number">3.1.1.</span> <span class="toc-text">Objective c 回调JS （2020-05-25 新增）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Objective-C-一个方法如何传递多个参数"><span class="toc-number">3.1.2.</span> <span class="toc-text">Objective-C 一个方法如何传递多个参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Objective-C-方法调用"><span class="toc-number">3.1.3.</span> <span class="toc-text">Objective-C 方法调用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
         
     </div>
 </aside>
@@ -204,10 +204,56 @@
 
 <p>成功调用</p>
 <h3 id="项目源码"><a href="#项目源码" class="headerlink" title="项目源码"></a>项目源码</h3><p>此项目 我已经开源放在仓库里 <a href="https://github.com/jsroads/jstalktonative" target="_blank" rel="noopener">点击访问</a></p>
+<h4 id="拓展学习："><a href="#拓展学习：" class="headerlink" title="拓展学习："></a>拓展学习：</h4><h5 id="Objective-c-回调JS-（2020-05-25-新增）"><a href="#Objective-c-回调JS-（2020-05-25-新增）" class="headerlink" title="Objective c 回调JS （2020-05-25 新增）"></a>Objective c 回调JS （2020-05-25 新增）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+(void)callJsEngineCallBackStart:(BOOL) mustUpdate &#123;</span><br><span class="line">    NSLog(@&quot;callJsEngineCallBack...&quot;);</span><br><span class="line">    NSString *funcNameStr &#x3D; @&quot;startCallBackStart&quot;;</span><br><span class="line">    std::string funcName &#x3D; [funcNameStr UTF8String];</span><br><span class="line">    std::string mustUpdateStr &#x3D; &quot;update&quot;;</span><br><span class="line">    if(mustUpdate &#x3D;&#x3D; false)&#123;</span><br><span class="line">        mustUpdateStr &#x3D; &quot;no&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::string jsCallStr &#x3D; cocos2d::StringUtils::format(&quot;%s(\&quot;%s\&quot;);&quot;,funcName.c_str(),mustUpdateStr.c_str());</span><br><span class="line">    NSLog(@&quot;jsCallStr &#x3D; %s&quot;, jsCallStr.c_str());</span><br><span class="line">&#x2F;&#x2F;    se::ScriptEngine::getInstance()-&gt;evalString(jsCallStr.c_str());</span><br><span class="line">&#x2F;&#x2F;    auto isDestroyed &#x3D; _isDestroyed;</span><br><span class="line">       auto scheduler &#x3D; Application::getInstance()-&gt;getScheduler();</span><br><span class="line">       scheduler-&gt;performFunctionInCocosThread([&#x3D;]()&#123;</span><br><span class="line">        se::ScriptEngine::getInstance()-&gt;evalString(jsCallStr.c_str());</span><br><span class="line">        NSLog(@&quot;performFunctionInCocosThread...&quot;);</span><br><span class="line">       &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Objective-C-一个方法如何传递多个参数"><a href="#Objective-C-一个方法如何传递多个参数" class="headerlink" title="Objective-C 一个方法如何传递多个参数"></a>Objective-C 一个方法如何传递多个参数</h5><p>一个方法可以包含多个参数，不过后面的参数都要写名字。</p>
+<p>多个参数的写法</p>
+<p>(方法的数据类型) 函数名: (参数1数据类型) 参数1值的名字 参数2的名字: (参数2数据类型) 参数2值的名字 …. ;</p>
+<p>举个例子，一个方法的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void) setKids: (NSString *)myOldestKidName secondKid: (NSString *) mySecondOldestKidName thirdKid: (NSString *) myThirdOldestKidName;</span><br></pre></td></tr></table></figure>
+
+<p>实现这个函数的时候：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-(void) setKids: (NSString *)myOldestKidName secondKid: (NSString *) mySecondOldestKidName thirdKid: (NSString *) myThirdOldestKidName&#123;</span><br><span class="line">大儿子 &#x3D; myOldestKidName;</span><br><span class="line">二儿子 &#x3D; mySecondOldestKidName;</span><br><span class="line">三儿子 &#x3D; myThirdOldestKidName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用的时候：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Kids *myKids &#x3D; [[Kids alloc] init];</span><br><span class="line">[myKids setKids: @”张大力” secondKid: @”张二力” thirdKid: @”张小力”];</span><br></pre></td></tr></table></figure>
+
+<p>下面是initWithNibName方法，传入2个参数的示例代码（Objective-C）：</p>
+<p>注意：（1）除第一个参数之外，后面的参数需要写label标签的。</p>
+<h5 id="Objective-C-方法调用"><a href="#Objective-C-方法调用" class="headerlink" title="Objective-C 方法调用"></a>Objective-C 方法调用</h5><blockquote>
+<p>+表示类方法，-表示实例方法</p>
+<p>总结一下几点：</p>
+<p>1.类（static）方法</p>
+<p>a. 类方法的调用</p>
+<p>[类名称 类方法名称];</p>
+<p>[Human toString]; </p>
+<p>注意：类方法<br>1，类方法可以调用类方法。<br>2，类方法不可以调用实例方法，但是类方法可以通过创建对象来访问实例方法。<br>3，类方法不可以使用实例变量。类方法可以使用self，因为self不是实例变量。<br>4，类方法作为消息，可以被发送到类或者对象里面去（实际上，就是可以通过类或者对象调用类方法的意思）。</p>
+<p>2.实例方法</p>
+<p>a.实例方法的调用</p>
+<p>首先需要实例化该类</p>
+<p>Human *man = [Human new]; 或者 Human *man = [Human alloc] init];</p>
+<p>[类的实例  实例方法名称];</p>
+<p> [man showSex];   </p>
+<p>注意:此处实例化该类时，调用了该类的构造函数init</p>
+<p>并且该类的构造函数调用[super init]的返回值 不等于 该类的self。</p>
+<p>定义子类的实例</p>
+<p>Woman *wife = [Woman new]; </p>
+<p>此处实例化该类时，调用了该类的构造函数init</p>
+<p>并且该类的构造函数调用[super init]的返回值 等于 该类的self。</p>
+<p>3.OverWrite方法（覆写，重载）</p>
+<p>覆写父类的+(void)toString </p>
+<p>调用[Woman toString]; </p>
+<p>4.属性（property）</p>
+<p>声明一个成员变量BOOL married; </p>
+<p>声明set方法-(void) setMarried:(BOOL)m; </p>
+<p>声明get方法-(BOOL) Married; </p>
+</blockquote>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总的来讲，这次技术摸索了很久，特别是原生的语法格式，函数调用，中间也查阅了很多API 和文档，也向公司内同事请教了很多问题，最终算是简单实现了，相互调用。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://www.jianshu.com/p/b92d63b2a773" target="_blank" rel="noopener">Cocos Creator iOS 互相调用看我的就够了</a> -简书</li>
 <li><a href="https://www.jianshu.com/p/116826d2570c" target="_blank" rel="noopener">Cocos creator ios开发—Javascript和Objective-C交互</a> -简书</li>
+<li><a href="https://blog.csdn.net/zhuhai__yizhi/article/details/42197473" target="_blank" rel="noopener">Objective-C 一个方法如何传递多个参数？</a>-CSDN</li>
+<li><a href="https://blog.csdn.net/Mars2639/article/details/7282527" target="_blank" rel="noopener">Objective-C-类（static）方法、实例方法、overwrite（覆写）、属性（property）</a>-CSDN</li>
 </ul>
 
         
