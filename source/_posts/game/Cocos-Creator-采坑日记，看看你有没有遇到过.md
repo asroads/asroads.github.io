@@ -219,7 +219,11 @@ cc.debug.setDisplayStats(true)//true or false
 cc.debug.isDisplayStats()//获取FPS状态
 ```
 
+### Cocos Creator TypeError: Cannot read property 'gizmo' of null 解决方案
 
+1.最近在做一个微信小游戏，选择使用Cocos Creator 来制作，当项目解决尾声的时候，不知操作了什么，疯狂输出 TypeError: Cannot read property 'gizmo' of null。
+
+2.解决办法：用记事本打开报错场景搜索    "_components": [ null ], 如有删除此项，保存再打开场景。
 
 ### 总结
 
@@ -228,4 +232,5 @@ cc.debug.isDisplayStats()//获取FPS状态
 ### 参考
 
 - [Chrome下无法用window.close()关闭非脚本打开的页面](https://www.jianshu.com/p/9dc2752194b8)
+- [Cocos Creator TypeError: Cannot read property 'gizmo' of null 解决方案](https://www.jianshu.com/p/496928553576)
 

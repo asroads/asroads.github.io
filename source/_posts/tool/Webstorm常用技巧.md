@@ -50,6 +50,17 @@ date: 2019-06-15 20:59:27
 
 **注意：如果是最新版的 Webstorm 需要删除 的是 `jetbrains` 这个名字开头 或者含有 jetbrains 的文件夹 即可**
 
+**~/Library/Application Support/**  有两个文件夹
+
+![image-20200616145210704](Webstorm常用技巧/image-20200618100713237.png)
+
+**记得 重置后 要 重置缓存 必要的话 **
+
+- 删除项目下面的 .idea 文件夹
+- Invalidate Cache/Restart
+
+![image-20200616145210704](Webstorm常用技巧/image-20200616145210704.png)
+
 ### JavaScript 项目跨域
 
 #### 详细步骤
