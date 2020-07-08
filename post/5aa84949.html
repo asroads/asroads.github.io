@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>大数字BigNumber.js使用 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="编程开发中有时候用到很大的数字的时候，语言本身的数字上限已经不能支持，此时只能自己构建一些数据结构去保存这些。JavaScript的Number类型为双精度IEEE 754 64位浮点类型，一般来讲程序开发，基本的数字类型Number类型是够用的JavaScript 中最大的安全整数 (2的53次方 - 1)和JavaScript 中最小的安全整数 (-(2的53次方 - 1))。但是有时候我们处理的业务逻辑出现秒产出和每个级别升级收益指数级增长的时候这个就超出了安全整数范围，此时我们一般..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态方法"><span class="toc-number">2.</span> <span class="toc-text">静态方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#clone"><span class="toc-number">2.1.</span> <span class="toc-text">clone()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#config"><span class="toc-number">2.2.</span> <span class="toc-text">config()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#是否为大数字类型-isBigNumber"><span class="toc-number">2.3.</span> <span class="toc-text">是否为大数字类型 isBigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#maximum-minimum"><span class="toc-number">2.4.</span> <span class="toc-text">maximum([]),minimum([])</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#random-precision"><span class="toc-number">2.5.</span> <span class="toc-text">random([precision])</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求和-sum-n…-⇒-BigNumber"><span class="toc-number">2.6.</span> <span class="toc-text">求和 .sum(n…) ⇒ BigNumber</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例方法"><span class="toc-number">3.</span> <span class="toc-text">实例方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#绝对值-abs-⇒-BigNumber"><span class="toc-number">3.1.</span> <span class="toc-text">绝对值.abs() *⇒ BigNumber*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#加法：-plus-n-base-⇒-BigNumber"><span class="toc-number">3.2.</span> <span class="toc-text">加法：.plus(n [, base]) ⇒ BigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#减法：-minus-n-base-⇒-BigNumber"><span class="toc-number">3.3.</span> <span class="toc-text">减法：.minus(n [, base]) ⇒ BigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#除法"><span class="toc-number">3.4.</span> <span class="toc-text">除法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#普通除法运算：-div-n-base-⇒-BigNumber；-dividedBy-n-base-⇒-BigNumber"><span class="toc-number">3.4.1.</span> <span class="toc-text">普通除法运算： .div(n [, base]) ⇒ BigNumber； .dividedBy(n [, base]) ⇒ BigNumber</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#除法，返回整数：-idiv-n-base-⇒-BigNumber；-dividedToIntegerByv-n-base-⇒-BigNumber"><span class="toc-number">3.4.2.</span> <span class="toc-text">除法，返回整数： .idiv(n [, base]) ⇒ BigNumber；.dividedToIntegerByv(n [, base]) ⇒ BigNumber</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#取模-取余：-mod-n-base-⇒-BigNumber；modulo-n-base-⇒-BigNumber"><span class="toc-number">3.5.</span> <span class="toc-text">取模&#x2F;取余： .mod(n [, base]) ⇒ BigNumber；modulo.(n [, base]) ⇒ BigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指数运算：-pow-n-m-⇒-BigNumber-exponentiatedBy-n-m-⇒-BigNumber"><span class="toc-number">3.6.</span> <span class="toc-text">指数运算： .pow(n [, m]) ⇒ BigNumber;.exponentiatedBy(n [, m]) ⇒ BigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开平方：-sqrt-⇒-BigNumber；-squareRoot-⇒-BigNumber"><span class="toc-number">3.7.</span> <span class="toc-text">开平方：.sqrt() ⇒ BigNumber；.squareRoot.() ⇒ BigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#比较大小：-comparedTo-n-base-⇒-number"><span class="toc-number">3.8.</span> <span class="toc-text">比较大小： .comparedTo(n [, base]) ⇒ number</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#大于-gt-n-base-⇒-boolean"><span class="toc-number">3.9.</span> <span class="toc-text">大于 .gt(n [, base]) ⇒ boolean&#96;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#大于等于-gte-n-base-⇒-boolean"><span class="toc-number">3.10.</span> <span class="toc-text">大于等于.gte(n [, base]) ⇒ boolean&#96;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小于-lt-n-base-⇒-boolean"><span class="toc-number">3.11.</span> <span class="toc-text">小于.lt(n [, base]) *⇒ boolean*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小于等于-lte-n-base-⇒-boolean"><span class="toc-number">3.12.</span> <span class="toc-text">小于等于 .lte(n [, base]) *⇒ boolean*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#判断是否相等-eq-n-base-⇒-boolean"><span class="toc-number">3.13.</span> <span class="toc-text">判断是否相等 .eq(n [, base]) ⇒ boolean&#96;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#精度调整"><span class="toc-number">3.14.</span> <span class="toc-text">精度调整</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#dp-dp-rm-⇒-BigNumber-number；decimalPlaces-dp-rm-⇒-BigNumber-number-根据dp-decimals-places-和rm-round-mode-对操作数进行舍入"><span class="toc-number">3.14.1.</span> <span class="toc-text">.dp([dp [, rm]]) ⇒ BigNumber|number；decimalPlaces.[dp [, rm]]) ⇒ BigNumber|number 根据dp(decimals places)和rm(round mode)对操作数进行舍入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#取整：-integerValue-rm-⇒-BigNumber"><span class="toc-number">3.15.</span> <span class="toc-text">取整：.integerValue([rm]) ⇒ BigNumber</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有效数字-sd-d-rm-⇒-BigNumber-number；precision-d-rm-⇒-BigNumber-number"><span class="toc-number">3.16.</span> <span class="toc-text">有效数字 .sd([d [, rm]]) ⇒ BigNumber|number；precision.([d [, rm]]) ⇒ BigNumber|number</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#toFixed-dp-rm-⇒-string"><span class="toc-number">3.17.</span> <span class="toc-text">.toFixed([dp [, rm]]) ⇒ string</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#跟Number-prototype-toFixed-dp-的异同"><span class="toc-number">3.17.1.</span> <span class="toc-text">跟Number.prototype.toFixed(dp)的异同</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数字格式化-toFormat-dp-rm-⇒-string"><span class="toc-number">3.18.</span> <span class="toc-text">数字格式化 .toFormat([dp [, rm]]) ⇒ string</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#转换为js-基础数值类型-toNumber-⇒-number"><span class="toc-number">3.19.</span> <span class="toc-text">转换为js 基础数值类型 .toNumber() ⇒ number</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#平方根-sqrt-⇒-BigNumber"><span class="toc-number">3.20.</span> <span class="toc-text">平方根.sqrt() *⇒ BigNumber*</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            大数字BigNumber.js使用
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/5aa84949.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-07-06T11:11:57.000Z" itemprop="datePublished">2020-07-06</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/js/" rel="tag">js</a>, <a class="article-tag-link" href="/tags/ts/" rel="tag">ts</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>编程开发中有时候用到很大的数字的时候，语言本身的数字上限已经不能支持，此时只能自己构建一些数据结构去保存这些。JavaScript的<code>Number</code>类型为<a href="https://en.wikipedia.org/wiki/Floating-point_arithmetic" target="_blank" rel="noopener">双精度IEEE 754 64位浮点</a>类型，一般来讲程序开发，基本的数字类型Number类型是够用的JavaScript 中最大的安全整数 (<code>2的53次方 - 1</code>)和JavaScript 中最小的安全整数 (<code>-(2的53次方 - 1)</code>)。但是有时候我们处理的业务逻辑出现秒产出和每个级别升级收益指数级增长的时候这个就超出了安全整数范围，此时我们一般借助于第三方类库(<a href="https://mikemcl.github.io/bignumber.js" target="_blank" rel="noopener">bignumber.js</a>)解决问题。</p>
+<a id="more"></a>
+
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><img src="/post/5aa84949/image-20200708141538795.png" alt="image-20200708141538795"></p>
+<p><a href="https://mikemcl.github.io/bignumber.js" target="_blank" rel="noopener">bignumber.js</a> 一个用于任意精度算术的JavaScript库。官网文档是英文版的，作为一个中文开发者，简单的翻译一下这些方法是必不可少的工作。</p>
+<h3 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h3><h4 id="clone"><a href="#clone" class="headerlink" title="clone()"></a>clone()</h4><blockquote>
+<p>生成一个独立的BigNumber构造函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = BigNumber.clone()</span><br><span class="line">num(<span class="number">1</span>).div(<span class="number">3</span>).toNumber() <span class="comment">//0.3333333333333333</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="config"><a href="#config" class="headerlink" title="config()"></a>config()</h4><blockquote>
+<p>为这个独立的BigNumber构造函数设置参数</p>
+</blockquote>
+<p>包括以下几个参数：</p>
+<ul>
+<li>DECIMAL_PLACES(默认值：20) 用于设置小数位数。在除法、开方、指数计算时会用到。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = BigNumber.clone()</span><br><span class="line">num.config(&#123;<span class="attr">DECIMAL_PLACES</span>:<span class="number">4</span>&#125;)</span><br><span class="line">num(<span class="number">1</span>).div(<span class="number">3</span>).toNumber() <span class="comment">//0.3333，注意跟上面计算结果的区别</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ROUNDING_MODE(默认值4) 舍入模式，取值的意义可参照 文档</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = BigNumber.clone()</span><br><span class="line">num(<span class="number">1</span>).div(<span class="number">3</span>).toNumber() <span class="comment">//0.3333333333333333</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取值范围：</span></span><br><span class="line">    BigNumber.ROUND_UP = <span class="number">0</span>;         <span class="comment">//远离0方向舍入</span></span><br><span class="line">    BigNumber.ROUND_DOWN = <span class="number">1</span>;       <span class="comment">//向0方向舍入</span></span><br><span class="line">    BigNumber.ROUND_CEIL = <span class="number">2</span>;       <span class="comment">//向正无限大舍入</span></span><br><span class="line">    BigNumber.ROUND_FLOOR = <span class="number">3</span>;      <span class="comment">//向负无限大舍入</span></span><br><span class="line">    BigNumber.ROUND_HALF_UP = <span class="number">4</span>;    <span class="comment">//四舍五入：向最接近的数字方向舍入，如果与两个相邻数字的距离相等，则向上舍入。</span></span><br><span class="line">    BigNumber.ROUND_HALF_DOWN = <span class="number">5</span>;  <span class="comment">//向最接近的数字方向舍入，如果与两个相邻数字的距离相等，则向下舍入。</span></span><br><span class="line">    BigNumber.ROUND_HALF_EVEN = <span class="number">6</span>;  <span class="comment">//向最接近数字方向舍入，如果与两个相邻数字的距离相等，则向相邻的偶数舍入</span></span><br><span class="line">    BigNumber.ROUND_HALF_CEIL = <span class="number">7</span>;</span><br><span class="line">    BigNumber.ROUND_HALF_FLOOR = <span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>EXPONENTIAL_AT(默认值[-7,20]) 指数计数法</p>
+</li>
+<li><p>RANGE(默认值[-1e+9,1e+9])</p>
+</li>
+<li><p>CRYPTO(默认值 false) 用于设置BigNumber.random()的随机生成算法。如果无法设置为true，则使用Math.random()生成随机值。</p>
+</li>
+<li><p>MODULO_MODE(默认值：ROUND_DOWN) 取模运算的模式</p>
+</li>
+<li><p>POW_PRECISION(默认值：0) pow运算结果的精度</p>
+</li>
+<li><p>FORMATE(格式化对应的设置)</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">默认值：</span><br><span class="line">BigNumber.config().FORMAT</span><br><span class="line">==============================</span><br><span class="line">&#123;</span><br><span class="line">decimalSeparator: <span class="string">"."</span></span><br><span class="line">fractionGroupSeparator: <span class="string">" "</span></span><br><span class="line">fractionGroupSize: <span class="number">0</span></span><br><span class="line">groupSeparator: <span class="string">","</span></span><br><span class="line">groupSize: <span class="number">3</span></span><br><span class="line">secondaryGroupSize: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="是否为大数字类型-isBigNumber"><a href="#是否为大数字类型-isBigNumber" class="headerlink" title="是否为大数字类型 isBigNumber"></a>是否为大数字类型 <code>isBigNumber</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">42</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(x)</span><br><span class="line"></span><br><span class="line">BigNumber.isBigNumber(x)             <span class="comment">// false</span></span><br><span class="line">y <span class="keyword">instanceof</span> BigNumber               <span class="comment">// true</span></span><br><span class="line">BigNumber.isBigNumber(y)             <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">BN = BigNumber.clone();</span><br><span class="line">z = <span class="keyword">new</span> BN(x)</span><br><span class="line">z <span class="keyword">instanceof</span> BigNumber               <span class="comment">// false</span></span><br><span class="line">BigNumber.isBigNumber(z)             <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="maximum-minimum"><a href="#maximum-minimum" class="headerlink" title="maximum([]),minimum([])"></a>maximum([]),minimum([])</h4><blockquote>
+<p>获取数组中的最大值/最小值</p>
+</blockquote>
+<h4 id="random-precision"><a href="#random-precision" class="headerlink" title="random([precision])"></a>random([precision])</h4><blockquote>
+<p>返回一个伪随机值，参数可以指定小数点位数</p>
+</blockquote>
+<h4 id="求和-sum-n…-⇒-BigNumber"><a href="#求和-sum-n…-⇒-BigNumber" class="headerlink" title="求和 .sum(n…) ⇒ BigNumber"></a>求和 .sum(n…) ⇒ BigNumber</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="string">'3257869345.0378653'</span>)</span><br><span class="line">BigNumber.sum(<span class="number">4e9</span>, x, <span class="string">'123456789.9'</span>)      <span class="comment">// '7381326134.9378653'</span></span><br><span class="line"></span><br><span class="line">arr = [<span class="number">2</span>, <span class="keyword">new</span> BigNumber(<span class="number">14</span>), <span class="string">'15.9999'</span>, <span class="number">12</span>]</span><br><span class="line">BigNumber.sum.apply(<span class="literal">null</span>, arr)            <span class="comment">// '43.9999'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><h4 id="绝对值-abs-⇒-BigNumber"><a href="#绝对值-abs-⇒-BigNumber" class="headerlink" title="绝对值.abs() *⇒ BigNumber*"></a>绝对值<code>.abs() *⇒ BigNumber*</code></h4><p>返回一个BigNumber，其值是该BigNumber的值的绝对值，即大小。</p>
+<p>返回值始终是精确且未取整的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x &#x3D; new BigNumber(-0.8)</span><br><span class="line">y &#x3D; x.absoluteValue()           &#x2F;&#x2F; &#39;0.8&#39;</span><br><span class="line">z &#x3D; y.abs()                     &#x2F;&#x2F; &#39;0.8&#39;</span><br></pre></td></tr></table></figure>
+
+<h4 id="加法：-plus-n-base-⇒-BigNumber"><a href="#加法：-plus-n-base-⇒-BigNumber" class="headerlink" title="加法：.plus(n [, base]) ⇒ BigNumber"></a>加法：.plus(n [, base]) ⇒ BigNumber</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span>                       <span class="comment">// 0.30000000000000004</span></span><br><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">0.1</span>)</span><br><span class="line">y = x.plus(<span class="number">0.2</span>)                 <span class="comment">// '0.3'</span></span><br><span class="line">BigNumber(<span class="number">0.7</span>).plus(x).plus(y)  <span class="comment">// '1'</span></span><br><span class="line">x.plus(<span class="string">'0.1'</span>, <span class="number">8</span>)                <span class="comment">// '0.225'</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="减法：-minus-n-base-⇒-BigNumber"><a href="#减法：-minus-n-base-⇒-BigNumber" class="headerlink" title="减法：.minus(n [, base]) ⇒ BigNumber"></a>减法：.minus(n [, base]) ⇒ BigNumber</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.6</span> * <span class="number">3</span>                         <span class="comment">// 1.7999999999999998</span></span><br><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">0.6</span>)</span><br><span class="line">y = x.multipliedBy(<span class="number">3</span>)           <span class="comment">// '1.8'</span></span><br><span class="line">BigNumber(<span class="string">'7e+500'</span>).times(y)    <span class="comment">// '1.26e+501'</span></span><br><span class="line">x.multipliedBy(<span class="string">'-a'</span>, <span class="number">16</span>)        <span class="comment">// '-6</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="除法"><a href="#除法" class="headerlink" title="除法"></a>除法</h4><h5 id="普通除法运算：-div-n-base-⇒-BigNumber；-dividedBy-n-base-⇒-BigNumber"><a href="#普通除法运算：-div-n-base-⇒-BigNumber；-dividedBy-n-base-⇒-BigNumber" class="headerlink" title="普通除法运算： .div(n [, base]) ⇒ BigNumber； .dividedBy(n [, base]) ⇒ BigNumber"></a>普通除法运算： .div(n [, base]) ⇒ BigNumber； .dividedBy(n [, base]) ⇒ BigNumber</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">355</span>)</span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">113</span>)</span><br><span class="line">x.dividedBy(y)                  <span class="comment">// '3.14159292035398230088'</span></span><br><span class="line">x.div(<span class="number">5</span>)                        <span class="comment">// '71'</span></span><br><span class="line">x.div(<span class="number">47</span>, <span class="number">16</span>)                   <span class="comment">// '5'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> 除法计算结果会根据DECIMAL_PLACES和ROUNDING_MODE两个属性设置进行舍入。</p>
+<h5 id="除法，返回整数：-idiv-n-base-⇒-BigNumber；-dividedToIntegerByv-n-base-⇒-BigNumber"><a href="#除法，返回整数：-idiv-n-base-⇒-BigNumber；-dividedToIntegerByv-n-base-⇒-BigNumber" class="headerlink" title="除法，返回整数： .idiv(n [, base]) ⇒ BigNumber；.dividedToIntegerByv(n [, base]) ⇒ BigNumber"></a>除法，返回整数： .idiv(n [, base]) ⇒ BigNumber；.dividedToIntegerByv(n [, base]) ⇒ BigNumber</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">355</span>)</span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">113</span>)</span><br><span class="line">x.dividedBy(y)                  <span class="comment">// '3.14159292035398230088'</span></span><br><span class="line">x.div(<span class="number">5</span>)                        <span class="comment">// '71'</span></span><br><span class="line">x.div(<span class="number">47</span>, <span class="number">16</span>)                   <span class="comment">// '5'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="取模-取余：-mod-n-base-⇒-BigNumber；modulo-n-base-⇒-BigNumber"><a href="#取模-取余：-mod-n-base-⇒-BigNumber；modulo-n-base-⇒-BigNumber" class="headerlink" title="取模/取余： .mod(n [, base]) ⇒ BigNumber；modulo.(n [, base]) ⇒ BigNumber"></a>取模/取余： .mod(n [, base]) ⇒ BigNumber；modulo.(n [, base]) ⇒ BigNumber</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> % <span class="number">0.9</span>                         <span class="comment">// 0.09999999999999998</span></span><br><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">1</span>)</span><br><span class="line">x.modulo(<span class="number">0.9</span>)                   <span class="comment">// '0.1'</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">33</span>)</span><br><span class="line">y.mod(<span class="string">'a'</span>, <span class="number">33</span>)                  <span class="comment">// '3'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> 取模/取余运算受MODULO_MODE设置影响</p>
+<h4 id="指数运算：-pow-n-m-⇒-BigNumber-exponentiatedBy-n-m-⇒-BigNumber"><a href="#指数运算：-pow-n-m-⇒-BigNumber-exponentiatedBy-n-m-⇒-BigNumber" class="headerlink" title="指数运算： .pow(n [, m]) ⇒ BigNumber;.exponentiatedBy(n [, m]) ⇒ BigNumber"></a>指数运算： .pow(n [, m]) ⇒ BigNumber;.exponentiatedBy(n [, m]) ⇒ BigNumber</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Math.pow(0.7, 2)                &#x2F;&#x2F; 0.48999999999999994</span><br><span class="line">x &#x3D; new BigNumber(0.7)</span><br><span class="line">x.exponentiatedBy(2)            &#x2F;&#x2F; &#39;0.49&#39;</span><br><span class="line">BigNumber(3).pow(-2)            &#x2F;&#x2F; &#39;0.11111111111111111111&#39;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> n代表的是指数。如果n&lt;0,计算结果肯定是小数，所以计算结果会受 DECIMAL_PLACES 和 ROUNDING_MODE影响。</p>
+<h4 id="开平方：-sqrt-⇒-BigNumber；-squareRoot-⇒-BigNumber"><a href="#开平方：-sqrt-⇒-BigNumber；-squareRoot-⇒-BigNumber" class="headerlink" title="开平方：.sqrt() ⇒ BigNumber；.squareRoot.() ⇒ BigNumber"></a>开平方：.sqrt() ⇒ BigNumber；.squareRoot.() ⇒ BigNumber</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">16</span>)</span><br><span class="line">x.squareRoot()                  <span class="comment">// '4'</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">3</span>)</span><br><span class="line">y.sqrt()                        <span class="comment">// '1.73205080756887729353'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="比较大小：-comparedTo-n-base-⇒-number"><a href="#比较大小：-comparedTo-n-base-⇒-number" class="headerlink" title="比较大小： .comparedTo(n [, base]) ⇒ number"></a>比较大小： .comparedTo(n [, base]) ⇒ number</h4><p>比较结果，参考如下表：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>	操作数&gt;n</span><br><span class="line"><span class="number">-1</span>	操作数&lt;n</span><br><span class="line"><span class="number">0</span>	操作数==n</span><br><span class="line"><span class="literal">null</span>	操作数或者n不是数字</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="literal">Infinity</span>)</span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">5</span>)</span><br><span class="line">x.comparedTo(y)                 <span class="comment">// 1</span></span><br><span class="line">x.comparedTo(x.minus(<span class="number">1</span>))        <span class="comment">// 0</span></span><br><span class="line">y.comparedTo(<span class="literal">NaN</span>)               <span class="comment">// null</span></span><br><span class="line">y.comparedTo(<span class="string">'110'</span>, <span class="number">2</span>)          <span class="comment">// -1</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="大于-gt-n-base-⇒-boolean"><a href="#大于-gt-n-base-⇒-boolean" class="headerlink" title="大于 .gt(n [, base]) ⇒ boolean`"></a>大于 .gt(n [, base]) <em>⇒ boolean</em>`</h4><p><code>n</code>：<em>number | string | BigNumber</em><br><code>base</code>：<em>数字</em><br><em>有关更多参数详细信息，请参见<a href="https://mikemcl.github.io/bignumber.js/#bignumber" target="_blank" rel="noopener">BigNumber</a>。</em></p>
+<p>返回<code>true</code>如果BigNumber的值比的值 <code>n</code>，否则返回<code>false</code>。</p>
+<p>注意：此方法在<a href="https://mikemcl.github.io/bignumber.js/#cmp" target="_blank" rel="noopener"><code>comparedTo</code></a>内部使用该方法。</p>
+<h4 id="大于等于-gte-n-base-⇒-boolean"><a href="#大于等于-gte-n-base-⇒-boolean" class="headerlink" title="大于等于.gte(n [, base]) ⇒ boolean`"></a>大于等于.gte(n [, base]) <em>⇒ boolean</em>`</h4><p><code>n</code>：<em>number | string | BigNumber</em><br><code>base</code>：<em>数字</em><br><em>有关更多参数详细信息，请参见<a href="https://mikemcl.github.io/bignumber.js/#bignumber" target="_blank" rel="noopener">BigNumber</a>。</em></p>
+<p>返回<code>true</code>如果BigNumber的值大于或等于的值<code>n</code>，否则返回<code>false</code>。</p>
+<p>注意：此方法在<a href="https://mikemcl.github.io/bignumber.js/#cmp" target="_blank" rel="noopener"><code>comparedTo</code></a>内部使用该方法。</p>
+<h4 id="小于-lt-n-base-⇒-boolean"><a href="#小于-lt-n-base-⇒-boolean" class="headerlink" title="小于.lt(n [, base]) *⇒ boolean*"></a>小于<code>.lt(n [, base]) *⇒ boolean*</code></h4><p><code>n</code>：<em>number | string | BigNumber</em><br><code>base</code>：<em>数字</em><br><em>有关更多参数详细信息，请参见<a href="https://mikemcl.github.io/bignumber.js/#bignumber" target="_blank" rel="noopener">BigNumber</a>。</em></p>
+<p>返回<code>true</code>如果BigNumber的值小于的值 <code>n</code>，否则返回<code>false</code>。</p>
+<p>注意：此方法在<a href="https://mikemcl.github.io/bignumber.js/#cmp" target="_blank" rel="noopener"><code>comparedTo</code></a>内部使用该方法。</p>
+<h4 id="小于等于-lte-n-base-⇒-boolean"><a href="#小于等于-lte-n-base-⇒-boolean" class="headerlink" title="小于等于 .lte(n [, base]) *⇒ boolean*"></a>小于等于 <code>.lte(n [, base]) *⇒ boolean*</code></h4><p><code>n</code>：<em>number | string | BigNumber</em><br><code>base</code>：<em>数字</em><br><em>有关更多参数详细信息，请参见<a href="https://mikemcl.github.io/bignumber.js/#bignumber" target="_blank" rel="noopener">BigNumber</a>。</em></p>
+<p>返回<code>true</code>如果此BigNumber的值小于或等于的值 <code>n</code>，否则返回<code>false</code>。</p>
+<p>注意：此方法在<a href="https://mikemcl.github.io/bignumber.js/#cmp" target="_blank" rel="noopener"><code>comparedTo</code></a>内部使用该方法。</p>
+<h4 id="判断是否相等-eq-n-base-⇒-boolean"><a href="#判断是否相等-eq-n-base-⇒-boolean" class="headerlink" title="判断是否相等 .eq(n [, base]) ⇒ boolean`"></a>判断是否相等 .eq(n [, base]) <em>⇒ boolean</em>`</h4><p><code>n</code>：<em>number | string | BigNumber</em><br><code>base</code>：<em>数字</em></p>
+<h4 id="精度调整"><a href="#精度调整" class="headerlink" title="精度调整"></a>精度调整</h4><h5 id="dp-dp-rm-⇒-BigNumber-number；decimalPlaces-dp-rm-⇒-BigNumber-number-根据dp-decimals-places-和rm-round-mode-对操作数进行舍入"><a href="#dp-dp-rm-⇒-BigNumber-number；decimalPlaces-dp-rm-⇒-BigNumber-number-根据dp-decimals-places-和rm-round-mode-对操作数进行舍入" class="headerlink" title=".dp([dp [, rm]]) ⇒ BigNumber|number；decimalPlaces.[dp [, rm]]) ⇒ BigNumber|number 根据dp(decimals places)和rm(round mode)对操作数进行舍入"></a>.dp([dp [, rm]]) ⇒ BigNumber|number；decimalPlaces.[dp [, rm]]) ⇒ BigNumber|number 根据dp(decimals places)和rm(round mode)对操作数进行舍入</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">1234.56</span>)</span><br><span class="line">x.decimalPlaces(<span class="number">1</span>)                     <span class="comment">// '1234.6'</span></span><br><span class="line">x.dp()                                 <span class="comment">// 2  如果不传dp，则函数返回的是操作数的小数点的位数</span></span><br><span class="line">x.decimalPlaces(<span class="number">2</span>)                     <span class="comment">// '1234.56'</span></span><br><span class="line">x.dp(<span class="number">10</span>)                               <span class="comment">// '1234.56'</span></span><br><span class="line">x.decimalPlaces(<span class="number">0</span>, <span class="number">1</span>)                  <span class="comment">// '1234'</span></span><br><span class="line">x.dp(<span class="number">0</span>, <span class="number">6</span>)                             <span class="comment">// '1235'</span></span><br><span class="line">x.decimalPlaces(<span class="number">1</span>, <span class="number">1</span>)                  <span class="comment">// '1234.5'</span></span><br><span class="line">x.dp(<span class="number">1</span>, BigNumber.ROUND_HALF_EVEN)     <span class="comment">// '1234.6'</span></span><br><span class="line">x                                      <span class="comment">// '1234.56'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="取整：-integerValue-rm-⇒-BigNumber"><a href="#取整：-integerValue-rm-⇒-BigNumber" class="headerlink" title="取整：.integerValue([rm]) ⇒ BigNumber"></a>取整：.integerValue([rm]) ⇒ BigNumber</h4><blockquote>
+<p>根据rm(round mode)返回操作数的整数部分</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">123.456</span>)</span><br><span class="line">x.integerValue()                        <span class="comment">// '123'</span></span><br><span class="line">x.integerValue(BigNumber.ROUND_CEIL)    <span class="comment">// '124'</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">-12.7</span>)</span><br><span class="line">y.integerValue()                        <span class="comment">// '-13'</span></span><br><span class="line">y.integerValue(BigNumber.ROUND_DOWN)    <span class="comment">// '-12',向0舍入</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="有效数字-sd-d-rm-⇒-BigNumber-number；precision-d-rm-⇒-BigNumber-number"><a href="#有效数字-sd-d-rm-⇒-BigNumber-number；precision-d-rm-⇒-BigNumber-number" class="headerlink" title="有效数字 .sd([d [, rm]]) ⇒ BigNumber|number；precision.([d [, rm]]) ⇒ BigNumber|number"></a>有效数字 .sd([d [, rm]]) ⇒ BigNumber|number；precision.([d [, rm]]) ⇒ BigNumber|number</h4><blockquote>
+<p>什么是有效数字？—&gt;从该数的第一个非零数字起，直到末尾数字止的数字称为有效数字，如0.618的有效数字有三个，分别是6,1,8。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">9876.54321</span>)</span><br><span class="line">x.precision(<span class="number">6</span>)                         <span class="comment">// '9876.54'</span></span><br><span class="line">x.sd()                                 <span class="comment">// 9 如果省略参数d，则返回有效数字个数</span></span><br><span class="line">x.precision(<span class="number">6</span>, BigNumber.ROUND_UP)     <span class="comment">// '9876.55'</span></span><br><span class="line">x.sd(<span class="number">2</span>)                                <span class="comment">// '9900' //todo</span></span><br><span class="line">x.precision(<span class="number">2</span>, <span class="number">1</span>)                      <span class="comment">// '9800'    //todo</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">987000</span>)</span><br><span class="line">y.precision()                          <span class="comment">// 3</span></span><br><span class="line">y.sd(<span class="literal">true</span>)                             <span class="comment">// 6,如多参数sd为true，则整数部分后边的0也会被认为是有效数字</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="toFixed-dp-rm-⇒-string"><a href="#toFixed-dp-rm-⇒-string" class="headerlink" title=".toFixed([dp [, rm]]) ⇒ string"></a>.toFixed([dp [, rm]]) ⇒ string</h4><blockquote>
+<p>返回一个字符串，小数位根据dp截取或者填充。<br> <strong>注意：</strong> Unlike Number.prototype.toFixed, which returns exponential notation if a number is greater or equal to 1021, this method will always return normal notation.</p>
+</blockquote>
+<h5 id="跟Number-prototype-toFixed-dp-的异同"><a href="#跟Number-prototype-toFixed-dp-的异同" class="headerlink" title="跟Number.prototype.toFixed(dp)的异同"></a>跟Number.prototype.toFixed(dp)的异同</h5><ol>
+<li>如果省略参数dp，BigNumber(1.123).toFixed() 原样返回’1.123’;而1.123.toFixed()会去掉所有小数位，只返回整数位’1’</li>
+<li>如果操作数大于10^21，BigNumber(10^21).toFixed()会跟普通数字一样返回；10^21.toFixed() 会通过指数形式返回</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.pow(<span class="number">10</span>,<span class="number">20</span>).toFixed()   <span class="comment">//"100000000000000000000"</span></span><br><span class="line"><span class="built_in">Math</span>.pow(<span class="number">10</span>,<span class="number">21</span>).toFixed()   <span class="comment">//"1e+21"</span></span><br><span class="line"></span><br><span class="line">BigNumber(<span class="number">10</span>).pow(<span class="number">20</span>).toFixed() <span class="comment">//"100000000000000000000"</span></span><br><span class="line">BigNumber(<span class="number">10</span>).pow(<span class="number">21</span>).toFixed() <span class="comment">//"1000000000000000000000"</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">3.456</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(x)</span><br><span class="line">x.toFixed()                     <span class="comment">// '3'</span></span><br><span class="line">y.toFixed()                     <span class="comment">// '3.456'</span></span><br><span class="line">y.toFixed(<span class="number">0</span>)                    <span class="comment">// '3'</span></span><br><span class="line">x.toFixed(<span class="number">2</span>)                    <span class="comment">// '3.46'</span></span><br><span class="line">y.toFixed(<span class="number">2</span>)                    <span class="comment">// '3.46'</span></span><br><span class="line">y.toFixed(<span class="number">2</span>, <span class="number">1</span>)                 <span class="comment">// '3.45'  (ROUND_DOWN)</span></span><br><span class="line">x.toFixed(<span class="number">5</span>)                    <span class="comment">// '3.45600'</span></span><br><span class="line">y.toFixed(<span class="number">5</span>)                    <span class="comment">// '3.45600'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong> toFixed()方法与dp()方法的主要区别是，toFixed返回的是字符串，如果小数位不够的话会用0补齐；dp()方法返回的是BigNumber|number，小数位不够的话会忽略</p>
+<h4 id="数字格式化-toFormat-dp-rm-⇒-string"><a href="#数字格式化-toFormat-dp-rm-⇒-string" class="headerlink" title="数字格式化 .toFormat([dp [, rm]]) ⇒ string"></a>数字格式化 .toFormat([dp [, rm]]) ⇒ string</h4><blockquote>
+<p>返回字符串，会根据dp和rm进行舍入,并根据FORMAT属性进行格式化。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">format = &#123;</span><br><span class="line">    decimalSeparator: <span class="string">'.'</span>,</span><br><span class="line">    groupSeparator: <span class="string">','</span>,</span><br><span class="line">    groupSize: <span class="number">3</span>,</span><br><span class="line">    secondaryGroupSize: <span class="number">0</span>,</span><br><span class="line">    fractionGroupSeparator: <span class="string">' '</span>,</span><br><span class="line">    fractionGroupSize: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line">BigNumber.config(&#123; <span class="attr">FORMAT</span>: format &#125;)</span><br><span class="line"></span><br><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="string">'123456789.123456789'</span>)</span><br><span class="line">x.toFormat()                    <span class="comment">// '123,456,789.123456789'</span></span><br><span class="line">x.toFormat(<span class="number">1</span>)                   <span class="comment">// '123,456,789.1'</span></span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h4 id="转换为js-基础数值类型-toNumber-⇒-number"><a href="#转换为js-基础数值类型-toNumber-⇒-number" class="headerlink" title="转换为js 基础数值类型 .toNumber() ⇒ number"></a>转换为js 基础数值类型 .toNumber() ⇒ number</h4><blockquote>
+<p>效果与使用+运算符一致</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">456.789</span>)</span><br><span class="line">x.toNumber()                    <span class="comment">// 456.789</span></span><br><span class="line">+x                              <span class="comment">// 456.789</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="平方根-sqrt-⇒-BigNumber"><a href="#平方根-sqrt-⇒-BigNumber" class="headerlink" title="平方根.sqrt() *⇒ BigNumber*"></a>平方根<code>.sqrt() *⇒ BigNumber*</code></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> BigNumber(<span class="number">16</span>)</span><br><span class="line">x.squareRoot()                  <span class="comment">// '4'</span></span><br><span class="line">y = <span class="keyword">new</span> BigNumber(<span class="number">3</span>)</span><br><span class="line">y.sqrt()                        <span class="comment">// '1.73205080756887729353'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li>如果大数字是很多位，则必须是字符串类型才行：比如</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">30000000000000000000000000000000000000000000013000000000000000000000000000000000000000000000</span></span><br></pre></td></tr></table></figure>
+
+<p>官网解释：字符串* 类型的值的位数没有限制（JavaScript的最大数组大小除外）。请参阅<a href="https://mikemcl.github.io/bignumber.js/#range" target="_blank" rel="noopener"><code>RANGE</code></a>设置BigNumber的最大和最小可能指数值。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://juejin.im/post/5be00d15e51d451bc70bfa26" target="_blank" rel="noopener">bignumber.js使用记录</a></li>
+<li><a href="https://mikemcl.github.io/bignumber.js/" target="_blank" rel="noopener">bignumber.js</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/492e8cf3.html" class="article-next" title="Cocos Creator游戏开发|PureMVC"><i class="icon-arrow-right"></i></a>
+
+
+<a id="pageprev" href="/post/7abef73b.html" class="article-prev" title="Cocos Creator bilibili小游戏接入"><i class="icon-arrow-left"></i></a>
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
