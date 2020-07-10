@@ -32,3 +32,77 @@ window.MyNamespace = window.MyNamespace || {};
 
 参考链接 [`tsconfig.json` 的行为](https://jkchao.github.io/typescript-book-chinese/faqs/tsconfig-behavior.html)
 
+### 如何监听一个对象所有属性的变化
+
+```javascript
+const handler = {
+  get(target, prop) {
+    try {
+      // 还有比这更简洁的递归吗
+      return new Proxy(target[prop], handler);
+    } catch (error) {
+      return target[prop]; // 或者是Reflect.get
+    }
+  },
+
+  set(target, prop, newVal) {
+    const oldVal = target[prop];
+    if (oldVal !== newVal) {
+      console.warn(oldVal, newVal);
+    }
+
+    target[prop] = newVal;
+    
+    return true;
+  },
+};
+
+obj = new Proxy(obj, handler);
+```
+
+参考链接：https://juejin.im/post/5cc68feef265da036c57940a
+
+改造版本：
+
+```typescript
+export const ProxyChangeHandler = {
+    key:"",
+    get(target, prop) {
+        try {
+            // 还有比这更简洁的递归吗
+            let proxyHandler = Object.assign({},ProxyChangeHandler);
+            proxyHandler.key = this.key;
+            return new Proxy(target[prop], proxyHandler);
+        } catch (error) {
+            return target[prop]; // 或者是Reflect.get
+        }
+    },
+    set(target, prop, newVal) {
+        const oldVal = target[prop];
+        if (oldVal !== newVal) {
+            // console.log("target", JSON.stringify(target));
+            // console.log("prop", JSON.stringify(prop));
+            console.log("prop", JSON.stringify(this.key));
+            console.warn(oldVal, newVal);
+            LocalStorage.setItem(this.key,GameData.i[this.key]);
+        }
+        target[prop] = newVal;
+        return true;
+    },
+};
+
+//调用
+  get user(): UserVO {
+        if(!this._user){
+            let userProxyHandler = Object.assign({},ProxyChangeHandler);
+            userProxyHandler.key = GameStorageKeys.USER;
+            this._user = new Proxy(new UserVO(),userProxyHandler);
+        }
+        return this._user;
+    }
+    set user(value: UserVO) {
+        this._user = value;
+    }
+    private _user:UserVO =  null
+```
+

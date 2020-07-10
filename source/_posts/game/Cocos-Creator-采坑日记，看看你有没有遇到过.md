@@ -225,6 +225,22 @@ cc.debug.isDisplayStats()//获取FPS状态
 
 2.解决办法：用记事本打开报错场景搜索    "_components": [ null ], 如有删除此项，保存再打开场景。
 
+### 当代码混淆后， ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到
+
+```typescript
+/**
+ * 将类名赋给该类
+ * @param target
+ */
+export function cccExtensionClass(target: any) {
+    let frameInfo = cc['_RF'].peek();
+    let script = frameInfo.script;
+    cc.js.setClassName(script, target);
+}
+```
+
+
+
 ### 总结
 
 在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。
