@@ -9,7 +9,7 @@ abbrlink: 5aa84949
 date: 2020-07-06 19:11:57
 ---
 
-编程开发中有时候用到很大的数字的时候，语言本身的数字上限已经不能支持，此时只能自己构建一些数据结构去保存这些。JavaScript的`Number`类型为[双精度IEEE 754 64位浮点](https://en.wikipedia.org/wiki/Floating-point_arithmetic)类型，一般来讲程序开发，基本的数字类型Number类型是够用的JavaScript 中最大的安全整数 (`2的53次方 - 1`)和JavaScript 中最小的安全整数 (`-(2的53次方 - 1)`)。但是有时候我们处理的业务逻辑出现秒产出和每个级别升级收益指数级增长的时候这个就超出了安全整数范围，此时我们一般借助于第三方类库([bignumber.js](https://mikemcl.github.io/bignumber.js))解决问题。
+编程开发中有时候用到很大的数字的时候，语言本身的数字上限已经不能支持，此时只能自己构建一些数据结构去保存这些。JavaScript的`Number`类型为[双精度IEEE 754 64位浮点](https://en.wikipedia.org/wiki/Floating-point_arithmetic)类型，一般来讲程序开发，基本的数字类型Number类型是够用的JavaScript 中最大的安全整数 (`2的53次方 - 1`)和JavaScript 中最小的安全整数 (`-(2的53次方 - 1)`)。但是有时候我们处理的业务逻辑出现秒产出和每个级别升级收益指数级增长的时候这个就超出了安全整数范围，此时我们一般借助于第三方类库([bignumber.js](https://mikemcl.github.io/bignumber.js))和[decimal.js](https://github.com/MikeMcl/decimal.js/) 解决问题。
 <!--more-->
 
 ### 介绍
@@ -428,6 +428,16 @@ y.sqrt()                        // '1.73205080756887729353'
 ```
 
 官网解释：字符串* 类型的值的位数没有限制（JavaScript的最大数组大小除外）。请参阅[`RANGE`](https://mikemcl.github.io/bignumber.js/#range)设置BigNumber的最大和最小可能指数值。
+
+### 后续更新：
+
+因为游戏算法里面涉及到了 指数运算 ([bignumber.js](https://mikemcl.github.io/bignumber.js))的指数计算的时候 幂 不能是小数，所以改成了 作者的另外一个大数字的库 [decimal.js](https://github.com/MikeMcl/decimal.js/) 用法基本一样，毕竟是一个作者的作品，如果你用的比较简单 他们还要 轻量版的
+
+[decimal.js-light](https://github.com/MikeMcl/decimal.js-light) （去掉了一些不常用的函数，文件更小）
+
+![API](大数字BigNumber-js使用/API.png)
+
+这样 项目继续用大数字开发了，爽歪歪！！
 
 ### 参考
 

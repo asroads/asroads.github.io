@@ -762,8 +762,133 @@ puremvc框架 初始化完毕
 
 上面就是关于PureMVC 如何在Cocos Creator里面使用，为了简单我省去了很多业务逻辑的干扰，和网络数据的传输逻辑。
 
+
+
+### 后续更新
+
+**2020年8月20日**
+
+用了框架在微信小游戏内有时候无法获取到我们注册的Mediator和Proxy 这个是JavaScript代码压缩和混淆带来的问题，我们可以利用装饰器解决这个问题，代码如下
+
+新建一个 `exdecorators.ts`
+
+```typescript
+/**
+ * Created by jsroads on 2020/6/29. 8:09 下午
+ * Note:Cocos Creator 提供了cc.js.getClassName这么一个函数，
+ * 但是遗憾的时候，当代码混淆后， ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到了，
+ * 自定义的类混淆后拿到的往往是"t"。
+ * 参考地址 https://blog.csdn.net/RICKShaozhiheng/article/details/87922938
+ *
+ */
+let countDecorator = 0
+/**
+ * 将类名赋给该类
+ * @param target
+ */
+export function ccExDecorator(target: any) {
+    let frameInfo = cc['_RF'].peek();
+    let script = frameInfo.script;
+    cc.js.setClassName(script, target);
+    countDecorator++
+    // console.log("smile----:"+countDecorator, JSON.stringify(script));
+}
+
+//在需要的类前像ccclass一样使用这个装饰器就行了:
+//
+// @heClass
+// export abstract class HashObject {
+//     private static s_hashCount: number = 1;
+//     private _hashCode: number;
+//
+//     public constructor() {
+//         this._hashCode = HashObject.s_hashCount++;
+//     }
+//
+//     public get hashCode(): number {
+//         return this._hashCode;
+//     }
+// }
+```
+
+用的时候这样 用：
+
+```typescript
+/**
+ * Created by jsroads on 2020/6/11.2:51 下午
+ * Note:
+ */
+import Proxy = puremvc.Proxy;
+import IProxy = puremvc.IProxy;
+import {ccExDecorator} from "../../../lib/exdecorators";
+import {RequestData} from "../inter/NetWorkInterface";
+
+@ccExDecorator
+export default abstract class BaseProxy extends Proxy implements IProxy {
+    public static NAME: string = "BaseProxy";
+
+    constructor(proxyName?: string, data?: any) {
+        super(proxyName, data);
+        this.proxyName = cc.js.getClassName(this);
+    }
+
+    public abstract send(requestData: RequestData);
+
+    public abstract failMessage(res: any);
+}
+```
+
+```typescript
+import {ccExDecorator} from "../../../lib/exdecorators";
+import BaseMediator from "../../core/BaseMediator";
+import {NTConst} from "../../core/NTConst";
+import {EventsConst} from "../../events/EventsConst";
+import DaoFuDialog from "./DaoFuDialog";
+
+/**
+ * Created by jsroads on 2020/7/15.3:26 下午
+ * Note:
+ */
+@ccExDecorator
+export default class DaoFuDialogMediator extends BaseMediator {
+    constructor(viewComponent?: any) {
+        super(null, viewComponent);
+        DaoFuDialogMediator.NAME = this.mediatorName;
+    }
+
+    public listNotificationInterests(): string[] {
+        return [
+            NTConst.EXCHANGE_INFO_RESULT
+        ];
+    }
+
+    public handleNotification(notification: puremvc.INotification): void {
+        let component: DaoFuDialog;
+        switch (notification.getName()) {
+            case NTConst.EXCHANGE_INFO_RESULT:
+                component = <DaoFuDialog>this.viewComponent.getComponent("DaoFuDialog");
+                component.refresh(notification.getBody());
+                break;
+            default:
+        }
+    }
+
+    protected lazyEventListener() {
+        this.viewComponent.on(EventsConst.EXCHANGE_CASH_EVENT, this.exchangeCashHandler, this);
+    }
+
+    private exchangeCashHandler(event: cc.Event.EventCustom) {
+        this.sendNotification(NTConst.RED_ENVELOPE_CMD, event.getUserData(), NTConst.EXCHANGE_GOLD_REQUEST);
+        event.stopPropagation();
+    }
+}
+```
+
+这样 重新打包运行即可
+
 ### 参考链接
 
 - [puremvc 中文手册](https://puremvc.org/docs/PureMVC_IIBP_Chinese.pdf)
 - [puremvc TS版本怎么放入到creator里,一直提示puremvc is not defined](https://forum.cocos.org/t/puremvc-ts-creator-puremvc-is-not-defined/56731)
+- [[CSND] Cocos Creator 获取类名](https://blog.csdn.net/RICKShaozhiheng/article/details/87922938)
 

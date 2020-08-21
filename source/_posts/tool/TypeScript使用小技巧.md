@@ -106,3 +106,27 @@ export const ProxyChangeHandler = {
     private _user:UserVO =  null
 ```
 
+### Number.MIN_VALUE小知识
+
+Number.MIN_VALUE 属性表示在 JavaScript 中所能表示的最小的正值。
+
+MIN_VALUE 属性是 JavaScript 里最接近 0 的正值，而不是最小的负值。
+
+MIN_VALUE 的值约为 5e-324。小于 MIN_VALUE ("underflow values") 的值将会转换为 0。
+
+因为 MIN_VALUE 是 Number 的一个静态属性，因此应该直接使用： Number.MIN_VALUE， 而不是作为一个创建的 Number 实例的属性。
+
+```javascript
+console.log(Number.MIN_VALUE > 0)
+console.log(Number.MIN_VALUE)
+```
+
+输出:
+
+```javascript
+true
+5e-324
+```
+
+参考:[Number.MIN_VALUE](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE)
+

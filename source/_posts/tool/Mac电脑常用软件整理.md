@@ -138,6 +138,7 @@ date: 2019-10-15 11:10:15
 | 字节跳动小程序 | https://developer.toutiao.com/                               | 字节跳动 |
 | 百度小游戏     | https://smartprogram.baidu.com/developer/index.html          | 百度     |
 | 360小游戏      | [点击打开](https://mp.360.cn/doc/minigame/dev/#/a52e62f95a681228a01bc4de0acba959) | 360      |
+| bilibili小游戏 | http://miniapp.bilibili.com/small-game-doc                   | 哔哩哔哩 |
 
 ### Chrome 插件
 
