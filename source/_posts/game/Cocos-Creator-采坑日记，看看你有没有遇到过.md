@@ -239,7 +239,47 @@ export function cccExtensionClass(target: any) {
 }
 ```
 
+### Cannot read property ‘_assembler’ of null
 
+2020年8月------采坑
+
+这个错误 报错显示是引擎文件报错，好多错误然后一连串的一大堆错误 后面弹出一个 
+
+```
+/Users/smile/Library…cocos2d-js-min.js:1 Uncaught TypeError: Cannot read property '_assembler' of null
+    at T.193.A._updateRenderData (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._children (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._children (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._render (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._updateRenderData (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._children (/Users/smile/Library…cocos2d-js-min.js:1)
+    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)
+/Users/smile/Library…cocos2d-js-min.js:1 Error 9000, please go to https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000 to see details. Arguments: 8
+/Users/smile/Library…cocos2d-js-min.js:1 Error 9000, please go to https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000 to see details. Arguments: 8
+/User
+```
+
+https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000
+
+我打开地址 显示 ：
+
+```
+9000
+Stencil manager does not support level bigger than %d in this device.
+```
+
+于是我按图索骥，结果找了半天，没有找到解决方案，论坛倒是有人也遇到类似的，最后都模棱两可的解决，那也要继续找问题啊：
+
+直到 看到这个帖子  我才知道我的方向错了！！！
+
+[Cannot read property ‘_assembler’ of null,谢谢帮忙看下，谢谢](https://forum.cocos.org/t/cannot-read-property--assembler-of-null/74030)
+
+![image-20200827133052775](Cocos-Creator-采坑日记，看看你有没有遇到过/image-20200827133052775.png)
+
+看到这个，我就想到，这个问题只有这个分支报错，其他分支是正常的，应该是合并代码的时候，分组丢失， 去看了一下，果然如此，重新配置分组，然后编译，预览，搞定！
 
 ### 总结
 

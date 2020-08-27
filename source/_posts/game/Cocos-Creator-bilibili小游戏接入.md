@@ -106,11 +106,11 @@ bl.launchSuccess();
 
 #### 网络访问 status = 0
 
-同事在发布哔哩哔哩小游戏后，在调试游戏的时候，发现总是连不上网络 后面发现这个 网络返回状态一直是0，这个就奇怪了，后面同事发现使用官方的 bl.request()调用接口是好的，那既然有问题，就去查找问题，解决问题。警告几次简单的测试 发现问题出现在 哔哩哔哩官网让下载的那个 `blapp-adapter-cocos.js`文件。
+在发布哔哩哔哩小游戏后，在调试游戏的时候，发现总是连不上网络 后面发现这个 网络返回状态一直是0，这个就奇怪了，后面发现使用官方的 `bl.request()`调用接口是好的，那既然有问题，就去查找问题，解决问题。经过几次简单的测试 发现问题出现在 哔哩哔哩官网让下载的那个 `blapp-adapter-cocos.js`文件。
 
 ![image-20200710110754626](Cocos-Creator-bilibili小游戏接入/image-20200710110754626.png)
 
-文档写明 responseType 的值是 text 或者 arraybuffer 默认值是 text。
+文档写明 `responseType` 的值是 `text` 或者 `arraybuffer` 默认值是 `text`。
 
 **object.responseType 的合法值**
 
@@ -119,7 +119,7 @@ bl.launchSuccess();
 | text        | 响应的数据为文本         |
 | arraybuffer | 响应的数据为 ArrayBuffer |
 
-有了上面的理解之后，发现打印的 this.responseType 没有值 估计应该是"",所以可以把这注释掉：
+有了上面的理解之后，发现打印的 `this.responseType` 没有值 估计应该是"",所以可以把下面这行注释掉：
 
 ```javascript
 responseType = this.responseType,
@@ -127,7 +127,7 @@ responseType = this.responseType,
 
 亦或者：
 
-在上面直接给this.responseType 赋值 根据自己的协议需求赋值即可。
+在上面直接给`this.responseType` 赋值 `text` 或者 `arraybuffer`  根据自己的协议需求赋值即可。
 
 ### 总结：
 
