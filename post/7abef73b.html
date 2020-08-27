@@ -200,9 +200,9 @@
 <p><img src="/post/7abef73b/image-20200708140227895.png" alt="image-20200708140227895"></p>
 <p>然后等待：效果如下</p>
 <p><img src="/post/7abef73b/image-20200708140502472.png" alt="image-20200708140502472"></p>
-<h4 id="网络访问-status-0"><a href="#网络访问-status-0" class="headerlink" title="网络访问 status = 0"></a>网络访问 status = 0</h4><p>同事在发布哔哩哔哩小游戏后，在调试游戏的时候，发现总是连不上网络 后面发现这个 网络返回状态一直是0，这个就奇怪了，后面同事发现使用官方的 bl.request()调用接口是好的，那既然有问题，就去查找问题，解决问题。警告几次简单的测试 发现问题出现在 哔哩哔哩官网让下载的那个 <code>blapp-adapter-cocos.js</code>文件。</p>
+<h4 id="网络访问-status-0"><a href="#网络访问-status-0" class="headerlink" title="网络访问 status = 0"></a>网络访问 status = 0</h4><p>在发布哔哩哔哩小游戏后，在调试游戏的时候，发现总是连不上网络 后面发现这个 网络返回状态一直是0，这个就奇怪了，后面发现使用官方的 <code>bl.request()</code>调用接口是好的，那既然有问题，就去查找问题，解决问题。经过几次简单的测试 发现问题出现在 哔哩哔哩官网让下载的那个 <code>blapp-adapter-cocos.js</code>文件。</p>
 <p><img src="/post/7abef73b/image-20200710110754626.png" alt="image-20200710110754626"></p>
-<p>文档写明 responseType 的值是 text 或者 arraybuffer 默认值是 text。</p>
+<p>文档写明 <code>responseType</code> 的值是 <code>text</code> 或者 <code>arraybuffer</code> 默认值是 <code>text</code>。</p>
 <p><strong>object.responseType 的合法值</strong></p>
 <table>
 <thead>
@@ -220,11 +220,11 @@
 <td>响应的数据为 ArrayBuffer</td>
 </tr>
 </tbody></table>
-<p>有了上面的理解之后，发现打印的 this.responseType 没有值 估计应该是””,所以可以把这注释掉：</p>
+<p>有了上面的理解之后，发现打印的 <code>this.responseType</code> 没有值 估计应该是””,所以可以把下面这行注释掉：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">responseType = <span class="keyword">this</span>.responseType,</span><br></pre></td></tr></table></figure>
 
 <p>亦或者：</p>
-<p>在上面直接给this.responseType 赋值 根据自己的协议需求赋值即可。</p>
+<p>在上面直接给<code>this.responseType</code> 赋值 <code>text</code> 或者 <code>arraybuffer</code>  根据自己的协议需求赋值即可。</p>
 <h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>目前市场上的小游戏API相似度几乎达到95%左右，主要以腾讯旗下的微信和QQ小游戏，还有字节跳动旗下的小游戏为主，剩下的第二梯度有 百度，VIVO，OPPO ，哔哩哔哩，360 支付宝等，第三梯度的厂家大都没有自己的开发者工具，要么借助于浏览器（豹趣）或者apk(铠甲)模拟一个环境，或者正在加速研发追赶大厂，比如快手这样的。基本都是以banner广告，激励视频，插屏广告为主。</p>
 
         
