@@ -130,3 +130,66 @@ true
 
 参考:[Number.MIN_VALUE](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE)
 
+### Typescript(泛型)单例
+
+我自己实现两种
+A 方案:
+
+```typescript
+export default class BaseSigleton{
+    static get i() {
+        if(!this._i)this._i = new this();
+        return this._i;
+    }
+    private static _i;
+}
+```
+
+B 方案：
+
+```typescript
+export default class BaseSigleton{
+    static i<T extends {}>(this: new () => T): T {
+        if(!(<any>this)._i){
+            (<any>this)._i = new this();
+        }
+        return (<any>this)._i;
+    }
+    private static _i;
+}
+```
+
+继承
+
+```typescript
+import BaseSigleton from "./BaseSigleton";
+
+export default class TestChild extends  BaseSigleton{
+    say(){
+        console.log("----:", JSON.stringify("Hello"));
+    }
+}
+```
+
+调用方法:
+A 方案：
+
+```typescript
+TestChild.i.say()
+```
+
+```typescript
+TestChild.i().say()
+```
+
+B方案：
+
+结果输出:
+
+```typescript
+----: "Hello"
+```
+
+个人感觉 更喜欢 A方案 无括号的版本 B方案应该是比较经典的 单例方法
+
+参考 https://my.oschina.net/u/816723/blog/3009556
