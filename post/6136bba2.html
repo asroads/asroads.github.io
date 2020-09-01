@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Cocos Creator使用encryptjs本地存储加密 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="总的来说，客户端加密其实意义不是很大，毕竟加密还需要解密，自然就是无密了，看到好些项目在用，故而简单的学习一下，后期如果有用到，便可以考考这样的模式。步骤加密用的是常见的encryptjs.js库，用来对数据进行加密或者解密下面是可能涉及到的知识点：encryptjs.js微软的dts-genCocos Creator首先我们下载 文件到自己的某个项目 ：1npm install encryptjs --save-dev此时 我们得到一个文件夹：其中 蓝色框内的..." />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    .nav-inner {top:0;}
+    .author-meta {position:static;top:0;}
+    .search-form {height:36px;}
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">3.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Cocos Creator使用encryptjs本地存储加密
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.www.asroads.com/post/6136bba2.html">
+    
+    <i class="icon-calendar"></i>
+    
+    <time datetime="2020-08-30T11:49:56.000Z" itemprop="datePublished">2020-08-30</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag"></i>
+    <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>, <a class="article-tag-link" href="/tags/js/" rel="tag">js</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>总的来说，客户端加密其实意义不是很大，毕竟加密还需要解密，自然就是无密了，看到好些项目在用，故而简单的学习一下，后期如果有用到，便可以考考这样的模式。</p>
+<a id="more"></a>
+
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>加密用的是常见的<a href="https://www.npmjs.com/package/encryptjs" target="_blank" rel="noopener">encryptjs.js</a>库，用来对数据进行加密或者解密下面是可能涉及到的知识点：</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/encryptjs" target="_blank" rel="noopener">encryptjs.js</a></li>
+<li>微软的<a href="https://github.com/Microsoft/dts-gen" target="_blank" rel="noopener">dts-gen</a></li>
+<li>Cocos Creator</li>
+</ul>
+<p>首先我们下载 文件到自己的某个项目 ：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install encryptjs --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>此时 我们得到一个文件夹：</p>
+<p><img src="/post/6136bba2/image-20200901193423046.png" alt="image-20200901193423046"></p>
+<p>其中 蓝色框内的两个文件是我们需要的文件拷贝两个文件 到我们新建的 Cocos Creator Typescript 项目内。</p>
+<p><img src="/post/6136bba2/../../../../../Documents/image-20200901193541050.png" alt="image-20200901193541050"></p>
+<p>上面看到 我用的是Typescript项目，所以要给 js 文件生成一个 .d.ts声明文件。这里我们使用微软的 <a href="https://github.com/Microsoft/dts-gen" target="_blank" rel="noopener">dts-gen</a>  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install -g dts-gen   // 先全局安装 dts-gen</span><br><span class="line"></span><br><span class="line">npm install -g encryptjs     // 然后在全局安装你需要生产声明文件的库 比如 encryptjs</span><br><span class="line"></span><br><span class="line">dts-gen -m encryptjs         // 执行命令生成文件 encryptjs.d.ts</span><br></pre></td></tr></table></figure>
+
+<p>在执行的文件的路径下（项目的目录libs）生成了encryptjs.d.ts</p>
+<p>这里内容如下:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** Declaration file generated by dts-gen */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> version: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">decrypt</span>(<span class="params">ciphertext: <span class="built_in">any</span>, password: <span class="built_in">any</span>, nBits: <span class="built_in">any</span></span>): <span class="title">any</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">encrypt</span>(<span class="params">plaintext: <span class="built_in">any</span>, password: <span class="built_in">any</span>, nBits: <span class="built_in">any</span></span>): <span class="title">any</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getTextEncryptAndSaveToJSONFile</span>(<span class="params">filePath: <span class="built_in">any</span>, password: <span class="built_in">any</span>, nBits: <span class="built_in">any</span></span>): <span class="title">void</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getTextEncryptAndSaveToTextFile</span>(<span class="params">filePath: <span class="built_in">any</span>, password: <span class="built_in">any</span>, nBits: <span class="built_in">any</span></span>): <span class="title">void</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>): <span class="title">void</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">writeCipherTextToJSON</span>(<span class="params">file: <span class="built_in">any</span>, obj: <span class="built_in">any</span>, options: <span class="built_in">any</span>, callback: <span class="built_in">any</span></span>): <span class="title">any</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们可以正常使用这个库文件了！在新建的项目的 <code>Helloworld</code> 的 <code>start</code>里写入代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;decrypt, encrypt&#125; <span class="keyword">from</span> <span class="string">"../libs/encryptjs"</span>;</span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc._decorator;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> Helloworld <span class="keyword">extends</span> cc.Component &#123;</span><br><span class="line">    start () &#123;</span><br><span class="line">        <span class="keyword">let</span> secretkey = <span class="string">"123456"</span>,datakey = <span class="string">"user"</span></span><br><span class="line">        <span class="keyword">let</span> dataString = <span class="string">`abcd1234@@&amp;90`</span>;<span class="comment">//要加密的字符串</span></span><br><span class="line">        <span class="keyword">let</span> encryptedStr = encrypt(dataString,secretkey,<span class="number">256</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"加密后:"</span>, <span class="built_in">JSON</span>.stringify(encryptedStr));</span><br><span class="line">        cc.sys.localStorage.setItem(datakey,encryptedStr);</span><br><span class="line">        <span class="keyword">let</span> cipherText = cc.sys.localStorage.getItem(datakey);<span class="comment">//要解密的文本</span></span><br><span class="line">        <span class="keyword">let</span> dataString2= decrypt(cipherText,secretkey,<span class="number">256</span>);<span class="comment">//得到解密之后的文本</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"解密后:"</span>, <span class="built_in">JSON</span>.stringify(dataString2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们运行项目</p>
+<p><img src="/post/6136bba2/image-20200901194331994.png" alt="image-20200901194331994"></p>
+<p>此时查看浏览器存储：</p>
+<p><img src="/post/6136bba2/image-20200901194401810.png" alt="image-20200901194401810"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"user"</span>: <span class="string">"FAHmeLczTl8iKyL+72kjTCCusqqK"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此，本地存储加密已经OK了，是不是很简单呢？</p>
+<p>encryptjs 地址: <a href="https://www.npmjs.com/package/encryptjs" target="_blank" rel="noopener">https://www.npmjs.com/package/encryptjs</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>本地加密意义不大，前端的代码混淆和数据加密混合使用才有价值，起码是加大破解的难度，但加密和混淆往往带来的是效率的牺牲，所以在做项目的时候，我们需要适当的选取适合项目的技术方案。</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><ul>
+<li><a href="https://blog.csdn.net/cs8646931/article/details/79976693" target="_blank" rel="noopener">在creator中用encryptjs加密数据</a>(CSDN)</li>
+<li><a href="https://blog.csdn.net/zdhsoft/article/details/85242631" target="_blank" rel="noopener">TypeScript类型定义文件（*.d.ts）生成工具</a>(CSDN)</li>
+<li><a href="https://blog.csdn.net/wlanye/article/details/85272944" target="_blank" rel="noopener">NODEJS笔记之dts-gen工具：Typescript声明文件生成器</a>(CSDN)</li>
+<li><a href="https://www.jianshu.com/p/1158b2100513" target="_blank" rel="noopener">单机游戏存档的常用加密解密方法</a>(简书)</li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/fa59c736.html" class="article-next" title="LayaBox项目日志显示路径为TypeScript文件"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle();
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp();
+            }, 3000);
+        }
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
