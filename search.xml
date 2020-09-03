@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>LayaBox2.x错误:&#39;tslib&#39; cannot be found的理解和浅析</title>
+      <link href="/post/fd98d03e.html"/>
+      <url>/post/fd98d03e.html</url>
+      
+        <content type="html"><![CDATA[<p>最近重新整理梳理JavaScript和Typescript的知识，开始温习异步的问题，有些疑问就和技术群里群友交流，顺便分享一下心得体会，这次说说LayaBox关于 async wait 和 Promise的使用，群友反映，新版本不能用，作为一直都在用的我，不免有些疑惑，原来当时遇到这个问题的时候已解决，但当时不清楚问题是因何触发的。今天恰好拜读了官网文档和几篇不错的文章，结合群里交流心得整理出来。</p><a id="more"></a><p>其实问题就是在LayaBox里面 Typescript 或者JavaScript 使用 async wait 的时候 编译 报错：</p><h3 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic error TS2354: This syntax requires an imported helper but module <span class="string">'tslib'</span> cannot be found</span><br></pre></td></tr></table></figure><p><img src="/post/fd98d03e/image-20200903103502313.png" alt="image-20200903103502313"></p><p>去年我遇到此问题的时候，就解决了，当时的解决方案如下: 文章链接:<a href="http://blog.asroads.com/post/3f34ea36.html" target="_blank" rel="noopener">Layabox2.3.0如何配置代码编辑器(WebStorm2019)</a></p><h4 id="解决办法1"><a href="#解决办法1" class="headerlink" title="解决办法1"></a>解决办法1</h4><blockquote><p><strong>解决办法</strong>：参考链接 <a href="https://stackoverflow.com/questions/52801814/this-syntax-requires-an-imported-helper-but-module-tslib-cannot-be-found-wit" target="_blank" rel="noopener">stackoverflow</a></p><blockquote><p>Noob mistake (which I just made). Try:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install tslib</span><br></pre></td></tr></table></figure><p>or</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure><p>Personally before signing off on Friday I did a <code>git clean -fxd</code>, but no <code>npm i</code> so all the npm packages were missing. Doh!</p></blockquote><p>我只用了 <code>npm install tslib</code> 就成功解决问题。</p></blockquote><p>这样就可以正常使用了，可以把这个案子到全局，这样就一切正常了！</p><h4 id="解决办法2"><a href="#解决办法2" class="headerlink" title="解决办法2"></a>解决办法2</h4><p>群友用了另外一种办法也解决了，如下:</p><p><img src="/post/fd98d03e/image-20200903103858129.png" alt="image-20200903103858129"></p><p>就是在 tsconfig.json 文件 添加 promise 库</p><h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p>这样不仅让我反思了 这个问题形成的元凶，恰好最近两天读了一篇文章： <a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></p><p>里面提到这样的一段:</p><blockquote><h2 id="常用的构建配置"><a href="#常用的构建配置" class="headerlink" title="常用的构建配置"></a>常用的构建配置</h2><p>我们早期项目中使用 TypeScript 的命名空间，不过最近几乎都重构成 ES6 模块方式了。由于会用到 async 函数，所以一般会配置 TypeScript 输出 ES2017 代码，再通过 Babel 转译成 ES5 代码，最后由 Webpack 打包输出。</p><h3 id="tsconfig-json"><a href="#tsconfig-json" class="headerlink" title="tsconfig.json"></a>tsconfig.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;compilerOptions&quot;: &#123;</span><br><span class="line">        &quot;module&quot;: &quot;commonjs&quot;,</span><br><span class="line">        &quot;target&quot;: &quot;es2017&quot;,</span><br><span class="line">        &quot;lib&quot;: [</span><br><span class="line">            &quot;dom&quot;,</span><br><span class="line">            &quot;es6&quot;,</span><br><span class="line">            &quot;dom.iterable&quot;,</span><br><span class="line">            &quot;scripthost&quot;,</span><br><span class="line">            &quot;es2017&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;noImplicitAny&quot;: false,</span><br><span class="line">        &quot;sourceMap&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>target</code> 为 <code>es5</code> 或 <code>es6</code> 的时候，TypeScript 会有默认的 <code>lib</code> 列表，这在<a href="http://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">官方文档</a>中有详细说明。<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数，但这个配置没有默认 <code>lib</code> 列表，所以参考官方文档对 <code>--target es6</code> 使用的 <code>lib</code> 列表，补充 <code>es2017</code> 类型库即可。</p></blockquote><p>其中下面这句话 印证也说明了问题的产生原因:<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数…</p><p>其实就是说，如果<code>target</code> 不是 <code>es2017</code> 就是不支持 async 函数，这样 上面的问题的产生，已经解决方案就显得顺利成章了！</p><p>这次的学习，说巧不巧，恰好遇到这篇文章，恰好遇到问题复现，恰好有个时间反思，故而，写下来这篇文章，让更多人少走弯路吧！！</p><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul><li><a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/Async_await" target="_blank" rel="noopener">async和await:让异步编程更简单</a></li><li><a href="https://segmentfault.com/a/1190000013171493" target="_blank" rel="noopener">带你玩转 JavaScript ES6 (七) - 异步</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> game </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Layabox </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Cocos Creator使用encryptjs本地存储加密</title>
       <link href="/post/6136bba2.html"/>
       <url>/post/6136bba2.html</url>

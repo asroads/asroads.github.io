@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.www.asroads.com/"/>
-  <updated>2020-09-01T11:55:24.522Z</updated>
+  <updated>2020-09-03T02:48:55.510Z</updated>
   <id>http://blog.www.asroads.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LayaBox2.x错误:&#39;tslib&#39; cannot be found的理解和浅析</title>
+    <link href="http://blog.www.asroads.com/post/fd98d03e.html"/>
+    <id>http://blog.www.asroads.com/post/fd98d03e.html</id>
+    <published>2020-09-03T02:27:54.000Z</published>
+    <updated>2020-09-03T02:48:55.510Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近重新整理梳理JavaScript和Typescript的知识，开始温习异步的问题，有些疑问就和技术群里群友交流，顺便分享一下心得体会，这次说说LayaBox关于 async wait 和 Promise的使用，群友反映，新版本不能用，作为一直都在用的我，不免有些疑惑，原来当时遇到这个问题的时候已解决，但当时不清楚问题是因何触发的。今天恰好拜读了官网文档和几篇不错的文章，结合群里交流心得整理出来。</p><a id="more"></a><p>其实问题就是在LayaBox里面 Typescript 或者JavaScript 使用 async wait 的时候 编译 报错：</p><h3 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic error TS2354: This syntax requires an imported helper but module <span class="string">'tslib'</span> cannot be found</span><br></pre></td></tr></table></figure><p><img src="/post/fd98d03e/image-20200903103502313.png" alt="image-20200903103502313"></p><p>去年我遇到此问题的时候，就解决了，当时的解决方案如下: 文章链接:<a href="http://blog.asroads.com/post/3f34ea36.html" target="_blank" rel="noopener">Layabox2.3.0如何配置代码编辑器(WebStorm2019)</a></p><h4 id="解决办法1"><a href="#解决办法1" class="headerlink" title="解决办法1"></a>解决办法1</h4><blockquote><p><strong>解决办法</strong>：参考链接 <a href="https://stackoverflow.com/questions/52801814/this-syntax-requires-an-imported-helper-but-module-tslib-cannot-be-found-wit" target="_blank" rel="noopener">stackoverflow</a></p><blockquote><p>Noob mistake (which I just made). Try:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install tslib</span><br></pre></td></tr></table></figure><p>or</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure><p>Personally before signing off on Friday I did a <code>git clean -fxd</code>, but no <code>npm i</code> so all the npm packages were missing. Doh!</p></blockquote><p>我只用了 <code>npm install tslib</code> 就成功解决问题。</p></blockquote><p>这样就可以正常使用了，可以把这个案子到全局，这样就一切正常了！</p><h4 id="解决办法2"><a href="#解决办法2" class="headerlink" title="解决办法2"></a>解决办法2</h4><p>群友用了另外一种办法也解决了，如下:</p><p><img src="/post/fd98d03e/image-20200903103858129.png" alt="image-20200903103858129"></p><p>就是在 tsconfig.json 文件 添加 promise 库</p><h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p>这样不仅让我反思了 这个问题形成的元凶，恰好最近两天读了一篇文章： <a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></p><p>里面提到这样的一段:</p><blockquote><h2 id="常用的构建配置"><a href="#常用的构建配置" class="headerlink" title="常用的构建配置"></a>常用的构建配置</h2><p>我们早期项目中使用 TypeScript 的命名空间，不过最近几乎都重构成 ES6 模块方式了。由于会用到 async 函数，所以一般会配置 TypeScript 输出 ES2017 代码，再通过 Babel 转译成 ES5 代码，最后由 Webpack 打包输出。</p><h3 id="tsconfig-json"><a href="#tsconfig-json" class="headerlink" title="tsconfig.json"></a>tsconfig.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;compilerOptions&quot;: &#123;</span><br><span class="line">        &quot;module&quot;: &quot;commonjs&quot;,</span><br><span class="line">        &quot;target&quot;: &quot;es2017&quot;,</span><br><span class="line">        &quot;lib&quot;: [</span><br><span class="line">            &quot;dom&quot;,</span><br><span class="line">            &quot;es6&quot;,</span><br><span class="line">            &quot;dom.iterable&quot;,</span><br><span class="line">            &quot;scripthost&quot;,</span><br><span class="line">            &quot;es2017&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;noImplicitAny&quot;: false,</span><br><span class="line">        &quot;sourceMap&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>target</code> 为 <code>es5</code> 或 <code>es6</code> 的时候，TypeScript 会有默认的 <code>lib</code> 列表，这在<a href="http://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">官方文档</a>中有详细说明。<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数，但这个配置没有默认 <code>lib</code> 列表，所以参考官方文档对 <code>--target es6</code> 使用的 <code>lib</code> 列表，补充 <code>es2017</code> 类型库即可。</p></blockquote><p>其中下面这句话 印证也说明了问题的产生原因:<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数…</p><p>其实就是说，如果<code>target</code> 不是 <code>es2017</code> 就是不支持 async 函数，这样 上面的问题的产生，已经解决方案就显得顺利成章了！</p><p>这次的学习，说巧不巧，恰好遇到这篇文章，恰好遇到问题复现，恰好有个时间反思，故而，写下来这篇文章，让更多人少走弯路吧！！</p><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul><li><a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/Async_await" target="_blank" rel="noopener">async和await:让异步编程更简单</a></li><li><a href="https://segmentfault.com/a/1190000013171493" target="_blank" rel="noopener">带你玩转 JavaScript ES6 (七) - 异步</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近重新整理梳理JavaScript和Typescript的知识，开始温习异步的问题，有些疑问就和技术群里群友交流，顺便分享一下心得体会，这次说说LayaBox关于 async wait 和 Promise的使用，群友反映，新版本不能用，作为一直都在用的我，不免有些疑惑，原来当时遇到这个问题的时候已解决，但当时不清楚问题是因何触发的。今天恰好拜读了官网文档和几篇不错的文章，结合群里交流心得整理出来。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+    
+    
+      <category term="Layabox" scheme="http://blog.www.asroads.com/tags/Layabox/"/>
+    
+  </entry>
   
   <entry>
     <title>Cocos Creator使用encryptjs本地存储加密</title>
@@ -466,29 +489,6 @@
     
     
       <category term="ts" scheme="http://blog.www.asroads.com/tags/ts/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>关于2018-2019的思考</title>
-    <link href="http://blog.www.asroads.com/post/bf975f9e.html"/>
-    <id>http://blog.www.asroads.com/post/bf975f9e.html</id>
-    <published>2020-01-14T17:03:33.000Z</published>
-    <updated>2020-01-15T08:49:13.696Z</updated>
-    
-    <content type="html"><![CDATA[<p>春节将至，想着就这段时间，做个短暂的回顾，以及对工作，生活，学习的思考。子曰：“学而不思则罔，思而不学则殆”，学习的时候能够不断的思考，思考的同时及时查漏补缺，才能做最优秀的自己。</p><a id="more"></a><h3 id="从APP到H5小游戏"><a href="#从APP到H5小游戏" class="headerlink" title="从APP到H5小游戏"></a>从APP到H5小游戏</h3><p>过去的两年，告别了封闭不开源的APP开发引擎，终于迈出步子走出来，这个决定思考了良久，最终还是决定出去看看外面的世界，外面的风景未必好，但是留下，就只能慢慢耗尽自己的创新和时间，在一个地方久了，就会对一个地方产生一种依赖，慢慢的就有点害怕离开，以前在BOE亦是如此。总是觉得外面有些未知的恐惧等着自己，其实出来了，总会多少有些坎坷，但是，更多的是给自己带来更宽的视角，更大的市场。</p><p>APP的开发，基本是负责模块开发，那时候自己对公司对项目都怀有信心，总觉得努力和拼搏终会有丰收，最终游戏也成功上线，几年间，曾努力尝试改变，优化开发进度，有幸福，有烦恼，有失去，有丰收。</p><p><strong>客观环境恶化</strong>：2018年公司搬迁地址后，开始了“净网”行动，很多电脑不让联网，互联网公司没有了网络，对于开发来讲，无疑是一条死胡同，现在技术，半年一个小版本，一年一个大版本，不及时更新自己的知识库，被市场抛弃是毫无疑问的。从技术发展来讲，无疑这个断网给我增加了很大想出去的想法。</p><p><strong>主观意愿</strong>：最直接的就是，学习的资源和职位升迁的道路变得狭窄，自己又不愿意变得圆滑世故。后期的工作内容都是修修补补，四处打零工。项目的工作时长几乎没有变化，一直都是996的模式，几年来，身体越来越疲惫，最后感觉最基本的生活额外开销都难以正常运转（比如有意为难我请婚假，年假没能休完，陪家人去医院下午又赶回去上班，可笑的是周六中午项目聚餐，下午的集体活动让去公司加班）的时候，其实项目需要的时候，我可以不遗余力去拼，但这样毫无章法的戏弄就让我不得不做出改变。</p><h3 id="从单身到家庭"><a href="#从单身到家庭" class="headerlink" title="从单身到家庭"></a>从单身到家庭</h3><p>这两年感情终于有了归宿，不再是一个人每逢假期节日都被亲朋友好友问候结婚的事情，有了家庭后，自己的空间少了，但也有了新的生活节奏，很多事情一个人忙不完的时候，两个人的确很快，比如整理房间，打扫卫生，有时候回去的时候，楼上的灯亮着，而不是以前那种茫然。生活嘛，每个阶段都有不同的感受不同的体验，单身，自由空间多，可以努力做好自己，有了家庭，就变成了一个引擎，需要考虑家庭的因素。</p><h3 id="从摄入到输出"><a href="#从摄入到输出" class="headerlink" title="从摄入到输出"></a>从摄入到输出</h3><p>以前对知识的能力更多是积累学习，掌握技能，很少有精力去思路，某个技术背后的逻辑，这两年学习了Layabox ，Cocos Creator，从不同角度体验了H5游戏的设计思路，也看到了微信小游戏 API设计的规范，自己从最初的对Typescript一知半解，到如今能够灵活使用，对JavaScript 更深入的理解了很多细节。无论是现实中还是网络上，都开始原创输出，整合自己的所学所感。</p><h3 id="从倔强到改变"><a href="#从倔强到改变" class="headerlink" title="从倔强到改变"></a>从倔强到改变</h3><p>学习是螺旋式的，许多时候，要想有新的改变，就要对原来的知识系统进行更新加固，有时候甚至会颠覆固有的知识系统，这些都是难以让步的，是最困难的，一个成年人最难的就是让自己发现自己是错的，是无知的，这样才能放空自己，才能重新塑造自己。但是什么该抛弃，什么该保留，是个难题。就像以前自己买了很多实体书，后面很少去看，但是每次想卖掉的时候，总是有点不舍。成长是什么，是不断的打破自我，更新自我！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;春节将至，想着就这段时间，做个短暂的回顾，以及对工作，生活，学习的思考。子曰：“学而不思则罔，思而不学则殆”，学习的时候能够不断的思考，思考的同时及时查漏补缺，才能做最优秀的自己。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="life" scheme="http://blog.www.asroads.com/categories/life/"/>
-    
-    
-      <category term="生活" scheme="http://blog.www.asroads.com/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
