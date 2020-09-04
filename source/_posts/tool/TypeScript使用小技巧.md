@@ -24,6 +24,18 @@ declare global {
 window.MyNamespace = window.MyNamespace || {};
 ```
 
+或者:
+
+```typescript
+declare interface Window {
+  MyNamespace: any;
+}
+
+window.MyNamespace = window.MyNamespace || {};
+```
+
+
+
 ### 当我使用 JavaScript 文件时，为什么我会得到 error TS5055: Cannot write file 'xxx.js' because it would overwrite input file 错误？
 
 > 对于 TypeScript 文件来说，在默认情况下，编译器将在同一目录中生成与 JavaScript 相同文件名的文件。因为 TypeScript 文件与编译后的文件总是拥有不同的后缀，这么做是安全的。然而，如果你设置 `allowJs` 编译选项为 `true` 和没有设置任何的编译输出属性（`outFile` 和 `outDir`），编译器将会尝试使用相同的规则来编译文件，这将导致发出的 JavaScript 文件与源文件具有相同的文件名。为了避免意外覆盖源文件，编译器将会发出此警告，并跳过编写输出文件。
@@ -193,3 +205,207 @@ B方案：
 个人感觉 更喜欢 A方案 无括号的版本 B方案应该是比较经典的 单例方法
 
 参考 https://my.oschina.net/u/816723/blog/3009556
+
+
+
+### 自定义一个简单的循环数组
+
+代码:
+
+```typescript
+/**
+ * Created by jsroads on 2020/9/3.3:15 下午
+ * Note:循环数组
+ */
+export default class LoopArray<T> extends Array {
+    /*当前索引*/
+    get loopIdx(): number {
+        return this._loopIdx;
+    }
+
+    set loopIdx(value: number) {
+        this._loopIdx = value;
+    }
+
+    /*当前索引*/
+    private _loopIdx: number = 0;
+
+    constructor(...args) {
+        super(...args);
+        //参考地址：
+        //https://www.jstips.co/zh_cn/javascript/make-easy-loop-on-array/
+        //https://blog.csdn.net/generalfyx/article/details/103010799
+      	//https://segmentfault.com/a/1190000010774159
+        Object.setPrototypeOf(this, LoopArray.prototype);
+    }
+
+    /**
+     * 返回当前的元素
+     */
+    current(): T {
+        if (this.loopIdx < 0) {// 第一次检查
+            this.loopIdx = this.length - 1;// 更新 loopIdx
+        }
+
+        if (this.loopIdx >= this.length) {// 第二次检查
+            this.loopIdx = 0;// 更新 loopIdx
+        }
+
+        return this[this.loopIdx];//返回元素
+    }
+
+    /**
+     * 增加 loopIdx 然后返回新的当前元素
+     */
+    next(): T {
+        this.loopIdx++;
+        return this.current();
+    }
+
+    /**
+     * 减少 loopIdx 然后返回新的当前元素
+     */
+    prev(): T {
+        this.loopIdx--;
+        return this.current();
+    }
+}
+```
+
+再自定义一个类:`TestAnimal.ts`
+
+```typescript
+/**
+ * Created by jsroads on 2020/9/3.7:59 下午
+ * Note:
+ */
+export default class TestAnimal{
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+    get age(): number {
+        return this._age;
+    }
+
+    set age(value: number) {
+        this._age = value;
+    }
+    private _name:string;
+    private _age:number;
+}
+```
+
+调用:
+
+```typescript
+        let loopArray:LoopArray<TestAnimal> = new LoopArray<TestAnimal>();
+        let  test1 = new TestAnimal();
+        test1.name = "tom";
+        test1.age = 18;
+        let  test2 = new TestAnimal();
+        test2.name = "nike";
+        test2.age = 20;
+        let  test3 = new TestAnimal();
+        test3.name = "jack";
+        test3.age = 21;
+        loopArray.push(test1, test2,test3);
+        let a:TestAnimal;
+        a = loopArray.current();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.next();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.next();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.next();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.next();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.next();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.pop();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.prev();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.prev();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.prev();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.prev();
+        console.log("smile----:", JSON.stringify(a));
+        a =loopArray.prev();
+        console.log("smile----:", JSON.stringify(a));
+```
+
+输出:
+
+![image-20200903201111880](TypeScript使用小技巧/image-20200903201111880.png)
+
+思考点:ES6中的Array原生类的继承在TS中无法实现了，子类定义的方法不见丢失
+
+参考:https://blog.csdn.net/generalfyx/article/details/103010799
+
+> 在项目中发现，ES6中的Array原生类的继承在TS中无法实现了，子类定义的方法不见丢失了，代码编译后其实发生了变化（在2.1.5之后），至于为什么会发生这种现象，
+>
+> miscrosoft给出的解释是
+>
+> > In ES2015, constructors which return an object implicitly substitute the value of this for any callers of super(...). It is necessary for generated constructor code to capture any potential return value of super(...) and replace it with this.
+> >
+> > As a result, subclassing Error, Array, and others may no longer work as expected. This is due to the fact that constructor functions for Error, Array, and the like use ECMAScript 6's new.target to adjust the prototype chain; however, there is no way to ensure a value for new.target when invoking a constructor in ECMAScript 5. Other downlevel compilers generally have the same limitation by default.
+>
+>  简而言之就是es6中，Error， Array和其他原生类的extends需要通过super调用来完成原型链的继承，而其中最关键的一步是通过调用构造函数的target来寻找原型链，而在es5中，没法确保构造函数的target，也就无法完整查找到当前的子类的构造函数的原型实例，从而只实现父类的继承，只会返回父类this，但是原型链确断裂了。关于new.target的了解，可以跳转[MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new.target)的介绍。
+>
+> 解决办法
+>
+> 虽然TS无法为我们实现继承，但是我们可以自己为子类实现原型的继承，这样子类依然有我们子类的方法。原理呢还是利用es5的组合继承。
+>
+> 在子类的构造函数中调用完父类后，再把原型链指回自身。
+>
+> ```typescript
+> constructor(m: string) {
+>         super(m);
+>         // Set the prototype explicitly.
+>         Object.setPrototypeOf(this, FooError.prototype);
+>     }
+> ```
+>
+> 这样，在在子类上定义的方法就不会丢失，因为我们又把原型指回了子类。
+
+这样 就可以 不断的使用这个循环数组了
+
+### 接口有必填选项 其他动态或者可选
+
+对于一个表示开发者的 Developer 接口来说，我们希望它的 name 属性是必填，而 age 属性是可选的，此外还支持动态地设置字符串类型的属性。针对这个需求我们可以这样做：
+
+```typescript
+interface Developer {
+  name: string;
+  age?: number;
+  [key: string]: any
+}
+
+let developer: Developer = { name: "semlinker" };
+developer.age = 30;
+developer.city = "XiaMen";
+```
+
+其实除了使用 **索引签名** 之外，我们也可以使用 TypeScript 内置的工具类型 `Record` 来定义 Developer 接口：
+
+```typescript
+// type Record<K extends string | number | symbol, T> = { [P in K]: T; }
+interface Developer extends Record<string, any> {
+  name: string;
+  age?: number;
+}
+
+let developer: Developer = { name: "semlinker" };
+developer.age = 30;
+developer.city = "XiaMen";
+```
+
+参考链接:https://segmentfault.com/a/1190000023858355
+
