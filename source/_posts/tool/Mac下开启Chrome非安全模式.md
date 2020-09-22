@@ -67,9 +67,25 @@ open -a Google\ Chrome --args --disable-web-security --user-data-dir=/Users/smil
 
 
 
+小插曲：
+
+如果大家觉得 这样干扰了自己的Chrome 那么 可以这样
+
+如果代码编辑器是 Webstorm  可以这样:
+
+```bash
+open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=/Users/smile/Library/Application Support/JetBrains/WebStorm2020.1/chrome-user-data
+```
+
+如果是 VSCode可以这样:
+
+```bash
+open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir=/Users/smile/Library/Application\Support/Code/User/workspaceStorage/6085425d9b8abe60ebddec525bacfa5d/ms-vscode.js-debug/.profile
+```
+
+*里面的路径的信息 一定修改成自己电脑本地环境的真实路径！！*
+
 **注意：一定要关闭所有的 Chrome 浏览器和Chome 再打开**
-
-
 
 ## webstorm  打开Chome 非安全模式
 
