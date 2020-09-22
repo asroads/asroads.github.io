@@ -3,6 +3,7 @@ title: Mac下开启Chrome非安全模式
 categories: tool
 tags:
   - Mac
+  - Chrome
   - 技术
 abbrlink: 6b229175
 date: 2019-04-12 19:46:37
@@ -12,6 +13,8 @@ date: 2019-04-12 19:46:37
 
 <!-- more -->
 
+### Mac环境打开非安全模式
+
 ```bash
 # Chrome < 48
 open /Applications/Google\ Chrome.app --args -disable-web-security
@@ -19,6 +22,54 @@ open /Applications/Google\ Chrome.app --args -disable-web-security
 # Chrom > 48
 open -a Google\ Chrome --args --disable-web-security --user-data-dir
 ```
+
+
+
+**2020年9月22更新:**
+
+#### 后续更新步骤
+
+1. 先打开我们的Chrome 输入：
+
+```
+chrome://version
+```
+
+![image-20200922113428763](Mac下开启Chrome非安全模式/image-20200922113428763.png)
+
+找到个人路径:
+
+```bash
+/Users/smile/Library/Application Support/Google/Chrome/Default
+```
+
+简单修改一下：
+
+```bash
+/Users/smile/Library/Application\Support/Google/Chrome
+```
+
+最后组装一下：
+
+```bash
+open -a Google\ Chrome --args --disable-web-security --user-data-dir=/Users/smile/Library/Application\Support/Google/Chrome
+```
+
+其中 `smile` 是你 Mac电脑的名字 比如 `admin` 或者 xxx
+
+输入 查看效果：
+
+![image-20200922113706684](Mac下开启Chrome非安全模式/image-20200922113706684.png)
+
+成功出现 非安全模式：
+
+![image-20200922114112833](Mac下开启Chrome非安全模式/image-20200922114112833.png)
+
+
+
+**注意：一定要关闭所有的 Chrome 浏览器和Chome 再打开**
+
+
 
 ## webstorm  打开Chome 非安全模式
 

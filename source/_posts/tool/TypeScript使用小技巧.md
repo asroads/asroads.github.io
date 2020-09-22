@@ -409,3 +409,69 @@ developer.city = "XiaMen";
 
 参考链接:https://segmentfault.com/a/1190000023858355
 
+### 对比版本号
+
+```javascript
+ /**
+     * 微信版本基础库对比
+     * @param v1
+     * @param v2
+     * @returns {number} 0:v1/v2相同  1:v1高于v2 -1:v1低于v2
+     */
+    public static compareVersion(v1, v2) {
+        v1 = v1.split('.');
+        v2 = v2.split('.');
+        const len = Math.max(v1.length, v2.length);
+
+        while (v1.length < len) {
+            v1.push('0')
+        }
+        while (v2.length < len) {
+            v2.push('0')
+        }
+        for (let i = 0; i < len; i++) {
+            const num1 = parseInt(v1[i]);
+            const num2 = parseInt(v2[i]);
+            if (num1 > num2) {
+                return 1
+            } else if (num1 < num2) {
+                return -1
+            }
+        }
+        return 0
+    }
+```
+
+### 获取文件后缀
+
+比如 "1.02KB =>KB","0KB=>KB" 支持整数 浮点数
+
+```typescript
+   public static getFileExtension(str:string):string{
+       return str.replace(/^[0-9]\d*\.?\d*|0\.\d*[1-9]\d*$/,"")
+    }
+```
+
+### 获取文件大小
+
+```typescript
+    /**
+     *
+     * @param size {Number} size 文件大小
+     * @param pointLength {Number} [pointLength=2] 精确到的小数点数。
+     * @param units {Array} [units=[ 'B', 'K', 'M', 'G', 'TB' ]] 单位数组。从字节，到千字节，一直往上指定。
+     * 如果单位数组里面只指定了到了K(千字节)，同时文件大小大于M, 此方法的输出将还是显示成多少K.
+     * @private
+     */
+    public static formatSize(size: number, pointLength: number, units?: string[]): string {
+        let unit;
+        units = units || ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+        while ((unit = units.shift()||unit) && size > 1024) {
+            size = size / 1024;
+        }
+        return (unit === 'Bytes' ? size : size.toFixed(pointLength === undefined ? 2 : pointLength)) + unit;
+    }
+```
+
+参考地址:[JS - 文件大小的格式化显示 （B、K、M、G、TB）](https://www.hangge.com/blog/cache/detail_2283.html)
+

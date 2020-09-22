@@ -11,6 +11,10 @@ date: 2019-11-03 12:16:09
 接触到原生开发，基本不可避免的要接触热更新游戏，有时候游戏需要平台审核，这个期间需要一些时间，遇到小版本的迭代，热更新也是必不可少的一部分，下面我们就用Cocos Creator 2.2.0实现一些热更新，项目开发语言采用 Typescript，环境是Mac环境 测试 为iOS [项目源码](https://github.com/jsroads/creatorHotUpDate)最后附上。
 <!--more-->
 
+注意 2020年 9月9日已经更新 master 分支 为 Cocos Creator 2.4.2 版本，分支ccc 2.2.0 为原来的分支 即 下面教程部分
+
+新的master 依旧可用
+
 ### 开发环境
 
 - Xcode
