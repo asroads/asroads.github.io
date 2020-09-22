@@ -10,7 +10,7 @@
     <title>Mac系统Cocos Creator Native 原生Android和ios打包 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="Cocos Creator是个能发布多平台的引擎工具，之前一直用来发布Web项目，微信小游戏，头条小游戏，QQ小游戏的项目，今天尝试了一下如何发布Native 安卓（Android）apk和ios的ipa 文件。Cocos Creator 使用基于 cocos2d-x 引擎的 JSB 技术实现跨平台发布原生应用。在使用 Cocos Creator 打包发布到原生平台之前，需要先配置好 cocos2d-x 相关的开发环境。前期准备环境准备Android 环境（Android Stu..." />
+    <meta name="description" content="Cocos Creator是个能发布多平台的引擎工具，之前一直用来发布Web项目，微信小游戏，头条小游戏，QQ小游戏的项目，今天尝试了一下如何发布Native 安卓（Android）apk和ios的ipa 文件。Cocos Creator 使用基于 cocos2d-x 引擎的 JSB 技术实现跨平台发布原生应用。在使用 Cocos Creator 打包发布到原生平台之前，需要先配置好 cocos2d-x 相关的开发环境。前期准备环境准备Android 环境（Android Studio）点击下载" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/d130eaa6.html">
+            <a class="article-date" href="http://blog.asroads.com/post/d130eaa6.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-10-17T10:30:53.000Z" itemprop="datePublished">2019-10-17</time>
+    <time class="vm" datetime="2019-10-17T10:30:53.000Z" itemprop="datePublished">2019-10-17</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
 </div>
 
@@ -437,7 +430,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -468,14 +461,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

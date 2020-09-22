@@ -10,7 +10,7 @@
     <title>git status 显示中文和解决中文乱码 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="以前在用git的时候 使用 “git status” 的时候 都是正常的，结果最近一次安装之后，发现显示中文的时候是乱码，这个如果是拼音或者英文文件名字还好，遇到中文的就尴尬了，后来网上找到了解决办法：在终端输入 命令 ”git status“  ，显示这样：原因 ：在默认设置下，中文文件名在工作区状态输出，中文名不能正确显示，而是显示为八进制的字符编码。解决办法将git 配置文件 core.quotepath项设置为false。 quotepath表示引用路径  加上--gl..." />
+    <meta name="description" content="以前在用git的时候 使用 “git status” 的时候 都是正常的，结果最近一次安装之后，发现显示中文的时候是乱码，这个如果是拼音或者英文文件名字还好，遇到中文的就尴尬了，后来网上找到了解决办法：在终端输入 命令 ”git status“  ，显示这样：原因 ：在默认设置下，中文文件名在工作区状态输出，中文名不能正确显示，而是显示为八进制的字符编码。解决办法将git 配置文件 core.quotepath项设置为false。 quotepath表示引用路径  加上--global表示全局配" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -168,16 +161,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/709a4232.html">
+            <a class="article-date" href="http://blog.asroads.com/post/709a4232.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-07-10T06:08:52.000Z" itemprop="datePublished">2019-07-10</time>
+    <time class="vm" datetime="2019-07-10T06:08:52.000Z" itemprop="datePublished">2019-07-10</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/git/" rel="tag">git</a>
 </div>
 
@@ -224,7 +217,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -255,14 +248,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

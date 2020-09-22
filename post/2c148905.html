@@ -10,7 +10,7 @@
     <title>头条小游戏录屏功能实现 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="小游戏平台开放越来越多，字节跳动因为有着今日头条和抖音两大软件，众多用户的体量，成为了小游戏开发者的一个青睐的平台，我们有几款小游戏成功移植到了字节跳动平台，这个平台很多语法和API 都很相似，但是在细微之处还是有很多差别的，比如对待分享这件事，对待录屏功能这个事情，目前游戏内必须实现录屏功能才能上线。前期准备字节跳动录屏API小游戏页面操作实现逻辑美术素材按钮四个(录屏，暂停，分享，重录)查看头条API首先我们需要自己理解头条API 关于录屏的内容 大概是下面这几个接口 ..." />
+    <meta name="description" content="小游戏平台开放越来越多，字节跳动因为有着今日头条和抖音两大软件，众多用户的体量，成为了小游戏开发者的一个青睐的平台，我们有几款小游戏成功移植到了字节跳动平台，这个平台很多语法和API 都很相似，但是在细微之处还是有很多差别的，比如对待分享这件事，对待录屏功能这个事情，目前游戏内必须实现录屏功能才能上线。前期准备字节跳动录屏API小游戏页面操作实现逻辑美术素材按钮四个(录屏，暂停，分享，重录)查看头条API首先我们需要自己理解头条API 关于录屏的内容 大概是下面这几个接口 查看地址GameRec" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/2c148905.html">
+            <a class="article-date" href="http://blog.asroads.com/post/2c148905.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-05-18T11:40:47.000Z" itemprop="datePublished">2019-05-18</time>
+    <time class="vm" datetime="2019-05-18T11:40:47.000Z" itemprop="datePublished">2019-05-18</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/" rel="tag">小游戏</a>
 </div>
 
@@ -213,7 +206,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -244,14 +237,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

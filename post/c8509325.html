@@ -10,7 +10,7 @@
     <title>Cocos Creator 热更新（Mac） | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="接触到原生开发，基本不可避免的要接触热更新游戏，有时候游戏需要平台审核，这个期间需要一些时间，遇到小版本的迭代，热更新也是必不可少的一部分，下面我们就用Cocos Creator 2.2.0实现一些热更新，项目开发语言采用 Typescript，环境是Mac环境 测试 为iOS 项目源码最后附上。开发环境XcodeCocos Creator 2.2.0TypescriptWebstorm（非必须）Mac 一台ios 手机一步TomCat 本地服务器（也可以采用自己熟悉的..." />
+    <meta name="description" content="接触到原生开发，基本不可避免的要接触热更新游戏，有时候游戏需要平台审核，这个期间需要一些时间，遇到小版本的迭代，热更新也是必不可少的一部分，下面我们就用Cocos Creator 2.2.0实现一些热更新，项目开发语言采用 Typescript，环境是Mac环境 测试 为iOS 项目源码最后附上。注意 2020年 9月9日已经更新 master 分支 为 Cocos Creator 2.4.2 版本，分支ccc 2.2.0 为原来的分支 即 下面教程部分新的master 依旧可用开发环境Xcod" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/c8509325.html">
+            <a class="article-date" href="http://blog.asroads.com/post/c8509325.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-11-03T04:16:09.000Z" itemprop="datePublished">2019-11-03</time>
+    <time class="vm" datetime="2019-11-03T04:16:09.000Z" itemprop="datePublished">2019-11-03</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
 </div>
 
@@ -145,6 +138,8 @@
         <p>接触到原生开发，基本不可避免的要接触热更新游戏，有时候游戏需要平台审核，这个期间需要一些时间，遇到小版本的迭代，热更新也是必不可少的一部分，下面我们就用Cocos Creator 2.2.0实现一些热更新，项目开发语言采用 Typescript，环境是Mac环境 测试 为iOS <a href="https://github.com/jsroads/creatorHotUpDate" target="_blank" rel="noopener">项目源码</a>最后附上。</p>
 <a id="more"></a>
 
+<p>注意 2020年 9月9日已经更新 master 分支 为 Cocos Creator 2.4.2 版本，分支ccc 2.2.0 为原来的分支 即 下面教程部分</p>
+<p>新的master 依旧可用</p>
 <h3 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h3><ul>
 <li>Xcode</li>
 <li>Cocos Creator 2.2.0</li>
@@ -318,7 +313,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -349,14 +344,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

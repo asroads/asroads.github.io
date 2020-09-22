@@ -10,7 +10,7 @@
     <title>Layabox-学习笔记-(5) | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="Layabox 关于微信小游戏 用户授权 接入接入原因2018年4月15日微信团队发了新的接口调整的公告  小程序与小游戏获取用户信息接口调整，请开发者注意升级为优化用户体验，使用 wx.getUserInfo 接口直接弹出授权框的开发方式将逐步不再支持。从2018年4月30日开始，小程序与小游戏的体验版、开发版调用 wx.getUserInfo 接口，将无法弹出授权询问框，默认调用失败。正式版暂不受影响。开发者可使用以下方式获取或展示用户信息：一、小程序:1、使用 butt..." />
+    <meta name="description" content="Layabox 关于微信小游戏 用户授权 接入接入原因2018年4月15日微信团队发了新的接口调整的公告  小程序与小游戏获取用户信息接口调整，请开发者注意升级为优化用户体验，使用 wx.getUserInfo 接口直接弹出授权框的开发方式将逐步不再支持。从2018年4月30日开始，小程序与小游戏的体验版、开发版调用 wx.getUserInfo 接口，将无法弹出授权询问框，默认调用失败。正式版暂不受影响。开发者可使用以下方式获取或展示用户信息：一、小程序:1、使用 button 组件，并将 o" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/2a10f8b7.html">
+            <a class="article-date" href="http://blog.asroads.com/post/2a10f8b7.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2018-08-24T12:45:33.000Z" itemprop="datePublished">2018-08-24</time>
+    <time class="vm" datetime="2018-08-24T12:45:33.000Z" itemprop="datePublished">2018-08-24</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Layabox/" rel="tag">Layabox</a>
 </div>
 
@@ -215,7 +208,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -246,14 +239,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

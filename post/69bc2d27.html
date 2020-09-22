@@ -10,7 +10,7 @@
     <title>遥远的救世主读书心得 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="读书偶遇​        前段时间，偶尔在一次网络直播里，看网络直播的时候，主播提到了读书要细细琢磨，要速度，也要质量，当时推荐几本书，其中特意说了这本小说，当时去下载了电子版，后来一直忙于工作，奔波于生活，偶得片刻闲在，就下载下来，读了一遍，读完此书，心中感慨许多，受益良深，就想着把读书的感觉和感悟记下，为周边喜欢阅读的推荐下和简单的描绘，也聊聊自己对这本小说的所思所感，日后读书的时候算是能有点读书笔记故事以1995年--1997年的中国北京离北京300公里的古城的故事为背景，穿插..." />
+    <meta name="description" content="读书偶遇​        前段时间，偶尔在一次网络直播里，看网络直播的时候，主播提到了读书要细细琢磨，要速度，也要质量，当时推荐几本书，其中特意说了这本小说，当时去下载了电子版，后来一直忙于工作，奔波于生活，偶得片刻闲在，就下载下来，读了一遍，读完此书，心中感慨许多，受益良深，就想着把读书的感觉和感悟记下，为周边喜欢阅读的推荐下和简单的描绘，也聊聊自己对这本小说的所思所感，日后读书的时候算是能有点读书笔记故事以1995年--1997年的中国北京离北京300公里的古城的故事为背景，穿插了德国的柏林" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/69bc2d27.html">
+            <a class="article-date" href="http://blog.asroads.com/post/69bc2d27.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2018-08-01T12:45:00.000Z" itemprop="datePublished">2018-08-01</time>
+    <time class="vm" datetime="2018-08-01T12:45:00.000Z" itemprop="datePublished">2018-08-01</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/%E8%AF%97%E5%92%8C%E8%BF%9C%E6%96%B9/" rel="tag">诗和远方</a>
 </div>
 
@@ -229,7 +222,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -260,14 +253,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

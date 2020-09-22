@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.www.asroads.com/"/>
-  <updated>2020-09-04T09:33:59.936Z</updated>
-  <id>http://blog.www.asroads.com/</id>
+  <link href="http://blog.asroads.com/"/>
+  <updated>2020-09-04T09:34:19.722Z</updated>
+  <id>http://blog.asroads.com/</id>
   
   <author>
     <name>asroads</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Cocos Creator使用jsencrypt本地存储加密(RSA)</title>
-    <link href="http://blog.www.asroads.com/post/8be86f95.html"/>
-    <id>http://blog.www.asroads.com/post/8be86f95.html</id>
+    <link href="http://blog.asroads.com/post/8be86f95.html"/>
+    <id>http://blog.asroads.com/post/8be86f95.html</id>
     <published>2020-09-04T08:10:45.000Z</published>
-    <updated>2020-09-04T09:33:59.936Z</updated>
+    <updated>2020-09-04T09:34:19.722Z</updated>
     
     <content type="html"><![CDATA[<p>前面介绍过前端加密的一种方式是AES（对称加密）后面又看到关于加密解密的文章，觉得甚是不错，于是再次尝试一下用非对称加密写一下。这里使用<a href="https://github.com/travist/jsencrypt" target="_blank" rel="noopener">jsencrypt</a>(RSA) 非对称加密的一种思路。 </p><a id="more"></a><p>关于对称加密和非对称加密的介绍，这里不再赘述，直接说步骤吧！</p><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>首先我们 生成私钥和公钥</p><p>私钥生成:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out rsa_1024_priv.pem 1024</span><br></pre></td></tr></table></figure><p>然后生成公钥:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubout -in rsa_1024_priv.pem -out rsa_1024_pub.pem</span><br></pre></td></tr></table></figure><p>此时我们的本地生成了两个文件</p><p><img src="/post/8be86f95/image-20200904161632411.png" alt="image-20200904161632411"></p><p>对应的就是我们的私钥和公钥：内容如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIICWwIBAAKBgQC8nNKt9lJdwwFKzRp0D2wPtUcXwMj2t8smhUmLvTTiomej11bg</span><br><span class="line">xf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC1mVCBrA1HGAJ8EULyVk52Uu3</span><br><span class="line">MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH&#x2F;xH&#x2F;43PcCfTyWQOIliHHwIDAQAB</span><br><span class="line">AoGAZ9&#x2F;CU5ZN5F9qDcUJZZO8wqXmYlmFFANCuZM8Xt40CwDALUaCDUZd1t3SWFbu</span><br><span class="line">L5E69L08nTXxVyibTogk6yfz8yrxp18ckT8XbtgNor0MFMPxku7Rg14r14ha4fg5</span><br><span class="line">172FjyH5PI0jJfVwKKLl2cUjzHzEuTyHsXLChjWDrplE8&#x2F;ECQQDt3okMMaxGGPpY</span><br><span class="line">1jKxKDojdio3Bh32A0FoVCXHZQ&#x2F;K&#x2F;7pp4qRYfDY28dzv4e+&#x2F;ZmmpCWEfSLRoebWR</span><br><span class="line">l2bFMkInAkEAyv0oetOYgbj4a+kl6GW9wKcZedNcXX1SiGFRO2Quybj1J4NpheGz</span><br><span class="line">&#x2F;A570zUXOR13WYiWiMRHiLZcLidtLMtGSQJAMOH2kAb1PEKN0AvUxwtZR0hVTJF5</span><br><span class="line">PsFUg7gnO17NbA45pODqnTSJf6kcmj94IYFOXWqMBv3N9VptscnHWOcHKQJAXpko</span><br><span class="line">WkVuF1Zqf2&#x2F;CONHhYnz9RGcZ7n&#x2F;PDLu9rZ38qAnIRkfZz4jl5huh3UYqsnVm&#x2F;5TG</span><br><span class="line">AqrmY3II94FsQanh8QJAWX+12fOhCY490btr0nvlReroyci1obEm&#x2F;73NHZIKSW8l</span><br><span class="line">U5bkherW3VXhwjdQHiDlN4EJTe3HooCA2Qa7Zu21CA&#x3D;&#x3D;</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8nNKt9lJdwwFKzRp0D2wPtUcX</span><br><span class="line">wMj2t8smhUmLvTTiomej11bgxf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC</span><br><span class="line">1mVCBrA1HGAJ8EULyVk52Uu3MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH&#x2F;xH</span><br><span class="line">&#x2F;43PcCfTyWQOIliHHwIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure><p>这里我们把下载好的 文件 jsencrypt.js 或者 jsencrypt.min.js 任意一个 复制到项目</p><p><img src="/post/8be86f95/image-20200904170304784.png" alt="image-20200904170304784"></p><p>assets 下的 libs（自己新建）下 顺便把 声明文件 拷贝过去 (文件名字保持一致)可以把</p><p> 改名 为 <code>JSEncrypt.d.ts</code>修改为 jsencrypt.d.ts</p><p><img src="/post/8be86f95/image-20200904171618152.png" alt="image-20200904171618152"></p><p>效果如下:</p><p><img src="/post/8be86f95/image-20200904172019485.png" alt="image-20200904172019485"></p><p><strong>注意：我这里没有使用导入为插件 这个功能 大家自己使用的时候特别注意！！</strong></p><h3 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; JSEncrypt &#125; <span class="keyword">from</span> <span class="string">"../libs/jsencrypt"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc._decorator;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> Helloworld <span class="keyword">extends</span> cc.Component &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.Label)</span><br><span class="line">    label: cc.Label = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    text: <span class="built_in">string</span> = <span class="string">'hello'</span>;</span><br><span class="line"></span><br><span class="line">    start() &#123;</span><br><span class="line">        <span class="comment">// init logic</span></span><br><span class="line">        <span class="keyword">const</span> PRIVATE_KEY = <span class="string">`-----BEGIN RSA PRIVATE KEY-----</span></span><br><span class="line"><span class="string">MIICWwIBAAKBgQC8nNKt9lJdwwFKzRp0D2wPtUcXwMj2t8smhUmLvTTiomej11bg</span></span><br><span class="line"><span class="string">xf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC1mVCBrA1HGAJ8EULyVk52Uu3</span></span><br><span class="line"><span class="string">MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH/xH/43PcCfTyWQOIliHHwIDAQAB</span></span><br><span class="line"><span class="string">AoGAZ9/CU5ZN5F9qDcUJZZO8wqXmYlmFFANCuZM8Xt40CwDALUaCDUZd1t3SWFbu</span></span><br><span class="line"><span class="string">L5E69L08nTXxVyibTogk6yfz8yrxp18ckT8XbtgNor0MFMPxku7Rg14r14ha4fg5</span></span><br><span class="line"><span class="string">172FjyH5PI0jJfVwKKLl2cUjzHzEuTyHsXLChjWDrplE8/ECQQDt3okMMaxGGPpY</span></span><br><span class="line"><span class="string">1jKxKDojdio3Bh32A0FoVCXHZQ/K/7pp4qRYfDY28dzv4e+/ZmmpCWEfSLRoebWR</span></span><br><span class="line"><span class="string">l2bFMkInAkEAyv0oetOYgbj4a+kl6GW9wKcZedNcXX1SiGFRO2Quybj1J4NpheGz</span></span><br><span class="line"><span class="string">/A570zUXOR13WYiWiMRHiLZcLidtLMtGSQJAMOH2kAb1PEKN0AvUxwtZR0hVTJF5</span></span><br><span class="line"><span class="string">PsFUg7gnO17NbA45pODqnTSJf6kcmj94IYFOXWqMBv3N9VptscnHWOcHKQJAXpko</span></span><br><span class="line"><span class="string">WkVuF1Zqf2/CONHhYnz9RGcZ7n/PDLu9rZ38qAnIRkfZz4jl5huh3UYqsnVm/5TG</span></span><br><span class="line"><span class="string">AqrmY3II94FsQanh8QJAWX+12fOhCY490btr0nvlReroyci1obEm/73NHZIKSW8l</span></span><br><span class="line"><span class="string">U5bkherW3VXhwjdQHiDlN4EJTe3HooCA2Qa7Zu21CA==</span></span><br><span class="line"><span class="string">-----END RSA PRIVATE KEY-----`</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> PUBLIC_KEY  = <span class="string">`-----BEGIN PUBLIC KEY-----</span></span><br><span class="line"><span class="string">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8nNKt9lJdwwFKzRp0D2wPtUcX</span></span><br><span class="line"><span class="string">wMj2t8smhUmLvTTiomej11bgxf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC</span></span><br><span class="line"><span class="string">1mVCBrA1HGAJ8EULyVk52Uu3MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH/xH</span></span><br><span class="line"><span class="string">/43PcCfTyWQOIliHHwIDAQAB</span></span><br><span class="line"><span class="string">-----END PUBLIC KEY-----`</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> encryptor = <span class="keyword">new</span> JSEncrypt(&#123;default_key_size:<span class="string">"1024"</span>&#125;); <span class="comment">// RSA加密器</span></span><br><span class="line">        encryptor.setPublicKey(PUBLIC_KEY);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> decryptor = <span class="keyword">new</span> JSEncrypt(&#123;default_key_size:<span class="string">"1024"</span>&#125;); <span class="comment">// RSA解密器</span></span><br><span class="line">        decryptor.setPrivateKey(PRIVATE_KEY);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> datakey = <span class="string">"user"</span></span><br><span class="line">        <span class="keyword">let</span> dataString = <span class="string">`abcd1234@@&amp;90`</span>;<span class="comment">//要加密的字符串</span></span><br><span class="line">        <span class="keyword">let</span> encryptedStr = encryptor.encrypt(dataString);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"加密后:"</span>, <span class="built_in">JSON</span>.stringify(encryptedStr));</span><br><span class="line"></span><br><span class="line">        cc.sys.localStorage.setItem(datakey, encryptedStr);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> cipherText = cc.sys.localStorage.getItem(datakey);<span class="comment">//要解密的文本</span></span><br><span class="line">        <span class="keyword">let</span> dataString2 = decryptor.decrypt(cipherText);<span class="comment">//得到解密之后的文本</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"解密后:"</span>, <span class="built_in">JSON</span>.stringify(dataString2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行效果</p><p><img src="/post/8be86f95/image-20200904172601915.png" alt="image-20200904172601915"></p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>步骤稍显复杂和对称加密相比，优点是安全性更好些，缺点是速度比较慢，不适合快速大量的存储数据，那么有没有更好的方法呢？答案是有的，就是结合前面的对称加密方式，做一个混合加密的策略。</p><blockquote><p>混合加密是结合 <strong>对称加密</strong> 和 <strong>非对称加密</strong> 各自优点的一种加密方式。其具体的实现思路是先使用 <strong>对称加密算法</strong> 对数据进行加密，然后使用非对称加密算法对 <strong>对称加密的密钥</strong> 进行非对称加密，之后再把加密后的密钥和加密后的数据发送给接收方。</p></blockquote><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="https://segmentfault.com/a/1190000023328344" target="_blank" rel="noopener">玩转混合加密</a></li><li><a href="https://www.jianshu.com/p/3da3d81e1572" target="_blank" rel="noopener">使用jsencrypt实现参数的前端加密</a></li><li><a href="https://www.jianshu.com/p/ccf6d3f6be1a" target="_blank" rel="noopener">jsencrypt加密和解密的那点事</a></li><li><a href="https://segmentfault.com/a/1190000015799854" target="_blank" rel="noopener">CocosCreator中使用RSA公钥加密</a></li></ul>]]></content>
     
@@ -32,23 +32,23 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
-      <category term="js" scheme="http://blog.www.asroads.com/tags/js/"/>
+      <category term="js" scheme="http://blog.asroads.com/tags/js/"/>
     
   </entry>
   
   <entry>
     <title>LayaBox2.x错误:&#39;tslib&#39; cannot be found的理解和浅析</title>
-    <link href="http://blog.www.asroads.com/post/fd98d03e.html"/>
-    <id>http://blog.www.asroads.com/post/fd98d03e.html</id>
+    <link href="http://blog.asroads.com/post/fd98d03e.html"/>
+    <id>http://blog.asroads.com/post/fd98d03e.html</id>
     <published>2020-09-03T02:27:54.000Z</published>
     <updated>2020-09-03T02:49:12.351Z</updated>
     
-    <content type="html"><![CDATA[<p>最近重新整理梳理JavaScript和Typescript的知识，开始温习异步的问题，有些疑问就和技术群里群友交流，顺便分享一下心得体会，这次说说LayaBox关于 async wait 和 Promise的使用，群友反映，新版本不能用，作为一直都在用的我，不免有些疑惑，原来当时遇到这个问题的时候已解决，但当时不清楚问题是因何触发的。今天恰好拜读了官网文档和几篇不错的文章，结合群里交流心得整理出来。</p><a id="more"></a><p>其实问题就是在LayaBox里面 Typescript 或者JavaScript 使用 async wait 的时候 编译 报错：</p><h3 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic error TS2354: This syntax requires an imported helper but module <span class="string">'tslib'</span> cannot be found</span><br></pre></td></tr></table></figure><p><img src="/post/fd98d03e/image-20200903103502313.png" alt="image-20200903103502313"></p><p>去年我遇到此问题的时候，就解决了，当时的解决方案如下: 文章链接:<a href="http://blog.asroads.com/post/3f34ea36.html" target="_blank" rel="noopener">Layabox2.3.0如何配置代码编辑器(WebStorm2019)</a></p><h4 id="解决办法1"><a href="#解决办法1" class="headerlink" title="解决办法1"></a>解决办法1</h4><blockquote><p><strong>解决办法</strong>：参考链接 <a href="https://stackoverflow.com/questions/52801814/this-syntax-requires-an-imported-helper-but-module-tslib-cannot-be-found-wit" target="_blank" rel="noopener">stackoverflow</a></p><blockquote><p>Noob mistake (which I just made). Try:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install tslib</span><br></pre></td></tr></table></figure><p>or</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure><p>Personally before signing off on Friday I did a <code>git clean -fxd</code>, but no <code>npm i</code> so all the npm packages were missing. Doh!</p></blockquote><p>我只用了 <code>npm install tslib</code> 就成功解决问题。</p></blockquote><p>这样就可以正常使用了，可以把这个案子到全局，这样就一切正常了！</p><h4 id="解决办法2"><a href="#解决办法2" class="headerlink" title="解决办法2"></a>解决办法2</h4><p>群友用了另外一种办法也解决了，如下:</p><p><img src="/post/fd98d03e/image-20200903103858129.png" alt="image-20200903103858129"></p><p>就是在 tsconfig.json 文件 添加 promise 库</p><h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p>这样不仅让我反思了 这个问题形成的元凶，恰好最近两天读了一篇文章： <a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></p><p>里面提到这样的一段:</p><blockquote><h2 id="常用的构建配置"><a href="#常用的构建配置" class="headerlink" title="常用的构建配置"></a>常用的构建配置</h2><p>我们早期项目中使用 TypeScript 的命名空间，不过最近几乎都重构成 ES6 模块方式了。由于会用到 async 函数，所以一般会配置 TypeScript 输出 ES2017 代码，再通过 Babel 转译成 ES5 代码，最后由 Webpack 打包输出。</p><h3 id="tsconfig-json"><a href="#tsconfig-json" class="headerlink" title="tsconfig.json"></a>tsconfig.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;compilerOptions&quot;: &#123;</span><br><span class="line">        &quot;module&quot;: &quot;commonjs&quot;,</span><br><span class="line">        &quot;target&quot;: &quot;es2017&quot;,</span><br><span class="line">        &quot;lib&quot;: [</span><br><span class="line">            &quot;dom&quot;,</span><br><span class="line">            &quot;es6&quot;,</span><br><span class="line">            &quot;dom.iterable&quot;,</span><br><span class="line">            &quot;scripthost&quot;,</span><br><span class="line">            &quot;es2017&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;noImplicitAny&quot;: false,</span><br><span class="line">        &quot;sourceMap&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>target</code> 为 <code>es5</code> 或 <code>es6</code> 的时候，TypeScript 会有默认的 <code>lib</code> 列表，这在<a href="http://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">官方文档</a>中有详细说明。<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数，但这个配置没有默认 <code>lib</code> 列表，所以参考官方文档对 <code>--target es6</code> 使用的 <code>lib</code> 列表，补充 <code>es2017</code> 类型库即可。</p></blockquote><p>其中下面这句话 印证也说明了问题的产生原因:<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数…</p><p>其实就是说，如果<code>target</code> 不是 <code>es2017</code> 就是不支持 async 函数，这样 上面的问题的产生，已经解决方案就显得顺利成章了！</p><p>这次的学习，说巧不巧，恰好遇到这篇文章，恰好遇到问题复现，恰好有个时间反思，故而，写下来这篇文章，让更多人少走弯路吧！！</p><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul><li><a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/Async_await" target="_blank" rel="noopener">async和await:让异步编程更简单</a></li><li><a href="https://segmentfault.com/a/1190000013171493" target="_blank" rel="noopener">带你玩转 JavaScript ES6 (七) - 异步</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>最近重新整理梳理JavaScript和Typescript的知识，开始温习异步的问题，有些疑问就和技术群里群友交流，顺便分享一下心得体会，这次说说LayaBox关于 async wait 和 Promise的使用，群友反映，新版本不能用，作为一直都在用的我，不免有些疑惑，原来当时遇到这个问题的时候已解决，但当时不清楚问题是因何触发的。今天恰好拜读了官网文档和几篇不错的文章，结合群里交流心得整理出来。</p><a id="more"></a><p>其实问题就是在LayaBox里面 Typescript 或者JavaScript 使用 async wait 的时候 编译 报错：</p><h3 id="问题现象"><a href="#问题现象" class="headerlink" title="问题现象"></a>问题现象</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic error TS2354: This syntax requires an imported helper but module <span class="string">'tslib'</span> cannot be found</span><br></pre></td></tr></table></figure><p><img src="/post/fd98d03e/image-20200903103502313.png" alt="image-20200903103502313"></p><p>去年我遇到此问题的时候，就解决了，当时的解决方案如下: 文章链接:<a href="http://blog.asroads.com/post/3f34ea36.html">Layabox2.3.0如何配置代码编辑器(WebStorm2019)</a></p><h4 id="解决办法1"><a href="#解决办法1" class="headerlink" title="解决办法1"></a>解决办法1</h4><blockquote><p><strong>解决办法</strong>：参考链接 <a href="https://stackoverflow.com/questions/52801814/this-syntax-requires-an-imported-helper-but-module-tslib-cannot-be-found-wit" target="_blank" rel="noopener">stackoverflow</a></p><blockquote><p>Noob mistake (which I just made). Try:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install tslib</span><br></pre></td></tr></table></figure><p>or</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure><p>Personally before signing off on Friday I did a <code>git clean -fxd</code>, but no <code>npm i</code> so all the npm packages were missing. Doh!</p></blockquote><p>我只用了 <code>npm install tslib</code> 就成功解决问题。</p></blockquote><p>这样就可以正常使用了，可以把这个案子到全局，这样就一切正常了！</p><h4 id="解决办法2"><a href="#解决办法2" class="headerlink" title="解决办法2"></a>解决办法2</h4><p>群友用了另外一种办法也解决了，如下:</p><p><img src="/post/fd98d03e/image-20200903103858129.png" alt="image-20200903103858129"></p><p>就是在 tsconfig.json 文件 添加 promise 库</p><h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p>这样不仅让我反思了 这个问题形成的元凶，恰好最近两天读了一篇文章： <a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></p><p>里面提到这样的一段:</p><blockquote><h2 id="常用的构建配置"><a href="#常用的构建配置" class="headerlink" title="常用的构建配置"></a>常用的构建配置</h2><p>我们早期项目中使用 TypeScript 的命名空间，不过最近几乎都重构成 ES6 模块方式了。由于会用到 async 函数，所以一般会配置 TypeScript 输出 ES2017 代码，再通过 Babel 转译成 ES5 代码，最后由 Webpack 打包输出。</p><h3 id="tsconfig-json"><a href="#tsconfig-json" class="headerlink" title="tsconfig.json"></a>tsconfig.json</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;compilerOptions&quot;: &#123;</span><br><span class="line">        &quot;module&quot;: &quot;commonjs&quot;,</span><br><span class="line">        &quot;target&quot;: &quot;es2017&quot;,</span><br><span class="line">        &quot;lib&quot;: [</span><br><span class="line">            &quot;dom&quot;,</span><br><span class="line">            &quot;es6&quot;,</span><br><span class="line">            &quot;dom.iterable&quot;,</span><br><span class="line">            &quot;scripthost&quot;,</span><br><span class="line">            &quot;es2017&quot;</span><br><span class="line">        ],</span><br><span class="line">        &quot;noImplicitAny&quot;: false,</span><br><span class="line">        &quot;sourceMap&quot;: false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>target</code> 为 <code>es5</code> 或 <code>es6</code> 的时候，TypeScript 会有默认的 <code>lib</code> 列表，这在<a href="http://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">官方文档</a>中有详细说明。<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数，但这个配置没有默认 <code>lib</code> 列表，所以参考官方文档对 <code>--target es6</code> 使用的 <code>lib</code> 列表，补充 <code>es2017</code> 类型库即可。</p></blockquote><p>其中下面这句话 印证也说明了问题的产生原因:<code>target</code> 定义为 <code>es2017</code> 是为了支持 async 函数…</p><p>其实就是说，如果<code>target</code> 不是 <code>es2017</code> 就是不支持 async 函数，这样 上面的问题的产生，已经解决方案就显得顺利成章了！</p><p>这次的学习，说巧不巧，恰好遇到这篇文章，恰好遇到问题复现，恰好有个时间反思，故而，写下来这篇文章，让更多人少走弯路吧！！</p><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul><li><a href="https://segmentfault.com/a/1190000008996172" target="_blank" rel="noopener">从 JavaScript 到 TypeScript - 模块化和构建</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript/%E5%BC%82%E6%AD%A5/Async_await" target="_blank" rel="noopener">async和await:让异步编程更简单</a></li><li><a href="https://segmentfault.com/a/1190000013171493" target="_blank" rel="noopener">带你玩转 JavaScript ES6 (七) - 异步</a></li></ul>]]></content>
     
     <summary type="html">
     
@@ -57,17 +57,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Layabox" scheme="http://blog.www.asroads.com/tags/Layabox/"/>
+      <category term="Layabox" scheme="http://blog.asroads.com/tags/Layabox/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator使用encryptjs本地存储加密</title>
-    <link href="http://blog.www.asroads.com/post/6136bba2.html"/>
-    <id>http://blog.www.asroads.com/post/6136bba2.html</id>
+    <link href="http://blog.asroads.com/post/6136bba2.html"/>
+    <id>http://blog.asroads.com/post/6136bba2.html</id>
     <published>2020-08-30T11:49:56.000Z</published>
     <updated>2020-09-01T11:55:24.522Z</updated>
     
@@ -80,19 +80,19 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
-      <category term="js" scheme="http://blog.www.asroads.com/tags/js/"/>
+      <category term="js" scheme="http://blog.asroads.com/tags/js/"/>
     
   </entry>
   
   <entry>
     <title>LayaBox项目日志显示路径为TypeScript文件</title>
-    <link href="http://blog.www.asroads.com/post/fa59c736.html"/>
-    <id>http://blog.www.asroads.com/post/fa59c736.html</id>
+    <link href="http://blog.asroads.com/post/fa59c736.html"/>
+    <id>http://blog.asroads.com/post/fa59c736.html</id>
     <published>2020-08-10T09:28:40.000Z</published>
     <updated>2020-08-21T10:06:55.487Z</updated>
     
@@ -105,19 +105,19 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Layabox" scheme="http://blog.www.asroads.com/tags/Layabox/"/>
+      <category term="Layabox" scheme="http://blog.asroads.com/tags/Layabox/"/>
     
-      <category term="ts" scheme="http://blog.www.asroads.com/tags/ts/"/>
+      <category term="ts" scheme="http://blog.asroads.com/tags/ts/"/>
     
   </entry>
   
   <entry>
     <title>腾讯优量汇以及DMP系统接入SDK</title>
-    <link href="http://blog.www.asroads.com/post/c1bc951a.html"/>
-    <id>http://blog.www.asroads.com/post/c1bc951a.html</id>
+    <link href="http://blog.asroads.com/post/c1bc951a.html"/>
+    <id>http://blog.asroads.com/post/c1bc951a.html</id>
     <published>2020-08-01T12:55:53.000Z</published>
     <updated>2020-08-21T09:54:47.406Z</updated>
     
@@ -130,19 +130,19 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
-      <category term="iOS" scheme="http://blog.www.asroads.com/tags/iOS/"/>
+      <category term="iOS" scheme="http://blog.asroads.com/tags/iOS/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator bilibili小游戏接入</title>
-    <link href="http://blog.www.asroads.com/post/7abef73b.html"/>
-    <id>http://blog.www.asroads.com/post/7abef73b.html</id>
+    <link href="http://blog.asroads.com/post/7abef73b.html"/>
+    <id>http://blog.asroads.com/post/7abef73b.html</id>
     <published>2020-07-08T05:41:30.000Z</published>
     <updated>2020-08-27T05:46:25.470Z</updated>
     
@@ -155,17 +155,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
   </entry>
   
   <entry>
     <title>大数字BigNumber.js使用</title>
-    <link href="http://blog.www.asroads.com/post/5aa84949.html"/>
-    <id>http://blog.www.asroads.com/post/5aa84949.html</id>
+    <link href="http://blog.asroads.com/post/5aa84949.html"/>
+    <id>http://blog.asroads.com/post/5aa84949.html</id>
     <published>2020-07-06T11:11:57.000Z</published>
     <updated>2020-08-21T09:53:51.221Z</updated>
     
@@ -178,19 +178,19 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="ts" scheme="http://blog.www.asroads.com/tags/ts/"/>
+      <category term="js" scheme="http://blog.asroads.com/tags/js/"/>
     
-      <category term="js" scheme="http://blog.www.asroads.com/tags/js/"/>
+      <category term="ts" scheme="http://blog.asroads.com/tags/ts/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator游戏开发|PureMVC</title>
-    <link href="http://blog.www.asroads.com/post/492e8cf3.html"/>
-    <id>http://blog.www.asroads.com/post/492e8cf3.html</id>
+    <link href="http://blog.asroads.com/post/492e8cf3.html"/>
+    <id>http://blog.asroads.com/post/492e8cf3.html</id>
     <published>2020-07-01T07:24:09.000Z</published>
     <updated>2020-08-21T09:47:21.197Z</updated>
     
@@ -203,17 +203,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
   </entry>
   
   <entry>
     <title>谷歌Chrome扩展程序菜单介绍</title>
-    <link href="http://blog.www.asroads.com/post/bc9dfd0b.html"/>
-    <id>http://blog.www.asroads.com/post/bc9dfd0b.html</id>
+    <link href="http://blog.asroads.com/post/bc9dfd0b.html"/>
+    <id>http://blog.asroads.com/post/bc9dfd0b.html</id>
     <published>2020-06-28T10:56:43.000Z</published>
     <updated>2020-06-28T11:12:54.244Z</updated>
     
@@ -226,17 +226,17 @@
     </summary>
     
     
-      <category term="tool" scheme="http://blog.www.asroads.com/categories/tool/"/>
+      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
     
     
-      <category term="Chrome" scheme="http://blog.www.asroads.com/tags/Chrome/"/>
+      <category term="Chrome" scheme="http://blog.asroads.com/tags/Chrome/"/>
     
   </entry>
   
   <entry>
     <title>如何找回已经忘记的svn账号和密码|Windows</title>
-    <link href="http://blog.www.asroads.com/post/df55cfad.html"/>
-    <id>http://blog.www.asroads.com/post/df55cfad.html</id>
+    <link href="http://blog.asroads.com/post/df55cfad.html"/>
+    <id>http://blog.asroads.com/post/df55cfad.html</id>
     <published>2020-05-10T06:45:37.000Z</published>
     <updated>2020-05-10T06:56:08.250Z</updated>
     
@@ -249,17 +249,17 @@
     </summary>
     
     
-      <category term="tool" scheme="http://blog.www.asroads.com/categories/tool/"/>
+      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
     
     
-      <category term="技术" scheme="http://blog.www.asroads.com/tags/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://blog.asroads.com/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>Spine骨骼动画查看器SkeletonViewer</title>
-    <link href="http://blog.www.asroads.com/post/69641083.html"/>
-    <id>http://blog.www.asroads.com/post/69641083.html</id>
+    <link href="http://blog.asroads.com/post/69641083.html"/>
+    <id>http://blog.asroads.com/post/69641083.html</id>
     <published>2020-05-05T11:37:55.000Z</published>
     <updated>2020-05-10T11:55:35.235Z</updated>
     
@@ -272,19 +272,19 @@
     </summary>
     
     
-      <category term="tool" scheme="http://blog.www.asroads.com/categories/tool/"/>
+      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
-      <category term="技术" scheme="http://blog.www.asroads.com/tags/%E6%8A%80%E6%9C%AF/"/>
+      <category term="技术" scheme="http://blog.asroads.com/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator 2.3.3升级说明</title>
-    <link href="http://blog.www.asroads.com/post/e75157ff.html"/>
-    <id>http://blog.www.asroads.com/post/e75157ff.html</id>
+    <link href="http://blog.asroads.com/post/e75157ff.html"/>
+    <id>http://blog.asroads.com/post/e75157ff.html</id>
     <published>2020-04-27T03:22:54.000Z</published>
     <updated>2020-04-28T01:46:35.925Z</updated>
     
@@ -297,17 +297,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator|Android 实战开发（下）</title>
-    <link href="http://blog.www.asroads.com/post/86ecd85d.html"/>
-    <id>http://blog.www.asroads.com/post/86ecd85d.html</id>
+    <link href="http://blog.asroads.com/post/86ecd85d.html"/>
+    <id>http://blog.asroads.com/post/86ecd85d.html</id>
     <published>2020-04-05T05:45:10.000Z</published>
     <updated>2020-04-14T06:47:07.362Z</updated>
     
@@ -320,17 +320,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator|Android 实战开发(中)</title>
-    <link href="http://blog.www.asroads.com/post/5a097fa7.html"/>
-    <id>http://blog.www.asroads.com/post/5a097fa7.html</id>
+    <link href="http://blog.asroads.com/post/5a097fa7.html"/>
+    <id>http://blog.asroads.com/post/5a097fa7.html</id>
     <published>2020-03-08T11:27:16.000Z</published>
     <updated>2020-04-26T12:03:02.152Z</updated>
     
@@ -343,19 +343,19 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
-      <category term="Android" scheme="http://blog.www.asroads.com/tags/Android/"/>
+      <category term="Android" scheme="http://blog.asroads.com/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>介绍一个数字动画库CountUp.js</title>
-    <link href="http://blog.www.asroads.com/post/76506a91.html"/>
-    <id>http://blog.www.asroads.com/post/76506a91.html</id>
+    <link href="http://blog.asroads.com/post/76506a91.html"/>
+    <id>http://blog.asroads.com/post/76506a91.html</id>
     <published>2020-03-05T07:30:56.000Z</published>
     <updated>2020-03-08T12:15:56.983Z</updated>
     
@@ -368,17 +368,17 @@
     </summary>
     
     
-      <category term="tool" scheme="http://blog.www.asroads.com/categories/tool/"/>
+      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
     
     
-      <category term="js" scheme="http://blog.www.asroads.com/tags/js/"/>
+      <category term="js" scheme="http://blog.asroads.com/tags/js/"/>
     
   </entry>
   
   <entry>
     <title>小游戏|代码压缩Webstorm 或 VSCode</title>
-    <link href="http://blog.www.asroads.com/post/3e29e93b.html"/>
-    <id>http://blog.www.asroads.com/post/3e29e93b.html</id>
+    <link href="http://blog.asroads.com/post/3e29e93b.html"/>
+    <id>http://blog.asroads.com/post/3e29e93b.html</id>
     <published>2020-02-27T04:27:56.000Z</published>
     <updated>2020-02-27T05:59:10.049Z</updated>
     
@@ -391,17 +391,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="小游戏" scheme="http://blog.www.asroads.com/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/"/>
+      <category term="小游戏" scheme="http://blog.asroads.com/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/"/>
     
   </entry>
   
   <entry>
     <title>Sourcetree操作Gitlab的项目</title>
-    <link href="http://blog.www.asroads.com/post/d9ac0497.html"/>
-    <id>http://blog.www.asroads.com/post/d9ac0497.html</id>
+    <link href="http://blog.asroads.com/post/d9ac0497.html"/>
+    <id>http://blog.asroads.com/post/d9ac0497.html</id>
     <published>2020-02-10T12:05:51.000Z</published>
     <updated>2020-04-14T06:54:47.752Z</updated>
     
@@ -414,23 +414,23 @@
     </summary>
     
     
-      <category term="tool" scheme="http://blog.www.asroads.com/categories/tool/"/>
+      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
     
     
-      <category term="Sourcetree" scheme="http://blog.www.asroads.com/tags/Sourcetree/"/>
+      <category term="Sourcetree" scheme="http://blog.asroads.com/tags/Sourcetree/"/>
     
-      <category term="Gitlab" scheme="http://blog.www.asroads.com/tags/Gitlab/"/>
+      <category term="Gitlab" scheme="http://blog.asroads.com/tags/Gitlab/"/>
     
   </entry>
   
   <entry>
     <title>Cocos Creator|Android 实战开发（上）</title>
-    <link href="http://blog.www.asroads.com/post/3e50bf38.html"/>
-    <id>http://blog.www.asroads.com/post/3e50bf38.html</id>
+    <link href="http://blog.asroads.com/post/3e50bf38.html"/>
+    <id>http://blog.asroads.com/post/3e50bf38.html</id>
     <published>2020-02-06T12:13:18.000Z</published>
     <updated>2020-03-26T12:18:12.009Z</updated>
     
-    <content type="html"><![CDATA[<p>前面已经简单的介绍了如何配置Cocos Creator 原生平台环境，顺便简单的聊了聊导出包后的采坑，已经部分解决方案，接下来说说一些常见的游戏开发操作，记下来便于后续开发的时候查找。</p><a id="more"></a><p>首先关于如何配置原生环境和导出包的可以参考另外两篇文章：</p><ul><li><a href="http://blog.asroads.com/post/d130eaa6.html" target="_blank" rel="noopener">Mac系统Cocos Creator Native 原生Android和ios打包</a></li><li><a href="http://blog.asroads.com/post/d5575747.html" target="_blank" rel="noopener">CocosCreator导出Android项目采坑指南</a></li></ul><p>其实最好的学习文档莫过于官方文档：</p><ul><li><a href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn" target="_blank" rel="noopener">Android Gradle 插件版本说明</a></li><li><a href="https://developer.android.google.cn/ndk/downloads/" target="_blank" rel="noopener">NDK 下载</a></li><li><a href="https://developer.android.com/studio/intro?hl=zh-cn" target="_blank" rel="noopener">探索 Android Studio</a></li></ul><p>虽然官网写了很详细，但有时候我们只是用常见的几种，而且对于 Cocos Creator 生成的项目，最好是有关于 Cocos Creator 定制的 操作 前面介绍的知识点 本文不再赘述，下面介绍一些常见的操作。</p><h3 id="构建项目-日志查看-更换图标-amp-名字"><a href="#构建项目-日志查看-更换图标-amp-名字" class="headerlink" title="构建项目-日志查看-更换图标&amp;名字"></a>构建项目-日志查看-更换图标&amp;名字</h3><p>首先我们假设Cocos Creator 环境已经配置好 我们开始 构建项目。</p><p><img src="/post/3e50bf38/image-20200206143123924.png" alt="image-20200206143123924"></p><p>项目构建成功后 我们使用 Android Studio 打开 项目 项目路径是 build/jsb-link/frameworks/runtime-src/proj.android-studio</p><p><img src="/post/3e50bf38/image-20200206143453770.png" alt="image-20200206143453770"></p><p>一般来说 打开项目 后 会自动构建一次 </p><p><img src="/post/3e50bf38/image-20200206143759598.png" alt="image-20200206143759598"></p><p><img src="/post/3e50bf38/image-20200206143821558.png" alt="image-20200206143821558"></p><p>如果 没有出现构建 这个进程  可以自己选择 File -&gt;Sync Project With Gradle Files</p><p><img src="/post/3e50bf38/image-20200206143911086.png" alt="image-20200206143911086"></p><p>此时 我们连上 我们的设备后 （需要开始开发者模式 USB调试 ）<img src="/post/3e50bf38/image-20200206144126101.png" alt="image-20200206144126101"></p><p>这个时候 我们可以点击 <img src="/post/3e50bf38/image-20200206144154437.png" alt="image-20200206144154437">debug  或者 <img src="/post/3e50bf38/image-20200206144245375.png" alt="image-20200206144245375">运行游戏 此时 我们可以简单的预览游戏效果</p><p><img src="/post/3e50bf38/image-20200206145116268.png" alt="image-20200206145116268"></p><p>如果 出现这个 安装提示 点击 继续安装 即可 </p><p><img src="/post/3e50bf38/image-20200206145151198.png" alt="image-20200206145151198"></p><p>此时 我们可以看到 我们打出的 日志 Log 显示出来了</p><p><img src="/post/3e50bf38/image-20200206150622467.png" alt="image-20200206150622467"></p><p>此时 游戏 可以正常预览。但是 此时 我们游戏 在 安装的后的图标是 </p><p><img src="/post/3e50bf38/image-20200206145502192.png" alt="image-20200206145502192"></p><p>接下来 我们要修改一下我们的游戏的名字，比如我的游戏叫指南针 我们需要更换自定义的</p><h3 id="更换-图标-amp-名字"><a href="#更换-图标-amp-名字" class="headerlink" title="更换 图标&amp;名字"></a>更换 图标&amp;名字</h3><h4 id="图标更换"><a href="#图标更换" class="headerlink" title="图标更换"></a>图标更换</h4><p>首先我们自己准备一张 1024X1024 的png 图片 然后打开这个网站 一键生成我们的图标</p><p><a href="http://icon.wuruihong.com/" target="_blank" rel="noopener">图标工厂</a>    网站 <a href="http://icon.wuruihong.com/" target="_blank" rel="noopener">点击进入</a></p><p><img src="/post/3e50bf38/image-20200206145759880.png" alt="image-20200206145759880"></p><p><img src="/post/3e50bf38/image-20200206150013609.png" alt="image-20200206150013609"></p><p>此时 我们这个 android 的文件夹 里面就是我们的图标</p><p><img src="/post/3e50bf38/image-20200206145931912.png" alt="image-20200206145931912"></p><p>这个是我们项目原来的图标文件 我们选择替换即可</p><h4 id="更换游戏名字"><a href="#更换游戏名字" class="headerlink" title="更换游戏名字"></a>更换游戏名字</h4><p>首先 原来 游戏的名字是在这里配置的</p><p><img src="/post/3e50bf38/image-20200206150810518.png" alt="image-20200206150810518"></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span> <span class="attr">translatable</span>=<span class="string">"false"</span>&gt;</span>ccsyx<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure><p>我们修改 “ccsyx” 即可 比如：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span> <span class="attr">translatable</span>=<span class="string">"false"</span>&gt;</span>指南针<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="卸载原来安装的-app-重新构建-运行"><a href="#卸载原来安装的-app-重新构建-运行" class="headerlink" title="卸载原来安装的 app 重新构建 运行"></a>卸载原来安装的 app 重新构建 运行</h3><p><img src="/post/3e50bf38/image-20200206151153513.png" alt="image-20200206151153513"></p><p>以上我们成功的 更换了自定义的 游戏名字 和游戏图标。</p><h3 id="更改Cocos-Creator-apk-默认输出的名字"><a href="#更改Cocos-Creator-apk-默认输出的名字" class="headerlink" title="更改Cocos Creator apk 默认输出的名字"></a>更改Cocos Creator apk 默认输出的名字</h3><p>这个网上有很多方法：</p><p>我这边 最后验证成功的是：需要在 <code>build.gradle</code>文件内的 <code>android.applicationVariants.all</code> 里面配置</p><p>大概结构：</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android.applicationVariants.all &#123; variant -&gt;</span><br><span class="line">    <span class="comment">// delete previous files first</span></span><br><span class="line">    delete <span class="string">"$&#123;buildDir&#125;/intermediates/merged_assets/$&#123;variant.dirName&#125;"</span></span><br><span class="line"></span><br><span class="line">    variant.mergeAssets.doLast &#123;</span><br><span class="line">        <span class="keyword">def</span> sourceDir = <span class="string">"$&#123;buildDir&#125;/../../../../.."</span></span><br><span class="line">        .........</span><br><span class="line">        .........</span><br><span class="line">        <span class="keyword">if</span> (variant.buildType.name == <span class="string">'release'</span>) &#123;</span><br><span class="line">        ..........</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>具体细节：</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (variant.buildType.name == <span class="string">'release'</span>) &#123;</span><br><span class="line">        <span class="keyword">def</span> buildTypeName = variant.buildType.name</span><br><span class="line">        <span class="keyword">def</span> createTime = <span class="keyword">new</span> Date().format(<span class="string">"YYYY-MM-dd HH-mm-ss"</span>, TimeZone.getTimeZone(<span class="string">"GMT+08:00"</span>))</span><br><span class="line">        <span class="keyword">def</span> releaseFileName = <span class="string">"$&#123;buildTypeName&#125;-mobile $&#123;createTime&#125;"</span></span><br><span class="line"><span class="comment">//        def releaseApkName = "$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;android.defaultConfig.versionCode&#125;-$&#123;buildTypeName&#125;.apk"</span></span><br><span class="line">        <span class="keyword">def</span> releaseApkName = <span class="string">"$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;buildTypeName&#125;.apk"</span></span><br><span class="line">        println(<span class="string">"版本名称---&gt;"</span> + android.defaultConfig.versionName + <span class="string">" 版本号---&gt;"</span> + android.defaultConfig.versionCode)</span><br><span class="line"><span class="comment">//        println(variant.getPackageApplication().outputDirectory)</span></span><br><span class="line"><span class="comment">//        println(createTime)</span></span><br><span class="line"><span class="comment">//        println(project.name)</span></span><br><span class="line"><span class="comment">//        println(rootProject.name)</span></span><br><span class="line">        <span class="comment">//新建一个文件夹 然后把输出app 放到新建的文件夹内</span></span><br><span class="line">        variant.getPackageApplication().outputDirectory = <span class="keyword">new</span> File(variant.getPackageApplication().outputDirectory,releaseFileName)</span><br><span class="line">        variant.getPackageApplication().outputScope.apkDatas.forEach &#123; apkData -&gt;</span><br><span class="line">            <span class="comment">//这个修改输出APK的文件名</span></span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">            apkData.outputFileName = releaseApkName</span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>最初的输出路径：是在原有的  “release”目录下新建一个带时间 目录 （参考Xcode）然后修改APK 名字</p><p>效果如下：</p><p><img src="/post/3e50bf38/image-20200326201039411.png" alt="image-20200326201039411"></p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="https://blog.csdn.net/hqq39/article/details/49821607" target="_blank" rel="noopener">【cocos2dx】改安装包名、app名、图标、包名</a></li><li><a href="https://www.jianshu.com/p/b6c3f951b281" target="_blank" rel="noopener">gradle脚本配置 记录</a></li><li><a href="https://www.flysnow.org/2015/03/30/manage-your-android-project-with-gradle.html" target="_blank" rel="noopener">使用Gradle管理你的Android Studio工程</a></li><li><a href="https://blog.csdn.net/swer0808/article/details/78999949" target="_blank" rel="noopener">android studio 打包自动生成版本号与日期，apk输入路径</a></li><li><a href="https://www.jianshu.com/p/e088b6f1a59a" target="_blank" rel="noopener">gradle 3.3 修改打包apk路径</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>前面已经简单的介绍了如何配置Cocos Creator 原生平台环境，顺便简单的聊了聊导出包后的采坑，已经部分解决方案，接下来说说一些常见的游戏开发操作，记下来便于后续开发的时候查找。</p><a id="more"></a><p>首先关于如何配置原生环境和导出包的可以参考另外两篇文章：</p><ul><li><a href="http://blog.asroads.com/post/d130eaa6.html">Mac系统Cocos Creator Native 原生Android和ios打包</a></li><li><a href="http://blog.asroads.com/post/d5575747.html">CocosCreator导出Android项目采坑指南</a></li></ul><p>其实最好的学习文档莫过于官方文档：</p><ul><li><a href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn" target="_blank" rel="noopener">Android Gradle 插件版本说明</a></li><li><a href="https://developer.android.google.cn/ndk/downloads/" target="_blank" rel="noopener">NDK 下载</a></li><li><a href="https://developer.android.com/studio/intro?hl=zh-cn" target="_blank" rel="noopener">探索 Android Studio</a></li></ul><p>虽然官网写了很详细，但有时候我们只是用常见的几种，而且对于 Cocos Creator 生成的项目，最好是有关于 Cocos Creator 定制的 操作 前面介绍的知识点 本文不再赘述，下面介绍一些常见的操作。</p><h3 id="构建项目-日志查看-更换图标-amp-名字"><a href="#构建项目-日志查看-更换图标-amp-名字" class="headerlink" title="构建项目-日志查看-更换图标&amp;名字"></a>构建项目-日志查看-更换图标&amp;名字</h3><p>首先我们假设Cocos Creator 环境已经配置好 我们开始 构建项目。</p><p><img src="/post/3e50bf38/image-20200206143123924.png" alt="image-20200206143123924"></p><p>项目构建成功后 我们使用 Android Studio 打开 项目 项目路径是 build/jsb-link/frameworks/runtime-src/proj.android-studio</p><p><img src="/post/3e50bf38/image-20200206143453770.png" alt="image-20200206143453770"></p><p>一般来说 打开项目 后 会自动构建一次 </p><p><img src="/post/3e50bf38/image-20200206143759598.png" alt="image-20200206143759598"></p><p><img src="/post/3e50bf38/image-20200206143821558.png" alt="image-20200206143821558"></p><p>如果 没有出现构建 这个进程  可以自己选择 File -&gt;Sync Project With Gradle Files</p><p><img src="/post/3e50bf38/image-20200206143911086.png" alt="image-20200206143911086"></p><p>此时 我们连上 我们的设备后 （需要开始开发者模式 USB调试 ）<img src="/post/3e50bf38/image-20200206144126101.png" alt="image-20200206144126101"></p><p>这个时候 我们可以点击 <img src="/post/3e50bf38/image-20200206144154437.png" alt="image-20200206144154437">debug  或者 <img src="/post/3e50bf38/image-20200206144245375.png" alt="image-20200206144245375">运行游戏 此时 我们可以简单的预览游戏效果</p><p><img src="/post/3e50bf38/image-20200206145116268.png" alt="image-20200206145116268"></p><p>如果 出现这个 安装提示 点击 继续安装 即可 </p><p><img src="/post/3e50bf38/image-20200206145151198.png" alt="image-20200206145151198"></p><p>此时 我们可以看到 我们打出的 日志 Log 显示出来了</p><p><img src="/post/3e50bf38/image-20200206150622467.png" alt="image-20200206150622467"></p><p>此时 游戏 可以正常预览。但是 此时 我们游戏 在 安装的后的图标是 </p><p><img src="/post/3e50bf38/image-20200206145502192.png" alt="image-20200206145502192"></p><p>接下来 我们要修改一下我们的游戏的名字，比如我的游戏叫指南针 我们需要更换自定义的</p><h3 id="更换-图标-amp-名字"><a href="#更换-图标-amp-名字" class="headerlink" title="更换 图标&amp;名字"></a>更换 图标&amp;名字</h3><h4 id="图标更换"><a href="#图标更换" class="headerlink" title="图标更换"></a>图标更换</h4><p>首先我们自己准备一张 1024X1024 的png 图片 然后打开这个网站 一键生成我们的图标</p><p><a href="http://icon.wuruihong.com/" target="_blank" rel="noopener">图标工厂</a>    网站 <a href="http://icon.wuruihong.com/" target="_blank" rel="noopener">点击进入</a></p><p><img src="/post/3e50bf38/image-20200206145759880.png" alt="image-20200206145759880"></p><p><img src="/post/3e50bf38/image-20200206150013609.png" alt="image-20200206150013609"></p><p>此时 我们这个 android 的文件夹 里面就是我们的图标</p><p><img src="/post/3e50bf38/image-20200206145931912.png" alt="image-20200206145931912"></p><p>这个是我们项目原来的图标文件 我们选择替换即可</p><h4 id="更换游戏名字"><a href="#更换游戏名字" class="headerlink" title="更换游戏名字"></a>更换游戏名字</h4><p>首先 原来 游戏的名字是在这里配置的</p><p><img src="/post/3e50bf38/image-20200206150810518.png" alt="image-20200206150810518"></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span> <span class="attr">translatable</span>=<span class="string">"false"</span>&gt;</span>ccsyx<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure><p>我们修改 “ccsyx” 即可 比如：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span> <span class="attr">translatable</span>=<span class="string">"false"</span>&gt;</span>指南针<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="卸载原来安装的-app-重新构建-运行"><a href="#卸载原来安装的-app-重新构建-运行" class="headerlink" title="卸载原来安装的 app 重新构建 运行"></a>卸载原来安装的 app 重新构建 运行</h3><p><img src="/post/3e50bf38/image-20200206151153513.png" alt="image-20200206151153513"></p><p>以上我们成功的 更换了自定义的 游戏名字 和游戏图标。</p><h3 id="更改Cocos-Creator-apk-默认输出的名字"><a href="#更改Cocos-Creator-apk-默认输出的名字" class="headerlink" title="更改Cocos Creator apk 默认输出的名字"></a>更改Cocos Creator apk 默认输出的名字</h3><p>这个网上有很多方法：</p><p>我这边 最后验证成功的是：需要在 <code>build.gradle</code>文件内的 <code>android.applicationVariants.all</code> 里面配置</p><p>大概结构：</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android.applicationVariants.all &#123; variant -&gt;</span><br><span class="line">    <span class="comment">// delete previous files first</span></span><br><span class="line">    delete <span class="string">"$&#123;buildDir&#125;/intermediates/merged_assets/$&#123;variant.dirName&#125;"</span></span><br><span class="line"></span><br><span class="line">    variant.mergeAssets.doLast &#123;</span><br><span class="line">        <span class="keyword">def</span> sourceDir = <span class="string">"$&#123;buildDir&#125;/../../../../.."</span></span><br><span class="line">        .........</span><br><span class="line">        .........</span><br><span class="line">        <span class="keyword">if</span> (variant.buildType.name == <span class="string">'release'</span>) &#123;</span><br><span class="line">        ..........</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>具体细节：</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (variant.buildType.name == <span class="string">'release'</span>) &#123;</span><br><span class="line">        <span class="keyword">def</span> buildTypeName = variant.buildType.name</span><br><span class="line">        <span class="keyword">def</span> createTime = <span class="keyword">new</span> Date().format(<span class="string">"YYYY-MM-dd HH-mm-ss"</span>, TimeZone.getTimeZone(<span class="string">"GMT+08:00"</span>))</span><br><span class="line">        <span class="keyword">def</span> releaseFileName = <span class="string">"$&#123;buildTypeName&#125;-mobile $&#123;createTime&#125;"</span></span><br><span class="line"><span class="comment">//        def releaseApkName = "$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;android.defaultConfig.versionCode&#125;-$&#123;buildTypeName&#125;.apk"</span></span><br><span class="line">        <span class="keyword">def</span> releaseApkName = <span class="string">"$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;buildTypeName&#125;.apk"</span></span><br><span class="line">        println(<span class="string">"版本名称---&gt;"</span> + android.defaultConfig.versionName + <span class="string">" 版本号---&gt;"</span> + android.defaultConfig.versionCode)</span><br><span class="line"><span class="comment">//        println(variant.getPackageApplication().outputDirectory)</span></span><br><span class="line"><span class="comment">//        println(createTime)</span></span><br><span class="line"><span class="comment">//        println(project.name)</span></span><br><span class="line"><span class="comment">//        println(rootProject.name)</span></span><br><span class="line">        <span class="comment">//新建一个文件夹 然后把输出app 放到新建的文件夹内</span></span><br><span class="line">        variant.getPackageApplication().outputDirectory = <span class="keyword">new</span> File(variant.getPackageApplication().outputDirectory,releaseFileName)</span><br><span class="line">        variant.getPackageApplication().outputScope.apkDatas.forEach &#123; apkData -&gt;</span><br><span class="line">            <span class="comment">//这个修改输出APK的文件名</span></span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">            apkData.outputFileName = releaseApkName</span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>最初的输出路径：是在原有的  “release”目录下新建一个带时间 目录 （参考Xcode）然后修改APK 名字</p><p>效果如下：</p><p><img src="/post/3e50bf38/image-20200326201039411.png" alt="image-20200326201039411"></p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="https://blog.csdn.net/hqq39/article/details/49821607" target="_blank" rel="noopener">【cocos2dx】改安装包名、app名、图标、包名</a></li><li><a href="https://www.jianshu.com/p/b6c3f951b281" target="_blank" rel="noopener">gradle脚本配置 记录</a></li><li><a href="https://www.flysnow.org/2015/03/30/manage-your-android-project-with-gradle.html" target="_blank" rel="noopener">使用Gradle管理你的Android Studio工程</a></li><li><a href="https://blog.csdn.net/swer0808/article/details/78999949" target="_blank" rel="noopener">android studio 打包自动生成版本号与日期，apk输入路径</a></li><li><a href="https://www.jianshu.com/p/e088b6f1a59a" target="_blank" rel="noopener">gradle 3.3 修改打包apk路径</a></li></ul>]]></content>
     
     <summary type="html">
     
@@ -439,19 +439,19 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
-      <category term="Android" scheme="http://blog.www.asroads.com/tags/Android/"/>
+      <category term="Android" scheme="http://blog.asroads.com/tags/Android/"/>
     
   </entry>
   
   <entry>
     <title>字节跳动头条小游戏更多游戏跳转</title>
-    <link href="http://blog.www.asroads.com/post/db04f0eb.html"/>
-    <id>http://blog.www.asroads.com/post/db04f0eb.html</id>
+    <link href="http://blog.asroads.com/post/db04f0eb.html"/>
+    <id>http://blog.asroads.com/post/db04f0eb.html</id>
     <published>2020-02-04T12:10:28.000Z</published>
     <updated>2020-02-04T12:36:35.767Z</updated>
     
@@ -464,17 +464,17 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
   </entry>
   
   <entry>
     <title>CocosCreator导出Android项目采坑指南</title>
-    <link href="http://blog.www.asroads.com/post/d5575747.html"/>
-    <id>http://blog.www.asroads.com/post/d5575747.html</id>
+    <link href="http://blog.asroads.com/post/d5575747.html"/>
+    <id>http://blog.asroads.com/post/d5575747.html</id>
     <published>2020-02-03T12:04:10.000Z</published>
     <updated>2020-04-14T06:15:46.553Z</updated>
     
@@ -487,10 +487,10 @@
     </summary>
     
     
-      <category term="game" scheme="http://blog.www.asroads.com/categories/game/"/>
+      <category term="game" scheme="http://blog.asroads.com/categories/game/"/>
     
     
-      <category term="Cocos" scheme="http://blog.www.asroads.com/tags/Cocos/"/>
+      <category term="Cocos" scheme="http://blog.asroads.com/tags/Cocos/"/>
     
   </entry>
   

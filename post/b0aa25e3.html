@@ -10,7 +10,7 @@
     <title>Layabox2.0贝塞尔曲线运动引入TweenMax | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="游戏开发的同学都有同感，在物体运动的时候，曲线运动一直是一个常见的需求，常见的曲线运动有规则的，比如圆周运动，椭圆运动，加速减速运动，使用Layabox引擎的时候，官方已经提供了一个关于缓动的类，Tween，作为从AS3开发起步的人，一定会想到当年的greensock缓动库，基本解决了很多头疼动画需求，而且关键是这个类库文件小，效率还高。从AS3转到H5行业后，greensock 也升级到了2.0 更改了名字。引入原因：Laya自带的Tween类动效特别弱，仅仅相当于TweenLi..." />
+    <meta name="description" content="游戏开发的同学都有同感，在物体运动的时候，曲线运动一直是一个常见的需求，常见的曲线运动有规则的，比如圆周运动，椭圆运动，加速减速运动，使用Layabox引擎的时候，官方已经提供了一个关于缓动的类，Tween，作为从AS3开发起步的人，一定会想到当年的greensock缓动库，基本解决了很多头疼动画需求，而且关键是这个类库文件小，效率还高。从AS3转到H5行业后，greensock 也升级到了2.0 更改了名字。引入原因：Laya自带的Tween类动效特别弱，仅仅相当于TweenLite的阉割版本" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/b0aa25e3.html">
+            <a class="article-date" href="http://blog.asroads.com/post/b0aa25e3.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-08-13T11:36:41.000Z" itemprop="datePublished">2019-08-13</time>
+    <time class="vm" datetime="2019-08-13T11:36:41.000Z" itemprop="datePublished">2019-08-13</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Layabox/" rel="tag">Layabox</a>
 </div>
 
@@ -194,7 +187,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -225,14 +218,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

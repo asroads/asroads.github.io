@@ -10,7 +10,7 @@
     <title>Layabox2.0 学习笔记1 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="LayaAir2.0小游戏使用 HTMLDivElement以前刚刚学习1.0的时候，已经用过，论坛里也有人说过解决方案，大概思路就是引入xml 解析库，没有一个规范的教程，自己虽然项目里用了，但是也没有一个完整的记录，今天顺便记录下来。环境：Layabox项目 发布小游戏微信开发工具步骤截图具体文件内容dom_parser.js1function DOMParser(t)&amp;#123;this.options=t||&amp;#123;locator:&amp;#123;&amp;#125;&amp;..." />
+    <meta name="description" content="LayaAir2.0小游戏使用 HTMLDivElement以前刚刚学习1.0的时候，已经用过，论坛里也有人说过解决方案，大概思路就是引入xml 解析库，没有一个规范的教程，自己虽然项目里用了，但是也没有一个完整的记录，今天顺便记录下来。环境：Layabox项目 发布小游戏微信开发工具步骤截图具体文件内容dom_parser.js1function DOMParser(t)&amp;#123;this.options=t||&amp;#123;locator:&amp;#123;&amp;#125;&amp;#125;&amp;#125;fu" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/16692a87.html">
+            <a class="article-date" href="http://blog.asroads.com/post/16692a87.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-03-14T05:19:42.000Z" itemprop="datePublished">2019-03-14</time>
+    <time class="vm" datetime="2019-03-14T05:19:42.000Z" itemprop="datePublished">2019-03-14</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Layabox/" rel="tag">Layabox</a>
 </div>
 
@@ -196,7 +189,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -227,14 +220,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

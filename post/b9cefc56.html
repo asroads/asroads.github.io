@@ -10,7 +10,7 @@
     <title>Layabox2.0引入puremvc框架 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="之前开发小游戏的时候，使用引擎开发，都是把每个面板写成单例，然后需要展示的时候调用起方法，相比之下之前的游戏逻辑都不复杂这样基本都够用了，后面游戏稍微复杂了，开始使用每个模块都有个对外的代理文件，这样模块之间通信都用代理和代理之间接触，加上Layabox自带的自定义事件基本能够满足需要，随着游戏开发越来越复杂，功能越来越多，上面的模式支持起来不太好了，此时需要的是解耦和消息模式，至此我想到了以前用的puremvc 框架。框架介绍puremvc框架是个轻量级的mvc框架，，目前有多个语..." />
+    <meta name="description" content="之前开发小游戏的时候，使用引擎开发，都是把每个面板写成单例，然后需要展示的时候调用起方法，相比之下之前的游戏逻辑都不复杂这样基本都够用了，后面游戏稍微复杂了，开始使用每个模块都有个对外的代理文件，这样模块之间通信都用代理和代理之间接触，加上Layabox自带的自定义事件基本能够满足需要，随着游戏开发越来越复杂，功能越来越多，上面的模式支持起来不太好了，此时需要的是解耦和消息模式，至此我想到了以前用的puremvc 框架。框架介绍puremvc框架是个轻量级的mvc框架，，目前有多个语言版本，其中" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/b9cefc56.html">
+            <a class="article-date" href="http://blog.asroads.com/post/b9cefc56.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-06-24T10:24:33.000Z" itemprop="datePublished">2019-06-24</time>
+    <time class="vm" datetime="2019-06-24T10:24:33.000Z" itemprop="datePublished">2019-06-24</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Layabox/" rel="tag">Layabox</a>, <a class="article-tag-link" href="/tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/" rel="tag">小游戏</a>
 </div>
 
@@ -239,7 +232,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -270,14 +263,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

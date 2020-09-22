@@ -10,7 +10,7 @@
     <title>Mac电脑如何查看已连接的WiFi密码 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="毕竟很少用到这个功能，但是，就是今天，手机周末在家重置了所有的网络设置，导致正常上班的情况下，无法正常打卡，公司的打卡机用的是钉钉，必须用特定WiFi网络打卡，本来是早上8:54到公司的，可连不上公司的WiFi，奈何公司的WiFi密码设置的还是比较复杂些的，虽然后面观察了一下有规律，但长时间不登录，确实已经想不起了，于是乎，我在9:03才打上卡，工作的电脑也是连着WiFi的，就是因为对Mac电脑查看WiFi密码不熟悉，导致我这三分钟的误差，于是我决定写一篇文章记下来，日后备用。步骤..." />
+    <meta name="description" content="毕竟很少用到这个功能，但是，就是今天，手机周末在家重置了所有的网络设置，导致正常上班的情况下，无法正常打卡，公司的打卡机用的是钉钉，必须用特定WiFi网络打卡，本来是早上8:54到公司的，可连不上公司的WiFi，奈何公司的WiFi密码设置的还是比较复杂些的，虽然后面观察了一下有规律，但长时间不登录，确实已经想不起了，于是乎，我在9:03才打上卡，工作的电脑也是连着WiFi的，就是因为对Mac电脑查看WiFi密码不熟悉，导致我这三分钟的误差，于是我决定写一篇文章记下来，日后备用。步骤先请打开 Ma" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/a99e4075.html">
+            <a class="article-date" href="http://blog.asroads.com/post/a99e4075.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2019-09-23T11:08:39.000Z" itemprop="datePublished">2019-09-23</time>
+    <time class="vm" datetime="2019-09-23T11:08:39.000Z" itemprop="datePublished">2019-09-23</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Mac/" rel="tag">Mac</a>
 </div>
 
@@ -195,7 +188,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -226,14 +219,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     

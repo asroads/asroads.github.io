@@ -10,7 +10,7 @@
     <title>字节跳动头条小游戏更多游戏跳转 | Asroads&#39;Blog</title>
     <meta name="author" content="asroads" />
     <meta name="keywords" content="" />
-    <meta name="description" content="头条小游戏和微信小游戏基本语法都是相同的，只是多了录屏的功能，后期陆续更新了一些和微信略微不同的功能，更多游戏功能就是这样的，和微信的小游戏跳转基本功能是一致的，但是多了封装，面板是官方已经写好的，我们只要配置数据即可，而且有个更多好玩游戏 直达小游戏中心，让更多玩家找到更好玩的游戏。接下来就简单的说说这个更多游戏的用法：总的来讲，其实更多游戏有两种实现方案，一种是初始化一个按钮即可，按钮显示的后续操作，已经封装好了，属于比较简单的，第二种是可以自己自定义入口按钮，这样可以添加更多的..." />
+    <meta name="description" content="头条小游戏和微信小游戏基本语法都是相同的，只是多了录屏的功能，后期陆续更新了一些和微信略微不同的功能，更多游戏功能就是这样的，和微信的小游戏跳转基本功能是一致的，但是多了封装，面板是官方已经写好的，我们只要配置数据即可，而且有个更多好玩游戏 直达小游戏中心，让更多玩家找到更好玩的游戏。接下来就简单的说说这个更多游戏的用法：总的来讲，其实更多游戏有两种实现方案，一种是初始化一个按钮即可，按钮显示的后续操作，已经封装好了，属于比较简单的，第二种是可以自己自定义入口按钮，这样可以添加更多的样式和操作，" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
 
@@ -37,14 +37,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <!--[if lt IE 9]>
-    <style type="text/css">
-    .nav-inner {top:0;}
-    .author-meta {position:static;top:0;}
-    .search-form {height:36px;}
-    </style>
-    <script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <![endif]-->
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
 <meta name="generator" content="Hexo 4.2.0"></head>
 <body>
 
@@ -97,7 +90,7 @@
     <aside id="aside" class="aside">
     <div id="aside-mask" class="aside-mask"></div>
     <div id="aside-inner" class="aside-inner">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.www.asroads.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
 
         
         
@@ -123,16 +116,16 @@
         </h1>
         
         <div class="article-meta clearfix">
-            <a class="article-date" href="http://blog.www.asroads.com/post/db04f0eb.html">
+            <a class="article-date" href="http://blog.asroads.com/post/db04f0eb.html">
     
-    <i class="icon-calendar"></i>
+    <i class="icon-calendar vm"></i>
     
-    <time datetime="2020-02-04T12:10:28.000Z" itemprop="datePublished">2020-02-04</time>
+    <time class="vm" datetime="2020-02-04T12:10:28.000Z" itemprop="datePublished">2020-02-04</time>
 </a>
 
             
 <div class="article-tag-list">
-    <i class="icon-tag"></i>
+    <i class="icon-tag vm"></i>
     <a class="article-tag-link" href="/tags/Cocos/" rel="tag">Cocos</a>
 </div>
 
@@ -273,7 +266,7 @@
 
     </main>
 
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     $(function() {
         var nodes = {
@@ -304,14 +297,26 @@
             }
         });
         $('#open-menus').on('click', function() {
-            nodes.navInner.slideToggle();
+            nodes.navInner.slideToggle('normal', slideDone);
         });
 
         if (window.innerWidth <= 960) {
             setTimeout(function() {
-                nodes.navInner.slideUp();
+                nodes.navInner.slideUp('normal', slideDone);
             }, 3000);
         }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
     });
     </script>
     
