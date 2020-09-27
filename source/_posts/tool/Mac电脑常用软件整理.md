@@ -20,11 +20,12 @@ date: 2019-10-15 11:10:15
 
 ### 沟通工具
 
-| 应用名字 | 地址                              | 推荐指数  | 授权 | 备注             |
-| -------- | --------------------------------- | --------- | ---- | ---------------- |
-| QQ       | [进入官网](https://im.qq.com/)    |      | 免费 | 文件搜索打开启动 |
-| 微信     | [进入官网](https://weixin.qq.com) |      | 免费 | 沟通             |
-|          |                                   |           |      |                  |
+| 应用名字 | 地址                                  | 推荐指数  | 授权 | 备注     |
+| -------- | ------------------------------------- | --------- | ---- | -------- |
+| QQ       | [进入官网](https://im.qq.com/)        |      | 免费 | 办公沟通 |
+| 微信     | [进入官网](https://weixin.qq.com)     |      | 免费 | 办公沟通 |
+| 飞书     | [进入官网](https://www.feishu.cn/)    |        | 免费 | 办公沟通 |
+| 钉钉     | [进入官网](https://www.dingtalk.com/) |       | 免费 | 办公沟通 |
 
 ### 浏览器
 
@@ -36,14 +37,15 @@ date: 2019-10-15 11:10:15
 
 ### 代码IDE
 
-| 应用名字     | 地址                                            | 推荐指数  | 授权 | 备注         |
-| ------------ | ----------------------------------------------- | --------- | ---- | ------------ |
-| Webstorm     | [进入官网](https://www.jetbrains.com/webstorm/) |      | 付费 | 代码编辑     |
-| visualstudio | [进入官网](https://code.visualstudio.com)       |       | 免费 | 开发调试     |
-| Xcode        | [进入官网](https://developer.apple.com/xcode/)  |      | 免费 | 代码编辑     |
-| Atom         | [进入官网](https://atom.io)                     |        | 免费 | 代码编辑     |
-| Sublime Text | [进入官网](http://www.sublimetext.com/)         |        | 付费 | 代码文本编辑 |
-| pycharm      | [进入官网](https://www.jetbrains.com/pycharm/)  |      | 付费 | 代码编辑     |
+| 应用名字     | 地址                                            | 推荐指数  | 授权 | 备注               |
+| ------------ | ----------------------------------------------- | --------- | ---- | ------------------ |
+| Webstorm     | [进入官网](https://www.jetbrains.com/webstorm/) |      | 付费 | 代码编辑           |
+| visualstudio | [进入官网](https://code.visualstudio.com)       |       | 免费 | 开发调试           |
+| Xcode        | [进入官网](https://developer.apple.com/xcode/)  |      | 免费 | 代码编辑           |
+| Atom         | [进入官网](https://atom.io)                     |        | 免费 | 代码编辑           |
+| Sublime Text | [进入官网](http://www.sublimetext.com/)         |        | 付费 | 代码文本编辑       |
+| pycharm      | [进入官网](https://www.jetbrains.com/pycharm/)  |      | 付费 | 代码编辑           |
+| CotEditor    | [进入官网](https://coteditor.com/)              |       | 免费 | 代码文本编辑(推荐) |
 
 ### 安卓模拟器
 
@@ -73,15 +75,19 @@ date: 2019-10-15 11:10:15
 
 ### 图片
 
-| 应用名字    | 地址                                                         | 推荐指数  | 授权      | 备注                       |
-| ----------- | ------------------------------------------------------------ | --------- | --------- | -------------------------- |
-| 看图        | [进入官网](http://kantu.qq.com/)                             |       | 免费      | 图片查看                   |
-| Xnip        | [进入官网](https://xnipapp.com)                              |      | 付费/免费 | 截图工具（可以滚动截屏）   |
-| Snagit      | [进入官网](https://www.techsmith.com/store/snagit?utm_source=google&utm_medium=cpc&utm_campaign=1524774662&utm_content=58548122335&utm_term=snagit&gclid=EAIaIQobChMI75zoo5ed5QIVmKDsCh0sWAliEAAYASAAEgI1y_D_BwE) |      | 付费      | 截图工具 屏幕录制 滚动截屏 |
-| GIF Brewery | AppStore                                                     |       | 免费      | 屏幕录制gif图片            |
-| LICEcap     | [进入官网](https://www.cockos.com/licecap)                   |      | 开源      | gif 录制                   |
-| ImageOptim  | [进入官网](https://imageoptim.com/mac)                       |       | 免费      | 图片压缩                   |
-| tinypng     | [进入官网](https://tinypng.com)                              |      | 付费/免费 | 图片压缩                   |
+| 应用名字        | 地址                                                         | 推荐指数  | 授权      | 备注                       |
+| --------------- | ------------------------------------------------------------ | --------- | --------- | -------------------------- |
+| 看图            | [进入官网](http://kantu.qq.com/)                             |       | 免费      | 图片查看                   |
+| Xnip            | [进入官网](https://xnipapp.com)                              |      | 付费/免费 | 截图工具（可以滚动截屏）   |
+| Snagit          | [进入官网](https://www.techsmith.com/store/snagit?utm_source=google&utm_medium=cpc&utm_campaign=1524774662&utm_content=58548122335&utm_term=snagit&gclid=EAIaIQobChMI75zoo5ed5QIVmKDsCh0sWAliEAAYASAAEgI1y_D_BwE) |      | 付费      | 截图工具 屏幕录制 滚动截屏 |
+| GIF Brewery     | AppStore                                                     |       | 免费      | 屏幕录制gif图片            |
+| LICEcap         | [进入官网](https://www.cockos.com/licecap)                   |      | 开源      | gif 录制                   |
+| ImageOptim      | [进入官网](https://imageoptim.com/mac)                       |       | 免费      | 图片压缩                   |
+| tinypng         | [进入官网](https://tinypng.com)                              |      | 付费/免费 | 图片压缩                   |
+| imagecompressor | [进入官网](https://www.websiteplanet.com/webtools/imagecompressor/) |      | 免费      | 图片压缩                   |
+| ImageAlpha      | [进入官网](https://pngmini.com/)                             |      | 免费      | 图片压缩                   |
+| pngquant        | [进入官网](https://pngquant.org/)                            |      | 免费      | 图片压缩                   |
+| gif brewery 3   | AppStore                                                     |       | 免费      | gif 录制                   |
 
 ### 解压缩
 
@@ -147,7 +153,14 @@ date: 2019-10-15 11:10:15
 | 广告终结者            | [点击下载](https://chrome.google.com/webstore/detail/fpdnjdlbdmifoocedhkighhlbchbiikl) |      | 屏蔽广告         |
 | 猫抓                  | [点击下载](https://chrome.google.com/webstore/detail/猫抓/jfedfbgedapdagkghmgibemcoggfppbb) |       | 抓取媒体文件     |
 | Octotree              | [点击下载](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc) |      | GitHub/码云结构  |
+| GitCodeTree           | [点击下载](https://github.com/ovity/octotree)                |      | 功能 同 Octotree |
 | JetBrains IDE Support | [点击下载](https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji) |       | Webstorm代码调试 |
+| OneTab                | [点击下载](https://chrome.google.com/webstore/detail/onetab/chphlpgkkbolifaimnlloiipkdnihall) |      | 快速收藏网页     |
+| Print Friendly & PDF  | [点击下载](https://www.printfriendly.com/)                   |        | 保存网页为pdf    |
+| Infinity 新标签页     | [点击下载](https://chrome.google.com/webstore/detail/infinity-new-tab-producti/dbfmnekepjoapopniengjbcpnbljalfg) |       | 自定义添加网站   |
+| Bookmarks clean up    | [点击下载](https://chrome.google.com/webstore/detail/bookmarks-clean-up/oncbjlgldmiagjophlhobkogeladjijl?hl=zh-CN) |        | 查找过期书签     |
+| Recent History        | [点击下载](https://chrome.google.com/webstore/detail/recent-history/fbmkfdfomhhlonpbnpiibloacemdhjjm?hl=zh-CN) |       | 管理历史记录     |
+|                       |                                                              |           |                  |
 
 ### 其他软件
 
@@ -162,6 +175,17 @@ date: 2019-10-15 11:10:15
 | -------- | ----------------- | -------- | ---------------- |
 | tree     | brew install tree |      | 显示项目文件结构 |
 |          |                   |          |                  |
+
+### 工具网站
+
+| 网站名字                       | 操作                     | 推荐指数 | 备注               |
+| ------------------------------ | ------------------------ | -------- | ------------------ |
+| https://www.websiteplanet.com/ | 查看Tool标签页面         |      | 很多工具           |
+| HandShaker                     | Mac 电脑管理安卓手机工具 |      |                    |
+| AirServer                      | 手机投屏显示器工具       |       | 手机投屏显示器工具 |
+|                                |                          |          |                    |
+
+
 
 ### 电脑必备
 
