@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>LayaBox2.X如何使用bignumber.js(decimal.js) | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="关于大数字使用，前面已经系统的介绍过这个，大数字BigNumber.js使用  在Laya1.x的时候也使用这个类库，只是当时项目比较忙，加上我疏于记录，后面就不了了之，昨天下班后，群里一个群友问我Layabox2.x关于(bignumber.js)使用报错，才有了今天这个文章。下面就说说这个类库如何在Layabox2.x里面使用，以及报错  Error: Could not resolve ‘../../libs/bignumber’ from ../../../../../Users/smi" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#新建一个项目"><span class="toc-number">1.1.</span> <span class="toc-text">新建一个项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载bignumber-js"><span class="toc-number">1.2.</span> <span class="toc-text">下载bignumber.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#项目内写测试代码"><span class="toc-number">1.3.</span> <span class="toc-text">项目内写测试代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决方案"><span class="toc-number">1.4.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#主要操作"><span class="toc-number">1.4.1.</span> <span class="toc-text">主要操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除引用导入"><span class="toc-number">1.4.2.</span> <span class="toc-text">删除引用导入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接"><span class="toc-number">3.</span> <span class="toc-text">参考链接</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            LayaBox2.X如何使用bignumber.js(decimal.js)
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.asroads.com/post/6c4e035c.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2020-09-30T04:02:55.000Z" itemprop="datePublished">2020-09-30</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/Layabox/" rel="tag">Layabox</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>关于大数字使用，前面已经系统的介绍过这个，<a href="http://blog.asroads.com/post/5aa84949.html">大数字BigNumber.js使用</a>  在Laya1.x的时候也使用这个类库，只是当时项目比较忙，加上我疏于记录，后面就不了了之，昨天下班后，群里一个群友问我Layabox2.x关于(<a href="https://mikemcl.github.io/bignumber.js" target="_blank" rel="noopener">bignumber.js</a>)使用报错，才有了今天这个文章。</p>
+<a id="more"></a>
+
+<p>下面就说说这个类库如何在Layabox2.x里面使用，以及报错  Error: Could not resolve ‘../../libs/bignumber’ from ../../../../../Users/smile/my/test/laya/demo/BNTestdemo/src/script/GameUI.ts. 后如果修改</p>
+<p>首先我们还是按照Layabox 正常的添加类库</p>
+<p>首先我们还是按照Layabox 正常的添加类库</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="新建一个项目"><a href="#新建一个项目" class="headerlink" title="新建一个项目"></a>新建一个项目</h4><p>这里新建了一个示例项目</p>
+<p><img src="/post/6c4e035c/image-20200930120915849.png" alt="image-20200930120915849"></p>
+<h4 id="下载bignumber-js"><a href="#下载bignumber-js" class="headerlink" title="下载bignumber.js"></a>下载bignumber.js</h4><p>去官方地址下载 (<a href="https://mikemcl.github.io/bignumber.js" target="_blank" rel="noopener">bignumber.js</a>)到本地</p>
+<p><img src="/post/6c4e035c/image-20200930121113814.png" alt="image-20200930121113814"></p>
+<p>由于项目选择的是Typescript项目所以我们接下来要先把声明文件放到 项目的 libs 下面</p>
+<p><img src="/post/6c4e035c/image-20200930121252022.png" alt="image-20200930121252022"></p>
+<p>然后把 <code>bignumber.js</code>文件放到 bin下面的libs 并且去 LayaIDE里面设置 勾选类库</p>
+<p><img src="/post/6c4e035c/image-20200930121438183.png" alt="image-20200930121438183"></p>
+<p>勾选类库</p>
+<p><img src="/post/6c4e035c/image-20200930121555007.png" alt="image-20200930121555007"></p>
+<h4 id="项目内写测试代码"><a href="#项目内写测试代码" class="headerlink" title="项目内写测试代码"></a>项目内写测试代码</h4><p>这里我们选择 GameUI.ts 文件的 onEnable 函数下写测试代码</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ui &#125; <span class="keyword">from</span> <span class="string">"./../ui/layaMaxUI"</span>;</span><br><span class="line"><span class="keyword">import</span> GameControl <span class="keyword">from</span> <span class="string">"./GameControl"</span></span><br><span class="line"><span class="keyword">import</span> BigNumber <span class="keyword">from</span> <span class="string">"../../libs/bignumber"</span>;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    </span><br><span class="line">    onEnable(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>._control = <span class="keyword">this</span>.getComponent(GameControl);</span><br><span class="line">        <span class="comment">//点击提示文字，开始游戏</span></span><br><span class="line">        <span class="keyword">this</span>.tipLbll.on(Laya.Event.CLICK, <span class="keyword">this</span>, <span class="keyword">this</span>.onTipClick);</span><br><span class="line">        <span class="keyword">let</span> bn = <span class="keyword">new</span> BigNumber(<span class="string">"10000"</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(bn.valueOf())</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们编译代码 发现报错！！！</p>
+<p><img src="/post/6c4e035c/image-20200930121832803.png" alt="image-20200930121832803"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">开始编译: Wed Sep 30 2020 12:49:29 GMT+0800 (CST)</span><br><span class="line">--------------------------------------</span><br><span class="line">[12:49:30] Working directory changed to &#x2F;Applications&#x2F;LayaAirIDE_2_7_0_beta.app&#x2F;Contents&#x2F;Resources&#x2F;app</span><br><span class="line">[12:49:31] Using gulpfile ~&#x2F;my&#x2F;test&#x2F;laya&#x2F;demo&#x2F;BNTestdemo&#x2F;.laya&#x2F;compile.js</span><br><span class="line">[12:49:31] Starting &#39;compile&#39;...</span><br><span class="line">&#123; Error: Could not resolve &#39;..&#x2F;..&#x2F;libs&#x2F;bignumber&#39; from ..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;Users&#x2F;smile&#x2F;my&#x2F;test&#x2F;laya&#x2F;demo&#x2F;BNTestdemo&#x2F;src&#x2F;script&#x2F;GameUI.ts</span><br><span class="line">at error (&#x2F;Applications&#x2F;LayaAirIDE_2_7_0_beta.app&#x2F;Contents&#x2F;Resources&#x2F;app&#x2F;node_modules&#x2F;rollup&#x2F;dist&#x2F;rollup.js:9402:30)</span><br><span class="line">at ModuleLoader.handleMissingImports (&#x2F;Applications&#x2F;LayaAirIDE_2_7_0_beta.app&#x2F;Contents&#x2F;Resources&#x2F;app&#x2F;node_modules&#x2F;rollup&#x2F;dist&#x2F;rollup.js:16396:17)</span><br><span class="line">at ModuleLoader. (&#x2F;Applications&#x2F;LayaAirIDE_2_7_0_beta.app&#x2F;Contents&#x2F;Resources&#x2F;app&#x2F;node_modules&#x2F;rollup&#x2F;dist&#x2F;rollup.js:16447:26)</span><br><span class="line">at Generator.next ()</span><br><span class="line">at fulfilled (&#x2F;Applications&#x2F;LayaAirIDE_2_7_0_beta.app&#x2F;Contents&#x2F;Resources&#x2F;app&#x2F;node_modules&#x2F;rollup&#x2F;dist&#x2F;rollup.js:15428:28)</span><br><span class="line">at code: &#39;UNRESOLVED_IMPORT&#39; &#125;</span><br><span class="line">[12:49:34] Finished &#39;compile&#39; after 2.87 s</span><br><span class="line">--------------------------------------</span><br><span class="line">编译结束，gulp编译耗时: 4.057s</span><br><span class="line">编译结束，总耗时: 4.129s</span><br></pre></td></tr></table></figure>
+
+<p>这个 怎么回事？难道是路径错了？还是这样加载不对，经过两个小时的搜索和本地测试，发现了问题！</p>
+<p><img src="/post/6c4e035c/image-20200930122052641.png" alt="image-20200930122052641"></p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>原来是声明文件 需要修改才行</p>
+<p>原来的声明长这样：代码收缩后</p>
+<p><img src="/post/6c4e035c/image-20200930122151362.png" alt="image-20200930122151362"></p>
+<p>应该修改为 代码收缩后</p>
+<p><img src="/post/6c4e035c/image-20200930122242165.png" alt="image-20200930122242165"></p>
+<h5 id="主要操作"><a href="#主要操作" class="headerlink" title="主要操作"></a>主要操作</h5><ol>
+<li><p>注释掉 第一行 // export default BigNumber;</p>
+</li>
+<li><p>把 第二行的 export 修改为 declare</p>
+</li>
+<li><p>删掉 export</p>
+</li>
+</ol>
+<p>然后去修改  GameUI.ts  因为类直接导出了，所以不需要 import BigNumber from “../../libs/bignumber”;</p>
+<h5 id="删除引用导入"><a href="#删除引用导入" class="headerlink" title="删除引用导入"></a>删除引用导入</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ui &#125; <span class="keyword">from</span> <span class="string">"./../ui/layaMaxUI"</span>;</span><br><span class="line"><span class="keyword">import</span> GameControl <span class="keyword">from</span> <span class="string">"./GameControl"</span></span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">    onEnable(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>._control = <span class="keyword">this</span>.getComponent(GameControl);</span><br><span class="line">        <span class="comment">//点击提示文字，开始游戏</span></span><br><span class="line">        <span class="keyword">this</span>.tipLbll.on(Laya.Event.CLICK, <span class="keyword">this</span>, <span class="keyword">this</span>.onTipClick);</span><br><span class="line">        <span class="keyword">let</span> bn = <span class="keyword">new</span> BigNumber(<span class="string">"10000"</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(bn.valueOf())</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们再次编译 正常通过 </p>
+<p><img src="/post/6c4e035c/image-20200930122616556.png" alt="image-20200930122616556"></p>
+<p>最后运行项目 查看输出</p>
+<p><img src="/post/6c4e035c/image-20200930122702863.png" alt="image-20200930122702863"></p>
+<p>以上 bignumber.js 正常被项目引入 项目地址：<a href="https://github.com/jsroads/BNTestdemo.git" target="_blank" rel="noopener">https://github.com/jsroads/BNTestdemo.git</a></p>
+<p><a href="https://github.com/jsroads/BNTestdemo.git" target="_blank" rel="noopener">点击进入</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>问题不是什么大问题，但对第三方库不是很了解的，特别容易采坑，一不小心就很难解决。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import YQBCommon &#x3D; require(&quot;..&#x2F;..&#x2F;libs&#x2F;pb2&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>引用这个没必要，而且路径也是错的。删除这行，pb2.d.ts没问题后，即可正常使用。。</p>
+<p>pb2.d.ts和protobufjs.d.ts也有问题，别用export as namespace 用 declare module</p>
+<p>代码已改。下载改后的项目你试试。</p>
+<ul>
+<li><a href="https://ask.layabox.com/file/download/file_name-bXlMYXlhMkQuemlw__url-aHR0cHM6Ly9pbWcubGF5YWJveC5jb20vYW5zd2VyLzIwMTkwMjIwLzg4ZDQ3NzdkODQ1MGRjNDJiODNjNDliNzY1M2ZkYmNm" target="_blank" rel="noopener">myLaya2D.zip</a></li>
+</ul>
+</blockquote>
+<p><a href="https://ask.layabox.com/question/41139?token=37_xuvr6CbtPl4GOvU9q4mU2A6kG4ZHstwtxm8nUwj-hRXN8pR_AymqEzjVplLLUsZazfveY_TbLzTD9wNJScU11fW7oIiWnuNSQJr2npebL5k" target="_blank" rel="noopener">laya2.0引入第三方库失败</a></p>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/a8fbd3f4.html" class="article-next" title="Ohayoo广告变现SDK_iOS激励视频接入指南"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
