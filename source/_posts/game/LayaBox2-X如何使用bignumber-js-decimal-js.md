@@ -137,6 +137,74 @@ import GameControl from "./GameControl"
 
 ![image-20200930122702863](LayaBox2-X如何使用bignumber-js-decimal-js/image-20200930122702863.png)
 
+#### 2020年10月24日微信报错更新
+
+有群友反馈 在微信平台报错 测试了一下 确实如此 在Chome环境是OK的，在微信小游戏报错
+
+报错如下：
+
+![F93F90D97AD4EFB6742D3C624DC248D3](LayaBox2-X如何使用bignumber-js-decimal-js/F93F90D97AD4EFB6742D3C624DC248D3.jpg)
+
+```javascript
+MiniProgramError
+BigNumber is not defined
+ReferenceError: BigNumber is not defined
+    at GameUI.onEnable (http://127.0.0.1:42957/game/js/bundle.js:74:22)
+    at GameUI._activeHierarchy (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:245524)
+    at GameUI._processActive (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:245022)
+    at GameUI._onAdded (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:246738)
+    at GameUI._setParent (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:242101)
+    at GameUI._setParent (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:261694)
+    at we.addChild (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:239859)
+    at GameUI.open (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:414537)
+    at _onSceneLoaded (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:416882)
+    at T.runWith (http://127.0.0.1:42957/game/libs/min/laya.core.min.js:1:15541)
+```
+
+看到这里 相信大部分人都知道是咋回事就是全部变量里没有 `BigNumber` 这个对象，怎么回事呢？根据以往的解决经验 我们这里给出两个方案：
+
+##### 方案一：
+
+修改 libs/bignumber.js  文末
+
+![image-20201024111236758](LayaBox2-X如何使用bignumber-js-decimal-js/image-20201024111236758.png)
+
+```javascript
+ window.BigNumber = BigNumber;
+```
+
+修改 libs/bignumber.min.js  文末
+
+![image-20201024112009382](LayaBox2-X如何使用bignumber-js-decimal-js/image-20201024112009382.png)
+
+
+
+然后 重新导出项目 运行：正常啦
+
+![image-20201024112125898](LayaBox2-X如何使用bignumber-js-decimal-js/image-20201024112125898.png)
+
+##### 方案二
+
+A方法:修改 导出的小游戏项目 release目录下的 index 
+
+![image-20201024112340126](LayaBox2-X如何使用bignumber-js-decimal-js/image-20201024112340126.png)
+
+```javascript
+window.BigNumber = loadLib("libs/min/bignumber.min.js")
+```
+
+B方法:或者 直接在 game.js 修改为下面这样 这个和修改 index.js 道理一样 用哪个都行
+
+![image-20201024112518926](LayaBox2-X如何使用bignumber-js-decimal-js/image-20201024112518926.png)
+
+```javascript
+window.BigNumber = require("libs/min/bignumber.min.js")
+```
+
+相对来讲 我更喜欢第方案一，当然方案二也不错 大家根据各自偏好 修改即可
+
+
+
 以上 bignumber.js 正常被项目引入 项目地址：https://github.com/jsroads/BNTestdemo.git
 
 [点击进入](https://github.com/jsroads/BNTestdemo.git)
