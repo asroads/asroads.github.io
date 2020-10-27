@@ -67,6 +67,12 @@ target 'EnMetro-mobile' do
 end
 ```
 
+保存文件，运行`pod install`命令安装:
+
+```shell
+pod install
+```
+
 等待安装完毕，重新打开编译运行项目：
 
 ### 遇到的问题：
