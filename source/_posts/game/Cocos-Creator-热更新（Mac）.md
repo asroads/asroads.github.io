@@ -1051,11 +1051,16 @@ rm -rf /Applications/CocosCreator2_2_0.app/Contents/Resources/cocos2d-x/simulato
 chmod u+x *.sh
 ```
 
+#### 热更新报错AssetsManagerEx : No local manifest file found error.
+
+解决办法:有可能是构建的时候勾选了 md5导致的，原生平台不能勾选md5
+
 ### 参考
 
 - [Cocos Creater 热更新](https://www.jianshu.com/p/a033059f376d)
 - [Cocos Creator热更新](https://www.jianshu.com/p/094cd0e95e55)
 - [资源热更新教程](http://docs.cocos.com/creator/manual/zh/advanced-topics/hot-update.html)
+- [cocos creator热更新报错AssetsManagerEx : No local manifest file found error.](https://forum.cocos.org/t/cocos-creator-assetsmanagerex-no-local-manifest-file-found-error/80939)
 
 ### 注意
 
