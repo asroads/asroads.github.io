@@ -159,6 +159,271 @@ implementation 'com.android.support:multidex:1.0.3'
 
 另外需要把AndroidMainfest.xml里面添加自定义的App继承自MultiDexApplication。
 
+### Android 游戏播放视频安卓后台会出现两个app页面
+
+![img](Cocos-Creator-Android-实战开发-中/f0508a261eee124097c43cd3579a07eb6fababe1.png)
+
+左边是解决答案
+
+```xml
+        <activity
+            android:name="org.cocos2dx.javascript.AppActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize|screenLayout"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:resizeableActivity="false"
+            android:launchMode="singleTask">
+            <!--          android:taskAffinity="" >-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+```
+
+#### Android 安装包没有签名文件问题
+
+内容简介：当使用Android studio 打好一个release 包，上传到市场平台的时候，却被提示解析失败，没有签名文件，把打好的包改成zip格式，解压看了一下
+
+![image-20200324194104900](Cocos-Creator-Android-实战开发-中/image-20200324194104900-9023036.png)
+
+确实签名文件应该在META-INF文件夹下，后缀名是.RSA的文件，确实是没有。
+
+查看了一下自己的打包过程，发现了一个小问题
+
+![image-20200324194325084](Cocos-Creator-Android-实战开发-中/image-20200324194325084-9023052.png)
+
+V2这种签名方案是 [Android](http://www.codercto.com/category/android.html) 7.0引入的，它能提供更快的应用安装时间和更多针对未授权 APK 文件更改的保护。具体请看 [这里](https://developer.android.google.cn/about/versions/nougat/android-7.0#apk_signature_v2) 。V1适用于所有android版本的机型，但在Android7.0及以上会缺少针对未授权 APK 文件更改的保护；只勾选V2，Android7.0以下的机型会报错，所以这里建议同时勾选V1，V2，以适用所有机型。
+
+发现问题所在，重新打包，发现还是不可以，再从网上搜索了一下，发现自己的build.gradle 文件有问题：
+
+![image-20200324194544195](Cocos-Creator-Android-实战开发-中/image-20200324194544195-9023070.png)
+
+或者修改：`build.gradle`文件
+
+
+![image-20200324194726730](Cocos-Creator-Android-实战开发-中/image-20200324194726730-9023108.png)
+
+再重新打包上传，一切OK。
+
+#### 添加全局文件
+
+比如我需要添加两个全局文件
+
+![image-20200414142005125](Cocos-Creator-Android-实战开发-中/image-20200414142005125.png)
+
+此时需要在 build.gradle 配置 assets.srcDir "assets"
+
+```yaml
+    sourceSets.main {
+        java.srcDir "src"
+        res.srcDir "res"
+        jniLibs.srcDir "libs"
+        manifest.srcFile "AndroidManifest.xml"
+        assets.srcDir "assets"
+    }
+```
+
+#### 本地预览和debug的apk激励视频广告正常 release 包不能播放
+
+之前一直以为release 包不能看日志，搜索后得知是可以的。只需要  debuggable true  加入 buildTypes {} 
+
+```yaml
+buildTypes {
+    release {
+        minifyEnabled false
+        debuggable true  //true代表开启  false 关闭
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        signingConfig signingConfigs.config
+    }
+    debug {
+        signingConfig signingConfigs.config
+    }
+}
+
+```
+
+原文链接：[android studio release版本下打印输出日志](https://blog.csdn.net/suyimin2010/java/article/details/96472922)
+
+有了日志，基本定位就快了，于是很快找到了报错  J`avaScriptJavaBridge: Classloader failed to find class of xxxxx(我的包名)`  再次查找后，得知是release 打包的时候混淆代码，后面调用的时候，不认识了。
+
+在项目下的 混淆配置文件  proguard-rules.pro 里面 最后加上 ：
+
+
+```yaml
+# 自己游戏的包名 否则release 版本 有时候找不到 类的方法
+-keep class com.my.trainkwai.** {*;}
+```
+
+原文链接:[creator 安卓release包 js调java找不到该java文件的问题](https://forum.cocos.org/t/creator-release-js-java-java/73081)
+
+这样 打出的包，就能顺利找到 方法。
+
+#### 安卓平台 游戏高度适配不正确 上下游黑边
+
+游戏发布了新版本后，在AndroidManifest.xml中设置android:screenOrientation="portrait"，升级gradle后这里会有警告，在有些手机上 会出现上下黑边
+
+![image-20200414143854727](Cocos-Creator-Android-实战开发-中/image-20200414143854727.png)
+
+设置
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.my.trainkwai"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:installLocation="auto">
+    <uses-feature android:glEsVersion="0x00020000" />
+```
+
+和 application 标签
+
+```xml
+ <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
+        tools:ignore="LockedOrientationActivity"
+        android:icon="@mipmap/ic_launcher">
+
+```
+
+在application标签里，加入`tool:ignore="LockedOrientationActivity"`这句话，manifest标签里引入tool`xmlns:tool="http://schemas.android.com/tools"`
+
+参考链接：[android:screenOrientation="portrait" 一直警告报红](https://www.jianshu.com/p/400f62002784)
+
+#### ScriptEngine::onGetStringFromFile ./jsb-dragonbones.js not found, possible missing file.
+
+**原因：**很多做了小游戏的同学，在切换版本的时候很容易入坑，这个其实是开发的时候，导入模块不够的问题，在开发web的时候一般为了包体或者游戏主文件更小，采取了用到哪些，勾选哪些，这样如果照搬到安卓平台，就有了这个报错。
+
+解决办法：把对应的类库 勾选 再次打包 即可
+
+#### 断网情况下 XMLHttpRequest 在原生端没有 网络错误回调
+
+需要代码监听 onerror 和 ontimeout 这俩
+
+```javascript
+				let xhr = new XMLHttpRequest();
+        xhr.timeout = 10 * 1000;
+        xhr.ontimeout = (ev) => {
+            console.log('http_post: request time out.....');
+        };
+        xhr.onabort = (ev)=>{
+            console.log('http_post: request onabort......');
+        }
+        xhr.onerror = (ev)=>{
+            console.log('http_post: request onerror......');
+        }
+        xhr.onreadystatechange = (ev) => {
+            if(xhr.readyState === 4){
+
+            }
+        };
+```
+
+#### 优化 更改Cocos Creator apk 默认输出的名字
+
+这个网上有很多方法：
+
+我这边 最后验证成功的是：需要在 `build.gradle`文件内的 `android.applicationVariants.all` 里面配置
+
+大概结构：
+
+```yaml
+android.applicationVariants.all { variant ->
+    // delete previous files first
+    delete "${buildDir}/intermediates/merged_assets/${variant.dirName}"
+
+    variant.mergeAssets.doLast {
+        def sourceDir = "${buildDir}/../../../../.."
+
+        copy {
+            from "${sourceDir}/assets"
+            into "${outputDir}/assets"
+        }
+
+        copy {
+            from "${sourceDir}/src"
+            into "${outputDir}/src"
+        }
+
+        copy {
+            from "${sourceDir}/jsb-adapter"
+            into "${outputDir}/jsb-adapter"
+        }
+
+        copy {
+            from "${sourceDir}/main.js"
+            from "${sourceDir}/project.json"
+            into outputDir
+        }
+    }
+    if (variant.buildType.name == 'release') {
+        def buildTypeName = variant.buildType.name
+        def createTime = new Date().format("YYYY-MM-dd HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))
+        def releaseFileName = "${buildTypeName}-mobile ${createTime}"
+        //def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${android.defaultConfig.versionCode}-${buildTypeName}.apk"
+        def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${buildTypeName}.apk"
+        println("版本名称--->" + android.defaultConfig.versionName + " 版本号--->" + android.defaultConfig.versionCode)
+        //println(project.name)
+        //println(rootProject.name)
+        //新建一个文件夹 然后把输出app 放到新建的文件夹内
+        variant.getPackageApplication().outputDirectory = new File(variant.getPackageApplication().outputDirectory,releaseFileName)
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            //这个修改输出APK的文件名
+            println(apkData.outputFileName)
+            apkData.outputFileName = releaseApkName
+            println(apkData.outputFileName)
+        }
+    }
+}
+```
+
+### 报错：Error while Uploading and launching Instant App
+
+错误现象
+
+```bash
+Error while Uploading and launching Instant App  
+```
+
+![image-20201030180543973](Cocos-Creator-Android-实战开发-中/image-20201030180543973.png)
+
+找到问题，启动时应该选择自己的游戏 app，以前选成了instantapp
+
+![image-20201030180602477](Cocos-Creator-Android-实战开发-中/image-20201030180602477.png)
+
+### 报错：Program type already present: com.amazing.media.AudioPlayer
+
+```bash
+Program type already present: com.amazing.media.AudioPlayer
+```
+
+解决办法:
+
+
+
+```yaml
+ //在你app的依赖项里如下配置即可依赖所有
+implementation(name: 'VESdk', ext: 'aar')//VE SDK依赖
+implementation(name: 'GameSdk', ext: 'aar')
+implementation(name: 'alipaySdk-15.6.8-20191021122514', ext: 'aar')//VE SDK依赖
+implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.6"
+
+implementation 'com.android.support:cardview-v7:28.0.0'
+implementation 'com.android.support:support-v4:28.0.0'
+implementation "com.android.support:appcompat-v7:28.0.0"
+implementation "com.android.support:recyclerview-v7:28.0.0"
+implementation 'com.google.code.gson:gson:2.8.6'
+configurations {
+    compile.exclude module: 'GameSdk'
+}
+```
+GameSdk 是冲突的 类库或者依赖
+
+
+
 ### 参考
 
 - [cocosCreator 构建IOS,j s调用原生方法没有问题！jsb-webview.js not found](https://forum.cocos.org/t/cocoscreator-ios-j-s-jsb-webview-js-not-found/83662)
@@ -168,4 +433,5 @@ implementation 'com.android.support:multidex:1.0.3'
 - [多窗口支持](https://developer.android.com/guide/topics/ui/multi-window?hl=zh-cn)
 - [AndroidStudio 安装 ButterKnife插件 （手动安装）](https://blog.csdn.net/shanshan_1117/article/details/80333715)
 - [Android方法数methods超过65536](https://blog.csdn.net/zhangphil/article/details/803063)
+- [Android开发之——依赖冲突Program type already present](https://blog.csdn.net/Calvin_zhou/article/details/80880501)
 
