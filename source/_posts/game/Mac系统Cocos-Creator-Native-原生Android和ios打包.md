@@ -138,8 +138,33 @@ Type "help", "copyright", "credits" or "license" for more information.
 - 偏好设置-->原生开发环境配置
   - **NDK 路径**，选择 `Android SDK Location` 路径下的 `ndk-bundle` 文件夹（NDK 是其根目录）
   - **Android SDK 路径**，选择刚才在 SDK Manager 中记下的 `Android SDK Location` 路径（Android SDK 的目录下应该包含 build-tools、platforms 等文件夹）
-  - 默认 `/Users/smile/Library/Android/sdk/ndk-bundle`
+  - 默认 `/Users/smile/Library/Android/sdk/ndk-bundle`(此处Android Studio 4.1后有改动)
+  - `/Users/smile/Library/Android/sdk/ndk/21.3.6528147`
   - 默认 `/Users/smile/Library/Android/sdk`
+  
+  **2020-11-24 更新 --开始**
+  
+  升级Android Studio 4.1 关于 Android Studio 4.1这样配置会报错 
+  
+  A problem occurred configuring project ':app'.
+  
+  ```bash
+  NDK is missing a “platforms” directory.
+  If you are using NDK, verify the ndk.dir is set to a valid NDK directory. It is currently set to C:\DJZHAO\Workspace\Android\Sdk\ndk-bundle.
+  If you are not using NDK, unset the NDK variable from ANDROID_NDK_HOME or local.properties to remove this warning.
+  ```
+  
+  解决办法 NDK 路径不对，重新配置正确的路径 应修改为 
+  
+  ![image-20201124132939890](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20201124132939890.png)
+  
+  `/Users/smile/Library/Android/sdk/ndk/21.3.6528147`    其中`21.3.6528147` 是自己对应下载的NDK
+  
+  下载ADK 
+  
+  ![image-20201124132351651](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20201124132351651.png)
+  
+  **2020-11-24 更新 --结束**
 
 ![image-20191017160336544](Mac系统Cocos-Creator-Native-原生Android和ios打包/image-20191017160336544.jpeg)
 
@@ -364,8 +389,34 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
 
 关于安卓手机如何监听返回键
 
-```
-
+```javascript
+ cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+ onKeyDown(event) {
+        switch (event.keyCode) {
+            case cc.macro.KEY.back:
+                cc.game.end();
+                break;
+            default:
+        }
+        // if (!this._toExitGame) {
+        //     // 首次点击，重置该标记
+        //     this._toExitGame = true;
+        //
+        //     // 发出后退消息，这里监听者来弹出提示：再次点击后退，退出游戏。
+        //     // 这里要替换成自己的消息处理方法
+        //     // AppFacade.getInstance().sendNotification(GAMEEVENTS.APP.TRY_EXIT);
+        //
+        //     // 3秒后没有再次按【后退】按钮，则重置该标记
+        //     this.node.runAction(cc.sequence(cc.delayTime(3), cc.callFunc(() => {
+        //         this._toExitGame = false;
+        //         // this.label.string = '';
+        //     })));
+        // }else{
+        //     // 已经点击过一次，则直接退出
+        //     cc.game.end();
+        //     return;
+        // }
+    }
 ```
 
 

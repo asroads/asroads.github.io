@@ -15,9 +15,33 @@ date: 2020-11-15 16:42:06
 
 ## OC
 
-### 解决NSArray、NSDictionary直接打印中文出现乱码的问题
+### NSArray、NSDictionary打印中文现乱码
 
 在iOS开发中，经常需要查看数组中得元素是否是自己想要的，但是苹果并没有对直接打印数组中得中文作处理，直接打印就会出现一堆很讨厌的东西
+
+地址 https://github.com/LiHe0308/XcodeLog
+
+### openURL: deprecated in iOS 10 警告
+
+原来的代码
+
+```objective-c
+[[UIApplication sharedApplication] openURL:[NSURL URLWithString:APPSTORE_URL]];
+```
+
+修改后
+
+```objective-c
+ UIApplication *application = [UIApplication sharedApplication];
+        NSURL *URL = [NSURL URLWithString:APPSTORE_URL];
+        [application openURL:URL options:@{} completionHandler:^(BOOL success) {
+            if (success) {
+                 NSLog(@"Opened url");
+            }
+        }];
+```
+
+参考地址 [openURL: deprecated in iOS 10](https://stackoverflow.com/questions/39548010/openurl-deprecated-in-ios-10)
 
 ### ALAlertView
 
