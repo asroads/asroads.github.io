@@ -241,12 +241,25 @@
 </ul>
 <p><img src="/post/d130eaa6/image-20191017160057975.jpeg" alt="image-20191017160057975"></p>
 <ul>
-<li>偏好设置–&gt;原生开发环境配置<ul>
+<li><p>偏好设置–&gt;原生开发环境配置</p>
+<ul>
 <li><strong>NDK 路径</strong>，选择 <code>Android SDK Location</code> 路径下的 <code>ndk-bundle</code> 文件夹（NDK 是其根目录）</li>
 <li><strong>Android SDK 路径</strong>，选择刚才在 SDK Manager 中记下的 <code>Android SDK Location</code> 路径（Android SDK 的目录下应该包含 build-tools、platforms 等文件夹）</li>
-<li>默认 <code>/Users/smile/Library/Android/sdk/ndk-bundle</code></li>
+<li>默认 <code>/Users/smile/Library/Android/sdk/ndk-bundle</code>(此处Android Studio 4.1后有改动)</li>
+<li><code>/Users/smile/Library/Android/sdk/ndk/21.3.6528147</code></li>
 <li>默认 <code>/Users/smile/Library/Android/sdk</code></li>
 </ul>
+<p><strong>2020-11-24 更新 –开始</strong></p>
+<p>升级Android Studio 4.1 关于 Android Studio 4.1这样配置会报错 </p>
+<p>A problem occurred configuring project ‘:app’.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NDK is missing a “platforms” directory.</span><br><span class="line">If you are using NDK, verify the ndk.dir is <span class="built_in">set</span> to a valid NDK directory. It is currently <span class="built_in">set</span> to C:\DJZHAO\Workspace\Android\Sdk\ndk-bundle.</span><br><span class="line">If you are not using NDK, <span class="built_in">unset</span> the NDK variable from ANDROID_NDK_HOME or local.properties to remove this warning.</span><br></pre></td></tr></table></figure>
+
+<p>解决办法 NDK 路径不对，重新配置正确的路径 应修改为 </p>
+<p><img src="/post/d130eaa6/image-20201124132939890.png" alt="image-20201124132939890"></p>
+<p><code>/Users/smile/Library/Android/sdk/ndk/21.3.6528147</code>    其中<code>21.3.6528147</code> 是自己对应下载的NDK</p>
+<p>下载ADK </p>
+<p><img src="/post/d130eaa6/image-20201124132351651.png" alt="image-20201124132351651"></p>
+<p><strong>2020-11-24 更新 –结束</strong></p>
 </li>
 </ul>
 <p><img src="/post/d130eaa6/image-20191017160336544.jpeg" alt="image-20191017160336544"></p>
@@ -401,7 +414,7 @@
 
 <p><strong>注意：删除 整个 resources 文件夹 会导致运行不起来</strong></p>
 <p>关于安卓手机如何监听返回键</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, <span class="keyword">this</span>.onKeyDown, <span class="keyword">this</span>);</span><br><span class="line">onKeyDown(event) &#123;</span><br><span class="line">       <span class="keyword">switch</span> (event.keyCode) &#123;</span><br><span class="line">           <span class="keyword">case</span> cc.macro.KEY.back:</span><br><span class="line">               cc.game.end();</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           <span class="keyword">default</span>:</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// if (!this._toExitGame) &#123;</span></span><br><span class="line">       <span class="comment">//     // 首次点击，重置该标记</span></span><br><span class="line">       <span class="comment">//     this._toExitGame = true;</span></span><br><span class="line">       <span class="comment">//</span></span><br><span class="line">       <span class="comment">//     // 发出后退消息，这里监听者来弹出提示：再次点击后退，退出游戏。</span></span><br><span class="line">       <span class="comment">//     // 这里要替换成自己的消息处理方法</span></span><br><span class="line">       <span class="comment">//     // AppFacade.getInstance().sendNotification(GAMEEVENTS.APP.TRY_EXIT);</span></span><br><span class="line">       <span class="comment">//</span></span><br><span class="line">       <span class="comment">//     // 3秒后没有再次按【后退】按钮，则重置该标记</span></span><br><span class="line">       <span class="comment">//     this.node.runAction(cc.sequence(cc.delayTime(3), cc.callFunc(() =&gt; &#123;</span></span><br><span class="line">       <span class="comment">//         this._toExitGame = false;</span></span><br><span class="line">       <span class="comment">//         // this.label.string = '';</span></span><br><span class="line">       <span class="comment">//     &#125;)));</span></span><br><span class="line">       <span class="comment">// &#125;else&#123;</span></span><br><span class="line">       <span class="comment">//     // 已经点击过一次，则直接退出</span></span><br><span class="line">       <span class="comment">//     cc.game.end();</span></span><br><span class="line">       <span class="comment">//     return;</span></span><br><span class="line">       <span class="comment">// &#125;</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
 
 
