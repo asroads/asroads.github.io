@@ -160,14 +160,25 @@ date: 2019-10-15 11:10:15
 | Infinity 新标签页     | [点击下载](https://chrome.google.com/webstore/detail/infinity-new-tab-producti/dbfmnekepjoapopniengjbcpnbljalfg) |       | 自定义添加网站   |
 | Bookmarks clean up    | [点击下载](https://chrome.google.com/webstore/detail/bookmarks-clean-up/oncbjlgldmiagjophlhobkogeladjijl?hl=zh-CN) |        | 查找过期书签     |
 | Recent History        | [点击下载](https://chrome.google.com/webstore/detail/recent-history/fbmkfdfomhhlonpbnpiibloacemdhjjm?hl=zh-CN) |       | 管理历史记录     |
-|                       |                                                              |           |                  |
+| Clear Cache           | [点击下载](https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn) |        | 缓存删除和管理   |
+| LocalStorage Manager  | [点击下载](https://chrome.google.com/webstore/detail/localstorage-manager/fkhoimdhngkiicbjobkinobjkoefhkap) |       | 缓存管理         |
+
+
+
+### 功能增强
+
+| 应用名字             | 地址     | 推荐指数 | 授权 | 备注                     |
+| -------------------- | -------- | -------- | ---- | ------------------------ |
+| New File Menu        | AppStore |       | 收费 | Finder右键创建文档       |
+| 超级右键-iRightMouse | AppStore |      | 免费 | Finder右键增强含创建文档 |
+|                      |          |          |      |                          |
 
 ### 其他软件
 
-| 应用名字 | 地址 | 推荐指数 | 授权         | 备注     |
-| -------- | ---- | -------- | ------------ | -------- |
-| Renamer  | 暂无 |      | 查看JSON文件 | 批量更名 |
-|          |      |          |              |          |
+| 应用名字     | 地址                                         | 推荐指数 | 授权 | 备注     |
+| ------------ | -------------------------------------------- | -------- | ---- | -------- |
+| Renamer      | 暂无                                         |      | 收费 | 批量更名 |
+| Name Changer | [官网](https://mrrsoftware.com/namechanger/) |       | 免费 | 批量更名 |
 
 ### Node 插件
 

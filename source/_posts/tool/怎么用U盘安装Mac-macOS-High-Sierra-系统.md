@@ -55,6 +55,12 @@ sudo /Applications/Install\ macOS\ High\ Sierra.app/Contents/Resources/createins
 
 ###  相关拓展
 
+如要制作 **macOS Big Sur 启动盘**，U盘名称要改成「Big Sur」(必须与下面命令对应)，然后拷贝这段命令
+
+```
+sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/Big\ Sur /Applications/Install\ macOS\ Big\ Sur.app --nointeraction
+```
+
 如要制作 **macOS Catalina 启动盘**，U盘名称要改成「Catalina」(必须与下面命令对应)，然后拷贝这段命令
 
 ```bash
@@ -75,7 +81,10 @@ sudo /Applications/Install\ macOS\ Sierra.app/Contents/Resources/createinstallme
 
 ### 参考链接
 
-[制作 macOS Mojave U盘USB启动安装盘方法教程 (全新安装 Mac 系统)](https://www.iplaysoft.com/macos-usb-install-drive.html)
+- [制作 macOS Mojave U盘USB启动安装盘方法教程 (全新安装 Mac 系统)](https://www.iplaysoft.com/macos-usb-install-drive.html)
 
-[Mac 用U盘重装系统](https://www.cnblogs.com/saytome/p/7069392.html)
+- [Mac 用U盘重装系统](https://www.cnblogs.com/saytome/p/7069392.html)
+- [更改 macOS 用户帐户和个人文件夹的名称](https://support.apple.com/zh-cn/HT201548)
+
+
 

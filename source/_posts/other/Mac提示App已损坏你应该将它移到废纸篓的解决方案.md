@@ -98,3 +98,9 @@ sudo xattr -rd com.apple.quarantine
 下载完成后，打开dmg文件，按住键盘上的`control`键，然后单击或者右键点击macOS小助手应用图标，再点击`打开`即可！
 
 输入序号：`14`，然后将应用拖进窗口中，按下回车，输入密码即可！
+
+
+
+### 参考
+
+- [macOS 10.15 Catalina xxx.app已损坏，无法打开，你应该将它移到废纸篓解决方法](https://www.macwk.com/article/mac-catalina-1015-file-damage)
