@@ -281,6 +281,46 @@ Stencil manager does not support level bigger than %d in this device.
 
 看到这个，我就想到，这个问题只有这个分支报错，其他分支是正常的，应该是合并代码的时候，分组丢失， 去看了一下，果然如此，重新配置分组，然后编译，预览，搞定！
 
+#### cc.assetManager.loadRemote加载不了微信头像
+
+问题环境：升级了2.4.3，发现cc.assetManager.loadRemote这个接口微信头像加载不出来。
+
+解决方案：
+
+##### A方案
+
+```typescript
+public static async loadWeiXinHead(avatarurl:string){
+return new Promise<cc.SpriteFrame>((resolve)=>{
+cc.assetManager.loadRemote(avatarurl, {ext: ‘.png’}, (err, data:cc.Texture2D) => {
+if (!err && data) {
+resolve(new cc.SpriteFrame(data));
+}else{
+console.log("loadWeiXinHead ", err);
+resolve(null);
+}
+});
+});
+}
+
+
+```
+
+##### B方案
+
+```typescript
+cc.assetManager.loadRemote<cc.Texture2D>("http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ1E1XEicr8vAj5o8DMT7GTfCtFyC6vok9TImPjf6BfKBKLFA8hKBS6Wiaz2GJyQQWoV5lA7fhqS4SA/96", {ext: '.png'}, (err, res)=>{
+            var newSpriteFrame = new cc.SpriteFrame(res);
+            var newNode = new cc.Node();
+            newNode.addComponent(cc.Sprite).spriteFrame = newSpriteFrame;
+            this.node.addChild(newNode);
+        })
+```
+
+其实就是缺少 {ext: ‘.png’} 这个参数
+
+参考链接：[cc.assetManager.loadRemote加载不了微信头像](https://forum.cocos.org/t/cc-assetmanager-loadremote/99201)
+
 ### 总结
 
 在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。
