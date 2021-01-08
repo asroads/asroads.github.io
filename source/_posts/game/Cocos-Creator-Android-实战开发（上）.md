@@ -165,6 +165,184 @@ android.applicationVariants.all { variant ->
 
 ![image-20200326201039411](Cocos-Creator-Android-实战开发（上）/image-20200326201039411.png)
 
+#### Grade 升级后对应的改变  2021-01-08 更新
+
+主要就是路径的修改 
+
+将`variantgetPackageApplication()`替换为`variant.getPackageApplicationProvider().get()`
+
+```groovy
+    if (variant.buildType.name == 'release') {
+        def buildTypeName = variant.buildType.name
+        //渠道名称
+        def flavorName = variant.flavorName
+        def createTime = new Date().format("YYYY-MM-dd HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))
+        def releaseFileName = "${buildTypeName}-${variant.versionName}-mobile-${createTime}"
+        //def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${android.defaultConfig.versionCode}-${buildTypeName}.apk"
+        //def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${buildTypeName}.apk"
+        def releaseApkName = "${project.name}-${variant.versionName}-${buildTypeName}.apk"
+//        println("版本名称--->" + android.defaultConfig.versionName + " 版本号--->" + android.defaultConfig.versionCode)
+        println("版本名称--->" + variant.versionName + " 版本号--->" + variant.versionCode)
+//        println(project.rootDir.absolutePath)
+//        println(flavorName)
+//        println(releaseFileName)
+//        println(variant.dirName)
+//        println(releaseApkName)
+//        println(variant.versionName)
+//        println(buildDir.getAbsolutePath())
+//        println(buildDir.getCanonicalPath())
+//        println(buildDir.getParentFile().path)
+        //如果是正式包,将其输入到指定文件夹
+//        def apkDir = buildDir.getAbsolutePath()+"\\outputs\\apk\\"+flavorName+"\\"+buildType
+        //设置build安装包输出路径
+//        variant.getPackageApplicationProvider().get().outputDirectory =  file(apkDir)
+
+        //println(project.name)
+        //println(rootProject.name)
+        //新建一个文件夹 然后把输出app 放到新建的文件夹内
+//        variant.getPackageApplication().outputDirectory = new File(variant.getPackageApplication().outputDirectory,releaseFileName)
+//        variant.getPackageApplicationProvider().get().outputDirectory = new File(variant.getPackageApplicationProvider().get().outputDirectory,releaseFileName)
+//        def apkDir = "${project.projectDir.absolutePath}/${variant.buildType.name}/${variant.flavorName}/${variant.versionName}"
+        def apkDir = "${project.projectDir.absolutePath}/${variant.buildType.name}/${releaseFileName}"
+        println(apkDir)
+        variant.packageApplicationProvider.get().outputDirectory = new File(apkDir)
+        variant.outputs.all { apkData ->
+            println(apkData.outputFileName)
+            apkData.outputFileName = releaseApkName
+            println(apkData.outputFileName)
+        }
+        // 不同版本更改输出apk文件名方式
+        /**
+         *  gradleVersion 小于4.0
+         */
+        /*  variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
+              apkData.outputFileName = path
+          }*/
+        /*      *//**
+         *  gradleVersion 大于4.0
+         *//*
+        variant.outputs.forEach {
+            it.apkData.outputFileName = path
+        }*/
+        /**
+         *  gradleVersion 大于4.1
+         */
+//        variant.outputs.forEach {apkData ->
+//            println(apkData.outputFileName)
+//            apkData.outputFileName = releaseApkName
+//            println(apkData.outputFileName)
+//        }
+//        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+//            //这个修改输出APK的文件名
+//            println(apkData.outputFileName)
+//            apkData.outputFileName = releaseApkName
+//            println(apkData.outputFileName)
+//        }
+    }
+```
+
+
+
+**附录：参考链接代码引用**
+
+> 参考1
+> Gradle升级了3.0后，output.outputFile变成了只读属性，不能再往里面写东西了
+>
+> Gradle3.0之后的配置
+>
+> ```groovy
+>     android.applicationVariants.all { v ->
+>         v.outputs.all {
+>             /*指定输出到 ${project}/outputs/apk/release文件夹下*/
+>             v.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/outputs/apk/release")
+>             /*修改输出apk名字*/
+>             outputFileName = "testAPP.apk"
+>         }
+>     }
+> ```
+>
+> 参考2
+>
+> ```groovy
+> android {
+>     applicationVariants.all { variant ->
+>         variant.outputs.all { output ->
+>             variant.packageApplicationProvider.get().outputDirectory = new File("path/to/output/dir")
+>             outputFileName = "output_file_name.apk"
+>         }
+>     }
+> }
+> ```
+>
+> 需要注意：
+>
+> 1.如果是多种build type或多种flavor同时打包，记得在输出文件夹路径或文件名中引用相关变量。
+>
+> 2.Android Studio调试时，并不认输出目录，也就是编译打包会输出到指定目录下，但是Android Studio还是会在默认目录寻找apk，找不到就会报错，不会自动安装。
+>
+> 参考3 csdn 博客（文章有权限需要关注）
+
+> ```groovy
+>    applicationVariants.all { variant ->
+>    // 打包完成后复制到的目录
+>         def outputFileDir = "${project.projectDir.absolutePath}/${variant.buildType.name}/${variant.flavorName}/${variant.versionName}"
+>     
+> 
+> //  此处可以根据需求配置相关渠道的默认输出路径,默认输出路径为“app/build/outputs/apk/${variant.flavorName}“”
+> //        if (variant.buildType.name == "release"&&variant.flavorName == "online") {
+> //            println("outputDirectory1:${variant.getPackageApplicationProvider().get().outputDirectory}")
+> //            variant.getPackageApplicationProvider().get().outputDirectory = new File(outputFileDir)
+> //        }
+>       //确定输出文件名
+>         def today = new Date()
+>         def path = ((project.name != "app") ? project.name : rootProject.name.replace(" ","")) + "_" +
+>                 variant.flavorName + "_" +
+>                 variant.buildType.name + "_"+
+>                 variant.versionName + "_" +
+>                 today.format('yyyyMMddhhmm') +
+>                 ".apk"
+>         // 不同版本更改输出apk文件名方式
+>         /**
+>          *  gradleVersion 小于4.0
+>          */
+>         /*  variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach { apkData ->
+>               apkData.outputFileName = path
+>           }*/
+>   /*      *//**
+>          *  gradleVersion 大于4.0
+>          *//*
+>         variant.outputs.forEach {
+>             it.apkData.outputFileName = path
+>         }*/
+>         /**
+>          *  gradleVersion 大于4.1
+>          */
+>         variant.outputs.forEach {
+>             it.outputFileName = path
+>         }
+> 	// 打包完成后做的一些事,复制apk到指定文件夹,复制mapping等
+>         variant.assemble.doLast {
+>             File out = new File(outputFileDir)
+>             copy {
+>                 from variant.mappingFile
+>                 into  out
+>                 rename {
+>                     String fileName -> "${variant.buildType.name}-${variant.flavorName}-mapping-${variant.versionName}.txt"
+>                 }
+>                 variant.outputs.forEach{ file->
+>                     copy{
+>                         from file.outputFile
+>                         into out
+>                     }
+>                 }
+>             }
+>         }
+>     }
+> 
+> ```
+>
+> 
+
 ### 参考
 
 - [【cocos2dx】改安装包名、app名、图标、包名](https://blog.csdn.net/hqq39/article/details/49821607)
@@ -172,4 +350,7 @@ android.applicationVariants.all { variant ->
 - [使用Gradle管理你的Android Studio工程](https://www.flysnow.org/2015/03/30/manage-your-android-project-with-gradle.html)
 - [android studio 打包自动生成版本号与日期，apk输入路径](https://blog.csdn.net/swer0808/article/details/78999949)
 - [gradle 3.3 修改打包apk路径](https://www.jianshu.com/p/e088b6f1a59a)
+- [Gradle 3.4.0以上版本自定义apk输出目录和输出文件名](https://imlushen.com/custom-gradle-apk-output-dir-and-filename/)
+- [解决Android更新Gradle 报 'variantOutput.getPackageApplication()' is obsolete replace getPackageApplicati-CSDN](https://blog.csdn.net/jiabaokang/article/details/97772767)
+- [最新最全Android Gradle 自定义打包输出路径和文件名,并复制到某一文件夹](https://blog.csdn.net/smallbabylong/article/details/111276762)
 
