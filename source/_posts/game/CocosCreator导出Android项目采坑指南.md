@@ -12,6 +12,8 @@ date: 2020-02-03 20:04:10
 <!--more-->
 下面就记录以下，我在尝试新平台开发摸索中的遇到的各种问题，以及解决问题的方法和对问题的理解。
 
+## 常见踩坑点
+
 ### APP ABI 版本 不能一个也不勾选
 
 ![image-20200414140608308](CocosCreator导出Android项目采坑指南/image-20200414140608308.png)
@@ -316,7 +318,34 @@ versionCode （整形数字）这个是防止用户用低版本置换高版本�
 
 
 
-### 参考文章
+### Program type already present:xxx.xxx错误的解决办法
+
+报错现象：gradle编译出现Program type already present:com.xx.xx
+
+```bash
+Program type already present: com.hp.hpl.sparta.DefaultParseHandler
+```
+
+原因是 重复依赖 是我们对两个类或者两个库文件 添加重复了
+
+
+
+**解决办法**：查看一下自己的 buid.gradle 文件里
+
+比如下面 如果 打开注释 就会报错 因为 上面已经添加了 aar 文件
+
+```groovy
+dependencies {
+		implementation fileTree(dir: '../libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation fileTree(dir: "../../../cocos2d-x/cocos/platform/android/java/libs", include: ['*.jar'])
+    implementation project(':libcocos2dx')
+		//渠道聚合层，必加  implementation fileTree(dir: 'libs', include: ['*.jar','*.aar']) 已经包含
+		//implementation(name: "usdk-release-1200", ext: 'aar')
+}
+```
+
+## 参考文章
 
 - [大家都是怎样处理Gradle中的这个文件下载慢的问题的？](https://www.zhihu.com/question/37810416)
 - [COCOS2DX 安卓getMergeAssets 过期](https://www.jianshu.com/p/647cd8e96472)
