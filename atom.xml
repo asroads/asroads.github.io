@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.asroads.com/"/>
-  <updated>2021-01-06T10:56:00.524Z</updated>
+  <updated>2021-01-09T10:07:45.916Z</updated>
   <id>http://blog.asroads.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac下Cornerstone命令Clean无效解决办法</title>
+    <link href="http://blog.asroads.com/post/7aa825f5.html"/>
+    <id>http://blog.asroads.com/post/7aa825f5.html</id>
+    <published>2021-01-09T10:47:25.000Z</published>
+    <updated>2021-01-09T10:07:45.916Z</updated>
+    
+    <content type="html"><![CDATA[<p>自从用了Mac下的SVN GUI软件就从来没有一款软件可以和windows下的<a href="https://tortoisesvn.net/downloads.zh.html" target="_blank" rel="noopener">TortoiseSVN</a>好用，但是没办法只能选择相对来讲比较好用的软件，Cornerstone这个软件就成了Mac下的<a href="https://tortoisesvn.net/downloads.zh.html" target="_blank" rel="noopener">TortoiseSVN</a>的替代品，但是有时候遇到一些棘手的问题，操作起来还是很不方便，比如遇到clean 命令操作失败，此时我们发现在根目录执行命令也无效的时候该怎么办，下面就说说这个问题的解决办法。</p><a id="more"></a><h2 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h2><p>这些错误一般是因为我们操作失误或者软件崩溃引起的，以前都是把这个目录删掉，重新更新，再次导出项目，很麻烦的操作，下面就采用一种比较推荐的简单的方法。</p><h2 id="报错现象"><a href="#报错现象" class="headerlink" title="报错现象"></a>报错现象</h2><p><img src="/post/7aa825f5/image-20210109175521745.png" alt="image-20210109175521745"></p><p>这个点击后，发现很多命令都无法操作了，无论是更新，还原 提交都会报错。</p><h3 id="尝试方法一："><a href="#尝试方法一：" class="headerlink" title="尝试方法一："></a>尝试方法一：</h3><p>mac 终端键入 svn “清理”命令的方式</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn cleanup</span><br></pre></td></tr></table></figure><p>发现依旧不能使用：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">svn: E155037: Cleanup with an older 1.7 client before upgrading with this client</span><br><span class="line">svn: E155037: Previous operation has not finished; run &#39;cleanup&#39; if it was interrupted</span><br></pre></td></tr></table></figure><p>大概意思是：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">svn: E155037: 在升级客户端之前，使用早期 1.7 版本的客户端进行了清理操作</span><br><span class="line">svn: E155037: 之前的操作尚未结束；如果之前的操作是意外中断，运行 &#39;cleanup&#39; 命令</span><br></pre></td></tr></table></figure><p>此时这个方法放弃。</p><h3 id="尝试方法二"><a href="#尝试方法二" class="headerlink" title="尝试方法二"></a>尝试方法二</h3><p>工作拷贝的根目录下有一个 .svn 文件夹，里面有一个 wc.db 文件，如下图：</p><p><img src="/post/7aa825f5/image-20210109175900949.png" alt="image-20210109175900949"></p><p><img src="/post/7aa825f5/image-20210109175923643.png" alt="image-20210109175923643"></p><p>如果我们要修改wc.db 文件，您需要一个 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.sqlite.org%2Findex.html" target="_blank" rel="noopener">SQLite</a> 软件。如果您使用 macOS，那么系统本身已经帮您预安装了，可直接使用；如果您使用 Windows 操作系统，那么需要先下载适合您系统的安装包，然后安装此软件，官方下载地址是：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.sqlite.org%2Fdownload.html" target="_blank" rel="noopener">https://www.sqlite.org/download.html</a></p><h4 id="首先进入我们的工作拷贝目录"><a href="#首先进入我们的工作拷贝目录" class="headerlink" title="首先进入我们的工作拷贝目录"></a>首先进入我们的工作拷贝目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Users/smile/work/CDN/railway</span><br></pre></td></tr></table></figure><h4 id="键入下面的命令并执行，查找未完成的记录："><a href="#键入下面的命令并执行，查找未完成的记录：" class="headerlink" title="键入下面的命令并执行，查找未完成的记录："></a>键入下面的命令并执行，查找未完成的记录：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 .svn/wc.db <span class="string">"select * from work_queue"</span></span><br></pre></td></tr></table></figure><p>我这边输出内容如下 ，这个自己操作会有不同的显示</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">84635|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;04&#x2F;04b376a7-5b38-49c6-bea3-08278d142ad8.bad96.png)</span><br><span class="line">84636|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;31&#x2F;31d49fc0-df50-44b4-8152-eb4616d97986.75d47.png)</span><br><span class="line">84637|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;40&#x2F;4003a843-8fec-46f9-8a27-fb450fa132c7.fc04f.png)</span><br><span class="line">84638|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;71&#x2F;71fdbb3c-1945-4da1-a54f-5041c87ede06.9db4c.png)</span><br><span class="line">84639|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;76&#x2F;76596bba-e271-40e8-a0aa-d89cbcd296d7.4fee8.png)</span><br><span class="line">84640|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;b6&#x2F;b6ef2b54-cbea-4ec2-8e5d-a7e0f44ce657.714c6.png)</span><br><span class="line">84641|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;d9&#x2F;d9d425ed-0906-47f3-b50c-b360c53ca04f.b1e51.png)</span><br></pre></td></tr></table></figure><h4 id="键入下面的命令并执行，删除未完成的记录："><a href="#键入下面的命令并执行，删除未完成的记录：" class="headerlink" title="键入下面的命令并执行，删除未完成的记录："></a>键入下面的命令并执行，删除未完成的记录：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 .svn/wc.db <span class="string">"delete from work_queue"</span></span><br></pre></td></tr></table></figure><p>如果一切顺利，mac 终端什么都不会输出，心安理得。此时回到 Cornerstone ，已经允许您对工作拷贝执行“更新”、“提交”、“解决冲突”、“清理”等操作了。</p><p><strong>PS:建议先对SVN工作项目根目录进行 clean 命令。我这边如果先还原和更新依旧不能操作。</strong></p><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul><li><a href="https://www.jianshu.com/p/b7faf41d89a3" target="_blank" rel="noopener">macOS 中 Cornerstone 的”Clean”操作和终端的”svn cleanup”命令无效了怎么办-简书</a></li><li><a href="https://blog.csdn.net/lijuan3203/article/details/52033690" target="_blank" rel="noopener">Cornerstone SVN: The working copy is locked due to a previous error</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自从用了Mac下的SVN GUI软件就从来没有一款软件可以和windows下的&lt;a href=&quot;https://tortoisesvn.net/downloads.zh.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;TortoiseSVN&lt;/a&gt;好用，但是没办法只能选择相对来讲比较好用的软件，Cornerstone这个软件就成了Mac下的&lt;a href=&quot;https://tortoisesvn.net/downloads.zh.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;TortoiseSVN&lt;/a&gt;的替代品，但是有时候遇到一些棘手的问题，操作起来还是很不方便，比如遇到clean 命令操作失败，此时我们发现在根目录执行命令也无效的时候该怎么办，下面就说说这个问题的解决办法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
+    
+    
+      <category term="技术" scheme="http://blog.asroads.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Mac" scheme="http://blog.asroads.com/tags/Mac/"/>
+    
+      <category term="SVN" scheme="http://blog.asroads.com/tags/SVN/"/>
+    
+  </entry>
   
   <entry>
     <title>Cocos Creator Android原生项目升级gradle版本</title>
@@ -472,29 +499,6 @@
     
     
       <category term="Chrome" scheme="http://blog.asroads.com/tags/Chrome/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何找回已经忘记的svn账号和密码|Windows</title>
-    <link href="http://blog.asroads.com/post/df55cfad.html"/>
-    <id>http://blog.asroads.com/post/df55cfad.html</id>
-    <published>2020-05-10T06:45:37.000Z</published>
-    <updated>2020-11-30T11:57:01.980Z</updated>
-    
-    <content type="html"><![CDATA[<p>在公司的工作中，有时候项目开发要用到SVN开发，就会给个账号和密码，时间久了，忘记了，此时我们如何找回呢？且看下面细细道来。</p><a id="more"></a><h3 id="密码找回背景"><a href="#密码找回背景" class="headerlink" title="密码找回背景"></a>密码找回背景</h3><p>刚开始做项目之前，就会需要添加一个SVN地址来download一个项目进行开发。Boss会给你一个账号名密码，就可以进行checkout了。过了一段时间可能就需要在checkout另一个项目了，就需要新建一个资源库地址，如果是同一个ip地址，那么是不需要再次输入账号名密码的，直接添加就可以了。可是如果不是同一个ip地址，那么需要再次录入账号名密码。如果有聊天记录，那就不需要往下看了，找到聊天记录就行。如果聊天记录没了，那怎么办呢。</p><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="首先-先找到你保存路径，默认是路径"><a href="#首先-先找到你保存路径，默认是路径" class="headerlink" title="首先,先找到你保存路径，默认是路径"></a>首先,先找到你保存路径，默认是路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator\AppData\Roaming\Subversion\auth\svn.simple</span><br></pre></td></tr></table></figure><h4 id="下载-TortoiseSVN-Password-Decrypter"><a href="#下载-TortoiseSVN-Password-Decrypter" class="headerlink" title="下载 TortoiseSVN Password Decrypter"></a>下载 TortoiseSVN Password Decrypter</h4><p><a href="http://www.leapbeyond.com/ric/TSvnPD/" target="_blank" rel="noopener">TortoiseSVN Password Decrypter</a></p><p><img src="/post/df55cfad/image-20200510145016720.png" alt="image-20200510145016720"></p><h4 id="运行软件，查看密码"><a href="#运行软件，查看密码" class="headerlink" title="运行软件，查看密码"></a>运行软件，查看密码</h4><p><img src="/post/df55cfad/image-20200510145358981.png" alt="image-20200510145358981"></p><p><strong>此时，密码已经看到了！再次建议，最好还是自己写个文档专门存放和工作相关的账号密码。</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在公司的工作中，有时候项目开发要用到SVN开发，就会给个账号和密码，时间久了，忘记了，此时我们如何找回呢？且看下面细细道来。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="tool" scheme="http://blog.asroads.com/categories/tool/"/>
-    
-    
-      <category term="技术" scheme="http://blog.asroads.com/tags/%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   

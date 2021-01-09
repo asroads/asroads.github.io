@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+
+    
+
+    
+
+    <title>Mac下Cornerstone命令Clean无效解决办法 | Asroads&#39;Blog</title>
+    <meta name="author" content="asroads" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="自从用了Mac下的SVN GUI软件就从来没有一款软件可以和windows下的TortoiseSVN好用，但是没办法只能选择相对来讲比较好用的软件，Cornerstone这个软件就成了Mac下的TortoiseSVN的替代品，但是有时候遇到一些棘手的问题，操作起来还是很不方便，比如遇到clean 命令操作失败，此时我们发现在根目录执行命令也无效的时候该怎么办，下面就说说这个问题的解决办法。报错原因这些错误一般是因为我们操作失误或者软件崩溃引起的，以前都是把这个目录删掉，重新更新，再次导出项目，很" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+
+    
+    <link rel="alternate" href="/atom.xml" title="Asroads&#39;Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'icomoon';
+        src: url("/fonts/icomoon.eot?q628ml");
+        src: url("/fonts/icomoon.eot?q628ml#iefix") format('embedded-opentype'),
+             url("/fonts/icomoon.ttf?q628ml") format('truetype'),
+             url("/fonts/icomoon.woff?q628ml") format('woff'),
+             url("/fonts/icomoon.svg?q628ml#icomoon") format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!--[if lt IE 9]><style type="text/css">.nav-inner {top:0;}.author-meta {position:static;top:0;}.search-form {height:36px;}</style><script type="text/javascript" src="https://unpkg.com/html5shiv@3.7.3/dist/html5shiv.min.js"></script><![endif]-->
+<meta name="generator" content="Hexo 4.2.0"></head>
+<body>
+
+    <main class="app">
+        <header id="header" class="header clearfix">
+    <div id="nav" class="nav">
+    <div class="nav-mobile">
+        <button id="open-panel" class="open-panel nav-mobile-item"><i class="icon-documents"></i></button>
+        <h1 class="nav-mobile-title nav-mobile-item">Asroads&#39;Blog</h1>
+        <button id="open-menus" class="open-panel nav-mobile-item"><i class="icon-library"></i></button>
+    </div>
+
+    <nav id="nav-inner" class="nav-inner">
+        
+            <a class="nav-item" href="/">
+                <span class="nav-text">首页</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/game">
+                <span class="nav-text">手游</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/tool">
+                <span class="nav-text">技术</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/other">
+                <span class="nav-text">杂项</span>
+            </a>
+        
+            <a class="nav-item" href="/categories/life">
+                <span class="nav-text">感悟</span>
+            </a>
+        
+            <a class="nav-item" href="/tags">
+                <span class="nav-text">标签</span>
+            </a>
+        
+            <a class="nav-item" href="/archives">
+                <span class="nav-text">归档</span>
+            </a>
+        
+            <a class="nav-item" href="/about">
+                <span class="nav-text">关于</span>
+            </a>
+        
+    </nav>
+</div>
+
+    <aside id="aside" class="aside">
+    <div id="aside-mask" class="aside-mask"></div>
+    <div id="aside-inner" class="aside-inner">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit"><i class="icon-search-stroke"></i></button><input type="hidden" name="sitesearch" value="http://blog.asroads.com"></form>
+
+        
+        
+        
+        
+
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#报错原因"><span class="toc-number">1.</span> <span class="toc-text">报错原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#报错现象"><span class="toc-number">2.</span> <span class="toc-text">报错现象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#尝试方法一："><span class="toc-number">2.1.</span> <span class="toc-text">尝试方法一：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#尝试方法二"><span class="toc-number">2.2.</span> <span class="toc-text">尝试方法二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#首先进入我们的工作拷贝目录"><span class="toc-number">2.2.1.</span> <span class="toc-text">首先进入我们的工作拷贝目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#键入下面的命令并执行，查找未完成的记录："><span class="toc-number">2.2.2.</span> <span class="toc-text">键入下面的命令并执行，查找未完成的记录：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#键入下面的命令并执行，删除未完成的记录："><span class="toc-number">2.2.3.</span> <span class="toc-text">键入下面的命令并执行，删除未完成的记录：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-number">3.</span> <span class="toc-text">参考链接</span></a></li></ol>
+        
+    </div>
+</aside>
+
+</header>
+
+        <div id="content" class="content">
+            <div id="wrapper" class="wrapper" style="max-width: 1000px">
+                <article class="article" itemscope itemprop="blogPost">
+    
+    <header class="article-header">
+        
+        <h1 itemprop="name">
+            Mac下Cornerstone命令Clean无效解决办法
+        </h1>
+        
+        <div class="article-meta clearfix">
+            <a class="article-date" href="http://blog.asroads.com/post/7aa825f5.html">
+    
+    <i class="icon-calendar vm"></i>
+    
+    <time class="vm" datetime="2021-01-09T10:47:25.000Z" itemprop="datePublished">2021-01-09</time>
+</a>
+
+            
+<div class="article-tag-list">
+    <i class="icon-tag vm"></i>
+    <a class="article-tag-link" href="/tags/Mac/" rel="tag">Mac</a>, <a class="article-tag-link" href="/tags/SVN/" rel="tag">SVN</a>, <a class="article-tag-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a>
+</div>
+
+
+        </div>
+    </header>
+    
+    <section class="article-body markdown-body">
+        
+        <p>自从用了Mac下的SVN GUI软件就从来没有一款软件可以和windows下的<a href="https://tortoisesvn.net/downloads.zh.html" target="_blank" rel="noopener">TortoiseSVN</a>好用，但是没办法只能选择相对来讲比较好用的软件，Cornerstone这个软件就成了Mac下的<a href="https://tortoisesvn.net/downloads.zh.html" target="_blank" rel="noopener">TortoiseSVN</a>的替代品，但是有时候遇到一些棘手的问题，操作起来还是很不方便，比如遇到clean 命令操作失败，此时我们发现在根目录执行命令也无效的时候该怎么办，下面就说说这个问题的解决办法。</p>
+<a id="more"></a>
+
+<h2 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h2><p>这些错误一般是因为我们操作失误或者软件崩溃引起的，以前都是把这个目录删掉，重新更新，再次导出项目，很麻烦的操作，下面就采用一种比较推荐的简单的方法。</p>
+<h2 id="报错现象"><a href="#报错现象" class="headerlink" title="报错现象"></a>报错现象</h2><p><img src="/post/7aa825f5/image-20210109175521745.png" alt="image-20210109175521745"></p>
+<p>这个点击后，发现很多命令都无法操作了，无论是更新，还原 提交都会报错。</p>
+<h3 id="尝试方法一："><a href="#尝试方法一：" class="headerlink" title="尝试方法一："></a>尝试方法一：</h3><p>mac 终端键入 svn “清理”命令的方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">svn cleanup</span><br></pre></td></tr></table></figure>
+
+<p>发现依旧不能使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">svn: E155037: Cleanup with an older 1.7 client before upgrading with this client</span><br><span class="line">svn: E155037: Previous operation has not finished; run &#39;cleanup&#39; if it was interrupted</span><br></pre></td></tr></table></figure>
+
+<p>大概意思是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">svn: E155037: 在升级客户端之前，使用早期 1.7 版本的客户端进行了清理操作</span><br><span class="line">svn: E155037: 之前的操作尚未结束；如果之前的操作是意外中断，运行 &#39;cleanup&#39; 命令</span><br></pre></td></tr></table></figure>
+
+<p>此时这个方法放弃。</p>
+<h3 id="尝试方法二"><a href="#尝试方法二" class="headerlink" title="尝试方法二"></a>尝试方法二</h3><p>工作拷贝的根目录下有一个 .svn 文件夹，里面有一个 wc.db 文件，如下图：</p>
+<p><img src="/post/7aa825f5/image-20210109175900949.png" alt="image-20210109175900949"></p>
+<p><img src="/post/7aa825f5/image-20210109175923643.png" alt="image-20210109175923643"></p>
+<p>如果我们要修改wc.db 文件，您需要一个 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.sqlite.org%2Findex.html" target="_blank" rel="noopener">SQLite</a> 软件。如果您使用 macOS，那么系统本身已经帮您预安装了，可直接使用；如果您使用 Windows 操作系统，那么需要先下载适合您系统的安装包，然后安装此软件，官方下载地址是：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.sqlite.org%2Fdownload.html" target="_blank" rel="noopener">https://www.sqlite.org/download.html</a></p>
+<h4 id="首先进入我们的工作拷贝目录"><a href="#首先进入我们的工作拷贝目录" class="headerlink" title="首先进入我们的工作拷贝目录"></a>首先进入我们的工作拷贝目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Users/smile/work/CDN/railway</span><br></pre></td></tr></table></figure>
+
+<h4 id="键入下面的命令并执行，查找未完成的记录："><a href="#键入下面的命令并执行，查找未完成的记录：" class="headerlink" title="键入下面的命令并执行，查找未完成的记录："></a>键入下面的命令并执行，查找未完成的记录：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 .svn/wc.db <span class="string">"select * from work_queue"</span></span><br></pre></td></tr></table></figure>
+
+<p>我这边输出内容如下 ，这个自己操作会有不同的显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">84635|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;04&#x2F;04b376a7-5b38-49c6-bea3-08278d142ad8.bad96.png)</span><br><span class="line">84636|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;31&#x2F;31d49fc0-df50-44b4-8152-eb4616d97986.75d47.png)</span><br><span class="line">84637|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;40&#x2F;4003a843-8fec-46f9-8a27-fb450fa132c7.fc04f.png)</span><br><span class="line">84638|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;71&#x2F;71fdbb3c-1945-4da1-a54f-5041c87ede06.9db4c.png)</span><br><span class="line">84639|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;76&#x2F;76596bba-e271-40e8-a0aa-d89cbcd296d7.4fee8.png)</span><br><span class="line">84640|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;b6&#x2F;b6ef2b54-cbea-4ec2-8e5d-a7e0f44ce657.714c6.png)</span><br><span class="line">84641|(file-commit wx&#x2F;2.0.44&#x2F;remote&#x2F;resources&#x2F;native&#x2F;d9&#x2F;d9d425ed-0906-47f3-b50c-b360c53ca04f.b1e51.png)</span><br></pre></td></tr></table></figure>
+
+<h4 id="键入下面的命令并执行，删除未完成的记录："><a href="#键入下面的命令并执行，删除未完成的记录：" class="headerlink" title="键入下面的命令并执行，删除未完成的记录："></a>键入下面的命令并执行，删除未完成的记录：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlite3 .svn/wc.db <span class="string">"delete from work_queue"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果一切顺利，mac 终端什么都不会输出，心安理得。此时回到 Cornerstone ，已经允许您对工作拷贝执行“更新”、“提交”、“解决冲突”、“清理”等操作了。</p>
+<p><strong>PS:建议先对SVN工作项目根目录进行 clean 命令。我这边如果先还原和更新依旧不能操作。</strong></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://www.jianshu.com/p/b7faf41d89a3" target="_blank" rel="noopener">macOS 中 Cornerstone 的”Clean”操作和终端的”svn cleanup”命令无效了怎么办-简书</a></li>
+<li><a href="https://blog.csdn.net/lijuan3203/article/details/52033690" target="_blank" rel="noopener">Cornerstone SVN: The working copy is locked due to a previous error</a></li>
+</ul>
+
+        
+    </section>
+</article>
+
+
+
+<a id="pagenext" href="/post/d184577c.html" class="article-next" title="Cocos Creator Android原生项目升级gradle版本"><i class="icon-arrow-right"></i></a>
+
+
+
+
+            </div>
+        </div>
+        <footer class="footer">
+    Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, Theme by <a href="https://github.com/sanonz/hexo-theme-concise" target="_blank">Concise</a>
+
+    
+</footer>
+
+    </main>
+
+    <script type="text/javascript" src="https://unpkg.com/jquery@1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var nodes = {
+            nav: $('#nav'),
+            aside: $('#aside'),
+            asideInner: $('#aside-inner'),
+            navInner: $('#nav-inner')
+        };
+
+        var doing = false;
+        nodes.asideInner.on('webkitAnimationEnd mozAnimationEnd oAnimationEnd oanimationend animationend', function() {
+            if (nodes.aside.hasClass('mobile-open')) {
+                nodes.aside.removeClass('mobile-open');
+            } else {
+                nodes.aside.removeClass('mobile-close panel-show');
+            }
+            doing = false;
+        });
+        $('#open-panel, #aside-mask').on('click', function() {
+            if (doing) {
+                return;
+            }
+
+            if (nodes.aside.hasClass('panel-show')) {
+                nodes.aside.addClass('mobile-close');
+            } else {
+                nodes.aside.addClass('mobile-open panel-show');
+            }
+        });
+        $('#open-menus').on('click', function() {
+            nodes.navInner.slideToggle('normal', slideDone);
+        });
+
+        if (window.innerWidth <= 960) {
+            setTimeout(function() {
+                nodes.navInner.slideUp('normal', slideDone);
+            }, 3000);
+        }
+
+        function slideDone() {
+            if (nodes.navInner.css('display') !== 'none') {
+                nodes.navInner.css('display', '');
+            }
+        }
+
+        $(window).on('resize', function() {
+            if ($(this).width() > 960) {
+                nodes.navInner.css('display', '');
+            }
+        });
+    });
+    </script>
+    
+        
+<script src="/js/scrollspy.min.js"></script>
+
+        <script type="text/javascript">
+        $(document.body).scrollspy({target: '#aside-inner'});
+
+        $(window).on('resize', function() {
+            var hw = $('#header').width();
+            var ww = $('#wrapper').width();
+            var space = ($(this).width() - hw - ww) / 2 / 2;
+
+            var pageprev = $('#pageprev');
+            var pagenext = $('#pagenext');
+            var avg = (pageprev.width() + pagenext.width()) / 2
+
+            if(space > avg) {
+                var len = space - avg / 2;
+                var styles = {position: 'fixed', top: '50%', marginTop: - (pageprev.width() + pagenext.width()) / 4}
+                pageprev.css($.extend({left: hw + len}, styles));
+                pagenext.css($.extend({right: len}, styles));
+            } else {
+                pageprev.removeAttr('style');
+                pagenext.removeAttr('style');
+            }
+        }).trigger('resize');
+        </script>
+    
+
+</body>
+</html>
