@@ -4,6 +4,7 @@ comments: true
 categories: game
 tags:
   - Cocos
+  - Android
 abbrlink: d130eaa6
 date: 2019-10-17 18:30:53
 ---

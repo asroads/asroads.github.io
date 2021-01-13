@@ -169,7 +169,7 @@ android.applicationVariants.all { variant ->
 
 主要就是路径的修改 
 
-将`variantgetPackageApplication()`替换为`variant.getPackageApplicationProvider().get()`
+将`variant.getPackageApplication()`替换为`variant.getPackageApplicationProvider().get()`
 
 ```groovy
     if (variant.buildType.name == 'release') {
@@ -343,6 +343,153 @@ android.applicationVariants.all { variant ->
 >
 > 
 
+### API 'variant.getMergeAssets()' is obsolete and has been replaced with 'variant.getMergeAssetsProvider()'.
+
+![image-20210111151834224](Cocos-Creator-Android-实战开发（上）/image-20210111151834224.png)
+
+```shell
+API 'variant.getMergeAssets()' is obsolete and has been replaced with 'variant.getMergeAssetsProvider()'.
+It will be removed at the end of 2019.
+For more information, see https://d.android.com/r/tools/task-configuration-avoidance.
+To determine what is calling variant.getMergeAssets(), use -Pandroid.debug.obsoleteApi=true on the command line to display more information.
+```
+
+这个是升级 gradle 插件 和 gradle 版本后遇到的，直接打包后的不会遇到这个问题
+
+看到这个警告的时候，我全局搜索了这个 `variant.getMergeAssets()`并没有找到这个，很奇怪，后面去网上搜索了才知道是
+
+需要把  `variant.mergeAssets.doLast {`
+换成
+`variant.mergeAssetsProvider.get().doLast {`
+
+这样 警告就消失了！
+
+参考地址 [Cocos2d-x 3.17 and android studio 3.3 build Issue or Error?](https://discuss.cocos2d-x.org/t/cocos2d-x-3-17-and-android-studio-3-3-build-issue-or-error/45503)
+
+> Just change string `variant.mergeAssets.doLast {`
+> to
+> `variant.mergeAssetsProvider.get().doLast {`
+
+### 警告API 'variant.getMergeAssets()' is obsolete and has been replaced with 'variant.getMergeAssetsProvider()'.
+
+解决方法：`variant.mergeAssets.doLast` 替换为 `variant.mergeAssetsProvider.get().doLast`
+
+
+
+### 错误：Error: Invoke-customs are only supported starting with Android O (--min-api 26)
+
+将代码添加到app的build.gradle的android节点下
+
+```groovy
+compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+ }
+```
+
+### 升级完 打release包出现的错误
+
+```sh
+Error:Execution failed for task ':app:lintVitalRelease'. > Invalid main APK outputs : BuildOutput{apkInfo={type=MAIN, versionCode=0, filters=[]}, path=/Users/junan/Desktop/svnall/android/youcai_android/app/release/.DS_Store, properties=}
+```
+
+#### 解决方法1：
+
+参考 [Android studio 4.0 update is giving lint infrastructure error, when used with gradle 6.1.1](https://stackoverflow.com/questions/62801499/android-studio-4-0-update-is-giving-lint-infrastructure-error-when-used-with-gr)
+
+[Android Studio Build APK没有报错，但是Generate signed apk报错](https://www.shuzhiduo.com/A/MyJxX8XeJn/)
+
+在`app`的`build.gradle`文件中添加
+
+```groovy
+android { 
+    compileSdkVersion 28
+    ...
+    }
+   
+    //Invoke-customs are only supported starting with Android O (--min-api 26)
+    android{
+        compileOptions{
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+}
+
+```
+
+#### 解决方法2：
+
+参考 [Caused by: java.lang.reflect.InvocationTargetException](https://www.codetd.com/article/11976085)
+
+解决方法：删除release目录下所有文件（这个其实是打出包的地方，因为我用了自定义修改名字，以前是支持多个包同时存在）
+
+这样重新打包，正常出包。网上有人说打release包前，先打个debug包就好了，这个我没有测试，大家自己可以试试看。
+
+> 里面并没有报是哪行代码或者哪些配置出错，搞得一脸懵。
+>
+> 搜索了下，基本上都是提示`Java反射异常`，What？？？之前打包都没问题，而且近期没有新增 Java 反射代码。
+>
+> 真是无从入手。
+>
+> 后面仔细看了异常日志，发现还报了这个异常：
+>
+> ```bash
+> Caused by: java.lang.RuntimeException: Invalid main APK outputs : 
+> EarlySyncBuildOutput(type=com.android.build.gradle.internal.scope.InternalArtifactType$APK@1c0767aa, 
+> apkType=MAIN, filtersData=[], version=0, 
+> output=/Users/bujinshidemao/Desktop/release/.DS_Store),
+> EarlySyncBuildOutput(type=com.android.build.gradle.internal.scope.InternalArtifactType$APK@1c0767aa, 
+> apkType=MAIN, filtersData=[], version=0, 
+> output=/Users/bujinshidemao/Desktop/release/灵感.apk),
+> EarlySyncBuildOutput(type=com.android.build.gradle.internal.scope.InternalArtifactType$APK@1c0767aa, 
+> apkType=MAIN, filtersData=[], version=0, 
+> output=/Users/bujinshidemao/Desktop/release/灵感_正式_26.apk)
+> ```
+>
+> 初步看了下，是输出 Apk 的时候报的异常，并且关联到了之前的打包版本，于是，我采取了以下操作：
+>
+> - **删除输出路径**
+> - **重新打包**
+>
+> 打包成功！
+
+### Could not resolve all files for configuration ':app:debugCompileClasspath'.解决方案
+
+解决方案如下： 
+在project级别下的build.gradle文件中添加如下代码：
+
+```groovy
+buildscript {
+ 
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.1' //这里不用和我一样，和你项目里面的版本一样就行
+        classpath 'com.google.gms:google-services:4.0.1'  //这行对谷歌服务库进行依赖
+ 
+    }
+}
+ 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral ()
+        maven {url 'https://dl.bintray.com/jetbrains/anko'} //这是你需要加入的，这个是解决这个问题的关键地方，我就是添加这个maven后不再报上面的错误了
+        maven {url "https://maven.google.com"} //谷歌广告
+    }
+}
+ 
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+```
+
+
+
 ### 参考
 
 - [【cocos2dx】改安装包名、app名、图标、包名](https://blog.csdn.net/hqq39/article/details/49821607)
@@ -353,4 +500,10 @@ android.applicationVariants.all { variant ->
 - [Gradle 3.4.0以上版本自定义apk输出目录和输出文件名](https://imlushen.com/custom-gradle-apk-output-dir-and-filename/)
 - [解决Android更新Gradle 报 'variantOutput.getPackageApplication()' is obsolete replace getPackageApplicati-CSDN](https://blog.csdn.net/jiabaokang/article/details/97772767)
 - [最新最全Android Gradle 自定义打包输出路径和文件名,并复制到某一文件夹](https://blog.csdn.net/smallbabylong/article/details/111276762)
-
+- [Cocos2d-x 3.17 and android studio 3.3 build Issue or Error?](https://discuss.cocos2d-x.org/t/cocos2d-x-3-17-and-android-studio-3-3-build-issue-or-error/45503)
+- [Android Studio 升级3.4，Gradle升级5.1遇到的问题](https://blog.csdn.net/yechaoa/article/details/91040006)
+- [Error: Invoke-customs are only supported starting with Android O (--min-api 26)- CSDN](https://blog.csdn.net/csdn9228/article/details/90905430)
+- [Execution failed for task ':app:lintVitalRelease'. Invalid main APK outputs- CSDN](https://blog.csdn.net/aj2722465/article/details/79876885)
+- [Android studio error : API ‘variant.getMergeAssets()’ is obsolete-cocos论坛](https://discuss.cocos2d-x.org/t/android-studio-error-api-variant-getmergeassets-is-obsolete/46978)
+- [Caused by: java.lang.reflect.InvocationTargetException](https://www.codetd.com/article/11976085)
+- [Could not resolve all files for configuration ':app:debugCompileClasspath'.解决方案](https://blog.csdn.net/yangaiyu/article/details/91411739)

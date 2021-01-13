@@ -125,8 +125,8 @@ jsb-default/frameworks/runtime-src/proj.android-studio/app/build.gradle
 android.applicationVariants.all { variant ->
     // delete previous files first
     delete "${buildDir}/intermediates/merged_assets/${variant.dirName}"
-
-    variant.mergeAssets.doLast {
+                         
+  	variant.mergeAssets.doLast {
         def sourceDir = "${buildDir}/../../../../.."
 
         copy {
@@ -160,11 +160,13 @@ android.applicationVariants.all { variant ->
     // delete previous files first
     delete "${buildDir}/intermediates/merged_assets/${variant.dirName}"
 
-    variant.mergeAssets.doLast {
+       //修改 报警错误 API 'variant.getMergeAssets()' is obsolete and has been replaced with 'variant.getMergeAssetsProvider()'.It will be removed at the end of 2019.                          
+//  variant.mergeAssets.doLast {
+    variant.mergeAssetsProvider.get().doLast{
         def sourceDir = "${buildDir}/../../../../.."
-
         copy {
             from "${sourceDir}/assets"
+            into "${outputDir}/assets"
             into outputDir.dir("assets")
         }
 
@@ -211,10 +213,107 @@ android.applicationVariants.all { variant ->
 
 PS 如果 gradle 下载失败 可以参考我的另外一篇博客：[CocosCreator导出Android项目采坑指南](https://blog.asroads.com/post/d5575747.html)
 
+相关链接： [gradle 官方release版本](https://gradle.org/releases/)
+
+## 错误解决
+
+如果上面一切顺利，则下面错误可以无视跳过，下面的是我本地环境遇到的问题 可能和软件版本有关系。
+
+### 警告API 'variant.getMergeAssets()' is obsolete and has been replaced with 'variant.getMergeAssetsProvider()'.
+
+解决方法：`variant.mergeAssets.doLast` 替换为 `variant.mergeAssetsProvider.get().doLast`
+
+
+
+### 错误：Error: Invoke-customs are only supported starting with Android O (--min-api 26)
+
+将代码添加到app的build.gradle的android节点下
+
+```groovy
+compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+ }
+```
+
+### 升级完 打release包出现的错误
+
+```sh
+Error:Execution failed for task ':app:lintVitalRelease'. > Invalid main APK outputs : BuildOutput{apkInfo={type=MAIN, versionCode=0, filters=[]}, path=/Users/junan/Desktop/svnall/android/youcai_android/app/release/.DS_Store, properties=}
+```
+
+#### 解决方法1：
+
+参考 [Android studio 4.0 update is giving lint infrastructure error, when used with gradle 6.1.1](https://stackoverflow.com/questions/62801499/android-studio-4-0-update-is-giving-lint-infrastructure-error-when-used-with-gr)
+
+[Android Studio Build APK没有报错，但是Generate signed apk报错](https://www.shuzhiduo.com/A/MyJxX8XeJn/)
+
+在`app`的`build.gradle`文件中添加
+
+```groovy
+android { 
+    compileSdkVersion 28
+    ...
+    }
+   
+    //Invoke-customs are only supported starting with Android O (--min-api 26)
+    android{
+        compileOptions{
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+}
+
+```
+
+#### 解决方法2：
+
+参考 [Caused by: java.lang.reflect.InvocationTargetException](https://www.codetd.com/article/11976085)
+
+解决方法：删除release目录下所有文件（这个其实是打出包的地方，因为我用了自定义修改名字，以前是支持多个包同时存在）
+
+这样重新打包，正常出包。网上有人说打release包前，先打个debug包就好了，这个我没有测试，大家自己可以试试看。
+
+> 里面并没有报是哪行代码或者哪些配置出错，搞得一脸懵。
+>
+> 搜索了下，基本上都是提示`Java反射异常`，What？？？之前打包都没问题，而且近期没有新增 Java 反射代码。
+>
+> 真是无从入手。
+>
+> 后面仔细看了异常日志，发现还报了这个异常：
+>
+> ```bash
+> Caused by: java.lang.RuntimeException: Invalid main APK outputs : 
+> EarlySyncBuildOutput(type=com.android.build.gradle.internal.scope.InternalArtifactType$APK@1c0767aa, 
+> apkType=MAIN, filtersData=[], version=0, 
+> output=/Users/bujinshidemao/Desktop/release/.DS_Store),
+> EarlySyncBuildOutput(type=com.android.build.gradle.internal.scope.InternalArtifactType$APK@1c0767aa, 
+> apkType=MAIN, filtersData=[], version=0, 
+> output=/Users/bujinshidemao/Desktop/release/灵感.apk),
+> EarlySyncBuildOutput(type=com.android.build.gradle.internal.scope.InternalArtifactType$APK@1c0767aa, 
+> apkType=MAIN, filtersData=[], version=0, 
+> output=/Users/bujinshidemao/Desktop/release/灵感_正式_26.apk)
+> ```
+>
+> 初步看了下，是输出 Apk 的时候报的异常，并且关联到了之前的打包版本，于是，我采取了以下操作：
+>
+> - **删除输出路径**
+> - **重新打包**
+>
+> 打包成功！
+
+
+
 ## 参考
 
 - [Cocos Creator 原生项目升级gradle版本 - 简书](https://www.jianshu.com/p/866f2798b98c)
+- [Android Studio 升级3.4，Gradle升级5.1遇到的问题](https://blog.csdn.net/yechaoa/article/details/91040006)
 - [Android Gradle 插件版本说明-官网](https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn)
 - [原生安卓gradle plugin版本问题-cocos论坛](https://forum.cocos.org/t/topic/101121)
 - [cocos creator 编译android失败-cocos论坛](https://forum.cocos.org/t/topic/101121/6)
+- [Error: Invoke-customs are only supported starting with Android O (--min-api 26)- CSDN](https://blog.csdn.net/csdn9228/article/details/90905430)
+- [Execution failed for task ':app:lintVitalRelease'. Invalid main APK outputs- CSDN](https://blog.csdn.net/aj2722465/article/details/79876885)
+- [Android studio error : API ‘variant.getMergeAssets()’ is obsolete-cocos论坛](https://discuss.cocos2d-x.org/t/android-studio-error-api-variant-getmergeassets-is-obsolete/46978)
+- [Caused by: java.lang.reflect.InvocationTargetException](https://www.codetd.com/article/11976085)
 
