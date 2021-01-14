@@ -64,6 +64,16 @@ keytool -printcert -file CERT.RSA
 
 ![image-20210114150957408](如何查看APK的MD5签名及无法显示MD5签名的解决办法/image-20210114150957408.png)
 
+### 查询知识
+
+后面找从事`Android`相关的朋友帮忙询问得知原来：高版本java 移除了 这些  [Disable MD5 or MD2 signed jars](https://www.java.com/en/configure_crypto.html#disableMD5)
+
+https://www.java.com/en/jre-jdk-cryptoroadmap.html
+
+| 2017-04-18 | [8u131 b11](http://www.oracle.com/technetwork/java/javase/8u131-relnotes-3565278.html), [7u141 b11](http://www.oracle.com/technetwork/java/javaseproducts/documentation/javase7supportreleasenotes-1601161.html#R170_141), [6u151 b10](http://www.oracle.com/technetwork/java/javase/documentation/overview-156328.html#R160_151), [R28.3.14](https://docs.oracle.com/cd/E15289_01/JRRLN/newchanged.htm#GUID-64B46D62-4B59-42F8-831D-8D9A422F10E6) | MD5  | JAR files signed with MD5 algorithms are treated as unsigned JARs. | [Disabling MD5 signed jars](https://www.java.com/en/configure_crypto.html#disableMD5) | 2017-04-18 Released2016-12-08 Target date changed from 2017-01-17 to 2017-04-182016-10-24 Testing instructions added2016-09-30 Announced |
+| ---------- | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|            |                                                              |      |                                                              |                                                              |                                                              |
+
 好吧，于是输出了一下我的本地java环境：
 
 ```bash
@@ -74,7 +84,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 15.0.1+9-18, mixed mode, sharing)
 smile@bogon ~ %
 ```
 
-至此，本文完毕了。
+至此，一切真相终于浮出水面，扑所迷离的问题，终于弄明白啦。本文完毕了。
 
 ## 参考
 
