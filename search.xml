@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>如何查看APK的MD5签名及无法显示MD5签名的解决办法</title>
+      <link href="/post/3358e0c4.html"/>
+      <url>/post/3358e0c4.html</url>
+      
+        <content type="html"><![CDATA[<p>之前的文章内已经介绍了不少的关于Android环境下出Apk 包遇到的各种填坑操作，以及一些设置小技巧，但坑是未知的，今天又踩一个坑，这次的问题是和电脑环境有关的。于是下面记录一下。</p><a id="more"></a><h2 id="如何查看APK的MD5签名"><a href="#如何查看APK的MD5签名" class="headerlink" title="如何查看APK的MD5签名"></a>如何查看APK的MD5签名</h2><p>正常来讲我们都知道，想查看APK 的MD5签名，一般是两种办法，一种是直接对我们的Android签名文件<strong>keystore</strong>操作，另外一种是对我们已经构建成功的Release包操作。</p><h3 id="利用项目的-keystore-（jks）文件"><a href="#利用项目的-keystore-（jks）文件" class="headerlink" title="利用项目的 keystore （jks）文件"></a>利用项目的 keystore （jks）文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore  xxx.keystore</span><br></pre></td></tr></table></figure><p>或者 （后缀不同而已）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -v -list -keystore xxx.jks</span><br></pre></td></tr></table></figure><p>正常来讲 我们期待的结果是：</p><p><img src="/post/3358e0c4/image-20210114145808698.png" alt="image-20210114145808698"></p><p>从输出的内容看到：<code>MD5: XXXXXXX</code> 就是我们要的签名内容。</p><h3 id="通过CERT-RSA文件查询MD5签名"><a href="#通过CERT-RSA文件查询MD5签名" class="headerlink" title="通过CERT.RSA文件查询MD5签名"></a>通过CERT.RSA文件查询MD5签名</h3><h4 id="解压构建的Apk得到RSA文件"><a href="#解压构建的Apk得到RSA文件" class="headerlink" title="解压构建的Apk得到RSA文件"></a>解压构建的Apk得到RSA文件</h4><p> APK以zip文件方式打开，在\META-INF\目录中存在一个.RSA后缀的文件，一般名为CERT.RSA。</p><h4 id="使用keytool命令获取MD5签名"><a href="#使用keytool命令获取MD5签名" class="headerlink" title="使用keytool命令获取MD5签名"></a>使用keytool命令获取MD5签名</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -file CERT.RSA</span><br></pre></td></tr></table></figure><p><img src="/post/3358e0c4/image-20210114145808698.png" alt="image-20210114145808698"></p><h2 id="意外情况无法显示MD5"><a href="#意外情况无法显示MD5" class="headerlink" title="意外情况无法显示MD5"></a>意外情况无法显示MD5</h2><h3 id="MD5不显示"><a href="#MD5不显示" class="headerlink" title="MD5不显示"></a>MD5不显示</h3><p>无论是上面哪一种情况都是这样：只有SHA1和SHA256，看不到有MD5，此时我一度怀疑是不少我的签名文件生成的有问题。后面才知道原来和环境有关，后面让同事在他电脑上用同样的命令就显示成功了！</p><p><img src="/post/3358e0c4/image-20210114150541221.png" alt="image-20210114150541221"></p><p>解决办法：网上先去搜索了是不是MD5 在高版本下，就被废弃什么的，无果，后面就搜了遇到的问题，还真有前人遇到和解决了，下面的评论也讨论了原因。文章链接：<a href="https://blog.csdn.net/androidzmm/article/details/80814913" target="_blank" rel="noopener">jdk10.0.1使用keytool -v -list -keystore xxx.jks拿不到Md5值</a></p><p>摘抄评论：</p><p><img src="/post/3358e0c4/image-20210114150957408.png" alt="image-20210114150957408"></p><p>好吧，于是输出了一下我的本地java环境：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">smile@bogon ~ %  java -version</span><br><span class="line">java version <span class="string">"15.0.1"</span> 2020-10-20</span><br><span class="line">Java(TM) SE Runtime Environment (build 15.0.1+9-18)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 15.0.1+9-18, mixed mode, sharing)</span><br><span class="line">smile@bogon ~ %</span><br></pre></td></tr></table></figure><p>至此，本文完毕了。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://blog.csdn.net/androidzmm/article/details/80814913" target="_blank" rel="noopener">jdk10.0.1使用keytool -v -list -keystore xxx.jks拿不到Md5值-CSDN</a></li><li><a href="https://blog.csdn.net/csdn_aiyang/article/details/77991642" target="_blank" rel="noopener">Mac Android显示SHA1和MD5值并生成签名文件打包APK-CSND</a></li><li><a href="https://www.jianshu.com/p/76c566e57eb3" target="_blank" rel="noopener">如何查看APK的MD5签名-简书</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> tool </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Android </tag>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mac下Cornerstone命令Clean无效解决办法</title>
       <link href="/post/7aa825f5.html"/>
       <url>/post/7aa825f5.html</url>
@@ -52,6 +79,33 @@
             <tag> Cocos </tag>
             
             <tag> Android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MAC电脑批量删除GitHub仓库(repositories)</title>
+      <link href="/post/6e618a28.html"/>
+      <url>/post/6e618a28.html</url>
+      
+        <content type="html"><![CDATA[<p>有时候GitHub社区看到好的仓库就fork一下，时间久了有些仓库过时了，有些是作者不维护了，有些和自己现在的工作内容相差太远，想删除一些无用过期的仓库，但是看了一下，没有批量操作的捷径，一个个操作感觉太麻烦，于是网上找了一下还真有对应的方法。</p><a id="more"></a><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>自己的仓库 太多，一个个删除麻烦</p><p><img src="/post/6e618a28/image-20210114143711289.png" alt="image-20210114143711289"></p><p>下面就把步骤记录一下：</p><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="创建token"><a href="#创建token" class="headerlink" title="创建token"></a>创建token</h3><p>登录Github，按导航 “Settings/Developer settings”，切换到Tab “Personal access tokens”， 新生成一个token。选择 scope， “delelete_repo”，然后复制 token 内容。后面有用。一次性操作，建议scope尽可能设置小范围，并且操作后删除该token。</p><h3 id="配置删除repo列表"><a href="#配置删除repo列表" class="headerlink" title="配置删除repo列表"></a>配置删除repo列表</h3><p>按导航“settings/repositories”，选取并复制所有repo，粘贴到一个“repos.txt”文本文件，处理后得到一个自己准备删除的repo列表。</p><p>比如我的：</p><p><img src="/post/6e618a28/image-20210114143032795.png" alt="image-20210114143032795"></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">jsroads&#x2F;d3</span><br><span class="line">jsroads&#x2F;FNT-Creator</span><br><span class="line">jsroads&#x2F;cocos2d-js-1</span><br><span class="line">jsroads&#x2F;cocos2d-js</span><br><span class="line">jsroads&#x2F;cocos-docs</span><br><span class="line">jsroads&#x2F;ProtoBuf.js</span><br><span class="line">jsroads&#x2F;flow</span><br><span class="line">jsroads&#x2F;Cocos2d-x-js-3-docs</span><br><span class="line">jsroads&#x2F;jikexueyuanSecret</span><br><span class="line">jsroads&#x2F;cocos2d-java</span><br><span class="line">jsroads&#x2F;JavaScriptLessons20140305</span><br><span class="line">jsroads&#x2F;physics-example</span><br><span class="line">jsroads&#x2F;egf-protobuf</span><br><span class="line">jsroads&#x2F;cocos_creator_resource</span><br></pre></td></tr></table></figure><h3 id="API文档中的删除接口（了解即可）"><a href="#API文档中的删除接口（了解即可）" class="headerlink" title="API文档中的删除接口（了解即可）"></a>API文档中的删除接口（了解即可）</h3><h3 id="构建请求脚本（Example：python）"><a href="#构建请求脚本（Example：python）" class="headerlink" title="构建请求脚本（Example：python）"></a>构建请求脚本（Example：python）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">"Accept"</span>: <span class="string">"application/vnd.github.v3+json"</span>,</span><br><span class="line">    <span class="string">"Authorization"</span>: <span class="string">"token XXXXXXXXXXXXXXXXXXXXXX"</span>, <span class="comment"># 此处的XXX代表上面的token</span></span><br><span class="line">    <span class="string">"X-OAuth-Scopes"</span>: <span class="string">"repo"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'./repos.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    data = f.readlines()</span><br><span class="line"></span><br><span class="line">url = <span class="string">"https://api.github.com/repos/&#123;&#125;/&#123;&#125;"</span></span><br><span class="line">urls = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> data:</span><br><span class="line">    name, repo = line.strip().split(<span class="string">"/"</span>)</span><br><span class="line">    urls.append(url.format(name, repo))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> l <span class="keyword">in</span> urls:</span><br><span class="line">    requests.delete(url=l, headers=headers)</span><br><span class="line">    sleep(<span class="number">2</span>)</span><br></pre></td></tr></table></figure><p>然后填写 自己的 复制的token 替换 脚本内的 <code>XXXXXXXXXXXXXXXXXXXXXX</code></p><h3 id="运行脚本-等待结束"><a href="#运行脚本-等待结束" class="headerlink" title="运行脚本 等待结束"></a>运行脚本 等待结束</h3><p><img src="/post/6e618a28/image-20210114143557784.png" alt="image-20210114143557784"></p><p>重新刷新网页：</p><p><img src="/post/6e618a28/image-20210114143750487.png" alt="image-20210114143750487"></p><p>仓库已经被删除。</p><h3 id="删除我们创建的token"><a href="#删除我们创建的token" class="headerlink" title="删除我们创建的token"></a>删除我们创建的token</h3><p>此时我们的工作完成了，上面申请的token 没用了，为了避免后面减少不必要的麻烦，还是去删除掉。</p><p><img src="/post/6e618a28/image-20210114144057060.png" alt="image-20210114144057060"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://www.jianshu.com/p/308b85e1fe69" target="_blank" rel="noopener">批量删除GitHub仓库-简书</a></li><li><a href="https://blog.csdn.net/ouening/article/details/106109370" target="_blank" rel="noopener">GitHub批量删除repository</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> GitHub </tag>
             
         </tags>
       
