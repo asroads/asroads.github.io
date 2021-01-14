@@ -146,7 +146,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何查看APK的MD5签名"><span class="toc-text">如何查看APK的MD5签名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#利用项目的-keystore-（jks）文件"><span class="toc-text">利用项目的 keystore （jks）文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过CERT-RSA文件查询MD5签名"><span class="toc-text">通过CERT.RSA文件查询MD5签名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解压构建的Apk得到RSA文件"><span class="toc-text">解压构建的Apk得到RSA文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用keytool命令获取MD5签名"><span class="toc-text">使用keytool命令获取MD5签名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#意外情况无法显示MD5"><span class="toc-text">意外情况无法显示MD5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5不显示"><span class="toc-text">MD5不显示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何查看APK的MD5签名"><span class="toc-text">如何查看APK的MD5签名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#利用项目的-keystore-（jks）文件"><span class="toc-text">利用项目的 keystore （jks）文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过CERT-RSA文件查询MD5签名"><span class="toc-text">通过CERT.RSA文件查询MD5签名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解压构建的Apk得到RSA文件"><span class="toc-text">解压构建的Apk得到RSA文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用keytool命令获取MD5签名"><span class="toc-text">使用keytool命令获取MD5签名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#意外情况无法显示MD5"><span class="toc-text">意外情况无法显示MD5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MD5不显示"><span class="toc-text">MD5不显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询知识"><span class="toc-text">查询知识</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>之前的文章内已经介绍了不少的关于Android环境下出Apk 包遇到的各种填坑操作，以及一些设置小技巧，但坑是未知的，今天又踩一个坑，这次的问题是和电脑环境有关的。于是下面记录一下。</p>
 <a id="more"></a>
@@ -169,10 +169,32 @@
 <p>解决办法：网上先去搜索了是不是MD5 在高版本下，就被废弃什么的，无果，后面就搜了遇到的问题，还真有前人遇到和解决了，下面的评论也讨论了原因。文章链接：<a href="https://blog.csdn.net/androidzmm/article/details/80814913" target="_blank" rel="noopener">jdk10.0.1使用keytool -v -list -keystore xxx.jks拿不到Md5值</a></p>
 <p>摘抄评论：</p>
 <p><img src="/post/3358e0c4/image-20210114150957408.png" alt="image-20210114150957408"></p>
+<h3 id="查询知识"><a href="#查询知识" class="headerlink" title="查询知识"></a>查询知识</h3><p>后面找从事<code>Android</code>相关的朋友帮忙询问得知原来：高版本java 移除了 这些  <a href="https://www.java.com/en/configure_crypto.html#disableMD5" target="_blank" rel="noopener">Disable MD5 or MD2 signed jars</a></p>
+<p><a href="https://www.java.com/en/jre-jdk-cryptoroadmap.html" target="_blank" rel="noopener">https://www.java.com/en/jre-jdk-cryptoroadmap.html</a></p>
+<table>
+<thead>
+<tr>
+<th>2017-04-18</th>
+<th><a href="http://www.oracle.com/technetwork/java/javase/8u131-relnotes-3565278.html" target="_blank" rel="noopener">8u131 b11</a>, <a href="http://www.oracle.com/technetwork/java/javaseproducts/documentation/javase7supportreleasenotes-1601161.html#R170_141" target="_blank" rel="noopener">7u141 b11</a>, <a href="http://www.oracle.com/technetwork/java/javase/documentation/overview-156328.html#R160_151" target="_blank" rel="noopener">6u151 b10</a>, <a href="https://docs.oracle.com/cd/E15289_01/JRRLN/newchanged.htm#GUID-64B46D62-4B59-42F8-831D-8D9A422F10E6" target="_blank" rel="noopener">R28.3.14</a></th>
+<th>MD5</th>
+<th>JAR files signed with MD5 algorithms are treated as unsigned JARs.</th>
+<th><a href="https://www.java.com/en/configure_crypto.html#disableMD5" target="_blank" rel="noopener">Disabling MD5 signed jars</a></th>
+<th>2017-04-18 Released2016-12-08 Target date changed from 2017-01-17 to 2017-04-182016-10-24 Testing instructions added2016-09-30 Announced</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 <p>好吧，于是输出了一下我的本地java环境：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">smile@bogon ~ %  java -version</span><br><span class="line">java version <span class="string">"15.0.1"</span> 2020-10-20</span><br><span class="line">Java(TM) SE Runtime Environment (build 15.0.1+9-18)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 15.0.1+9-18, mixed mode, sharing)</span><br><span class="line">smile@bogon ~ %</span><br></pre></td></tr></table></figure>
 
-<p>至此，本文完毕了。</p>
+<p>至此，一切真相终于浮出水面，扑所迷离的问题，终于弄明白啦。本文完毕了。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://blog.csdn.net/androidzmm/article/details/80814913" target="_blank" rel="noopener">jdk10.0.1使用keytool -v -list -keystore xxx.jks拿不到Md5值-CSDN</a></li>
 <li><a href="https://blog.csdn.net/csdn_aiyang/article/details/77991642" target="_blank" rel="noopener">Mac Android显示SHA1和MD5值并生成签名文件打包APK-CSND</a></li>
