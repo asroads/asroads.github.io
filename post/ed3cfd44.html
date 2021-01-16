@@ -1,154 +1,311 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head><meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+    
+    
 
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="Cocos Creator QQ小游戏采坑指南"/><meta name="keywords" content="Cocos, Asroads'Blog" /><link rel="alternate" href="/atom.xml" title="Asroads'Blog"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0" />
-<link rel="canonical" href="http://blog.asroads.com/post/ed3cfd44.html"/>
 
-<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-<script id="baidu_push">
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-<script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
-</script>
 
-    <title>Cocos Creator QQ小游戏采坑指南 - Asroads'Blog</title>
-  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator QQ小游戏采坑指南 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
 </head>
-
-  <body><div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/." class="logo">Asroads'Blog</a>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
   </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list"><a href="/">
-        <li class="mobile-menu-item">首页
-          </li>
-      </a><a href="/categories/game">
-        <li class="mobile-menu-item">手游
-          </li>
-      </a><a href="/categories/tool">
-        <li class="mobile-menu-item">技术
-          </li>
-      </a><a href="/categories/other">
-        <li class="mobile-menu-item">杂项
-          </li>
-      </a><a href="/categories/life">
-        <li class="mobile-menu-item">感悟
-          </li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">标签
-          </li>
-      </a><a href="/archives/">
-        <li class="mobile-menu-item">归档
-          </li>
-      </a><a href="/about/">
-        <li class="mobile-menu-item">关于
-          </li>
-      </a></ul>
-</nav>
-<div class="container" id="mobile-panel">
-      <header id="header" class="header"><div class="logo-wrapper">
-  <a href="/." class="logo">Asroads'Blog</a>
-</div>
-
-<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
-          <a class="menu-item-link" href="/">
-            首页
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/categories/game">
-            手游
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/categories/tool">
-            技术
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/categories/other">
-            杂项
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/categories/life">
-            感悟
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/tags/">
-            标签
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/archives/">
-            归档
-            </a>
-        </li>
-      <li class="menu-item">
-          <a class="menu-item-link" href="/about/">
-            关于
-            </a>
-        </li>
-      </ul></nav>
 </header>
 
-      <main id="main" class="main">
-        <div class="content-wrapper">
-          <div id="content" class="content"><article class="post">
-    <header class="post-header">
-      <h1 class="post-title">Cocos Creator QQ小游戏采坑指南
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-12
-        </span><span class="post-category">
-            <a href="/categories/game/">game</a>
-            </span>
-        </div>
-    </header>
-
-    <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">文章目录</h2>
-    <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原因查找"><span class="toc-text">原因查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-text">参考地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改实例"><span class="toc-text">修改实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
     </div>
-  </div><div class="post-content"><p>从今年开始，国内大厂纷纷对小游戏发力，除了微信，其他平台相继推出了小游戏的发布，这个对于游戏开发来说，研发一款游戏，上不同的平台，有更多的用户进入是好事，虽然大厂之间默契的语法风格个项目结构，已经让小游戏发布在不同平台很轻松了，但不同平台之间还是有一些细微的差异，之前游戏上了微信平台和头条平台（字节跳动）如今腾讯再次发力，开放了QQ小游戏平台，作为开发者自然不会放过这个入口，下面简述一下本次发布遇到的坑</p>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a href="https://github.com/jsroads" target="_blank" rel="noopener" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a href="https://github.com/asroads" target="_blank" rel="noopener" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" target="_blank" rel="noopener" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a href="https://seazhang.github.io/" target="_blank" rel="noopener" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/ed3cfd44.html">Cocos Creator QQ小游戏采坑指南</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-10-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2020-11-30
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator QQ小游戏采坑指南&url=http://blog.asroads.com/post/ed3cfd44.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator QQ小游戏采坑指南&url=http://blog.asroads.com/post/ed3cfd44.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/ed3cfd44.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/ed3cfd44.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/ed3cfd44.html&title=Cocos Creator QQ小游戏采坑指南" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator QQ小游戏采坑指南&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/ed3cfd44.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/ed3cfd44.html&text=Cocos Creator QQ小游戏采坑指南" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>从今年开始，国内大厂纷纷对小游戏发力，除了微信，其他平台相继推出了小游戏的发布，这个对于游戏开发来说，研发一款游戏，上不同的平台，有更多的用户进入是好事，虽然大厂之间默契的语法风格个项目结构，已经让小游戏发布在不同平台很轻松了，但不同平台之间还是有一些细微的差异，之前游戏上了微信平台和头条平台（字节跳动）如今腾讯再次发力，开放了QQ小游戏平台，作为开发者自然不会放过这个入口，下面简述一下本次发布遇到的坑</p>
 <a id="more"></a>
 <p>因为项目是用JavaScript写的，遇到了这些问题，我自己用Typescript另外一个项目测试是好的，总的来讲，Typescript是未来开发H5小游戏和小程序的趋势。</p>
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
@@ -197,67 +354,100 @@
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.确保提审服游戏登陆加载，核心玩法、匹配功能能正常进行。（无此功能可忽略）<br>2.接入脏字接口（无用户输入，可忽略）<br><a href="https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_safe.html#security-imgseccheck" target="_blank" rel="noopener">https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_safe.html#security-imgseccheck</a><br>3.ios屏蔽任何与充值相关界面和引导。<br>4.ios和安卓同个账号不同数据。（纯广告变现的产品不需要区分）<br>5.不要有q群，公众号，论坛等引导出现。<br>6.检查游戏内新素材是否有违规。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>使用兼容性比较好，规范的写法，现在小程序小游戏越来越多，感觉和安卓手机在国内的发展很像，开发人员要不断的去兼容和适配每个平台。后面发现其实小游戏有个GameGlobal的属性</p>
 
-      </div>
-      <div class="post-copyright">
-    <p class="copyright-item">
-      <span>原文作者: </span>
-      <a href="http://blog.asroads.com">asroads</a>
-    </p>
-    <p class="copyright-item">
-      <span>原文链接: </span>
-      <a href="http://blog.asroads.com/post/ed3cfd44.html">http://blog.asroads.com/post/ed3cfd44.html</a>
-    </p>
-    <p class="copyright-item">
-      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
-    </p>
   </div>
-      <footer class="post-footer">
-        <div class="post-tags">
-            <a href="/tags/Cocos/">Cocos</a>
-            </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/e8585cad.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Mac电脑常用软件整理</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/327c6098.html">
+        <span>Mac环境如何生成项目目录树形结构</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/ed3cfd44.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题"><span class="toc-number">1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原因查找"><span class="toc-number">2.</span> <span class="toc-text">原因查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-number">3.</span> <span class="toc-text">参考地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改实例"><span class="toc-number">4.</span> <span class="toc-text">修改实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意事项"><span class="toc-number">5.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2021 
         
-        <nav class="post-nav"><a class="prev" href="/post/e8585cad.html">
-        <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Mac电脑常用软件整理</span>
-        <span class="prev-text nav-mobile">上一篇</span>
-      </a>
-    <a class="next" href="/post/327c6098.html">
-        <span class="next-text nav-default">Mac环境如何生成项目目录树形结构</span>
-        <span class="prev-text nav-mobile">下一篇</span>
-        <i class="iconfont icon-right"></i>
-      </a>
-    </nav></footer>
-    </article></div><div class="comments" id="comments"></div></div>
-      </main>
-
-      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:jsroads@163.com" class="iconfont icon-email" title="email"></a>
-        <a href="https://github.com/jsroads" target="_blank" rel="noopener" class="iconfont icon-linkedin" title="linkedin"></a>
-        <a href="https://github.com/asroads" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
-        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    </div><div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
-  </span>
-
-  <span class="copyright-year">&copy;2018 - 2021<span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">asroads</span>
-  </span>
-</div>
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+    </div>
+ </div>
 </footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
 
-      <div class="back-to-top" id="back-to-top">
-        <i class="iconfont icon-up"></i>
-      </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
 </body>
-</html>
+</html >
