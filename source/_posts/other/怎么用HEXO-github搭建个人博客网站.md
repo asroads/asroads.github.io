@@ -145,16 +145,23 @@ hexo deploy
 
 十多年前（2007）入行的时候，回忆起学校老师在课堂上曾说，做技术的人，要有一个自己的门面（技术博客），这个是自己的一份“自我经营”，先后在新浪、网易博客、CSDN开了博客，由于后期的工作繁忙，奔波，懒散懈怠，大都虎头蛇尾，偶尔去打开想写点什么的时候，总感觉自己学的知识过于零碎，繁琐，整理起来过于麻烦，很多问题网上已经很多人都给出最好的答案，图文并茂的解答。再去造几个轮子，显得冗余了些。这篇文章也参考了网上许多优秀人的博客和解答，在此，衷心的谢谢他们，好人一生平安！
 
+
+
+### 不错的主题
+
+https://github.com/kb1000fx/hexo-theme-meadow   https://garybear.cn/
+
 ## 参考文档
 
-[使用hexo搭建GitHub博客](http://yidao620c.github.io/2016/03/06/hexo.html)
+- [使用Hexo+github pages+travis ci搭建好看的个人博客](https://mfrank2016.github.io/breeze-blog/2020/05/02/hexo/hexo-start/)
 
-[麦田守望者](https://seazhang.github.io/)
+- [麦田守望者](https://seazhang.github.io/)
 
-[Git 最著名报错 “ERROR: Permission to XXX.git denied to user”终极解决方案](https://www.jianshu.com/p/12badb7e6c10)
+- [Git 最著名报错 “ERROR: Permission to XXX.git denied to user”终极解决方案](https://www.jianshu.com/p/12badb7e6c10)
 
-[Xcode中Command Line Tools安装方法](https://blog.csdn.net/chenyufeng1991/article/details/47007979)
+- [Xcode中Command Line Tools安装方法](https://blog.csdn.net/chenyufeng1991/article/details/47007979)
 
-[个性化图标生成网站](http://emblemmatic.org/markmaker/#/)
+- [个性化图标生成网站](http://emblemmatic.org/markmaker/#/)
 
-[HEXO主题配置网站](https://github.com/Sanonz/hexo-theme-concise/blob/master/README.md)
+- [HEXO主题配置网站](https://github.com/Sanonz/hexo-theme-concise/blob/master/README.md)
+
