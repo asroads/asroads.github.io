@@ -425,11 +425,19 @@ cc.tween(this.node)
 
 ### JavaScriptJavaBridge::CallInfo isn’t valid!
 
+#### 原因一：
+
+方法为定义找不到，或者方法的类名字和 java和Javascript不一致
+
+#### 原因二：
+
 java里接口定义错误，记得要加static
 
 ```java
 public static void loginWithWX()
 ```
+
+#### 原因三：
 
 如果方法名加了static,并且方法名字和参数都没有写错，并且你的方法不是写在AppActivity里面的话，那就考虑是不是release包的代码混淆问题了。cocos打包的模版里面在proguard-rules.pro里自动加了排除混淆的代码
 -keep public class org.cocos2dx.** { *; }
@@ -450,6 +458,5 @@ https://uutool.cn/json2excel/
 
 - [Android安卓 Activity四种启动模式(launchMode) standard, singleTop, singleTask, singleInstance](https://blog.csdn.net/qq_44861716/article/details/104358437)
 - [creator原生项目接入UnityAds，激励视频时双进程](https://forum.cocos.org/t/creator-unityads/80430)
-
-
+- [Cocos---JavaScriptJavaBridge::CallInfo isn’t valid!](https://blog.csdn.net/caiqimin__/article/details/108431804)
 
