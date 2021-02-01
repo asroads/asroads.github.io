@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>微信小游戏日期函数(Date)的一次踩坑日记</title>
+      <link href="/post/5e37acf8.html"/>
+      <url>/post/5e37acf8.html</url>
+      
+        <content type="html"><![CDATA[<p>Javascript官方提供了一个关于时间日期处理的工具类Date，但在有时候做功能的时候，我们需要更具体的定制功能，比如倒计时，活动日期范围，日期转换和比较大小等，这些数据经常需要策划去配置，然后程序通过读取配置文件通常是json 或者xml 格式，策划或者运营一般喜欢比较直观的时间，比如 2021-01-01 00:00:01 此时在有些环境下就会出现一些意想不到的问题。</p><a id="more"></a><p>接下来就说说这个问题如何产生和如何避免</p><h2 id="问题产生"><a href="#问题产生" class="headerlink" title="问题产生"></a>问题产生</h2><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><ul><li>iOS端&amp;&amp;小游戏（微信小游戏和头条小游戏）</li></ul><p><strong>复现概率</strong></p><ul><li>必现</li></ul><p><strong>复现方式</strong></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="keyword">new</span> Data(<span class="string">"2021-01-01 00:00:01"</span>);</span><br></pre></td></tr></table></figure><p><strong>复现现象</strong></p><p><img src="/post/5e37acf8/image-20210201141353203.png" alt="image-20210201141353203"></p><p><strong>正常显示</strong></p><p><img src="/post/5e37acf8/image-20210201141556710.png" alt="image-20210201141556710"></p><h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><blockquote><p><code>Date()</code>构造函数有四种基本形式</p><h4 id="没有参数"><a href="#没有参数" class="headerlink" title="没有参数"></a>没有参数</h4><p>如果没有提供参数，那么新创建的Date对象表示实例化时刻的日期和时间。</p><h4 id="Unix时间戳"><a href="#Unix时间戳" class="headerlink" title="Unix时间戳"></a>Unix时间戳</h4><ul><li><p><code>value</code></p><p>一个 Unix 时间戳（<a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap04.html#tag_04_16" target="_blank" rel="noopener">Unix Time Stamp</a>），它是一个整数值，表示自1970年1月1日00:00:00 UTC（the Unix epoch）以来的毫秒数，忽略了闰秒。请注意大多数 Unix 时间戳功能仅精确到最接近的秒。</p></li><li><p>时间戳字符串</p></li><li><p><code>dateString</code></p><p>表示日期的字符串值。该字符串应该能被 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date/parse" target="_blank" rel="noopener"><code>Date.parse()</code></a> 正确方法识别（即符合 <a href="http://tools.ietf.org/html/rfc2822#page-14" target="_blank" rel="noopener">IETF-compliant RFC 2822 timestamps</a> 或 <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15" target="_blank" rel="noopener">version of ISO8601</a>）。<strong>注意:</strong> 由于浏览器之间的差异与不一致性，强烈不推荐使用<code>Date</code>构造函数来解析日期字符串 (或使用与其等价的<code>Date.parse</code>)。对 RFC 2822 格式的日期仅有约定俗称的支持。 对 ISO 8601 格式的支持中，仅有日期的串 (例如 “1970-01-01”) 会被处理为 UTC 而不是本地时间，与其他格式的串的处理不同。</p></li></ul><p><code>**Date.parse()**</code> 方法解析一个表示某个日期的字符串，并返回从1970-1-1 00:00:00 UTC 到该日期对象（该日期对象的UTC时间）的毫秒数，如果该字符串无法识别，或者一些情况下，包含了不合法的日期数值（如：2015-02-31），则返回值为NaN。</p><p>不推荐在ES5之前使用Date.parse方法，因为字符串的解析完全取决于实现。直到至今，不同宿主在如何解析日期字符串上仍存在许多差异，因此最好还是手动解析日期字符串（在需要适应不同格式时库能起到很大帮助）。   </p></blockquote><p>上面的意思就是说，如果我初始化日期函数的时候，如果用  “2021-01-01 00:00:01” 这样的日期格式，输入不合法的歌手，返回NaN这个就导致上面的UI出现问题。</p><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>避免用这种错误参数输入的方式输入 “2021-01-01 00:00:01” 这样的 “-”连接的日期格式</p><p>兼容方法：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 格式化日期</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>dateStr &#123;String&#125;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="type">&#123;Date&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">transformDate(dateStr) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dateStr.indexOf(<span class="string">"-"</span>) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(dateStr.replace(<span class="regexp">/\-/g</span>, <span class="string">"\/"</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dateStr.indexOf(<span class="string">"/"</span>) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(dateStr.replace(<span class="regexp">/\//g</span>, <span class="string">"\/"</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (dateStr.indexOf(<span class="string">"."</span>) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(dateStr.replace(<span class="regexp">/\./g</span>, <span class="string">"\/"</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个 bug 很隐蔽只有 ios 端小游戏才能复现，原生环境下（ios的ipa和安卓apk）也是正常的。当然，如果初始化日期的参数是啥标准格式肯定是没问题的，这个是自己没有仔细阅读AP I造成的，在测试的时候没有用iOS的设备测试微信小游戏，故而测试阶段遗漏掉了这个问题。通过用户反馈才看到的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> game </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> Cocos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Android Gradle 多渠道打包</title>
       <link href="/post/40502bea.html"/>
       <url>/post/40502bea.html</url>
