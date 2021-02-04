@@ -346,6 +346,56 @@ dependencies {
 }
 ```
 
+### Missing essential plugin:org.jetbrains.android Please reinstall Android Studio from scratch.
+
+![image-20210201194436184](CocosCreator导出Android项目采坑指南/image-20210201194436184.png)
+
+网上常见的给出的答案是：
+
+> For MacOS, Use following commands to reset Android Studio's configure files:
+>
+> ```bash
+> rm -Rf ~/Library/Preferences/AndroidStudio*
+> rm ~/Library/Preferences/com.google.android.studio.plist
+> rm -Rf ~/Library/Application\ Support/AndroidStudio*
+> rm -Rf ~/Library/Logs/AndroidStudio*
+> rm -Rf ~/Library/Caches/AndroidStudio*
+> ```
+>
+> For windows, I don't know the commands, but you can try to delete the following file:
+>
+> ```bash
+> C:\Users\admin\.AndroidStudio4.0\config
+> ```
+>
+> MacOS 以及 
+>
+> ```bash
+> /Users/[your_name]/Library/Preferences/AndroidStudio4.0/disabled_plugin.txt
+> ```
+>
+> 对于 `Windows` 用户。
+>
+> ```bash
+> CopyC:\Users\YourUserName\AppData\Roaming\Google\AndroidStudioPreview4.1\disabled_plugins.txt
+> ```
+>
+> 但是上面的并不能解决我的问题，最后我找到了这样一个路径，我是Mac 环境
+
+#### 问题分析及解决
+
+问题是新版本中的插件与本地设置中保留的插件列表冲突了导致的。删掉本地设置中的 kotlin 插件就可以了。插件的位置在
+
+```bash
+Windows：C:\Users\You\AppData\Roaming\Google\AndroidStudioPreview4.1
+linux:~/.AndroidStudioPreview41
+mac:~/Library/Application Support/Google/AndroidStudioPreview4.1
+```
+
+删掉目录（我这边整个删除了目录）中的 kotlin 文件夹，就可以打开新版本了。 不过开发人员也说他们在解决这个问题，所以也可以等下个版本。
+
+参考地址：[Android Studio 4.1 Canary 9 available](https://www.v2ex.com/t/669626)
+
 ## 参考文章
 
 - [大家都是怎样处理Gradle中的这个文件下载慢的问题的？](https://www.zhihu.com/question/37810416)
