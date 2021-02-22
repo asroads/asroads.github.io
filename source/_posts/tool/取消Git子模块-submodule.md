@@ -1,10 +1,11 @@
 ---
 title: 取消Git子模块(submodule)
 comments: true
-date: 2021-02-22 17:56:15
 categories: tool
 tags:
-- git
+  - git
+abbrlink: '535121e9'
+date: 2021-02-22 17:56:15
 ---
 
 有时候我们因项目需求，需要添加或者取消git 的子模块 此时需要如何操作呢？下面简单的说一下操作技巧。
