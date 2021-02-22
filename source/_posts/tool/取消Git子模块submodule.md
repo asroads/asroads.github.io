@@ -1,9 +1,9 @@
 ---
-title: 取消Git子模块(submodule)
+title: 取消Git子模块submodule
 comments: true
 categories: tool
 tags:
-  - git
+- git
 abbrlink: '535121e9'
 date: 2021-02-22 17:56:15
 ---
