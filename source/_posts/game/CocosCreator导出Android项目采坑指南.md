@@ -258,7 +258,7 @@ Connection failed. Please check your network connection and try again
 API 'variant.getMergeAssets()' is obsolete and has been replaced with 'variant.getMergeAssetsProvider()'.
 ```
 
-![image-20200204002803872](CocosCreator导出Android项目采坑指南/image-20200204002803872-0786602.png)
+![image-20200204002803872](CocosCreator导出Android项目采坑指南/image-20200204002803872-0786602-2513089.png)
 
 原因分析：
 
@@ -395,6 +395,16 @@ mac:~/Library/Application Support/Google/AndroidStudioPreview4.1
 删掉目录（我这边整个删除了目录）中的 kotlin 文件夹，就可以打开新版本了。 不过开发人员也说他们在解决这个问题，所以也可以等下个版本。
 
 参考地址：[Android Studio 4.1 Canary 9 available](https://www.v2ex.com/t/669626)
+
+
+
+### OutofMemory Error
+
+这个错误导致我一直打包失败，最后才知道是配置错误
+
+![image-20210205161734841](CocosCreator导出Android项目采坑指南/image-20210205161734841.png)
+
+参考地址：[Android Studio Gradle OutofMemory Error](https://stackoverflow.com/questions/23440647/android-studio-gradle-outofmemory-error)
 
 ## 参考文章
 
