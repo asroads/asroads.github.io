@@ -44,3 +44,40 @@ git pull origin master --allow-unrelated-histories
 >
 > 默认情况下，git合并命令拒绝合并没有共同祖先的历史。当两个项目的历史独立地开始时，这个选项可以被用来覆盖这个安全。由于这是一个非常少见的情况，因此没有默认存在的配置变量，也不会添加。（有道翻译）
 
+### 关SSL_ERROR_SYSCALL in connection to github.com:443错误的两种解决方案
+
+### 错误来源
+
+使用使用hexo部署博客是，遇到以下错误:
+
+```
+fatal: unable to access 'https://github.com/silenceboychen/silenceboychen.github.io.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+FATAL Something's wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html
+Error: Spawn failed
+    at ChildProcess.<anonymous> (/Users/chenhao/new_start/nodejs/blog/node_modules/hexo-util/lib/spawn.js:52:19)
+    at ChildProcess.emit (events.js:182:13)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:239:12)
+```
+
+### 两种解决方案：
+
+#### 方案一
+
+取消http代理：
+
+```
+$ git config --global --unset http.proxy
+$ git config --global --unset https.proxy
+```
+
+设置env `GIT_SSL_NO_VERIFY`为`true`然后再次部署：
+
+```
+$ env GIT_SSL_NO_VERIFY=true hexo d
+```
+
+问题解决。
+
+#### 方案二
+
+在hexo项目的根目录下的_config.yml文件中把仓库链接地址由https修改为ssh的地址。
