@@ -406,6 +406,12 @@ mac:~/Library/Application Support/Google/AndroidStudioPreview4.1
 
 参考地址：[Android Studio Gradle OutofMemory Error](https://stackoverflow.com/questions/23440647/android-studio-gradle-outofmemory-error)
 
+### Android Studio报Entry name 'res/layout/notification_action.xml' collided错
+
+解决办法：点build，clear project清除一下缓存就好了
+
+参考地址：https://bbs.csdn.net/topics/396202807
+
 ## 参考文章
 
 - [大家都是怎样处理Gradle中的这个文件下载慢的问题的？](https://www.zhihu.com/question/37810416)

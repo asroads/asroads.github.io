@@ -12,6 +12,8 @@ date: 2019-12-25 22:01:18
 <!--more-->
 本文主要说Cocos Creator 引擎在开发游戏中遇到的点点滴滴，后面会不定时更新，及时添加遇到的新的问题。
 
+## 常见问题
+
 ### 网页不报错，小游戏模拟器报错
 
 ```bash
@@ -320,6 +322,14 @@ cc.assetManager.loadRemote<cc.Texture2D>("http://thirdwx.qlogo.cn/mmopen/vi_32/Q
 其实就是缺少 {ext: ‘.png’} 这个参数
 
 参考链接：[cc.assetManager.loadRemote加载不了微信头像](https://forum.cocos.org/t/cc-assetmanager-loadremote/99201)
+
+### creator 2.1.2 Label组件在字数达到一定程度会出现十分严重排版问题
+
+是整个 Label 超过 2048 的尺寸限制了。抱歉这个目前暂时没有特别好的解决方式，建议切换至 CHAR 模式，就可以解决。
+
+![undefined](Cocos-Creator-采坑日记，看看你有没有遇到过/5721faa5d53ea86ed4f1ce23dccd36e9941a0fa8.png)
+
+参考地址 ：https://forum.cocos.org/t/creator-2-1-2-label/81328/4
 
 ### 总结
 
