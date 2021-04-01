@@ -251,7 +251,7 @@
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2021-02-24
+      更新于:&nbsp;2021-03-11
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -337,8 +337,10 @@
 </li>
 </ol>
 <blockquote>
-<p>在更新 Android Studio 时，您可能会收到一并将 Gradle 更新为最新可用版本的提示。您可以选择接受该更新，也可以根据项目的构建要求手动指定版本。<br>下表列出了各个 Android Gradle 插件版本所需的 Gradle 版本。要获得最佳性能，您应该使用 Gradle 和插件这两者的最新版本。</p>
+<p>在更新 Android Studio 时，您可能会收到一并将 Gradle 更新为最新可用版本的提示。您可以选择接受该更新，也可以根据项目的构建要求手动指定版本。</p>
 </blockquote>
+<blockquote>
+<p>下表列出了各个 Android Gradle 插件版本所需的 Gradle 版本。为了获得最佳性能，您应使用 Gradle 和插件这两者的最新版本。</p>
 <table>
 <thead>
 <tr>
@@ -383,23 +385,34 @@
 <td align="left">4.6+</td>
 </tr>
 <tr>
-<td align="left">3.3.0 - 3.3.2</td>
+<td align="left">3.3.0 - 3.3.3</td>
 <td align="left">4.10.1+</td>
 </tr>
 <tr>
-<td align="left">3.4.0 - 3.4.1</td>
+<td align="left">3.4.0 - 3.4.3</td>
 <td align="left">5.1.1+</td>
 </tr>
 <tr>
-<td align="left">3.5.0+</td>
-<td align="left">5.4.1-5.6.4</td>
+<td align="left">3.5.0 - 3.5.4</td>
+<td align="left">5.4.1+</td>
+</tr>
+<tr>
+<td align="left">3.6.0 - 3.6.4</td>
+<td align="left">5.6.4+</td>
+</tr>
+<tr>
+<td align="left">4.0.0+</td>
+<td align="left">6.1.1+</td>
+</tr>
+<tr>
+<td align="left">4.1.0+</td>
+<td align="left">6.5+</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>您可以在 Android Studio 的 <strong>File</strong> &gt; <strong>Project Structure</strong> &gt; <strong>Project</strong> 菜单中指定 Gradle 版本，也可以通过在 <code>gradle/wrapper/gradle-wrapper.properties</code> 文件中修改 Gradle 分发引用来指定。以下示例在 <code>gradle-wrapper.properties</code> 文件中将 Gradle 的版本设置为 5.4.1。</p>
+<p>您可以在 Android Studio 的 <strong>File</strong> &gt; <strong>Project Structure</strong> &gt; <strong>Project</strong> 菜单中指定 Gradle 版本，也可以通过在 <code>gradle/wrapper/gradle-wrapper.properties</code> 文件中修改 Gradle 分发引用来指定。以下示例在 <code>gradle-wrapper.properties</code> 文件中将 Gradle 的版本设置为 6.1.1。</p>
 </blockquote>
 <blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...  distributionUrl = https\://services.gradle.org/distributions/gradle-5.4.1-all.zip  ... </span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">distributionUrl = https\:<span class="comment">//services.gradle.org/distributions/gradle-6.1.1-all.zip</span></span><br><span class="line">... </span><br></pre></td></tr></table></figure>
 </blockquote>
 <ol start="4">
 <li><p>所以在我们构建项目的时候 要保证二者 能够匹配才能正常的构建项目</p>
@@ -409,12 +422,13 @@
 </li>
 </ol>
 <h5 id="虽然下载构建时候下载很缓慢"><a href="#虽然下载构建时候下载很缓慢" class="headerlink" title="虽然下载构建时候下载很缓慢"></a>虽然下载构建时候下载很缓慢</h5><p>这个是 因为配置文件里面 的下载地址 在某些地方无法正常下载，解决办法三种：</p>
-<p>A . 配置国内镜像</p>
+<p>A . 配置国内镜像 </p>
 <p>B. 下载后覆盖本地文件 </p>
 <p>C 更改下载地址（2019年开始有 中国地区的CDN）</p>
 <ul>
 <li>配置国内镜像</li>
 </ul>
+<p>这里给一个常用镜像的地址  <a href="https://gitee.com/gsls200808/chinese-opensource-mirror-site" target="_blank" rel="noopener">国内开源镜像站点汇总</a></p>
 <p>通过在 gradle.properties 中加大 connectionTimeout 和 socketTimeout 可以成功 gradle sync。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.gradle.jvmargs=-Xmx1536m -Dorg.gradle.internal.http.connectionTimeout=120000 -Dorg.gradle.internal.http.socketTimeout=120000</span><br></pre></td></tr></table></figure>
 

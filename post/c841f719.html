@@ -251,7 +251,7 @@
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2021-02-22
+      更新于:&nbsp;2021-03-12
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -311,6 +311,10 @@
         <a rel="tag" href = /tags/Cocos/ >Cocos</a>
       </i>
     
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/homebrew/ >homebrew</a>
+      </i>
+    
   </div>
 
   
@@ -322,7 +326,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libpng warning: iCCP: known incorrect sRGB profile</span><br></pre></td></tr></table></figure>
 
 <p>虽然可以忽略无视，但是这个看起来太烦人了，于是乎，想看看网上有没有人有上面好的解决方案，一搜索，发现还真有，问题得以顺利解决。</p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="安装-libpng"><a href="#安装-libpng" class="headerlink" title="安装 libpng"></a>安装 libpng</h4><p>ImageMagick 所依赖的库，因为我们的工程中仅仅用到了PNG的图，所以此处就以PNG库为例，其他类似。可以去官网下载。<a href="http://www.imagemagick.org/download/delegates/" target="_blank" rel="noopener">点击进入</a> 通过命令安装。也可以用 homebrew 安装。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h4 id="安装-libpng"><a href="#安装-libpng" class="headerlink" title="安装 libpng"></a>安装 libpng</h4><p>ImageMagick 所依赖的库，因为我们的工程中仅仅用到了PNG的图，所以此处就以PNG库为例，其他类似。可以去官网下载。<a href="http://www.imagemagick.org/download/delegates/" target="_blank" rel="noopener">点击进入</a> 通过命令安装。也可以用 homebrew 安装。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install libpng</span><br></pre></td></tr></table></figure>
 
 <h4 id="安装ImageMagick"><a href="#安装ImageMagick" class="headerlink" title="安装ImageMagick"></a>安装ImageMagick</h4><p>同样使用 homebrew</p>
@@ -334,20 +338,14 @@
 <p>比如我的 目录</p>
 <p><img src="/post/c841f719/image-20191019103804413.png" alt="image-20191019103804413"></p>
 <p>运行后，报警错误消除，因为这个是处理文件目录下面所有的 png 格式，有些正确的也被改变了，我就一个个还原，直到找到报错的几个图片，剩下的 都重置回去了，当然了，ImageMagick 的功能远远不至于此，还有很多强大的功能。</p>
-<h3 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h3><ul>
-<li><a href="http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451" target="_blank" rel="noopener">cocos2d-x 3.0 and libpng</a></li>
-<li><a href="https://www.cnblogs.com/ggband/p/10665312.html" target="_blank" rel="noopener">Permission denied的解决办法</a></li>
-<li><a href="https://www.jianshu.com/p/3016f1897e31" target="_blank" rel="noopener">Mac软件包管理神器Homebrew</a></li>
-<li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">ImageMagick 中文站</a></li>
-</ul>
-<p>最后附加一些 homebrew 常用的操作</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><h3 id="homebrew-常用的操作"><a href="#homebrew-常用的操作" class="headerlink" title="homebrew 常用的操作"></a>homebrew 常用的操作</h3><p>最后附加一些 homebrew 常用的操作</p>
 <blockquote>
 <p>安装软件</p>
 <p><code>brew install 软件名</code>，如<code>brew install git</code>。</p>
 <p>卸载软件</p>
 <p><code>brew uninstall 软件名</code>，如<code>brew uninstall git</code>。</p>
 <p>查找软件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search 查询内容</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search 查询内容</span><br></pre></td></tr></table></figure>
 
 <ol>
 <li>普通查询，<code>brew search git</code></li>
@@ -388,6 +386,33 @@
 <p><strong>注意：如果遇到文件权限问题</strong> （Permission denied）</p>
 <p>解决的办法：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod -R 777 某一目录</span><br></pre></td></tr></table></figure>
+
+<h3 id="告别龟速更新或者安装"><a href="#告别龟速更新或者安装" class="headerlink" title="告别龟速更新或者安装"></a>告别龟速更新或者安装</h3><p>由于某些原因，Homebrew 下载速度一直是无数国内开发者的一块心头病，处理好这个问题的最简单方法，就是更改 Homebrew 的安装源，将其替换成国内镜像。</p>
+<p>目前市面上用到的镜像很多，这里推荐 中科大负责托管维护的 Homebrew 镜像。更多镜像 <a href="https://gitee.com/gsls200808/chinese-opensource-mirror-site" target="_blank" rel="noopener">国内开源镜像站点汇总</a></p>
+<p>下面跟大家分享下具体配置方式。</p>
+<p>第一步，替换 brew.git：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>"</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/brew.git</span><br></pre></td></tr></table></figure>
+
+<p>第二步，替换 homebrew-core.git：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">"<span class="variable">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core"</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
+
+<p>以上，完成 Homebrew 的默认镜像配置了，基本已经满足日常使用不成问题。</p>
+<p>若你想更进一步优化下载速度，可以为 Homebrew Bottles 配置上镜像。</p>
+<p>中科大所提供的 Homebrew 镜像服务，官网查看详情信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://lug.ustc.edu.cn/wiki/mirrors/<span class="built_in">help</span>/brew.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h2><ul>
+<li><a href="http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451" target="_blank" rel="noopener">cocos2d-x 3.0 and libpng</a></li>
+<li><a href="https://www.cnblogs.com/ggband/p/10665312.html" target="_blank" rel="noopener">Permission denied的解决办法</a></li>
+<li><a href="https://www.jianshu.com/p/3016f1897e31" target="_blank" rel="noopener">Mac软件包管理神器Homebrew</a></li>
+<li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">ImageMagick 中文站</a></li>
+<li><a href="https://lug.ustc.edu.cn/wiki/mirrors/help" target="_blank" rel="noopener">中科大开源的镜像服务</a></li>
+<li><a href="https://gitee.com/gsls200808/chinese-opensource-mirror-site" target="_blank" rel="noopener">国内开源镜像站点汇总</a></li>
+<li><a href="https://mp.weixin.qq.com/s/2XDmh2vUjRHtATktfLv61w" target="_blank" rel="noopener">教你一招搞定 Homebrew 下载加速</a></li>
+</ul>
+
   </div>
   <!--文末结束语-->
   
@@ -421,7 +446,7 @@
     <ul class="mdui-menu" id="toc">
       <li class="mdui-menu-item">
         <a href="/post/c841f719.html" id="toc-header" class="mdui-ripple">文章目录</a>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装-libpng"><span class="toc-number">1.1.</span> <span class="toc-text">安装 libpng</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装ImageMagick"><span class="toc-number">1.2.</span> <span class="toc-text">安装ImageMagick</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理素材目录"><span class="toc-number">1.3.</span> <span class="toc-text">处理素材目录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-number">2.</span> <span class="toc-text">参考地址</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装-libpng"><span class="toc-number">1.0.1.</span> <span class="toc-text">安装 libpng</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装ImageMagick"><span class="toc-number">1.0.2.</span> <span class="toc-text">安装ImageMagick</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理素材目录"><span class="toc-number">1.0.3.</span> <span class="toc-text">处理素材目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拓展"><span class="toc-number">2.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew-常用的操作"><span class="toc-number">2.1.</span> <span class="toc-text">homebrew 常用的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#告别龟速更新或者安装"><span class="toc-number">2.2.</span> <span class="toc-text">告别龟速更新或者安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考地址"><span class="toc-number">3.</span> <span class="toc-text">参考地址</span></a></li></ol>
       </li>
     </ul>
   </div>
