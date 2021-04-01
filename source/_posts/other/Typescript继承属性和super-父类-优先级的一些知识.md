@@ -71,6 +71,55 @@ dog.run()
 dog.test()
 ```
 
+编译后代码：
+
+```javascript
+"use strict";
+class Animal {
+    constructor() {
+        this.info = { age: 18, name: "unknown" };
+        //this.run();
+    }
+    run() {
+        console.log("                                          ");
+        console.log("------------Animal run ------------------------------");
+        console.log(`Animal pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "Animal类";
+        console.log(`Animal after run ! age:${this.info.age} name:${this.info.name}`);
+        console.log("                                          ");
+    }
+}
+class Dog extends Animal {
+    constructor() {
+        super();
+        this.info = { age: 20, name: "Dog" };
+        console.log(`------重点是这个------ Dog2 run ! age:${this.info.age} name:${this.info.name}`);
+        //console.log("----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---")
+        //this.run();
+        console.log(`Dog3 run ! age:${this.info.age} name:${this.info.name}`);
+    }
+    run() {
+        console.log("                                          ");
+        console.log("--------------Dog run----------------------------");
+        super.run();
+        console.log(`Dog pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "哈士奇";
+        console.log(`Dog1 after run  ! age:${this.info.age} name:${this.info.name}`);
+        console.log("                                          ");
+    }
+    test() {
+        console.log("                                          ");
+        console.log("--------------Dog test----------------------------");
+        console.log(`Dog3 pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "金毛";
+        console.log(`Dog4 after run  ! age:${this.info.age} name:${this.info.name}`);
+    }
+}
+let dog = new Dog();
+dog.run();
+dog.test();
+```
+
 结果是：
 
 ```bash
@@ -144,6 +193,54 @@ class Dog extends Animal {
 let dog = new Dog();
 //dog.test()
 ```
+
+编译后 js 代码：
+
+```javascript
+"use strict";
+class Animal {
+    constructor() {
+        this.info = { age: 18, name: "unknown" };
+        this.run();
+    }
+    run() {
+        console.log("------------Animal run ------------------------------");
+        console.log(`Animal pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "Animal类";
+        console.log(`Animal after run ! age:${this.info.age} name:${this.info.name}`);
+        console.log("                                          ");
+    }
+}
+class Dog extends Animal {
+    constructor() {
+        super();
+        this.info = { age: 20, name: "Dog" };
+        console.log(`------重点是这个------ Dog2 run ! age:${this.info.age} name:${this.info.name}`);
+        console.log("----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---");
+        this.run();
+        console.log(`Dog3 run ! age:${this.info.age} name:${this.info.name}`);
+    }
+    run() {
+        console.log("--------------Dog run----------------------------");
+        super.run();
+        console.log(`Dog pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "哈士奇";
+        console.log(`Dog1 after run  ! age:${this.info.age} name:${this.info.name}`);
+        console.log("                                          ");
+    }
+    test() {
+        console.log("                                          ");
+        console.log("--------------Dog test----------------------------");
+        console.log(`Dog3 pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "金毛";
+        console.log(`Dog4 after run  ! age:${this.info.age} name:${this.info.name}`);
+    }
+}
+let dog = new Dog();
+//dog.test()
+```
+
+
 
 输出结果：
 
@@ -223,6 +320,53 @@ class Dog extends Animal {
 let dog = new Dog();
 //dog.test()
 ```
+
+编译结果：
+
+```javascript
+"use strict";
+class Animal {
+    constructor() {
+        this.info = { age: 18, name: "unknown" };
+        this.run();
+    }
+    run() {
+        console.log("------------Animal run ------------------------------");
+        console.log(`Animal pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "Animal类";
+        console.log(`Animal after run ! age:${this.info.age} name:${this.info.name}`);
+        console.log("                                          ");
+    }
+}
+class Dog extends Animal {
+    constructor() {
+        super();
+        console.log(`------重点是这个------ Dog2 run ! age:${this.info.age} name:${this.info.name}`);
+        console.log("----一些如我所愿 当下 name 是 哈士奇 子类默认值 Dog---");
+        this.run();
+        console.log(`Dog3 run ! age:${this.info.age} name:${this.info.name}`);
+    }
+    run() {
+        console.log("--------------Dog run----------------------------");
+        super.run();
+        console.log(`Dog pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "哈士奇";
+        console.log(`Dog1 after run  ! age:${this.info.age} name:${this.info.name}`);
+        console.log("                                          ");
+    }
+    test() {
+        console.log("                                          ");
+        console.log("--------------Dog test----------------------------");
+        console.log(`Dog3 pre run ! age:${this.info.age} name:${this.info.name}`);
+        this.info.name = "金毛";
+        console.log(`Dog4 after run  ! age:${this.info.age} name:${this.info.name}`);
+    }
+}
+let dog = new Dog();
+//dog.test()
+```
+
+
 
 输出结果：
 

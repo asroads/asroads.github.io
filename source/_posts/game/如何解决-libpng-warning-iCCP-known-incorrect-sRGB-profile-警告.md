@@ -4,6 +4,7 @@ comments: true
 categories: game
 tags:
   - Cocos
+  - homebrew
 abbrlink: c841f719
 date: 2019-10-19 10:06:46
 ---
@@ -20,7 +21,7 @@ libpng warning: iCCP: known incorrect sRGB profile
 
 虽然可以忽略无视，但是这个看起来太烦人了，于是乎，想看看网上有没有人有上面好的解决方案，一搜索，发现还真有，问题得以顺利解决。
 
-### 步骤
+## 步骤
 
 #### 安装 libpng
 
@@ -52,12 +53,9 @@ find . -type f -name "*.png" -exec convert {} -strip {} \;
 
 运行后，报警错误消除，因为这个是处理文件目录下面所有的 png 格式，有些正确的也被改变了，我就一个个还原，直到找到报错的几个图片，剩下的 都重置回去了，当然了，ImageMagick 的功能远远不至于此，还有很多强大的功能。
 
-### 参考地址 
+## 拓展
 
-- [cocos2d-x 3.0 and libpng](http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451)
-- [Permission denied的解决办法](https://www.cnblogs.com/ggband/p/10665312.html)
-- [Mac软件包管理神器Homebrew](https://www.jianshu.com/p/3016f1897e31)
-- [ImageMagick 中文站](http://www.imagemagick.com.cn/)
+### homebrew 常用的操作
 
 最后附加一些 homebrew 常用的操作
 
@@ -71,7 +69,7 @@ find . -type f -name "*.png" -exec convert {} -strip {} \;
 >
 > 查找软件
 >
-> ```
+> ```bash
 > brew search 查询内容
 > ```
 >
@@ -117,3 +115,48 @@ find . -type f -name "*.png" -exec convert {} -strip {} \;
 ```bash
 $ sudo chmod -R 777 某一目录
 ```
+
+### 告别龟速更新或者安装
+
+由于某些原因，Homebrew 下载速度一直是无数国内开发者的一块心头病，处理好这个问题的最简单方法，就是更改 Homebrew 的安装源，将其替换成国内镜像。
+
+目前市面上用到的镜像很多，这里推荐 中科大负责托管维护的 Homebrew 镜像。更多镜像 [国内开源镜像站点汇总](https://gitee.com/gsls200808/chinese-opensource-mirror-site)
+
+下面跟大家分享下具体配置方式。
+
+第一步，替换 brew.git：
+
+```bash
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+```
+
+第二步，替换 homebrew-core.git：
+
+```bash
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+```
+
+以上，完成 Homebrew 的默认镜像配置了，基本已经满足日常使用不成问题。
+
+若你想更进一步优化下载速度，可以为 Homebrew Bottles 配置上镜像。
+
+中科大所提供的 Homebrew 镜像服务，官网查看详情信息：
+
+```bash
+https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
+```
+
+
+
+## 参考地址 
+
+- [cocos2d-x 3.0 and libpng](http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451)
+- [Permission denied的解决办法](https://www.cnblogs.com/ggband/p/10665312.html)
+- [Mac软件包管理神器Homebrew](https://www.jianshu.com/p/3016f1897e31)
+- [ImageMagick 中文站](http://www.imagemagick.com.cn/)
+- [中科大开源的镜像服务](https://lug.ustc.edu.cn/wiki/mirrors/help)
+- [国内开源镜像站点汇总](https://gitee.com/gsls200808/chinese-opensource-mirror-site)
+- [教你一招搞定 Homebrew 下载加速](https://mp.weixin.qq.com/s/2XDmh2vUjRHtATktfLv61w)
+

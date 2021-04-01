@@ -4,15 +4,16 @@ categories: tool
 tags:
   - 技术
   - Python
+  - homebrew
 abbrlink: '1515441'
 date: 2018-08-18 20:06:31
 ---
 
-### 学习背景
-
 之前做项目的时候，看到公司的高手把Png图片压缩成webp 格式的文件，一直感觉很高大上，没有机会瞻仰真容，后来在自己学习的时候，遇到几篇不错的博客，拜读之后，发现似乎没有想象的那么难，于是乎，就想自己学习一下这个转换格式。
 
 <!-- more -->
+
+## 操作步骤
 
 ### 运行环境
 
@@ -45,6 +46,15 @@ $cwebp [options] -q quality input.jpg -o output.webp
 $dwebp input_file.webp [options] [-o output_file]
 ```
 
+webp 官方文档地址 [点击前往](https://developers.google.com/speed/webp/docs/cwebp)
+
+注意：更多关于 homebrew 的知识可以参考我另外一篇文章 [如何解决'libpng warning: iCCP: known incorrect sRGB profile'警告](https://blog.asroads.com/post/c841f719.html)
+
 2. python 环境
 
 (待日后补充)
+
+## 参考
+
+- [Webp 官网](https://developers.google.com/speed/webp/docs/cwebp)
+

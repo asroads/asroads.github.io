@@ -37,27 +37,33 @@ date: 2020-02-03 20:04:10
 
 
 > 在更新 Android Studio 时，您可能会收到一并将 Gradle 更新为最新可用版本的提示。您可以选择接受该更新，也可以根据项目的构建要求手动指定版本。
-> 下表列出了各个 Android Gradle 插件版本所需的 Gradle 版本。要获得最佳性能，您应该使用 Gradle 和插件这两者的最新版本。
 
-| 插件版本      | 所需的 Gradle 版本 |
-| :------------ | :----------------- |
-| 1.0.0 - 1.1.3 | 2.2.1 - 2.3        |
-| 1.2.0 - 1.3.1 | 2.2.1 - 2.9        |
-| 1.5.0         | 2.2.1 - 2.13       |
-| 2.0.0 - 2.1.2 | 2.10 - 2.13        |
-| 2.1.3 - 2.2.3 | 2.14.1+            |
-| 2.3.0+        | 3.3+               |
-| 3.0.0+        | 4.1+               |
-| 3.1.0+        | 4.4+               |
-| 3.2.0 - 3.2.1 | 4.6+               |
-| 3.3.0 - 3.3.2 | 4.10.1+            |
-| 3.4.0 - 3.4.1 | 5.1.1+             |
-| 3.5.0+        | 5.4.1-5.6.4        |
+> 下表列出了各个 Android Gradle 插件版本所需的 Gradle 版本。为了获得最佳性能，您应使用 Gradle 和插件这两者的最新版本。
+>
+> | 插件版本      | 所需的 Gradle 版本 |
+> | :------------ | :----------------- |
+> | 1.0.0 - 1.1.3 | 2.2.1 - 2.3        |
+> | 1.2.0 - 1.3.1 | 2.2.1 - 2.9        |
+> | 1.5.0         | 2.2.1 - 2.13       |
+> | 2.0.0 - 2.1.2 | 2.10 - 2.13        |
+> | 2.1.3 - 2.2.3 | 2.14.1+            |
+> | 2.3.0+        | 3.3+               |
+> | 3.0.0+        | 4.1+               |
+> | 3.1.0+        | 4.4+               |
+> | 3.2.0 - 3.2.1 | 4.6+               |
+> | 3.3.0 - 3.3.3 | 4.10.1+            |
+> | 3.4.0 - 3.4.3 | 5.1.1+             |
+> | 3.5.0 - 3.5.4 | 5.4.1+             |
+> | 3.6.0 - 3.6.4 | 5.6.4+             |
+> | 4.0.0+        | 6.1.1+             |
+> | 4.1.0+        | 6.5+               |
+>
+> 您可以在 Android Studio 的 **File** > **Project Structure** > **Project** 菜单中指定 Gradle 版本，也可以通过在 `gradle/wrapper/gradle-wrapper.properties` 文件中修改 Gradle 分发引用来指定。以下示例在 `gradle-wrapper.properties` 文件中将 Gradle 的版本设置为 6.1.1。
 
-> 您可以在 Android Studio 的 **File** > **Project Structure** > **Project** 菜单中指定 Gradle 版本，也可以通过在 `gradle/wrapper/gradle-wrapper.properties` 文件中修改 Gradle 分发引用来指定。以下示例在 `gradle-wrapper.properties` 文件中将 Gradle 的版本设置为 5.4.1。
-
-> ```shell
-   ...  distributionUrl = https\://services.gradle.org/distributions/gradle-5.4.1-all.zip  ...
+> ```groovy
+   ...
+   distributionUrl = https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
+   ...
    ```
 
 4. 所以在我们构建项目的时候 要保证二者 能够匹配才能正常的构建项目
@@ -70,13 +76,15 @@ date: 2020-02-03 20:04:10
 
 这个是 因为配置文件里面 的下载地址 在某些地方无法正常下载，解决办法三种：
 
-A . 配置国内镜像
+A . 配置国内镜像 
 
 B. 下载后覆盖本地文件 
 
 C 更改下载地址（2019年开始有 中国地区的CDN）
 
 - 配置国内镜像
+
+这里给一个常用镜像的地址  [国内开源镜像站点汇总](https://gitee.com/gsls200808/chinese-opensource-mirror-site)
 
 通过在 gradle.properties 中加大 connectionTimeout 和 socketTimeout 可以成功 gradle sync。
 

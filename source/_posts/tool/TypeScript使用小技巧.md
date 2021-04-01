@@ -475,3 +475,15 @@ developer.city = "XiaMen";
 
 参考地址:[JS - 文件大小的格式化显示 （B、K、M、G、TB）](https://www.hangge.com/blog/cache/detail_2283.html)
 
+### Element implicitly has an 'any' type ...
+
+错误：Element implicitly has an 'any' type because expression of type 
+
+需要在class类里加上一句：
+
+```
+[key: string]: any;
+```
+
+这样就可以动态获取了。
+
