@@ -65,6 +65,10 @@ date: 2021-04-01 19:53:26
 
 官方介绍了如何使用npm 方式和Protobuf结合，教程很详细，但是步骤很多，笔者没有实践，但是出于对官方人员对信任，相信这个方案也是可以正常使用的。
 
+官方给的例子：https://github.com/cocos-creator/example-3d/tree/v3.0/protobuf
+
+特别是 https://github.com/cocos-creator/example-3d/tree/v3.0/protobuf/assets/scripts/proto 这个下面生成的文件 值得研读
+
 ### 笔者自己结合网友的综合方案
 
 ### Protobuf介绍
@@ -138,4 +142,5 @@ pbts -m -o ./dist/bufBundle.d.ts ./dist/bufBundle.js
 - [Protocol Buffers3语言指南（译）](https://mp.weixin.qq.com/s/bs8oukuGMF6PcX6hNXuUbw)
 - [Creator WebSocket Protobuf整合之保姆级全攻略](https://mp.weixin.qq.com/s/8KA6wYdFLWnaLfvgf82k7g)
 - [Cocos引擎插件分享 protobuf-creator](https://store.cocos.com/app/detail/2404)
+- [官方protobufjs 例子](https://github.com/cocos-creator/example-3d/tree/v3.0/protobuf)
 
