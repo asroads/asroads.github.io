@@ -47,11 +47,11 @@ date: 2021-04-26 19:45:52
 
 ### 效果如下
 
-![mvc](PureMVC如果在Cocos-Creator-3-0使用/mvc.gif)
+![mvc](PureMVC如何在Cocos-Creator-3-0使用/mvc.gif)
 
 日志输出如下：
 
-![image-20210427130101974](PureMVC如果在Cocos-Creator-3-0使用/image-20210427130101974.png)
+![image-20210427130101974](PureMVC如何在Cocos-Creator-3-0使用/image-20210427130101974.png)
 
 
 
@@ -145,7 +145,7 @@ directory: 8 file: 69
 
 
 
-![image-20210427131734637](PureMVC如果在Cocos-Creator-3-0使用/image-20210427131734637.png)
+![image-20210427131734637](PureMVC如何在Cocos-Creator-3-0使用/image-20210427131734637.png)
 
 最后老规矩，解释再好不如源码香：源码地址：[点击前往](https://github.com/jsroads/Cocos-Creator-PureMVC-Demo.git)
 
