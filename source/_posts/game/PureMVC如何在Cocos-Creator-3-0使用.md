@@ -1,5 +1,5 @@
 ---
-title: PureMVC如果在Cocos Creator 3.0使用
+title: PureMVC如何在Cocos Creator 3.0使用
 comments: true
 categories: game
 tags:
@@ -9,7 +9,7 @@ abbrlink: 49b1096d
 date: 2021-04-26 19:45:52
 ---
 
-前面文章已经写过PureMVC 如何在LayaBox 里面使用 和如和在 `Cocos Creator 2.x`版本使用，距离`Cocos Creator3.0` 版本发布已经有半年时间，这里继续老生常谈，继续说说如何在3.0和3.0.1 使用。
+前面文章已经写过PureMVC 如何在LayaBox 里面使用 和 如何在 `Cocos Creator 2.x`版本使用，距离`Cocos Creator3.0` 版本发布已经有半年时间，这里继续老生常谈，继续说说在3.0和3.0.1如何 使用。
 <!--more-->
 关于PureMVC框架的介绍，这里不在赘述，关于 Cocos Creator 这样的ECS系统的引擎开发需要不需要框架，仁者见仁，智者见智，论坛里大家都曾热烈讨论，因我个人经历，我说比较偏向于使用框架的那类人，框架，其实就是团队代码规范手册，或者约束手册，通过框架的学习可以大家风格尽可能的一致，便于彼此熟悉代码（团队就自己一个人的可以忽略）另外大多数的框架都做到了模块的低耦合，信息或者事件传递的一对多的机制，便于信息发布和订阅（订阅模式）
 
