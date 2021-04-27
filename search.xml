@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>PureMVC如果在Cocos Creator 3.0使用</title>
+      <title>PureMVC如何在Cocos Creator 3.0使用</title>
       <link href="/post/49b1096d.html"/>
       <url>/post/49b1096d.html</url>
       
-        <content type="html"><![CDATA[<p>前面文章已经写过PureMVC 如何在LayaBox 里面使用 和如和在 <code>Cocos Creator 2.x</code>版本使用，距离<code>Cocos Creator3.0</code> 版本发布已经有半年时间，这里继续老生常谈，继续说说如何在3.0和3.0.1 使用。</p><a id="more"></a><p>关于PureMVC框架的介绍，这里不在赘述，关于 Cocos Creator 这样的ECS系统的引擎开发需要不需要框架，仁者见仁，智者见智，论坛里大家都曾热烈讨论，因我个人经历，我说比较偏向于使用框架的那类人，框架，其实就是团队代码规范手册，或者约束手册，通过框架的学习可以大家风格尽可能的一致，便于彼此熟悉代码（团队就自己一个人的可以忽略）另外大多数的框架都做到了模块的低耦合，信息或者事件传递的一对多的机制，便于信息发布和订阅（订阅模式）</p><p>对框架的看法文章后会再说，现在先看看如何配置吧， 源码在文末放出。</p><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><h3 id="类库从插件修改为ts文件"><a href="#类库从插件修改为ts文件" class="headerlink" title="类库从插件修改为ts文件"></a>类库从插件修改为ts文件</h3><ol><li><a href="https://www.cocos.com/docs" target="_blank" rel="noopener">Cocos Creator 3.0</a> 开始 官方不在推荐使用插件模式，这次我们为了更好的向后兼容，这里我们采用纯<code>Typescript</code>的<code>PureMVC</code>的版本（官网也提供了对应版本）</li><li>这里对版本略微改造，把多个<code>Typescript</code>文件放到了一个叫做<code>puremvc.ts</code>的文件里，对于类库或者框架来说，后期我们很少改动，稳定性比较高，所以放到一个叫做lib的文件夹里，这样避免多个文件分散开发者的心思。</li><li>官方的源码除去注释大概只有不到800行 核心代码大概500行左右，算得上是一个极简的框架，如果稍有点耐心的人，读读源码便理解了框架到底解决了什么问题。</li><li>引入框架的目的肯定是要解决一些问题或者通过框架的约束避免一些问题的，这一点，希望用框架的人一定要谨记，框架是官方给的一种思想的具体表现，如果自己觉得某个地方不太好，可以修改为更适合自己项目的方式，前提是自己必须了解修改后有没有引入问题和解决问题。</li></ol><h3 id="启动文件挂在常驻节点"><a href="#启动文件挂在常驻节点" class="headerlink" title="启动文件挂在常驻节点"></a>启动文件挂在常驻节点</h3><p>常驻节点可以成为场景之间切换后存在的全局变量，一些常用的UI容器，或者不想伴随场景销毁而被回收的脚本或者变量可以借助常驻节点的设计挂在这个节点上。</p><h3 id="Cocos-Creator组件周期和框架灵活结合"><a href="#Cocos-Creator组件周期和框架灵活结合" class="headerlink" title="Cocos Creator组件周期和框架灵活结合"></a>Cocos Creator组件周期和框架灵活结合</h3><p>首先我们知道 Typescript是单继承 如果想让脚本挂在在节点上就必须继承 <code>Component</code> 这样 如果想结合<code>puremvc</code> 大概有下面几种情况</p><ol><li>脚本继承<code>Component</code>类 实现 <code>IMediator</code>，<code>INotifier</code>接口</li><li>脚本继承<code>Mediator</code>类实现<code>Component</code>类的对应接口</li><li>脚本继承<code>Mediator</code>类修改<code>Mediator</code>类 让 <code>Mediator</code>类 和 <code>Notifier</code>类 中间 插入一个套件 类 </li><li>脚本继承<code>Mediator</code>类修改<code>Mediator</code>类 <code>Notifier</code> 类 继承<code>Component</code>类</li><li>两个脚本，其中一个继承<code>Component</code>类 另外一个继承 <code>Mediator</code>类 然后进行动态或者挂载 同一个节点绑定</li><li>其他模式</li></ol><p>上面列举了几种实现结合的方法，各有优劣，弊端，这里我选择了第5个方案，其他方案大家可以自行尝试，比较他们各自的优劣。</p><p>项目研发中，一般来说方法使命唯一，或者说职责唯一，本来PureMVC 的view可以主动控制UI层的，但是<a href="https://www.cocos.com/docs" target="_blank" rel="noopener">Cocos Creator</a>是节点树的渲染方式控制节点和节点上组件的生命周期（<code>onLoad</code>，<code>onEnable</code>，<code>start</code>，update，<code>lateUpdate</code>，<code>onDisable</code>，<code>onDestroy</code>），基于引擎已经提供的这些，结合<code>Mediator</code> 和<code>Node</code>进行绑定，让一个功能的模块（这里模块是指功能相对独立，需要和外部其他Node或者预置体通信）</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="效果如下"><a href="#效果如下" class="headerlink" title="效果如下"></a>效果如下</h3><p><img src="/post/49b1096d/mvc.gif" alt="mvc"></p><p>日志输出如下：</p><p><img src="/post/49b1096d/image-20210427130101974.png" alt="image-20210427130101974"></p><h3 id="新建场景"><a href="#新建场景" class="headerlink" title="新建场景"></a>新建场景</h3><ol><li>新建两个场景 一个叫做load（游戏的首个加载场景）另外一个叫做main（游戏主场景）一般来说如果游戏比较复杂一点都会首先让用户看到一个加载场景，然后加载用户进入游戏中需要的基本素材，这样可以缓解游戏黑屏的时间，让用户看到加载进度等，更有耐心等等待游戏加载和数据准备，避免用户过早的流失。</li><li>项目结构如下</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">/Cocos-Creator-PureMVC-Demo/assets</span><br><span class="line">├── .DS_Store</span><br><span class="line">├── lib</span><br><span class="line">|  ├── puremvc.ts</span><br><span class="line">|  └── puremvc.ts.meta</span><br><span class="line">├── lib.meta</span><br><span class="line">├── load.scene</span><br><span class="line">├── load.scene.meta</span><br><span class="line">├── main.scene</span><br><span class="line">├── main.scene.meta</span><br><span class="line">├── res</span><br><span class="line">|  ├── HelloWorld.png</span><br><span class="line">|  ├── HelloWorld.png.meta</span><br><span class="line">|  ├── img_bg.png</span><br><span class="line">|  ├── img_bg.png.meta</span><br><span class="line">|  ├── img_c_bg.png</span><br><span class="line">|  ├── img_c_bg.png.meta</span><br><span class="line">|  ├── img_glass.png</span><br><span class="line">|  ├── img_glass.png.meta</span><br><span class="line">|  ├── img_m_bg.png</span><br><span class="line">|  ├── img_m_bg.png.meta</span><br><span class="line">|  ├── singleColor.png</span><br><span class="line">|  └── singleColor.png.meta</span><br><span class="line">├── res.meta</span><br><span class="line">├── src</span><br><span class="line">|  ├── AppMediator.ts</span><br><span class="line">|  ├── AppMediator.ts.meta</span><br><span class="line">|  ├── AppNode.ts</span><br><span class="line">|  ├── AppNode.ts.meta</span><br><span class="line">|  ├── Browser.ts</span><br><span class="line">|  ├── Browser.ts.meta</span><br><span class="line">|  ├── base</span><br><span class="line">|  |  ├── BaseMediator.ts</span><br><span class="line">|  |  ├── BaseMediator.ts.meta</span><br><span class="line">|  |  ├── BaseScene.ts</span><br><span class="line">|  |  ├── BaseScene.ts.meta</span><br><span class="line">|  |  ├── BaseUI.ts</span><br><span class="line">|  |  ├── BaseUI.ts.meta</span><br><span class="line">|  |  ├── BaseView.ts</span><br><span class="line">|  |  └── BaseView.ts.meta</span><br><span class="line">|  ├── base.meta</span><br><span class="line">|  ├── com</span><br><span class="line">|  |  ├── BaseProxy.ts</span><br><span class="line">|  |  ├── BaseProxy.ts.meta</span><br><span class="line">|  |  ├── LoadScene.ts</span><br><span class="line">|  |  ├── LoadScene.ts.meta</span><br><span class="line">|  |  ├── LoadSceneMediator.ts</span><br><span class="line">|  |  ├── LoadSceneMediator.ts.meta</span><br><span class="line">|  |  ├── LoginCmd.ts</span><br><span class="line">|  |  ├── LoginCmd.ts.meta</span><br><span class="line">|  |  ├── LoginProxy.ts</span><br><span class="line">|  |  ├── LoginProxy.ts.meta</span><br><span class="line">|  |  ├── MainScene.ts</span><br><span class="line">|  |  ├── MainScene.ts.meta</span><br><span class="line">|  |  ├── MainSceneMediator.ts</span><br><span class="line">|  |  └── MainSceneMediator.ts.meta</span><br><span class="line">|  ├── com.meta</span><br><span class="line">|  ├── config</span><br><span class="line">|  |  ├── MsgConst.ts</span><br><span class="line">|  |  └── MsgConst.ts.meta</span><br><span class="line">|  ├── config.meta</span><br><span class="line">|  ├── core</span><br><span class="line">|  |  ├── AppFacade.ts</span><br><span class="line">|  |  ├── AppFacade.ts.meta</span><br><span class="line">|  |  ├── ControllerCmd.ts</span><br><span class="line">|  |  ├── ControllerCmd.ts.meta</span><br><span class="line">|  |  ├── ModelPrepCmd.ts</span><br><span class="line">|  |  ├── ModelPrepCmd.ts.meta</span><br><span class="line">|  |  ├── StartupCmd.ts</span><br><span class="line">|  |  ├── StartupCmd.ts.meta</span><br><span class="line">|  |  ├── ViewPrepCmd.ts</span><br><span class="line">|  |  └── ViewPrepCmd.ts.meta</span><br><span class="line">|  ├── core.meta</span><br><span class="line">|  ├── data</span><br><span class="line">|  |  ├── Inters.ts</span><br><span class="line">|  |  └── Inters.ts.meta</span><br><span class="line">|  └── data.meta</span><br><span class="line">└── src.meta</span><br><span class="line"></span><br><span class="line">directory: 8 file: 69</span><br></pre></td></tr></table></figure><p><img src="/post/49b1096d/image-20210427131734637.png" alt="image-20210427131734637"></p><p>最后老规矩，解释再好不如源码香：源码地址：<a href="https://github.com/jsroads/Cocos-Creator-PureMVC-Demo.git" target="_blank" rel="noopener">点击前往</a></p><h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul><li><a href="https://blog.asroads.com/post/b9cefc56.html">Layabox2.0引入puremvc框架</a></li><li><a href="https://blog.asroads.com/post/492e8cf3.html">Cocos Creator游戏开发|PureMVC</a></li><li><a href="https://blog.asroads.com/post/a484008f.html">PureMVC-Typescript框架如何编译</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>前面文章已经写过PureMVC 如何在LayaBox 里面使用 和 如何在 <code>Cocos Creator 2.x</code>版本使用，距离<code>Cocos Creator3.0</code> 版本发布已经有半年时间，这里继续老生常谈，继续说说在3.0和3.0.1如何 使用。</p><a id="more"></a><p>关于PureMVC框架的介绍，这里不在赘述，关于 Cocos Creator 这样的ECS系统的引擎开发需要不需要框架，仁者见仁，智者见智，论坛里大家都曾热烈讨论，因我个人经历，我说比较偏向于使用框架的那类人，框架，其实就是团队代码规范手册，或者约束手册，通过框架的学习可以大家风格尽可能的一致，便于彼此熟悉代码（团队就自己一个人的可以忽略）另外大多数的框架都做到了模块的低耦合，信息或者事件传递的一对多的机制，便于信息发布和订阅（订阅模式）</p><p>对框架的看法文章后会再说，现在先看看如何配置吧， 源码在文末放出。</p><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><h3 id="类库从插件修改为ts文件"><a href="#类库从插件修改为ts文件" class="headerlink" title="类库从插件修改为ts文件"></a>类库从插件修改为ts文件</h3><ol><li><a href="https://www.cocos.com/docs" target="_blank" rel="noopener">Cocos Creator 3.0</a> 开始 官方不在推荐使用插件模式，这次我们为了更好的向后兼容，这里我们采用纯<code>Typescript</code>的<code>PureMVC</code>的版本（官网也提供了对应版本）</li><li>这里对版本略微改造，把多个<code>Typescript</code>文件放到了一个叫做<code>puremvc.ts</code>的文件里，对于类库或者框架来说，后期我们很少改动，稳定性比较高，所以放到一个叫做lib的文件夹里，这样避免多个文件分散开发者的心思。</li><li>官方的源码除去注释大概只有不到800行 核心代码大概500行左右，算得上是一个极简的框架，如果稍有点耐心的人，读读源码便理解了框架到底解决了什么问题。</li><li>引入框架的目的肯定是要解决一些问题或者通过框架的约束避免一些问题的，这一点，希望用框架的人一定要谨记，框架是官方给的一种思想的具体表现，如果自己觉得某个地方不太好，可以修改为更适合自己项目的方式，前提是自己必须了解修改后有没有引入问题和解决问题。</li></ol><h3 id="启动文件挂在常驻节点"><a href="#启动文件挂在常驻节点" class="headerlink" title="启动文件挂在常驻节点"></a>启动文件挂在常驻节点</h3><p>常驻节点可以成为场景之间切换后存在的全局变量，一些常用的UI容器，或者不想伴随场景销毁而被回收的脚本或者变量可以借助常驻节点的设计挂在这个节点上。</p><h3 id="Cocos-Creator组件周期和框架灵活结合"><a href="#Cocos-Creator组件周期和框架灵活结合" class="headerlink" title="Cocos Creator组件周期和框架灵活结合"></a>Cocos Creator组件周期和框架灵活结合</h3><p>首先我们知道 Typescript是单继承 如果想让脚本挂在在节点上就必须继承 <code>Component</code> 这样 如果想结合<code>puremvc</code> 大概有下面几种情况</p><ol><li>脚本继承<code>Component</code>类 实现 <code>IMediator</code>，<code>INotifier</code>接口</li><li>脚本继承<code>Mediator</code>类实现<code>Component</code>类的对应接口</li><li>脚本继承<code>Mediator</code>类修改<code>Mediator</code>类 让 <code>Mediator</code>类 和 <code>Notifier</code>类 中间 插入一个套件 类 </li><li>脚本继承<code>Mediator</code>类修改<code>Mediator</code>类 <code>Notifier</code> 类 继承<code>Component</code>类</li><li>两个脚本，其中一个继承<code>Component</code>类 另外一个继承 <code>Mediator</code>类 然后进行动态或者挂载 同一个节点绑定</li><li>其他模式</li></ol><p>上面列举了几种实现结合的方法，各有优劣，弊端，这里我选择了第5个方案，其他方案大家可以自行尝试，比较他们各自的优劣。</p><p>项目研发中，一般来说方法使命唯一，或者说职责唯一，本来PureMVC 的view可以主动控制UI层的，但是<a href="https://www.cocos.com/docs" target="_blank" rel="noopener">Cocos Creator</a>是节点树的渲染方式控制节点和节点上组件的生命周期（<code>onLoad</code>，<code>onEnable</code>，<code>start</code>，update，<code>lateUpdate</code>，<code>onDisable</code>，<code>onDestroy</code>），基于引擎已经提供的这些，结合<code>Mediator</code> 和<code>Node</code>进行绑定，让一个功能的模块（这里模块是指功能相对独立，需要和外部其他Node或者预置体通信）</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="效果如下"><a href="#效果如下" class="headerlink" title="效果如下"></a>效果如下</h3><p><img src="/post/49b1096d/mvc.gif" alt="mvc"></p><p>日志输出如下：</p><p><img src="/post/49b1096d/image-20210427130101974.png" alt="image-20210427130101974"></p><h3 id="新建场景"><a href="#新建场景" class="headerlink" title="新建场景"></a>新建场景</h3><ol><li>新建两个场景 一个叫做load（游戏的首个加载场景）另外一个叫做main（游戏主场景）一般来说如果游戏比较复杂一点都会首先让用户看到一个加载场景，然后加载用户进入游戏中需要的基本素材，这样可以缓解游戏黑屏的时间，让用户看到加载进度等，更有耐心等等待游戏加载和数据准备，避免用户过早的流失。</li><li>项目结构如下</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">/Cocos-Creator-PureMVC-Demo/assets</span><br><span class="line">├── .DS_Store</span><br><span class="line">├── lib</span><br><span class="line">|  ├── puremvc.ts</span><br><span class="line">|  └── puremvc.ts.meta</span><br><span class="line">├── lib.meta</span><br><span class="line">├── load.scene</span><br><span class="line">├── load.scene.meta</span><br><span class="line">├── main.scene</span><br><span class="line">├── main.scene.meta</span><br><span class="line">├── res</span><br><span class="line">|  ├── HelloWorld.png</span><br><span class="line">|  ├── HelloWorld.png.meta</span><br><span class="line">|  ├── img_bg.png</span><br><span class="line">|  ├── img_bg.png.meta</span><br><span class="line">|  ├── img_c_bg.png</span><br><span class="line">|  ├── img_c_bg.png.meta</span><br><span class="line">|  ├── img_glass.png</span><br><span class="line">|  ├── img_glass.png.meta</span><br><span class="line">|  ├── img_m_bg.png</span><br><span class="line">|  ├── img_m_bg.png.meta</span><br><span class="line">|  ├── singleColor.png</span><br><span class="line">|  └── singleColor.png.meta</span><br><span class="line">├── res.meta</span><br><span class="line">├── src</span><br><span class="line">|  ├── AppMediator.ts</span><br><span class="line">|  ├── AppMediator.ts.meta</span><br><span class="line">|  ├── AppNode.ts</span><br><span class="line">|  ├── AppNode.ts.meta</span><br><span class="line">|  ├── Browser.ts</span><br><span class="line">|  ├── Browser.ts.meta</span><br><span class="line">|  ├── base</span><br><span class="line">|  |  ├── BaseMediator.ts</span><br><span class="line">|  |  ├── BaseMediator.ts.meta</span><br><span class="line">|  |  ├── BaseScene.ts</span><br><span class="line">|  |  ├── BaseScene.ts.meta</span><br><span class="line">|  |  ├── BaseUI.ts</span><br><span class="line">|  |  ├── BaseUI.ts.meta</span><br><span class="line">|  |  ├── BaseView.ts</span><br><span class="line">|  |  └── BaseView.ts.meta</span><br><span class="line">|  ├── base.meta</span><br><span class="line">|  ├── com</span><br><span class="line">|  |  ├── BaseProxy.ts</span><br><span class="line">|  |  ├── BaseProxy.ts.meta</span><br><span class="line">|  |  ├── LoadScene.ts</span><br><span class="line">|  |  ├── LoadScene.ts.meta</span><br><span class="line">|  |  ├── LoadSceneMediator.ts</span><br><span class="line">|  |  ├── LoadSceneMediator.ts.meta</span><br><span class="line">|  |  ├── LoginCmd.ts</span><br><span class="line">|  |  ├── LoginCmd.ts.meta</span><br><span class="line">|  |  ├── LoginProxy.ts</span><br><span class="line">|  |  ├── LoginProxy.ts.meta</span><br><span class="line">|  |  ├── MainScene.ts</span><br><span class="line">|  |  ├── MainScene.ts.meta</span><br><span class="line">|  |  ├── MainSceneMediator.ts</span><br><span class="line">|  |  └── MainSceneMediator.ts.meta</span><br><span class="line">|  ├── com.meta</span><br><span class="line">|  ├── config</span><br><span class="line">|  |  ├── MsgConst.ts</span><br><span class="line">|  |  └── MsgConst.ts.meta</span><br><span class="line">|  ├── config.meta</span><br><span class="line">|  ├── core</span><br><span class="line">|  |  ├── AppFacade.ts</span><br><span class="line">|  |  ├── AppFacade.ts.meta</span><br><span class="line">|  |  ├── ControllerCmd.ts</span><br><span class="line">|  |  ├── ControllerCmd.ts.meta</span><br><span class="line">|  |  ├── ModelPrepCmd.ts</span><br><span class="line">|  |  ├── ModelPrepCmd.ts.meta</span><br><span class="line">|  |  ├── StartupCmd.ts</span><br><span class="line">|  |  ├── StartupCmd.ts.meta</span><br><span class="line">|  |  ├── ViewPrepCmd.ts</span><br><span class="line">|  |  └── ViewPrepCmd.ts.meta</span><br><span class="line">|  ├── core.meta</span><br><span class="line">|  ├── data</span><br><span class="line">|  |  ├── Inters.ts</span><br><span class="line">|  |  └── Inters.ts.meta</span><br><span class="line">|  └── data.meta</span><br><span class="line">└── src.meta</span><br><span class="line"></span><br><span class="line">directory: 8 file: 69</span><br></pre></td></tr></table></figure><p><img src="/post/49b1096d/image-20210427131734637.png" alt="image-20210427131734637"></p><p>最后老规矩，解释再好不如源码香：源码地址：<a href="https://github.com/jsroads/Cocos-Creator-PureMVC-Demo.git" target="_blank" rel="noopener">点击前往</a></p><h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul><li><a href="https://blog.asroads.com/post/b9cefc56.html">Layabox2.0引入puremvc框架</a></li><li><a href="https://blog.asroads.com/post/492e8cf3.html">Cocos Creator游戏开发|PureMVC</a></li><li><a href="https://blog.asroads.com/post/a484008f.html">PureMVC-Typescript框架如何编译</a></li></ul>]]></content>
       
       
       <categories>
@@ -72,9 +72,9 @@
       
         <tags>
             
-            <tag> ts </tag>
-            
             <tag> js </tag>
+            
+            <tag> ts </tag>
             
             <tag> Webstorm </tag>
             
@@ -128,9 +128,9 @@
       
         <tags>
             
-            <tag> ts </tag>
-            
             <tag> Cocos </tag>
+            
+            <tag> ts </tag>
             
             <tag> PureMVC </tag>
             
@@ -234,9 +234,9 @@
       
         <tags>
             
-            <tag> js </tag>
-            
             <tag> Cocos </tag>
+            
+            <tag> js </tag>
             
         </tags>
       
@@ -288,9 +288,9 @@
       
         <tags>
             
-            <tag> 技术 </tag>
-            
             <tag> Android </tag>
+            
+            <tag> 技术 </tag>
             
         </tags>
       
@@ -633,9 +633,9 @@
       
         <tags>
             
-            <tag> js </tag>
-            
             <tag> Cocos </tag>
+            
+            <tag> js </tag>
             
         </tags>
       
@@ -685,9 +685,9 @@
       
         <tags>
             
-            <tag> js </tag>
-            
             <tag> Cocos </tag>
+            
+            <tag> js </tag>
             
         </tags>
       
@@ -712,9 +712,9 @@
       
         <tags>
             
-            <tag> ts </tag>
-            
             <tag> Layabox </tag>
+            
+            <tag> ts </tag>
             
         </tags>
       
@@ -791,9 +791,9 @@
       
         <tags>
             
-            <tag> ts </tag>
-            
             <tag> js </tag>
+            
+            <tag> ts </tag>
             
         </tags>
       
@@ -897,9 +897,9 @@
       
         <tags>
             
-            <tag> 技术 </tag>
-            
             <tag> Cocos </tag>
+            
+            <tag> 技术 </tag>
             
         </tags>
       
@@ -1663,9 +1663,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> Mac </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
@@ -1717,9 +1717,9 @@
       
         <tags>
             
-            <tag> 技术 </tag>
-            
             <tag> Layabox </tag>
+            
+            <tag> 技术 </tag>
             
             <tag> Webstorm </tag>
             
@@ -2406,9 +2406,9 @@
       
         <tags>
             
-            <tag> 技术 </tag>
-            
             <tag> Layabox </tag>
+            
+            <tag> 技术 </tag>
             
             <tag> Webstorm </tag>
             
@@ -2739,9 +2739,9 @@
       
         <tags>
             
-            <tag> 技术 </tag>
-            
             <tag> homebrew </tag>
+            
+            <tag> 技术 </tag>
             
             <tag> Python </tag>
             
@@ -2868,9 +2868,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> 技术 </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
@@ -3178,9 +3178,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> 技术 </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
@@ -3205,9 +3205,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> 技术 </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
@@ -3232,9 +3232,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> 技术 </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
@@ -3303,9 +3303,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> 技术 </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
