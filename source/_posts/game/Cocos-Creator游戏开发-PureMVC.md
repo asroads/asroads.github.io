@@ -4,6 +4,7 @@ comments: true
 categories: game
 tags:
   - Cocos
+  - PureMVC
 abbrlink: 492e8cf3
 date: 2020-07-01 15:24:09
 ---
@@ -756,7 +757,7 @@ puremvc框架 初始化完毕
 
 当然了由于篇幅有限，至于如何查找到这个问题和解决，就是另一个坎坷的故事了，后面有空的时候会把上面提到的build目录的重新编译的故事和操作再讲讲吧。
 
-最后放上 [源码项目地址](https://github.com/jsroads/Cocos-Creator-PureMVC-Demo.git)（[点击进入](https://github.com/jsroads/Cocos-Creator-PureMVC-Demo.git)）
+最后放上 [源码项目地址](https://github.com/jsroads/Cocos-Creator-PureMVC-Demo/tree/2.4.0)（[点击进入](https://github.com/jsroads/Cocos-Creator-PureMVC-Demo/tree/2.4.0)）
 
 ### 总结
 

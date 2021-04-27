@@ -2,8 +2,8 @@
 title: Layabox2.0引入puremvc框架
 categories: game
 tags:
-  - 小游戏
   - Layabox
+  - PureMVC
 abbrlink: b9cefc56
 date: 2019-06-24 18:24:33
 ---
