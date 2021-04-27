@@ -5,6 +5,7 @@ categories: other
 tags:
   - ts
   - Cocos
+  - PureMVC
 abbrlink: a484008f
 date: 2021-03-10 18:04:58
 ---
