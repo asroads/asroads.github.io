@@ -3,6 +3,7 @@ title: 'Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild �
 categories: game
 tags:
   - Cocos
+  - TweenMax
 abbrlink: 2376105a
 date: 2019-09-04 19:32:14
 ---

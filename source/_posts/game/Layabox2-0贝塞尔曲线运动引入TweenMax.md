@@ -3,6 +3,7 @@ title: Layabox2.0贝塞尔曲线运动引入TweenMax
 categories: game
 tags:
   - Layabox
+  - TweenMax
 abbrlink: b0aa25e3
 date: 2019-08-13 19:36:41
 ---

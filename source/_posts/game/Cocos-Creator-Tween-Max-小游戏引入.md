@@ -4,6 +4,7 @@ comments: true
 categories: game
 tags:
   - Cocos
+  - TweenMax
 abbrlink: d927b4f2
 date: 2019-12-08 15:17:21
 ---
