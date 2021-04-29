@@ -13,6 +13,10 @@ date: 2021-04-29 17:26:11
 
 <!--more-->
 
+## 最终效果
+
+##  ![tween](TweenMax如何在Cocos-Creator-3-0使用/tween.gif)
+
 ## 背景
 
 [Cocos Creator 3.0](https://www.cocos.com/docs) 开始 Node的很多属性和方法都修改了。[Cocos Creator 3.0 升级指南](https://docs.cocos.com/creator/3.0/manual/zh/release-notes/upgrade-guide-v3.0.html)
@@ -518,3 +522,4 @@ declare const Strong: typeof Quint;
 ## 一些疑点
 
 上面这样转达属性，会不会造成内存浪费或者性能变差，这些没有深究，希望后面有机会继续探索，另外，如果有人有什么看法可以联系我。邮箱：jsroads@163.com
+
