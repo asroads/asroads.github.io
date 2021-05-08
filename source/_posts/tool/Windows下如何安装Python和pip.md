@@ -12,6 +12,8 @@ date: 2018-09-13 12:11:18
 
 <!-- more -->
 
+## 具体步骤
+
 解决办法如下：
 
 1. 安装python2.7.13，这里我选择安装在C盘根目录下。
@@ -80,4 +82,51 @@ Windows 10 的五月更新为 Microsoft Store 应用商店带来了 Python 3.7
 
 
 
+## 2021年5月7日更新
+
+最近工作需要，需在Windows 10 安装 python3，中间遇到了一些问题，这里说说其中的问题和解决方法
+
+### 环境
+
+- [Python 3.9.5](https://www.python.org/downloads/release/python-395/)
+- [Git](https://git-scm.com/)
+- [get-pip.py](https://bootstrap.pypa.io/get-pip.py)
+
+### 步骤
+
+1. 去官网下载python3
+2. 配置环境变量
+3. 安装pip 
+
+```bash
+python get-pip.py
+python -m pip --version
+```
+
+**注意：**
+
+xlrd 2.0.1之后不支持xlsx
+
+> 由于xlrd 2.0.1升级后,官文这样解释
+>
+> ```bash
+> xlrd is a library for reading data and formatting information from Excel files in the historical .xls format. #只能够操作xls老版本文件,如何操作xlsx需要调用其他的库
+> ```
+
+解决方法：
+
+把xlrd退到了1.2.0的版本
+
+```bash
+pip uninstall xlrd
+pip install xlrd==1.2.0
+```
+
+在Windows下使用Git Bash 可以直接运行.sh文件
+
+## 参考
+
+- [windows10 使用python3安装pip](http://web.exiang.org/blog/user1/3/2689.html)
+- [Pandas read_excel 在升级xlrd 2.0.1之后不支持xlsx的应对方法](https://blog.csdn.net/zhaoleiedu/article/details/111472654)
+- [win10下如何运行.sh文件](https://blog.csdn.net/qq_41895190/article/details/82770309)
 
