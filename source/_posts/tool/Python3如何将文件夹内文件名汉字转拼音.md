@@ -187,7 +187,7 @@ kapai # 正确输出 kapai
 >
 > 我们可以对结果进行一些风格转换，比如不带声调风格、标准声调风格、声调在拼音之后、声调在韵母之后、注音风格等等，比如我们想要声调放在拼音后面，可以这么来实现：
 >
-> ```
+> ```python
 > from pypinyin import lazy_pinyin, Style
 > 
 > style = Style.TONE3
@@ -196,13 +196,13 @@ kapai # 正确输出 kapai
 >
 > 运行结果：
 >
-> ```
+> ```python
 > ['cong1', 'ming2', 'de', 'xiao3', 'tu4', 'zi']
 > ```
 >
 > 可以看到运行结果每个拼音后面就多了一个声调，这就是其中的一个风格，叫做 TONE3，其实还有很多风格，下面是我从源码里面找出来的定义：
 >
-> ```
+> ```python
 > #: 普通风格，不带声调。如： 中国 -> ``zhong guo``
 > NORMAL = 0
 > #: 标准声调风格，拼音声调在韵母第一个字母上（默认风格）。如： 中国 -> ``zhōng guó``
@@ -235,13 +235,13 @@ kapai # 正确输出 kapai
 >
 > 有了这些，我们就可以轻松地实现风格转换了。 好，再回到原来的问题，为什么 pinyin 的方法默认带声调，而 lazy_pinyin 方法不带声调，答案就是：它们二者使用的默认风格不同，我们看下它的函数定义就知道了： pinyin 方法的定义如下：
 >
-> ```
+> ```python
 > def pinyin(hans, style=Style.TONE, heteronym=False, errors='default', strict=True)
 > ```
 >
 > lazy_pinyin 方法的定义如下：
 >
-> ```
+> ```python
 > def lazy_pinyin(hans, style=Style.NORMAL, errors='default', strict=True)
 > ```
 >
