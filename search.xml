@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Mac关闭Microsoft AutoUpdate更新弹框提示</title>
+      <link href="/post/3fb18aea.html"/>
+      <url>/post/3fb18aea.html</url>
+      
+        <content type="html"><![CDATA[<p>macOS安装Microsoft Office for Mac后，最近经常弹出Microsoft Auto Update应用自动更新工具。就如下面这样：占用我的任务栏，关键还带个小红点很烦人，于是乎想到要把这个关闭。</p><a id="more"></a><p>先看看图吧：</p><p><img src="/post/3fb18aea/image-20210602124522133.png" alt="image-20210602124522133"></p><p><img src="/post/3fb18aea/image-20210602124530819.png" alt="image-20210602124530819"></p><h3 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h3><h4 id="方案一：设置权限关闭："><a href="#方案一：设置权限关闭：" class="headerlink" title="方案一：设置权限关闭："></a>方案一：设置权限关闭：</h4><p>切换到目录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Library/Application\ Support/Microsoft/MAU2.0</span><br></pre></td></tr></table></figure><p>设置权限</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 000 Microsoft\ AutoUpdate.app</span><br></pre></td></tr></table></figure><p>输入电脑密码。Microsoft AutoUpdate.app就没有执行权限，一切都安静了。</p><h4 id="方案二：删除运行文件"><a href="#方案二：删除运行文件" class="headerlink" title="方案二：删除运行文件"></a>方案二：删除运行文件</h4><ol><li>按键盘快捷键：command（⌘）+⇧+G，或者顶部菜单，选中前往，前往文件夹</li></ol><p><img src="/post/3fb18aea/image-20210602124840552.png" alt="image-20210602124840552"></p><p><img src="/post/3fb18aea/image-20210602124852849.png" alt="image-20210602124852849"></p><ol start="2"><li>输入路径 ：<code>/Library/Application Support/Microsoft/</code> 后点击前往</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;Library&#x2F;Application Support&#x2F;Microsoft&#x2F;</span><br></pre></td></tr></table></figure><ol start="3"><li>删除 <code>MAU2.0/Microsoft AutoUpdate.app</code>文件</li></ol><p><img src="/post/3fb18aea/image-20210602125015817.png" alt="image-20210602125015817"></p><p>以上 彻底解决这个烦人的更新提示的烦恼。</p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/132658872" target="_blank" rel="noopener">关闭Mac的Microsoft AutoUpdate弹框提示</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> tools </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
+            
+            <tag> Microsoft Office </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Python3如何将文件夹内文件名汉字转拼音</title>
       <link href="/post/4e1d3fc2.html"/>
       <url>/post/4e1d3fc2.html</url>
