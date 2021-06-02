@@ -1,7 +1,7 @@
 ---
 title: Mac关闭Microsoft AutoUpdate更新弹框提示
 comments: true
-categories: tools
+categories: tool
 tags:
   - Mac
   - Microsoft Office
