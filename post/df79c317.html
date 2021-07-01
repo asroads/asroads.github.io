@@ -251,7 +251,7 @@
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2021-06-08
+      更新于:&nbsp;2021-06-11
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -357,7 +357,7 @@
 </li>
 </ul>
 <p>接下来是具体步骤：</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="下载编译js-bson"><a href="#下载编译js-bson" class="headerlink" title="下载编译js-bson"></a>下载编译js-bson</h3><ol>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="全局变量模式-amp-插件导入"><a href="#全局变量模式-amp-插件导入" class="headerlink" title="全局变量模式&amp;插件导入"></a>全局变量模式&amp;插件导入</h3><h3 id="下载编译js-bson"><a href="#下载编译js-bson" class="headerlink" title="下载编译js-bson"></a>下载编译js-bson</h3><ol>
 <li>首先外面<a href="https://github.com/mongodb/js-bson" target="_blank" rel="noopener">js-bson</a> 到本地</li>
 </ol>
 <p><img src="/post/df79c317/image-20210608163150480.png" alt="image-20210608163150480"></p>
@@ -398,7 +398,33 @@
 <li><a href="https://github.com/jsroads/mylibs/tree/main/bson/2.4.x" target="_blank" rel="noopener">Cocos Creator 2.x demo</a></li>
 <li><a href="https://github.com/jsroads/mylibs/tree/main/bson/3.1.x" target="_blank" rel="noopener">Cocos Creator 3.1.x demo</a></li>
 </ul>
+<h3 id="ES6-模块方式-引入"><a href="#ES6-模块方式-引入" class="headerlink" title="ES6 模块方式 引入"></a>ES6 模块方式 引入</h3><p>官方类库下载后 根据提示运行命令：npm install 或 npm run build 生成的 dist 目录下有四个文件，分别是四种格式，首先我们查看 根目录下的 配置文件叫做<code>rollup.config.js</code>，</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">output: [</span><br><span class="line">      &#123;</span><br><span class="line">        file: 'dist/bson.browser.umd.js',</span><br><span class="line">        format: 'umd',</span><br><span class="line">        name: defaultName,</span><br><span class="line">        exports: 'named',</span><br><span class="line">        sourcemap: true</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        file: 'dist/bson.browser.esm.js',</span><br><span class="line">        format: 'es',</span><br><span class="line">        name: defaultName,</span><br><span class="line">        exports: 'named',</span><br><span class="line">        sourcemap: true</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        file: 'dist/bson.bundle.js',</span><br><span class="line">        format: 'iife',</span><br><span class="line">        name: defaultName,</span><br><span class="line">        exports: 'named',</span><br><span class="line">        sourcemap: true</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+
+<p>其中 format 这个属性 这里我们稍作知识拓展：</p>
+<blockquote>
+<h4 id="格式-format-f-output-format"><a href="#格式-format-f-output-format" class="headerlink" title="格式(format -f/--output.format)"></a>格式(format <em><code>-f</code>/<code>--output.format</code></em>)</h4><p><code>String</code> 生成包的格式。 下列之一:</p>
+<ul>
+<li><code>amd</code> – 异步模块定义，用于像RequireJS这样的模块加载器</li>
+<li><code>cjs</code> – CommonJS，适用于 Node 和 Browserify/Webpack</li>
+<li><code>esm</code> – 将软件包保存为 ES 模块文件，在现代浏览器中可以通过 <code>&lt;script type=module&gt;</code> 标签引入</li>
+<li><code>iife</code> – 一个自动执行的功能，适合作为<code>&lt;script&gt;</code>标签。（如果要为应用程序创建一个捆绑包，您可能想要使用它，因为它会使文件大小变小。）</li>
+<li><code>umd</code> – 通用模块定义，以<code>amd</code>，<code>cjs</code> 和 <code>iife</code> 为一体</li>
+<li><code>system</code> - SystemJS 加载器格式</li>
+</ul>
+</blockquote>
+<p>看到这些 我们知道 dist 目录下 为我们生成了 四种不同环境下的文件，这里如果我们使用 ES6 模式就用 bson.esm.js  这个文件 记得 文件名字要重命名为 bson.js</p>
+<p><img src="/post/df79c317/image-20210611120623128.png" alt="image-20210611120623128"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  &#123;deserialize, Long, serialize&#125; <span class="keyword">from</span> <span class="string">"../libs/bson"</span>;</span><br><span class="line"><span class="comment">// Serialize a document</span></span><br><span class="line"> <span class="keyword">const</span> doc = &#123; <span class="attr">long</span>: Long.fromNumber(<span class="number">100</span>) &#125;;</span><br><span class="line"> <span class="keyword">const</span> data = serialize(doc);</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'data:'</span>, data);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// De serialize it again</span></span><br><span class="line"> <span class="keyword">const</span> doc_2 = deserialize(data);</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'doc_2:'</span>, doc_2);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<p><img src="/post/df79c317/image-20210611121034324.png" alt="image-20210611121034324"></p>
+<h2 id="知识拓展"><a href="#知识拓展" class="headerlink" title="知识拓展"></a>知识拓展</h2><p>Cocos 引用第三方库的两种方式：</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前还没有真正理解 Cocos Creator 关于第三方 node库的怎么最优雅的方式使用，后续工作中会再深入探索和研究，查漏补缺的学习，这次先做个简单的引入。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.npmjs.com/package/bson" target="_blank" rel="noopener">BSON parser</a></li>
+<li><a href="https://mp.weixin.qq.com/s/bSy2XtK70F7OOCpI00nGDQ" target="_blank" rel="noopener">Creator | TS项目中引入第三方JS库的两种方式</a></li>
+</ul>
 
   </div>
   <!--文末结束语-->
@@ -433,7 +459,7 @@
     <ul class="mdui-menu" id="toc">
       <li class="mdui-menu-item">
         <a href="/post/df79c317.html" id="toc-header" class="mdui-ripple">文章目录</a>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BSON简单介绍"><span class="toc-number">1.</span> <span class="toc-text">BSON简单介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-vs-BSON"><span class="toc-number">1.1.</span> <span class="toc-text">JSON vs BSON</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载编译js-bson"><span class="toc-number">2.1.</span> <span class="toc-text">下载编译js-bson</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改生成后的文件"><span class="toc-number">2.2.</span> <span class="toc-text">修改生成后的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试结果"><span class="toc-number">2.3.</span> <span class="toc-text">测试结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BSON简单介绍"><span class="toc-number">1.</span> <span class="toc-text">BSON简单介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-vs-BSON"><span class="toc-number">1.1.</span> <span class="toc-text">JSON vs BSON</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#步骤"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#全局变量模式-amp-插件导入"><span class="toc-number">2.1.</span> <span class="toc-text">全局变量模式&amp;插件导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载编译js-bson"><span class="toc-number">2.2.</span> <span class="toc-text">下载编译js-bson</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改生成后的文件"><span class="toc-number">2.3.</span> <span class="toc-text">修改生成后的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试结果"><span class="toc-number">2.4.</span> <span class="toc-text">测试结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6-模块方式-引入"><span class="toc-number">2.5.</span> <span class="toc-text">ES6 模块方式 引入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#格式-format-f-output-format"><span class="toc-number">2.5.1.</span> <span class="toc-text">格式(format -f&#x2F;--output.format)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#知识拓展"><span class="toc-number">3.</span> <span class="toc-text">知识拓展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
       </li>
     </ul>
   </div>
