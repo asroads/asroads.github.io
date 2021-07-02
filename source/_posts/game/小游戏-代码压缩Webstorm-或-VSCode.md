@@ -151,6 +151,26 @@ gulp.task("obfuscator", function (cb) {
 - https://www.sojson.com/jsobfuscator.html （不太推荐 文件太大）
 - https://www.javascriptobfuscator.com/Javascript-Obfuscator.aspx  （别人介绍 未测试）
 
+#### 此外NPM压缩的类库还有 [uglifyjs](https://www.npmjs.com/package/uglify-js) 等
+
+From NPM for use as a command line app:
+
+```
+npm install uglify-js -g
+```
+
+From NPM for programmatic use:
+
+```
+npm install uglify-js
+```
+
+压缩命令 ：
+
+```
+lazyLoad.js -o lazyLoad.min.js
+```
+
 ### 参考链接
 
 - [vscode中执行gulp的task](https://juejin.im/post/5b44957b6fb9a04fae20f06e)
