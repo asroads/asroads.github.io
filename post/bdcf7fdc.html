@@ -251,7 +251,7 @@
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2021-07-01
+      更新于:&nbsp;2021-07-02
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -383,6 +383,37 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Md5&#125; <span class="keyword">from</span> <span class="string">"md5-typescript"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(Md5.init(<span class="string">'test'</span>));</span><br></pre></td></tr></table></figure>
 
 <p>更多加密算法参考：<a href="https://www.npmjs.com/package/crypto-js" target="_blank" rel="noopener">crypto-js</a> </p>
+<h3 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h3><h4 id="MD5简介"><a href="#MD5简介" class="headerlink" title="MD5简介"></a>MD5简介</h4><p>MD5是一种信息摘要算法（Message-Digest Algorithm），可以产生出一个128位（8位(bit)=1字节(byte),16字节）的散列值（hash）.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12345</span>   MD5===&gt; e10adc3949ba59abbe56e057f20f883e</span><br><span class="line"><span class="comment">// 说好的128位,为什么有32个字符.</span></span><br><span class="line"><span class="comment">//这串码是16进制表示,1位==4位二进制.</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">12345</span>   MD5===&gt; e10adc3949ba59abbe56e057f20f883e</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="comment">// 说好的128位,为什么有32个字符.</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="comment">//这串码是16进制表示,1位==4位二进制.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MD5-加密后的类型（16位与-32位的区别）"><a href="#MD5-加密后的类型（16位与-32位的区别）" class="headerlink" title="MD5 加密后的类型（16位与 32位的区别）"></a>MD5 加密后的类型（16位与 32位的区别）</h4><p>MD5 加密后的位数一般为两种，16 位与 32 位。16 位实际上是从 32 位字符串中，取中间的第 9 位到第 24 位的部分,MD5 加密后的字符串又分为大写与小写两种，也就是其中的字母是大写还是小写。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> md5_16 = md5_32.substring(<span class="number">8</span>, <span class="number">24</span>);</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>字符串</th>
+<th>123456</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>16位小写</td>
+<td>49ba59abbe56e057</td>
+</tr>
+<tr>
+<td>16位大写</td>
+<td>49BA59ABBE56E057</td>
+</tr>
+<tr>
+<td>32位小写</td>
+<td>e10adc3949ba59abbe56e057f20f883e</td>
+</tr>
+<tr>
+<td>32位大写</td>
+<td>E10ADC3949BA59ABBE56E057F20F883E</td>
+</tr>
+</tbody></table>
 <h3 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h3><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/50048269" target="_blank" rel="noopener">10分钟快速入门rollup.js</a></li>
 <li><a href="https://www.rollupjs.com/" target="_blank" rel="noopener">rollupjs中文文档</a></li>
@@ -399,6 +430,11 @@
   <div class="mdui-divider"></div>
   
   <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/21c1b53.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>函数防抖与节流和TypeScript装饰结合</span>
+      </a>
     
     
       <a rel="next" class="post-nav-item mdui-float-right" href="/post/9839845c.html">
@@ -417,7 +453,7 @@
     <ul class="mdui-menu" id="toc">
       <li class="mdui-menu-item">
         <a href="/post/bdcf7fdc.html" id="toc-header" class="mdui-ripple">文章目录</a>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行的参数-Command-line-flags"><span class="toc-number">1.</span> <span class="toc-text">命令行的参数(Command line flags)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#h-help"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">-h&#x2F;--help</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#v-version"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">-v&#x2F;--version</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#w-watch"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">-w&#x2F;--watch</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#silent"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">--silent</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件-Configuration-files"><span class="toc-number">2.</span> <span class="toc-text">配置文件(Configuration files)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件-file-o-output-file"><span class="toc-number">2.1.</span> <span class="toc-text">文件(file -o&#x2F;--output.file)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#格式-format-f-output-format"><span class="toc-number">2.2.</span> <span class="toc-text">格式(format -f&#x2F;--output.format)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成包名称-name-n-name"><span class="toc-number">2.3.</span> <span class="toc-text">生成包名称(name -n&#x2F;--name)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Md5例子"><span class="toc-number">3.</span> <span class="toc-text">Md5例子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#修改-rollup-config-js"><span class="toc-number">3.1.</span> <span class="toc-text">修改 rollup.config.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-number">4.</span> <span class="toc-text">参考地址</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令行的参数-Command-line-flags"><span class="toc-number">1.</span> <span class="toc-text">命令行的参数(Command line flags)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#h-help"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">-h&#x2F;--help</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#v-version"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">-v&#x2F;--version</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#w-watch"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">-w&#x2F;--watch</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#silent"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">--silent</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件-Configuration-files"><span class="toc-number">2.</span> <span class="toc-text">配置文件(Configuration files)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件-file-o-output-file"><span class="toc-number">2.1.</span> <span class="toc-text">文件(file -o&#x2F;--output.file)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#格式-format-f-output-format"><span class="toc-number">2.2.</span> <span class="toc-text">格式(format -f&#x2F;--output.format)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成包名称-name-n-name"><span class="toc-number">2.3.</span> <span class="toc-text">生成包名称(name -n&#x2F;--name)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Md5例子"><span class="toc-number">3.</span> <span class="toc-text">Md5例子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#修改-rollup-config-js"><span class="toc-number">3.1.</span> <span class="toc-text">修改 rollup.config.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展知识"><span class="toc-number">4.</span> <span class="toc-text">拓展知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5简介"><span class="toc-number">4.1.</span> <span class="toc-text">MD5简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5-加密后的类型（16位与-32位的区别）"><span class="toc-number">4.2.</span> <span class="toc-text">MD5 加密后的类型（16位与 32位的区别）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考地址"><span class="toc-number">5.</span> <span class="toc-text">参考地址</span></a></li></ol>
       </li>
     </ul>
   </div>
