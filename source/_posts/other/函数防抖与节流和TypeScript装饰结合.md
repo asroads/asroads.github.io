@@ -306,6 +306,7 @@ export const Throttle = (wait: number) => {
 
 ## 参考
 
+- [防抖和节流原理分析](https://juejin.cn/post/6844903662519599111)
 - [再谈函数节流与防抖 - 利用装饰器 @decorator 来实现](https://www.jianshu.com/p/c9fe37cdf200)
 - [装饰者模式和TypeScript装饰器](https://segmentfault.com/a/1190000022415199)
 - [这篇文章助你理解函数防抖与函数节流](https://mp.weixin.qq.com/s/ArXO9ytrOZ44uaXyzkYKBw)
