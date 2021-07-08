@@ -116,7 +116,19 @@ Type "help", "copyright", "credits" or "license" for more information.
 
   配置完成后点击 **保存** 按钮，保存并关闭窗口。
 
-  **注意**：这里的配置会在编译 **原生工程** 的时候生效。如果没有生效（一些 Mac 机器有可能出现这个情况），可能需要您尝试到 **系统环境变量** 设置这些值：COCOS_CONSOLE_ROOT, NDK_ROOT, ANDROID_SDK_ROOT。
+  **注意**：这里的配置会在编译 **原生工程** 的时候生效。如果没有生效（一些 Mac 机器有可能出现这个情况），可能需要您尝试到 **系统环境变量** 设置这些值：`COCOS_CONSOLE_ROOT`, `NDK_ROOT`, `ANDROID_SDK_ROOT`。
+  
+- 如果遇到 `NDK_ROOT not defined. Please define NDK_ROOT in your environment` 这个错误
+
+  就是环境变量的问题：
+
+  - 问题原因：使用了`zsh ＋ iTerm2` 的配置，所以它默认启动时执行的脚本文件是 `～/.zshrc`文件
+
+  - 解决办法：参考 [简书-DayBreakL]( https://www.jianshu.com/p/635e6cc35268)
+
+    `vim ~/.zshrc`  //打开配置文件`.zshrc`
+     `source ~/.bash_profile;`//在`.zshrc`文件末尾加上这句话，保存退出
+     `source ~/.bash_profile;`//再终端中执行一次这个命令
 
 #### 新建项目
 
