@@ -231,6 +231,8 @@ console.log(Md5.init('test'));
 
 更多加密算法参考：[crypto-js](https://www.npmjs.com/package/crypto-js) 
 
+最后放上项目源码地址：[点击进入](https://github.com/jsroads/mylibs/tree/main/md5%26xxtea)
+
 ###  拓展知识
 
 #### MD5简介

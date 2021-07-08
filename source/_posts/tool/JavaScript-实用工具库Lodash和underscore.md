@@ -101,6 +101,19 @@ Helloworld.ts:19 smile----:1
 
 以上就是如何 在 `Cocos Creator 2.4.5` 版本内引入第三方工具库 `underscore` 的具体步骤。
 
+最后老规矩 放上underscore项目源码地址：[点击进入](https://github.com/jsroads/mylibs/tree/main/underscore)
+
+#### 更多介绍
+
+[underscore-analysis](https://github.com/lessfish/underscore-analysis) 作者的很多文章都值得读一下。
+
+其中：
+
+- [underscore-1.8.3.js 源码](https://github.com/hanzichi/underscore-analysis/blob/master/underscore-1.8.3.js/src/underscore-1.8.3.js)
+- [underscore-1.8.3.js 源码解读全文注释版](https://github.com/hanzichi/underscore-analysis/blob/master/underscore-1.8.3.js/underscore-1.8.3-analysis.js)
+
+可以学习一下
+
 ## Lodash
 
 ![Lodash logo](JavaScript-实用工具库Lodash和underscore/lodash.png)
@@ -409,6 +422,8 @@ Helloworld.ts:21smile----num:2.8159920166107595
 > - `-p`, `--production` ....... Write only the minified production output
 > - `-s`, `--silent` ............... Skip status updates normally logged to the console
 > - `-V`, `--version` ............. Output current version of Lodash
+
+最后老规矩 放上lodash项目源码地址：[点击进入](https://github.com/jsroads/mylibs/tree/main/lodash)
 
 ### 其他技术相关
 
