@@ -164,18 +164,18 @@ setInterval(test.fn,50);
  * @param immediate 首次否直接运行
  * @constructor
  */
-export const Debounce = (wait: number, immediate: boolean = false) => {
-    return (target: any, key: string, descriptor: any) => {
+export const Debounce = (wait: number, immediate: boolean = true) => {
+    return function (target: any, key: string, descriptor: any) {
         let timer = null;
         const fn = descriptor.value;
-        descriptor.value = async (...args: any[]) => {
+        descriptor.value = async function (...args: any[]) {
             // 立即执行的功能（timer为空表示首次触发）
             if (immediate && !timer) {
                 fn.apply(this, args);
             }
-
             // 有新的触发，则把定时器清空
             timer && clearTimeout(timer);
+            console.log("timer",timer)
             // 重新计时
             timer = setTimeout(() => {
                 fn.apply(this, args);
@@ -191,10 +191,10 @@ export const Debounce = (wait: number, immediate: boolean = false) => {
  * @constructor
  */
 export const Throttle = (wait: number) => {
-    return (target: any, key: string, descriptor: any) => {
+    return function(target: any, key: string, descriptor: any) {
         let timer = null;
         let fn = descriptor.value;
-        descriptor.value = async (...args: any[]) => {
+        descriptor.value = async function (...args: any[]) {
             if (!timer) {
                 timer = setTimeout(() => {
                     fn.apply(this, args);

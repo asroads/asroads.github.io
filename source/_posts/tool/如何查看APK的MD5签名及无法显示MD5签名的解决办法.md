@@ -86,6 +86,29 @@ smile@bogon ~ %
 
 至此，一切真相终于浮出水面，扑所迷离的问题，终于弄明白啦。本文完毕了。
 
+### 2021年8月4日更新
+
+1. 后面经过寻找终于找到了一个 可以查看 MD5的神器，[jadx](https://github.com/skylot/jadx)
+
+2. 目前最新的版本是：
+
+> ### Download
+>
+> - release [v1.2.0](https://github.com/skylot/jadx/releases/tag/v1.2.0)
+> - latest [unstable build](https://nightly.link/skylot/jadx/workflows/build/master)
+
+3. 运行使用jadx-gui
+
+   ```bash
+   jadx-gui /Users/smile/Downloads/test.apk
+   ```
+
+   ![image-20210804125836101](如何查看APK的MD5签名及无法显示MD5签名的解决办法/image-20210804125836101.png)
+
+   以上，就是如何查看 APK的 MD5签名。
+
+
+
 ## 参考
 
 - [jdk10.0.1使用keytool -v -list -keystore xxx.jks拿不到Md5值-CSDN](https://blog.csdn.net/androidzmm/article/details/80814913)
