@@ -120,3 +120,46 @@ sudo chown -R $USER /usr/local/lib/node_modules
 > Pay attention to the folder listed by the error message. If it’s different, update the `chown` command accordingly.
 
 参考地址：[How to fix the "Missing write access" error when using npm](https://flaviocopes.com/npm-fix-missing-write-access-error/)
+
+####  npm 升级后 install 报错 
+
+如果遇到 升级后 报错 npm install报错Maximum call stack size exceeded解决办法
+
+```shell
+//查看版本
+npm -v
+ 
+//更新到最新版本
+npm install -g npm
+```
+
+删除node_module文件夹和package-lock.json文件，再重新npm install
+
+清空缓存
+
+```shell
+npm cache clean --force
+
+npm install
+```
+
+#### npm install报错Maximum call stack size exceeded解决办法
+
+```shell
+//查看版本
+npm -v
+ 
+//更新到最新版本
+npm install -g npm
+```
+
+删除node_module文件夹和package-lock.json文件，再重新npm install
+
+清空缓存
+
+```shell
+npm cache clean --force
+
+npm install
+```
+

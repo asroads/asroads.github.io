@@ -153,7 +153,7 @@ android.applicationVariants.all { variant ->
 }
 ```
 
-修改后：
+~~修改后：（这个方案经原作者提醒 应该改成下面的最新方案）~~
 
 ```json
 android.applicationVariants.all { variant ->
@@ -193,7 +193,30 @@ android.applicationVariants.all { variant ->
 
 修改原因：基本上就是把 into “${outputDir}/x” 改成 into outputDir.dir(“x”)
 
+##### 2021-08-30 日更新
 
+修改后：原参考文章作者 指出了最后的修改方案 这边做个搬运 大家可以按照这个方式 尝试一下
+
+```json
+copy {
+
+        from "${sourceDir}"
+
+        include "assets/**"
+
+        include "res/**"
+
+        include "src/**"
+
+        include "jsb-adapter/**"
+
+        into outputDir
+
+}
+```
+
+作者：居安up
+链接：https://www.jianshu.com/p/866f2798b98c
 
 ## 测试效果
 
