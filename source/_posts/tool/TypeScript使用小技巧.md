@@ -487,3 +487,49 @@ developer.city = "XiaMen";
 
 这样就可以动态获取了。
 
+### 忽略内容或者整个文件
+
+**typescript忽略文件或者内容**
+
+```typescript
+单行忽略
+// @ts-ignore
+
+忽略全文
+// @ts-nocheck
+
+取消忽略全文
+// @ts-check
+
+```
+
+**eslint忽略+typescript忽略**
+
+```typescript
+/* eslint-disable */
+const watermark = require("watermark-dom"); // @ts-ignore
+/* eslint-enable */
+
+```
+
+参考：[TS语法忽略、eslint忽略](https://blog.csdn.net/m0_38069630/article/details/108194188)
+
+### Object.values 提示不能使用
+
+![image-20210825151158103](TypeScript使用小技巧/image-20210825151158103.png)
+
+修改 tsconfig.json的compilerOptions 选项
+
+```json
+{
+  "compilerOptions": {
+    "strict": false,
+    "lib": [
+      "es2017", "dom"
+    ]
+  }
+}
+```
+
+更新细节参考：[编译选项](https://www.tslang.cn/docs/handbook/compiler-options.html)
+
