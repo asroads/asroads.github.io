@@ -414,6 +414,14 @@ mac:~/Library/Application Support/Google/AndroidStudioPreview4.1
 
 参考地址：[Android Studio Gradle OutofMemory Error](https://stackoverflow.com/questions/23440647/android-studio-gradle-outofmemory-error)
 
+其他修改方法 You can also got to: **Help > Edit Custom VM Options...**
+
+![image-20210903135706252](CocosCreator导出Android项目采坑指南/image-20210903135706252.png)
+
+参考地址 ：http://tools.android.com/tech-docs/configuration
+
+
+
 ### Android Studio报Entry name 'res/layout/notification_action.xml' collided错
 
 解决办法：点build，clear project清除一下缓存就好了

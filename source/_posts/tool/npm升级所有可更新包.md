@@ -32,11 +32,11 @@ npm update <name> -g //<name> 是你要升级的包
 ### 检查 升级
 
 ```
-npm-check -u -g // 全局
+sudo npm-check -u -g // 全局
 ```
 
 ```
-npm-check -u //当前项目 目录
+sudo npm-check -u //当前项目 目录
 ```
 
 然后 使用 空格键 和 Enter键 操作 升级
