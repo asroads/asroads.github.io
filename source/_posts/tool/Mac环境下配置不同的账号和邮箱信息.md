@@ -19,7 +19,7 @@ date: 2021-09-18 13:46:46
 
 ## 步骤细节
 
-#### 查看当前Git账户和邮箱：
+#### 查看全局Git账户和邮箱：
 
 ```shell
 git config --global user.name
