@@ -47,13 +47,13 @@ npm install -g hexo
 
 安装完毕，选择本地你要建站的文件夹，我的是 “/Users/hoolai/jsroads/myblog”，然后打开控制台执行命令，hexo 会初始化网站所需的文件。
 
-```
+```bash
 hexo init
 ```
 
 接着安装 npm 依赖包
 
-```
+```bash
 npm install
 ```
 
@@ -61,13 +61,13 @@ npm install
 
 “hexo generate” 你也可以使用 “hexo g”代替
 
-```
+```bash
 hexo generate
 ```
 
 编译成功后 继续输入 “hexo server” 部署网站 可以用“hexo s” 代替
 
-```
+```bash
 hexo server
 ```
 
@@ -85,7 +85,7 @@ repository 相当于一个仓库，用来放置自己的网站的文件，登录
 
 此时需要修改一下本地（/Users/hoolai/jsroads/myblog）的一个“_config.yml”记得一点 hexo 配置中 任何“:”后面都是带空格的。
 
-```
+```bash
 deploy:
     type: git
     repository: https://github.com/asroads/asroads.github.io.git
@@ -106,14 +106,14 @@ ls -al ~/.ssh
 
 如果已经存在或者正常生成了，用指令添加
 
-```
+```bash
 eval `ssh-agent -s`
 ssh-add
 ```
 
 到了这里基本就搞定了，这个时候需要复制 key 到 github 上面 测试一下 输入以下指令
 
-```
+```bash
 ssh -T git@github.com
 ```
 
@@ -126,18 +126,33 @@ ssh -T git@github.com
 
 此时 还需要安装 一个 hexo-deployer-git
 
-```
+```bash
 npm install hexo-deployer-git --save
 ```
 
 做完上面这些就表示已经搞定了。执行下面的命令，部署到github 上面吧
 
-```
+```bash
 hexo generate
 hexo deploy
 ```
 
-最后打开你的网站博客查看效果吧。我的是 [asroads.github.io](http://blog.asroads.com/) 。
+最后打开你的网站博客查看效果吧。我的是 [blog.asroads.com](http://blog.asroads.com/) 。
+
+### 2021-09-18 更新
+
+#### 出现ERROR Deployer not found: git的问题
+
+参照网上的方式：
+
+- deploy的type 的github需要改成git
+- npm install hexo-deployer-git –save
+
+```bash
+sudo npm install hexo-deployer-git –save
+```
+
+解决问题。
 
 ## 后记
 
@@ -145,23 +160,21 @@ hexo deploy
 
 十多年前（2007）入行的时候，回忆起学校老师在课堂上曾说，做技术的人，要有一个自己的门面（技术博客），这个是自己的一份“自我经营”，先后在新浪、网易博客、CSDN开了博客，由于后期的工作繁忙，奔波，懒散懈怠，大都虎头蛇尾，偶尔去打开想写点什么的时候，总感觉自己学的知识过于零碎，繁琐，整理起来过于麻烦，很多问题网上已经很多人都给出最好的答案，图文并茂的解答。再去造几个轮子，显得冗余了些。这篇文章也参考了网上许多优秀人的博客和解答，在此，衷心的谢谢他们，好人一生平安！
 
-
-
 ### 不错的主题
 
-https://github.com/kb1000fx/hexo-theme-meadow   https://garybear.cn/
+https://github.com/kb1000fx/hexo-theme-meadow  
+
+ https://garybear.cn/
+
+https://github.com/blinkfox/hexo-theme-matery
 
 ## 参考文档
 
 - [使用Hexo+github pages+travis ci搭建好看的个人博客](https://mfrank2016.github.io/breeze-blog/2020/05/02/hexo/hexo-start/)
-
 - [麦田守望者](https://seazhang.github.io/)
-
 - [Git 最著名报错 “ERROR: Permission to XXX.git denied to user”终极解决方案](https://www.jianshu.com/p/12badb7e6c10)
-
 - [Xcode中Command Line Tools安装方法](https://blog.csdn.net/chenyufeng1991/article/details/47007979)
-
 - [个性化图标生成网站](http://emblemmatic.org/markmaker/#/)
-
 - [HEXO主题配置网站](https://github.com/Sanonz/hexo-theme-concise/blob/master/README.md)
+- [基于Gitee+Hexo搭建个人博客](https://segmentfault.com/a/1190000018662692)
 

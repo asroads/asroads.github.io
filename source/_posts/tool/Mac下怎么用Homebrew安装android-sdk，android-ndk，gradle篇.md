@@ -4,6 +4,7 @@ categories: tool
 tags:
   - Mac
   - 技术
+  - homebrew
 abbrlink: 52abec8e
 date: 2018-06-23 10:13:44
 ---
