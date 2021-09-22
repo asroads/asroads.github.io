@@ -34,6 +34,61 @@ date: 2018-06-06 18:20:04
 
 - 最后检查一下，`hexo g`生成页面后，进入`public\2017\02\26\index.html`文件中查看相关字段，可以发现，html标签内的语句是`<img src="2017/02/26/xxxx/图片名.jpg">`，而不是`<img src="xxxx/图片名.jpg>`。这很重要，关乎你的网页是否可以真正加载你想插入的图片。
 
+### 2021-09-22 更新
+
+如果遇到图无法显示的情况，此时需要检查一下 网页的源代码：
+
+此时 `config.yml` 文件
+
+```json
+url: https://jsroads.gitee.io
+permalink: :year/:month/:day/:title/
+```
+
+但是我们打印出来的图片路径 是：
+
+```bash
+update link as:-->/.io//image-20210922130821755.png
+update link as:-->/.io//image-20210922130821755.png
+```
+
+经过查找问题出在 `项目根目录/node_modules/hexo-asset-image/index.js`的23行左右
+
+```javascript
+    if(/.*\/index\.html$/.test(link)) {
+      // when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html
+      // image in xxtitle/ will go to xxtitle/index/
+      appendLink = 'index/';
+      var endPos = link.lastIndexOf('/');
+    }
+    else {
+      var endPos = link.lastIndexOf('.');
+    }
+```
+
+发现 这个走了 else 分支导致的，我们把 `link.lastIndexOf('.')` 修改为 `link.lastIndexOf('/')` 即可 修改后
+
+```javascript
+    if(/.*\/index\.html$/.test(link)) {
+      // when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html
+      // image in xxtitle/ will go to xxtitle/index/
+      appendLink = 'index/';
+      var endPos = link.lastIndexOf('/');
+    }
+    else {
+      var endPos = link.lastIndexOf('/');
+    }
+```
+
+重新 清理运行 ： `hexo clean & hexo g`
+
+```
+update link as:-->/2021/09/18/hello-world/image-20210922130821755.png
+update link as:-->/2021/09/18/hello-world/image-20210922130821755.png
+```
+
+然后运行效果 正常
+
 ### 总结
 
 这个是 相对路径和绝对路径的问题，HEXO 在编译 部署 发布过程中使用的是默认的相对路径，而我们插入图片的时候使用的是本地的绝对路径，这样就导致了图片显示不出来的问题。
