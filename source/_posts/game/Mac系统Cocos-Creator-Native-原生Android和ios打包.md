@@ -457,8 +457,66 @@ Built to "/test/cc/mynativedemo/build/jsb-link" successfully
     }
 ```
 
+**2021-09-24 更新**
 
+最新版本 使用 Cocos Creator 3.3.1 版本  安卓版本 Target API Level 为 30 情况下 返回键已经无效 可以使用一个迂回的方案解决
+
+AppActivity.java
+
+```java
+  @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            Cocos2dxHelper.runOnGLThread(new Runnable() {
+                @Override
+                public void run() { 
+      Cocos2dxJavascriptJavaBridge.evalString("cc.game.jsBridge.onBackPressed();");
+                }
+            });
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+```
+
+原文链接：https://blog.csdn.net/lebsharing/article/details/110004131
+
+JavaScript 端 写对应处理即可
+
+```javascript
+ onBackPressed() {
+        console.log("----onBackPressed----");
+ }
+```
+
+其他相关问题 比如 Editbox 等问题 ：
+
+```java
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK){
+        if(hasExitBox){//直接调用sdk的退出框
+            OutFace.getInstance(this).outQuit(this);
+        }else{
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("status",0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            sActivity.evalStringWithJsonData("xxx.showExitAlert", jsonObject);
+        }
+        return true;
+    }
+    return super.onKeyDown(keyCode, event);
+}
+```
+
+思路：就是自己把信息传到 Javascript 那边，然后处理对应的动作。
 
 ## 总结
 
 打包Native安装包，应该了解安卓环境或者Xcode环境，熟悉项目目录结构文件配置，能更轻松顺利的解决遇到的问题。
+
