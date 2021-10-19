@@ -36,6 +36,16 @@ brew install wget
  brew install --cask firefox
 ```
 
+如果运行报错 比如 403 等 错误 清除 缓存 再来试试
+
+```shell
+rm -rf /Users/$(whoami)/Library/Caches/Homebrew/
+
+brew -v
+```
+
+
+
 ## 切换国内源
 
 Homebrew 主要分三部分 

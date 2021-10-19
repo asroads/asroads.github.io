@@ -76,9 +76,36 @@ git config core.ignorecase
 
 2、运行`git config core.ignorecase false`，关闭git忽略大小写配置
 
+### SourceTree 删除记住的账户
+
+如果是mac电脑
+
+1. 在`钥匙串访问` APP中删除对应的账号。
+
+2. 然后在`sourceTree` 中 `偏好设置 -> 高级` 删除对应的账号。
+
+注意：SourceTree 在中文状态下和英文状态下居然功能会不一样，简直是`中国特供版`了。
+
+中文状态下`高级`按钮不可点击：
+
+![image-20211011181847714](Sourcetree操作Gitlab的项目/image-20211011181847714.png)
+
+![image-20211011181933954](Sourcetree操作Gitlab的项目/image-20211011181933954.png)
+
+修改一下 语言与地区 为 English 然后 重启 Source Tree
+
+![image-20211011182008964](Sourcetree操作Gitlab的项目/image-20211011182008964.png)
+
+然后 发现 可以正常设置 账号啦
+
+![image-20211011182713277](Sourcetree操作Gitlab的项目/image-20211011182713277.png)
+
+
+
 ### 参考链接：
 
 - [GitLab remote：HTTP Basic：拒绝访问和致命身份验证](https://xbuba.com/questions/47860772)
 - [mac下gitLab、sourceTree的配合使用](https://www.jianshu.com/p/707de2a1046d)
 - [修改文件名大小写"造成的git上传文件丢失](https://my.oschina.net/huibaifa/blog/3096818) 
+- [SourceTree 删除记住的账户](https://blog.csdn.net/u011368551/article/details/116563683)
 
