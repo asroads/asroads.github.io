@@ -205,7 +205,12 @@ Cocos Creator 内置了一些常用的组件，在游戏使用的时候很方便
 ```typescript
 import {CheckboxContainer} from "./CheckboxContainer";
 
-const {ccclass, inspector, property,executeInEditMode,menu} = cc._decorator;
+/**
+ * Created by jsroads on 2021/10/14.11:17 上午
+ * Note:多选按钮 配合 CheckboxContainer 多选按钮组用
+ */
+const {ccclass, inspector, property, executeInEditMode, menu} = cc._decorator;
+
 enum EventType {
     /**
      * @event click
@@ -213,82 +218,19 @@ enum EventType {
      * @param {Button} button - The Button component.
      */
     CLICK = 'click',
+    TOGGLE = 'toggle',
 }
+
 @ccclass
 @executeInEditMode
-@menu("Checkbox")
+@menu("组件库/Checkbox")
 @inspector("packages://custom-component/inspectors/comps/checkbox.js")
 export class Checkbox extends cc.Button {
+    public static EventType = EventType;
     @property({
         type: CheckboxContainer
     })
     public toggleGroup: CheckboxContainer = null!;
-    /**
-     * @en
-     * When this value is true, the check mark component will be enabled,
-     * otherwise the check mark component will be disabled.
-     *
-     * @zh
-     * 如果这个设置为 true，则 check mark 组件会处于 enabled 状态，否则处于 disabled 状态。
-     */
-    @property
-    protected _isChecked:boolean = true;
-
-    @property({
-        type:cc.Boolean
-    })
-    get isChecked ():boolean {
-        return this._isChecked;
-    }
-
-    set isChecked (value:boolean) {
-        this._set(value);
-    }
-    @property
-    protected _checkMark:  cc.Sprite | null = null;
-    /**
-     * @en
-     * The image used for the checkmark.
-     *
-     * @zh
-     * Toggle 处于选中状态时显示的图片。
-     */
-    @property({
-        type:cc.Sprite,
-        tooltip:"i18n:toggle.checkMark",
-    })
-    get checkMark () {
-        return this._checkMark;
-    }
-    set checkMark (value) {
-        if (this._checkMark === value) {
-            return;
-        }
-        this._checkMark = value;
-    }
-
-    set _resizeToTarget (value: boolean) {
-        if (value) {
-            this._resizeNodeToTargetNode();
-        }
-    }
-
-    get _toggleContainer () {
-        const parent = this.node.parent!;
-        if (parent) {
-            return parent.getComponent('CheckboxContainer') as CheckboxContainer;
-        }
-        return null;
-    }
-
-    private   _resizeNodeToTargetNode   () {
-        this.node.setContentSize(this._getTarget().getContentSize());
-    }
-    _getTarget () {
-        return this.target ? this.target : this.node;
-    }
-    public static EventType = EventType;
-
     /**
      * @en
      * If Toggle is clicked, it will trigger event's handler.
@@ -297,32 +239,75 @@ export class Checkbox extends cc.Button {
      * Toggle 按钮的点击事件列表。
      */
     @property({
-        type:[cc.Component.EventHandler]
+        type: [cc.Component.EventHandler],
+        tooltip: 'i18n:toggle.check_events'
     })
     public checkEvents: cc.Component.EventHandler[] = [];
 
-
-    protected _internalToggle () {
-        this.isChecked = !this.isChecked;
-    }
-
-    protected _set (value: boolean, emitEvent = true) {
-        if (this._isChecked == value) return;
-        this._isChecked = value;
-        const group = this._toggleContainer;
-        if (group && group.enabled && this.enabled) {
-            // if (value || (!group.anyTogglesChecked() && !group.allowSwitchOff)) {
-            if (value || group.allowSwitchOff) {
-                // this._isChecked = true;
-                group.notifyToggleCheck(this, emitEvent);
-            }
-        }
-        this.playEffect();
-        if (emitEvent) {
-            this._emitToggleEvents();
+    set _resizeToTarget(value: boolean) {
+        if (value) {
+            this._resizeNodeToTargetNode();
         }
     }
-    public playEffect () {
+
+    get _toggleContainer(): CheckboxContainer | null {
+        const parent = this.node.parent!;
+        if (parent.isValid) {
+            return parent.getComponent('CheckboxContainer') as CheckboxContainer;
+        }
+        return null;
+    }
+
+    @property
+    protected _isChecked = true;
+
+    /**
+     * @en
+     * When this value is true, the check mark component will be enabled,
+     * otherwise the check mark component will be disabled.
+     *
+     * @zh
+     * 如果这个设置为 true，则 check mark 组件会处于 enabled 状态，否则处于 disabled 状态。
+     */
+    @property({
+        tooltip: 'i18n:toggle.isChecked'
+    })
+    get isChecked() {
+        return this._isChecked;
+    }
+
+    set isChecked(value) {
+        this._set(value);
+    }
+
+    @property
+    protected _checkMark: cc.Sprite | null = null;
+
+    /**
+     * @en
+     * The image used for the checkmark.
+     *
+     * @zh
+     * Toggle 处于选中状态时显示的图片。
+     */
+    @property({
+        type: cc.Sprite,
+        tooltip: 'i18n:toggle.checkMark'
+    })
+    get checkMark() {
+        return this._checkMark;
+    }
+
+    set checkMark(value) {
+        if (this._checkMark === value) {
+            return;
+        }
+
+        this._checkMark = value;
+    }
+
+    //
+    public playEffect() {
         if (this._checkMark) {
             this._checkMark.node.active = this._isChecked;
         }
@@ -337,40 +322,82 @@ export class Checkbox extends cc.Button {
      *
      * @param value - 是否被按下
      */
-    public setIsCheckedWithoutNotify (value: boolean) {
+    public setIsCheckedWithoutNotify(value: boolean) {
         this._set(value, false);
     }
 
-    public onEnable () {
+    public onEnable() {
         super.onEnable();
         this.playEffect();
         if (!CC_EDITOR) {
-            this.node.on(EventType.CLICK, this._internalToggle, this);
+            this.node.on(Checkbox.EventType.CLICK, this._internalToggle, this);
         }
     }
 
-    public onDisable () {
+    public onDisable() {
         super.onDisable();
         if (!CC_EDITOR) {
-            this.node.off(EventType.CLICK, this._internalToggle, this);
+            this.node.off(Checkbox.EventType.CLICK, this._internalToggle, this);
         }
     }
 
-    public OnDestroy () {
+    public OnDestroy() {
         const group = this._toggleContainer;
         if (group) {
             group.ensureValidState();
         }
     }
 
-    protected _emitToggleEvents () {
-        this.node.emit("Checkbox", this);
+    protected _resizeNodeToTargetNode() {
+        if (!this.target) {
+            return;
+        }
+        const target = this.target || this.node;
+        const contentSize = target.getContentSize();
+        if (CC_EDITOR && contentSize) {
+            this.node.setContentSize(contentSize);
+        }
+    }
+
+    protected _internalToggle() {
+        this.isChecked = !this.isChecked;
+    }
+
+    protected _set(value: boolean, emitEvent = true) {
+        if (this._isChecked == value) return;
+
+        this._isChecked = value;
+
+        const group = this._toggleContainer;
+        if (group && group.enabled && this.enabled) {
+            const anyTogglesChecked = group.anyTogglesChecked();
+            const allowSwitchOff = group.allowSwitchOff;
+            const isCheckbox = group.isCheckbox;
+            // if (value || (!anyTogglesChecked && !allowSwitchOff)) {
+            if (isCheckbox) {
+                group.notifyToggleCheck(this, emitEvent);
+            } else {
+                if (value || (!anyTogglesChecked)) {
+                    this._isChecked = true;
+                    group.notifyToggleCheck(this, emitEvent);
+                }
+            }
+
+        }
+
+        this.playEffect();
+        if (emitEvent) {
+            this._emitToggleEvents();
+        }
+    }
+
+    protected _emitToggleEvents() {
+        this.node.emit(Checkbox.EventType.TOGGLE, this);
         if (this.checkEvents) {
             cc.Component.EventHandler.emitEvents(this.checkEvents, this);
         }
     }
 }
-
 
 ```
 
@@ -378,13 +405,52 @@ CheckboxContainer.ts
 
 ```typescript
 import {Checkbox} from "./Checkbox";
-const {ccclass, property,executeInEditMode,menu} = cc._decorator;
+
+/**
+ * Created by jsroads on 2021/10/14.4:18 下午
+ * Note:多选按钮组
+ */
+const {ccclass, property, executeInEditMode, menu} = cc._decorator;
+
 @ccclass
 @executeInEditMode
-@menu("CheckboxContainer")
+@menu("组件库/CheckboxContainer")
 export class CheckboxContainer extends cc.Component {
+    /**
+     * @en
+     * If Toggle is clicked, it will trigger event's handler.
+     *
+     * @zh
+     * Toggle 按钮的点击事件列表。
+     */
+    @property({
+        type: [cc.Component.EventHandler],
+        serializable: true,
+        tooltip: 'i18n:toggle_group.check_events'
+    })
+    public checkEvents: cc.Component.EventHandler[] = [];
+
     @property
-    protected _allowSwitchOff = true;
+    public _isCheckbox: boolean = true;
+
+    @property({
+        type: false,
+        tooltip: '是否多选按钮组,否则单选'
+    })
+
+    get isCheckbox() {
+        return this._isCheckbox;
+    }
+
+    set isCheckbox(value) {
+        this._isCheckbox = value;
+        if (value) {
+            this._allowSwitchOff = value;
+        }
+    }
+
+    @property
+    protected _allowSwitchOff = false;
 
     /**
      * @en
@@ -396,9 +462,11 @@ export class CheckboxContainer extends cc.Component {
      * 如果这个设置为 true，那么 toggle 按钮在被点击的时候可以反复地被选中和未选中。
      */
     @property({
-        type:false
+        tooltip: 'i18n:toggle_group.allowSwitchOff',
+        visible: function (this: CheckboxContainer) {
+            return !this.isCheckbox;
+        }
     })
-
     get allowSwitchOff() {
         return this._allowSwitchOff;
     }
@@ -406,19 +474,6 @@ export class CheckboxContainer extends cc.Component {
     set allowSwitchOff(value) {
         this._allowSwitchOff = value;
     }
-    /**
-     * @en
-     * If Toggle is clicked, it will trigger event's handler.
-     *
-     * @zh
-     * Toggle 按钮的点击事件列表。
-     */
-    @property({
-        type:cc.Component.EventHandler
-    })
-    public checkEvents: cc.Component.EventHandler[] = [];
-
-
 
     /**
      * @en
@@ -439,13 +494,13 @@ export class CheckboxContainer extends cc.Component {
 
     public onEnable() {
         this.ensureValidState();
-        this.node.on("child-added", this.ensureValidState, this);
-        this.node.on("child-removed", this.ensureValidState, this);
+        this.node.on(cc.Node.EventType.CHILD_ADDED, this.ensureValidState, this);
+        this.node.on(cc.Node.EventType.CHILD_REMOVED, this.ensureValidState, this);
     }
 
     public onDisable() {
-        this.node.off("child-added", this.ensureValidState, this);
-        this.node.off("child-removed", this.ensureValidState, this);
+        this.node.off(cc.Node.EventType.CHILD_ADDED, this.ensureValidState, this);
+        this.node.off(cc.Node.EventType.CHILD_REMOVED, this.ensureValidState, this);
     }
 
     public activeToggles() {
@@ -470,26 +525,35 @@ export class CheckboxContainer extends cc.Component {
         if (!this.enabledInHierarchy) {
             return;
         }
-        // 注释这里即可
-        // for (let i = 0; i < this.toggleItems.length; i++) {
-        //     const item = this.toggleItems[i]!;
-        //     if (item === toggle) {
-        //         continue;
-        //     }
-        //     if (emitEvent) {
-        //         item.isChecked = false;
-        //     } else {
-        //         item.setIsCheckedWithoutNotify(false);
-        //     }
-        // }
-        if (this.checkEvents) {
+        if (this.isCheckbox) {
+            // for (let i = 0; i < this.toggleItems.length; i++) {
+            //     const item = this.toggleItems[i]!;
+            //     if (item === toggle) {
+            //         continue;
+            //     }
+            //     item.setIsCheckedWithoutNotify(false);
+            // }
+        } else {
+            for (let i = 0; i < this.toggleItems.length; i++) {
+                const item = this.toggleItems[i]!;
+                if (item === toggle) {
+                    continue;
+                }
+                if (emitEvent) {
+                    item.isChecked = false;
+                } else {
+                    item.setIsCheckedWithoutNotify(false);
+                }
+            }
+        }
+        if (emitEvent&&this.checkEvents) {
             cc.Component.EventHandler.emitEvents(this.checkEvents, toggle);
         }
     }
 
     public ensureValidState() {
         const toggles = this.toggleItems;
-        if (!this._allowSwitchOff && !this.anyTogglesChecked() && toggles.length !== 0) {
+        if (!this.allowSwitchOff && !this.anyTogglesChecked() && toggles.length !== 0) {
             const toggle = toggles[0]!;
             toggle.isChecked = true;
             this.notifyToggleCheck(toggle);
@@ -503,18 +567,21 @@ export class CheckboxContainer extends cc.Component {
                 if (toggle === firstToggle) {
                     continue;
                 }
-                toggle!.isChecked = false;
+                if (this.isCheckbox) {
+                    toggle!.setIsCheckedWithoutNotify(false);
+                } else {
+                    toggle!.isChecked = false;
+                }
+
             }
         }
     }
 }
-
-
 ```
 
 然后我们拖动一个单选按钮组，测试一下：
 
-![image-20211019120803211](CocosCreator扩展内置组件做Checkbox/image-20211019120803211.png)
+![image-20211105155053132](CocosCreator扩展内置组件做Checkbox/image-20211105155053132.png)
 
 ```typescript
     private checkBoxHandler(checkbox:Checkbox){
