@@ -234,7 +234,7 @@ python3 GitLogParse.py --days 2
 
 
 
-最后源码地址：[点击进入](https://github.com/jsroads/mylibs/GitLogParsePlus)
+最后源码地址：[点击进入](https://github.com/jsroads/mylibs/tree/main/GitLogParsePlus)
 
 ### 总结
 
