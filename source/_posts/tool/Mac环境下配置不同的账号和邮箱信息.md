@@ -100,6 +100,26 @@ git config --system --unset credential.helper
 
 重新操作`git`, 再次输入帐户和密码, OK, 成功!
 
+#### remote: Permission to xxx/xxx.git denied to xxx
+
+push的时候报错remote: Permission to xxx/xxx.git denied to xxx
+
+问题出现环境：当你在命令行push一个项目的时候`git push origin master`出现此报错
+
+##### 问题原因
+
+翻译一下这个错误：用户<旧的github名>没有权限访问用户<新的github名>的存储库<项目名>。
+就是说：现在电脑登录的是用户<旧的github名>，需要切换到用户<新的github名>。
+那么，怎么切换账号呢，看操作
+
+##### mac版解决方法
+
+搜索钥匙串访问
+
+![image-20211110102126160](Mac环境下配置不同的账号和邮箱信息/image-20211110102126160.png)
+
+删除后 重新 `git push origin master` 即可。
+
 ## 参考
 
 - [使用git报错 - remote: HTTP Basic: Access denied](https://blog.csdn.net/qq_25835645/article/details/84390221)

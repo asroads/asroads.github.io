@@ -130,10 +130,11 @@ date: 2019-10-15 11:10:15
 | Unix时间戳     | [点击打开](http://tool.chinaz.com/Tools/unixtime.aspx) |       | 批量更名         |
 | jsrun          | [点击打开](https://jsrun.pro)                          |       | 代码在线编辑测试 |
 | JSON在线格式化 | [点击打开](http://www.bejson.com)                      |       | JSON在线格式     |
-| 淘宝 NPM 镜像  | [点击打开](https://npm.taobao.org)                     |      | NPM 国内替代     |
+| 淘宝 NPM 镜像  | [点击打开](https://npmmirror.com/)                     |      | NPM 国内替代     |
 | 在线工具       | [点击打开](https://tool.lu)                            |      | 程序员的工具箱   |
 | 文本去重工具   | [点击打开](https://www.qqxiuzi.cn/zh/quchong/)         |      | 文本去重工具     |
 | LOGO设计       | [点击打开](http://emblemmatic.org/markmaker/#/)        |      | 在线免费设计logo |
+| 图片在线处理   | [点击打开](https://www.iloveimg.com/zh-cn)             |        | 图片在线简单处理 |
 
 ### 小游戏列表
 
