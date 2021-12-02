@@ -150,6 +150,22 @@ https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
 
 
 
+## srcRGB was GL_CONTEXT_FLAG_DEBUG_BIT_KHR
+
+Sprite Blend 模式错误  报错：
+
+![image-20211126110323058](如何解决-libpng-warning-iCCP-known-incorrect-sRGB-profile-警告/image-20211126110323058.png)
+
+```
+[.WebGL-0x7f8cff15e800]GL ERROR :GL_INVALID_ENUM : glBlendFuncSeparate: srcRGB was GL_CONTEXT_FLAG_DEBUG_BIT_KHR
+```
+
+原因：
+
+![image-20211126110210609](如何解决-libpng-warning-iCCP-known-incorrect-sRGB-profile-警告/image-20211126110210609.png)
+
+修改成默认的即可，或者删除组件，重新挂载一个新的即可。
+
 ## 参考地址 
 
 - [cocos2d-x 3.0 and libpng](http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451)

@@ -12,7 +12,13 @@ date: 2021-08-25 14:49:30
 终于升级到 `Cocos Creator 3.x` 版本了，接下来就是一步步的踩坑，比如之前的项目用的是 [axios](https://github.com/axios/axios) 这个类库，`2.x` 正常引入，3.x就报错了，下面说说这个报错，以及如何解决。
 <!--more-->
 
-下面说一下 具体步骤
+下面说一下 具体说明
+
+## 介绍
+
+> ### Axios 是什么?
+>
+> Axios 是一个基于 *[promise](https://javascript.info/promise-basics)* 网络请求库，作用于[`node.js`](https://nodejs.org/) 和浏览器中。 它是 *[isomorphic](https://www.lullabot.com/articles/what-is-an-isomorphic-application)* 的(即同一套代码可以运行在浏览器和node.js中)。在服务端它使用原生 node.js `http` 模块, 而在客户端 (浏览端) 则使用 XMLHttpRequests。
 
 ## 环境：
 
@@ -24,7 +30,13 @@ date: 2021-08-25 14:49:30
 
 ####  [is-retry-allowed](https://github.com/sindresorhus/is-retry-allowed)
 
-相关链接：[axios中文文档](http://axios-js.com/zh-cn/docs/)
+相关链接：[axios官方文档(最新)](https://axios-http.com/zh/docs/instance)   [axios中文文档（原）](http://axios-js.com/zh-cn/docs/)
+
+### API 说明
+
+2021年12月01 更新说明
+
+现在官方网站API 和demo已经说的很清楚了，也很容易理解，直接配置测试即可，这里不再赘述。
 
 ## 步骤
 
@@ -477,3 +489,9 @@ const watermark = require("watermark-dom"); // @ts-ignore
 更新细节参考：[编译选项](https://www.tslang.cn/docs/handbook/compiler-options.html)
 
 最后  给个demo地址 [点击前往](https://github.com/jsroads/mylibs/tree/main/axios/3.x/axiosdemo)
+
+## 其他相关
+
+- [qs](https://github.com/ljharb/qs)  一个 url参数转化 (parse和stringify)的轻量级js库
+- **fly.js** 一个基于promise的http请求库, 可以用在node.js, Weex, 微信小程序, 浏览器, React Native中
+

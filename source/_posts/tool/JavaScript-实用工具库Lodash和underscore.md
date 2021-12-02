@@ -4,6 +4,7 @@ comments: true
 categories: tool
 tags:
   - js
+  - Cocos
 abbrlink: cc49438c
 date: 2021-07-08 14:28:30
 ---
@@ -427,7 +428,9 @@ Helloworld.ts:21smile----num:2.8159920166107595
 
 ### 其他技术相关
 
-[futil-js](https://github.com/smartprocure/futil-js)
+[futil-js](https://github.com/smartprocure/futil-js)  
+
+**[ramda](https://ramda.cn/)** 一个很重要的库，提供了许多有用的方法，每个 JavaScript 程序员都应该掌握这个工具
 
 ## 参考文章
 
