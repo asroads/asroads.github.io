@@ -490,6 +490,123 @@ const watermark = require("watermark-dom"); // @ts-ignore
 
 最后  给个demo地址 [点击前往](https://github.com/jsroads/mylibs/tree/main/axios/3.x/axiosdemo)
 
+### 原生环境相关问题
+
+##### isStandardBrowserEnv 方法
+
+原来代码：
+
+```typescript
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+```
+
+修改为：
+
+```javascript
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof cc !== "undefined" ||(typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS'))) {
+    return false;
+  }
+  // https://stackoverflow.com/questions/63700678/i-want-to-use-axios-with-android-build-of-cocoscreator
+  // if (cc.sys.isNative
+  // 	&& typeof navigator !== 'undefined'
+  // 	&& typeof navigator.product !== 'undefined') {
+  // 	Object.defineProperty(navigator, "product", {value: "NativeScript"});
+  // }
+
+  // if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+  // 	navigator.product === 'NativeScript' ||
+  // 	navigator.product === 'NS')) {
+  // 	return false;
+  // }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+```
+
+参考链接：[I want to use axios with Android build of CocosCreator](https://stackoverflow.com/questions/63700678/i-want-to-use-axios-with-android-build-of-cocoscreator)
+
+##### getDefaultAdapter 方法
+
+原代码：
+
+```javascript
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(/*! ./adapters/xhr */ "./lib/adapters/xhr.js");
+  } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(/*! ./adapters/http */ "./lib/adapters/xhr.js");
+  }
+  return adapter;
+}
+```
+
+修改后:
+
+```javascript
+function getDefaultAdapter() {
+  // var adapter;
+  // if (typeof XMLHttpRequest !== 'undefined') {
+  //   // For browsers use XHR adapter
+  //   adapter = __webpack_require__(/*! ./adapters/xhr */ "./lib/adapters/xhr.js");
+  // } else if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
+  //   // For node use HTTP adapter
+  //   adapter = __webpack_require__(/*! ./adapters/http */ "./lib/adapters/xhr.js");
+  // }
+  // return adapter;
+  return __webpack_require__(/*! ./adapters/http */ "./lib/adapters/xhr.js");
+}
+```
+
+修改原因：报错  _process undefined
+
 ## 其他相关
 
 - [qs](https://github.com/ljharb/qs)  一个 url参数转化 (parse和stringify)的轻量级js库

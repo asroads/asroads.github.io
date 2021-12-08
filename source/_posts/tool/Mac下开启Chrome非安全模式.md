@@ -182,6 +182,14 @@ OK  输入地址即可 。
 
    ![image-20200618121458351](Mac下开启Chrome非安全模式/image-20200618121458351.png)
 
+
+
+#### 快捷键
+
+`⌘+⌥+J` 快速打开 Console 界面
+
+`⌘+⌥+I` 快速打开开发者工具
+
 ## 参考文章
 
 - [Mac下开启Chrome非安全模式](https://github.com/callmelaoda/communicate/issues/8)

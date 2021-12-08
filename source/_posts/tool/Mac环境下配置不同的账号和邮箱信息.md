@@ -120,11 +120,50 @@ push的时候报错remote: Permission to xxx/xxx.git denied to xxx
 
 删除后 重新 `git push origin master` 即可。
 
+### Sourcetree 删除账号密码
+
+```bash
+git config --system --unset credential.helper
+```
+
+如果没用 可以到sourcetree 的文件里面清除密码配置文件 修改用户配置文件
+
+```bash
+## windows路径
+/username/admin/AppData/Local/Atlassian/SourceTree/passwd
+/username/admin/AppData/Local/Atlassian/SourceTree/userhosts
+## mac环境 用钥匙串解决
+```
+
+### SourceTree避免输入密码方法
+
+##### 方式一：利用命令行
+
+已经拉取完代码,在sourcetree 的界面打开终端:终端输入 
+
+```bash
+git config --global credential.helper store
+```
+
+##### 方式二：在git的congfig的url字段里加入账号密码
+
+1. https://git.coding.net/项目.git
+
+2. https://账号:密码@git.coding.net/项目.git
+
+```bash
+https://zhansan:123456@git.coding.net/test.git
+```
+
+
+
 ## 参考
 
 - [使用git报错 - remote: HTTP Basic: Access denied](https://blog.csdn.net/qq_25835645/article/details/84390221)
 - [mac 下配置多个Git账户](https://www.jianshu.com/p/692a79beca0d)
 - [修改文件名大小写造成的git上传文件丢失](https://my.oschina.net/huibaifa/blog/3096818)
+- [Sourcetree 删除账号密码](http://events.jianshu.io/p/2f63bb001f68)-简书
+- [SourceTree避免输入密码方法](https://blog.csdn.net/jancywen/article/details/107232328)-CSDN
 
 
 
