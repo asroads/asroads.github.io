@@ -164,22 +164,28 @@ setInterval(test.fn,50);
  * @param immediate 首次否直接运行
  * @constructor
  */
-export const Debounce = (wait: number, immediate: boolean = true) => {
+export const Debounce = (wait: number, immediate: boolean = true)=>{
     return function (target: any, key: string, descriptor: any) {
         let timer = null;
         const fn = descriptor.value;
         descriptor.value = async function (...args: any[]) {
-            // 立即执行的功能（timer为空表示首次触发）
-            if (immediate && !timer) {
-                fn.apply(this, args);
-            }
             // 有新的触发，则把定时器清空
             timer && clearTimeout(timer);
-            console.log("timer",timer)
-            // 重新计时
-            timer = setTimeout(() => {
-                fn.apply(this, args);
-            }, wait);
+            // 立即执行的功能（timer为空表示首次触发）
+            if (immediate) {
+                let callNow = !timer;
+                console.log("immediate timer", timer);
+                timer = setTimeout(function () {
+                    timer = null;
+                }, wait);
+                if (callNow) fn.apply(this, args);
+            } else {
+                console.log("timer", timer);
+                // 重新计时
+                timer = setTimeout(()=>{
+                    fn.apply(this, args);
+                }, wait);
+            }
         };
         return descriptor;
     };
@@ -190,16 +196,16 @@ export const Debounce = (wait: number, immediate: boolean = true) => {
  * @param wait 延时ms
  * @constructor
  */
-export const Throttle = (wait: number) => {
-    return function(target: any, key: string, descriptor: any) {
+export const Throttle = (wait: number)=>{
+    return function (target: any, key: string, descriptor: any) {
         let timer = null;
         let fn = descriptor.value;
         descriptor.value = async function (...args: any[]) {
             if (!timer) {
-                timer = setTimeout(() => {
+                timer = setTimeout(()=>{
                     fn.apply(this, args);
                     timer = null;
-                }, wait)
+                }, wait);
             }
         };
     };

@@ -266,7 +266,38 @@ android.applicationVariants.all { variant ->
     }
 ```
 
+### Cocos Creator 2.4.7 配置 2021-12-10 更新
 
+```groovy
+    //修改带时间戳带apk
+    if (variant.buildType.name == 'release') {
+        def buildTypeName = variant.buildType.name
+        def flavorName = variant.flavorName
+        if(flavorName == ""){
+            flavorName = "default"
+        }
+        def createTime = new Date().format("YYYY-MM-dd HH-mm-ss", TimeZone.getTimeZone("GMT+08:00"))
+        def releaseFileName = "${buildTypeName}-mobile ${createTime}"
+        //def releaseApkName = "${project.name}-${android.defaultConfig.versionName}-${android.defaultConfig.versionCode}-${buildTypeName}.apk"
+        def releaseApkName = "${project.name}-${flavorName}-${android.defaultConfig.versionName}-${buildTypeName}.apk"
+        println("版本名称--->" + android.defaultConfig.versionName + " 版本号--->" + android.defaultConfig.versionCode)
+        //println(project.name)
+        //println(rootProject.name)
+        println(flavorName)
+        //新建一个文件夹 然后把输出app 放到新建的文件夹内
+        def apkDir = "${project.projectDir.absolutePath}/${variant.buildType.name}/${releaseFileName}"
+        println(apkDir)
+        println(releaseApkName)
+        variant.packageApplicationProvider.get().outputDirectory = new File(apkDir)
+        //gradleVersion 大于4.1
+        variant.outputs.forEach {
+            //这个修改输出APK的文件名
+            println(it.outputFileName)
+            it.outputFileName = releaseApkName
+            println(it.outputFileName)
+        }
+    }
+```
 
 **附录：参考链接代码引用**
 
