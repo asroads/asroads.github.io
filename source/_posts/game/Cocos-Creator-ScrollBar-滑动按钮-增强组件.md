@@ -1,5 +1,5 @@
 ---
-Slidertitle: Cocos Creator ScrollBar(滑动按钮)增强组件
+title: Cocos Creator ScrollBar(滑动按钮)增强组件
 comments: true
 categories: game
 tags:
