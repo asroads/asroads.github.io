@@ -171,6 +171,8 @@ export class ScrollBarEnhance extends cc.Component {
 
 是否乘以-1 根据自己的`scrollView`的`content`的`anchorX` 等因素决定，这里是从左到右 `anchorX` 是`0` 所以这样写。
 
+源码地址 [点击进入](https://github.com/jsroads/mylibs/tree/main/ScrollBarExtra)
+
 ## 参考
 
 - [Cocos creator scrollbar支持拖动滑块来滚动scrollview吗](https://forum.cocos.org/t/cocos-creator-scrollbar-scrollview/39333)
