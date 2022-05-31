@@ -88,7 +88,49 @@ external_link:
 
 ```
 
+#### 2022-05-31 更新
 
+换了电脑windows 更新博客 发现抱错 具体原因是 电脑新环境没有公钥生成
+
+![image-20220531111336691](hexo-%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6%E5%8D%87%E7%BA%A7%E6%84%9F%E8%A7%A6/image-20220531111336691.png)
+
+解决方案：
+
+```
+git config --global user.name "your github user name"
+git config --global user.email "your github 注册邮箱"
+
+```
+
+代码执行后，生成公钥
+
+```
+ssh-keygen -t rsa -C "your github 注册邮箱"
+```
+
+![image-20220531111650773](hexo-%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6%E5%8D%87%E7%BA%A7%E6%84%9F%E8%A7%A6/image-20220531111650773.png)
+
+此时公钥保存在 C:\Users\ .ssh 的文件夹下，打开id_rsa.pub文件，将里面的内容全部复制； 然后去GitHub的Settings, 找到SSH and GPG keys的页面， 新建一个SSH Key, 将刚才复制的内容粘贴到新建的SSH Key中并点击保存。
+
+保存后输入以下代码检测SSH Key生效
+
+ssh git@github.com
+
+出现下面的文字，则本地和Github远程连接上了
+
+![image-20220531112107348](hexo-%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6%E5%8D%87%E7%BA%A7%E6%84%9F%E8%A7%A6/image-20220531112107348.png)
+
+按照链接： https://github.com/hexojs/hexo/issues/2778 中的方法，我执行了以下代码
+
+```
+hexo config deploy.repository git@github.com:[yourgitname]/[yourgitname].github.io.git
+```
+
+![image-20220531112329853](hexo-%E5%8D%9A%E5%AE%A2%E6%8F%92%E4%BB%B6%E5%8D%87%E7%BA%A7%E6%84%9F%E8%A7%A6/image-20220531112329853.png)
+
+再次执行 `hexo d` 成功部署
+
+参考地址:[执行Hexo d报错Spawn failed， 以及OpenSSL SSL_read: Connection was reset, errno 10054](https://blog.csdn.net/Candle_light/article/details/114992784)
 
 ### 后记
 
