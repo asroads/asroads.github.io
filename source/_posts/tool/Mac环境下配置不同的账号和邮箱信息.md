@@ -155,7 +155,21 @@ git config --global credential.helper store
 https://zhansan:123456@git.coding.net/test.git
 ```
 
+### Windows版本
 
+报错：`remote: Permission to xxx/xxx.git denied to xxx.`
+
+解决：
+
+找到 凭证管理器
+
+![image-20220613144516845](Mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B4%A6%E5%8F%B7%E5%92%8C%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF/image-20220613144516845.png)
+
+找到 `github` 网站的凭证，删除 重新 `git push origin main`
+
+![image-20220613144641741](Mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B4%A6%E5%8F%B7%E5%92%8C%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF/image-20220613144641741.png)
+
+   成功解决。
 
 ## 参考
 
