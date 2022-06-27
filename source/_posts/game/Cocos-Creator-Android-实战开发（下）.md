@@ -117,6 +117,21 @@ buildTypes {
 
 在application标签里，加入`tool:ignore="LockedOrientationActivity"`这句话，manifest标签里引入tool`xmlns:tool="http://schemas.android.com/tools"`
 
+
+
+### 2022-06-22 更新
+
+编译报错：
+
+```bash
+NDK was located by using ndk.dir property. This method is deprecated and will be removed in a future release. Please delete ndk.dir from local.properties and set android.ndkVersion to [21.4.7075529] in all native modules in the project. https://developer.android.com/r/studio-ui/ndk-dir
+```
+
+解决：
+
+1. 当您安装 NDK 时，Android Studio 会选择可用的最新 NDK 版本。对于大多数项目，安装此默认版本的 NDK 已经足够。不过，如果您的项目需要一个或多个特定版本的 NDK，您可以下载并配置特定版本。当多个项目各自依赖于特定版本的 NDK 时，这样做有助于确保各个项目的 build 都可重现。Android Studio 会将所有版本的 NDK 安装在 android-sdk/ndk/ 目录中
+2. 在项目中配置特定版本的 NDK
+
 ### 参考
 
 - [android:screenOrientation="portrait" 一直警告报红](https://www.jianshu.com/p/400f62002784)
