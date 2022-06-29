@@ -153,6 +153,10 @@ export default class MainScene extends cc.Component {
 
 这里只是做了一个搬运，没有什么技术难点，唯一要提醒的要注意引入路径，有的项目需要完整路径，特别是我重命名`index.ts`后 需要有完整路径才能正常引入。是如果是`js` 项目还要注意一下源码里面的 `require` 路径。
 
+## 其他同类相关拓展
+
+- [ToolGood.Words](https://github.com/toolgood/ToolGood.Words) 一款高性能非法词(敏感词)检测组件，附带繁体简体互换，支持全角半角互换，获取拼音首字母，获取拼音字母，拼音模糊搜索等功能。
+
 ## 参考
 
 - 【作者博客】[TypeScript：Aho–Corasick算法实现敏感词过滤](https://zhelin.me/47627553bd09576fbdeafc11dc93bfbf/)
