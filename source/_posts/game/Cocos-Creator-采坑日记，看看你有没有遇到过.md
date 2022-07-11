@@ -331,6 +331,65 @@ cc.assetManager.loadRemote<cc.Texture2D>("http://thirdwx.qlogo.cn/mmopen/vi_32/Q
 
 参考地址 ：https://forum.cocos.org/t/creator-2-1-2-label/81328/4
 
+### 启动游戏报错
+
+问题出现，有时候启动游戏，一开始就报错，心中不免疑惑，影响打包吗？哪里出错了？
+
+```
+Window "main" unresponsive: [object Object]
+```
+
+![image-20220630103510037](Cocos-Creator-%E9%87%87%E5%9D%91%E6%97%A5%E8%AE%B0%EF%BC%8C%E7%9C%8B%E7%9C%8B%E4%BD%A0%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87/image-20220630103510037.png)
+
+解决方案：暂无，不影响打包
+
+群友回复
+![image-20220630103830709](Cocos-Creator-%E9%87%87%E5%9D%91%E6%97%A5%E8%AE%B0%EF%BC%8C%E7%9C%8B%E7%9C%8B%E4%BD%A0%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87/image-20220630103830709.png)
+
+官方回复：
+
+![image-20220630103426417](Cocos-Creator-%E9%87%87%E5%9D%91%E6%97%A5%E8%AE%B0%EF%BC%8C%E7%9C%8B%E7%9C%8B%E4%BD%A0%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87/image-20220630103426417.png)
+
+### 分包加载报错
+
+```json
+[项目资源引用错误] 项目资源 subpackages/firstRes/raw-assets/58/582c1f41-2b52-4d83-873f-f8adcb46f1c6.5d3ac.jpg 所在的分包尚未加载
+```
+
+![image-20220628204904851](Cocos-Creator-%E9%87%87%E5%9D%91%E6%97%A5%E8%AE%B0%EF%BC%8C%E7%9C%8B%E7%9C%8B%E4%BD%A0%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87/image-20220628204904851.png)
+
+报错原因：子包中的资源不要在主包中有引用关系，可以找找子包中有哪些图片在主包的场景或者预制中有挂载。不嫌麻烦就在子包的资源中查找引用，看看是否是在主包的资源上使用。
+
+参考链接：[项目资源 subpackages/…png 所在的分包尚未加载【Cocos论坛】](https://forum.cocos.org/t/subpackages-png/93805)
+
+### 图片尺寸过大
+
+![image-20220628203416799](Cocos-Creator-%E9%87%87%E5%9D%91%E6%97%A5%E8%AE%B0%EF%BC%8C%E7%9C%8B%E7%9C%8B%E4%BD%A0%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87/image-20220628203416799.png)
+
+解决办法：把图切成合格的，比如2份 或者 4份
+
+### JSON.parse方法 报错
+
+```json
+"SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+```
+
+```json
+"SyntaxError: Unexpected token u in JSON at position 0
+    at JSON.parse (<anonymous>)
+```
+
+原因是 取到了 空字符串 或者 undefined
+
+```javascript
+JSON.parse(null)//正常
+JSON.parse(false)//正常
+JSON.parse("[]")//正常
+JSON.parse("")//异常
+JSON.parse(undefined)//异常
+```
+
 ### 总结
 
 在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。
