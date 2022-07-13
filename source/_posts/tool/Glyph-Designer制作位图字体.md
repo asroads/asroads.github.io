@@ -68,6 +68,20 @@ date: 2019-03-18 13:01:09
 
 **以上已经完成位图的制作**
 
+### 拓展 使用自定义图片制作位图字
+
+下图这样的字体首先需要美术同学的支持，将每个字做成一张单独的图片。
+
+一开始不知道怎么去替换图中的文字，官方文档中介绍的也不是很清晰。
+
+![img](Glyph-Designer%E5%88%B6%E4%BD%9C%E4%BD%8D%E5%9B%BE%E5%AD%97%E4%BD%93/gd2.png)
+
+本以为通过替换Style中的Image可以实现，试了多次也没成功。直到尝试了一下如下的操作：将切好的数字图片拖拽到要替换的数字上，ojbk，成功了。将数字图片拖动到哪个字上就替换哪个字。
+
+![img](Glyph-Designer%E5%88%B6%E4%BD%9C%E4%BD%8D%E5%9B%BE%E5%AD%97%E4%BD%93/gd3.gif)
+
+参考：[Glyph Designer(Custom Images)使用自定义图片制作位图字体](https://www.ifeelgame.net/tools/glyph-designercustom-images%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E5%88%B6%E4%BD%9C%E4%BD%8D%E5%9B%BE%E5%AD%97%E4%BD%93/)
+
 ### 可能用到的工具 
 
 - [文本去重工具](https://www.qqxiuzi.cn/zh/quchong/)
