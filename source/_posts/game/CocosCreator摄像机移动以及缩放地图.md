@@ -171,6 +171,8 @@ export class MapTouchScript extends cc.Component {
 
 ```
 
+最后源码 [点击前往](https://github.com/jsroads/mylibs/tree/main/mapScaleDemo/%E6%91%84%E5%83%8F%E6%9C%BA%E7%A7%BB%E5%8A%A8/mapmove)
+
 ## 相关资源
 
 地图资源下载：https://opengameart.org/content/terrain-transitions
