@@ -395,3 +395,19 @@ exports.GameConst = {
 ```
 
 老规矩：最后源码地址（[点击前往](https://github.com/jsroads/mylibs/tree/main/js2json2zip)）
+
+## 首屏优化
+
+关于首屏优化这里给出几个不错的文章，本人就是按照这些步骤操作的。
+
+### 方案一
+
+- [微信小游戏的启动性能优化之首屏渲染](https://developers.weixin.qq.com/community/develop/article/doc/000c86f5ee81b8c05b2bc9cc650013)
+
+### 方案二
+
+1. 先使用 最新版本的 Cocos Creator 构建微信小游戏的包
+2. 然后修改为自己 Cocos Creator 可以使用的即可
+
+论坛初步讨论帖子：https://forum.cocos.org/t/topic/115923/18
+
