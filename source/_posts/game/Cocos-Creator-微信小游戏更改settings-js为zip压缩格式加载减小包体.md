@@ -2,7 +2,7 @@
 title: Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体
 comments: true
 abbrlink: 16d8396f
-date: 2022-08-14 10:02:46
+date: 2022-10-14 10:02:46
 categories:
 tags:
 ---
