@@ -157,9 +157,23 @@ https://zhansan:123456@git.coding.net/test.git
 
 ### Windows版本
 
-报错：`remote: Permission to xxx/xxx.git denied to xxx.`
+#####   git push origin xxx  报错：
 
-解决：
+```
+fatal: unable to access 'https://github.com/xxxx/mylibs.git/': OpenSSL SSL_read: Connection was reset, errno 10054
+```
+
+**解决办法**：
+
+```
+git config --global http.sslVerify "false"
+```
+
+**参考**：[Git报错解决：OpenSSL SSL_read: Connection was reset, errno 10054 错误解决](https://blog.csdn.net/weixin_43945983/article/details/110882074)
+
+##### 报错：`remote: Permission to xxx/xxx.git denied to xxx.`
+
+**解决方法**：
 
 找到 凭证管理器
 
@@ -170,6 +184,8 @@ https://zhansan:123456@git.coding.net/test.git
 ![image-20220613144641741](Mac%E7%8E%AF%E5%A2%83%E4%B8%8B%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B4%A6%E5%8F%B7%E5%92%8C%E9%82%AE%E7%AE%B1%E4%BF%A1%E6%81%AF/image-20220613144641741.png)
 
    成功解决。
+
+
 
 ## 参考
 

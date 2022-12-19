@@ -4,7 +4,7 @@ categories: tool
 tags:
   - Mac
   - Chrome
-  - 技术
+  - Windows
 abbrlink: 6b229175
 date: 2019-04-12 19:46:37
 ---
@@ -101,32 +101,44 @@ open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-da
 
 内容是：
 
-```
+```bash
 --args --disable-web-security --user-data-dir 
 ```
 
 然后重启Chome  就搞定了
 
+#### 2022-11-28 更新
 
+1. 打开终端
+2. 输入命令后，会自动打开可跨域浏览器
 
-### 附上 windows 和Mac 简易 操作
-
-#### windows
-
-第一步：确保所有chrome浏览器都已经关闭
-第二步：打开你的chrome浏览器（快捷方式）的属性窗口，再路径后面添加
-
-```shell
---args --disable-web-security --user-data-dir
+```bash
+open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=/Users/XXX/MyChromeDevUserData
 ```
 
-效果如下：
+其中：`/Users/XXX/MyChromeDevUserData` 为跨域浏览器数据存储的地方，XXX为用户名，**根据实际修改**。
 
-```
-C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --disable-web-security --user-data-dir
+### 附上 Windows 和Mac 简易 操作
+
+#### Windows
+
+1. 克隆Chrome应用，重命名为 `【跨域】Google Chrome` 或任意一个容易识别的名字。
+
+![image-20221128200046884](Mac%E4%B8%8B%E5%BC%80%E5%90%AFChrome%E9%9D%9E%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F/image-20221128200046884.png)
+
+2. 右击打开属性，找到 `目标` 字段，并在目标字段后面加上参数：
+
+```bash
+--disable-web-security --user-data-dir=D:\ChromeData\MyChromeDevUserData
 ```
 
-![image-20200205203455563](Mac下开启Chrome非安全模式/image-20200205203455563.png)
+其中 `D:\ChromeData\MyChromeDevUserData` 为跨域浏览器数据存储的地方，可以根据需要修改。
+
+![image-20221128200247323](Mac%E4%B8%8B%E5%BC%80%E5%90%AFChrome%E9%9D%9E%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F/image-20221128200247323.png)
+
+```bash
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir=D:\ChromeData\MyChromeDevUserData
+```
 
 第三步：打开浏览器，如果出现这个横幅，就说明非安全模式开启完成。
 
@@ -135,8 +147,6 @@ C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --disable-we
 #### MAC 解除chrome安全模式
 
 打开终端输入
-
-
 
 ```kotlin
 open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir
@@ -196,3 +206,4 @@ OK  输入地址即可 。
 - [Mac上解决Chrome浏览器跨域问题](https://www.jianshu.com/p/2db73311fcbe)
 - [WebStorm中配置浏览器方法](https://blog.csdn.net/fd214333890/article/details/39401677)
 - [chrome 非安全模式解决开发跨域问题(windows与mas)](https://www.jianshu.com/p/935a37d9af8b)
+- [解决Chrome浏览器的跨域问题](https://juejin.cn/post/7019171779478290463)

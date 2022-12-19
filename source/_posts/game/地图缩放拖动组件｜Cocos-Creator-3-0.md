@@ -8,7 +8,7 @@ tags:
 	- Cocos
 ---
 
-随着手游的兴起，越来越多的玩法涌现出来，地图拖动缩放组件在很多玩法中都有用到，这里给出一个Cocos Creator 3.0的组件
+随着手游的兴起，越来越多的玩法涌现出来，地图拖动缩放组件在很多玩法中都有用到，这里给出一个Cocos Creator 3.6.2的组件
 
 <!--more-->
 
@@ -82,9 +82,6 @@ import {
  * Note:
  */
 const {ccclass, property} = _decorator;
-const _tempVec3 = new Vec3();
-const EPSILON = 1e-4;
-const TOLERANCE = 1e4;
 
 @ccclass('MapTouchController')
 export class MapTouchController extends Component {
@@ -137,8 +134,6 @@ export class MapTouchController extends Component {
 
     @property(CCBoolean)
     public isStrict: boolean = false; // 默认为非严格模式
-
-    private deltaVec3 = new Vec3(0, 0, 0);//临时记录位置
     protected onLoad(): void {
 
     }
@@ -150,16 +145,11 @@ export class MapTouchController extends Component {
         this.map.setPosition(0, 225);
     }
 
-    // 有些设备单点过于灵敏，单点操作会触发TOUCH_MOVE回调，在这里作误差值判断
+
+
     private canStartMove(touch: Touch): boolean {
-        let startPos: any = this.deltaVec3;
-        let nowPos: any = touch.getLocation();
         // 有些设备单点过于灵敏，单点操作会触发TOUCH_MOVE回调，在这里作误差值判断
-        // console.log("smile----nowPosX:" + JSON.stringify(nowPos.x - startPos.x));
-        // console.log("smile----nowPosY:" + JSON.stringify(nowPos.y - startPos.y));
-        return Math.abs(nowPos.x - startPos.x) > this.moveOffset || Math.abs(nowPos.y - startPos.y) > this.moveOffset;
-        // const delta = touch.getDelta();
-        // return Math.abs(delta.x) > this.moveOffset || Math.abs(delta.y) > this.moveOffset;
+        return touch.getDelta().length() > this.moveOffset;
     }
 
     private addEvent(): void {
@@ -217,9 +207,8 @@ export class MapTouchController extends Component {
                 let touch: Touch = touches[0];
                 if (this.isMoving || this.canStartMove(touch)) {
                     this.isMoving = true;
-                    let dir: Vec3 = v3(touch.getLocation().x - this.deltaVec3.x, touch.getLocation().y - this.deltaVec3.y);
-                    this.deltaVec3 = v3(event.getLocation().x, event.getLocation().y);
-                    this.dealMove(dir, this.map, this.node);
+                    const distance:Vec3 = v3(touch.getDelta().x, touch.getDelta().y,0);
+                    this.dealMove(distance, this.map, this.node);
                 } else {
                     console.log("不能移动")
                 }
@@ -230,7 +219,6 @@ export class MapTouchController extends Component {
         }, this);
         this.node.on(Node.EventType.TOUCH_START, (event: EventTouch) => {
             if (this.locked) return;
-            this.deltaVec3 = v3(event.getLocation().x, event.getLocation().y);
             event.propagationStopped = true;
         }, this);
         this.node.on(Node.EventType.TOUCH_END, (event: EventTouch) => {
@@ -402,11 +390,11 @@ export class MapTouchController extends Component {
 
 注意：本脚本参考来自于  [Cocos Creator组件化开发之——地图类缩放拖动点击组件](https://blog.csdn.net/faker_in_c/article/details/103500238) 作者是用 Cocos Creator2.x 实现（[查看](https://github.com/fakerincocos/MapControl-master)）
 
-我这里改成了3.x 另外 缩放的核心算法 有细微改动。
+我这里改成了3.6.2 另外 缩放的核心算法 有细微改动。
 
 最后 源码地址：[点击查看](https://github.com/jsroads/mylibs/tree/main/mapScaleDemo)
 
-## 惯性缓动优化版本2021-05-18更新
+## 惯性缓动优化版本2022-11-27更新
 
 ### 效果：
 
@@ -646,7 +634,6 @@ export class MapTouchBetterController extends Component {
     protected targetPos: Vec3 = new Vec3();//目标移动位置
     private isMoving: boolean = false; // 是否拖动地图flag
     private mapTouchList: any[] = []; // 触摸点列表容器
-    private deltaVec2 = new Vec2(0, 0);
 
     public removeTouchFromContent(event: EventTouch, content: any[]): void {
         let eventToucheIDs: number[] = event['getTouches']().map(v => v.getID());
@@ -768,19 +755,14 @@ export class MapTouchBetterController extends Component {
         this.map.setPosition(targetPos.x, targetPos.y, targetPos.z);
     }
 
-    // 有些设备单点过于灵敏，单点操作会触发TOUCH_MOVE回调，在这里作误差值判断
     private canStartMove(touch: Touch): boolean {
-        let startPos: Vec2 = this.deltaVec2;
-        let nowPos: Vec2 = touch.getLocation();
         // 有些设备单点过于灵敏，单点操作会触发TOUCH_MOVE回调，在这里作误差值判断
-        // console.log("smile----nowPosX:" + JSON.stringify(nowPos.x - startPos.x));
-        // console.log("smile----nowPosY:" + JSON.stringify(nowPos.y - startPos.y));
-        return Math.abs(nowPos.x - startPos.x) > this.moveOffset || Math.abs(nowPos.y - startPos.y) > this.moveOffset;
+        return touch.getDelta().length() > this.moveOffset;
     }
 
     // 有些设备单点过于灵敏，单点操作会触发TOUCH_MOVE回调，在这里作误差值判断
-    private moveDistance(touch: Touch): Vec2 {
-        return v2(touch.getLocation().x - this.deltaVec2.x, touch.getLocation().y - this.deltaVec2.y);
+    private moveDistance(touch: Touch): Vec3 {
+        return v3(touch.getDelta().x, touch.getDelta().y,0);
     }
 
     private addEvent(): void {
@@ -838,12 +820,10 @@ export class MapTouchBetterController extends Component {
                 const touch: Touch = touches[0];
                 if (this.isMoving || this.canStartMove(touch)) {
                     this.isMoving = true;
-                    const distance: Vec2 = this.moveDistance(touch);
-                    let dir: Vec3 = v3(distance.x, distance.y);
-                    this.deltaVec2 = touch.getLocation().clone();
-                    this.dealMove(dir, this.map, this.node);
+                    const distance: Vec3 = this.moveDistance(touch);
+                    this.dealMove(distance, this.map, this.node);
                 } else {
-                    // const distance: Vec2 = this.moveDistance(touch);
+                    //const distance: Vec3 = this.moveDistance(touch);
                     // console.log("smile----this.isMoving:" + JSON.stringify(this.isMoving));
                     // console.log("smile----distance:" + JSON.stringify(distance));
                     console.log("不能移动");
@@ -856,7 +836,6 @@ export class MapTouchBetterController extends Component {
         this.node.on(Node.EventType.TOUCH_START, (event: EventTouch) => {
             if (this.locked) return;
             this.handleReleaseLogic();
-            this.deltaVec2 = event.getLocation().clone();
             event.propagationStopped = true;
         }, this);
 
