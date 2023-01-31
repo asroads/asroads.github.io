@@ -3,8 +3,10 @@ title: Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减
 comments: true
 abbrlink: 16d8396f
 date: 2022-10-14 10:02:46
-categories:
+categories: game
 tags:
+    - Cocos
+    - 小游戏
 ---
 
 新版本CocosCreator已经对小游戏平台做了不少优化，其中包括更快速的渲染首屏页面，把资源配置文件格式修改为json格式（相当于可以存放到远程资源服务器）从而给代码留出更多的空间（首包4MB，总包不超过20MB），对于很多游戏来说是件很好的事情，但对于一直使用旧版本引擎开发的人来讲，需要自己做这些事情，首屏的问题社区已经给了很好的方案，这里不再赘述，文章后面会给出几个优秀的链接，大家自己根据文章里的步骤做就好了，下面说说如何把资源settings.js修改为json，然后压缩为zip，加载到游戏内使用。
