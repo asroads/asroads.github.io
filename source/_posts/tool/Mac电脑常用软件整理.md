@@ -57,13 +57,13 @@ date: 2019-10-15 11:10:15
 
 ### 版本控制
 
-| 应用名字    | 地址                                          | 推荐指数    | 授权      | 备注                        |
-| ----------- | --------------------------------------------- | ----------- | --------- | --------------------------- |
-| SourceTree  | [进入官网](https://www.sourcetreeapp.com/)    |       | 免费      | Mac环境少有能用的安卓模拟器 |
-| Cornerstone | [进入官网](https://cornerstone.assembla.com/) |         | 付费      | SVN                         |
-| smartsvn    | [进入官网](https://www.smartsvn.com/)         |         | 付费      | SVN                         |
-| SnailGit    | 下载地址                                      |         | 付费/免费 | Git                         |
-| SnailSVN    | AppStore                                      |         | 付费/免费 | SVN                         |
+| 应用名字    | 地址                                          | 推荐指数    | 授权      | 备注 |
+| ----------- | --------------------------------------------- | ----------- | --------- | ---- |
+| SourceTree  | [进入官网](https://www.sourcetreeapp.com/)    |       | 免费      | Git  |
+| Cornerstone | [进入官网](https://cornerstone.assembla.com/) |         | 付费      | SVN  |
+| smartsvn    | [进入官网](https://www.smartsvn.com/)         |         | 付费      | SVN  |
+| SnailGit    | 下载地址                                      |         | 付费/免费 | Git  |
+| SnailSVN    | AppStore                                      |         | 付费/免费 | SVN  |
 
 ### 清理工具
 
