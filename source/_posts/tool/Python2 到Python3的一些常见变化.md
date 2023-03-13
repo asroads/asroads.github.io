@@ -86,3 +86,9 @@ Python3解决办法：去掉，sys.setdefaultencoding
 
 
 
+### from PIL import Image 突然不能调用
+
+重装`Pillow`之后即可恢复正常
+在`cmd`命令行窗口输入：`pip uninstall Pillow`
+待卸载成功后再次安装：`pip install Pillow`
+`from PIL import Image`即可成功

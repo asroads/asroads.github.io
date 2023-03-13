@@ -4,6 +4,7 @@ comments: true
 categories: tool
 tags:
   - git
+  - shell
 abbrlink: ad87d566
 date: 2023-02-01 08:30:52
 ---
@@ -69,3 +70,17 @@ To add an exception for this directory, call:
 ![image-20230201015246367](Git-fatal-detected-dubious-ownership-in-repository如何解决/image-20230201015246367.png)
 
 7. 更改 `git` 仓库 文件夹的所有者为当前账号，`git` 的操作正常
+
+### 2023年02月06更新
+
+重装系统后，本来运行的shell脚本却不能正常运行错，具体报错有以下：
+
+```
+运行shell脚本提示No such file or directory
+```
+
+```
+-bash: !~": event not found
+```
+
+最后找了几个小时 发现是git 版本的问题，版本2.39.1运行有bug 装了2.36.1就正常运行了！
