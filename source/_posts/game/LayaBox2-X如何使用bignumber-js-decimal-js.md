@@ -205,9 +205,9 @@ window.BigNumber = require("libs/min/bignumber.min.js")
 
 
 
-以上 bignumber.js 正常被项目引入 项目地址：https://github.com/jsroads/BNTestdemo.git
+以上 bignumber.js 正常被项目引入 项目地址：https://github.com/jsroads/LayaBoxDemos/tree/master/BNTestdemo
 
-[点击进入](https://github.com/jsroads/BNTestdemo.git)
+[点击进入](https://github.com/jsroads/LayaBoxDemos/tree/master/BNTestdemo)
 
 ### 总结
 

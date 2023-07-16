@@ -16,16 +16,62 @@ date: 2021-03-10 18:04:58
 ## 环境
 
 - typescript 环境
-- ant 环境
+- [ant 环境](https://ant.apache.org/bindownload.cgi)
 - java jdk环境
 - [yuicompressor-2.4.8.jar](https://github.com/yui/yuicompressor/releases)
 - cocos creator
+
+## 前置环境介绍
+
+### YUI Compressor
+
+Yahoo 已于2019年关闭了其部分服务，包括 YUI Compressor，因此官方网站现在已经不再存在。然而，您可以在许多其他网站上找到 YUI Compressor 的下载链接。
+
+最新版本是2.4.8，可以在以下链接中下载：
+
+https://github.com/yui/yuicompressor/releases/tag/v2.4.8
+
+### YUIAnt
+
+YUIAnt（YUI Compressor Ant Task）是一种 YUI Compressor 的 Ant 任务
+
+### Ant安装
+
+#### （windows环境）
+
+在 Windows 10 上安装 Ant 环境，您可以按照以下步骤进行操作：
+
+1. 下载 Ant：您可以从 Apache Ant 的官方网站 https://ant.apache.org/ 下载最新版本的 Ant。
+2. 解压缩 Ant：将下载的 Ant 压缩包解压到您想要安装 Ant 的目录。
+3. 设置环境变量：将 Ant 的 bin 目录添加到系统的环境变量中。您可以按照以下步骤进行操作：
+   - 右键单击“此电脑”或“我的电脑”图标，然后选择“属性”。
+   - 在左侧菜单中，单击“高级系统设置”。
+   - 在“高级”选项卡下，单击“环境变量”按钮。
+   - 在“系统变量”下，找到“Path”变量，然后单击“编辑”按钮。
+   - 在“变量值”文本框中，输入 Ant 的 bin 目录的路径，然后单击“确定”按钮。
+4. 验证 Ant 安装是否成功：打开命令提示符窗口，输入“ant -version”命令，如果成功安装，您应该能够看到 Ant 的版本信息。
+
+#### Mac
+
+Mac 环境下安装 Ant 也很简单，可以按照以下步骤进行操作：
+
+1. 安装 Homebrew：Homebrew 是 Mac 上的一个包管理器，您可以使用它来安装 Ant。打开终端，执行以下命令安装 Homebrew：
+
+   `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+
+2. 安装 Ant：使用 Homebrew 安装 Ant，执行以下命令：
+
+   `brew install ant`
+
+3. 验证 Ant 安装是否成功：在终端中输入 "ant -version" 命令，如果成功安装，您应该能够看到 Ant 的版本信息。
 
 ## 步骤
 
 1. 首先下载框架，解压后 得到框架 此时我们修改一个名字（这个自己随便修改 这里名字为 `puremvc-ts`）
 
 2. 然后修改 `build` 目录下面的[user.properties.sample](https://github.com/PureMVC/puremvc-typescript-standard-framework/blob/master/user.properties.sample) 为 `user.properties` 然后把自己的 tsc 环境变量修改为自己的真实变量路径这里为：
+
+   MAC：
 
    ```shell
      typescript.compiler.path = /usr/local/bin/tsc
@@ -136,7 +182,23 @@ date: 2021-03-10 18:04:58
 
       下面是一些 tsc 常用的编译参数：
 
-      --help：显示帮助信息。 --module：载入扩展模块。 --target：设置 ECMA 版本。 --declaration：额外生成一个 .d.ts 扩展名的文件。 --removeComments：删除文件的注释。 --out：编译多个文件并合并到一个输出的文件。 --sourcemap：生成一个 sourcemap (.map) 文件。 --watch：在监视模式下运行编译器。会监视输出文件，在它们改变时重新编译。 --module noImplicitAny：在表达式和声明上有隐含的 any 类型时报错。
+      --help：显示帮助信息。 
+
+      --module：载入扩展模块。
+
+       --target：设置 ECMA 版本。
+
+       --declaration：额外生成一个 .d.ts 扩展名的文件。
+
+       --removeComments：删除文件的注释。 
+      
+      --out：编译多个文件并合并到一个输出的文件。 
+      
+      --sourcemap：生成一个 sourcemap (.map) 文件。 
+
+      --watch：在监视模式下运行编译器。会监视输出文件，在它们改变时重新编译。
+
+       --module noImplicitAny：在表达式和声明上有隐含的 any 类型时报错。
 
       这样 如果没有ant 环境的 可以自己用 tsc 命令自己编译 就是新建项目 然后把 引擎放进去 在 项目根目录 执行 tsc 命令即可
 
@@ -145,33 +207,49 @@ date: 2021-03-10 18:04:58
       这里我们可以介绍一下 yuicompressor 大概的命令如下
 
       ```sh
-java -jar yuicompressor-2.4.8.jar puremvc.js > build/puremvc.js 
+      java -jar yuicompressor-2.4.8.jar puremvc.js > build/puremvc.js 
       ```
-      
+
       也可以添加其他参数：
 
-      通用参数： -h, --help 显示帮助信息 --type <js|css> 指定输入文件的文件类型 --charset <charset> 指定读取输入文件使用的编码 --line-break <column> 在指定的列后插入一个 line-bread 符号 -v, --verbose 显示info和warn级别的信息 -o <file> 指定输出文件。默认输出是控制台。
+      通用参数： 
 
-      JavaScript专用参数： --nomunge 只压缩, 不对局部变量进行混淆。 --preserve-semi 保留所有的分号 --disable-optimizations 禁止优化
+      -h, --help 显示帮助信息 
 
+      --type <js|css> 指定输入文件的文件类型 
+
+      --charset <charset> 指定读取输入文件使用的编码 
+      
+      --line-break <column> 在指定的列后插入一个 line-bread 符号 -v, 
+      
+      --verbose 显示info和warn级别的信息 -o <file> 指定输出文件。默认输出是控制台。
+      
+      JavaScript专用参数：
+      
+       --nomunge 只压缩, 不对局部变量进行混淆。 
+      
+      --preserve-semi 保留所有的分号 
+      
+      --disable-optimizations 禁止优化
+      
       **在线等压缩 网站**
-
+      
        在线JS/CSS/HTML压缩(采用[YUI Compressor](http://www.oschina.net/p/yui+compressor)实现)
-
+      
       https://tool.oschina.net/jscompress
-
+      
       ### 拓展：
-
+      
       Cocos Creator 3.0 使用插件模式 会报错，puremvc 本身就有 ts 版本 而且是两个 一个 [标准版本 ](https://github.com/PureMVC/puremvc-typescript-standard-framework) 一个是[多核心 版本 ](https://github.com/PureMVC/puremvc-typescript-multicore-framework) ，我这里只是[标准版本](https://github.com/PureMVC/puremvc-typescript-standard-framework) 这个版本 多个文件 合并成一个ts 文件而已 为的就是看起来方便 用起来 感觉是一个模块出来的而已，遵循了 cocos creator 3.0 的官方 推荐的方式。
-
+      
       下面是[标准版本](https://github.com/PureMVC/puremvc-typescript-standard-framework)合并后的一个完整的 ts 文件 这样 不需要 像以前那样 用倒入插件 和 添加声明文件啥的 直接当成 `ts` 使用即可。有用的拿去吧。
-
+      
       标准版合并后的ts下载地址：[puremvc.ts](https://github.com/jsroads/mylibs/blob/main/puremvc/dist/puremvc.ts)
-
+      
       **说明：**就是把多个文件 合并成一个文件，修改了几个类型的错误，其他均未曾修改，Cocos Creator 3.0 可以直接用。
-
+      
       ## 参考
-
+      
       - [编译选项](https://www.tslang.cn/docs/handbook/compiler-options.html)
 - [tsconfig.json](https://www.tslang.cn/docs/handbook/tsconfig-json.html)
       - [TypeScript tsc 常用编译参数](https://www.axihe.com/edu/typescript/build-parameters.html)

@@ -533,5 +533,5 @@ export default class DataConst {
 
 ### 完整DEMO 地址
 
-- [LayaScroll](https://github.com/jsroads/LayaScroll)
+- [LayaScroll](https://github.com/jsroads/LayaBoxDemos/tree/master/LayaScroll)
 
