@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            ipa安装文件如何解包 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/e5e32542.html">ipa安装文件如何解包</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-11-27
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2023-07-16
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=ipa安装文件如何解包&url=http://blog.asroads.com/post/e5e32542.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=ipa安装文件如何解包&url=http://blog.asroads.com/post/e5e32542.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/e5e32542.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/e5e32542.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/e5e32542.html&title=ipa安装文件如何解包" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=ipa安装文件如何解包&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/e5e32542.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/e5e32542.html&text=ipa安装文件如何解包" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/iOS/ >iOS</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>之前游戏在iOS平台出包还好，一般上传成功后，基本都能正常通过，接下来的就是如何提审等一系列配置。这次遇到了一些问题，于是有了如何对打出的包解包的操作，便于查找。</p>
+<span id="more"></span>
+<p>此次的问题是由下面的这张图开始的。</p>
+<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p><img src="/post/e5e32542/image-20201127174006796.png" alt="image-20201127174006796"></p>
+<p>然后我在 <a target="_blank" rel="noopener" href="https://appstoreconnect.apple.com/apps/">https://appstoreconnect.apple.com/apps/</a> 自己的页面等了好久都没有出现</p>
+<p>于是想到了 是不是失败了，于是去查看自己的开发者邮箱，果然如此。</p>
+<p><img src="/post/e5e32542/image-20201127174236627.png" alt="image-20201127174236627"></p>
+<p>收到一封邮件，内容是 UIWebView 这个类已经废弃，让用最新的 WKWebView来提高安全性和可靠性。</p>
+<p>我自己是用Cocos Creator 开发的，于是首相想到了去论坛找问题。</p>
+<p>于是找到了这篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/uiwebview-wkwebview/93029">UIWebView 导致苹果审核被拒，请用 WKWebView 替换。内附升级指导</a></p>
+<blockquote>
+<h4 id="涉及的引擎版本"><a href="#涉及的引擎版本" class="headerlink" title="涉及的引擎版本"></a>涉及的引擎版本</h4><p>我罗列一下，引擎各产品线更新到 WKWebView 的情况如下：</p>
+<p><img src="/post/e5e32542/7e2a0ae91709cbe7d1c23b5224effbe90043b966.png" alt="img"></p>
+<p>也就是说，如果你用的是：</p>
+<ul>
+<li>Cocos2d-x v3.17.2 以及更早版本</li>
+<li>Cocos Creator v2.1.2 以及更早版本</li>
+</ul>
+<p>那么不从引擎里替换掉 UIWebView 调用代码的话，将导致原生包在 AppStore 审核被拒。</p>
+<p>Cocos Creator 3D 尚未添加 WebView 支持，所以不涉及。</p>
+<h4 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h4><p>我不会简单地一句话描述 “请大家升级引擎版本” 来解决。很多开发到中后期、甚至已经上线运营的游戏项目不太可能大动干戈升级整个引擎版本。我们只需要精准地动点儿小手术就行了。</p>
+<ul>
+<li>Cocos2d-x 用户，可以根据 <a target="_blank" rel="noopener" href="https://github.com/cocos2d/cocos2d-x/pull/20098/files">https://github.com/cocos2d/cocos2d-x/pull/20098/files 219</a> 这个 pull request 来做手工合并。</li>
+<li>Cocos Creator 用户，可以根据 <a target="_blank" rel="noopener" href="https://github.com/cocos-creator/cocos2d-x-lite/pull/1837/files">https://github.com/cocos-creator/cocos2d-x-lite/pull/1837/files 186</a> 这个 pull request 做手工合并。</li>
+</ul>
+<p>虽然 Cocos 引擎团队会持续地升级兼容平台的新接口、新要求，但确实很难把几年前的所有历史版本全部对新接口适配一遍后重新发布，还请大家能够理解。所以正确的解法就是：</p>
+<ol>
+<li>新立项的时候，尽量用最新版的引擎。Dashboard 功能的推出也是为了方便这一点。</li>
+<li>对于固定在老版本上的已有项目，根据上述 Pull Reuqest 里改动的文件，自己做手工合并。</li>
+</ol>
+</blockquote>
+<p>这样如此看来，目前使用的Cocos Creator 2.4.3版本是不会有这个问题，对官方的这些我还是信任的。</p>
+<p>接下来就是查找自己接入的第三方SDK了，如何查找呢，首先是搜索，这个一无所获，因为我接入两个SDK：</p>
+<h4 id="SDK"><a href="#SDK" class="headerlink" title="SDK"></a>SDK</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://developers.facebook.com/docs/ios">FaceBook</a>    <a target="_blank" rel="noopener" href="https://developers.facebook.com/docs/ios">https://developers.facebook.com/docs/ios</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/">ironSource</a>  <a target="_blank" rel="noopener" href="https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/">https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/</a></li>
+</ul>
+<p>这样我需要先找到是谁用了这个过期的才可以和对方对接和交流</p>
+<p>于是我找到了一篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lingjunjie/article/details/106047150">ITMS-90809: Deprecated API Usage - New apps that use UIWebView are no longer accepted. Instead, use</a></p>
+<p>遗憾的是这个帖看不到图片了，甚是尴尬，于是我再次对这个帖子查找：</p>
+<p><a target="_blank" rel="noopener" href="https://www.shangmayuan.com/a/a8b5e3840d59449caf0a6d3f.html">ITMS-90809: Deprecated API Usage - New apps that use UIWebView are no longer accepted. Instead, use</a></p>
+<blockquote>
+<h5 id="iTunesConnect吃包-由于ipa包中包含uiwebview"><a href="#iTunesConnect吃包-由于ipa包中包含uiwebview" class="headerlink" title="iTunesConnect吃包 由于ipa包中包含uiwebview"></a>iTunesConnect吃包 由于ipa包中包含uiwebview</h5><p>5月1号之后iTunesConnect不容许上传的ipa包中屌用UIWebView，使用事后上传的ipa包都不会显示在活动里（我称呼这种骚操做为‘吃包’）。web</p>
+<p>已经把项目工程里面的有关uiwebview的文件都处理好了，从新上传结果仍是不行。在网上看到一个方法可以反编译咱们的ipa包，而后查询ipa中屌用的头文件，这样就能够知道问题出如今哪里了。app</p>
+<ol>
+<li>首先download一个class-dump ： 下载地址：<a target="_blank" rel="noopener" href="http://stevenygard.com/projects/class-dump/">http://stevenygard.com/projects/class-dump/</a></li>
+<li>下载ipz文件，解压缩之后直接复制粘贴到 bin文件中，别忘记双击一下class-dump，由于咱们是直接复制粘贴过去的<img src="/post/e5e32542/a1452d7f6f594ae0a91c33e87778cece-1.jpg" alt="把下载好">3. 这是已经安装好了class-dump ，接下来就是破包。将咱们的ipa包经过ad HOC方式打包出来而后在桌面新建一个文件存放 <img src="/post/e5e32542/f690c3579d1143bb9962ba4bc4e80d8f-1.jpg" alt="在这里插入图片描述"></li>
+<li>接下来咱们把ipa包的后缀改成ipz，而后双击解压一下结果以下：pauload文件下“.app”文件就是咱们要破解的东西<br><img src="/post/e5e32542/c443d70874f94d5e9f2c669e14ea0ea7-1.jpg" alt="img"></li>
+<li>打开咱们的终端 而后cd到该文件里面，我使用的zsh。<br><img src="/post/e5e32542/37d9cc26d5834e63866f1e166c405488-1.jpg" alt="在这里插入图片描述"></li>
+<li>看到payload前缀就而后键入class-dump -H ****.app -o ～/Deaktop/result</li>
+<li>而后就能够到桌面上查看你的result文件 。成功结果截图：<img src="/post/e5e32542/168b9657e04244a3a635078a1db72277-1.jpg" alt="在这里插入图片描述"></li>
+<li>接下来把文件夹拖到sunlime Text ，而后按下 command + shift + F 进行全部文件搜索，搜索结果就出来了～</li>
+<li>完结撒花🎉</li>
+</ol>
+</blockquote>
+<p>这个是完整的，于是我便开始操作。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="安装工具class-dump"><a href="#安装工具class-dump" class="headerlink" title="安装工具class-dump"></a>安装工具class-dump</h4><ol>
+<li>下载后 解压 复制安装 </li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://stevenygard.com/projects/class-dump/">http://stevenygard.com/projects/class-dump/</a><br>Requires Mac OS X 10.8 or later.</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://stevenygard.com/download/class-dump-3.5.dmg">class-dump-3.5.dmg</a></li>
+<li><a target="_blank" rel="noopener" href="http://stevenygard.com/download/class-dump-3.5.tar.gz">class-dump-3.5.tar.gz</a></li>
+<li><a target="_blank" rel="noopener" href="http://stevenygard.com/download/class-dump-3.5.tar.bz2">class-dump-3.5.tar.bz2</a></li>
+</ul>
+<p><img src="/post/e5e32542/image-20201127175426738.png" alt="image-20201127175426738"></p>
+<ol start="2">
+<li><p>将class-dump 复制到/usr/bin/class-dump。如果是OS X 10.11，因没有/usr/bin文件夹的写权限，故将class-dump复制到/usr/local/bin/class-dump即可。</p>
+</li>
+<li><p>同时打开Terminal，执行命令赋予其执行权限：</p>
+<ul>
+<li>OS X 10.11之前   sudo chmod 777 /usr/bin/class-dump</li>
+<li>OS X 10.11之后   sudo chmod 777 /usr/local/bin/class-dump</li>
+</ul>
+<p>后面跟的是自己复制的目录</p>
+</li>
+<li><p>然后双击运行一下</p>
+</li>
+</ol>
+<p><img src="/post/e5e32542/image-20201127175820195.png" alt="image-20201127175820195"></p>
+<ol start="5">
+<li>使用class-dump导出头文件的命令格式：class-dump -H 需要导出的框架路径 -o 导出的头文件存放路径</li>
+</ol>
+<h4 id="解压ipa包"><a href="#解压ipa包" class="headerlink" title="解压ipa包"></a>解压ipa包</h4><p>我这边采用的和上面略有不同，我打出的是 development 包</p>
+<p><img src="/post/e5e32542/image-20201127180059076.png" alt="image-20201127180059076"></p>
+<p>打包完成后 修改 ipa 文件后缀为 ipz</p>
+<p><img src="/post/e5e32542/image-20201127180316421.png" alt="image-20201127180316421"></p>
+<p>解压文件</p>
+<p><img src="/post/e5e32542/image-20201127180446915.png" alt="image-20201127180446915"></p>
+<p>解压后生成这样一个文件</p>
+<p><img src="/post/e5e32542/image-20201127180516827.png" alt="image-20201127180516827"></p>
+<p>使用命令行工具，切换目录到 Payload 目录 运行命令 ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -H ****.app -o ～/Deaktop/result</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/e5e32542/image-20201127180647841.png" alt="image-20201127180647841"></p>
+<p>运行成功后在 Payload 目录 生成一个目录 打开文件 夹 用 VSCode 全局搜索  UIWebView  看看 是哪个文件用了。</p>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p>其实后面我自己的问题是因为我用pod 安装依赖的时候选择了 早期的版本引起的。</p>
+<p>之前我写的是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod &#x27;FBSDKCoreKit&#x27;, &#x27;8.0.0&#x27;</span><br><span class="line">pod &#x27;IronSourceSDK&#x27;,&#x27;6.6.3.1&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>其实 最新的 IronSourceSDK 是 7.0.3.0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pod &#x27;FBSDKCoreKit&#x27;, &#x27;8.0.0&#x27;</span><br><span class="line">pod &#x27;IronSourceSDK&#x27;,&#x27;7.0.3.0&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>当然这个过程还是蛮坎坷的，不过通过这个问题，又学习了一种技能。</p>
+<h3 id="其他权限问题"><a href="#其他权限问题" class="headerlink" title="其他权限问题"></a>其他权限问题</h3><h4 id="ITMS-90683-Missing-Purpose-String-in-Info-plist"><a href="#ITMS-90683-Missing-Purpose-String-in-Info-plist" class="headerlink" title="ITMS-90683: Missing Purpose String in Info.plist"></a>ITMS-90683: Missing Purpose String in Info.plist</h4><blockquote>
+<p>Though you are not required to fix the following issues, we wanted to make you aware of them:</p>
+<p><strong>ITMS-90683: Missing Purpose String in Info.plist</strong> - Your app’s code references one or more APIs that access sensitive user data. The app’s Info.plist file should contain a NSLocationAlwaysUsageDescription key with a user-facing purpose string explaining clearly and completely why your app needs the data. Starting Spring 2019, all apps submitted to the App Store that access user data are required to include a purpose string. If you’re using external libraries or SDKs, they may reference APIs that require a purpose string. While your app might not use these APIs, a purpose string is still required. You can contact the developer of the library or SDK and request they release a version of their code that doesn’t contain the APIs. Learn more (<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/uikit/core_app/protecting_the_user_s_privacy">https://developer.apple.com/documentation/uikit/core_app/protecting_the_user_s_privacy</a>).</p>
+<p><strong>ITMS-90683: Missing Purpose String in Info.plist</strong> - Your app’s code references one or more APIs that access sensitive user data. The app’s Info.plist file should contain a NSLocationWhenInUseUsageDescription key with a user-facing purpose string explaining clearly and completely why your app needs the data. Starting Spring 2019, all apps submitted to the App Store that access user data are required to include a purpose string. If you’re using external libraries or SDKs, they may reference APIs that require a purpose string. While your app might not use these APIs, a purpose string is still required. You can contact the developer of the library or SDK and request they release a version of their code that doesn’t contain the APIs. Learn more (<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/uikit/core_app/protecting_the_user_s_privacy">https://developer.apple.com/documentation/uikit/core_app/protecting_the_user_s_privacy</a>).</p>
+</blockquote>
+<p><img src="/post/e5e32542/image-20201127181319463.png" alt="image-20201127181319463"></p>
+<p>这个说的是 我用了权限 没有在 info.plist 里面说明。</p>
+<p>NSLocationAlwaysUsageDescription:用在 <strong>iOS app</strong> 上，用于 <strong>iOS11</strong> 之前，应用在后台时需要获取位置权限说明,需要跟<strong>NSLocationAlwaysAndWhenInUseUsageDescription</strong> 一起添加，<strong>iOS11</strong> 之后，只添加<strong>NSLocationAlwaysAndWhenInUseUsageDescription</strong>就可以了。</p>
+<p>NSLocationWhenInUseUsageDescription:用在 <strong>iOS app</strong>上，只能用于应用在前台时需要获取用户位置的权限说明</p>
+<p>我们修改添加即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSCalendarsUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>需要日历权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSCameraUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>需要相机权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSLocationAlwaysUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>应用在后台时需要获取位置权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSLocationWhenInUseUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>需要定位权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSMicrophoneUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>录制屏幕需要麦克风权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSPhotoLibraryAddUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>需要相册权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>NSPhotoLibraryUsageDescription<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>需要相册权限<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>修改成功后 重新打包，上传成功！！</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/uiwebview-wkwebview/93029">UIWebView 导致苹果审核被拒，请用 WKWebView 替换。内附升级指导</a> –Cocos 论坛</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/71ab6d270c85">iOS-info.plist 中添加定位权限</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://stevenygard.com/projects/class-dump/">Class-dump</a> 官网</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/chars/p/5312644.html">class-dump安装与使用</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lingjunjie/article/details/106047150">ITMS-90809: Deprecated API Usage - New apps that use UIWebView are no longer accepted. Instead, use</a>–CSDN 原作者</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.shangmayuan.com/a/a8b5e3840d59449caf0a6d3f.html">ITMS-90809: Deprecated API Usage - New apps that use UIWebView are no longer accepted. Instead, use</a>–尚码园 转发</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developers.ironsrc.com/ironsource-mobile/ios/ios-sdk/">ironSource</a></p>
+</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/7c6b3429.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>iOS安装历史版本(过期版本)App</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/bfae5412.html">
+        <span>Android和ios存储小试牛刀</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/e5e32542.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">问题原因</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E7%9A%84%E5%BC%95%E6%93%8E%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.</span> <span class="toc-text">涉及的引擎版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">修改方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SDK"><span class="toc-number">1.3.</span> <span class="toc-text">SDK</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#iTunesConnect%E5%90%83%E5%8C%85-%E7%94%B1%E4%BA%8Eipa%E5%8C%85%E4%B8%AD%E5%8C%85%E5%90%ABuiwebview"><span class="toc-number">1.3.1.</span> <span class="toc-text">iTunesConnect吃包 由于ipa包中包含uiwebview</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7class-dump"><span class="toc-number">2.1.</span> <span class="toc-text">安装工具class-dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8Bipa%E5%8C%85"><span class="toc-number">2.2.</span> <span class="toc-text">解压ipa包</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="toc-number">3.</span> <span class="toc-text">问题解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">其他权限问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ITMS-90683-Missing-Purpose-String-in-Info-plist"><span class="toc-number">4.1.</span> <span class="toc-text">ITMS-90683: Missing Purpose String in Info.plist</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2023 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >
