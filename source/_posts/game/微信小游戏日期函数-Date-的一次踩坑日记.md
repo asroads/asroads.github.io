@@ -90,6 +90,32 @@ transformDate(dateStr) {
 }
 ```
 
+### 2023年-07-17日更新
+
+时隔两年，再次遇到了这个bug 还是ios 系统 微信小游戏平台 下面给出一个更稳妥的替换方案
+
+```typescript
+    /**
+     * 格式化日期 替换所有可能的分隔符为 '/'
+     * @param dateStr {String}
+     * @returns {Date}
+     */
+    public transformDate(dateStr: string | Date) {
+        // 检查是否为数字或只包含数字的字符串
+        if (typeof dateStr === 'number' || (typeof dateStr === 'string' && /^\d+$/.test(dateStr))) {
+            return dateStr;
+        }
+        // 检查是否为 Date 对象
+        if (dateStr instanceof Date) {
+            return dateStr;
+        }
+        // 替换所有可能的分隔符为 '/'，并返回结果字符串
+        return dateStr.replace(/[-.]/g, '/');
+    }
+```
+
+
+
 ## 总结
 
 这个 bug 很隐蔽只有 ios 端小游戏才能复现，原生环境下（ios的ipa和安卓apk）也是正常的。当然，如果初始化日期的参数是啥标准格式肯定是没问题的，这个是自己没有仔细阅读AP I造成的，在测试的时候没有用iOS的设备测试微信小游戏，故而测试阶段遗漏掉了这个问题。通过用户反馈才看到的。
