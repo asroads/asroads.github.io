@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.x构建华为快游戏 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/8fa65a01.html">CocosCreator2.4.x构建华为快游戏</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-08-05
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2023-08-06
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.x构建华为快游戏&url=http://blog.asroads.com/post/8fa65a01.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.x构建华为快游戏&url=http://blog.asroads.com/post/8fa65a01.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/8fa65a01.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/8fa65a01.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/8fa65a01.html&title=CocosCreator2.4.x构建华为快游戏" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.x构建华为快游戏&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/8fa65a01.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/8fa65a01.html&text=CocosCreator2.4.x构建华为快游戏" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%8D%8E%E4%B8%BA/ >华为</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>本来以为小游戏的教程和文章有很多，像这种一键发布的小游戏，无非就是跟微信或抖音小游戏一样，很容易接入，一般游戏<code>API</code>接入，无外乎，登陆、视频广告、<code>Banner</code>广告、支付等逻辑，一般都有一些获取启动参数，或者小游戏顶部区域适配等，却不曾想，使用<code>CocosCreator</code>构建华为快游戏的时候，还会有一些意外的踩坑和注意地方，下面就说一下，如何使用<code>CocosCreator</code>构建出华为快游戏。</p>
+<span id="more"></span>
+
+<h2 id="前置环境"><a href="#前置环境" class="headerlink" title="前置环境"></a>前置环境</h2><p> 本文的电脑环境如下：</p>
+<ul>
+<li><code>Mac</code>电脑</li>
+<li><code>CocosCreator</code> 2.4.11</li>
+<li>小米手机一部</li>
+<li>华为手机一部</li>
+</ul>
+<p>需要安装的软件 ：<code>Cocos Creator</code> 和 华为快游戏开发工具</p>
+<p>首先我们给出下面几个文档地址：大家先熟悉一下大概的内容，然后进行下一步操作</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/publish/publish-huawei-quick-games.html">发布到华为快游戏</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.huawei.com/consumer/cn/doc/development/quickApp-Guides/quickgame-dev-runtimegame-guide-0000001159778255">Runtime快游戏开发指导</a></li>
+</ul>
+<p>文档熟悉后，我们这边还需要去申请相应的一些信息，这里主要是一个和微信小游戏很相似的东西叫做AppId。</p>
+<h3 id="关于签名"><a href="#关于签名" class="headerlink" title="关于签名"></a>关于签名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 openssl 命令工具生成签名文件</span></span><br><span class="line">openssl req -newkey rsa:2048 -nodes -keyout private.pem -x509 -days 3650 -out certificate.pem</span><br></pre></td></tr></table></figure>
+
+<p>查看证书信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -text -<span class="keyword">in</span> certificate.pem</span><br></pre></td></tr></table></figure>
+
+<p>查看certificate.crt证书的到期时间</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -<span class="keyword">in</span> certificate.pem -noout -dates</span><br></pre></td></tr></table></figure>
+
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>新建一个<code>CocosCreator</code>项目</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805220836245.png" alt="image-20230805220836245"></p>
+<ol start="2">
+<li>这里我随便写了一个界面，然后开始构建游戏</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">AppGame</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Label</span>)</span><br><span class="line">    <span class="attr">label</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="attr">text</span>: <span class="built_in">string</span> = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    start () &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile:🚀 ~ f:AppGame m:start l:13-&gt;&quot;</span>, <span class="string">&quot;首次场景启动&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="title class_">Browser</span>.<span class="property">onHWMiniGame</span>&amp;&amp;!<span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">inited</span>)&#123;</span><br><span class="line">            <span class="keyword">const</span> env = qg.<span class="property">env</span>;</span><br><span class="line">            <span class="keyword">const</span> <span class="variable constant_">USER_DATA_PATH</span> = qg.<span class="property">env</span>.<span class="property">USER_DATA_PATH</span>;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile:🚀 ~ f:AppGame m:start l:19-&gt;&quot;</span>, env);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile:🚀 ~ f:AppGame m:USER_DATA_PATH l:20-&gt;&quot;</span>, <span class="variable constant_">USER_DATA_PATH</span>);</span><br><span class="line">            <span class="keyword">const</span> res = qg.<span class="title function_">getSystemInfoSync</span>();</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;on getSystemInfoSync: success =&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res));</span><br><span class="line"></span><br><span class="line">            <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="title function_">initData</span>();</span><br><span class="line">            <span class="comment">// qg.exitApplication(&#123;</span></span><br><span class="line">            <span class="comment">//     success : function () &#123;</span></span><br><span class="line">            <span class="comment">//         console.log(&quot;exitApplication success&quot; );</span></span><br><span class="line">            <span class="comment">//     &#125;,</span></span><br><span class="line">            <span class="comment">//     fail:function()&#123;</span></span><br><span class="line">            <span class="comment">//         console.log(&quot;exitApplication fail&quot;);</span></span><br><span class="line">            <span class="comment">//     &#125;,</span></span><br><span class="line">            <span class="comment">//     complete:function() &#123;</span></span><br><span class="line">            <span class="comment">//         console.log(&quot;exitApplication complete&quot;);</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">// &#125;);</span></span><br><span class="line">            qg.<span class="title function_">onHide</span>(<span class="variable language_">this</span>.<span class="property">onHideHandler</span>);</span><br><span class="line">            qg.<span class="title function_">onShow</span>(<span class="variable language_">this</span>.<span class="property">onShowHandler</span>);</span><br><span class="line">            qg.<span class="title function_">onError</span>(</span><br><span class="line">                <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;onError message = &quot;</span> + res.<span class="property">message</span> + <span class="string">&quot;, stack = &quot;</span> + res.<span class="property">stack</span>);&#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="title class_">Browser</span>.<span class="property">onHWMiniGame</span>)&#123;</span><br><span class="line">            <span class="keyword">const</span> options = qg.<span class="title function_">getLaunchOptionsSync</span>();</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile:🚀 ~ f:AppGame m:start l:45-&gt;&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(options));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onShowHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> === <span class="number">0</span>) <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">        <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入前台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onHideHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">        <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入后台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">onDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// qg.offShow(this.onShowHandler);</span></span><br><span class="line">        <span class="comment">// qg.offHide(this.onHideHandler);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">transToPay</span>(<span class="params">touch:cc.Event.EventTouch,data:<span class="built_in">string</span></span>) &#123;</span><br><span class="line">        cc.<span class="property">director</span>.<span class="title function_">loadScene</span>(<span class="string">&quot;PayGame&quot;</span>,<span class="function">(<span class="params">err,scene</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="comment">// cc.director.runScene(scene);</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">hwGameLoginHandler</span>(<span class="params">touch:cc.Event.EventTouch,data:<span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile:🚀 -&gt;&quot;</span>, <span class="string">&quot;hwGameLoginHandler&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">hwLoginWithRealHandler</span>(<span class="params">touch:cc.Event.EventTouch,data:<span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile:🚀 -&gt;&quot;</span>, <span class="string">&quot;hwLoginWithRealHandler&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/8fa65a01/image-20230805220948719.png" alt="image-20230805220948719"></p>
+<p>注意：这里我曾尝试 设置 logo 设置公钥、私钥的路径为相对路径，发现是无法正常构建</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><ol>
+<li><p>首先要使用USB数据线连接我们的手机， 我这里是华为手机，记得开启开发者模式，USB调试</p>
+</li>
+<li><p>使用上面的打包方式 构建好我们需要的rpk 文件。</p>
+</li>
+<li><p>构建成功后 我们去查看 build 下的 huawei 文件夹 下的 dist 下面的 rpk 文件</p>
+</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805224445753.png" alt="image-20230805224445753"></p>
+<p><img src="/post/8fa65a01/image-20230805224550048.png" alt="image-20230805224550048"></p>
+<ol start="4">
+<li><p>我们启动 已经安装好的 开发工具</p>
+<p><img src="/post/8fa65a01/image-20230805224624573.png" alt="image-20230805224624573"></p>
+</li>
+<li><p>选择打开 <code>rpk</code></p>
+</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805224715526.png" alt="image-20230805224715526"></p>
+<ol start="6">
+<li>选择 刚刚构建好的 <code>rpk</code> 文件  <code>build/dist/xxxx.rpk</code></li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805224812909.png" alt="image-20230805224812909"></p>
+<ol start="7">
+<li>点击确定 打开 文件</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805225018398.png" alt="image-20230805225018398"></p>
+<ol start="8">
+<li>选择 本地运行</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805225305545.png" alt="image-20230805225305545"></p>
+<ol start="9">
+<li>继续点击 确定</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805225412020.png" alt="image-20230805225412020"></p>
+<ol start="10">
+<li>继续点击 确认</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805225503190.png" alt="image-20230805225503190"></p>
+<ol start="11">
+<li>我们看到 手机正常启动</li>
+</ol>
+<p><img src="/post/8fa65a01/image-20230805225903976.png" alt="image-20230805225903976"></p>
+<p>输出日志如下：</p>
+<p><img src="/post/8fa65a01/image-20230805225928300.png" alt="image-20230805225928300"></p>
+<p>以上 就是整个游戏的构建过程。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="关于游戏报错"><a href="#关于游戏报错" class="headerlink" title="关于游戏报错"></a>关于游戏报错</h3><p>华为这个调试工具确实跟微信小游戏那种不一样，看起来很不方便，特别是报错信息大家看上面代码 那个全局报错监听很重要：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qg.<span class="title function_">onError</span>(</span><br><span class="line">      <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;onError message = &quot;</span> + res.<span class="property">message</span> + <span class="string">&quot;, stack = &quot;</span> + res.<span class="property">stack</span>);&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>添加了这些代码，才能正常输出错误，否则很多错误，都会静默，游戏不报错，也不正常运行。</p>
+<h3 id="关于onHide-onShow-方法的this"><a href="#关于onHide-onShow-方法的this" class="headerlink" title="关于onHide onShow 方法的this"></a>关于onHide onShow 方法的this</h3><p>我们发现上面的输出里 this 对象为 <code>undefined</code> 但华为的 <code>onHide</code> 和 <code>onShow</code> 后面只有一个参数，并不像<code>Cocos Creator</code>一样 可以传入 this 对象，如果使用<code>bind</code> 则会产生一个新的方法。</p>
+<p>对此我们有两种常用的解决方案：</p>
+<h4 id="方法一-箭头函数"><a href="#方法一-箭头函数" class="headerlink" title="方法一 箭头函数"></a>方法一 箭头函数</h4><p>原来方法：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="title function_">onShowHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> === <span class="number">0</span>) <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">    <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入前台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="title function_">onHideHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">    <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入后台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改为：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> onShowHandler=<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> === <span class="number">0</span>) <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">    <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入前台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> onHideHandler = <span class="function">()=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">    <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入后台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们再次验证 发现已经可以正常移除 和 <code>this</code> 已经有对象</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">08-05 23:29:16.746 W/jsLog   (23688): [WARN]: 游戏进入后台 duration 1691249356746ms</span><br><span class="line">08-05 23:29:16.746 I/jsLog   (23688): 对象 [object Object]</span><br><span class="line">08-05 23:29:16.746 I/jsLog   (23688): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:29:23.263 W/jsLog   (23688): [WARN]: 游戏进入前台 duration 6517ms</span><br><span class="line">08-05 23:29:23.263 I/jsLog   (23688): 对象 [object Object]</span><br><span class="line">08-05 23:29:23.263 I/jsLog   (23688): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:29:30.753 I/jsLog   (23688): 取消监听</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法提前赋值"><a href="#方法提前赋值" class="headerlink" title="方法提前赋值"></a>方法提前赋值</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">AppGame</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_boundOnShowHandler</span>: <span class="title class_">Function</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_boundOnHideHandler</span>: <span class="title class_">Function</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果你有构造函数，可以放在那里，如果没有，可以使用onLoad方法</span></span><br><span class="line">    <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_boundOnShowHandler</span> = <span class="variable language_">this</span>.<span class="property">onShowHandler</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_boundOnHideHandler</span> = <span class="variable language_">this</span>.<span class="property">onHideHandler</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    start () &#123;</span><br><span class="line">        qg.<span class="title function_">onHide</span>(<span class="variable language_">this</span>.<span class="property">_boundOnHideHandler</span>);</span><br><span class="line">        qg.<span class="title function_">onShow</span>(<span class="variable language_">this</span>.<span class="property">_boundOnShowHandler</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">transToPay</span>(<span class="params">touch:cc.Event.EventTouch,data:<span class="built_in">string</span></span>) &#123;</span><br><span class="line">        qg.<span class="title function_">offShow</span>(<span class="variable language_">this</span>.<span class="property">_boundOnShowHandler</span>);</span><br><span class="line">        qg.<span class="title function_">offHide</span>(<span class="variable language_">this</span>.<span class="property">_boundOnHideHandler</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;取消监听&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onShowHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> === <span class="number">0</span>) <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">        <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入前台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onHideHandler</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">const</span> duration :<span class="built_in">number</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>() - <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span>;</span><br><span class="line">        <span class="title class_">GameData</span>.<span class="property">ins</span>.<span class="property">timeStamp</span> = cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">`游戏进入后台 duration <span class="subst">$&#123;duration&#125;</span>ms`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`对象`</span>,<span class="variable language_">this</span> === <span class="variable language_">window</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>和上面一样正常运行结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">08-05 23:37:29.089 W/jsLog   (27058): [WARN]: 游戏进入后台 duration 1691249849089ms</span><br><span class="line">08-05 23:37:29.089 I/jsLog   (27058): 对象 [object Object]</span><br><span class="line">08-05 23:37:29.089 I/jsLog   (27058): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:37:30.880 W/jsLog   (27058): [WARN]: 游戏进入前台 duration 1790ms</span><br><span class="line">08-05 23:37:30.880 I/jsLog   (27058): 对象 [object Object]</span><br><span class="line">08-05 23:37:30.880 I/jsLog   (27058): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:37:33.002 W/jsLog   (27058): [WARN]: 游戏进入后台 duration 2111ms</span><br><span class="line">08-05 23:37:33.003 I/jsLog   (27058): 对象 [object Object]</span><br><span class="line">08-05 23:37:33.003 I/jsLog   (27058): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:37:34.343 W/jsLog   (27058): [WARN]: 游戏进入前台 duration 1353ms</span><br><span class="line">08-05 23:37:34.343 I/jsLog   (27058): 对象 [object Object]</span><br><span class="line">08-05 23:37:34.343 I/jsLog   (27058): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:37:36.130 W/jsLog   (27058): [WARN]: 游戏进入后台 duration 1787ms</span><br><span class="line">08-05 23:37:36.130 I/jsLog   (27058): 对象 [object Object]</span><br><span class="line">08-05 23:37:36.134 I/jsLog   (27058): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:37:37.110 W/jsLog   (27058): [WARN]: 游戏进入前台 duration 980ms</span><br><span class="line">08-05 23:37:37.111 I/jsLog   (27058): 对象 [object Object]</span><br><span class="line">08-05 23:37:37.112 I/jsLog   (27058): 对象 <span class="literal">false</span></span><br><span class="line">08-05 23:37:42.447 I/jsLog   (27058): 取消监听2</span><br></pre></td></tr></table></figure>
+
+<h3 id="安全区域"><a href="#安全区域" class="headerlink" title="安全区域"></a>安全区域</h3><p>我们发现华为小游戏的 <code>getSystemInfoSync</code> 方法 无法返回正确的安全区域的值。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> res = qg.<span class="title function_">getSystemInfoSync</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;on getSystemInfoSync: success =&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res,<span class="literal">null</span>,<span class="number">4</span>));</span><br></pre></td></tr></table></figure>
+
+<p>打印如下：</p>
+<p><img src="/post/8fa65a01/image-20230806005014567.png" alt="image-20230806005014567"></p>
+<p>同一台手机不同的游戏</p>
+<p><img src="/post/8fa65a01/image-20230805234207750.png" alt="image-20230805234207750"></p>
+<p>这个是华为手机 安全区域返回异常，但可以正常返回 <code>statusBarHeight</code> 的值 为<code>99</code> </p>
+<p>下面我再次使用另外一部小米手机测试：</p>
+<p>其中一次</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;brand&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Xiaomi&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2206122SC&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;pixelRatio&quot;</span><span class="punctuation">:</span> <span class="number">2.625</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;screenWidth&quot;</span><span class="punctuation">:</span> <span class="number">411.42857142857147</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;screenHeight&quot;</span><span class="punctuation">:</span> <span class="number">914.2857142857143</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;windowWidth&quot;</span><span class="punctuation">:</span> <span class="number">411.42857142857147</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;windowHeight&quot;</span><span class="punctuation">:</span> <span class="number">883.4285714285715</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;language&quot;</span><span class="punctuation">:</span> <span class="string">&quot;zh&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;region&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CN&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;script&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;coreVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.21&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;COREVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.1.21&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;system&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Android 13&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;platform&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ANDROIDOS&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;13.2.1.301_dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;statusBarHeight&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;platformVersionName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.106&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;platformVersionCode&quot;</span><span class="punctuation">:</span> <span class="number">1106</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;safeArea&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;bottom&quot;</span><span class="punctuation">:</span> <span class="number">914.2857142857143</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;left&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;right&quot;</span><span class="punctuation">:</span> <span class="number">411.42857142857147</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;top&quot;</span><span class="punctuation">:</span> <span class="number">30.857142857142859</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">883.4285714285715</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;width&quot;</span><span class="punctuation">:</span> <span class="number">411.42857142857147</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/8fa65a01/image-20230805234821375.png" alt="image-20230805234821375"></p>
+<p>此时值又正常了，对于这个 目前还是很奇怪的，只能在 <code>top</code> 为<code>0</code> 的时候 默认给个值解决问题，这里给的 <code>50</code></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/86294191.html">
+        <span>一些工作里常用的正则小技巧(持续更新)</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/8fa65a01.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">前置环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%AD%BE%E5%90%8D"><span class="toc-number">1.1.</span> <span class="toc-text">关于签名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%B8%B8%E6%88%8F%E6%8A%A5%E9%94%99"><span class="toc-number">4.1.</span> <span class="toc-text">关于游戏报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EonHide-onShow-%E6%96%B9%E6%B3%95%E7%9A%84this"><span class="toc-number">4.2.</span> <span class="toc-text">关于onHide onShow 方法的this</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="toc-number">4.2.1.</span> <span class="toc-text">方法一 箭头函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E6%8F%90%E5%89%8D%E8%B5%8B%E5%80%BC"><span class="toc-number">4.2.2.</span> <span class="toc-text">方法提前赋值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%8C%BA%E5%9F%9F"><span class="toc-number">4.3.</span> <span class="toc-text">安全区域</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2023 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >
