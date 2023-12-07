@@ -88,7 +88,7 @@ external_link:
 
 ```
 
-#### 2022-05-31 更新
+### 2022-05-31 更新
 
 换了电脑windows 更新博客 发现抱错 具体原因是 电脑新环境没有公钥生成
 
@@ -131,6 +131,102 @@ hexo config deploy.repository git@github.com:[yourgitname]/[yourgitname].github.
 再次执行 `hexo d` 成功部署
 
 参考地址:[执行Hexo d报错Spawn failed， 以及OpenSSL SSL_read: Connection was reset, errno 10054](https://blog.csdn.net/Candle_light/article/details/114992784)
+
+### 2023-12-07 更新
+
+Hexo 目前最新版本已经是 7.0.0，最近恰好有个时间，就顺便升级了一下博客，其中一些依赖已经被弃用 需要简单的更换下面简单的说一下，一些注意的地方。
+
+**使用 `sass` 代替 `node-sass`**:`node-sass` 已经被标记为弃用，现在推荐使用 Dart Sass (`sass`)。您可以通过卸载 `node-sass` 并安装 `sass` 来替换，卸载 `node-sass`：`npm uninstall node-sass`。安装 Dart Sass：`npm install sass`。
+
+**安装特定版本的 Hexo**:
+
+- 使用 npm 安装指定版本的 Hexo。例如，如果您想安装 Hexo 7.0.0，您可以运行：
+
+  ```shell
+  npm install hexo@7.0.0
+  ```
+
+- 如果想将 Hexo 安装为全局模块，可以在命令中加上 -g 标志：
+
+  ```shell
+  npm install hexo@7.0.0 -g
+  ```
+
+**修复缓存目录的权限**
+
+运行以下命令来更改 npm 缓存目录的所有权：
+
+```shell
+sudo chown -R $(whoami) ~/.npm
+```
+
+**清理 npm 缓存**:
+
+```shell
+npm cache clean --force
+```
+
+**检查全局 Hexo CLI 版本**:
+
+运行 `npm list -g --depth=0` 查看全局安装的所有 npm 包，包括 Hexo CLI 的版本。确认全局安装的 Hexo CLI 版本。
+
+**检查 Hexo CLI 的实际路径**:运行 `which hexo` 来查看实际运行的 Hexo CLI 的路径。
+
+**单独检查每个包的最新版本**:使用以下命令来查看每个 npm 包的最新版本:
+
+```shell
+npm show [package-name] version
+```
+
+例如，要检查 `hexo-abbrlink` 的最新版本，您可以运行：
+
+```shell
+npm show hexo-abbrlink version
+```
+
+本次遇到的问题，是更新后，运行 hexo -g 构建后，发现 标签为空：
+
+#### 需要修改两个地方，主要是我使用的主题[hexo-theme-meadow](https://github.com/kb1000fx/hexo-theme-meadow)问题：
+
+1. 修改 `layout` 目录下的 `tag.ejs`  为 `tags.ejs`
+
+![image-20231207103018001](./hexo-博客插件升级感触/image-20231207103018001.png)
+
+原内容：
+
+```ejs
+<%- partial('_partial/page/collapse',{pagetype: 'tag'}) %>
+```
+
+修改：
+
+```ejs
+<%- partial('_partial/page/tags') %>
+```
+
+2. layout/_partial/page/tags.ejs 内容修改：其实就是 把 `<%site.tags.data.forEach(function(element) {%>` 修改为    `<%site.tags.forEach(function(element) {%>`
+
+   ```ejs
+   <div class="page-describe">
+       <%=_p('counter.tags',site.tags.length)%>
+   </div>
+   <div class="tags-contain">
+       <%site.tags.forEach(function(element) {%>
+           <div class="mdui-chip tags-chip">
+               <%if(theme.tag_page_count==true){%>
+                   <span class="mdui-chip-icon"><%=element.length%></span>
+               <%}%>
+               <a class="mdui-chip-title" href="<%-url_for(element.path)%>"><%=element.name%></a>
+           </div>
+       <%})%>
+   </div>
+   ```
+
+3. 如果想在 ejs 打印 需要这样：
+
+```ejs
+<% console.log('page.posts:', page.posts); %>
+```
 
 ### 后记
 

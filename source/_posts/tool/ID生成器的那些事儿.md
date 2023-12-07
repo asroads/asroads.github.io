@@ -23,7 +23,7 @@ date: 2022-03-02 10:22:17
 
 ## UUID
 
-UUID是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。UUID（Universally Unique Identifier, 通用唯一识别码，也叫GUID（Globally Unique IDentifier，全局唯一识别码）。在互联网工程任务组发布的[RFC4122](https://link.segmentfault.com/?enc=Q1hN8nv6MB%2BsSU9fWL%2BizA%3D%3D.kwv1%2FoSESq9YS830uqcGkBMq%2FbnSJdi%2F4w6pwd9FqqR04RvAEevPhEcmFST54ylx)文档中介绍，UUID是一种不需要中央机构分配而产生唯一标识符的方式在时间和空间上保持其唯一性。UUID是由128位的二进制数据组成，通常使用32位的十六进制数据表示，并使用连字符连接。其表示格式为8-4-4-4-12。
+UUID(Universally Unique IDentifier) 是指在一台机器上生成的数字，它保证对在同一时空中的所有机器都是唯一的。UUID（Universally Unique Identifier, 通用唯一识别码，也叫GUID（Globally Unique IDentifier，全局唯一识别码）。在互联网工程任务组发布的[RFC4122](https://link.segmentfault.com/?enc=Q1hN8nv6MB%2BsSU9fWL%2BizA%3D%3D.kwv1%2FoSESq9YS830uqcGkBMq%2FbnSJdi%2F4w6pwd9FqqR04RvAEevPhEcmFST54ylx)文档中介绍，UUID是一种不需要中央机构分配而产生唯一标识符的方式在时间和空间上保持其唯一性。UUID是由128位的二进制数据组成，通常使用32位的十六进制数据表示，并使用连字符连接。其表示格式为8-4-4-4-12。
 
 ```basic
 示例：b6489592-4726-4d68-a52b-63e2bbddfbf3
@@ -34,6 +34,108 @@ UUID是指在一台机器上生成的数字，它保证对在同一时空中的�
 ```
 
 缺点也很明显 生成的结果串会比较长。
+
+### Javascript 生成UUID的几种方法
+
+范围内的一个32位十六进制数。在理想情况下，任何计算机和计算机集群都不会生成两个相同的UUID。
+
+1.第一种
+
+```typescript
+function guid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+guid() // "a1ca0f7b-51bd-4bf3-a5d5-6a74f6adc1c7"
+```
+
+2.第二种
+
+```typescript
+function uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
+}
+uuid() // "ffb7cefd-02cb-4853-8238-c0292cf988d5"
+```
+
+3.第三种
+
+```typescript
+function guid2() {
+    function S4() {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    }
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+}
+guid2() // "748eea29-f842-4af9-a552-e1e1aa3ed979"
+```
+
+4.第四种
+
+```typescript
+// 指定长度和基数
+function uuid2(len, radix) {
+    var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+    var uuid = [],
+        i;
+    radix = radix || chars.length;
+
+    if (len) {
+        // Compact form
+        for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+    } else {
+        // rfc4122, version 4 form
+        var r;
+
+        // rfc4122 requires these characters
+        uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+        uuid[14] = '4';
+
+        // Fill in random data.  At i==19 set the high bits of clock sequence as
+        // per rfc4122, sec. 4.1.5
+        for (i = 0; i < 36; i++) {
+            if (!uuid[i]) {
+                r = 0 | Math.random() * 16;
+                uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+            }
+        }
+    }
+
+    return uuid.join('');
+}
+uuid2(16, 16) // "277571702EE33E11"
+```
+
+5.第五种
+说明:生成32位UUID方法
+
+```typescript
+ function uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 32; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23];
+    var uuid = s.join("");
+    return uuid;
+}
+```
 
 ## 雪花算法（snowflake）
 
@@ -70,7 +172,9 @@ UUID是指在一台机器上生成的数字，它保证对在同一时空中的�
 
 ## ULID
 
-[ULID](https://link.segmentfault.com/?enc=qDEfnZ19KCKTsgOGe6Ze7Q%3D%3D.1cXk4BaChCz9%2B7xrL%2Fzcd4tAHrOTO2HS2IQyWIyedGRJVP3iFW9EcseKNXSeCvq3) 代表通用唯一按字母顺序排序的标识符。它每周有超过 271K 的 NPM 下载和 1.9K 的 GitHub Stars。
+![image-20231207100853471](./ID生成器的那些事儿/image-20231207100853471.png)
+
+[ULID](https://github.com/ulid/javascript#readme) 代表通用唯一按字母顺序排序的标识符。它每周有超过 271K 的 NPM 下载和 2.6K 的 GitHub Stars。
 
 **优势：**
 

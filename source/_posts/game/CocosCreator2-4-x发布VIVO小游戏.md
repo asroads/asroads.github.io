@@ -247,3 +247,20 @@ npm run release
 ### 使用平台自带的小游戏自定义Loading组件
 
 文档地址：[小游戏自定义Loading组件](https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=%e5%b0%8f%e6%b8%b8%e6%88%8f%e8%87%aa%e5%ae%9a%e4%b9%89loading%e7%bb%84%e4%bb%b6) 后面会特意写一个文章单独介绍这个功能。
+
+### 构建包失败 清理缓存
+
+```shell
+npm cache clean --force
+```
+
+### 添加权限
+
+```shell
+sudo chown -R 501:20 /Users/ydc012/.nvm
+```
+
+```shell
+sudo chown -R $(whoami) ~/.npm
+```
+
