@@ -255,7 +255,7 @@
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2023-12-07
+      更新于:&nbsp;2024-02-27
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -406,6 +406,53 @@
 <p>最后成功了！</p>
 <p><img src="/post/572cb29c/image-20200529133857201.png" alt="image-20200529133857201"></p>
 <p>最后 重启 Webstorm 即可解决乱码问题。(注意 一定是完全退出，不是关闭项目打开 是退出Webstorm 重新打开)</p>
+<h3 id="文件Size过大无法格式化"><a href="#文件Size过大无法格式化" class="headerlink" title="文件Size过大无法格式化"></a>文件Size过大无法格式化</h3><p>起因：我本地有个压缩后的Javascript文件特别大，大于20MB了，此时无法使用WebStorm自带的代码格式化工具格式化代码</p>
+<p>查找：经过一番查找才知道原因是：</p>
+<p>Users often change the location of the <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html">default IDE directories</a>. For more information, refer to <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html#change-ide-dirs">Change the location of IDE directories</a>.</p>
+<p>Limits that can affect performance:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>idea.max.content.load.filesize</code></td>
+<td>Maximum size of files (in kilobytes) that WebStorm is able to open. Working with large files can affect editor performance and increase memory consumption. The default value is <code>20000</code>.</td>
+</tr>
+<tr>
+<td><code>idea.max.intellisense.filesize</code></td>
+<td>Maximum size of files (in kilobytes) for which WebStorm provides coding assistance. Coding assistance for large files can affect editor performance and increase memory consumption. The default value is <code>2500</code>.</td>
+</tr>
+<tr>
+<td><code>idea.cycle.buffer</code></td>
+<td>Maximum size of the console cyclic buffer (in kilobytes). If the console output size exceeds this value, the oldest lines are deleted. To disable the cyclic buffer, set <code>idea.cycle.buffer.size=disabled</code>.</td>
+</tr>
+<tr>
+<td><code>idea.max.vcs.loaded.size.kb</code></td>
+<td>Maximum size (in kilobytes) that WebStorm loads for showing past file contents when <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/comparing-files-and-folders.html">comparing changes</a>. The default value is <code>20480</code>.</td>
+</tr>
+</tbody></table>
+<p>解决方法：</p>
+<ol>
+<li><p>打开webstorm 的 help菜单</p>
+<p><img src="/post/572cb29c/image-20240227165758481.png" alt="image-20240227165758481"></p>
+<p>找到 Edit Custom Properties 选项。</p>
+</li>
+<li><p>设置为：</p>
+</li>
+</ol>
+<p><img src="/post/572cb29c/image-20240227165925548.png" alt="image-20240227165925548"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">idea.max.content.load.filesize = 512000</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>重启Webstorm 可以正常格式化</li>
+</ol>
+<p>参考链接 <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/tuning-the-ide.html#configure-platform-properties">https://www.jetbrains.com/help/webstorm/tuning-the-ide.html#configure-platform-properties</a></p>
+<h3 id="“More-than-100-matches”-in-search-搜索结果超过100个内容时，如何显示更多"><a href="#“More-than-100-matches”-in-search-搜索结果超过100个内容时，如何显示更多" class="headerlink" title="“More than 100 matches” in search 搜索结果超过100个内容时，如何显示更多"></a>“More than 100 matches” in search 搜索结果超过100个内容时，如何显示更多</h3><p>当搜索内容超过100个时候，webstorm 默认只显示100个，如何显示更多呢？</p>
+<p>在setting-&gt;advanced Setting 中可以找到这个值，直接修改。</p>
+<h3 id><a href="#" class="headerlink" title></a><img src="/post/572cb29c/image-20240227170322370.png" alt="image-20240227170322370"></h3><p>参考地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qielanyu_/article/details/119924981">webstorm 2021.2 linux版本设置搜索文件匹配最大条数</a> </p>
 
   </div>
   <!--文末结束语-->
@@ -440,7 +487,7 @@
     <ul class="mdui-menu" id="toc">
       <li class="mdui-menu-item">
         <a href="/post/572cb29c.html" id="toc-header" class="mdui-ripple">文章目录</a>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Webstorm-%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">Webstorm 常用的一些技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4WebStorm"><span class="toc-number">2.</span> <span class="toc-text">Mac彻底删除WebStorm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">背景原因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">步骤:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%80-%E5%88%A0%E9%99%A4%E7%A8%8B%E5%BA%8F%E5%BA%94%E7%94%A8"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">一. 删除程序应用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%8C-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84App%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">二. 删除目录下的App文件夹</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript-%E9%A1%B9%E7%9B%AE%E8%B7%A8%E5%9F%9F"><span class="toc-number">3.</span> <span class="toc-text">JavaScript 项目跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.</span> <span class="toc-text">详细步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Clear-Cache"><span class="toc-number">3.2.</span> <span class="toc-text">Clear Cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LocalStorage-Manager"><span class="toc-number">3.3.</span> <span class="toc-text">LocalStorage Manager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89-%E6%8B%93%E5%B1%95%E7%A8%8B%E5%BA%8F%E6%8C%89%E9%92%AE"><span class="toc-number">3.4.</span> <span class="toc-text">如何去掉 拓展程序按钮</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E9%9A%90%E8%97%8F%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6-%E5%A6%82-meta-%E4%B8%8D%E6%98%BE%E7%A4%BA"><span class="toc-number">4.</span> <span class="toc-text">忽略隐藏指定类型的文件指定文件(如.meta)不显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BF%BD%E7%95%A5%E6%8C%87%E5%AE%9A%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">5.</span> <span class="toc-text">搜索忽略指定的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Webstorm-Consloe-%E9%9D%A2%E6%9D%BF-%E4%B8%AD%E6%96%87%E4%B8%8D%E8%83%BD%E8%BE%93%E5%87%BA"><span class="toc-number">6.</span> <span class="toc-text">Webstorm Consloe 面板 中文不能输出</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Webstorm-%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">Webstorm 常用的一些技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4WebStorm"><span class="toc-number">2.</span> <span class="toc-text">Mac彻底删除WebStorm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">背景原因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">步骤:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%80-%E5%88%A0%E9%99%A4%E7%A8%8B%E5%BA%8F%E5%BA%94%E7%94%A8"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">一. 删除程序应用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%8C-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84App%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">二. 删除目录下的App文件夹</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript-%E9%A1%B9%E7%9B%AE%E8%B7%A8%E5%9F%9F"><span class="toc-number">3.</span> <span class="toc-text">JavaScript 项目跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.</span> <span class="toc-text">详细步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Clear-Cache"><span class="toc-number">3.2.</span> <span class="toc-text">Clear Cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LocalStorage-Manager"><span class="toc-number">3.3.</span> <span class="toc-text">LocalStorage Manager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89-%E6%8B%93%E5%B1%95%E7%A8%8B%E5%BA%8F%E6%8C%89%E9%92%AE"><span class="toc-number">3.4.</span> <span class="toc-text">如何去掉 拓展程序按钮</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E9%9A%90%E8%97%8F%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6-%E5%A6%82-meta-%E4%B8%8D%E6%98%BE%E7%A4%BA"><span class="toc-number">4.</span> <span class="toc-text">忽略隐藏指定类型的文件指定文件(如.meta)不显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BF%BD%E7%95%A5%E6%8C%87%E5%AE%9A%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">5.</span> <span class="toc-text">搜索忽略指定的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Webstorm-Consloe-%E9%9D%A2%E6%9D%BF-%E4%B8%AD%E6%96%87%E4%B8%8D%E8%83%BD%E8%BE%93%E5%87%BA"><span class="toc-number">6.</span> <span class="toc-text">Webstorm Consloe 面板 中文不能输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6Size%E8%BF%87%E5%A4%A7%E6%97%A0%E6%B3%95%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">文件Size过大无法格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9CMore-than-100-matches%E2%80%9D-in-search-%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E8%B6%85%E8%BF%87100%E4%B8%AA%E5%86%85%E5%AE%B9%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A"><span class="toc-number">8.</span> <span class="toc-text">“More than 100 matches” in search 搜索结果超过100个内容时，如何显示更多</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text"></span></a></li></ol>
       </li>
     </ul>
   </div>
@@ -455,7 +502,7 @@
         <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
       
       <span>
-        &copy; 2018 - 2023 
+        &copy; 2018 - 2024 
         
           <span style="color:#d9333f" class="iconfont icon-heart"></span>
         
