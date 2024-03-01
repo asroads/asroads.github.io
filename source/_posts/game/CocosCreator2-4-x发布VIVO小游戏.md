@@ -264,3 +264,17 @@ sudo chown -R 501:20 /Users/ydc012/.nvm
 sudo chown -R $(whoami) ~/.npm
 ```
 
+## 构建的包重新打包报错
+
+项目里运行安装 `npm install @vivo-minigame/cli-service`
+
+```shell
+npm install @vivo-minigame/cli-service
+```
+
+然后重新构建：
+
+```shell
+npm run release
+```
+

@@ -167,3 +167,49 @@ File>Setting>Editor>File Encodings，将Global Encoding、Project Encoding、Def
 
 最后 重启 Webstorm 即可解决乱码问题。(注意 一定是完全退出，不是关闭项目打开 是退出Webstorm 重新打开)
 
+### 文件Size过大无法格式化
+
+起因：我本地有个压缩后的Javascript文件特别大，大于20MB了，此时无法使用WebStorm自带的代码格式化工具格式化代码
+
+查找：经过一番查找才知道原因是：
+
+Users often change the location of the [default IDE directories](https://www.jetbrains.com/help/webstorm/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html). For more information, refer to [Change the location of IDE directories](https://www.jetbrains.com/help/webstorm/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html#change-ide-dirs).
+
+Limits that can affect performance:
+
+| Property                         | Description                                                  |
+| -------------------------------- | ------------------------------------------------------------ |
+| `idea.max.content.load.filesize` | Maximum size of files (in kilobytes) that WebStorm is able to open. Working with large files can affect editor performance and increase memory consumption. The default value is `20000`. |
+| `idea.max.intellisense.filesize` | Maximum size of files (in kilobytes) for which WebStorm provides coding assistance. Coding assistance for large files can affect editor performance and increase memory consumption. The default value is `2500`. |
+| `idea.cycle.buffer`              | Maximum size of the console cyclic buffer (in kilobytes). If the console output size exceeds this value, the oldest lines are deleted. To disable the cyclic buffer, set `idea.cycle.buffer.size=disabled`. |
+| `idea.max.vcs.loaded.size.kb`    | Maximum size (in kilobytes) that WebStorm loads for showing past file contents when [comparing changes](https://www.jetbrains.com/help/webstorm/comparing-files-and-folders.html). The default value is `20480`. |
+
+解决方法：
+
+1. 打开webstorm 的 help菜单
+
+   ![image-20240227165758481](./Webstorm常用技巧/image-20240227165758481.png)
+
+   找到 Edit Custom Properties 选项。
+
+2. 设置为：
+
+![image-20240227165925548](./Webstorm常用技巧/image-20240227165925548.png)
+
+```
+idea.max.content.load.filesize = 512000
+```
+
+3. 重启Webstorm 可以正常格式化
+
+参考链接 https://www.jetbrains.com/help/webstorm/tuning-the-ide.html#configure-platform-properties
+
+### "More than 100 matches" in search 搜索结果超过100个内容时，如何显示更多
+
+当搜索内容超过100个时候，webstorm 默认只显示100个，如何显示更多呢？
+
+在setting->advanced Setting 中可以找到这个值，直接修改。
+
+### ![image-20240227170322370](./Webstorm常用技巧/image-20240227170322370.png)
+
+参考地址：[webstorm 2021.2 linux版本设置搜索文件匹配最大条数](https://blog.csdn.net/qielanyu_/article/details/119924981) 
