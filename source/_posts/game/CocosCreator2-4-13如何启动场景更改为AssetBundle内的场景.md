@@ -9,7 +9,7 @@ abbrlink: e64c75a7
 date: 2024-02-28 20:01:56
 ---
 
-这里是你博客列表显示的摘要文字,`CocosCreator`从2.4开始可以自定义[Asset Bundle](https://docs.cocos.com/creator/2.4/manual/zh/asset-manager/bundle.html)，这个功能给开发者带来了很多自由设计素材结构的空间，似的开发者更容易把游戏设计为模块化，在自己实践过程中，也慢慢的积累了一些开发心得，下面就说说如何让`CocosCreator`启动自己自定义[Asset Bundle](https://docs.cocos.com/creator/2.4/manual/zh/asset-manager/bundle.html),其中包括使用插件代替手动更新方案。
+`CocosCreator`从2.4开始可以自定义[Asset Bundle](https://docs.cocos.com/creator/2.4/manual/zh/asset-manager/bundle.html)，这个功能给开发者带来了很多自由设计素材结构的空间，似的开发者更容易把游戏设计为模块化，在自己实践过程中，也慢慢的积累了一些开发心得，下面就说说如何让`CocosCreator`启动自己自定义[Asset Bundle](https://docs.cocos.com/creator/2.4/manual/zh/asset-manager/bundle.html),其中包括使用插件代替手动更新方案。
 <!--more-->
 
 ## 目前现状
