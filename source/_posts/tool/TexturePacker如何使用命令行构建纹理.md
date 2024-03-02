@@ -9,7 +9,7 @@ abbrlink: 873d72e9
 date: 2024-01-03 22:20:15
 ---
 
-我们在只做游戏时候，当场景内元素多了之后，游戏的渲染性能显得特别重要，其中一个有效手段就是减少DrawCall（Draw Call是**一条命令，由CPU向GPU发送的一条命令，去渲染一个网格（Mesh）**。）此时，很多开发者都会使用合图，静态合图的工具里比较优秀的佼佼者就是[TexturePacker](https://www.codeandweb.com/texturepacker)，下面简单的介绍一下如何使用这个工具的命令行使用和自己遇到的问题解决方法。
+在制作游戏时候，当场景内元素多了之后，游戏的渲染性能显得特别重要，其中一个有效手段就是减少DrawCall（Draw Call是**一条命令，由CPU向GPU发送的一条命令，去渲染一个网格（Mesh）**。）此时，许多开发者都会使用合图，静态合图的工具里比较优秀的佼佼者就是[TexturePacker](https://www.codeandweb.com/texturepacker)，下面简单的介绍一下如何使用这个工具的命令行使用和自己遇到的问题解决方法。
 <!--more-->
 
 ## 工具环境
