@@ -255,7 +255,7 @@
     </span>
     <span>
       <span class="iconfont icon-calendar-check"></span>
-      更新于:&nbsp;2024-04-07
+      更新于:&nbsp;2024-04-13
     </span>
     <span>
       <span class="iconfont icon-folder"></span>
@@ -323,7 +323,7 @@
 
   
   <div class="mdui-card-content mdui-typo mdui-p-x-4">
-    <p>前几天在抖音上学习git知识的时候，发现博主的电脑命令行可以直接显示当前仓库的分支名字和状态等信息，一时间，觉得这个功能挺好的，于是今天得空整理一下，设置一下自己的电脑，打开命令行如果目录是git 仓库是可以正常显示为git分支信息啥的。</p>
+    <p>前几天在抖音上学习<code>git</code>知识的时候，发现博主的电脑命令行可以直接显示当前仓库的分支名字和状态等信息，一时间，觉得这个功能挺好的，于是今天得空整理一下，设置一下自己的电脑，打开命令行如果目录是<code>git</code> 仓库是可以正常显示为<code>git</code>分支信息啥的。</p>
 <span id="more"></span>
 
 <h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先看一下我本地配置后的效果图：</p>
@@ -340,32 +340,32 @@
 <p>相关说明：上面几个链接都可以配置一天分支状态，最终我选择了 <a target="_blank" rel="noopener" href="https://github.com/olivierverdier/zsh-git-prompt">zsh-git-prompt</a> 原因是喜欢它最终展示的样式（颜值喜欢没办法～）</p>
 <h2 id="几种方法："><a href="#几种方法：" class="headerlink" title="几种方法："></a>几种方法：</h2><h3 id="方法一：git官方方式显示git分支"><a href="#方法一：git官方方式显示git分支" class="headerlink" title="方法一：git官方方式显示git分支"></a>方法一：git官方方式显示git分支</h3><ol>
 <li><p>下载脚本到本地，比如命名为<code>~/.git-prompt.sh</code>下载地址：<a target="_blank" rel="noopener" href="https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh">点击前往</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh</span><br></pre></td></tr></table></figure></li>
 <li><p>编辑.zshrc: vim ~/.zshrc</p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GIT_PS1_SHOWUPSTREAM=&quot;auto&quot;</span><br><span class="line">GIT_PS1_SHOWCOLORHINTS=&quot;yes&quot;</span><br><span class="line">source ~/.git-prompt.sh</span><br><span class="line">setopt PROMPT_SUBST</span><br><span class="line">PS1=&#x27;[%n@%m %c$(__git_ps1 &quot; (%s)&quot;)]\$ &#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GIT_PS1_SHOWUPSTREAM=&quot;auto&quot;</span><br><span class="line">GIT_PS1_SHOWCOLORHINTS=&quot;yes&quot;</span><br><span class="line">source ~/.git-prompt.sh</span><br><span class="line">setopt PROMPT_SUBST</span><br><span class="line">PS1=&#x27;[%n@%m %c$(__git_ps1 &quot; (%s)&quot;)]\$ &#x27;</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>保存配置</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
 
 <h3 id="方式二：zsh-oh-my-zsh-iTerm2"><a href="#方式二：zsh-oh-my-zsh-iTerm2" class="headerlink" title="方式二：zsh (oh my zsh)+iTerm2"></a>方式二：zsh (oh my zsh)+iTerm2</h3><p>由于自己不太想安装 oh my zsh 这个方案没有过多尝试，大家可以自行搜索查看实现方法。</p>
-<h3 id="使用zsh-git-prompt"><a href="#使用zsh-git-prompt" class="headerlink" title="使用zsh-git-prompt"></a>使用zsh-git-prompt</h3><ol>
+<h3 id="方式三：使用zsh-git-prompt"><a href="#方式三：使用zsh-git-prompt" class="headerlink" title="方式三：使用zsh-git-prompt"></a>方式三：使用zsh-git-prompt</h3><ol>
 <li>本地下载<a target="_blank" rel="noopener" href="https://github.com/olivierverdier/zsh-git-prompt">zsh-git-prompt</a>，将此存储库克隆到硬盘上的某个位置。</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/olivierverdier/zsh-git-prompt.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/olivierverdier/zsh-git-prompt.git</span><br></pre></td></tr></table></figure>
 
 <p><img src="/post/deebd3b2/image-20240407182137245.png" alt="image-20240407182137245"></p>
 <ol>
 <li><p>修改文件<code>~/.zshrc</code>，并配置<code>zshrc.sh</code>找到我们的<code>~/.zshrc</code>文件，添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source path/to/zshrc.sh</span><br><span class="line"># an example prompt</span><br><span class="line">PROMPT=&#x27;%B%m%~%b$(git_super_status) %# &#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source path/to/zshrc.sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">an example prompt</span></span><br><span class="line">PROMPT=&#x27;%B%m%~%b$(git_super_status) %# &#x27;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/post/deebd3b2/image-20240407182221176.png" alt="image-20240407182221176"></p>
 <p>比如我这里是：</p>
 <p><img src="/post/deebd3b2/image-20240407182244078.png" alt="image-20240407182244078"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#zsh-git-prompt 插件</span><br><span class="line">source ~/jsroads/wsplugin/zsh-git-prompt/zshrc.sh</span><br><span class="line">PROMPT=&#x27;%B%m%~%b$(git_super_status) %# &#x27;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">zsh-git-prompt 插件</span></span><br><span class="line">source ~/jsroads/wsplugin/zsh-git-prompt/zshrc.sh</span><br><span class="line">PROMPT=&#x27;%B%m%~%b$(git_super_status) %# &#x27;</span><br></pre></td></tr></table></figure></li>
 <li><p>进入 git 存储库并测试它！</p>
 </li>
 </ol>
@@ -421,8 +421,8 @@
 </tr>
 </tbody></table>
 <h2 id="其他知识"><a href="#其他知识" class="headerlink" title="其他知识"></a>其他知识</h2><h3 id="修改文件权限"><a href="#修改文件权限" class="headerlink" title="修改文件权限"></a>修改文件权限</h3><ol>
-<li>sudo -i 切换到root账户</li>
-<li>切换目录 cd 你的文件(夹)路径的上一级目录。</li>
+<li><code>sudo -i</code> 切换到<code>root</code>账户</li>
+<li>切换目录 <code>cd</code> 你的文件(夹)路径的上一级目录。</li>
 <li><code>sudo chmod -R 777</code> 你的文件(夹)名。</li>
 <li>输入密码。</li>
 <li>成功</li>
@@ -445,6 +445,11 @@
   
   <nav>
     
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/2a567506.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>一个好用的管理npm注册源插件nrm</span>
+      </a>
+    
     
       <a rel="next" class="post-nav-item mdui-float-right" href="/post/b43441e1.html">
         <span>CocosCreator抖音小游戏高性能模式</span>
@@ -462,7 +467,7 @@
     <ul class="mdui-menu" id="toc">
       <li class="mdui-menu-item">
         <a href="/post/deebd3b2.html" id="toc-header" class="mdui-ripple">文章目录</a>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">相关知识链接：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">几种方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9Agit%E5%AE%98%E6%96%B9%E6%96%B9%E5%BC%8F%E6%98%BE%E7%A4%BAgit%E5%88%86%E6%94%AF"><span class="toc-number">3.1.</span> <span class="toc-text">方法一：git官方方式显示git分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9Azsh-oh-my-zsh-iTerm2"><span class="toc-number">3.2.</span> <span class="toc-text">方式二：zsh (oh my zsh)+iTerm2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8zsh-git-prompt"><span class="toc-number">3.3.</span> <span class="toc-text">使用zsh-git-prompt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9F%A5%E8%AF%86"><span class="toc-number">4.</span> <span class="toc-text">其他知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">4.1.</span> <span class="toc-text">修改文件权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">相关知识链接：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">几种方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9Agit%E5%AE%98%E6%96%B9%E6%96%B9%E5%BC%8F%E6%98%BE%E7%A4%BAgit%E5%88%86%E6%94%AF"><span class="toc-number">3.1.</span> <span class="toc-text">方法一：git官方方式显示git分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9Azsh-oh-my-zsh-iTerm2"><span class="toc-number">3.2.</span> <span class="toc-text">方式二：zsh (oh my zsh)+iTerm2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89%EF%BC%9A%E4%BD%BF%E7%94%A8zsh-git-prompt"><span class="toc-number">3.3.</span> <span class="toc-text">方式三：使用zsh-git-prompt</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9F%A5%E8%AF%86"><span class="toc-number">4.</span> <span class="toc-text">其他知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">4.1.</span> <span class="toc-text">修改文件权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
       </li>
     </ul>
   </div>
