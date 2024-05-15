@@ -318,10 +318,91 @@ export const Throttle = (wait: number)=>{
 
 现在，动态添加和取消也有了，装饰器版本也有了，一下子学习这么多，想必一定很累吧，爽歪歪，完美收工！
 
+#### 2024年5月15日更新
+
+`CreatorExtensions.ts` 装饰器代码更新
+
+```typescript
+/**
+ * @Description:
+ * @Author: jsroads
+ * @Date: 2024/5/15 17:30
+ */
+
+// 工具函数
+const delayDefault = 500;
+
+/**
+ * 用于操作函数防抖，防抖就是将多次高频操作优化为只在最后一次执行
+ * 某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次
+ * @param wait 延时ms后再执行
+ * @param immediate 是否立即执行
+ * @constructor
+ */
+export const debounce = (wait: number = delayDefault, immediate: boolean = true): MethodDecorator => {
+    return function (target: any, key: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+        let timer: number | null = null;
+        const fn = descriptor.value!;
+        descriptor.value = async function (this: any, ...args: any[]) {
+            // 立即执行的功能（timer为空表示首次触发）
+            if (immediate) {
+                if (!timer) {
+                    fn.apply(this, args);
+                    timer = setTimeout(() => {
+                        timer = null;
+                    }, wait);
+                } else {
+                    // 有新的触发，则把定时器清空
+                    timer && clearTimeout(timer);
+                    // 重新计时
+                    timer = setTimeout(() => {
+                        fn.apply(this, args);
+                    }, wait);
+                }
+            } else {
+                // 有新的触发，则把定时器清空
+                timer && clearTimeout(timer);
+                // 重新计时
+                timer = setTimeout(() => {
+                    fn.apply(this, args);
+                }, wait);
+            }
+        };
+        return descriptor;
+    } as MethodDecorator;
+};
+
+/**
+ * 用于操作函数节流，节流就间隔时间段 时间内执行一次，
+ * 也就是降低频率，将高频操作优化成低频操作。
+ * @param wait 间隔ms 期间内再次触发无效
+ * @constructor
+ */
+export const throttle = (wait: number = delayDefault): MethodDecorator => {
+    return function (target: any, key: string, descriptor: PropertyDescriptor): PropertyDescriptor {
+        let timer: number | null = null;
+        const fn = descriptor.value!;
+        descriptor.value = async function (this: any, ...args: any[]) {
+            if (!timer) {
+                fn.apply(this, args);
+                timer = setTimeout(() => {
+                    timer = null;
+                }, wait);
+            }
+        };
+        return descriptor;
+    } as MethodDecorator;
+};
+
+```
+
+
+
 ## 参考
 
 - [防抖和节流原理分析](https://juejin.cn/post/6844903662519599111)
 - [再谈函数节流与防抖 - 利用装饰器 @decorator 来实现](https://www.jianshu.com/p/c9fe37cdf200)
 - [装饰者模式和TypeScript装饰器](https://segmentfault.com/a/1190000022415199)
 - [这篇文章助你理解函数防抖与函数节流](https://mp.weixin.qq.com/s/ArXO9ytrOZ44uaXyzkYKBw)
+- [TS装饰器之防抖节流](https://qytayh.github.io/2021/08/TS%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B9%8B%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/#%E9%98%B2%E6%8A%96%EF%BC%88debounce%EF%BC%89)
 

@@ -91,11 +91,21 @@ if (cc.sys.platform === cc.sys.WECHAT_GAME || cc.sys.platform === cc.sys.BYTEDAN
 }
 ```
 
-3. 编译引擎
+3. 编译引擎  注意 `Cocos Creator 2.4` 版本写的是 `gulp build-dev` 但是 `Cocos Creator 2.0` 版本是 `gulp build`
 
 ```shell
 gulp build-dev
 ```
+
+```shell
+gulp build
+```
+
+此处解释一下：gulp build-dev 执行后只能生成 三个文件 缺少 `cocos2d-jsb-min.js` 和 `cocos2d-jsb.js`，`gulp build` 执行后是会生成五个文件。个人理解是应该使用 `gulp build` （没有得到官方印证）
+
+![image-20240430105446320](./CocosCreator抖音小游戏高性能模式/image-20240430105446320.png)
+
+
 
 4. 设置项目自定义`Javascript`引擎 为刚刚自定义的引擎目录
 
