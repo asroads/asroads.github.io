@@ -1,13 +1,12 @@
 ---
 title: 一个从Excel到Json到Typescript枚 举(enum)的实现脚本工具
 comments: true
+categories: tool
 tags:
   - ts-node
   - ts
-  - json
 abbrlink: eeb07b93
 date: 2024-06-04 11:13:04
-categories:
 ---
 
 最近工作中遇到了一个功能埋点的任务，于是就想到这样的功能能不能先把一些信息放到`Excel`里面，生成`json`对象`Typescript` 文件，于是乎就去网上搜索了一下，最终找了一个类似的模板，在这个基础上又追加了一些功能，于是下面的的这个工具产生了。
