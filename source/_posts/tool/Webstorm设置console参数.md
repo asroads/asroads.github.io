@@ -28,6 +28,17 @@ date: 2023-06-21 21:03:21
 
 ![image-20230716213436528](./Webstorm设置console参数/image-20230716213436528.png)
 
+#### 其他
+
+![image-20240613145257667](./Webstorm设置console参数/image-20240613145257667.png)
+
+```javascript
+/**
+ * Created by jsroads on ${DATE} ${TIME} 
+ * Note:
+ */
+```
+
 ### 参考
 
 - [webstorm 一键 console.log](https://blog.csdn.net/simpleDDDu/article/details/118418413)
