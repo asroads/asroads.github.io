@@ -853,3 +853,5 @@ export const logCost: MethodDecorator; // Added logCost decorator
 ## 参考链接
 
 - [A free CDN for open source projects](https://www.jsdelivr.com/)
+- [debug：一个调试小工具](https://mp.weixin.qq.com/s/_Sj0v19I84_NudHdZpahKg)
+- [代码压缩网站](https://www.jyshare.com/front-end/51/)
