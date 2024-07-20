@@ -202,6 +202,18 @@ idea.max.content.load.filesize = 512000
 
 3. 重启Webstorm 可以正常格式化
 
+ 如果不能正常生效 去 APP 配置文件下 修改同名文件 idea.properties 
+
+```
+#---------------------------------------------------------------------
+idea.max.intellisense.filesize=512000
+
+#---------------------------------------------------------------------
+# Maximum file size (in KiB) the IDE is able to open.
+#---------------------------------------------------------------------
+idea.max.content.load.filesize=512000
+```
+
 参考链接 https://www.jetbrains.com/help/webstorm/tuning-the-ide.html#configure-platform-properties
 
 ### "More than 100 matches" in search 搜索结果超过100个内容时，如何显示更多
