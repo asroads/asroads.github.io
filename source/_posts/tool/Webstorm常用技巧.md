@@ -225,3 +225,28 @@ idea.max.content.load.filesize=512000
 ### ![image-20240227170322370](./Webstorm常用技巧/image-20240227170322370.png)
 
 参考地址：[webstorm 2021.2 linux版本设置搜索文件匹配最大条数](https://blog.csdn.net/qielanyu_/article/details/119924981) 
+
+#### webstorm 删除 最近项目列表
+
+比如我的路径是：
+
+```
+/Users/ydc012/Library/Application Support/JetBrains/WebStorm2024.1/options/recentProjects.xml
+```
+
+使用文本编辑器打开 `recentProjects.xml` 文件。
+
+1. **清空最近项目列表**：
+2. 在  `recentProjects.xml` 文件中，删除  标签及其所有子标签的内容，确保文件格式正确。例如：
+
+```xml
+<application>
+  <component name="RecentProjectsManager">
+    <!-- 清空此处内容 -->
+  </component>
+</application>
+```
+
+3. **保存并关闭文件**。
+
+4. **重新打开 WebStorm**：你会发现最近项目列表已经被清空。
