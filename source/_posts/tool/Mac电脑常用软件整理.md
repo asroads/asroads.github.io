@@ -64,6 +64,7 @@ date: 2019-10-15 11:10:15
 | smartsvn    | [进入官网](https://www.smartsvn.com/)         |         | 付费      | SVN  |
 | SnailGit    | 下载地址                                      |         | 付费/免费 | Git  |
 | SnailSVN    | AppStore                                      |         | 付费/免费 | SVN  |
+| Fork        | [进入官网](https://git-fork.com/)             |       | 付费/免费 | Git  |
 
 ### 清理工具
 
@@ -146,6 +147,12 @@ date: 2019-10-15 11:10:15
 | 百度小游戏     | https://smartprogram.baidu.com/developer/index.html          | 百度     |
 | 360小游戏      | [点击打开](https://mp.360.cn/doc/minigame/dev/#/a52e62f95a681228a01bc4de0acba959) | 360      |
 | bilibili小游戏 | http://miniapp.bilibili.com/small-game-doc                   | 哔哩哔哩 |
+| VIVO小游戏     | https://minigame.vivo.com.cn/documents/#/                    | VIVO     |
+| OPPO小游戏     | [点击前往](https://ie-activity-cn.heytapimage.com/static/minigame/CN/docs/index.html#/introduce/know/know) | OPPO     |
+| 华为快游戏     | [点击前往](https://developer.huawei.com/consumer/cn/doc/quickApp-Guides/quickgame-dev-runtimegame-guide-0000001159778255) | 华为     |
+| 支付宝小游戏   | [点击前往](https://opendocs.alipay.com/mini-game/08tzon)     | 支付宝   |
+| 淘宝小游戏     | [点击前往](https://miniapp.open.taobao.com/doc.htm?docId=121719&docType=1&tag=game-dev) | 淘宝     |
+| 快手小游戏     | [点击前往](https://ks-game-docs.kuaishou.com/minigame/start/start.html) | 快手     |
 
 ### Chrome 插件
 
@@ -172,7 +179,7 @@ date: 2019-10-15 11:10:15
 | -------------------- | -------- | -------- | ---- | ------------------------ |
 | New File Menu        | AppStore |       | 收费 | Finder右键创建文档       |
 | 超级右键-iRightMouse | AppStore |      | 免费 | Finder右键增强含创建文档 |
-|                      |          |          |      |                          |
+| 右键助手专业版       | AppStore |      | 收费 | Finder右键增强含创建文档 |
 
 ### 其他软件
 
@@ -190,12 +197,10 @@ date: 2019-10-15 11:10:15
 
 ### 工具网站
 
-| 网站名字                       | 操作                     | 推荐指数 | 备注               |
-| ------------------------------ | ------------------------ | -------- | ------------------ |
-| https://www.websiteplanet.com/ | 查看Tool标签页面         |      | 很多工具           |
-| HandShaker                     | Mac 电脑管理安卓手机工具 |      |                    |
-| AirServer                      | 手机投屏显示器工具       |       | 手机投屏显示器工具 |
-|                                |                          |          |                    |
+| 网站名字                       | 操作               | 推荐指数 | 备注               |
+| ------------------------------ | ------------------ | -------- | ------------------ |
+| https://www.websiteplanet.com/ | 查看Tool标签页面   |      | 很多工具           |
+| AirServer                      | 手机投屏显示器工具 |       | 手机投屏显示器工具 |
 
 ### 休息软件
 
@@ -216,7 +221,35 @@ date: 2019-10-15 11:10:15
 | 网站名字                                                     | 操作                        | 推荐指数 | 备注 |
 | ------------------------------------------------------------ | --------------------------- | -------- | ---- |
 | **[Android File Transfer](https://www.android.com/filetransfer/)** | 是安卓官方开发的Mac传输软件 |      | 免费 |
-|                                                              |                             |          |      |
+| HandShaker                                                   | Mac 电脑管理安卓手机工具    |      |      |
+
+### 查找文件
+
+| 网站名字                     | 操作                                    | 推荐指数 | 备注 |
+| ---------------------------- | --------------------------------------- | -------- | ---- |
+| Find Empty Folders for macOS | https://www.tempel.org/FindEmptyFolders |      | 免费 |
+| Find Any File                | https://findanyfile.app/                |      | 免费 |
+
+### 目录分析
+
+| 网站名字                     | 操作                                            | 推荐指数 | 备注 |
+| ---------------------------- | ----------------------------------------------- | -------- | ---- |
+| JDiskReport                  | https://www.jgoodies.com/downloads/jdiskreport/ |      | 免费 |
+| DaisyDisk                    | https://daisydiskapp.com/                       |      | 收费 |
+| Disk Map Analyzer            | 暂无                                            |      | 收费 |
+| Disk Space Analyzers for Mac | AppStore                                        |      | 收费 |
+
+### JSON Editor
+
+| 网站名字    | 操作     | 推荐指数 | 备注 |
+| ----------- | -------- | -------- | ---- |
+| JSON Editor | AppStore |      | 收费 |
+
+### 在线文档笔记
+
+| 网站名字 | 操作                      | 推荐指数 | 备注 |
+| -------- | ------------------------- | -------- | ---- |
+| FlowUs   | https://flowus.cn/product |      | 收费 |
 
 
 
