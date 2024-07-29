@@ -155,7 +155,7 @@ YDC012deMac-mini~/TestCase/Python/hot_cdn_plus(main|●6✚2…) %
 - **add_url_prefix**: 为文件路径添加URL前缀。
 - **save_classified_files**: 将分类后的文件路径保存到输出目录的文本文件中。**output目录**：如果`output`目录不存在，则创建该目录，并将每个后缀的文件列表保存到相应的`.txt`文件中。
 
-仓库地址：[点击前往](https://github.com/jsroads/mylibs/tree/main/cdnUpdateScript/hot_cdn_plus Python版本)
+仓库地址：[点击前往](https://github.com/jsroads/mylibs/blob/main/upcdnScript/Python%E7%89%88%E6%9C%AC.zip)
 
 ### nodejs版本
 
@@ -342,7 +342,7 @@ YDC012deMac-mini~/TestCase/node/hot-cdn(:|✔) % node hot-main.js
 YDC012deMac-mini~/TestCase/node/hot-cdn(:|✔) %
 ```
 
-仓库地址：[点击前往](https://github.com/jsroads/mylibs/tree/main/cdnUpdateScript/hot-cdn-nodejs版本)
+仓库地址：[点击前往](https://github.com/jsroads/mylibs/tree/main/upcdnScript/hot-cdn-nodejs%E7%89%88%E6%9C%AC)
 
 ## 总结
 
