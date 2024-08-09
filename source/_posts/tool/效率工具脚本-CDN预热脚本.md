@@ -4,7 +4,7 @@ comments: true
 categories: tool
 tags:
   - nodejs
-  - python
+  - Python
 abbrlink: d81ac378
 date: 2024-07-29 13:04:02
 ---
