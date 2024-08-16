@@ -120,6 +120,22 @@ pyenv activate my-virtual-env
 
 通过这些基本步骤，你就可以开始使用 `pyenv` 来管理你的 Python 环境了。
 
+在 `pyenv` 中，你可以使用以下命令来查看可以安装的 Python 版本列表：
+
+```bash
+pyenv install --list
+```
+
+这将列出所有可以通过 `pyenv` 安装的 Python 版本，包括官方发布的版本、开发版本、Anaconda 版本等。你可以从列表中选择你想要安装的版本。
+
+如果你只想查看某个特定版本的可用版本，例如 `3.8`，你可以使用以下命令：
+
+```bash
+pyenv install --list | grep 3.8
+```
+
+这将只显示与 `3.8` 相关的版本。
+
 ## 拓展
 
 ### demjson 报错 use_2to3 is invalid
@@ -134,6 +150,72 @@ error in demjson setup command: use_2to3 is invalid
 
 ```shell
 pip install --upgrade setuptools==57.5.0
+```
+
+### 强制安装（不推荐）
+
+你可以使用 `--break-system-packages` 选项强制安装包，但这可能会导致系统的 Python 环境出现问题，不推荐使用：
+
+```
+pip3 install yagmail --break-system-packages
+```
+
+#### 其他方案
+
+js2py替换demjson
+
+```python
+import js2py
+
+def convert_js_to_json(js_content):
+    """
+    使用 js2py 将 JavaScript 对象转换为 Python 字典（相当于 JSON）
+    :param js_content: JavaScript 对象的字符串
+    :return: Python 字典
+    """
+    # 将 JavaScript 对象代码封装在一个表达式中
+    js_code = f"var obj = {js_content}; obj;"
+    
+    # 使用 js2py 执行 JavaScript 并获取结果
+    js_result = js2py.eval_js(js_code)
+    
+    # 将 JavaScript 对象转换为 Python 字典
+    json_obj = js_result.to_dict()
+    
+    return json_obj
+
+# 使用示例
+js_content = """
+{
+    platform: "ios",
+    groupList: [
+        "default"
+    ],
+    collisionMatrix: [
+        [
+            true
+        ]
+    ],
+    hasResourcesBundle: false,
+    hasStartSceneBundle: false,
+    remoteBundles: [],
+    subpackages: [],
+    launchScene: "db://assets/Scene/helloworld.fire",
+    orientation: "",
+    server: "",
+    debug: true,
+    jsList: [],
+    bundleVers: {
+        internal: "d36c4",
+        main: "b6176"
+    }
+}
+"""
+
+# 使用示例
+json_obj = convert_js_to_json(js_content)
+print("json_obj", json_obj)
+
 ```
 
 ## 参考
