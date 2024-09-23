@@ -169,3 +169,13 @@ public class WXEntryActivity extends Activity {
 }
 ```
 
+### android打包 报错 Cannot read property debug of null
+
+![a8ffb9a9c01cf5812ede24c39234cff9](./Cocos-Creator原生Android开发风云再起/a8ffb9a9c01cf5812ede24c39234cff9.png)
+
+解决方式：删除 用户/xxx/.CocosCreator/local/service.json，这样就可以了。不知道怎么搞得，这个service.json被清空了。
+
+参考：[2.4.4新建的helloworld构建失败](https://forum.cocos.org/t/topic/117269)
+
+​           [Mac系统 2.4.9构建不过去](https://forum.cocos.org/t/topic/142714)
+

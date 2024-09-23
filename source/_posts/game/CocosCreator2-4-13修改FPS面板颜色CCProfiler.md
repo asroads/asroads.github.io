@@ -130,3 +130,16 @@ this.scheduleOnce(() = >{
 > cc.dynamicAtlasManager.enabled = false;
 > ```
 
+
+
+## 3.8.3方案，导入profiler即可
+
+```javascript
+this.scheduleOnce(() => {
+    profiler["_ctx"].fillStyle = "#000000ff" //新颜色
+    profiler["_ctx"].clearRect(0, 0, profiler["_region"].texExtent.width , profiler["_region"].texExtent.height);
+    profiler["_statsDone"] = false
+    profiler.generateStats()
+},0.1)
+```
+

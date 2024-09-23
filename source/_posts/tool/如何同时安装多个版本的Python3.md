@@ -80,6 +80,27 @@ pyenv local 3.8.10
 
 这样，在该目录下的所有 Python 操作都会使用指定的版本。
 
+如果在你的项目内，出现 `python` 和 `python3` 都指向同一个 Python 版本的原因，是因为 `pyenv` 在项目中优先使用 `.python-version` 文件来设置 Python 版本，而这个文件的配置同时影响了 `python` 和 `python3`。
+
+##### 解决方案：
+
+```bash
+pyenv local 2.7.18 3.9.19
+```
+
+这样，`python` 会默认使用第一个版本（2.7.18），而 `python3` 会使用 Python 3.9.19。
+
+还可以  使用 `pyenv shell` 临时设置版本
+
+```bash
+pyenv shell 2.7.18 3.9.19
+```
+
+此时：
+
+- `python` 会指向 2.7.18
+- `python3` 会指向 3.9.19
+
 ### 4. 使用不同的 Python 版本
 
 如果你需要临时切换到另一个 Python 版本，可以使用 `pyenv shell` 命令：
@@ -152,7 +173,7 @@ error in demjson setup command: use_2to3 is invalid
 pip install --upgrade setuptools==57.5.0
 ```
 
-### 强制安装（不推荐）
+#### 强制安装（不推荐）
 
 你可以使用 `--break-system-packages` 选项强制安装包，但这可能会导致系统的 Python 环境出现问题，不推荐使用：
 
@@ -217,6 +238,41 @@ json_obj = convert_js_to_json(js_content)
 print("json_obj", json_obj)
 
 ```
+
+
+
+### brew安装的版本抢占了pyenv版本
+
+#### 确认 `pyenv` 的设置在你的 shell 环境中优先
+
+确保 `pyenv init` 在你的 shell 配置文件（例如 `.bashrc`、`.zshrc` 或 `.bash_profile`）中被正确初始化。在末尾添加以下内容：
+
+```shell
+# Enable pyenv automatically
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+```
+
+##### 保存并关闭文件后，运行以下命令重新加载验证是否正确配置：
+
+```bash
+which python3
+```
+
+##### 你应该看到路径类似于：
+
+```bash
+/Users/your-username/.pyenv/shims/python3
+```
+
+##### 接着检查 Python 版本是否由 `pyenv` 控制：
+
+```bash
+python3 --version
+```
+
+##### 输出应该是你在 `pyenv` 中设置的版本，例如 `3.9.19`
 
 ## 参考
 
