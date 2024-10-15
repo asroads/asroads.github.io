@@ -4,6 +4,7 @@ comments: true
 categories: game
 tags:
   - Cocos
+  - iOS
 abbrlink: 3651f27f
 date: 2019-12-07 17:47:40
 ---
