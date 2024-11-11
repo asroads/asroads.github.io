@@ -162,3 +162,178 @@ if (qg.createCustomizeLoading) {
 ![image-20231113212221810](./VIVO小游戏首屏加载/image-20231113212221810.png)
 
 原因是：创建之后就进行获取导致的，可以延迟调用即可。
+
+## 2024-11-01更新加载
+
+vivo-custom-loading.js
+
+```javascript
+
+window.boot();
+//使用该功能时，需判断引擎是否支持
+//创建CustomizeLoading组件
+if (qg.createCustomizeLoading) {
+    console.log("VIVO 添加 createCustomizeLoading");
+    window['VIVOCustomizeLoadingOK'] = false;
+    // 生成随机数和时间戳
+    const randomNumber = Math.floor(Math.random() * 100000) + 1;
+    const timestamp = Date.now();
+//    let url = "https://tcs-cdn.galsanggame.com/tcs/miniv2/com/share/config/vivo/screen/cover4.jpg";
+//    url += '?';
+//    url += 'v=' + randomNumber;
+//    url += '&t=' + timestamp;
+    let url = "image/cover.jpg";
+
+    console.log("url------", url)
+    window['VIVOCustomizeLoading'] = qg.createCustomizeLoading({
+        background: url,
+        text: '正在初始化加载数据...',
+        textColor: '#ffffff',
+        loadingColorTop: '#ffffff',
+        loadingColorBottom: '#000000',
+        loadingProgress: 0
+    });
+    //获取CustomizeLoading进度
+    //根据实际场景进行更新进度（只能增加）、背景、文字以及文字颜色
+    //更新CustomizeLoading样式
+    window['VIVOCustomizeLoadingCount'] = 1;
+    window['VIVOCustomizeLoadingRate'] = 1;
+    window['VIVOCustomizeLoadingStage'] = 1;
+    window['VIVOCustomizeLoadingProgress'] = 0;
+    window['VIVOCustomizeLoadingOK'] = false;
+
+    const stages = [
+        '正在初始化加载数据...',
+        '游戏主包资源正在加载中...',
+        '游戏分包正在加载中...'
+    ];
+    const CustomizeLoadingId = setInterval(() => {
+        if (window['VIVOCustomizeLoading'] === null || window['VIVOCustomizeLoading'] === undefined) {
+            console.log("已经提前完成任务");
+            clearInterval(CustomizeLoadingId);
+        } else {
+            window['VIVOCustomizeLoadingCount'] += (1 * window['VIVOCustomizeLoadingRate']);
+            window['VIVOCustomizeLoadingCount'] = Math.min(100, window['VIVOCustomizeLoadingCount']);
+            const progress = Math.floor(window['VIVOCustomizeLoadingCount']);
+            window['VIVOCustomizeLoadingProgress'] = progress;
+
+            if (window['VIVOCustomizeLoadingRate'] > 1) {
+                window['VIVOCustomizeLoadingRate'] *= 1.25;
+            }
+
+            window['VIVOCustomizeLoading'].update({
+                background: url,
+                text: stages[window['VIVOCustomizeLoadingStage'] - 1],
+                textColor: '#ffffff',
+                loadingColorTop: '#ffffff',
+                loadingColorBottom: '#000000',
+                loadingProgress: progress
+            });
+
+            if (progress >= 100) {
+                // 检查 VIVOCustomizeLoadingOK 状态
+                if (window['VIVOCustomizeLoadingOK'] || window['VIVOCustomizeLoadingStage'] === 3) {
+                    console.log("VIVO模拟加载完成");
+                    clearInterval(CustomizeLoadingId);
+                    window['VIVOCustomizeLoading'] && window['VIVOCustomizeLoading'].remove();
+                    window['VIVOCustomizeLoading'] = null;
+                } else {
+                    // 进入下一阶段
+                    window['VIVOCustomizeLoading'].resetLoading();
+                    window['VIVOCustomizeLoadingStage'] += 1;
+                    window['VIVOCustomizeLoadingCount'] = 1; // 重置进度
+                }
+            }
+        }
+    }, 50);
+} else {
+    console.log("系统不支持")
+}
+```
+
+对应的 游戏内逻辑：
+
+```javascript
+        if(Browser.onVivoMiniGame){
+            if (window['VIVOCustomizeLoading']) {
+                console.log("游戏内提前显示要移除自定义loading");
+                window['VIVOCustomizeLoadingOK'] = true;
+            }
+        }
+```
+
+```javascript
+            if(Browser.onVivoMiniGame){
+                if (window['VIVOCustomizeLoading']) {
+                    console.log("游戏内提前显示要移除自定义loading");
+                    window['VIVOCustomizeLoadingRate'] = 1.25;
+                }
+            }
+```
+
+python逻辑：
+
+```python
+
+    # 使用方法 替换 签名文件 VIVO小游戏
+    sign_release = os.path.join(release_folder, 'sign', "release")
+    sign_debug = os.path.join(release_folder, 'sign', "debug")
+
+    # 复制文件和配置加载文件到新目录
+    source_subpackages = os.path.join(release_folder, 'subpackages' , 'main')
+    destination_src = os.path.join(release_folder, 'src' , 'main' )
+    vivio_build_dir = os.path.join(release_folder, 'build','main')
+
+    destination_src_cfg_json = os.path.join(release_folder, 'src' , 'main' , "index.js")
+    vivio_build_dir_cfg_json = os.path.join(release_folder, 'build','main' , "index.js")
+
+    # 使用方法 替换 首屏自定义加载 VIVO小游戏
+    js_main_path = os.path.join(release_folder, "main.js")  # main.js
+    js_boot_path = os.path.join(release_folder, 'engine', "src", "boot.js")  # boot.js
+    vivo_custom_loading_path = os.path.join(cmd_folder, "builder","vivo-custom-loading.js")  # vivo-custom-loading.js
+
+    loading_directory = os.path.join(cmd_folder, "builder",'config','loading')
+    loading_directory_src = os.path.join(release_folder, "src","image")
+
+    if args.c == 'vivo' or args.c == 'oppo' or args.c == 'hw':
+        # VIVO 签名复制操作
+        FUtils.recursive_copy(sign_release, sign_debug, 0)
+        if args.c == 'vivo':
+            # VIVO 目前自定义加载也废弃掉
+            FUtils.recursive_copy(source_subpackages, destination_src, 0)
+            FUtils.recursive_copy(source_subpackages, vivio_build_dir, 0)
+            FUtils.recursive_copy(loading_directory, loading_directory_src, 0)
+            if os.path.exists(destination_src_cfg_json):
+                try:
+                    os.remove(destination_src_cfg_json)
+                except OSError as e:
+                    # 如果无法删除，可能是因为文件正在被使用，打印错误并继续
+                    print(f"无法删除 {destination_src_cfg_json}, 错误: {e}")
+
+            if os.path.exists(vivio_build_dir_cfg_json):
+                try:
+                    os.remove(vivio_build_dir_cfg_json)
+                except OSError as e:
+                    # 如果无法删除，可能是因为文件正在被使用，打印错误并继续
+                    print(f"无法删除 {vivio_build_dir_cfg_json}, 错误: {e}")
+
+            # FUtils.recursive_copy(loading_directory, loading_directory_src, 0)
+            # FUtils.recursive_copy(loading_directory, vivio_build_dir, 0)
+            # 使用示例
+            js_main_result = FUtils.replace_content_in_file(js_main_path, vivo_custom_loading_path, 'window.boot();',
+                                                     'console.log("VIVO 添加 createCustomizeLoading");')
+            # 使用示例
+            js_boot_result = FUtils.replace_content_in_file(js_boot_path, vivo_custom_loading_path, 'window.boot();',
+                                                     'console.log("VIVO 添加 createCustomizeLoading");')
+            print("VIVO渠道构建修改:",js_main_result,js_boot_result)
+    else:
+        print("非VIVO渠道 不需要复制操作")
+```
+
+### 修改内容
+
+- **进度重置**：每当达到 100% 时，进度条会重置为 1，直到第三阶段完成为止。
+
+- **立即完成加载**：在进度达到 100% 时，检查 `window['VIVOCustomizeLoadingOK']` 的状态；若为 `true`，则直接完成加载并清除组件。
+- **阶段推进**：只有当 `window['VIVOCustomizeLoadingOK']` 为 `false` 时才会推进到下一个阶段，否则立即终止。
+

@@ -278,3 +278,21 @@ npm install @vivo-minigame/cli-service
 npm run release
 ```
 
+## 构建出的包一直构建无法完成
+
+![image-20241101160858344](./CocosCreator2-4-x发布VIVO小游戏/image-20241101160858344.png)
+
+![image-20241101160930998](./CocosCreator2-4-x发布VIVO小游戏/image-20241101160930998.png)
+
+原因是：**打包版本为开发版 需要开发版签名文件**
+![image-20241101161004950](./CocosCreator2-4-x发布VIVO小游戏/image-20241101161004950.png)
+
+解决：把release签名复制一份 命名为debug 即可成功编译打包
+![image-20241101161043739](./CocosCreator2-4-x发布VIVO小游戏/image-20241101161043739.png)
+
+## 构建成功后 无法正常唤起Chrome
+
+原因：
+
+1. 手机和电脑不在同一个局域网 比如需要同在同一个Wi-Fi下就可以
+2. 还有一个原因就是：需要关闭VIVO官方自带的打包工具 然后开启 node run server 就可以正常
