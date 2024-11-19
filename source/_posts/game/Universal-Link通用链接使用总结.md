@@ -1110,6 +1110,70 @@ SDK1.9.9
 
 很奇怪，微信这么大的改动，接入文档里居然没有提及，让我耗费了几个小时一直以为是自己哪里接入错误了！
 
+## 修改Universal Link
+
+最近项目更换了CDN地址 于是就要修改登录文件的位置 按照下面步骤修改可以更换，特别是代码内的地址，容易忽略掉
+
+### 新的cdn 存放文件 名为`apple-app-site-association` 没有后缀 记得
+
+```json
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "NKF6VH268U.com.lark.snake.official",
+        "paths": [
+          "/appsnake/*"
+        ]
+      }
+    ]
+  }
+}
+```
+
+### 微信开放后台修改Universal Link
+
+![6904a3da36344cbd12346c6e3693060d](./Universal-Link通用链接使用总结/6904a3da36344cbd12346c6e3693060d.png)
+
+### Xcode修改配置
+
+![image-20241118113508964](./Universal-Link通用链接使用总结/image-20241118113508964.png)
+
+### 微信SDK相关代码修改域名
+
+```objective-c
+//初始化微信appid，appsecret
++(BOOL)initWx:(NSString *)appName andId:(NSString *)appId andSecret:(NSString *)appSecret {
+    [WXApi startLogByLevel:WXLogLevelNormal logBlock:^(NSString *log) {
+        NSLog(@"WeChatSDK : %@", log);
+    }];
+    NSLog(@"WeChatSDK : %@   %@   %@", appName,appId,appSecret);
+    [WXApi registerApp:@"wx6942656f257f4644" universalLink:@"https://tcs-cdn.galsanggame.com/appsnake/"]; //填写自己对应的url
+    
+//    //调用自检函数
+//    [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
+//        NSLog(@"checkUniversalLinkReady:%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
+//    }];
+    return true;
+}
+
+```
+
+### 域名验证通过
+
+```
+https://tcs-cdn.galsanggame.com/appsnake/
+```
+
+相关验证地址：https://branch.io/resources/aasa-validator/
+
+![UniversalLink](./Universal-Link通用链接使用总结/UniversalLink.png)
+
+### 清理打包验证
+
+可以正常唤起微信登录
+
 ## 相关链接
 
 - [WeChatSDK: wxlog:Error:set token fail, errCode:4](https://developers.weixin.qq.com/community/develop/doc/000e2088448c806626ea2723451c00)

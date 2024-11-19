@@ -274,6 +274,69 @@ python3 --version
 
 ##### 输出应该是你在 `pyenv` 中设置的版本，例如 `3.9.19`
 
+### 其他问题
+
+#### 安装包错误
+
+```
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try brew install
+    xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a Python library that isn't in Homebrew,
+    use a virtual environment:
+
+    python3 -m venv path/to/venv
+    source path/to/venv/bin/activate
+    python3 -m pip install xyz
+
+    If you wish to install a Python application that isn't in Homebrew,
+    it may be easiest to use 'pipx install xyz', which will manage a
+    virtual environment for you. You can install pipx with
+
+    brew install pipx
+
+    You may restore the old behavior of pip by passing
+    the '--break-system-packages' flag to pip, or by adding
+    'break-system-packages = true' to your pip.conf file. The latter
+    will permanently disable this error.
+
+    If you disable this error, we STRONGLY recommend that you additionally
+    pass the '--user' flag to pip, or set 'user = true' in your pip.conf
+    file. Failure to do this can result in a broken Homebrew installation.
+
+    Read more about this behavior here: <https://peps.python.org/pep-0668/>
+```
+
+
+
+错误表明在使用一个 **Homebrew 管理的 Python 环境**。Homebrew 出于系统完整性考虑，不允许直接使用 `pip` 全局安装包。
+
+---
+
+##### **解决方案**
+ 禁用 Homebrew 限制 (不推荐)
+
+如果你希望直接全局安装 Python 包，可以通过以下方法禁用 Homebrew 的限制：
+
+1. 临时禁用限制：
+   ```bash
+   pip install your_package --break-system-packages
+   ```
+
+2. 永久禁用限制：
+   编辑或创建 `~/.config/pip/pip.conf` 文件，添加以下内容：
+   
+   ```ini
+   [global]
+   break-system-packages = true
+   ```
+
+**注意**：禁用限制可能会破坏 Homebrew 的安装环境，不建议长期使用。
+
 ## 参考
 
 - [如何同时安装多个版本的Python3](https://docs.pingcode.com/ask/ask-ask/174272.html)
