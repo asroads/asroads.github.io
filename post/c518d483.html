@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.13修改FPS面板颜色CCProfiler | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/c518d483.html">CocosCreator2.4.13修改FPS面板颜色CCProfiler</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-06-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.13修改FPS面板颜色CCProfiler&url=http://blog.asroads.com/post/c518d483.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.13修改FPS面板颜色CCProfiler&url=http://blog.asroads.com/post/c518d483.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/c518d483.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/c518d483.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/c518d483.html&title=CocosCreator2.4.13修改FPS面板颜色CCProfiler" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.13修改FPS面板颜色CCProfiler&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/c518d483.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/c518d483.html&text=CocosCreator2.4.13修改FPS面板颜色CCProfiler" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>最近恰好要查找一些性能<code>bug</code>，免不了要经常使用<code>CCProfiler</code>性能显示统计信息，比如常见的左下角的<code>Drawcall/FPS</code>显示文本。官方默认的显示白色，在微信小游戏中国特别的小，有时候看不太清，于是就自己尝试着修改一下，下面记录一下修改的方式。</p>
+<span id="more"></span>
+
+<h2 id="修改效果"><a href="#修改效果" class="headerlink" title="修改效果"></a>修改效果</h2><p><img src="/post/c518d483/image-20240607133945635.png" alt="image-20240607133945635"></p>
+<h2 id="修改原理"><a href="#修改原理" class="headerlink" title="修改原理"></a>修改原理</h2><p>修改根节点下的 性能显示字体样式：</p>
+<p><img src="/post/c518d483/image-20240607134136098.png" alt="image-20240607134136098"></p>
+<h3 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h3><h4 id="自定义引擎修改"><a href="#自定义引擎修改" class="headerlink" title="自定义引擎修改"></a>自定义引擎修改</h4><ol>
+<li>如果自定义引擎这里不再赘述，详情参考这里</li>
+<li>下面就说说修改文件 <code>Javascript</code> 引擎路径下的 <code>cocos2d/core/utils/profiler/CCProfiler.js</code></li>
+<li><code>CCProfiler.js</code>文件修改 <code>generateNode</code>方法内容如下：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">generateNode</span> () &#123;</span><br><span class="line">    <span class="keyword">if</span> (_rootNode &amp;&amp; _rootNode.<span class="property">isValid</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    _rootNode = <span class="keyword">new</span> cc.<span class="title class_">Node</span>(<span class="string">&#x27;PROFILER-NODE&#x27;</span>);</span><br><span class="line">    _rootNode.<span class="property">x</span> = _rootNode.<span class="property">y</span> = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    _rootNode.<span class="property">groupIndex</span> = cc.<span class="property">Node</span>.<span class="property">BuiltinGroupIndex</span>.<span class="property">DEBUG</span>;</span><br><span class="line">    cc.<span class="property">Camera</span>.<span class="title function_">_setupDebugCamera</span>();</span><br><span class="line"></span><br><span class="line">    _rootNode.<span class="property">zIndex</span> = macro.<span class="property">MAX_ZINDEX</span>;</span><br><span class="line">    cc.<span class="property">game</span>.<span class="title function_">addPersistRootNode</span>(_rootNode);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> left = <span class="keyword">new</span> cc.<span class="title class_">Node</span>(<span class="string">&#x27;LEFT-PANEL&#x27;</span>);</span><br><span class="line">    left.<span class="property">anchorX</span> = left.<span class="property">anchorY</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> leftLabel = left.<span class="title function_">addComponent</span>(cc.<span class="property">Label</span>);</span><br><span class="line">    leftLabel.<span class="property">fontSize</span> = _fontSize;</span><br><span class="line">    leftLabel.<span class="property">lineHeight</span> = _fontSize;</span><br><span class="line">    left.<span class="property">parent</span> = _rootNode;</span><br><span class="line">    left.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">GREEN</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> right = <span class="keyword">new</span> cc.<span class="title class_">Node</span>(<span class="string">&#x27;RIGHT-PANEL&#x27;</span>);</span><br><span class="line">    right.<span class="property">anchorX</span> = <span class="number">1</span>;</span><br><span class="line">    right.<span class="property">anchorY</span> = <span class="number">0</span>;</span><br><span class="line">    right.<span class="property">x</span> = <span class="number">520</span>;</span><br><span class="line">    <span class="keyword">let</span> rightLabel = right.<span class="title function_">addComponent</span>(cc.<span class="property">Label</span>);</span><br><span class="line">    rightLabel.<span class="property">horizontalAlign</span> = cc.<span class="property">Label</span>.<span class="property">HorizontalAlign</span>.<span class="property">RIGHT</span>;</span><br><span class="line">    rightLabel.<span class="property">fontSize</span> = _fontSize;</span><br><span class="line">    rightLabel.<span class="property">lineHeight</span> = _fontSize;</span><br><span class="line">    right.<span class="property">parent</span> = _rootNode;</span><br><span class="line">    right.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">GREEN</span>;</span><br><span class="line">    <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">platform</span> !== cc.<span class="property">sys</span>.<span class="property">BAIDU_GAME_SUB</span> &amp;&amp;</span><br><span class="line">        cc.<span class="property">sys</span>.<span class="property">platform</span> !== cc.<span class="property">sys</span>.<span class="property">WECHAT_GAME_SUB</span>) &#123;</span><br><span class="line">        leftLabel.<span class="property">cacheMode</span> = cc.<span class="property">Label</span>.<span class="property">CacheMode</span>.<span class="property">CHAR</span>;</span><br><span class="line">        rightLabel.<span class="property">cacheMode</span> = cc.<span class="property">Label</span>.<span class="property">CacheMode</span>.<span class="property">CHAR</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _label = &#123;</span><br><span class="line">        <span class="attr">left</span>: leftLabel,</span><br><span class="line">        <span class="attr">right</span>: rightLabel</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改引擎优点是：所有项目都能生效。缺点是：如果要判断浏览器和小游戏手机还需要更多的代码。</p>
+<h4 id="项目内修改"><a href="#项目内修改" class="headerlink" title="项目内修改"></a>项目内修改</h4><p>在游戏的第一个场景的 <code>onLoad</code> 方法写：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="title function_">scheduleOnce</span>(() = &gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">PROFILER_NODE</span> = cc.<span class="title function_">find</span>(<span class="string">&quot;PROFILER-NODE&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (cc.<span class="property">debug</span>.<span class="title function_">isDisplayStats</span>() &amp;&amp; <span class="variable constant_">PROFILER_NODE</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="variable constant_">LEFT_PANEL</span> = cc.<span class="title function_">find</span>(<span class="string">&quot;LEFT-PANEL&quot;</span>, <span class="variable constant_">PROFILER_NODE</span>) <span class="keyword">const</span> <span class="variable constant_">RIGHT_PANEL</span> = cc.<span class="title function_">find</span>(<span class="string">&quot;RIGHT-PANEL&quot;</span>, <span class="variable constant_">PROFILER_NODE</span>) <span class="keyword">let</span> size = <span class="number">24</span>,</span><br><span class="line">        space = <span class="number">260</span>;</span><br><span class="line">        <span class="variable constant_">PROFILER_NODE</span>.<span class="property">y</span> = -<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isMobile</span>) &#123;</span><br><span class="line">            size = <span class="number">48</span>;</span><br><span class="line">            space = <span class="number">520</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable constant_">LEFT_PANEL</span>.<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">fontSize</span> = size;</span><br><span class="line">        <span class="variable constant_">LEFT_PANEL</span>.<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">lineHeight</span> = size;</span><br><span class="line">        <span class="variable constant_">LEFT_PANEL</span>.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">GREEN</span>;</span><br><span class="line"></span><br><span class="line">        <span class="variable constant_">RIGHT_PANEL</span>.<span class="property">x</span> = space <span class="variable constant_">RIGHT_PANEL</span>.<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">fontSize</span> = size;</span><br><span class="line">        <span class="variable constant_">RIGHT_PANEL</span>.<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">lineHeight</span> = size;</span><br><span class="line">        <span class="variable constant_">RIGHT_PANEL</span>.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">GREEN</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：之所以使用<code>scheduleOnce</code> 延迟，是因为如果直接取，第一帧获取不到。</strong></p>
+<h2 id="其他拓展"><a href="#其他拓展" class="headerlink" title="其他拓展"></a>其他拓展</h2><p>有时候我们希望 <code>web</code> 端和小游戏环境更加相似所以可能要关闭动态合图：</p>
+<blockquote>
+<p>启用动态合图会占用额外的内存，不同平台占用的内存大小不一样。目前在小游戏和原生平台上默认会禁用动态合图，但如果你的项目内存空间仍有富余的话建议开启。</p>
+<p><strong>若希望强制开启动态合图</strong>，请在代码中加入：</p>
+<p>js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">macro</span>.<span class="property">CLEANUP_IMAGE_CACHE</span> = <span class="literal">false</span>;</span><br><span class="line">cc.<span class="property">dynamicAtlasManager</span>.<span class="property">enabled</span> = <span class="literal">true</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：这些代码请写在项目脚本中的最外层，不要写在 <code>onLoad</code> / <code>start</code> 等类函数中，才能确保在项目加载过程中即时生效。否则如果在部分贴图缓存已经释放的情况下才启用动态图集，可能会导致报错。</p>
+</blockquote>
+<p><strong>若希望强制禁用动态合图</strong>，可以直接剔除“Dynamic Atlas”模块以减小引擎包体，或者通过代码控制：</p>
+<p>js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">dynamicAtlasManager</span>.<span class="property">enabled</span> = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="3-8-3方案，导入profiler即可"><a href="#3-8-3方案，导入profiler即可" class="headerlink" title="3.8.3方案，导入profiler即可"></a>3.8.3方案，导入profiler即可</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="title function_">scheduleOnce</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    profiler[<span class="string">&quot;_ctx&quot;</span>].<span class="property">fillStyle</span> = <span class="string">&quot;#000000ff&quot;</span> <span class="comment">//新颜色</span></span><br><span class="line">    profiler[<span class="string">&quot;_ctx&quot;</span>].<span class="title function_">clearRect</span>(<span class="number">0</span>, <span class="number">0</span>, profiler[<span class="string">&quot;_region&quot;</span>].<span class="property">texExtent</span>.<span class="property">width</span> , profiler[<span class="string">&quot;_region&quot;</span>].<span class="property">texExtent</span>.<span class="property">height</span>);</span><br><span class="line">    profiler[<span class="string">&quot;_statsDone&quot;</span>] = <span class="literal">false</span></span><br><span class="line">    profiler.<span class="title function_">generateStats</span>()</span><br><span class="line">&#125;,<span class="number">0.1</span>)</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/4223bff8.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>介绍一个不错的debug调试工具</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/eeb07b93.html">
+        <span>一个从Excel到Json到Typescript枚 举(enum)的实现脚本工具</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/c518d483.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">修改效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">修改原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">修改方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%95%E6%93%8E%E4%BF%AE%E6%94%B9"><span class="toc-number">2.1.1.</span> <span class="toc-text">自定义引擎修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E4%BF%AE%E6%94%B9"><span class="toc-number">2.1.2.</span> <span class="toc-text">项目内修改</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8B%93%E5%B1%95"><span class="toc-number">3.</span> <span class="toc-text">其他拓展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8-3%E6%96%B9%E6%A1%88%EF%BC%8C%E5%AF%BC%E5%85%A5profiler%E5%8D%B3%E5%8F%AF"><span class="toc-number">4.</span> <span class="toc-text">3.8.3方案，导入profiler即可</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator如何使用async.js | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/61e73eb2.html">CocosCreator如何使用async.js</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-08-23
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator如何使用async.js&url=http://blog.asroads.com/post/61e73eb2.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator如何使用async.js&url=http://blog.asroads.com/post/61e73eb2.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/61e73eb2.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/61e73eb2.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/61e73eb2.html&title=CocosCreator如何使用async.js" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator如何使用async.js&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/61e73eb2.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/61e73eb2.html&text=CocosCreator如何使用async.js" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/async-js/ >async.js</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>有时候为了提高用户体验，需要分帧加载，<a target="_blank" rel="noopener" href="https://github.com/caolan/async">async.js</a> 是个优秀的第三方库，最近在看一些关于分帧加载的文章的时候，作者推荐了这个第三方库，于是想拿来用一下效果，于是乎，导入官方<code>dist</code>目录下的文件直接报错，于是乎自己用<a target="_blank" rel="noopener" href="https://rollupjs.org/guide/zh/">rollup.js</a>重新对源码编译生成一份儿可以用的，下面就说说如何构建。</p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>官方最新版本的<a target="_blank" rel="noopener" href="https://github.com/caolan/async">async.js</a>无法使用，低版本貌似可以，但是秉承着学习和向未来编程的方法，就自己编译一下，其实把散碎的js直接导入也是可以的，但是毕竟一个<code>js</code>文件看起来更加简洁和优雅。</p>
+<p>首先我们看一下，直接使用官方生成的报错如下：<br><img src="/post/61e73eb2/image-20220823123023551.png" alt="image-20220823123023551"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load script [./assets/Script/libs/async] failed : ReferenceError: regeneratorRuntime is not defined</span><br></pre></td></tr></table></figure>
+
+<p>论坛里有人和我报错相同，但是下面没人给出解决方法。于是，想着自己突破一下吧！</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Cocos Creator 2.3.3</li>
+<li>Windows10</li>
+<li>Webstorm 编辑器（你用VSCode一样）</li>
+<li>nodejs 环境</li>
+</ul>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案一：在原构建成功的文件里添加-runtime-js"><a href="#方案一：在原构建成功的文件里添加-runtime-js" class="headerlink" title="方案一：在原构建成功的文件里添加 runtime.js"></a>方案一：在原构建成功的文件里添加 runtime.js</h3><ol>
+<li>首先找到项目地址：<a target="_blank" rel="noopener" href="https://github.com/caolan/async/tree/master/dist">https://github.com/caolan/async/tree/master/dist</a></li>
+</ol>
+<p><img src="/post/61e73eb2/image-20220823201728363.png" alt="image-20220823201728363"></p>
+<ol start="2">
+<li><p>复制 <a target="_blank" rel="noopener" href="https://github.com/caolan/async/blob/master/dist/async.js">async.js</a> 到我们的项目 新建一个<code>libs</code>文件夹</p>
+</li>
+<li><p>如果是ts 项目记得 找到对应的声明文件 同样复制到<code>libs</code>目录下</p>
+<p>下载地址: <a target="_blank" rel="noopener" href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/async">https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/async</a></p>
+</li>
+<li><p>根据报错得知错误原因是 使用了 迭代器语法 编译的时候报错</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DLL</span> &#123;</span><br><span class="line">        <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">head</span> = <span class="variable language_">this</span>.<span class="property">tail</span> = <span class="literal">null</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//...此处省略无用代码</span></span><br><span class="line"></span><br><span class="line">        <span class="title function_">toArray</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> [...<span class="variable language_">this</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        *[<span class="title class_">Symbol</span>.<span class="property">iterator</span>] () &#123;</span><br><span class="line">            <span class="keyword">var</span> cur = <span class="variable language_">this</span>.<span class="property">head</span>;</span><br><span class="line">            <span class="keyword">while</span> (cur) &#123;</span><br><span class="line">                <span class="keyword">yield</span> cur.<span class="property">data</span>;</span><br><span class="line">                cur = cur.<span class="property">next</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        remove (testFn) &#123;</span><br><span class="line">            <span class="keyword">var</span> curr = <span class="variable language_">this</span>.<span class="property">head</span>;</span><br><span class="line">            <span class="keyword">while</span>(curr) &#123;</span><br><span class="line">                <span class="keyword">var</span> &#123;next&#125; = curr;</span><br><span class="line">                <span class="keyword">if</span> (<span class="title function_">testFn</span>(curr)) &#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="title function_">removeLink</span>(curr);</span><br><span class="line">                &#125;</span><br><span class="line">                curr = next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译后 变成了如下：<br><img src="/post/61e73eb2/image-20220823202601590.png" alt="image-20220823202601590"></p>
+<p>因为缺少了全局变量 regeneratorRuntime 导致报错，这里是报错的主要原因。</p>
+<ol start="5">
+<li>如何把缺少的 regeneratorRuntime 变量补上去呢，这里给出一个：</li>
+</ol>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js">https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js</a></p>
+<ol start="6">
+<li>直接复制 <a target="_blank" rel="noopener" href="https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js">runtime.js</a> 内容到 async.js 的最上方即可，当然也可以新建一个runtime.js文件 然后以插件形式导入项目。</li>
+<li>重新启动 Cocos Creator 项目，写测试代码：HelloWorld.ts</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;eachLimit&#125; <span class="keyword">from</span> <span class="string">&quot;./libs/async&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Helloworld</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Label</span>)</span><br><span class="line">    <span class="attr">label</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="attr">text</span>: <span class="built_in">string</span> = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="attr">count</span>: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">    start () &#123;</span><br><span class="line">        <span class="comment">// init logic</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">label</span>.<span class="property">string</span> = <span class="variable language_">this</span>.<span class="property">text</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    touchHandler (<span class="attr">event</span>: cc.<span class="property">Event</span>.<span class="property">EventTouch</span>,data) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;$$:&quot;</span>,<span class="title class_">Date</span>.<span class="title function_">now</span>(),<span class="string">&quot;  &quot;</span>,<span class="variable language_">this</span>.<span class="property">count</span>++);</span><br><span class="line">        <span class="keyword">let</span> array = []</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">123</span>; i++) &#123;</span><br><span class="line">            array.<span class="title function_">push</span>(i)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// async.eachLimit(array,  3,  (index,cb)  =&gt;  &#123;</span></span><br><span class="line">        <span class="comment">//     console.log(&quot;smile----index:&quot; + JSON.stringify(index));</span></span><br><span class="line">        <span class="comment">//     this.scheduleOnce(()=&gt;&#123;</span></span><br><span class="line">        <span class="comment">//         let res = index&gt;99?1:null</span></span><br><span class="line">        <span class="comment">//         if(res===null)&#123;</span></span><br><span class="line">        <span class="comment">//             cb&amp;&amp;cb();</span></span><br><span class="line">        <span class="comment">//         &#125;</span></span><br><span class="line">        <span class="comment">//     &#125;, 1);</span></span><br><span class="line">        <span class="comment">//     // this.scheduleOnce(cb,  1);</span></span><br><span class="line">        <span class="comment">// &#125;);</span></span><br><span class="line">        <span class="title function_">eachLimit</span>(array,  <span class="number">3</span>,  <span class="function">(<span class="params">index,cb</span>)  =&gt;</span>  &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----index:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(index));</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">scheduleOnce</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">let</span> res = index&gt;<span class="number">99</span>?<span class="number">1</span>:<span class="literal">null</span></span><br><span class="line">                <span class="keyword">if</span>(res===<span class="literal">null</span>)&#123;</span><br><span class="line">                    cb&amp;&amp;<span class="title function_">cb</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">0.5</span>);</span><br><span class="line">            <span class="comment">// this.scheduleOnce(cb,  1);</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>运行查看效果</li>
+</ol>
+<p><img src="/post/61e73eb2/GIF100.gif" alt="GIF100"></p>
+<h3 id="自定义构建项目"><a href="#自定义构建项目" class="headerlink" title="自定义构建项目"></a>自定义构建项目</h3><ol>
+<li>使用WebStorm新建一个项目，结构如下</li>
+</ol>
+<p><img src="/post/61e73eb2/image-20220823122041396.png" alt="image-20220823122041396"></p>
+<ol start="2">
+<li>下面逐一说一下每个文件的内容 package.json</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;async-build-demo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;async-build-demo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;rollup --config&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;files&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;dist&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES6&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jsroads&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;repository&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;@types/node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^16.3.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rollup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.53.2&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>rollup.config.js 内容如下</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2022/8/20 12:17</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">input</span>: <span class="string">&#x27;./src/index.js&#x27;</span>, <span class="comment">//输入 打包的文件</span></span><br><span class="line">    <span class="attr">output</span>: [&#123;  <span class="comment">//输出 编译后文件</span></span><br><span class="line">        <span class="attr">file</span>: <span class="string">&#x27;./dist/async-cjs.js&#x27;</span>, <span class="comment">//文件名</span></span><br><span class="line">        <span class="attr">format</span>: <span class="string">&#x27;cjs&#x27;</span>, <span class="comment">//打包规范</span></span><br><span class="line">        <span class="attr">exports</span>: <span class="string">&#x27;named&#x27;</span>,</span><br><span class="line">        <span class="attr">banner</span>: <span class="string">&#x27;// jsroads libs&#x27;</span>,  <span class="comment">//头注释</span></span><br><span class="line">        <span class="attr">footer</span>: <span class="string">&#x27;// powered by jsroads&#x27;</span> <span class="comment">//尾注释</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        <span class="attr">file</span>: <span class="string">&#x27;./dist/async-es.js&#x27;</span>,</span><br><span class="line">        <span class="attr">format</span>: <span class="string">&#x27;esm&#x27;</span>,</span><br><span class="line">        <span class="attr">exports</span>: <span class="string">&#x27;named&#x27;</span>,</span><br><span class="line">        <span class="attr">banner</span>: <span class="string">&#x27;// jsroads libs&#x27;</span>,  <span class="comment">//头注释</span></span><br><span class="line">        <span class="attr">footer</span>: <span class="string">&#x27;// powered by jsroads&#x27;</span> <span class="comment">//尾注释</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>src 目录下文件是 从 <a target="_blank" rel="noopener" href="https://github.com/caolan/async/tree/master/lib">https://github.com/caolan/async/tree/master/lib</a> 文件下的所有文件 复制过来的。</li>
+<li>首先运行 npm install  加载项目所需的依赖。</li>
+<li>然后运行 命令 rollup -c</li>
+</ol>
+<p><img src="/post/61e73eb2/image-20220823122411822.png" alt="image-20220823122411822"></p>
+<ol start="7">
+<li>此时如下图所示 编译后的文件已经生成。</li>
+</ol>
+<p><img src="/post/61e73eb2/image-20220823122430329.png" alt="image-20220823122430329"></p>
+<ol start="8">
+<li>因项目是 typescript项目 所以需要下载对应的声明文件。文件地址 <a target="_blank" rel="noopener" href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/async">https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/async</a></li>
+</ol>
+<p><img src="/post/61e73eb2/image-20220823122720413.png" alt="image-20220823122720413"></p>
+<ol start="9">
+<li><p>然后把 index.d.ts 重命名为 async-es.d.ts 和 dist 文件夹下生成的 async-es.js 一起放到 Cocos Creator项目的libs 下（记得删除原来报错文件）,重启项目。</p>
+</li>
+<li><p>继续添加 我们的  <a target="_blank" rel="noopener" href="https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js">runtime.js</a>文件 <a target="_blank" rel="noopener" href="https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js">https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js</a></p>
+</li>
+<li><p>重复方案一的其他步骤。</p>
+</li>
+</ol>
+<p><strong>注意：如果有微信小游戏环境报错的，可以 在 <a target="_blank" rel="noopener" href="https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js">runtime.js</a> 的末尾添加：目前（2022.08.23）官方代码已经添加了这些。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">regeneratorRuntime</span> = runtime;</span><br><span class="line">&#125; <span class="keyword">catch</span> (accidentalStrictMode) &#123;</span><br><span class="line">  ···</span><br><span class="line">  <span class="title class_">Function</span>(<span class="string">&quot;r&quot;</span>, <span class="string">&quot;regeneratorRuntime = r&quot;</span>)(runtime);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>最后 测试项目地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/async.js">点击前往</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来讲，此问题主要是添加一个 runtime.js 去全局即可，剩余的是自定义构建这个类库，比如我只用到了分帧加载，那么我就只构建自己用到的方法和文件，压缩后只有4KB左右。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://web.dev/rail/">使用 RAIL 模型衡量性能</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/346640391">微信小游戏开发之Cocos Creator场景切换巨慢的原因分析和耗时操作异步执行的解决方案</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/5bCkXWNY86SEjBgqOjqMpQ">前端打包工具UglifyJS使用入门</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/4nGOaaeHclAu6CUDGbJ3LQ">async.js在Cocos Creator中的应用</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/nlruIs70GSXzIBzYxfnUlQ">cocoscreator中实现分帧加载的一种方式</a></p>
+</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/16d8396f.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/5023b0ce.html">
+        <span>如何获取文件夹内所有图片的物理大小以及宽高</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/61e73eb2.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E5%9C%A8%E5%8E%9F%E6%9E%84%E5%BB%BA%E6%88%90%E5%8A%9F%E7%9A%84%E6%96%87%E4%BB%B6%E9%87%8C%E6%B7%BB%E5%8A%A0-runtime-js"><span class="toc-number">3.1.</span> <span class="toc-text">方案一：在原构建成功的文件里添加 runtime.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.2.</span> <span class="toc-text">自定义构建项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

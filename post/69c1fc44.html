@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.x构建支付宝小游戏 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/69c1fc44.html">CocosCreator2.4.x构建支付宝小游戏</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-12-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.x构建支付宝小游戏&url=http://blog.asroads.com/post/69c1fc44.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.x构建支付宝小游戏&url=http://blog.asroads.com/post/69c1fc44.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/69c1fc44.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/69c1fc44.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/69c1fc44.html&title=CocosCreator2.4.x构建支付宝小游戏" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.x构建支付宝小游戏&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/69c1fc44.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/69c1fc44.html&text=CocosCreator2.4.x构建支付宝小游戏" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>前面讲了如何构建VIVO小游戏，这次讲一下如何使用Cocos Creator2.4.x 构建出支付宝小游戏，整体来讲还算顺利，就是在Label渲染出现了一些问题，比如Label比较多的时候，界面渲染比较慢，可以考虑使用位图字体代替原来的ttf字体，基本可以满足性能要求。</p>
+<span id="more"></span>
+
+<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><ul>
+<li>Cocos Creator2.4.12</li>
+<li>支付宝</li>
+</ul>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>Cocos Creator 构建支付游戏 文档地址：<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/publish/publish-alipay-mini-games.html">发布到支付宝小游戏</a> <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/publish/publish-alipay-mini-games.html">点击前往</a></p>
+<p>小游戏开发文档地址：<a target="_blank" rel="noopener" href="https://open.alipay.com/">https://open.alipay.com/</a></p>
+<p><strong>支付宝小游戏接入文档</strong>  <a target="_blank" rel="noopener" href="https://www.yuque.com/zhifubaoxiaoyouxi-zromu/ts2ry9">点击前往</a></p>
+<h2 id="申请开发者"><a href="#申请开发者" class="headerlink" title="申请开发者"></a>申请开发者</h2><p><img src="/post/69c1fc44/image-20231125182803853.png" alt="image-20231125182803853"></p>
+<h2 id="安装依赖开发工具CLI"><a href="#安装依赖开发工具CLI" class="headerlink" title="安装依赖开发工具CLI"></a>安装依赖开发工具CLI</h2><h3 id="小游戏的开发流程"><a href="#小游戏的开发流程" class="headerlink" title="小游戏的开发流程"></a>小游戏的开发流程</h3><p><img src="/post/69c1fc44/001.jpeg" alt="img"></p>
+<p>支付宝小游戏提供了 <a target="_blank" rel="noopener" href="https://opendocs.alipay.com/mini/02qh1f?pathHash=0b032993">小游戏 CLI</a> 的命令行工具，来辅助开发者完成支付宝小游戏的开发工作</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g minidev</span><br></pre></td></tr></table></figure>
+
+<p>运行效果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">ydc012@YDC012deMac-mini alipay % npm i -g minidev</span><br><span class="line">npm WARN deprecated request-promise-native@1.0.9: request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142</span><br><span class="line">npm WARN deprecated har-validator@5.1.5: this library is no longer supported</span><br><span class="line">npm WARN deprecated formidable@1.2.6: Please upgrade to latest, formidable@v2 or formidable@v3! Check these notes: https://bit.ly/2ZEqIau</span><br><span class="line">npm WARN deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.</span><br><span class="line">npm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142</span><br><span class="line">npm WARN deprecated vm2@3.9.19: The library contains critical security issues and should not be used for production! The maintenance of the project has been discontinued. Consider migrating your code to isolated-vm.</span><br><span class="line">npm WARN deprecated superagent@6.1.0: Please upgrade to v7.0.2+ of superagent.  We have fixed numerous issues with streams, form-data, attach(), filesystem errors not bubbling up (ENOENT on attach()), and all tests are now passing.  See the releases tab for more information at &lt;https://github.com/visionmedia/superagent/releases&gt;.</span><br><span class="line"></span><br><span class="line">added 428 packages, and audited 429 packages in 34s</span><br><span class="line"></span><br><span class="line">28 packages are looking for funding</span><br><span class="line">  run `npm fund` for details</span><br><span class="line"></span><br><span class="line">14 vulnerabilities (5 moderate, 3 high, 6 critical)</span><br><span class="line"></span><br><span class="line">To address all issues (including breaking changes), run:</span><br><span class="line">  npm audit fix --force</span><br><span class="line"></span><br><span class="line">Run `npm audit` for details.</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录支付宝开发者账号"><a href="#登录支付宝开发者账号" class="headerlink" title="登录支付宝开发者账号"></a>登录支付宝开发者账号</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minidev login</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>扫码登录开发者账号，下图是报错如图</li>
+</ol>
+<p><img src="/post/69c1fc44/image-20231125182214582.png" alt="image-20231125182214582"></p>
+<p>原因是权限不足导致的 需要在授权前添加 sudo</p>
+<p><img src="/post/69c1fc44/image-20231125191731336.png" alt="image-20231125191731336"></p>
+<ol start="2">
+<li><p>登录成功后会显示 完成授权。</p>
+</li>
+<li><p><strong>注意</strong>：未执行登录或登录不成功时，开发时会出现以下报错。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Error]: 工具还未完成授权，无法调用真机预览等操作，请手动设置或通过 login 命令来完成设置。(ErrorCode: auth.NotAuthenticationConfigured)</span><br><span class="line">    at n.sendAuthRequest (/Users/stevendeng/.nvm/versions/node/v16.6.0/lib/node_modules/@ali/minidev-rc/lib/index.js:2:2164145)</span><br><span class="line">    at n.&lt;anonymous&gt; (/Users/stevendeng/.nvm/versions/node/v16.6.0/lib/node_modules/@ali/minidev-rc/lib/index.js:2:2161410)</span><br><span class="line">    at Generator.next (&lt;anonymous&gt;)</span><br><span class="line">    at a (/Users/stevendeng/.nvm/versions/node/v16.6.0/lib/node_modules/@ali/minidev-rc/lib/index.js:2:1900835)</span><br><span class="line">    at processTicksAndRejections (node:internal/process/task_queues:96:5) &#123;</span><br><span class="line">  scope: &#x27;auth&#x27;,</span><br><span class="line">  errorCode: &#x27;NotAuthenticationConfigured&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>如果  运行 <code>minidev login</code>  出现报错 则有可能是因为本地的 node版本过低导致 ，之前电脑安装了 node 14 后面改成 16版本正常 ,具体可以参考 下面的注意事项。</p>
+<h3 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minidev preview -a $&#123;your appId&#125;  -p /path/to/project</span><br></pre></td></tr></table></figure>
+
+<p>APPID 一定是小游戏的 APPID，不然会预览失败。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>是</td>
+<td>指定应用 ID。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>否</td>
+<td>指定工程路径。当前在<code>game.js</code>同级目录时，可缺省。</td>
+</tr>
+<tr>
+<td>–ignore-http-domain-check</td>
+<td>否</td>
+<td>忽略网络域名权限校验。</td>
+</tr>
+</tbody></table>
+<p>示例代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">进入你的项目目录</span></span><br><span class="line">cd /path/to/your/project</span><br><span class="line">minidev preview -a 2021xxx --ignore-http-domain-check</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/post/69c1fc44/image-20231125192044483.png" alt="image-20231125192044483"></p>
+<h2 id="真机调试"><a href="#真机调试" class="headerlink" title="真机调试"></a>真机调试</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minidev remote-debug -a $&#123;your appId&#125;  -p /path/to/project</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>是</td>
+<td>指定应用 ID。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>否</td>
+<td>指定工程路径。当前在<code>game.js</code>同级目录时，可缺省。</td>
+</tr>
+<tr>
+<td>–ignore-http-domain-check</td>
+<td>否</td>
+<td>忽略域名权限校验。</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">假设你已位于项目源码目录：</span></span><br><span class="line">minidev remote-debug -a 2021xxx --ignore-http-domain-check</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/69c1fc44/image-20231125192849295.png" alt="image-20231125192849295"></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minidev upload -a $&#123;your appId&#125; -p /path/to/project --game</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a</td>
+<td>是</td>
+<td>指定应用 ID。</td>
+</tr>
+<tr>
+<td>–game</td>
+<td>是</td>
+<td>指定应用类型为 GAME。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>否</td>
+<td>指定工程路径。当前在<code>game.js</code>同级目录时，可缺省。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>否</td>
+<td>指定版本。</td>
+</tr>
+</tbody></table>
+<p><strong>注意：</strong></p>
+<p>当前小游戏的上传的包大小的限制是 20 M，如果超过 20 M 的包大小限制，需要将部分的游戏资源放置在服务端来进行处理，来减小首包大小。</p>
+<p>上传完成之后，就可以去 <a target="_blank" rel="noopener" href="https://open.alipay.com/">支付宝开放平台</a> 去处理 <strong>审核</strong>、<strong>灰度</strong>、<strong>上架</strong> 相关的事情，详情请参考：小游戏发布。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="权限报错"><a href="#权限报错" class="headerlink" title="权限报错"></a>权限报错</h3><p>在执行 <code> minidev login</code> 的时候 报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">⠴ 正在完成授权Error write config file [Error: EACCES: permission denied, open &#x27;/Users/ydc012/.minidev/config.json&#x27;] &#123;</span><br><span class="line">  errno: -13,</span><br><span class="line">  code: &#x27;EACCES&#x27;,</span><br><span class="line">  syscall: &#x27;open&#x27;,</span><br><span class="line">  path: &#x27;/Users/ydc012/.minidev/config.json&#x27;</span><br><span class="line">&#125;</span><br><span class="line">✔ 完成授权</span><br></pre></td></tr></table></figure>
+
+<h3 id="node版本过低导致无法授权"><a href="#node版本过低导致无法授权" class="headerlink" title="node版本过低导致无法授权"></a>node版本过低导致无法授权</h3><p>在Mac电脑上使用 nvm  当切换了 node 版本的时候 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Now using node v16.20.2 (npm v8.19.4)</span><br><span class="line">ydc012@YDC012deMac-mini Desktop % nvm list</span><br><span class="line">       v14.21.3</span><br><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">    v16.20.2</span></span><br><span class="line">       v18.18.2</span><br><span class="line">default -&gt; 14.21.3 (-&gt; v14.21.3)</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; v18.18.2) (default)</span><br><span class="line">stable -&gt; 18.18 (-&gt; v18.18.2) (default)</span><br><span class="line">lts/* -&gt; lts/iron (-&gt; N/A)</span><br><span class="line">lts/argon -&gt; v4.9.1 (-&gt; N/A)</span><br><span class="line">lts/boron -&gt; v6.17.1 (-&gt; N/A)</span><br><span class="line">lts/carbon -&gt; v8.17.0 (-&gt; N/A)</span><br><span class="line">lts/dubnium -&gt; v10.24.1 (-&gt; N/A)</span><br><span class="line">lts/erbium -&gt; v12.22.12 (-&gt; N/A)</span><br><span class="line">lts/fermium -&gt; v14.21.3</span><br><span class="line">lts/gallium -&gt; v16.20.2</span><br><span class="line">lts/hydrogen -&gt; v18.18.2</span><br><span class="line">lts/iron -&gt; v20.10.0 (-&gt; N/A)</span><br><span class="line">ydc012@YDC012deMac-mini Desktop % nvm ls</span><br><span class="line">       v14.21.3</span><br><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">    v16.20.2</span></span><br><span class="line">       v18.18.2</span><br><span class="line">default -&gt; 14.21.3 (-&gt; v14.21.3)</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; v18.18.2) (default)</span><br><span class="line">stable -&gt; 18.18 (-&gt; v18.18.2) (default)</span><br><span class="line">lts/* -&gt; lts/iron (-&gt; N/A)</span><br><span class="line">lts/argon -&gt; v4.9.1 (-&gt; N/A)</span><br><span class="line">lts/boron -&gt; v6.17.1 (-&gt; N/A)</span><br><span class="line">lts/carbon -&gt; v8.17.0 (-&gt; N/A)</span><br><span class="line">lts/dubnium -&gt; v10.24.1 (-&gt; N/A)</span><br><span class="line">lts/erbium -&gt; v12.22.12 (-&gt; N/A)</span><br></pre></td></tr></table></figure>
+
+<p>当重新打开终端工具 又变回了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Last login: Sat Nov 25 17:28:01 on ttys000</span><br><span class="line">ydc012@YDC012deMac-mini Desktop % nvm list</span><br><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">    v14.21.3</span></span><br><span class="line">       v16.20.2</span><br><span class="line">       v18.18.2</span><br><span class="line">default -&gt; 14.21.3 (-&gt; v14.21.3)</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; v18.18.2) (default)</span><br><span class="line">stable -&gt; 18.18 (-&gt; v18.18.2) (default)</span><br><span class="line">lts/* -&gt; lts/iron (-&gt; N/A)</span><br><span class="line">lts/argon -&gt; v4.9.1 (-&gt; N/A)</span><br><span class="line">lts/boron -&gt; v6.17.1 (-&gt; N/A)</span><br><span class="line">lts/carbon -&gt; v8.17.0 (-&gt; N/A)</span><br><span class="line">lts/dubnium -&gt; v10.24.1 (-&gt; N/A)</span><br><span class="line">lts/erbium -&gt; v12.22.12 (-&gt; N/A)</span><br><span class="line">lts/fermium -&gt; v14.21.3</span><br><span class="line">lts/gallium -&gt; v16.20.2</span><br><span class="line">lts/hydrogen -&gt; v18.18.2</span><br><span class="line">lts/iron -&gt; v20.10.0 (-&gt; N/A)</span><br><span class="line">ydc012@YDC012deMac-mini Desktop %</span><br></pre></td></tr></table></figure>
+
+<p>解决方式：<strong>设置默认 Node.js 版本</strong>:</p>
+<ul>
+<li>一旦您切换到期望的 Node.js 版本，可以使用命令 <code>nvm alias default &lt;version&gt;</code> 来设置默认版本。</li>
+<li>例如，要将默认版本设置为 v16.20.2，运行 <code>nvm alias default 16.20.2</code>。</li>
+</ul>
+<p>重启终端后，运行 <code>nvm list</code> 确认当前 Node.js 版本 发现已经正常切换：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Last login: Sat Nov 25 17:34:28 on ttys001</span><br><span class="line">ydc012@YDC012deMac-mini Desktop % nvm list</span><br><span class="line">       v14.21.3</span><br><span class="line"><span class="meta prompt_">-&gt; </span><span class="language-bash">    v16.20.2</span></span><br><span class="line">       v18.18.2</span><br><span class="line">default -&gt; 16.20.2 (-&gt; v16.20.2)</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; v18.18.2) (default)</span><br><span class="line">stable -&gt; 18.18 (-&gt; v18.18.2) (default)</span><br><span class="line">lts/* -&gt; lts/iron (-&gt; N/A)</span><br><span class="line">lts/argon -&gt; v4.9.1 (-&gt; N/A)</span><br><span class="line">lts/boron -&gt; v6.17.1 (-&gt; N/A)</span><br><span class="line">lts/carbon -&gt; v8.17.0 (-&gt; N/A)</span><br><span class="line">lts/dubnium -&gt; v10.24.1 (-&gt; N/A)</span><br><span class="line">lts/erbium -&gt; v12.22.12 (-&gt; N/A)</span><br><span class="line">lts/fermium -&gt; v14.21.3</span><br><span class="line">lts/gallium -&gt; v16.20.2</span><br><span class="line">lts/hydrogen -&gt; v18.18.2</span><br><span class="line">lts/iron -&gt; v20.10.0 (-&gt; N/A)</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来说，小游戏目前分成了几大阵营，比如微信、抖音、QQ小游戏很相似，华为、OPPO、VIVO很相似，支付宝属于新加入的平台，目前还在努力追赶。相比于其他比较小众的百度、B站、快手，来说，目前大家都在努力分小游戏这块蛋糕。作为研发方，自然是平台越多，流量就越多，机会就越多。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/aac44fb0.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>npm的一些常用操作</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/3dab5a00.html">
+        <span>VIVO小游戏首屏加载</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/69c1fc44.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">环境要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3"><span class="toc-number">2.</span> <span class="toc-text">文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B3%E8%AF%B7%E5%BC%80%E5%8F%91%E8%80%85"><span class="toc-number">3.</span> <span class="toc-text">申请开发者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7CLI"><span class="toc-number">4.</span> <span class="toc-text">安装依赖开发工具CLI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%9A%84%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.</span> <span class="toc-text">小游戏的开发流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">5.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E6%94%AF%E4%BB%98%E5%AE%9D%E5%BC%80%E5%8F%91%E8%80%85%E8%B4%A6%E5%8F%B7"><span class="toc-number">5.1.</span> <span class="toc-text">登录支付宝开发者账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E8%A7%88"><span class="toc-number">5.2.</span> <span class="toc-text">预览</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9C%9F%E6%9C%BA%E8%B0%83%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">真机调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0"><span class="toc-number">7.</span> <span class="toc-text">上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">8.</span> <span class="toc-text">注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E6%8A%A5%E9%94%99"><span class="toc-number">8.1.</span> <span class="toc-text">权限报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node%E7%89%88%E6%9C%AC%E8%BF%87%E4%BD%8E%E5%AF%BC%E8%87%B4%E6%97%A0%E6%B3%95%E6%8E%88%E6%9D%83"><span class="toc-number">8.2.</span> <span class="toc-text">node版本过低导致无法授权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

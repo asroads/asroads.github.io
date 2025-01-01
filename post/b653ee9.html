@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            介绍一个还不错的Javascript日期处理库datex | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/b653ee9.html">介绍一个还不错的Javascript日期处理库datex</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-05-18
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=介绍一个还不错的Javascript日期处理库datex&url=http://blog.asroads.com/post/b653ee9.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=介绍一个还不错的Javascript日期处理库datex&url=http://blog.asroads.com/post/b653ee9.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/b653ee9.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/b653ee9.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/b653ee9.html&title=介绍一个还不错的Javascript日期处理库datex" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=介绍一个还不错的Javascript日期处理库datex&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/b653ee9.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/b653ee9.html&text=介绍一个还不错的Javascript日期处理库datex" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/js/ >js</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>最近阅读文章的时候，看到一个轻量级的日期处理库，觉得还不错，于是就拿来跟<code>CocosCreator</code>结合一下，后面遇到项目需求的时候，可以直接拿来当作工具库使用，下面就简单的介绍一下这个库的用法。</p>
+<span id="more"></span>
+<p>这个文章的起因就是因为一篇文章开始了我兴趣的，<a target="_blank" rel="noopener" href="https://juejin.cn/post/7221884988492382267">new Date() 我忍你很久了！</a> 我们知道，原生的<code>Javascript</code>对日期函数有很多地方和平时不一样，如文章里提到的月份从0 开始，自动转换等等，其实两年前笔者也曾在这个上面摔过脚，比如 符合 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2822#page-14">RFC2822</a> 或 ISO 8601 日期格式的字符串（其他格式也许也支持，但结果可能与预期不符）。</p>
+<h2 id="其他日期库"><a href="#其他日期库" class="headerlink" title="其他日期库"></a>其他日期库</h2><p>这篇文章之前，笔者也了解过其他几个日期处理库，比如</p>
+<p>早期流行的 <code>Moment.js</code></p>
+<p>文档： <a target="_blank" rel="noopener" href="https://momentjs.com/">https://momentjs.com/</a></p>
+<p>地址：<a target="_blank" rel="noopener" href="https://github.com/moment/moment">https://github.com/moment/moment</a></p>
+<p><code>Moment.js</code> 是一个 JavaScript 日期处理类库（处理时间格式化的npm包）,用于解析、检验、操作、以及显示日期，在新公司的项目中,大量使用Moment来处理时间日期,非常方便好用。</p>
+<p>现在比较流行的：<code>dayjs</code></p>
+<p>官网：<a target="_blank" rel="noopener" href="https://day.js.org/">https://day.js.org</a></p>
+<p>地址：<a target="_blank" rel="noopener" href="https://github.com/iamkun/dayjs">https://github.com/iamkun/dayjs</a></p>
+<p>以及后起之秀 date-fns</p>
+<p> 网站地址：<a target="_blank" rel="noopener" href="https://date-fns.org/">https://date-fns.org</a></p>
+<p><code>GitHub</code>：<a target="_blank" rel="noopener" href="https://github.com/date-fns/date-fns">https://github.com/date-fns/date-fns</a></p>
+<p><code>ate-fns</code>，一个现代 JavaScript 日期实用程序库。date-fns 提供了最全面，最简单和一致的工具集，用于在浏览器和 Node.js 中操作 JavaScript 日期。</p>
+<h2 id="datex日期处理"><a href="#datex日期处理" class="headerlink" title="datex日期处理"></a>datex日期处理</h2><p><img src="/post/b653ee9/image-20230518005338608.png" alt="image-20230518005338608"></p>
+<p>这里关于<code>API</code> 不再赘述，大家可以直接点击官网去看<a target="_blank" rel="noopener" href="https://github.com/mumuy/datex/"> Github</a> 和 <a target="_blank" rel="noopener" href="https://passer-by.com/">个人网站</a>的具体用法和说明。</p>
+<h2 id="生成声明文件-d-ts"><a href="#生成声明文件-d-ts" class="headerlink" title="生成声明文件.d.ts"></a>生成声明文件.d.ts</h2><p>由于原作者没有提供Typescript版本的声明文件（<code>.d.ts</code>）所以需要我们自己生成，这里说一下如何生成Typescript项目可以用的带声明文件，</p>
+<p>首先我们修改源代码的 src/js 代码的最后一行：<br>原代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> datex;</span><br></pre></td></tr></table></figure>
+
+<p>修改后</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;datex&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后使用一个一个npm 工具类库生成 ，这个类库之前的文章有介绍：<a target="_blank" rel="noopener" href="https://github.com/Microsoft/dts-gen">dts-gen</a></p>
+<p>工具安装完成后，还需要继续安装一个依赖库（不安装本地报错）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i tern --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>然后运行生成声明文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">D:\Jstest\dts-gen-master (dts-gen@0.6.1)</span><br><span class="line">λ npx dtsmake -s datex.js</span><br><span class="line">npx: 31 安装成功，用时 20.949 秒</span><br><span class="line">v:6.14.18</span><br><span class="line"></span><br><span class="line">dtsmake started.</span><br><span class="line">[CMD]node <span class="string">&quot;D:\Jstest\dts-gen-master\node_modules/tern/bin/condense&quot;</span> datex.js --no-spans</span><br><span class="line">[SRC]datex.js</span><br><span class="line">File saved. (datex.d.ts)</span><br><span class="line"></span><br><span class="line">D:\Jstest\dts-gen-master (dts-gen@0.6.1)</span><br></pre></td></tr></table></figure>
+
+<p>然后略加修改即可，下面我把修改后的声明文件 <code>datex.dts</code> 贴出：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Type definitions for datex.js</span></span><br><span class="line"><span class="comment">// Project: [LIBRARY_URL_HERE] </span></span><br><span class="line"><span class="comment">// Definitions by: [YOUR_NAME_HERE] &lt;[YOUR_URL_HERE]&gt; </span></span><br><span class="line"><span class="comment">// Definitions: https://github.com/borisyankov/DefinitelyTyped</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">namespace</span> datex.prototype&#123;</span><br><span class="line">	<span class="comment">// datex.prototype.toObject.!ret</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">interface</span> <span class="title class_">ToObjectRet</span> &#123;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		year : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		month : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		day : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		hour : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		minute : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		second : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		millsecond : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		timestamp : <span class="built_in">number</span>;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		week : <span class="built_in">number</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">namespace</span> datex.prototype&#123;</span><br><span class="line">	<span class="comment">// datex.prototype.toArray.!ret</span></span><br><span class="line">	<span class="keyword">type</span> <span class="title class_">ToArrayRet</span> = <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">namespace</span> _langMap&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">namespace</span> &quot;en-US&quot;&#123;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">MMM</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">MMMM</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="title class_">Do</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">WW</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">WWW</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">namespace</span> &quot;zh-CN&quot;&#123;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">MMM</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">MMMM</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="title class_">Do</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">WW</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">				</span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">var</span> <span class="variable constant_">WWW</span> : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">var</span> _lang : <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">var</span> _offset : <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">var</span> period : <span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">var</span> initTime : <span class="title class_">Array</span>&lt;<span class="built_in">number</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> date </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> timeZone </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">function</span> <span class="title function_">convertTimeZone</span>(<span class="params">date : <span class="built_in">Date</span>, timeZone : <span class="built_in">any</span></span>): <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">interface</span> datex &#123;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> ...argu </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">new</span> (...argu : <span class="built_in">number</span>): <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	_langMap : <span class="comment">/*no type*/</span>&#123;&#125;;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	_offset : <span class="built_in">number</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> ...argu </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">init</span>(...argu : <span class="built_in">any</span>): <span class="comment">/* !this */</span> <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">getTime</span>(): <span class="built_in">number</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">getUnix</span>(): <span class="built_in">number</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">clone</span>(): <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">toDate</span>(): <span class="comment">/* !this._date */</span> <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">toObject</span>(): <span class="comment">/* datex.prototype.toObject.!ret */</span> <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">toArray</span>(): <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">toISOString</span>(): <span class="built_in">string</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> value </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">set</span>(unit : <span class="built_in">string</span>, value : <span class="built_in">any</span>): <span class="comment">/* !this */</span> <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">get</span>(unit : <span class="built_in">string</span>): <span class="built_in">void</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> value </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">change</span>(unit : <span class="built_in">string</span>, value : <span class="built_in">number</span>): datex;	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">change</span>();</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> pattern </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">format</span>(pattern : <span class="built_in">any</span>): <span class="built_in">string</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">startOf</span>(unit : <span class="built_in">any</span>): <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">endOf</span>(unit : <span class="built_in">any</span>): datex;	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">endOf</span>();</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> that </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">diffWith</span>(that : <span class="built_in">any</span>, unit : <span class="built_in">string</span>): <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> that </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">isBefore</span>(that : <span class="built_in">any</span>, unit : <span class="built_in">any</span>): <span class="built_in">boolean</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> that </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">isAfter</span>(that : <span class="built_in">any</span>, unit : <span class="built_in">any</span>): <span class="built_in">boolean</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> that </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">isSame</span>(that : <span class="built_in">any</span>, unit? : <span class="built_in">any</span>): <span class="built_in">boolean</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> startDate </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> endDate </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> unit </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">isBetween</span>(startDate : <span class="built_in">any</span>, endDate : <span class="built_in">any</span>, unit : <span class="built_in">any</span>): <span class="built_in">boolean</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> lang </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> data </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">setLanguage</span>(lang : <span class="built_in">any</span>, data : <span class="built_in">any</span>): <span class="comment">/* !this */</span> <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> lang </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">switchLanguage</span>(lang : <span class="built_in">any</span>): <span class="comment">/* !this */</span> <span class="built_in">any</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> timezone </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">switchTimezone</span>(timezone : <span class="built_in">any</span>): <span class="built_in">void</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">getTimezone</span>(): <span class="built_in">void</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">getTimezoneOffset</span>(): <span class="built_in">number</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="title function_">isValid</span>(): <span class="built_in">boolean</span>;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	supportedTimezones : <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> that </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">function</span> <span class="title function_">getInstance</span>(<span class="params">that : <span class="built_in">any</span></span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span>  </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">function</span> <span class="title function_">isObject</span>(<span class="params">value : <span class="built_in">number</span></span>): <span class="built_in">boolean</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">function</span> <span class="title function_">datex</span>(<span class="params">...args: <span class="built_in">string</span>[] | <span class="built_in">number</span>[] | <span class="built_in">Date</span>[]</span>): datex;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="编写测试代码"><a href="#编写测试代码" class="headerlink" title="编写测试代码"></a>编写测试代码</h2><p><img src="/post/b653ee9/image-20230518010455368.png" alt="image-20230518010455368"></p>
+<p><code>Helloworld.ts</code> 文件内容：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;datex&#125; <span class="keyword">from</span> <span class="string">&quot;../libs/datex&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Helloworld</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Label</span>)</span><br><span class="line">    <span class="attr">label</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="attr">text</span>: <span class="built_in">string</span> = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    start () &#123;</span><br><span class="line">        <span class="comment">// init logic</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">label</span>.<span class="property">string</span> = <span class="variable language_">this</span>.<span class="property">text</span>;</span><br><span class="line">        <span class="keyword">let</span> date1 = <span class="title function_">datex</span>(<span class="number">2018</span>,<span class="number">8</span>,<span class="number">12</span>)</span><br><span class="line">        <span class="keyword">let</span> isSame = <span class="title function_">datex</span>(<span class="string">&#x27;2008-08-08&#x27;</span>).<span class="title function_">isSame</span>(<span class="string">&#x27;2022-02-02&#x27;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(date1)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(isSame)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行测试结果如下：</p>
+<p><img src="/post/b653ee9/image-20230518010603103.png" alt="image-20230518010603103"></p>
+<p>以上，测试通过，可以正常使用！！</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>日期库有很多个，做项目时候，我们经常根据需求选择字需要的即可！</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/97d0463d.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>git切换分支报错 error: cannot st'xxxx': Filename too long解决方法</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/23fe4689.html">
+        <span>CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/b653ee9.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%97%A5%E6%9C%9F%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">其他日期库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datex%E6%97%A5%E6%9C%9F%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">datex日期处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6-d-ts"><span class="toc-number">3.</span> <span class="toc-text">生成声明文件.d.ts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">编写测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

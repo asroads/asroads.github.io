@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator使用jsencrypt本地存储加密(RSA) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/8be86f95.html">Cocos Creator使用jsencrypt本地存储加密(RSA)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-09-04
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator使用jsencrypt本地存储加密(RSA)&url=http://blog.asroads.com/post/8be86f95.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator使用jsencrypt本地存储加密(RSA)&url=http://blog.asroads.com/post/8be86f95.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/8be86f95.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/8be86f95.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/8be86f95.html&title=Cocos Creator使用jsencrypt本地存储加密(RSA)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator使用jsencrypt本地存储加密(RSA)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/8be86f95.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/8be86f95.html&text=Cocos Creator使用jsencrypt本地存储加密(RSA)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/js/ >js</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>前面介绍过前端加密的一种方式是AES（对称加密）后面又看到关于加密解密的文章，觉得甚是不错，于是再次尝试一下用非对称加密写一下。这里使用<a target="_blank" rel="noopener" href="https://github.com/travist/jsencrypt">jsencrypt</a>(RSA) 非对称加密的一种思路。 </p>
+<span id="more"></span>
+<p>关于对称加密和非对称加密的介绍，这里不再赘述，直接说步骤吧！</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>首先我们 生成私钥和公钥</p>
+<p>私钥生成:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out rsa_1024_priv.pem 1024</span><br></pre></td></tr></table></figure>
+
+<p>然后生成公钥:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -pubout -in rsa_1024_priv.pem -out rsa_1024_pub.pem</span><br></pre></td></tr></table></figure>
+
+<p>此时我们的本地生成了两个文件</p>
+<p><img src="/post/8be86f95/image-20200904161632411.png" alt="image-20200904161632411"></p>
+<p>对应的就是我们的私钥和公钥：内容如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIICWwIBAAKBgQC8nNKt9lJdwwFKzRp0D2wPtUcXwMj2t8smhUmLvTTiomej11bg</span><br><span class="line">xf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC1mVCBrA1HGAJ8EULyVk52Uu3</span><br><span class="line">MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH/xH/43PcCfTyWQOIliHHwIDAQAB</span><br><span class="line">AoGAZ9/CU5ZN5F9qDcUJZZO8wqXmYlmFFANCuZM8Xt40CwDALUaCDUZd1t3SWFbu</span><br><span class="line">L5E69L08nTXxVyibTogk6yfz8yrxp18ckT8XbtgNor0MFMPxku7Rg14r14ha4fg5</span><br><span class="line">172FjyH5PI0jJfVwKKLl2cUjzHzEuTyHsXLChjWDrplE8/ECQQDt3okMMaxGGPpY</span><br><span class="line">1jKxKDojdio3Bh32A0FoVCXHZQ/K/7pp4qRYfDY28dzv4e+/ZmmpCWEfSLRoebWR</span><br><span class="line">l2bFMkInAkEAyv0oetOYgbj4a+kl6GW9wKcZedNcXX1SiGFRO2Quybj1J4NpheGz</span><br><span class="line">/A570zUXOR13WYiWiMRHiLZcLidtLMtGSQJAMOH2kAb1PEKN0AvUxwtZR0hVTJF5</span><br><span class="line">PsFUg7gnO17NbA45pODqnTSJf6kcmj94IYFOXWqMBv3N9VptscnHWOcHKQJAXpko</span><br><span class="line">WkVuF1Zqf2/CONHhYnz9RGcZ7n/PDLu9rZ38qAnIRkfZz4jl5huh3UYqsnVm/5TG</span><br><span class="line">AqrmY3II94FsQanh8QJAWX+12fOhCY490btr0nvlReroyci1obEm/73NHZIKSW8l</span><br><span class="line">U5bkherW3VXhwjdQHiDlN4EJTe3HooCA2Qa7Zu21CA==</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8nNKt9lJdwwFKzRp0D2wPtUcX</span><br><span class="line">wMj2t8smhUmLvTTiomej11bgxf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC</span><br><span class="line">1mVCBrA1HGAJ8EULyVk52Uu3MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH/xH</span><br><span class="line">/43PcCfTyWQOIliHHwIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>这里我们把下载好的 文件 jsencrypt.js 或者 jsencrypt.min.js 任意一个 复制到项目</p>
+<p><img src="/post/8be86f95/image-20200904170304784.png" alt="image-20200904170304784"></p>
+<p>assets 下的 libs（自己新建）下 顺便把 声明文件 拷贝过去 (文件名字保持一致)可以把</p>
+<p> 改名 为 <code>JSEncrypt.d.ts</code>修改为 jsencrypt.d.ts</p>
+<p><img src="/post/8be86f95/image-20200904171618152.png" alt="image-20200904171618152"></p>
+<p>效果如下:</p>
+<p><img src="/post/8be86f95/image-20200904172019485.png" alt="image-20200904172019485"></p>
+<p><strong>注意：我这里没有使用导入为插件 这个功能 大家自己使用的时候特别注意！！</strong></p>
+<h3 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">JSEncrypt</span> &#125; <span class="keyword">from</span> <span class="string">&quot;../libs/jsencrypt&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Helloworld</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Label</span>)</span><br><span class="line">    <span class="attr">label</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="attr">text</span>: <span class="built_in">string</span> = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// init logic</span></span><br><span class="line">        <span class="keyword">const</span> <span class="variable constant_">PRIVATE_KEY</span> = <span class="string">`-----BEGIN RSA PRIVATE KEY-----</span></span><br><span class="line"><span class="string">MIICWwIBAAKBgQC8nNKt9lJdwwFKzRp0D2wPtUcXwMj2t8smhUmLvTTiomej11bg</span></span><br><span class="line"><span class="string">xf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC1mVCBrA1HGAJ8EULyVk52Uu3</span></span><br><span class="line"><span class="string">MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH/xH/43PcCfTyWQOIliHHwIDAQAB</span></span><br><span class="line"><span class="string">AoGAZ9/CU5ZN5F9qDcUJZZO8wqXmYlmFFANCuZM8Xt40CwDALUaCDUZd1t3SWFbu</span></span><br><span class="line"><span class="string">L5E69L08nTXxVyibTogk6yfz8yrxp18ckT8XbtgNor0MFMPxku7Rg14r14ha4fg5</span></span><br><span class="line"><span class="string">172FjyH5PI0jJfVwKKLl2cUjzHzEuTyHsXLChjWDrplE8/ECQQDt3okMMaxGGPpY</span></span><br><span class="line"><span class="string">1jKxKDojdio3Bh32A0FoVCXHZQ/K/7pp4qRYfDY28dzv4e+/ZmmpCWEfSLRoebWR</span></span><br><span class="line"><span class="string">l2bFMkInAkEAyv0oetOYgbj4a+kl6GW9wKcZedNcXX1SiGFRO2Quybj1J4NpheGz</span></span><br><span class="line"><span class="string">/A570zUXOR13WYiWiMRHiLZcLidtLMtGSQJAMOH2kAb1PEKN0AvUxwtZR0hVTJF5</span></span><br><span class="line"><span class="string">PsFUg7gnO17NbA45pODqnTSJf6kcmj94IYFOXWqMBv3N9VptscnHWOcHKQJAXpko</span></span><br><span class="line"><span class="string">WkVuF1Zqf2/CONHhYnz9RGcZ7n/PDLu9rZ38qAnIRkfZz4jl5huh3UYqsnVm/5TG</span></span><br><span class="line"><span class="string">AqrmY3II94FsQanh8QJAWX+12fOhCY490btr0nvlReroyci1obEm/73NHZIKSW8l</span></span><br><span class="line"><span class="string">U5bkherW3VXhwjdQHiDlN4EJTe3HooCA2Qa7Zu21CA==</span></span><br><span class="line"><span class="string">-----END RSA PRIVATE KEY-----`</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="variable constant_">PUBLIC_KEY</span>  = <span class="string">`-----BEGIN PUBLIC KEY-----</span></span><br><span class="line"><span class="string">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8nNKt9lJdwwFKzRp0D2wPtUcX</span></span><br><span class="line"><span class="string">wMj2t8smhUmLvTTiomej11bgxf75I4zxIq4sjYE8yyzoWXjrJ2dbakDPFlQxH1kC</span></span><br><span class="line"><span class="string">1mVCBrA1HGAJ8EULyVk52Uu3MbpW5rCPGUh5gqpSCgVuzvO8ij5UxOxgPZMXH/xH</span></span><br><span class="line"><span class="string">/43PcCfTyWQOIliHHwIDAQAB</span></span><br><span class="line"><span class="string">-----END PUBLIC KEY-----`</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> encryptor = <span class="keyword">new</span> <span class="title class_">JSEncrypt</span>(&#123;<span class="attr">default_key_size</span>:<span class="string">&quot;1024&quot;</span>&#125;); <span class="comment">// RSA加密器</span></span><br><span class="line">        encryptor.<span class="title function_">setPublicKey</span>(<span class="variable constant_">PUBLIC_KEY</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> decryptor = <span class="keyword">new</span> <span class="title class_">JSEncrypt</span>(&#123;<span class="attr">default_key_size</span>:<span class="string">&quot;1024&quot;</span>&#125;); <span class="comment">// RSA解密器</span></span><br><span class="line">        decryptor.<span class="title function_">setPrivateKey</span>(<span class="variable constant_">PRIVATE_KEY</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> datakey = <span class="string">&quot;user&quot;</span></span><br><span class="line">        <span class="keyword">let</span> dataString = <span class="string">`abcd1234@@&amp;90`</span>;<span class="comment">//要加密的字符串</span></span><br><span class="line">        <span class="keyword">let</span> encryptedStr = encryptor.<span class="title function_">encrypt</span>(dataString);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;加密后:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(encryptedStr));</span><br><span class="line"></span><br><span class="line">        cc.<span class="property">sys</span>.<span class="property">localStorage</span>.<span class="title function_">setItem</span>(datakey, encryptedStr);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> cipherText = cc.<span class="property">sys</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(datakey);<span class="comment">//要解密的文本</span></span><br><span class="line">        <span class="keyword">let</span> dataString2 = decryptor.<span class="title function_">decrypt</span>(cipherText);<span class="comment">//得到解密之后的文本</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;解密后:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(dataString2));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行效果</p>
+<p><img src="/post/8be86f95/image-20200904172601915.png" alt="image-20200904172601915"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>步骤稍显复杂和对称加密相比，优点是安全性更好些，缺点是速度比较慢，不适合快速大量的存储数据，那么有没有更好的方法呢？答案是有的，就是结合前面的对称加密方式，做一个混合加密的策略。</p>
+<blockquote>
+<p>混合加密是结合 <strong>对称加密</strong> 和 <strong>非对称加密</strong> 各自优点的一种加密方式。其具体的实现思路是先使用 <strong>对称加密算法</strong> 对数据进行加密，然后使用非对称加密算法对 <strong>对称加密的密钥</strong> 进行非对称加密，之后再把加密后的密钥和加密后的数据发送给接收方。</p>
+</blockquote>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000023328344">玩转混合加密</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3da3d81e1572">使用jsencrypt实现参数的前端加密</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ccf6d3f6be1a">jsencrypt加密和解密的那点事</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000015799854">CocosCreator中使用RSA公钥加密</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/a8fbd3f4.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Ohayoo广告变现SDK_iOS激励视频接入指南</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/fd98d03e.html">
+        <span>LayaBox2.x错误:'tslib' cannot be found的理解和浅析</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/8be86f95.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">编写代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

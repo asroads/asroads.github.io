@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Layabox-学习笔记-(4) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/330bc9f6.html">Layabox-学习笔记-(4)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2018-08-17
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Layabox-学习笔记-(4)&url=http://blog.asroads.com/post/330bc9f6.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Layabox-学习笔记-(4)&url=http://blog.asroads.com/post/330bc9f6.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/330bc9f6.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/330bc9f6.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/330bc9f6.html&title=Layabox-学习笔记-(4)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Layabox-学习笔记-(4)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/330bc9f6.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/330bc9f6.html&text=Layabox-学习笔记-(4)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h3 id="Layabox-微信小游戏适配问题"><a href="#Layabox-微信小游戏适配问题" class="headerlink" title="Layabox 微信小游戏适配问题"></a>Layabox 微信小游戏适配问题</h3><p>最近开始用Layabox开发微信小游戏，小游戏出来差不多半年多了，前面的开发者基本把该踩的坑都踩的差不多了，站在巨人的肩膀上，就会走的很快，看的很远，所以我遇到的很多问题都是前辈们遇到的问题，有些问题，Layabox官方已经解决，有些问题还没来得及解决，所以我记录下，便于以后自己查阅。</p>
+<span id="more"></span>
+
+<h3 id="微信小游戏，在IPhoneX机器上面适配问题"><a href="#微信小游戏，在IPhoneX机器上面适配问题" class="headerlink" title="微信小游戏，在IPhoneX机器上面适配问题"></a>微信小游戏，在IPhoneX机器上面适配问题</h3><h4 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h4><ul>
+<li>主要是屏幕显示问题有误，但是触摸位置还是对的</li>
+</ul>
+<h4 id="查找问题"><a href="#查找问题" class="headerlink" title="查找问题"></a>查找问题</h4><ul>
+<li>首先去论坛看看别人怎么解决的，避免重复发明轮子</li>
+<li>再次认真的读了一遍 官方关于适配的方案</li>
+<li>利用百度、Google搜索问题</li>
+<li>去知名论坛比如知乎、博客园搜索问题</li>
+</ul>
+<h4 id="最后结论"><a href="#最后结论" class="headerlink" title="最后结论"></a>最后结论</h4><p>在很多问题里面找到了三篇认为比较靠谱的</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://ask.layabox.com/question/15359">微信小游戏中iPhoneX的适配问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://ask.layabox.com/question/14023">微信小游戏适配问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://tianbozhang.coding.me/minigame-screenadaptation.html">微信小游戏屏幕适配</a></li>
+</ol>
+<p>其中前两篇 官方人员回复得到了部分答案以下是原文摘抄</p>
+<blockquote>
+<p>微信小游戏不允许引擎来控制canvas的大小。小游戏的canvas大小是自动拉伸的。而exactfit模式的stage宽高会一直等于设计宽高，当canvas无法控制的时候，exactfit的适配其实是失效了。这里建议你用fixedauto、或者full等无需考虑设计宽高，会自动改变stage宽高的适配模式，再结合一些其它适配方案来尝试一下。</p>
+<p>比如，<br>就拿你上传的DEMO来讲，使用fixedauto、或者full适配模式后，将bg的top、bottom、left、right属性设置为0，不就可以铺满全屏了么。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>以上问题解决方案，<br>1，小游戏用webGL模式不要用canvas模式。<br>2, webGL模式下，iphoneX显示确实是在部分适配模式下存在不准确的情况。核心原因是微信小游戏不允许引擎来控制canvas的大小。小游戏的canvas大小是自动拉伸的。所以有一些适配模式就失效了。这里建议采用fixedauto、或者full等模式，这些模式的适配原理是无需考虑设计宽高，会自动改变stage宽高。所以用这些适配模式可解决遇到的问题。如果存在背景图显示全屏铺满的需求，可以通过将背景图的top、bottom、left、right属性设置为0，就可以铺满全屏了。</p>
+</blockquote>
+<p>第三篇也给出了相应的两种方案两种可行的解决方案</p>
+<blockquote>
+<h3 id="两套图适配"><a href="#两套图适配" class="headerlink" title="两套图适配"></a>两套图适配</h3><p>iphonex 大分辨率与5s 小分辨率对比图见《游戏截图》文档</p>
+<hr>
+<p>按物理分辨率取比，以16：9为基础</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//比例大于16:9的，标记为大分辨率</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">isLargeScreen</span>= <span class="title class_">Math</span>.<span class="title function_">floor</span>(height/width)&gt;<span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="number">16</span>/<span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+
+<p>背景资源分别获取</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="property">isLargeScreen</span>) bg.<span class="property">skin</span> = <span class="string">&quot;大图&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">else</span> bg.<span class="property">skin</span> = <span class="string">&quot;小图&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>不缩放(默认值，可不写)</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">scaleMode</span> = <span class="title class_">Laya</span>.<span class="property">Stage</span>.<span class="property">SCALE_NOSCALE</span></span><br></pre></td></tr></table></figure>
+
+<p>舞台尺寸设置为固定物理尺寸，保证各16:9 设备等比缩放，不会出现黑边typescripttypescript</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">isLargeScreen</span>) &#123;</span><br><span class="line">           <span class="title class_">Laya</span>.<span class="title function_">init</span>(<span class="number">1125</span>, <span class="number">2436</span>, <span class="title class_">Laya</span>.<span class="property">WebGL</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="title class_">Laya</span>.<span class="title function_">init</span>(<span class="number">640</span>, <span class="number">1136</span>, <span class="title class_">Laya</span>.<span class="property">WebGL</span>);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>原因：现有缩放模式不支持两边裁剪，至多为一边裁剪</p>
+</blockquote>
+<p><strong>纠正</strong>我认为作者这个判断有问题<code>this.isLargeScreen= Math.floor(height/width)&gt;Math.floor(16/9)</code></p>
+<p>应该是 <code>this.isLargeScreen= height/width&gt;Math.floor16.0/9.0</code></p>
+<blockquote>
+<h3 id="一套图适配"><a href="#一套图适配" class="headerlink" title="一套图适配"></a>一套图适配</h3><p>示例：<a target="_blank" rel="noopener" href="http://tcxxm.y2game.net/">天才削熊猫</a></p>
+<p><strong>思路</strong>：高度不变，宽度适配，水平居中，两边裁剪，元素相对布局，设计时设置安全区域</p>
+<p>实现：一套背景图，<code>1480x1920</code>，水平居中：centerx = 0，y = 0，启用相对父类布局<code>layoutEnable = true</code></p>
+<p>屏幕宽高：<code>1080x1920</code></p>
+<p>代码或UI 元素：启用相对父类布局，设置left,right top ,bottom，<code>layoutEnable = true</code></p>
+<p>缩放模式：<code>fixedHeight</code></p>
+<p>代码示例</p>
+<p>以<code>1080x1920</code>(具体看需求)尺寸图为标准、设计尺寸，路径以res为例</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//舞台初始化</span></span><br><span class="line"><span class="title class_">Laya</span>.<span class="title function_">init</span>(<span class="number">1080</span>, <span class="number">1920</span>);</span><br><span class="line"><span class="comment">//缩放模式</span></span><br><span class="line"><span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">scaleMode</span> = <span class="title class_">Laya</span>.<span class="property">Stage</span>.<span class="property">SCALE_FIXED_HEIGHT</span>;</span><br><span class="line"><span class="comment">//背景添加</span></span><br><span class="line"><span class="keyword">var</span> <span class="attr">imageBg</span>:<span class="title class_">Laya</span>.<span class="property">Image</span> = <span class="keyword">new</span> <span class="title class_">Laya</span>.<span class="title class_">Image</span>();  </span><br><span class="line">imageBg.<span class="property">skin</span> = <span class="string">&quot;res/bg_main.png&quot;</span>;</span><br><span class="line">imageBg.<span class="property">centerX</span> = <span class="number">0</span>;</span><br><span class="line">imageBg.<span class="property">layoutEnabled</span> = <span class="literal">true</span>;</span><br><span class="line">imageBg.<span class="property">y</span> = <span class="number">0</span>;</span><br><span class="line"><span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="title function_">addChild</span>(imageBg);</span><br><span class="line"><span class="comment">//UI元素添加，以添加到舞台为例</span></span><br><span class="line"> <span class="keyword">var</span> <span class="attr">btn</span>: <span class="title class_">Laya</span>.<span class="property">Button</span> = <span class="keyword">new</span> <span class="title class_">Laya</span>.<span class="title class_">Button</span>();</span><br><span class="line">btn.<span class="property">skin</span> = <span class="string">&quot;res/btn.png&quot;</span>;</span><br><span class="line">btn.<span class="property">layoutEnabled</span> = <span class="literal">true</span>;</span><br><span class="line">btn.<span class="property">left</span> = <span class="number">165</span>;</span><br><span class="line">btn.<span class="property">bottom</span> = <span class="number">50</span>;</span><br><span class="line">btn.<span class="property">stateNum</span> = <span class="number">1</span>;</span><br><span class="line"><span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="title function_">addChild</span>(btn);</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<p>最后我自己的方案是先根据当前屏幕大小判断机型，然后去做处理</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span> asroads&#123;</span><br><span class="line">    <span class="keyword">import</span> <span class="title class_">Size</span> = <span class="title class_">Laya</span>.<span class="property">Size</span>;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ConfigGame</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">_size</span>:<span class="title class_">Size</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">_width</span>:<span class="built_in">number</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">_height</span>:<span class="built_in">number</span>;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">height</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">GameConfig</span>.<span class="property">size</span>.<span class="property">height</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">width</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">GameConfig</span>.<span class="property">size</span>.<span class="property">width</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span>  <span class="title function_">size</span>(): <span class="title class_">Laya</span>.<span class="property">Size</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_size</span> = &#123;<span class="attr">width</span>:<span class="number">640</span>,<span class="attr">height</span>:<span class="number">640</span>*(<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">clientHeight</span>/<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">clientWidth</span>)&#125;;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_size</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">halfHeight</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">GameConfig</span>.<span class="property">size</span>.<span class="property">height</span>*<span class="number">0.5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">halfWidth</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">GameConfig</span>.<span class="property">size</span>.<span class="property">width</span>*<span class="number">0.5</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">isLargeScreen</span>():<span class="built_in">boolean</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">clientWidth</span>/<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">clientHeight</span>)&lt;=(<span class="number">414</span>/<span class="number">896</span>)?<span class="attr">true</span>:<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后结合 LayaAir 自身带的布局属性，基本解决了问题。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://ask.layabox.com/question/15359">微信小游戏中iPhoneX的适配问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://ask.layabox.com/question/14023">微信小游戏适配问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://tianbozhang.coding.me/minigame-screenadaptation.html">微信小游戏屏幕适配</a></li>
+</ol>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/1515441.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Python：PNGJPG Convert to Webp</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/8e083b5b.html">
+        <span>给JS包写TypeScript用的类型申明文件</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/330bc9f6.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Layabox-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">Layabox 微信小游戏适配问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%EF%BC%8C%E5%9C%A8IPhoneX%E6%9C%BA%E5%99%A8%E4%B8%8A%E9%9D%A2%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">微信小游戏，在IPhoneX机器上面适配问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">问题描述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">查找问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E7%BB%93%E8%AE%BA"><span class="toc-number">2.3.</span> <span class="toc-text">最后结论</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E5%A5%97%E5%9B%BE%E9%80%82%E9%85%8D"><span class="toc-number">3.</span> <span class="toc-text">两套图适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%A5%97%E5%9B%BE%E9%80%82%E9%85%8D"><span class="toc-number">4.</span> <span class="toc-text">一套图适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

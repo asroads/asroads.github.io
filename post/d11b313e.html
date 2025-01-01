@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        
+            load: ['[tex]/mhchem'],
+        
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        
+            packages: {'[+]': ['mhchem']},
+        
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+          
+
+
+    
+    
+    <title>
+        
+            ASTC纹理压缩介绍 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/d11b313e.html">ASTC纹理压缩介绍</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-05-26
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=ASTC纹理压缩介绍&url=http://blog.asroads.com/post/d11b313e.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=ASTC纹理压缩介绍&url=http://blog.asroads.com/post/d11b313e.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/d11b313e.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/d11b313e.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/d11b313e.html&title=ASTC纹理压缩介绍" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=ASTC纹理压缩介绍&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/d11b313e.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/d11b313e.html&text=ASTC纹理压缩介绍" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/astc/ >astc</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>ASTC (Adaptive Scalable Texture Compression) 是一种高级纹理压缩技术，由 ARM 和 AMD 共同开发。ASTC 的设计目标是提供更高效的压缩率和更高的图像质量，并且支持多种块尺寸和位深度。ASTC 允许在压缩率和质量之间灵活选择，适用于各种不同的应用场景。ASTC广泛用于减少纹理占用的内存和带宽。ASTC 提供了多种块尺寸，如 6x6 和 8x8 块尺寸。不同的块尺寸对内存占用有不同的影响。</p>
+<span id="more"></span>
+
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="ASTC-主要特点"><a href="#ASTC-主要特点" class="headerlink" title="ASTC 主要特点"></a>ASTC 主要特点</h3><ol>
+<li><strong>多种块尺寸</strong>：ASTC 支持多达 14 种不同的块尺寸，从 4x4 到 12x12 像素。</li>
+<li><strong>高压缩效率</strong>：ASTC 提供了比其他纹理压缩格式（如 DXT 和 ETC）更高的压缩效率。</li>
+<li><strong>灵活性</strong>：可以在不同的块尺寸和位深度之间进行选择，以适应不同的性能和质量需求。</li>
+<li><strong>宽泛的硬件支持</strong>：广泛支持现代的图形硬件，包括移动设备和 PC。</li>
+</ol>
+<h3 id="ASTC-块尺寸"><a href="#ASTC-块尺寸" class="headerlink" title="ASTC 块尺寸"></a>ASTC 块尺寸</h3><p>ASTC 支持以下块尺寸：</p>
+<ul>
+<li>4x4</li>
+<li>5x4</li>
+<li>5x5</li>
+<li>6x5</li>
+<li>6x6</li>
+<li>8x5</li>
+<li>8x6</li>
+<li>8x8</li>
+<li>10x5</li>
+<li>10x6</li>
+<li>10x8</li>
+<li>10x10</li>
+<li>12x10</li>
+<li>12x12</li>
+</ul>
+<p>每个块的大小固定为 128 比特（16 字节）【通常是 128 比特或 16 字节】，但是每个块覆盖的像素数量不同。</p>
+<h3 id="ASTC-内存占用大小"><a href="#ASTC-内存占用大小" class="headerlink" title="ASTC 内存占用大小"></a>ASTC 内存占用大小</h3><p>为了详细介绍 ASTC 的内存占用大小，需要从纹理的分辨率、使用的块尺寸和每个块的比特数（通常是 128 比特或 16 字节）开始。以下是详细的计算步骤和示例。</p>
+<h3 id="计算步骤"><a href="#计算步骤" class="headerlink" title="计算步骤"></a>计算步骤</h3><h4 id="1-了解输入参数"><a href="#1-了解输入参数" class="headerlink" title="1. 了解输入参数"></a>1. 了解输入参数</h4><ul>
+<li><strong>纹理分辨率</strong>：纹理的宽度 W 和高度 H。</li>
+<li><strong>块尺寸</strong>：ASTC 块的宽度 BW 和高度 BH。</li>
+<li><strong>每个块的大小</strong>：每个 ASTC 块固定为 128 比特（16 字节）。</li>
+</ul>
+<h4 id="2-计算块数量"><a href="#2-计算块数量" class="headerlink" title="2. 计算块数量"></a>2. 计算块数量</h4><ul>
+<li><strong>横向块数</strong><br>$$<br>{横向块数} = \lceil \frac{W}{BW} \rceil<br>$$</li>
+<li><strong>纵向块数</strong><br>$$<br>{纵向块数} = \lceil \frac{H}{BH} \rceil<br>$$</li>
+<li><strong>总块数为</strong></li>
+</ul>
+<p>$$<br>{总块数} = \left(\lceil \frac{W}{BW} \rceil \right) \times \left(\lceil \frac{H}{BH} \rceil \right)<br>$$</p>
+<h4 id="3-计算物理内存占用大小"><a href="#3-计算物理内存占用大小" class="headerlink" title="3. 计算物理内存占用大小"></a>3. 计算物理内存占用大小</h4><p>每个块占用 16 字节，因此：<br>$$<br>{物理内存占用大小} = \text{总块数} \times 16 \text{ 字节}<br>$$</p>
+<h3 id="示例计算"><a href="#示例计算" class="headerlink" title="示例计算"></a>示例计算</h3><p>假设我们有一张 1024x1024 像素的纹理，分别使用 ASTC 4x4、ASTC 6x6 和 ASTC 8x8 块尺寸，计算它们的内存占用大小。</p>
+<h4 id="1-ASTC-4x4-块尺寸"><a href="#1-ASTC-4x4-块尺寸" class="headerlink" title="1. ASTC 4x4 块尺寸"></a>1. ASTC 4x4 块尺寸</h4><p><strong>计算横向和纵向块数</strong>：<br>$$<br>{横向块数} = \lceil \frac{1024}{4} \rceil = \lceil 256 \rceil = 256<br>$$</p>
+<p>$$<br>{纵向块数} = \lceil \frac{1024}{4} \rceil = \lceil 256 \rceil = 256<br>$$</p>
+<p><strong>计算总块数</strong>：<br>$$<br>{总块数} = 256 \times 256 = 65536<br>$$<br><strong>计算物理内存占用大小</strong>：<br>$$<br>{物理内存占用大小} = 65536 \times 16 \text{ 字节} = 1048576 \text{ 字节} \approx 1 \text{ MB}<br>$$</p>
+<h4 id="2-使用-ASTC-6x6-块尺寸"><a href="#2-使用-ASTC-6x6-块尺寸" class="headerlink" title="2. 使用 ASTC 6x6 块尺寸"></a>2. 使用 ASTC 6x6 块尺寸</h4><p><strong>计算横向和纵向块数</strong>：<br>$$<br>{横向块数} = \lceil \frac{1024}{6} \rceil = \lceil 170.67 \rceil = 171<br>$$</p>
+<p>$$<br>{纵向块数} = \lceil \frac{1024}{6} \rceil = \lceil 170.67 \rceil = 171<br>$$</p>
+<p><strong>计算总块数</strong>：<br>$$<br>{总块数} = 171 \times 171 = 29241<br>$$<br><strong>计算物理内存占用大小</strong>：<br>$$<br>{物理内存占用大小} = 29241 \times 16 \text{ 字节} = 467856 \text{ 字节} \approx 457 \text{ KB}<br>$$</p>
+<h4 id="3-使用-ASTC-8x8-块尺寸"><a href="#3-使用-ASTC-8x8-块尺寸" class="headerlink" title="3. 使用 ASTC 8x8 块尺寸"></a>3. 使用 ASTC 8x8 块尺寸</h4><p><strong>计算横向和纵向块数</strong>：<br>$$<br>{横向块数} = \lceil \frac{1024}{8} \rceil = \lceil 128 \rceil = 128<br>$$</p>
+<p>$$<br>{纵向块数} = \lceil \frac{1024}{8} \rceil = \lceil 128 \rceil = 128<br>$$</p>
+<p><strong>计算总块数</strong>：<br>$$<br>{总块数} = 128 \times 128 = 16384<br>$$<br><strong>计算物理内存占用大小</strong>：<br>$$<br>{物理内存占用大小} = 16384 \times 16 \text{ 字节} = 262144 \text{ 字节} \approx 256 \text{ KB}<br>$$</p>
+<h3 id="ASTC-压缩原理及压缩率计算"><a href="#ASTC-压缩原理及压缩率计算" class="headerlink" title="ASTC 压缩原理及压缩率计算"></a>ASTC 压缩原理及压缩率计算</h3><h4 id="公式解释"><a href="#公式解释" class="headerlink" title="公式解释"></a>公式解释</h4><ul>
+<li><p><strong>像素大小</strong>（bits）：指的是经过 ASTC 压缩后，每个像素所占的位数。公式为：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{\text{分块宽高}} \times 8 \text{ bits/byte}<br>$$<br>这里，分块宽高是指一个 ASTC 块所覆盖的像素数。例如，4x4 块覆盖 16 个像素，8x8 块覆盖 64 个像素。</p>
+</li>
+<li><p><strong>压缩率</strong>：表示压缩前后的比率，即原始未压缩像素大小（32-bit）与压缩后像素大小的比率。公式为：<br>$$<br>{压缩率} = \frac{\text{原始像素大小（32-bit）}}{\text{像素大小}}<br>$$</p>
+</li>
+<li><p><strong>图像大小</strong>：表示压缩后的图片大小。公式为：<br>$$<br>{图像大小} = \frac{\text{原始图片大小}}{\text{压缩率}}<br>$$<br>其中，原始图片大小是未压缩的图片大小。</p>
+</li>
+</ul>
+<h3 id="示例计算-1"><a href="#示例计算-1" class="headerlink" title="示例计算"></a>示例计算</h3><p>假设我们有一张 4 MB 的 1024x1024 像素的原始图片。以下是不同块尺寸下的计算过程：</p>
+<h4 id="1-4x4-块尺寸"><a href="#1-4x4-块尺寸" class="headerlink" title="1. 4x4 块尺寸"></a>1. 4x4 块尺寸</h4><ul>
+<li><strong>像素大小</strong>：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{4 \times 4} \times 8 \text{ bits/byte} = \frac{16}{16} \times 8 = 8 \text{ bits}<br>$$</li>
+<li><strong>压缩率</strong>：<br>$$<br>{压缩率} = \frac{32 \text{ bits}}{8 \text{ bits}} = 4<br>$$</li>
+<li><strong>压缩后图片大小</strong>：<br>$$<br>{图像大小} = \frac{4 \text{ MB}}{4} = 1 \text{ MB}<br>$$</li>
+</ul>
+<h4 id="2-5x5-块尺寸"><a href="#2-5x5-块尺寸" class="headerlink" title="2. 5x5 块尺寸"></a>2. 5x5 块尺寸</h4><ul>
+<li><strong>像素大小</strong>：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{5 \times 5} \times 8 \text{ bits/byte} = \frac{16}{25} \times 8 = 5.12 \text{ bits}<br>$$</li>
+<li><strong>压缩率</strong>：<br>$$<br>{压缩率} = \frac{32 \text{ bits}}{5.12 \text{ bits}} = 6.25<br>$$</li>
+<li><strong>压缩后图片大小</strong>：<br>$$<br>{图像大小} = \frac{4 \text{ MB}}{6.25} \approx 655 \text{ KB}<br>$$</li>
+</ul>
+<h4 id="3-6x6-块尺寸"><a href="#3-6x6-块尺寸" class="headerlink" title="3. 6x6 块尺寸"></a>3. 6x6 块尺寸</h4><ul>
+<li><strong>像素大小</strong>：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{6 \times 6} \times 8 \text{ bits/byte} = \frac{16}{36} \times 8 \approx 3.56 \text{ bits}<br>$$</li>
+<li><strong>压缩率</strong>：<br>$$<br>{压缩率} = \frac{32 \text{ bits}}{3.56 \text{ bits}} \approx 8.99<br>$$</li>
+<li><strong>压缩后图片大小</strong>：<br>$$<br>{图像大小} = \frac{4 \text{ MB}}{8.99} \approx 455.62 \text{ KB}<br>$$</li>
+</ul>
+<h4 id="4-8x8-块尺寸"><a href="#4-8x8-块尺寸" class="headerlink" title="4. 8x8 块尺寸"></a>4. 8x8 块尺寸</h4><ul>
+<li><strong>像素大小</strong>：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{8 \times 8} \times 8 \text{ bits/byte} = \frac{16}{64} \times 8 = 2 \text{ bits}<br>$$</li>
+<li><strong>压缩率</strong>：<br>$$<br>{压缩率} = \frac{32 \text{ bits}}{2 \text{ bits}} = 16<br>$$</li>
+<li><strong>压缩后图片大小</strong>：<br>$$<br>{图像大小} = \frac{4 \text{ MB}}{16} = 256 \text{ KB}<br>$$</li>
+</ul>
+<h4 id="5-10x10-块尺寸"><a href="#5-10x10-块尺寸" class="headerlink" title="5. 10x10 块尺寸"></a>5. 10x10 块尺寸</h4><ul>
+<li><strong>像素大小</strong>：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{10 \times 10} \times 8 \text{ bits/byte} = \frac{16}{100} \times 8 = 1.28 \text{ bits}<br>$$</li>
+<li><strong>压缩率</strong>：<br>$$<br>{压缩率} = \frac{32 \text{ bits}}{1.28 \text{ bits}} = 25<br>$$</li>
+<li><strong>压缩后图片大小</strong>：<br>$$<br>{图像大小} = \frac{4 \text{ MB}}{25} \approx 163 \text{ KB}<br>$$</li>
+</ul>
+<h4 id="6-12x12-块尺寸"><a href="#6-12x12-块尺寸" class="headerlink" title="6. 12x12 块尺寸"></a>6. 12x12 块尺寸</h4><ul>
+<li><strong>像素大小</strong>：<br>$$<br>{像素大小} = \frac{16 \text{ bytes}}{12 \times 12} \times 8 \text{ bits/byte} = \frac{16}{144} \times 8 \approx 0.89 \text{ bits}<br>$$</li>
+<li><strong>压缩率</strong>：<br>$$<br>{压缩率} = \frac{32 \text{ bits}}{0.89 \text{ bits}} \approx 35.95<br>$$</li>
+<li><strong>压缩后图片大小</strong>：<br>$$<br>{图像大小} = \frac{4 \text{ MB}}{35.95} \approx 113.93 \text{ KB}<br>$$</li>
+</ul>
+<h4 id="解释与理解"><a href="#解释与理解" class="headerlink" title="解释与理解"></a>解释与理解</h4><ul>
+<li><strong>像素大小</strong>：表示每个像素在经过 ASTC 压缩后的比特数。分块宽高越大，每个像素分摊到的比特数越少，意味着压缩效率越高。</li>
+<li><strong>压缩率</strong>：原始像素大小与压缩后像素大小的比值。这个比值越大，表示压缩效果越好，压缩后的文件越小。</li>
+<li><strong>压缩后图片大小</strong>：根据压缩率计算压缩后的文件大小。压缩率越大，压缩后文件越小。</li>
+</ul>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>ASTC 8x8 相对于 ASTC 6x6 的内存占用比例 = 2 比特 / 3.56 比特 ≈ 0.5618</p>
+<h3 id="推荐几款-ASTC-压缩工具："><a href="#推荐几款-ASTC-压缩工具：" class="headerlink" title="推荐几款 ASTC 压缩工具："></a>推荐几款 ASTC 压缩工具：</h3><ol>
+<li><strong>ASTC Encoder by ARM</strong>：<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ARM-software/astc-encoder">ARM ASTC Encoder</a></li>
+</ul>
+</li>
+<li><strong>Intel® Texture Works Plugin for Photoshop</strong>：<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/GameTechDev/Intel-Texture-Works-Plugin">Intel® Texture Works Plugin</a></li>
+</ul>
+</li>
+<li><strong>KTX Software by Khronos Group</strong>：<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/KhronosGroup/KTX-Software">KTX Software</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过上述计算可以看出，不同的 ASTC 块尺寸对纹理的内存占用有显著影响：</p>
+<ul>
+<li><strong>ASTC 4x4</strong>：每个块覆盖 16 像素，总内存占用大约为 1 MB，压缩率较低，但图像质量较高。</li>
+<li><strong>ASTC 6x6</strong>：每个块覆盖 36 像素，总内存占用大约为 457 KB，压缩率适中，图像质量有所下降。</li>
+<li><strong>ASTC 8x8</strong>：每个块覆盖 64 像素，总内存占用大约为 256 KB，压缩率较高，图像质量下降更明显。</li>
+</ul>
+<p>在实际应用中，选择合适的块尺寸需要根据具体的性能和质量需求做出平衡。在需要更高质量的场景中可能选择较小的块尺寸（如 4x4），而在需要更高压缩率的场景中可能选择较大的块尺寸（如 8x8）。为了直观展示不同情况下的大小关系，我们列出一个表格：</p>
+<table>
+<thead>
+<tr>
+<th>ASTC 块尺寸</th>
+<th>文件存储大小</th>
+<th>CPU 内存占用大小（原始数据）</th>
+<th>CPU 内存占用大小（压缩数据）</th>
+<th>显存占用大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4x4</td>
+<td>0.5 MB</td>
+<td>4 MB</td>
+<td>1 MB</td>
+<td>1 MB</td>
+</tr>
+<tr>
+<td>6x6</td>
+<td>0.5 MB</td>
+<td>4 MB</td>
+<td>457 KB</td>
+<td>457 KB</td>
+</tr>
+<tr>
+<td>8x8</td>
+<td>0.5 MB</td>
+<td>4 MB</td>
+<td>256 KB</td>
+<td>256 KB</td>
+</tr>
+</tbody></table>
+<p>从表中可以看出：</p>
+<ol>
+<li><strong>文件存储大小</strong>：ASTC 文件通常较小，取决于压缩率，示例中假设为 0.5 MB。</li>
+<li><strong>CPU 内存占用大小</strong>：未压缩的原始数据占用较大内存（4 MB），而压缩数据的大小接近显存占用大小。</li>
+<li><strong>显存占用大小</strong>：显存占用与块尺寸直接相关，块尺寸越大，占用的显存越小。</li>
+</ol>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/eeb07b93.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>一个从Excel到Json到Typescript枚 举(enum)的实现脚本工具</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/3ddc6ccc.html">
+        <span>Cocos Creator远程加载BMFont(位图字体)方案</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/d11b313e.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ASTC-%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">ASTC 主要特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASTC-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.2.</span> <span class="toc-text">ASTC 块尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASTC-%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.3.</span> <span class="toc-text">ASTC 内存占用大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.4.</span> <span class="toc-text">计算步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BA%86%E8%A7%A3%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 了解输入参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97%E5%9D%97%E6%95%B0%E9%87%8F"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 计算块数量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AE%A1%E7%AE%97%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.4.3.</span> <span class="toc-text">3. 计算物理内存占用大小</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E8%AE%A1%E7%AE%97"><span class="toc-number">1.5.</span> <span class="toc-text">示例计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-ASTC-4x4-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. ASTC 4x4 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8-ASTC-6x6-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 使用 ASTC 6x6 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8-ASTC-8x8-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 使用 ASTC 8x8 块尺寸</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASTC-%E5%8E%8B%E7%BC%A9%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8E%8B%E7%BC%A9%E7%8E%87%E8%AE%A1%E7%AE%97"><span class="toc-number">1.6.</span> <span class="toc-text">ASTC 压缩原理及压缩率计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E8%A7%A3%E9%87%8A"><span class="toc-number">1.6.1.</span> <span class="toc-text">公式解释</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E8%AE%A1%E7%AE%97-1"><span class="toc-number">1.7.</span> <span class="toc-text">示例计算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4x4-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.7.1.</span> <span class="toc-text">1. 4x4 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5x5-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.7.2.</span> <span class="toc-text">2. 5x5 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6x6-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.7.3.</span> <span class="toc-text">3. 6x6 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-8x8-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.7.4.</span> <span class="toc-text">4. 8x8 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-10x10-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.7.5.</span> <span class="toc-text">5. 10x10 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-12x12-%E5%9D%97%E5%B0%BA%E5%AF%B8"><span class="toc-number">1.7.6.</span> <span class="toc-text">6. 12x12 块尺寸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E4%B8%8E%E7%90%86%E8%A7%A3"><span class="toc-number">1.7.7.</span> <span class="toc-text">解释与理解</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-number">2.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E5%87%A0%E6%AC%BE-ASTC-%E5%8E%8B%E7%BC%A9%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">推荐几款 ASTC 压缩工具：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

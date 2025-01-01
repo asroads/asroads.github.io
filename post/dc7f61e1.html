@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator去除官方启动加载loading页 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/dc7f61e1.html">CocosCreator去除官方启动加载loading页</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-03-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator去除官方启动加载loading页&url=http://blog.asroads.com/post/dc7f61e1.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator去除官方启动加载loading页&url=http://blog.asroads.com/post/dc7f61e1.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/dc7f61e1.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/dc7f61e1.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/dc7f61e1.html&title=CocosCreator去除官方启动加载loading页" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator去除官方启动加载loading页&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/dc7f61e1.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/dc7f61e1.html&text=CocosCreator去除官方启动加载loading页" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p><code>Cocos</code>官方文档里有介绍如何自定义构建模板，当游戏发布为<code>web</code>版本的时候，启动的时候经常会有一个官方<code>logo</code>的启动页，那么我们如何更换或者关闭呢？下面就说一下操作的具体步骤，日后如果用到，直接查看即可。</p>
+<span id="more"></span>
+
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Cocos Creator 2.4.11</li>
+<li>Windows 10</li>
+<li>Chrome</li>
+</ul>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>话不多讲，先看效果</p>
+<p>原来默认效果</p>
+<p><img src="/post/dc7f61e1/yuan.gif" alt="yuan"></p>
+<p>替换效果</p>
+<p><img src="/post/dc7f61e1/tihuan.gif" alt="tihuan"></p>
+<p>去除效果</p>
+<p><img src="/post/dc7f61e1/wu.gif" alt="wu"></p>
+<h2 id="替换加载页"><a href="#替换加载页" class="headerlink" title="替换加载页"></a>替换加载页</h2><p>这个相对来说比较容易，就是使用官方构建模板，使用自己的logo即可</p>
+<p><img src="/post/dc7f61e1/image-20230312153635639.png" alt="image-20230312153635639"></p>
+<p>关于替换，官网已经说的比较详细，这里就不多展开介绍</p>
+<h2 id="去除加载页"><a href="#去除加载页" class="headerlink" title="去除加载页"></a>去除加载页</h2><p>首先<code>web-mobile</code>发布网页端为例，我们构建一次项目 后找到</p>
+<ol>
+<li><p>在项目目录下创建<code>build-templates/web-mobile</code></p>
+</li>
+<li><p>构建一次项目，并复制发布目录<code>build\web-mobile</code>下<code>main.js和index.html</code>到这个文件夹</p>
+</li>
+</ol>
+<p><img src="/post/dc7f61e1/image-20230312154003325.png" alt="image-20230312154003325"></p>
+<ol start="3">
+<li>修改<code>index.html</code> 设置背景色为黑色 <code>style=&quot;background-color: black&quot;</code>或者 <code>style=&quot;background-color:#000000;&quot;</code></li>
+</ol>
+<p><img src="/post/dc7f61e1/image-20230312154136480.png" alt="image-20230312154136480"></p>
+<ol start="4">
+<li><p>设置<code>splash</code>的<code>style</code>的<code>display</code> 属性为<code>none</code> 不显示</p>
+<p><img src="/post/dc7f61e1/image-20230312154236485.png" alt="image-20230312154236485"></p>
+</li>
+<li><p>修改 <code>main.js</code> 不再调用 <code>setLoadingDisplay()；</code></p>
+</li>
+</ol>
+<p><img src="/post/dc7f61e1/image-20230312154515610.png" alt="image-20230312154515610"></p>
+<ol start="6">
+<li>重新构建<code>web-mobile</code> 然后查看发现，加载页已经不再显示了</li>
+</ol>
+<p><img src="/post/dc7f61e1/wu.gif" alt="wu"></p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>如果要全局修改</p>
+<p>修改引擎下<strong>static/build-templates</strong> 的**<code>main.js</code><strong>和</strong><code>index.html</code>**</p>
+<p>地址是 </p>
+<p><img src="/post/dc7f61e1/image-20230312154952032.png" alt="image-20230312154952032"></p>
+<p>下面给出我修改后的<code>index.html</code> 和<code>main.js</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Cocos Creator | wangengdaluandou<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--http://www.html5rocks.com/en/mobile/mobifying/--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">content</span>=<span class="string">&quot;width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;apple-mobile-web-app-capable&quot;</span> <span class="attr">content</span>=<span class="string">&quot;yes&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="attr">content</span>=<span class="string">&quot;black-translucent&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attr">content</span>=<span class="string">&quot;telephone=no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- force webkit on 360 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;renderer&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;force-rendering&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>/&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- force edge on IE --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;msapplication-tap-highlight&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- force full screen on some browser --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;full-screen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;yes&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;360-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- force screen orientation on some browser --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;screen-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--fix fireball/issues/3568 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--&lt;meta name=&quot;browsermode&quot; content=&quot;application&quot;&gt;--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-page-mode&quot;</span> <span class="attr">content</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;.png&quot; /&gt;--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;.png&quot; /&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;style-mobile.css&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;background-color: black&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;GameCanvas&quot;</span> <span class="attr">oncontextmenu</span>=<span class="string">&quot;event.preventDefault()&quot;</span> <span class="attr">tabindex</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;splash&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress-bar stripes&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;width: 0%&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;src/settings.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;main.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// open web debugger console</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">VConsole</span> !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">vConsole</span> = <span class="keyword">new</span> <span class="title class_">VConsole</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> debug = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>.<span class="property">debug</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> splash = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;splash&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// splash.style.display = &#x27;block&#x27;;</span></span></span><br><span class="line"><span class="language-javascript">    splash.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;none&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">loadScript</span> (moduleName, cb) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">function</span> <span class="title function_">scriptLoaded</span> () &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(domScript);</span></span><br><span class="line"><span class="language-javascript">          domScript.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;load&#x27;</span>, scriptLoaded, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">          cb &amp;&amp; <span class="title function_">cb</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> domScript = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="property">async</span> = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="property">src</span> = moduleName;</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>, scriptLoaded, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(domScript);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">loadScript</span>(debug ? <span class="string">&#x27;cocos2d-js.js&#x27;</span> : <span class="string">&#x27;cocos2d-js-min.js&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (<span class="variable constant_">CC_PHYSICS_BUILTIN</span> || <span class="variable constant_">CC_PHYSICS_CANNON</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">loadScript</span>(debug ? <span class="string">&#x27;physics.js&#x27;</span> : <span class="string">&#x27;physics-min.js&#x27;</span>, <span class="variable language_">window</span>.<span class="property">boot</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="title function_">boot</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">&#125;)();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">boot</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> settings = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="keyword">var</span> onProgress = <span class="literal">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> <span class="variable constant_">RESOURCES</span> = cc.<span class="property">AssetManager</span>.<span class="property">BuiltinBundleName</span>.<span class="property">RESOURCES</span>;</span><br><span class="line">    <span class="keyword">var</span> <span class="variable constant_">INTERNAL</span> = cc.<span class="property">AssetManager</span>.<span class="property">BuiltinBundleName</span>.<span class="property">INTERNAL</span>;</span><br><span class="line">    <span class="keyword">var</span> <span class="variable constant_">MAIN</span> = cc.<span class="property">AssetManager</span>.<span class="property">BuiltinBundleName</span>.<span class="property">MAIN</span>;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">setLoadingDisplay</span> () &#123;</span><br><span class="line">        <span class="comment">// Loading splash scene</span></span><br><span class="line">        <span class="keyword">var</span> splash = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;splash&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> progressBar = splash.<span class="title function_">querySelector</span>(<span class="string">&#x27;.progress-bar span&#x27;</span>);</span><br><span class="line">        onProgress = <span class="keyword">function</span> (<span class="params">finish, total</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> percent = <span class="number">100</span> * finish / total;</span><br><span class="line">            <span class="keyword">if</span> (progressBar) &#123;</span><br><span class="line">                progressBar.<span class="property">style</span>.<span class="property">width</span> = percent.<span class="title function_">toFixed</span>(<span class="number">2</span>) + <span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        splash.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;block&#x27;</span>;</span><br><span class="line">        progressBar.<span class="property">style</span>.<span class="property">width</span> = <span class="string">&#x27;0%&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        cc.<span class="property">director</span>.<span class="title function_">once</span>(cc.<span class="property">Director</span>.<span class="property">EVENT_AFTER_SCENE_LAUNCH</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            splash.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> onStart = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">        cc.<span class="property">view</span>.<span class="title function_">enableRetina</span>(<span class="literal">true</span>);</span><br><span class="line">        cc.<span class="property">view</span>.<span class="title function_">resizeWithBrowserSize</span>(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isBrowser</span>) &#123;</span><br><span class="line">            <span class="comment">// setLoadingDisplay();</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isMobile</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (settings.<span class="property">orientation</span> === <span class="string">&#x27;landscape&#x27;</span>) &#123;</span><br><span class="line">                cc.<span class="property">view</span>.<span class="title function_">setOrientation</span>(cc.<span class="property">macro</span>.<span class="property">ORIENTATION_LANDSCAPE</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (settings.<span class="property">orientation</span> === <span class="string">&#x27;portrait&#x27;</span>) &#123;</span><br><span class="line">                cc.<span class="property">view</span>.<span class="title function_">setOrientation</span>(cc.<span class="property">macro</span>.<span class="property">ORIENTATION_PORTRAIT</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            cc.<span class="property">view</span>.<span class="title function_">enableAutoFullScreen</span>([</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_BAIDU</span>,</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_BAIDU_APP</span>,</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_WECHAT</span>,</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_MOBILE_QQ</span>,</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_MIUI</span>,</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_HUAWEI</span>,</span><br><span class="line">                cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_UC</span>,</span><br><span class="line">            ].<span class="title function_">indexOf</span>(cc.<span class="property">sys</span>.<span class="property">browserType</span>) &lt; <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Limit downloading max concurrent task to 2,</span></span><br><span class="line">        <span class="comment">// more tasks simultaneously may cause performance draw back on some android system / browsers.</span></span><br><span class="line">        <span class="comment">// You can adjust the number based on your own test result, you have to set it before any loading process to take effect.</span></span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isBrowser</span> &amp;&amp; cc.<span class="property">sys</span>.<span class="property">os</span> === cc.<span class="property">sys</span>.<span class="property">OS_ANDROID</span>) &#123;</span><br><span class="line">            cc.<span class="property">assetManager</span>.<span class="property">downloader</span>.<span class="property">maxConcurrency</span> = <span class="number">2</span>;</span><br><span class="line">            cc.<span class="property">assetManager</span>.<span class="property">downloader</span>.<span class="property">maxRequestsPerFrame</span> = <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> launchScene = settings.<span class="property">launchScene</span>;</span><br><span class="line">        <span class="keyword">var</span> bundle = cc.<span class="property">assetManager</span>.<span class="property">bundles</span>.<span class="title function_">find</span>(<span class="keyword">function</span> (<span class="params">b</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> b.<span class="title function_">getSceneInfo</span>(launchScene);</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        bundle.<span class="title function_">loadScene</span>(launchScene, <span class="literal">null</span>, onProgress,</span><br><span class="line">            <span class="keyword">function</span> (<span class="params">err, scene</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">                    cc.<span class="property">director</span>.<span class="title function_">runSceneImmediate</span>(scene);</span><br><span class="line">                    <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isBrowser</span>) &#123;</span><br><span class="line">                        <span class="comment">// show canvas</span></span><br><span class="line">                        <span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;GameCanvas&#x27;</span>);</span><br><span class="line">                        canvas.<span class="property">style</span>.<span class="property">visibility</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">                        <span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;GameDiv&#x27;</span>);</span><br><span class="line">                        <span class="keyword">if</span> (div) &#123;</span><br><span class="line">                            div.<span class="property">style</span>.<span class="property">backgroundImage</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Success to load scene: &#x27;</span> + launchScene);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> option = &#123;</span><br><span class="line">        <span class="attr">id</span>: <span class="string">&#x27;GameCanvas&#x27;</span>,</span><br><span class="line">        <span class="attr">debugMode</span>: settings.<span class="property">debug</span> ? cc.<span class="property">debug</span>.<span class="property">DebugMode</span>.<span class="property">INFO</span> : cc.<span class="property">debug</span>.<span class="property">DebugMode</span>.<span class="property">ERROR</span>,</span><br><span class="line">        <span class="attr">showFPS</span>: settings.<span class="property">debug</span>,</span><br><span class="line">        <span class="attr">frameRate</span>: <span class="number">60</span>,</span><br><span class="line">        <span class="attr">groupList</span>: settings.<span class="property">groupList</span>,</span><br><span class="line">        <span class="attr">collisionMatrix</span>: settings.<span class="property">collisionMatrix</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    cc.<span class="property">assetManager</span>.<span class="title function_">init</span>(&#123; </span><br><span class="line">        <span class="attr">bundleVers</span>: settings.<span class="property">bundleVers</span>,</span><br><span class="line">        <span class="attr">remoteBundles</span>: settings.<span class="property">remoteBundles</span>,</span><br><span class="line">        <span class="attr">server</span>: settings.<span class="property">server</span></span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> bundleRoot = [<span class="variable constant_">INTERNAL</span>];</span><br><span class="line">    settings.<span class="property">hasResourcesBundle</span> &amp;&amp; bundleRoot.<span class="title function_">push</span>(<span class="variable constant_">RESOURCES</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">cb</span> (err) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(err.<span class="property">message</span>, err.<span class="property">stack</span>);</span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">if</span> (count === bundleRoot.<span class="property">length</span> + <span class="number">1</span>) &#123;</span><br><span class="line">            cc.<span class="property">assetManager</span>.<span class="title function_">loadBundle</span>(<span class="variable constant_">MAIN</span>, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!err) cc.<span class="property">game</span>.<span class="title function_">run</span>(option, onStart);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cc.<span class="property">assetManager</span>.<span class="title function_">loadScript</span>(settings.<span class="property">jsList</span>.<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params">x</span>) &#123; <span class="keyword">return</span> <span class="string">&#x27;src/&#x27;</span> + x;&#125;), cb);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bundleRoot.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        cc.<span class="property">assetManager</span>.<span class="title function_">loadBundle</span>(bundleRoot[i], cb);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">jsb</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> isRuntime = (<span class="keyword">typeof</span> loadRuntime === <span class="string">&#x27;function&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> (isRuntime) &#123;</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;src/settings.f7150.js&#x27;</span>);</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;src/cocos2d-runtime.js&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable constant_">CC_PHYSICS_BUILTIN</span> || <span class="variable constant_">CC_PHYSICS_CANNON</span>) &#123;</span><br><span class="line">            <span class="built_in">require</span>(<span class="string">&#x27;src/physics.js&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;jsb-adapter/engine/index.js&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;src/settings.f7150.js&#x27;</span>);</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;src/cocos2d-jsb.js&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable constant_">CC_PHYSICS_BUILTIN</span> || <span class="variable constant_">CC_PHYSICS_CANNON</span>) &#123;</span><br><span class="line">            <span class="built_in">require</span>(<span class="string">&#x27;src/physics.js&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;jsb-adapter/jsb-engine.js&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cc.<span class="property">macro</span>.<span class="property">CLEANUP_IMAGE_CACHE</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="title function_">boot</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里主要是运用了构建模板和少量的<code>Html</code>知识结合，解决了用户自定义加载页或去除官方<code>loading</code>页</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/628059d7.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Windows10如何使用Charles抓包PC微信小游戏</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/49b55b1c.html">
+        <span>Mac电脑sourcetree导入git项目报错git status failed with code -1</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/dc7f61e1.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E5%8A%A0%E8%BD%BD%E9%A1%B5"><span class="toc-number">3.</span> <span class="toc-text">替换加载页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E5%8A%A0%E8%BD%BD%E9%A1%B5"><span class="toc-number">4.</span> <span class="toc-text">去除加载页</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-number">4.1.</span> <span class="toc-text">拓展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            怎么使用Python3读取EXCEl保存为JSON | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/5f6810ff.html">怎么使用Python3读取EXCEl保存为JSON</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2018-12-25
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=怎么使用Python3读取EXCEl保存为JSON&url=http://blog.asroads.com/post/5f6810ff.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=怎么使用Python3读取EXCEl保存为JSON&url=http://blog.asroads.com/post/5f6810ff.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/5f6810ff.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/5f6810ff.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/5f6810ff.html&title=怎么使用Python3读取EXCEl保存为JSON" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=怎么使用Python3读取EXCEl保存为JSON&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/5f6810ff.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/5f6810ff.html&text=怎么使用Python3读取EXCEl保存为JSON" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>开发小游戏差不多四个月左右了，中间一直忙碌，很少有闲余时间来总结一下所感所想，今天就说说游戏里面怎么配置数据的，以前做Flash游戏的时候，那时候页游兴起，大家都用xml 作为配置文件，等到了手游时代 很多开始用json 和MySQL数据库作为配置读取文件，做小游戏之前遇到了xml 被拒绝的事情，所以我们的游戏采取了json的配置。下面就简单的说说怎么用Python读取Excel 然后保存成json格式的。</p>
+<span id="more"></span>
+
+<h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li>Python3环境</li>
+<li>安装 Excel相关的库 xlrd</li>
+<li>Pycharm 编辑器（你也可以选择其他的编辑器）</li>
+</ul>
+<h3 id="读取-单元格输出正常的JSON"><a href="#读取-单元格输出正常的JSON" class="headerlink" title="读取 单元格输出正常的JSON"></a>读取 单元格输出正常的JSON</h3><p>第一个是比较常规的格式：</p>
+<p><img src="/post/5f6810ff/image-20181226174638985.png" alt="image-20181226174638985"></p>
+<p>生成的 样式是 ：</p>
+<p><img src="/post/5f6810ff/image-20181226174736315.png" alt="image-20181226174736315"></p>
+<p>直接上代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> unicode_literals</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"><span class="keyword">import</span> importlib, sys</span><br><span class="line">importlib.reload(sys)</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>)</span><br><span class="line"><span class="comment"># warnings.filterwarnings(&quot;utf8&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getValue</span>(<span class="params">sheet,i,j</span>):</span><br><span class="line">    ctype = sheet.cell(i,j).ctype</span><br><span class="line">    value = sheet.cell_value(i,j)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(value, <span class="built_in">str</span>):</span><br><span class="line">        value = value</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> ctype == <span class="number">2</span> <span class="keyword">and</span> value % <span class="number">1</span> == <span class="number">0</span>:</span><br><span class="line">            value = <span class="built_in">int</span>(value)</span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">excel2json</span>(<span class="params">excelPath, path, fileName</span>):</span><br><span class="line">    wb = xlrd.open_workbook(excelPath)</span><br><span class="line"></span><br><span class="line">    convert_list = []</span><br><span class="line">    <span class="keyword">for</span> sheetNo <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(wb.sheets())):</span><br><span class="line">        sheetName = wb.sheet_by_index(sheetNo).name</span><br><span class="line">        sh = wb.sheet_by_index(sheetNo)</span><br><span class="line">        title = sh.row_values(<span class="number">1</span>)</span><br><span class="line">        result = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> rownum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, sh.nrows):</span><br><span class="line">            rowvalue = sh.row_values(rownum)</span><br><span class="line">            single = OrderedDict()</span><br><span class="line">            key = getValue(sh,rownum,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> colnum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(rowvalue)):</span><br><span class="line">                single[title[colnum]] =  getValue(sh,rownum,colnum)</span><br><span class="line">            result[key] = single</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(result)</span></span><br><span class="line">        j = json.dumps(result,ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">        jsonPath = <span class="string">&quot;%s/%s.json&quot;</span> %(path,sheetName)</span><br><span class="line">        <span class="built_in">print</span>(jsonPath)</span><br><span class="line">        <span class="keyword">with</span> codecs.<span class="built_in">open</span>(jsonPath, <span class="string">&quot;w&quot;</span>, <span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(j)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">        <span class="built_in">print</span>(filename)</span><br><span class="line">        <span class="keyword">if</span> filename == <span class="string">&quot;map.xlsx&quot;</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span> os.path.splitext(filename)[<span class="number">1</span>] == <span class="string">&#x27;.xlsx&#x27;</span>:</span><br><span class="line">            xlsxPath = <span class="string">&quot;%s/%s&quot;</span> %(path,filename)</span><br><span class="line">            excel2json(xlsxPath,path,filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">move2json</span>():</span><br><span class="line">    sysstr = platform.system()</span><br><span class="line">    cmd = <span class="string">&quot;mv -f ./*.json ../bin/json&quot;</span></span><br><span class="line">    <span class="keyword">if</span>(sysstr ==<span class="string">&quot;Windows&quot;</span>):</span><br><span class="line">        cmd = <span class="string">&quot;move ./*.json ../bin/json&quot;</span></span><br><span class="line">    <span class="keyword">elif</span>(sysstr == <span class="string">&quot;Linux&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&quot;Call Linux tasks&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&quot;Other System tasks&quot;</span>)</span><br><span class="line">    os.system(cmd)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    pathname = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pathname:&quot;</span>+pathname)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(pathname):</span><br><span class="line">        os.chdir(pathname)</span><br><span class="line">    export(pathname)</span><br><span class="line">    move2json()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="稍微复杂的导出"><a href="#稍微复杂的导出" class="headerlink" title="稍微复杂的导出"></a>稍微复杂的导出</h3><p>我们在做地图的时候，需要让策划更容易配出地图的位置和坐标，我们需要对策划配置的格子做一些修改，让生成的json文件足够小，于是在上面的基础上做了修改：</p>
+<p><img src="/post/5f6810ff/image-20181226175025838.png" alt="image-20181226175025838"></p>
+<p>其中第一列 代表的是 地图的id 比如是1 就是第一张地图 上面大于0的都是有怪物的，为0的 表示空，其中大于0 的数字，前两位代表 怪物的类型，我们是从10 开始的，后面的数字代表血量，这样我们就知道怪物在地图上的坐标，类型，血量，然后根据信息数据去初始化。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;1&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">130010</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">130006</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">140008</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;2&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">[</span></span><br><span class="line">      <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">110010</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">110008</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">110008</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">110006</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">110006</span><span class="punctuation">,</span></span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>最后贴上代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding=utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"><span class="keyword">import</span> importlib, sys</span><br><span class="line"><span class="comment"># importlib.reload(sys)</span></span><br><span class="line"><span class="comment"># import imp</span></span><br><span class="line"></span><br><span class="line">importlib.reload(sys)</span><br><span class="line"></span><br><span class="line"><span class="comment"># sys.setdefaultencoding(&#x27;utf8&#x27;)</span></span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getValue</span>(<span class="params">sheet, i, j</span>):</span><br><span class="line">    ctype = sheet.cell(i, j).ctype</span><br><span class="line">    value = sheet.cell_value(i, j)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ctype == <span class="number">2</span> <span class="keyword">and</span> value % <span class="number">1</span> == <span class="number">0</span>:</span><br><span class="line">        value = <span class="built_in">int</span>(value)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">excel2json</span>(<span class="params">excelPath, path, fileName</span>):</span><br><span class="line">    wb = xlrd.open_workbook(excelPath)</span><br><span class="line">    <span class="keyword">for</span> sheetNo <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(wb.sheets())):</span><br><span class="line">        sheetName = wb.sheet_by_index(sheetNo).name</span><br><span class="line">        sh = wb.sheet_by_index(sheetNo)</span><br><span class="line">        title = sh.row_values(<span class="number">1</span>)</span><br><span class="line">        result = &#123;&#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;start&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> rownum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, sh.nrows):</span><br><span class="line">            rowvalue = sh.row_values(rownum)</span><br><span class="line">            single = OrderedDict()</span><br><span class="line">            key = getValue(sh, rownum, <span class="number">0</span>)</span><br><span class="line">            <span class="comment"># print(key)</span></span><br><span class="line">            <span class="keyword">if</span> key <span class="keyword">in</span> result:</span><br><span class="line">                <span class="comment"># print(&quot;hello&quot;)</span></span><br><span class="line">                my_list = []</span><br><span class="line">                <span class="keyword">for</span> colnum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(rowvalue)):</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">isinstance</span>(title[colnum], <span class="built_in">float</span>):</span><br><span class="line">                        myKey = <span class="built_in">int</span>(title[colnum])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        myKey = title[colnum]</span><br><span class="line">                    single[myKey] = getValue(sh, rownum, colnum)</span><br><span class="line">                    my_list.append(single[myKey])</span><br><span class="line">                <span class="comment"># print(my_list)</span></span><br><span class="line">                result[key].append(my_list)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;one new key:&quot;</span>+<span class="built_in">str</span>(key))</span><br><span class="line">                result[key] = []</span><br><span class="line">                my_list = []</span><br><span class="line">                <span class="keyword">for</span> colnum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(rowvalue)):</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">isinstance</span>(title[colnum], <span class="built_in">float</span>):</span><br><span class="line">                        myKey1 = <span class="built_in">int</span>(title[colnum])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        myKey1 = title[colnum]</span><br><span class="line">                    single[myKey1] = getValue(sh, rownum, colnum)</span><br><span class="line">                    my_list.append(single[myKey1])</span><br><span class="line">                <span class="comment"># print(my_list)</span></span><br><span class="line">                result[key].append(my_list)</span><br><span class="line">        <span class="comment"># j = json.dumps(result,sort_keys=False).decode(&#x27;unicode_escape&#x27;)</span></span><br><span class="line">        <span class="comment"># print(result)</span></span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> result:</span><br><span class="line">            templist = result[key]</span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(templist)-<span class="number">1</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">max</span>(templist[x]) == <span class="number">0</span>:</span><br><span class="line">                    templist.pop()</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        j = json.dumps(result)</span><br><span class="line">        jsonPath = <span class="string">&quot;%s/%s.json&quot;</span> % (path, sheetName)</span><br><span class="line">        <span class="built_in">print</span>(jsonPath)</span><br><span class="line">        <span class="keyword">with</span> codecs.<span class="built_in">open</span>(jsonPath, <span class="string">&quot;w&quot;</span>, <span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(j)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">export</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(path):</span><br><span class="line">        <span class="built_in">print</span>(filename)</span><br><span class="line">        <span class="comment"># if os.path.splitext(filename)[1] == &#x27;.xlsx&#x27;:</span></span><br><span class="line">        <span class="keyword">if</span> filename == <span class="string">&#x27;map.xlsx&#x27;</span>:</span><br><span class="line">            xlsxPath = <span class="string">&quot;%s/%s&quot;</span> % (path, filename)</span><br><span class="line">            excel2json(xlsxPath, path, filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">move2json</span>():</span><br><span class="line">    sysstr = platform.system()</span><br><span class="line">    cmd = <span class="string">&quot;mv -f ./*.json ../bin/json&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (sysstr == <span class="string">&quot;Windows&quot;</span>):</span><br><span class="line">        cmd = <span class="string">&quot;move ./*.json ../bin/json&quot;</span></span><br><span class="line">    <span class="keyword">elif</span> (sysstr == <span class="string">&quot;Linux&quot;</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Call Linux tasks&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Other System tasks&quot;</span>)</span><br><span class="line">    os.system(cmd)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    pathname = os.path.dirname(os.path.realpath(__file__))</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;pathname:&quot;</span> + pathname)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(pathname):</span><br><span class="line">        os.chdir(pathname)</span><br><span class="line">    export(pathname)</span><br><span class="line">    move2json()</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除发布后多余的素材"><a href="#删除发布后多余的素材" class="headerlink" title="删除发布后多余的素材"></a>删除发布后多余的素材</h3><p>我们在做小游戏，每次发布都会把bin 目录下的素材 都copy一份到 发布目录，因为微信小游戏对包体有限制，我们便把一些素材放到了服务器远端，这样我们发布后就有一些资源需要删除后才能正常上传，这样反反复复很麻烦，而且维护的小游戏多了，时间久了，容易忘记那些是需要删除的。于是用Python写了一个删除的代码。</p>
+<p><img src="/post/5f6810ff/image-20181226175713958.png" alt="image-20181226175713958"></p>
+<p>其中 删除文件 还是用json作为配置文件  config.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;head&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/workspace/TankQueen/release/wxgame/&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;list&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;bingo&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;clip&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;background&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;libs&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;domxml&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/spine&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/background.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/background.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/magic.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/magic.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/magic1.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/share.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/share.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/skip.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/bingo.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/bingo.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/dialog.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/dialog.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/shop.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/shop.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;res/atlas/skip.png&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>main.py 文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> shutil, os</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DeleteFiles</span>():</span><br><span class="line">    f = <span class="built_in">open</span>(<span class="string">&#x27;config.json&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment"># 打开‘product.json’的json文件</span></span><br><span class="line">    res = f.read()  <span class="comment"># 读文件</span></span><br><span class="line">    <span class="built_in">dict</span> = json.loads(res)[<span class="string">&quot;list&quot;</span>]</span><br><span class="line">    head = json.loads(res)[<span class="string">&quot;head&quot;</span>]</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">dict</span>)  <span class="comment"># 把json串变成python的数据类型：字典</span></span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> <span class="built_in">dict</span>:</span><br><span class="line">        <span class="built_in">print</span>(key)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;.&quot;</span> <span class="keyword">in</span> key:</span><br><span class="line">            <span class="keyword">if</span> os.path.exists(head + key):</span><br><span class="line">                os.remove(head + key)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;delete file ok&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;file empty&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> os.path.exists(head + key):</span><br><span class="line">                shutil.rmtree(head + key)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;delete dir ok&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;dir empty&quot;</span>)</span><br><span class="line">hello =  DeleteFiles()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;delete successfully&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2019-08-17更新"><a href="#2019-08-17更新" class="headerlink" title="2019.08.17更新"></a>2019.08.17更新</h3><p>配置文件  config.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;platform&quot;</span><span class="punctuation">:</span> <span class="string">&quot;wxgame&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;list&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;bg&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;common&quot;</span><span class="punctuation">,</span></span><br><span class="line">	<span class="string">&quot;mykj&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;rank&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;luckywheel&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;bitmapfont&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/json/cloud&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/luckywheel.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/luckywheel.atlas&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/bg.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;res/atlas/bg.atlas&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>Python是一门很容易上手的语言，用这个为游戏项目作为辅助，减少了很多麻烦，让开发效率增加很多。希望自己能坚持学习，为自己加油！</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b96a17f2.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Excel两列数据怎么合并到一个单元格</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/28b1df01.html">
+        <span>Layabox-学习笔记(8)</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/5f6810ff.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96-%E5%8D%95%E5%85%83%E6%A0%BC%E8%BE%93%E5%87%BA%E6%AD%A3%E5%B8%B8%E7%9A%84JSON"><span class="toc-number">2.</span> <span class="toc-text">读取 单元格输出正常的JSON</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8D%E5%BE%AE%E5%A4%8D%E6%9D%82%E7%9A%84%E5%AF%BC%E5%87%BA"><span class="toc-number">3.</span> <span class="toc-text">稍微复杂的导出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%8F%91%E5%B8%83%E5%90%8E%E5%A4%9A%E4%BD%99%E7%9A%84%E7%B4%A0%E6%9D%90"><span class="toc-number">4.</span> <span class="toc-text">删除发布后多余的素材</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2019-08-17%E6%9B%B4%E6%96%B0"><span class="toc-number">5.</span> <span class="toc-text">2019.08.17更新</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

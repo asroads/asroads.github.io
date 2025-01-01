@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            怎么用HEXO+github搭建个人博客网站 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/3afcd4a3.html">怎么用HEXO+github搭建个人博客网站</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2018-06-05
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/other/">other</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=怎么用HEXO+github搭建个人博客网站&url=http://blog.asroads.com/post/3afcd4a3.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=怎么用HEXO+github搭建个人博客网站&url=http://blog.asroads.com/post/3afcd4a3.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/3afcd4a3.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/3afcd4a3.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/3afcd4a3.html&title=怎么用HEXO+github搭建个人博客网站" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=怎么用HEXO+github搭建个人博客网站&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/3afcd4a3.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/3afcd4a3.html&text=怎么用HEXO+github搭建个人博客网站" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E6%8A%80%E6%9C%AF/ >技术</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/hexo/ >hexo</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h2 id="建站前的一些唠叨"><a href="#建站前的一些唠叨" class="headerlink" title="建站前的一些唠叨"></a>建站前的一些唠叨</h2><p>个生活的瞬间，总想着把自己的所想所感，所悟、所得记录下，哪怕是零星的，粗糙的，鄙俗的，都是自己对生活真相的一次次靠近的证明，于是催生了做个自己的博客的想法，2015年的使用了<a target="_blank" rel="noopener" href="https://cn.wordpress.org/">WordPress</a>技术做了一个博客，自己买了云服务器，域名，终于有了自己的个人网站，后来服务器到期前的那段时间，正赶上项目上线，没有来得及迁移，就被付之一炬。</p>
+<span id="more"></span>
+
+<p>前天<a target="_blank" rel="noopener" href="https://seazhang.github.io/">seazhang</a>童鞋发来几个建站教程，又一次萌生了开博客的想法，说干就干，栽种一棵树最好的时间是十年前或现在。于是乎，今年又开始了新的征程，活着，就要学习，2005 年乔布斯在斯坦福的演讲中说到“stay hungry stay foolish”，对世界怀有敬畏，好奇之心，才能保持自己活的永远年轻，永远热泪盈眶。</p>
+<h2 id="建站准备"><a href="#建站准备" class="headerlink" title="建站准备"></a>建站准备</h2><p>我自己建站的环境是Mac环境，下面主要以Mac环境为准：</p>
+<p>环境：</p>
+<ul>
+<li>Mac电脑，联网状态</li>
+<li><a target="_blank" rel="noopener" href="https://www.git-scm.com/download/">Git</a> 、<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">Node.js(npm)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/">GitHub账号</a></li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ul>
+<li>node.js用来创建hexo博客框架的用的依赖，我安装的是node-v8.11.3；</li>
+<li>Git环境，你可以安装客户端或者 用<a target="_blank" rel="noopener" href="https://brew.sh/">Homebrew</a> 安装git，关于<a target="_blank" rel="noopener" href="https://brew.sh/">Homebrew</a>的安装不在本教程讨论之内，大家自行搜索。</li>
+</ul>
+<h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><p>利用npm命令就可以安装<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">hexo</a>如果自己npm下载出错 可以用国内的一些网站镜像代替</p>
+<p>比如<a target="_blank" rel="noopener" href="http://npm.taobao.org/">淘宝 NPM 镜像</a> 可以参考这篇文档 <a target="_blank" rel="noopener" href="http://riny.net/2014/cnpm/">国内优秀npm镜像推荐及使用</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+
+<p>如果 遇到权限报错 可以 在前面加上 “sudo” 这个时候 会让你输入电脑密码获得权限，以下所有的指令，如果遇到问题都可以在前面加上“sudo” 尝试解决。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>安装完毕，选择本地你要建站的文件夹，我的是 “/Users/hoolai/jsroads/myblog”，然后打开控制台执行命令，hexo 会初始化网站所需的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>接着安装 npm 依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>上面的一切就绪之后，就可以开始本地测试一下了。关于hexo 指令可以参考 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/commands.html">hexo指令</a> 运行生成静态文件的指令</p>
+<p>“hexo generate” 你也可以使用 “hexo g”代替</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>编译成功后 继续输入 “hexo server” 部署网站 可以用“hexo s” 代替</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>此时 可以用浏览器访问 <code>http://localhost:4000</code>，查看一下默认的效果 此时网站还是只能本地看到，默认主题是landscape。</p>
+<h2 id="部署到GitHub上"><a href="#部署到GitHub上" class="headerlink" title="部署到GitHub上"></a>部署到GitHub上</h2><p>首先你要有一个GitHub账号，这个很简单，如果没有，去注册一个就好。</p>
+<h3 id="创建一个repository"><a href="#创建一个repository" class="headerlink" title="创建一个repository"></a>创建一个repository</h3><p>repository 相当于一个仓库，用来放置自己的网站的文件，登录进 GitHub 页面 选择 repositories 然后 创建一个新的 repository 这个时候很简单，写一个Repository 名字，名字格式是重点 必须是 yourname.github.io 比如 tom.github.io 我的是 asroads.github.io。</p>
+<h3 id="发布网站到GitHub远程"><a href="#发布网站到GitHub远程" class="headerlink" title="发布网站到GitHub远程"></a>发布网站到GitHub远程</h3><p>此时需要修改一下本地（/Users/hoolai/jsroads/myblog）的一个“_config.yml”记得一点 hexo 配置中 任何“:”后面都是带空格的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repository: https://github.com/asroads/asroads.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
+
+<p>如果你是第一次使用GitHub部署，还需要配置 SSH文件，另外如果已经配置了，或者多个账号用一台机器需要另行处理。以后这个详谈。首先我们需要检查一下本地有没有 SSH keys 。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;asroads@163.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在Git Bash输入以下指令（任意位置点击鼠标右键），检查是否已经存在了SSH keys。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -al ~/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>如果已经存在或者正常生成了，用指令添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span> `ssh-agent -s`</span><br><span class="line">ssh-add</span><br></pre></td></tr></table></figure>
+
+<p>到了这里基本就搞定了，这个时候需要复制 key 到 github 上面 测试一下 输入以下指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>这个时候 会看到输出警告，输入 “yes”</p>
+<p>接下来需要我们配置一下 ‘~/.ssh/id_rsa.pub’ 里面的内容到GitHub上面</p>
+<ul>
+<li>我们先去用户下找到这个文件，用文本编辑器打开，复制内容</li>
+<li>打开GitHub网站，登录自己的账号 打开”settings“ — ”SSH and GPG keys” 然后添加一个“SSH keys”</li>
+</ul>
+<p>此时 还需要安装 一个 hexo-deployer-git</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>做完上面这些就表示已经搞定了。执行下面的命令，部署到github 上面吧</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>最后打开你的网站博客查看效果吧。我的是 <a href="http://blog.asroads.com/">blog.asroads.com</a> 。</p>
+<h3 id="2021-09-18-更新"><a href="#2021-09-18-更新" class="headerlink" title="2021-09-18 更新"></a>2021-09-18 更新</h3><h4 id="出现ERROR-Deployer-not-found-git的问题"><a href="#出现ERROR-Deployer-not-found-git的问题" class="headerlink" title="出现ERROR Deployer not found: git的问题"></a>出现ERROR Deployer not found: git的问题</h4><p>参照网上的方式：</p>
+<ul>
+<li>deploy的type 的github需要改成git</li>
+<li>npm install hexo-deployer-git –save</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-deployer-git –save</span><br></pre></td></tr></table></figure>
+
+<p>解决问题。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>在成功发布之后，禁不住内心一点小小的喜悦，学习过程中间经历了各种挫折、问题、报错、沮丧，经过辗转各大论坛终于得以解决，以后有空了，会慢慢的把自己所学所感写写出来。</p>
+<p>十多年前（2007）入行的时候，回忆起学校老师在课堂上曾说，做技术的人，要有一个自己的门面（技术博客），这个是自己的一份“自我经营”，先后在新浪、网易博客、CSDN开了博客，由于后期的工作繁忙，奔波，懒散懈怠，大都虎头蛇尾，偶尔去打开想写点什么的时候，总感觉自己学的知识过于零碎，繁琐，整理起来过于麻烦，很多问题网上已经很多人都给出最好的答案，图文并茂的解答。再去造几个轮子，显得冗余了些。这篇文章也参考了网上许多优秀人的博客和解答，在此，衷心的谢谢他们，好人一生平安！</p>
+<h3 id="不错的主题"><a href="#不错的主题" class="headerlink" title="不错的主题"></a>不错的主题</h3><p><a target="_blank" rel="noopener" href="https://github.com/kb1000fx/hexo-theme-meadow">https://github.com/kb1000fx/hexo-theme-meadow</a>  </p>
+<p> <a target="_blank" rel="noopener" href="https://garybear.cn/">https://garybear.cn/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/blinkfox/hexo-theme-matery">https://github.com/blinkfox/hexo-theme-matery</a></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mfrank2016.github.io/breeze-blog/2020/05/02/hexo/hexo-start/">使用Hexo+github pages+travis ci搭建好看的个人博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://seazhang.github.io/">麦田守望者</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/12badb7e6c10">Git 最著名报错 “ERROR: Permission to XXX.git denied to user”终极解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/chenyufeng1991/article/details/47007979">Xcode中Command Line Tools安装方法</a></li>
+<li><a target="_blank" rel="noopener" href="http://emblemmatic.org/markmaker/#/">个性化图标生成网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Sanonz/hexo-theme-concise/blob/master/README.md">HEXO主题配置网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000018662692">基于Gitee+Hexo搭建个人博客</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/110de5e8.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Hexo新建文章添加分类和标签</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/b7d22a6.html">
+        <span>生活，不只是遥望远方的一棵树</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/3afcd4a3.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%99%E5%89%8D%E7%9A%84%E4%B8%80%E4%BA%9B%E5%94%A0%E5%8F%A8"><span class="toc-number">1.</span> <span class="toc-text">建站前的一些唠叨</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E7%AB%99%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">建站准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85hexo"><span class="toc-number">3.1.</span> <span class="toc-text">安装hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0GitHub%E4%B8%8A"><span class="toc-number">4.</span> <span class="toc-text">部署到GitHub上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AArepository"><span class="toc-number">4.1.</span> <span class="toc-text">创建一个repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E5%88%B0GitHub%E8%BF%9C%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">发布网站到GitHub远程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-09-18-%E6%9B%B4%E6%96%B0"><span class="toc-number">4.3.</span> <span class="toc-text">2021-09-18 更新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BA%E7%8E%B0ERROR-Deployer-not-found-git%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">4.3.1.</span> <span class="toc-text">出现ERROR Deployer not found: git的问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">5.</span> <span class="toc-text">后记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E9%94%99%E7%9A%84%E4%B8%BB%E9%A2%98"><span class="toc-number">5.1.</span> <span class="toc-text">不错的主题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">6.</span> <span class="toc-text">参考文档</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            TypeScript使用小技巧 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/6526f49.html">TypeScript使用小技巧</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-09-10
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=TypeScript使用小技巧&url=http://blog.asroads.com/post/6526f49.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=TypeScript使用小技巧&url=http://blog.asroads.com/post/6526f49.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/6526f49.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/6526f49.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/6526f49.html&title=TypeScript使用小技巧" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=TypeScript使用小技巧&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/6526f49.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/6526f49.html&text=TypeScript使用小技巧" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>在学习过程中使用TypeScript还是遇到了很多巧妙的解决办法，下面整理一下近期遇到的很多问题，和最后使用的解决方案。有些技巧还是很实用的，节省了很多时间和精力。</p>
+<span id="more"></span>
+
+<h3 id="如何在window-下面新添加（声明）一个新属性"><a href="#如何在window-下面新添加（声明）一个新属性" class="headerlink" title="如何在window 下面新添加（声明）一个新属性"></a>如何在window 下面新添加（声明）一个新属性</h3><p>我们知道TypeScript是强类型的，随便声明一个变量在全局对象window下就好编辑器报错，尝试若干次失败后，在网上找到了解决方法：</p>
+<p>英文问题 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12709074/how-do-you-explicitly-set-a-new-property-on-window-in-typescript">How do you explicitly set a new property on <code>window</code> in TypeScript?</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="variable language_">global</span> &#123;</span><br><span class="line">    <span class="keyword">interface</span> <span class="title class_">Window</span> &#123; <span class="title class_">MyNamespace</span>: <span class="built_in">any</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">MyNamespace</span> = <span class="variable language_">window</span>.<span class="property">MyNamespace</span> || &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>或者:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="keyword">interface</span> <span class="title class_">Window</span> &#123;</span><br><span class="line">  <span class="title class_">MyNamespace</span>: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">MyNamespace</span> = <span class="variable language_">window</span>.<span class="property">MyNamespace</span> || &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="当我使用-JavaScript-文件时，为什么我会得到-error-TS5055-Cannot-write-file-‘xxx-js’-because-it-would-overwrite-input-file-错误？"><a href="#当我使用-JavaScript-文件时，为什么我会得到-error-TS5055-Cannot-write-file-‘xxx-js’-because-it-would-overwrite-input-file-错误？" class="headerlink" title="当我使用 JavaScript 文件时，为什么我会得到 error TS5055: Cannot write file ‘xxx.js’ because it would overwrite input file 错误？"></a>当我使用 JavaScript 文件时，为什么我会得到 error TS5055: Cannot write file ‘xxx.js’ because it would overwrite input file 错误？</h3><blockquote>
+<p>对于 TypeScript 文件来说，在默认情况下，编译器将在同一目录中生成与 JavaScript 相同文件名的文件。因为 TypeScript 文件与编译后的文件总是拥有不同的后缀，这么做是安全的。然而，如果你设置 <code>allowJs</code> 编译选项为 <code>true</code> 和没有设置任何的编译输出属性（<code>outFile</code> 和 <code>outDir</code>），编译器将会尝试使用相同的规则来编译文件，这将导致发出的 JavaScript 文件与源文件具有相同的文件名。为了避免意外覆盖源文件，编译器将会发出此警告，并跳过编写输出文件。</p>
+<p>有多种方法可以解决此问题，但所有这些方法都涉及配置编译器选项，因此建议你在项目根目录中的 tsconfig.json 文件来启用此功能。如果你不想编译 JavaScript 文件，你只需要将 <code>allowJs</code> 选项设置为 <code>false</code>；如果你确实想要包含和编译这些 JavaScript 文件，你应该设置 <code>outDir</code> 或者 <code>outFile</code> 选项，定向到其他位置，这样他们就不会与源文件冲突。如果你仅仅是想包含这些 JavaScript 文件，但是不需要编译，设置 <code>noEmit</code> 选项为 <code>true</code> 可以跳过编译检查。</p>
+</blockquote>
+<p>参考链接 <a target="_blank" rel="noopener" href="https://jkchao.github.io/typescript-book-chinese/faqs/tsconfig-behavior.html"><code>tsconfig.json</code> 的行为</a></p>
+<h3 id="如何监听一个对象所有属性的变化"><a href="#如何监听一个对象所有属性的变化" class="headerlink" title="如何监听一个对象所有属性的变化"></a>如何监听一个对象所有属性的变化</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handler = &#123;</span><br><span class="line">  <span class="title function_">get</span>(<span class="params">target, prop</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 还有比这更简洁的递归吗</span></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(target[prop], handler);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="keyword">return</span> target[prop]; <span class="comment">// 或者是Reflect.get</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="title function_">set</span>(<span class="params">target, prop, newVal</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> oldVal = target[prop];</span><br><span class="line">    <span class="keyword">if</span> (oldVal !== newVal) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">warn</span>(oldVal, newVal);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    target[prop] = newVal;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj = <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, handler);</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://juejin.im/post/5cc68feef265da036c57940a">https://juejin.im/post/5cc68feef265da036c57940a</a></p>
+<p>改造版本：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title class_">ProxyChangeHandler</span> = &#123;</span><br><span class="line">    <span class="attr">key</span>:<span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target, prop</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 还有比这更简洁的递归吗</span></span><br><span class="line">            <span class="keyword">let</span> proxyHandler = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;,<span class="title class_">ProxyChangeHandler</span>);</span><br><span class="line">            proxyHandler.<span class="property">key</span> = <span class="variable language_">this</span>.<span class="property">key</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(target[prop], proxyHandler);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="keyword">return</span> target[prop]; <span class="comment">// 或者是Reflect.get</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target, prop, newVal</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> oldVal = target[prop];</span><br><span class="line">        <span class="keyword">if</span> (oldVal !== newVal) &#123;</span><br><span class="line">            <span class="comment">// console.log(&quot;target&quot;, JSON.stringify(target));</span></span><br><span class="line">            <span class="comment">// console.log(&quot;prop&quot;, JSON.stringify(prop));</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;prop&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="variable language_">this</span>.<span class="property">key</span>));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">warn</span>(oldVal, newVal);</span><br><span class="line">            <span class="title class_">LocalStorage</span>.<span class="title function_">setItem</span>(<span class="variable language_">this</span>.<span class="property">key</span>,<span class="title class_">GameData</span>.<span class="property">i</span>[<span class="variable language_">this</span>.<span class="property">key</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        target[prop] = newVal;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line">  <span class="keyword">get</span> <span class="title function_">user</span>(): <span class="title class_">UserVO</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="variable language_">this</span>.<span class="property">_user</span>)&#123;</span><br><span class="line">            <span class="keyword">let</span> userProxyHandler = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;,<span class="title class_">ProxyChangeHandler</span>);</span><br><span class="line">            userProxyHandler.<span class="property">key</span> = <span class="title class_">GameStorageKeys</span>.<span class="property">USER</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_user</span> = <span class="keyword">new</span> <span class="title class_">Proxy</span>(<span class="keyword">new</span> <span class="title class_">UserVO</span>(),userProxyHandler);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_user</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">user</span>(<span class="params">value: UserVO</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_user</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_user</span>:<span class="title class_">UserVO</span> =  <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Number-MIN-VALUE小知识"><a href="#Number-MIN-VALUE小知识" class="headerlink" title="Number.MIN_VALUE小知识"></a>Number.MIN_VALUE小知识</h3><p>Number.MIN_VALUE 属性表示在 JavaScript 中所能表示的最小的正值。</p>
+<p>MIN_VALUE 属性是 JavaScript 里最接近 0 的正值，而不是最小的负值。</p>
+<p>MIN_VALUE 的值约为 5e-324。小于 MIN_VALUE (“underflow values”) 的值将会转换为 0。</p>
+<p>因为 MIN_VALUE 是 Number 的一个静态属性，因此应该直接使用： Number.MIN_VALUE， 而不是作为一个创建的 Number 实例的属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="property">MIN_VALUE</span> &gt; <span class="number">0</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="property">MIN_VALUE</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="number">5e-324</span></span><br></pre></td></tr></table></figure>
+
+<p>参考:<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/MIN_VALUE">Number.MIN_VALUE</a></p>
+<h3 id="Typescript-泛型-单例"><a href="#Typescript-泛型-单例" class="headerlink" title="Typescript(泛型)单例"></a>Typescript(泛型)单例</h3><p>我自己实现两种<br>A 方案:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">BaseSigleton</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">i</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="variable language_">this</span>.<span class="property">_i</span>)<span class="variable language_">this</span>.<span class="property">_i</span> = <span class="keyword">new</span> <span class="title function_">this</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_i</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> _i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>B 方案：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">BaseSigleton</span>&#123;</span><br><span class="line">    <span class="keyword">static</span> i&lt;T <span class="keyword">extends</span> &#123;&#125;&gt;(<span class="attr">this</span>: <span class="keyword">new</span> () =&gt; T): T &#123;</span><br><span class="line">        <span class="keyword">if</span>(!(&lt;<span class="built_in">any</span>&gt;<span class="variable language_">this</span>).<span class="property">_i</span>)&#123;</span><br><span class="line">            (&lt;<span class="built_in">any</span>&gt;<span class="variable language_">this</span>).<span class="property">_i</span> = <span class="keyword">new</span> <span class="title function_">this</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (&lt;<span class="built_in">any</span>&gt;<span class="variable language_">this</span>).<span class="property">_i</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> _i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继承</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">BaseSigleton</span> <span class="keyword">from</span> <span class="string">&quot;./BaseSigleton&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">TestChild</span> <span class="keyword">extends</span>  <span class="title class_ inherited__">BaseSigleton</span>&#123;</span><br><span class="line">    <span class="title function_">say</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;Hello&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用方法:<br>A 方案：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TestChild</span>.<span class="property">i</span>.<span class="title function_">say</span>()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TestChild</span>.<span class="title function_">i</span>().<span class="title function_">say</span>()</span><br></pre></td></tr></table></figure>
+
+<p>B方案：</p>
+<p>结果输出:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">----: <span class="string">&quot;Hello&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>个人感觉 更喜欢 A方案 无括号的版本 B方案应该是比较经典的 单例方法</p>
+<p>参考 <a target="_blank" rel="noopener" href="https://my.oschina.net/u/816723/blog/3009556">https://my.oschina.net/u/816723/blog/3009556</a></p>
+<h3 id="自定义一个简单的循环数组"><a href="#自定义一个简单的循环数组" class="headerlink" title="自定义一个简单的循环数组"></a>自定义一个简单的循环数组</h3><p>代码:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2020/9/3.3:15 下午</span></span><br><span class="line"><span class="comment"> * Note:循环数组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">LoopArray</span>&lt;T&gt; <span class="keyword">extends</span> <span class="title class_">Array</span> &#123;</span><br><span class="line">    <span class="comment">/*当前索引*/</span></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">loopIdx</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_loopIdx</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">loopIdx</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_loopIdx</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*当前索引*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_loopIdx</span>: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(...args);</span><br><span class="line">        <span class="comment">//参考地址：</span></span><br><span class="line">        <span class="comment">//https://www.jstips.co/zh_cn/javascript/make-easy-loop-on-array/</span></span><br><span class="line">        <span class="comment">//https://blog.csdn.net/generalfyx/article/details/103010799</span></span><br><span class="line">      	<span class="comment">//https://segmentfault.com/a/1190000010774159</span></span><br><span class="line">        <span class="title class_">Object</span>.<span class="title function_">setPrototypeOf</span>(<span class="variable language_">this</span>, <span class="title class_">LoopArray</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回当前的元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">current</span>(): T &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">loopIdx</span> &lt; <span class="number">0</span>) &#123;<span class="comment">// 第一次检查</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">loopIdx</span> = <span class="variable language_">this</span>.<span class="property">length</span> - <span class="number">1</span>;<span class="comment">// 更新 loopIdx</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">loopIdx</span> &gt;= <span class="variable language_">this</span>.<span class="property">length</span>) &#123;<span class="comment">// 第二次检查</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">loopIdx</span> = <span class="number">0</span>;<span class="comment">// 更新 loopIdx</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>[<span class="variable language_">this</span>.<span class="property">loopIdx</span>];<span class="comment">//返回元素</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 增加 loopIdx 然后返回新的当前元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">next</span>(): T &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">loopIdx</span>++;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">current</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 减少 loopIdx 然后返回新的当前元素</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">prev</span>(): T &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">loopIdx</span>--;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">current</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再自定义一个类:<code>TestAnimal.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2020/9/3.7:59 下午</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">TestAnimal</span>&#123;</span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">name</span>(): <span class="built_in">string</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_name</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">name</span>(<span class="params">value: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_name</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">age</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_age</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">age</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_age</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_name</span>:<span class="built_in">string</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_age</span>:<span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">loopArray</span>:<span class="title class_">LoopArray</span>&lt;<span class="title class_">TestAnimal</span>&gt; = <span class="keyword">new</span> <span class="title class_">LoopArray</span>&lt;<span class="title class_">TestAnimal</span>&gt;();</span><br><span class="line"><span class="keyword">let</span>  test1 = <span class="keyword">new</span> <span class="title class_">TestAnimal</span>();</span><br><span class="line">test1.<span class="property">name</span> = <span class="string">&quot;tom&quot;</span>;</span><br><span class="line">test1.<span class="property">age</span> = <span class="number">18</span>;</span><br><span class="line"><span class="keyword">let</span>  test2 = <span class="keyword">new</span> <span class="title class_">TestAnimal</span>();</span><br><span class="line">test2.<span class="property">name</span> = <span class="string">&quot;nike&quot;</span>;</span><br><span class="line">test2.<span class="property">age</span> = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span>  test3 = <span class="keyword">new</span> <span class="title class_">TestAnimal</span>();</span><br><span class="line">test3.<span class="property">name</span> = <span class="string">&quot;jack&quot;</span>;</span><br><span class="line">test3.<span class="property">age</span> = <span class="number">21</span>;</span><br><span class="line">loopArray.<span class="title function_">push</span>(test1, test2,test3);</span><br><span class="line"><span class="keyword">let</span> <span class="attr">a</span>:<span class="title class_">TestAnimal</span>;</span><br><span class="line">a = loopArray.<span class="title function_">current</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">next</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">next</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">next</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">next</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">next</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">pop</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">prev</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">prev</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">prev</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">prev</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br><span class="line">a =loopArray.<span class="title function_">prev</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(a));</span><br></pre></td></tr></table></figure>
+
+<p>输出:</p>
+<p><img src="/post/6526f49/image-20200903201111880.png" alt="image-20200903201111880"></p>
+<p>思考点:ES6中的Array原生类的继承在TS中无法实现了，子类定义的方法不见丢失</p>
+<p>参考:<a target="_blank" rel="noopener" href="https://blog.csdn.net/generalfyx/article/details/103010799">https://blog.csdn.net/generalfyx/article/details/103010799</a></p>
+<blockquote>
+<p>在项目中发现，ES6中的Array原生类的继承在TS中无法实现了，子类定义的方法不见丢失了，代码编译后其实发生了变化（在2.1.5之后），至于为什么会发生这种现象，</p>
+<p>miscrosoft给出的解释是</p>
+<blockquote>
+<p>In ES2015, constructors which return an object implicitly substitute the value of this for any callers of super(…). It is necessary for generated constructor code to capture any potential return value of super(…) and replace it with this.</p>
+<p>As a result, subclassing Error, Array, and others may no longer work as expected. This is due to the fact that constructor functions for Error, Array, and the like use ECMAScript 6’s new.target to adjust the prototype chain; however, there is no way to ensure a value for new.target when invoking a constructor in ECMAScript 5. Other downlevel compilers generally have the same limitation by default.</p>
+</blockquote>
+<p> 简而言之就是es6中，Error， Array和其他原生类的extends需要通过super调用来完成原型链的继承，而其中最关键的一步是通过调用构造函数的target来寻找原型链，而在es5中，没法确保构造函数的target，也就无法完整查找到当前的子类的构造函数的原型实例，从而只实现父类的继承，只会返回父类this，但是原型链确断裂了。关于new.target的了解，可以跳转<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new.target">MDN</a>的介绍。</p>
+<p>解决办法</p>
+<p>虽然TS无法为我们实现继承，但是我们可以自己为子类实现原型的继承，这样子类依然有我们子类的方法。原理呢还是利用es5的组合继承。</p>
+<p>在子类的构造函数中调用完父类后，再把原型链指回自身。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params">m: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(m);</span><br><span class="line">        <span class="comment">// Set the prototype explicitly.</span></span><br><span class="line">        <span class="title class_">Object</span>.<span class="title function_">setPrototypeOf</span>(<span class="variable language_">this</span>, <span class="title class_">FooError</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，在在子类上定义的方法就不会丢失，因为我们又把原型指回了子类。</p>
+</blockquote>
+<p>这样 就可以 不断的使用这个循环数组了</p>
+<h3 id="接口有必填选项-其他动态或者可选"><a href="#接口有必填选项-其他动态或者可选" class="headerlink" title="接口有必填选项 其他动态或者可选"></a>接口有必填选项 其他动态或者可选</h3><p>对于一个表示开发者的 Developer 接口来说，我们希望它的 name 属性是必填，而 age 属性是可选的，此外还支持动态地设置字符串类型的属性。针对这个需求我们可以这样做：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Developer</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  age?: <span class="built_in">number</span>;</span><br><span class="line">  [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">developer</span>: <span class="title class_">Developer</span> = &#123; <span class="attr">name</span>: <span class="string">&quot;semlinker&quot;</span> &#125;;</span><br><span class="line">developer.<span class="property">age</span> = <span class="number">30</span>;</span><br><span class="line">developer.<span class="property">city</span> = <span class="string">&quot;XiaMen&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其实除了使用 <strong>索引签名</strong> 之外，我们也可以使用 TypeScript 内置的工具类型 <code>Record</code> 来定义 Developer 接口：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// type Record&lt;K extends string | number | symbol, T&gt; = &#123; [P in K]: T; &#125;</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Developer</span> <span class="keyword">extends</span> <span class="title class_">Record</span>&lt;<span class="built_in">string</span>, <span class="built_in">any</span>&gt; &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">developer</span>: <span class="title class_">Developer</span> = &#123; <span class="attr">name</span>: <span class="string">&quot;semlinker&quot;</span> &#125;;</span><br><span class="line">developer.<span class="property">age</span> = <span class="number">30</span>;</span><br><span class="line">developer.<span class="property">city</span> = <span class="string">&quot;XiaMen&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>参考链接:<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000023858355">https://segmentfault.com/a/1190000023858355</a></p>
+<h3 id="对比版本号"><a href="#对比版本号" class="headerlink" title="对比版本号"></a>对比版本号</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 微信版本基础库对比</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> <span class="variable">v1</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> <span class="variable">v2</span></span></span><br><span class="line"><span class="comment">    * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125; 0:v1/v2相同  1:v1高于v2 -1:v1低于v2</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   public <span class="keyword">static</span> <span class="title function_">compareVersion</span>(<span class="params">v1, v2</span>) &#123;</span><br><span class="line">       v1 = v1.<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">       v2 = v2.<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">       <span class="keyword">const</span> len = <span class="title class_">Math</span>.<span class="title function_">max</span>(v1.<span class="property">length</span>, v2.<span class="property">length</span>);</span><br><span class="line"></span><br><span class="line">       <span class="keyword">while</span> (v1.<span class="property">length</span> &lt; len) &#123;</span><br><span class="line">           v1.<span class="title function_">push</span>(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">while</span> (v2.<span class="property">length</span> &lt; len) &#123;</span><br><span class="line">           v2.<span class="title function_">push</span>(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">           <span class="keyword">const</span> num1 = <span class="built_in">parseInt</span>(v1[i]);</span><br><span class="line">           <span class="keyword">const</span> num2 = <span class="built_in">parseInt</span>(v2[i]);</span><br><span class="line">           <span class="keyword">if</span> (num1 &gt; num2) &#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1 &lt; num2) &#123;</span><br><span class="line">               <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取文件后缀"><a href="#获取文件后缀" class="headerlink" title="获取文件后缀"></a>获取文件后缀</h3><p>比如 “1.02KB =&gt;KB”,”0KB=&gt;KB” 支持整数 浮点数</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getFileExtension</span>(<span class="attr">str</span>:<span class="built_in">string</span>):<span class="built_in">string</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str.<span class="title function_">replace</span>(<span class="regexp">/^[0-9]\d*\.?\d*|0\.\d*[1-9]\d*$/</span>,<span class="string">&quot;&quot;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取文件大小"><a href="#获取文件大小" class="headerlink" title="获取文件大小"></a>获取文件大小</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> size &#123;Number&#125; size 文件大小</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> pointLength &#123;Number&#125; [pointLength=2] 精确到的小数点数。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> units &#123;Array&#125; [units=[ &#x27;B&#x27;, &#x27;K&#x27;, &#x27;M&#x27;, &#x27;G&#x27;, &#x27;TB&#x27; ]] 单位数组。从字节，到千字节，一直往上指定。</span></span><br><span class="line"><span class="comment"> * 如果单位数组里面只指定了到了K(千字节)，同时文件大小大于M, 此方法的输出将还是显示成多少K.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">formatSize</span>(<span class="attr">size</span>: <span class="built_in">number</span>, <span class="attr">pointLength</span>: <span class="built_in">number</span>, units?: <span class="built_in">string</span>[]): <span class="built_in">string</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> unit;</span><br><span class="line">    units = units || [<span class="string">&quot;Bytes&quot;</span>, <span class="string">&quot;KB&quot;</span>, <span class="string">&quot;MB&quot;</span>, <span class="string">&quot;GB&quot;</span>, <span class="string">&quot;TB&quot;</span>, <span class="string">&quot;PB&quot;</span>, <span class="string">&quot;EB&quot;</span>, <span class="string">&quot;ZB&quot;</span>, <span class="string">&quot;YB&quot;</span>];</span><br><span class="line">    <span class="keyword">while</span> ((unit = units.<span class="title function_">shift</span>()||unit) &amp;&amp; size &gt; <span class="number">1024</span>) &#123;</span><br><span class="line">        size = size / <span class="number">1024</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (unit === <span class="string">&#x27;Bytes&#x27;</span> ? size : size.<span class="title function_">toFixed</span>(pointLength === <span class="literal">undefined</span> ? <span class="number">2</span> : pointLength)) + unit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考地址:<a target="_blank" rel="noopener" href="https://www.hangge.com/blog/cache/detail_2283.html">JS - 文件大小的格式化显示 （B、K、M、G、TB）</a></p>
+<h3 id="Element-implicitly-has-an-‘any’-type-…"><a href="#Element-implicitly-has-an-‘any’-type-…" class="headerlink" title="Element implicitly has an ‘any’ type …"></a>Element implicitly has an ‘any’ type …</h3><p>错误：Element implicitly has an ‘any’ type because expression of type </p>
+<p>需要在class类里加上一句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[key: string]: any;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以动态获取了。</p>
+<h3 id="忽略内容或者整个文件"><a href="#忽略内容或者整个文件" class="headerlink" title="忽略内容或者整个文件"></a>忽略内容或者整个文件</h3><p><strong>typescript忽略文件或者内容</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">单行忽略</span><br><span class="line"><span class="comment">// @ts-ignore</span></span><br><span class="line"></span><br><span class="line">忽略全文</span><br><span class="line"><span class="comment">// @ts-nocheck</span></span><br><span class="line"></span><br><span class="line">取消忽略全文</span><br><span class="line"><span class="comment">// @ts-check</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>eslint忽略+typescript忽略</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable */</span></span><br><span class="line"><span class="keyword">const</span> watermark = <span class="built_in">require</span>(<span class="string">&quot;watermark-dom&quot;</span>); <span class="comment">// @ts-ignore</span></span><br><span class="line"><span class="comment">/* eslint-enable */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_38069630/article/details/108194188">TS语法忽略、eslint忽略</a></p>
+<h3 id="Object-values-提示不能使用"><a href="#Object-values-提示不能使用" class="headerlink" title="Object.values 提示不能使用"></a>Object.values 提示不能使用</h3><p><img src="/post/6526f49/image-20210825151158103.png" alt="image-20210825151158103"></p>
+<p>修改 tsconfig.json的compilerOptions 选项</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;es2017&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dom&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>更新细节参考：<a target="_blank" rel="noopener" href="https://www.tslang.cn/docs/handbook/compiler-options.html">编译选项</a></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/a99e4075.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Mac电脑如何查看已连接的WiFi密码</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/2376105a.html">
+        <span>Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild 解决方法</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/6526f49.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8window-%E4%B8%8B%E9%9D%A2%E6%96%B0%E6%B7%BB%E5%8A%A0%EF%BC%88%E5%A3%B0%E6%98%8E%EF%BC%89%E4%B8%80%E4%B8%AA%E6%96%B0%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">如何在window 下面新添加（声明）一个新属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E6%88%91%E4%BD%BF%E7%94%A8-JavaScript-%E6%96%87%E4%BB%B6%E6%97%B6%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%9A%E5%BE%97%E5%88%B0-error-TS5055-Cannot-write-file-%E2%80%98xxx-js%E2%80%99-because-it-would-overwrite-input-file-%E9%94%99%E8%AF%AF%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">当我使用 JavaScript 文件时，为什么我会得到 error TS5055: Cannot write file ‘xxx.js’ because it would overwrite input file 错误？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%9B%91%E5%90%AC%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%89%80%E6%9C%89%E5%B1%9E%E6%80%A7%E7%9A%84%E5%8F%98%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">如何监听一个对象所有属性的变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-MIN-VALUE%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="toc-number">4.</span> <span class="toc-text">Number.MIN_VALUE小知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript-%E6%B3%9B%E5%9E%8B-%E5%8D%95%E4%BE%8B"><span class="toc-number">5.</span> <span class="toc-text">Typescript(泛型)单例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84"><span class="toc-number">6.</span> <span class="toc-text">自定义一个简单的循环数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%9C%89%E5%BF%85%E5%A1%AB%E9%80%89%E9%A1%B9-%E5%85%B6%E4%BB%96%E5%8A%A8%E6%80%81%E6%88%96%E8%80%85%E5%8F%AF%E9%80%89"><span class="toc-number">7.</span> <span class="toc-text">接口有必填选项 其他动态或者可选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="toc-number">8.</span> <span class="toc-text">对比版本号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E5%90%8E%E7%BC%80"><span class="toc-number">9.</span> <span class="toc-text">获取文件后缀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-number">10.</span> <span class="toc-text">获取文件大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Element-implicitly-has-an-%E2%80%98any%E2%80%99-type-%E2%80%A6"><span class="toc-number">11.</span> <span class="toc-text">Element implicitly has an ‘any’ type …</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E5%86%85%E5%AE%B9%E6%88%96%E8%80%85%E6%95%B4%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-number">12.</span> <span class="toc-text">忽略内容或者整个文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-values-%E6%8F%90%E7%A4%BA%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8"><span class="toc-number">13.</span> <span class="toc-text">Object.values 提示不能使用</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

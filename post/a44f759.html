@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Python3把Excel文件转成json并合并成一个文件 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/a44f759.html">Python3把Excel文件转成json并合并成一个文件</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-08-17
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Python3把Excel文件转成json并合并成一个文件&url=http://blog.asroads.com/post/a44f759.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Python3把Excel文件转成json并合并成一个文件&url=http://blog.asroads.com/post/a44f759.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/a44f759.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/a44f759.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/a44f759.html&title=Python3把Excel文件转成json并合并成一个文件" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Python3把Excel文件转成json并合并成一个文件&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/a44f759.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/a44f759.html&text=Python3把Excel文件转成json并合并成一个文件" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏用到多语言配置，一般来说,流行的都是<code>json</code>格式，走配置表，平时团队维护一个表显然容易冲突，不同的模块，最终放到一起即可，这样处理起来省事，这样以来，就有了这篇文章。下面说说详细操作：</p>
+<span id="more"></span>
+<p>首先游戏主要分为两大步骤，1.处理<code>Excel</code>文件 2. 处理<code>json</code></p>
+<h2 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line">__author__ = <span class="string">&#x27;jsroads&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> importlib, sys</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"></span><br><span class="line">importlib.reload(sys)</span><br><span class="line">ext_name = [<span class="string">&#x27;xls&#x27;</span>, <span class="string">&#x27;xlsx&#x27;</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取excel数据</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">open_excel</span>(<span class="params">path</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        data = xlrd.open_workbook(path)</span><br><span class="line">        <span class="keyword">return</span> data</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">str</span>(e))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典数据转成json</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">revert_to_json</span>(<span class="params">data_list, source_path, csPath</span>):</span><br><span class="line">    encode_json = json.dumps(data_list, ensure_ascii=<span class="literal">False</span>, sort_keys=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(csPath):</span><br><span class="line">        os.makedirs(csPath)</span><br><span class="line">    jsonPath = os.path.join(csPath, source_path)</span><br><span class="line">    <span class="keyword">with</span> codecs.<span class="built_in">open</span>(jsonPath, <span class="string">&#x27;wb&#x27;</span>, <span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(encode_json)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_type_row</span>(<span class="params">fieldNames, fieldTypes, row</span>):</span><br><span class="line">    data = <span class="built_in">dict</span>()</span><br><span class="line">    data[<span class="string">&quot;status&quot;</span>] = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(fieldNames)):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            key = fieldNames[i]</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(fieldTypes) &lt; i:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> key:</span><br><span class="line">                filetype = fieldTypes[i]</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">type</span>(row[key]) == <span class="built_in">float</span>:</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">int</span>(row[key]) == row[key]:</span><br><span class="line">                        row[key] = <span class="built_in">int</span>(row[key])</span><br><span class="line">                <span class="keyword">if</span> filetype == <span class="string">&quot;int&quot;</span>:</span><br><span class="line">                    <span class="keyword">if</span> row[key] == <span class="string">&quot;&quot;</span>:</span><br><span class="line">                        row[key] = <span class="number">0</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        row[key] = <span class="built_in">int</span>(row[key])</span><br><span class="line">                <span class="keyword">elif</span> filetype == <span class="string">&quot;float&quot;</span>:</span><br><span class="line">                    <span class="keyword">if</span> row[key] == <span class="string">&quot;&quot;</span>:</span><br><span class="line">                        row[key] = <span class="number">0.0</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        row[key] = <span class="built_in">float</span>(row[key])</span><br><span class="line">                <span class="keyword">elif</span> filetype == <span class="string">&quot;string&quot;</span>:</span><br><span class="line">                    <span class="keyword">if</span> row[key]:</span><br><span class="line">                        row[key] = <span class="built_in">str</span>(row[key])</span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        row[key] = <span class="string">&quot;&quot;</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    row[key] = <span class="built_in">str</span>(row[key])</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            data[<span class="string">&quot;status&quot;</span>] = <span class="literal">False</span></span><br><span class="line">            data[<span class="string">&quot;errmsg&quot;</span>] = fieldNames[i]</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge_JsonFiles</span>(<span class="params">filename, outfileName</span>):</span><br><span class="line">    result = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> f1 <span class="keyword">in</span> filename:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(f1, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> infile:</span><br><span class="line">            dJson = json.load(infile)</span><br><span class="line">            <span class="keyword">for</span> key <span class="keyword">in</span> dJson:</span><br><span class="line">                result[key] = dJson[key]</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(outfileName):</span><br><span class="line">        <span class="built_in">print</span>(os.path.dirname(outfileName), <span class="string">&quot;路径已经存在&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">dir</span> = os.path.dirname(outfileName)</span><br><span class="line">        os.mkdir(<span class="built_in">dir</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">dir</span>)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(outfileName, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> output_file:</span><br><span class="line">        json.dump(result, output_file, ensure_ascii=<span class="literal">False</span>, sort_keys=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_excel_table</span>(<span class="params">path, key=<span class="literal">None</span>, by_index=<span class="number">0</span>, cs=[]</span>):</span><br><span class="line">    data = open_excel(path)</span><br><span class="line">    table = data.sheets()[by_index]</span><br><span class="line">    nrows = table.nrows</span><br><span class="line">    param_type_cs = table.row_values(<span class="number">1</span>)</span><br><span class="line">    param_name_cs = table.row_values(<span class="number">2</span>)</span><br><span class="line">    data_dict = &#123;<span class="string">&quot;data&quot;</span>: &#123;&#125;, <span class="string">&quot;status&quot;</span>: <span class="literal">True</span>&#125;</span><br><span class="line">    param_name_c = []</span><br><span class="line">    param_type_c = []</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(param_name_cs)):</span><br><span class="line">        <span class="keyword">if</span> param_name_cs[n] <span class="keyword">and</span> param_type_cs[n]:</span><br><span class="line">            param_name_c.append(param_name_cs[n])</span><br><span class="line">            param_type_c.append(param_type_cs[n])</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> key:</span><br><span class="line">        <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> param_name_cs:</span><br><span class="line">            data_dict[<span class="string">&quot;status&quot;</span>] = <span class="literal">False</span></span><br><span class="line">            data_dict[<span class="string">&quot;errmsg&quot;</span>] = k</span><br><span class="line">            <span class="keyword">return</span> data_dict</span><br><span class="line">    <span class="keyword">for</span> rownum <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, nrows):</span><br><span class="line">        row_data = table.row_values(rownum)</span><br><span class="line">        c_temp_dict = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(param_name_cs)):</span><br><span class="line">            <span class="keyword">if</span> param_name_cs[p]:</span><br><span class="line">                c_temp_dict[param_name_cs[p]] = row_data[p]</span><br><span class="line">        tag_data = process_type_row(param_name_c, param_type_c, c_temp_dict)</span><br><span class="line">        data_dict[<span class="string">&quot;status&quot;</span>] = tag_data[<span class="string">&quot;status&quot;</span>]</span><br><span class="line">        <span class="keyword">if</span> tag_data[<span class="string">&quot;status&quot;</span>]:</span><br><span class="line">            data_dict[<span class="string">&quot;data&quot;</span>][<span class="built_in">str</span>(c_temp_dict[key[<span class="number">0</span>]])] = c_temp_dict[<span class="string">&quot;text&quot;</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            data_dict[<span class="string">&quot;errmsg&quot;</span>] = tag_data[<span class="string">&quot;errmsg&quot;</span>]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> data_dict</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    key_str = <span class="string">&quot;id&quot;</span></span><br><span class="line">    file_path, file_name = <span class="string">&quot;&quot;</span>, <span class="string">&quot;&quot;</span></span><br><span class="line">    json_path = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 读取 配置 json</span></span><br><span class="line">    cwd = os.getcwd()</span><br><span class="line">    configPath = os.path.join(cwd, <span class="string">&quot;copyConfig.json&quot;</span>)</span><br><span class="line">    f = <span class="built_in">open</span>(configPath, encoding=<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment"># 打开‘copyConfig.json’的json文件</span></span><br><span class="line">    res = f.read()  <span class="comment"># 读文件</span></span><br><span class="line">    specList = json.loads(res)[<span class="string">&quot;specList&quot;</span>]</span><br><span class="line">    outfileName = json.loads(res)[<span class="string">&quot;outfileName&quot;</span>]</span><br><span class="line">    targetOurDir = json.loads(res)[<span class="string">&quot;targetOurDir&quot;</span>]</span><br><span class="line">    outPutJsonList = []</span><br><span class="line">    <span class="keyword">for</span> source <span class="keyword">in</span> specList:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            file_path, file_name = os.path.split(source)</span><br><span class="line">            file_name = file_name.split(<span class="string">&quot;(&quot;</span>)[<span class="number">0</span>]</span><br><span class="line">            json_path = os.path.join(file_path, file_name.split(<span class="string">&quot;.&quot;</span>)[<span class="number">0</span>] + <span class="string">&quot;.json&quot;</span>)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;excel path is error&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> key_str.find(<span class="string">&quot;,&quot;</span>) &gt;= <span class="number">0</span>:</span><br><span class="line">            key_str_list = key_str.split(<span class="string">&quot;,&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            key_str_list = [key_str]</span><br><span class="line">        data_c = process_excel_table(source, key_str_list, <span class="number">0</span>, [<span class="string">&quot;cs&quot;</span>, <span class="string">&quot;sc&quot;</span>, <span class="string">&quot;c&quot;</span>])</span><br><span class="line">        <span class="keyword">if</span> data_c[<span class="string">&quot;status&quot;</span>]:</span><br><span class="line">            jsondir = os.path.basename(json_path)</span><br><span class="line">            outPutJsonList.append(os.path.join(cwd, <span class="string">&quot;spec&quot;</span>, jsondir))</span><br><span class="line">            revert_to_json(data_c[<span class="string">&quot;data&quot;</span>], jsondir, <span class="string">&quot;spec&quot;</span>)</span><br><span class="line">    merge_JsonFiles(outPutJsonList, outfileName)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;转换成功！！&quot;</span>)</span><br><span class="line">    fileName = os.path.basename(outfileName)</span><br><span class="line">    targetOutPath = os.path.join(targetOurDir, fileName)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(targetOurDir):</span><br><span class="line">        os.mkdir(targetOurDir)</span><br><span class="line">    shutil.copyfile(outfileName, targetOutPath)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;拷贝成功！！&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><h4 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h4><p><img src="/post/a44f759/image-20210817133835950.png" alt="image-20210817133835950"></p>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;specList&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;data/test1(文字表.xlsx&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;data/test2(UI界面.xlsx&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;outfileName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;output/result.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;targetOurDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/smile/work/temp&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(venv) smile@bogon langueJson % python3 main.py</span><br><span class="line">output</span><br><span class="line">转换成功！！</span><br><span class="line">拷贝成功！！</span><br><span class="line">(venv) smile@bogon langueJson % </span><br></pre></td></tr></table></figure>
+
+<h4 id="生成json-目录"><a href="#生成json-目录" class="headerlink" title="生成json 目录"></a>生成json 目录</h4><p><img src="/post/a44f759/image-20210817134019332.png" alt="image-20210817134019332"></p>
+<h4 id="合并后json"><a href="#合并后json" class="headerlink" title="合并后json"></a>合并后json</h4><p><img src="/post/a44f759/image-20210817134123294.png" alt="image-20210817134123294"></p>
+<h3 id="Excel数据"><a href="#Excel数据" class="headerlink" title="Excel数据"></a>Excel数据</h3><p>Test1数据内容</p>
+<p><img src="/post/a44f759/image-20210817133728338.png" alt="image-20210817133728338"></p>
+<p>Test1数据内容</p>
+<p><img src="/post/a44f759/image-20210817133743069.png" alt="image-20210817133743069"></p>
+<h3 id="Json数据"><a href="#Json数据" class="headerlink" title="Json数据"></a>Json数据</h3><p><code>test1.json</code> 数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;hero.description.test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试武将描述1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hero.name.test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试武将名称1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hero.nickname.test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试武将称号1&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>test2.json</code> 数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;common.main.item.diamond&quot;</span><span class="punctuation">:</span> <span class="string">&quot;蓝钻&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;common.main.item.gold&quot;</span><span class="punctuation">:</span> <span class="string">&quot;金币&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;common.main.item.score&quot;</span><span class="punctuation">:</span> <span class="string">&quot;银币&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>合并后 最终数据 <code>output/result.json</code>数据</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;common.main.item.diamond&quot;</span><span class="punctuation">:</span> <span class="string">&quot;蓝钻&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;common.main.item.gold&quot;</span><span class="punctuation">:</span> <span class="string">&quot;金币&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;common.main.item.score&quot;</span><span class="punctuation">:</span> <span class="string">&quot;银币&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hero.description.test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试武将描述1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hero.name.test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试武将名称1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;hero.nickname.test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;测试武将称号1&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
+
+<p>最后 项目地址 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mytooldemos/tree/git/langueJson">点击进入</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来讲没有什么难点，主要是几个知识点的拼凑，由于作为辅助脚本来用，代码质量在此就不优化了。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zd147896325/article/details/79870131">用python实现将文件拷贝到指定目录</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.opsask.com/post/11490/wenjian-python-json-zhongjiang-hebing.html">如何在python中将多个json文件合并为一个文件</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/2f1c8930.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator 3.x 使用第三方库axios.js</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/cc49438c.html">
+        <span>JavaScript 实用工具库Lodash和underscore</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/a44f759.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E9%83%A8%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">全部代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">功能介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">目录结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="toc-number">3.0.1.</span> <span class="toc-text">文件目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">3.0.2.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90json-%E7%9B%AE%E5%BD%95"><span class="toc-number">3.0.3.</span> <span class="toc-text">生成json 目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E5%90%8Ejson"><span class="toc-number">3.0.4.</span> <span class="toc-text">合并后json</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Excel%E6%95%B0%E6%8D%AE"><span class="toc-number">3.1.</span> <span class="toc-text">Excel数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Json%E6%95%B0%E6%8D%AE"><span class="toc-number">3.2.</span> <span class="toc-text">Json数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.1.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

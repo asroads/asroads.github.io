@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.13接入Jest测试 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/bd90a3.html">CocosCreator2.4.13接入Jest测试</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-08-16
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.13接入Jest测试&url=http://blog.asroads.com/post/bd90a3.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.13接入Jest测试&url=http://blog.asroads.com/post/bd90a3.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/bd90a3.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/bd90a3.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/bd90a3.html&title=CocosCreator2.4.13接入Jest测试" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.13接入Jest测试&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/bd90a3.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/bd90a3.html&text=CocosCreator2.4.13接入Jest测试" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/nodejs/ >nodejs</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p><a target="_blank" rel="noopener" href="https://www.jestjs.cn/">Jest</a> 是一个令人愉快的 JavaScript 测试框架，旨在确保任何 JavaScript 代码的正确性。它为你提供了。它为你提供了 易于理解、熟悉且功能丰富的 API 来编写测试用例专注于 简洁明快。这些项目都在使用 Jest：<a target="_blank" rel="noopener" href="https://babeljs.io/">Babel</a>、 <a target="_blank" rel="noopener" href="https://www.typescriptlang.org/">TypeScript</a>、 <a target="_blank" rel="noopener" href="https://nodejs.org/">Node</a>、 <a target="_blank" rel="noopener" href="https://reactjs.org/">React</a>、 <a target="_blank" rel="noopener" href="https://angular.io/">Angular</a>、 <a target="_blank" rel="noopener" href="https://vuejs.org/">Vue</a> 等等。下面介绍一下Cocos Creator如何<strong>引入Jest</strong>，以及如何<strong>兼容Cocos</strong>做测试。</p>
+<span id="more"></span>
+<p>本文项目环境：Cocos Creator 2.4.13 + TS。使用Mac环境 Webstorm编辑器</p>
+<p><img src="/post/bd90a3/feature-fast.png" alt="img"></p>
+<p>中文官网地址：<a target="_blank" rel="noopener" href="https://www.jestjs.cn/">https://www.jestjs.cn/</a></p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Cocos Creator2.4.13</li>
+<li>Mac</li>
+<li>Node.js 16.20</li>
+</ul>
+<h2 id="新建测试项目"><a href="#新建测试项目" class="headerlink" title="新建测试项目"></a>新建测试项目</h2><h4 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h4><p><img src="/post/bd90a3/image-20240816112038182.png" alt="image-20240816112038182"></p>
+<h2 id="Jest接入流程"><a href="#Jest接入流程" class="headerlink" title="Jest接入流程"></a>Jest接入流程</h2><h3 id="初始化nodejs项目"><a href="#初始化nodejs项目" class="headerlink" title="初始化nodejs项目"></a>初始化nodejs项目</h3><ol>
+<li><strong>Jest基于nodejs</strong>，所以第一步是将我们的项目初始化成<code>nodejs</code>项目。在项目根目录下，命令行运行指令 <code>npm init</code> 即可。</li>
+</ol>
+<p><img src="/post/bd90a3/image-20240816112325859.png" alt="image-20240816112325859"></p>
+<h3 id="安装Jest"><a href="#安装Jest" class="headerlink" title="安装Jest"></a>安装Jest</h3><ol start="2">
+<li>运行命令行指令：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev jest</span><br><span class="line">npm install --save-dev @types/jest</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/bd90a3/image-20240816112507104.png" alt="image-20240816112507104"></p>
+<p>备注：其中第一行为<code>Jest</code>本体，第二行是在我们写单元测试时，提供代码提示的声明文件（<code>.d.ts</code>文件）工具。</p>
+<ol start="3">
+<li>如果是ts工程，继续安装 <code>ts-jest</code> 我们是<code>Typescript</code>项目</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev ts-jest</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/bd90a3/image-20240816120021231.png" alt="image-20240816120021231"></p>
+<ol start="4">
+<li>修改nodejs默认的测试指令。// package.json文件</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jest&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>测试效果：改完测试一下是否配置成功，运行命令行 <code>npm test</code></li>
+</ol>
+<p><img src="/post/bd90a3/image-20240816112925581.png" alt="image-20240816112925581"></p>
+<p>得到提示“ <strong>No tests found, exiting with code 1</strong> ”，即为安装成功。</p>
+<ol start="6">
+<li>上面命令运行后Jest提示，没有找到测试用例，这就来写一个简单的例子！</li>
+</ol>
+<ul>
+<li>先在我们的项目下写一个工具函数 比如 Utils.ts</li>
+<li>在根目录和assets 目录平级 这里起名字叫test</li>
+<li>然后在 test目录下新建一个js文件叫做 Utils.test.ts</li>
+</ul>
+<p><img src="/post/bd90a3/image-20240816120200883.png" alt="image-20240816120200883"></p>
+<ol start="7">
+<li>编写我们的<code>Utils.ts</code>文件内容</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2024/8/16 11:35</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ArrayTool</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">fastRemoveArrayItemAt</span>(<span class="params">array, index</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (array) &#123;</span><br><span class="line">            <span class="keyword">let</span> length = array.<span class="property">length</span>;</span><br><span class="line">            <span class="keyword">if</span> (index &lt; <span class="number">0</span> || index &gt;= length) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            array[index] = array[length - <span class="number">1</span>];</span><br><span class="line">            array.<span class="property">length</span> = length - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 分割字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> str   将会被分割的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charCount 每 `charCount` 个会被分割</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> divChar 分割字符。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">division</span>(<span class="params">str: <span class="built_in">string</span>, charCount: <span class="built_in">number</span>, divChar: <span class="built_in">string</span> = <span class="string">&#x27;,&#x27;</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="attr">chars</span>: <span class="built_in">string</span>[] = [];</span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = str.<span class="property">length</span> - <span class="number">1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">        chars.<span class="title function_">push</span>(str[i]);</span><br><span class="line"></span><br><span class="line">        count++;</span><br><span class="line">        <span class="keyword">if</span> (count % charCount == <span class="number">0</span> &amp;&amp; i !== <span class="number">0</span>) &#123;</span><br><span class="line">            chars.<span class="title function_">push</span>(divChar);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result = chars.<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使数字可读。如：1004213 -&gt; &#x27;1,004,213&#x27;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> <span class="variable">number</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> divChar 分割字条符</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">readableNum</span>(<span class="params"><span class="built_in">number</span>: <span class="built_in">number</span>, divChar = <span class="string">&#x27;,&#x27;</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title class_">String</span>(<span class="built_in">number</span>).<span class="property">length</span> &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">String</span>(<span class="built_in">number</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">number</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;-&#x27;</span> + <span class="title function_">division</span>(<span class="title class_">String</span>(-<span class="number">1</span> * <span class="built_in">number</span>), <span class="number">3</span>, divChar);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">division</span>(<span class="title class_">String</span>(<span class="built_in">number</span>), <span class="number">3</span>, divChar);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>新建一个<code>jest.config.js</code>文件  一些jest的配置，让它去哪个目录找测试文件。在根目录下新建：<code>./jest.config.js</code>文件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">preset</span>: <span class="string">&quot;ts-jest&quot;</span>,         <span class="comment">// 如果是 js 工程，则是 &quot;jest&quot;</span></span><br><span class="line">    <span class="attr">collectCoverageFrom</span>: [<span class="string">&#x27;&lt;rootDir&gt;/assets/**/*.ts&#x27;</span>],</span><br><span class="line">    <span class="attr">testEnvironment</span>: <span class="string">&#x27;node&#x27;</span>,   <span class="comment">// 测试代码所运行的环境</span></span><br><span class="line">    <span class="comment">// verbose: true,          // 是否需要在测试时输出详细的测试情况</span></span><br><span class="line">    <span class="attr">rootDir</span>: <span class="string">&quot;./test&quot;</span>,         <span class="comment">// 测试文件所在的目录</span></span><br><span class="line">    <span class="attr">globals</span>: &#123;                 <span class="comment">// 全局属性。如果你的被测试的代码中有使用、定义全局变量，那你应该在这里定义全局属性</span></span><br><span class="line">        <span class="attr">window</span>: &#123;&#125;,</span><br><span class="line">        <span class="attr">cc</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>编写我们的测试文件 <code>Utils.ts</code></li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ArrayTool</span>, readableNum &#125; <span class="keyword">from</span> <span class="string">&quot;../assets/script/utils/Utils&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&#x27;readableNum&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(<span class="number">1000</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;1,000&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(<span class="number">10000</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;10,000&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(<span class="number">416506250</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;416,506,250&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(<span class="number">416506250</span>, <span class="string">&#x27;.&#x27;</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;416.506.250&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(<span class="number">416506250</span>, <span class="string">&#x27;&#x27;</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;416506250&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(-<span class="number">600</span> * <span class="number">1000</span>, <span class="string">&#x27;.&#x27;</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;-600.000&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(-<span class="number">600</span> * <span class="number">1000</span> * <span class="number">1000</span>, <span class="string">&#x27;.&#x27;</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;-600.000.000&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(-<span class="number">121892262728</span>, <span class="string">&#x27;.&#x27;</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;-121.892.262.728&#x27;</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title function_">readableNum</span>(<span class="number">0</span>)).<span class="title function_">toBe</span>(<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="string">&quot;测试数组移除&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title class_">ArrayTool</span>.<span class="title function_">fastRemoveArrayItemAt</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="number">0</span>)).<span class="title function_">toBe</span>(<span class="literal">true</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title class_">ArrayTool</span>.<span class="title function_">fastRemoveArrayItemAt</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="number">4</span>)).<span class="title function_">toBe</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="title function_">expect</span>(<span class="title class_">ArrayTool</span>.<span class="title function_">fastRemoveArrayItemAt</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], -<span class="number">1</span>)).<span class="title function_">toBe</span>(<span class="literal">false</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p> 基于 <code>jest</code> 文档说明，上面测试简单说明一下：</p>
+<ul>
+<li><p><code>test</code> 方法开启一个单元测试</p>
+<ul>
+<li><p>第 1 个参数是名字</p>
+</li>
+<li><p>第 2 个参数是测试的内容。</p>
+</li>
+</ul>
+</li>
+<li><p><code>expect</code> 方法参数中传入被测试的内容</p>
+</li>
+<li><p><code>toBe</code> 是期望的结果。这里只是简单做的示范</p>
+</li>
+</ul>
+<p><code>jest</code> 远比这里展示的丰富。</p>
+<h2 id="测试Jest"><a href="#测试Jest" class="headerlink" title="测试Jest"></a>测试Jest</h2><p>我们在根目录下运行  <code>npm test</code></p>
+<p><img src="/post/bd90a3/image-20240816121138508.png" alt="image-20240816121138508"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/139862">Jest单元测试框架接入及兼容Cocos方案实现</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cocoscreator/95482">CocosCreator 中单元测试入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://slides.com/mangogan/jestxccc/fullscreen">https://slides.com/mangogan/jestxccc/fullscreen</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mangogan-git/jest_totuiral">https://github.com/mangogan-git/jest_totuiral</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/f5eb8e99.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>ironsource海外试玩广告踩坑指南</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/286c50d7.html">
+        <span>如何同时安装多个版本的Python3</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/bd90a3.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">新建测试项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.0.1.</span> <span class="toc-text">新建项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jest%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">Jest接入流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96nodejs%E9%A1%B9%E7%9B%AE"><span class="toc-number">3.1.</span> <span class="toc-text">初始化nodejs项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Jest"><span class="toc-number">3.2.</span> <span class="toc-text">安装Jest</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95Jest"><span class="toc-number">4.</span> <span class="toc-text">测试Jest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

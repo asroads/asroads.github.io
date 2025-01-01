@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator 2.3.3升级说明 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/e75157ff.html">Cocos Creator 2.3.3升级说明</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-04-27
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator 2.3.3升级说明&url=http://blog.asroads.com/post/e75157ff.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator 2.3.3升级说明&url=http://blog.asroads.com/post/e75157ff.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/e75157ff.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/e75157ff.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/e75157ff.html&title=Cocos Creator 2.3.3升级说明" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator 2.3.3升级说明&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/e75157ff.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/e75157ff.html&text=Cocos Creator 2.3.3升级说明" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>春节后，Cocos 团队发力，发布了Cocos Creator 新版本，看了一下更新日志，发现这次修复了很多问题，改善和提升了效率，特别是对于原生平台改善了不少，恰逢项目要出安卓包，正好凑个机会升级一下引擎。下面就是这次升级的步骤和遇到的问题，以及解决办法。</p>
+<span id="more"></span>
+<p>官方给出了一长串 修复和改进策略 我们重点查看 和 2d 相关的部分：</p>
+<blockquote>
+<h6 id="提升网页预览时的加载速度"><a href="#提升网页预览时的加载速度" class="headerlink" title="提升网页预览时的加载速度"></a><strong>提升网页预览时的加载速度</strong></h6><p>为了进一步提升开发效率，我们优化了网页预览时的脚本加载速度。不论是对引擎还是项目中的代码，载入速度都获得了提升。特别是在开启自定义引擎，或者使用手机扫码预览时，开发者都能得到更顺畅的体验。</p>
+<h6 id="新增-Cocos-小秘书服务"><a href="#新增-Cocos-小秘书服务" class="headerlink" title="新增 Cocos 小秘书服务"></a>新增 Cocos 小秘书服务</h6><p>小秘书是由 Cocos 官方面向开发者推出的在线即时付费技术支持服务， 您可以采用 IM 即时沟通的方式，在 Cocos Creator 中直接连线引擎官方技术支持团队。小秘书服务旨在快速解答您在开发过中遇到的各种技术和商务问题，具有以下特点：官方专业团队、高效和私密性。<a target="_blank" rel="noopener" href="https://www.cocos.com/7373">服务申请入口&gt;</a></p>
+<p>………(省略 查看详细 去 官方文档)</p>
+<ul>
+<li>[Tween] Tween 增加 stopAll、stopAllByTag、stopAllByTarget 等接口，方便对播放进行控制 <a target="_blank" rel="noopener" href="https://github.com/cocos-creator/engine/pull/6338">#6338</a></li>
+<li>[Tween] 增加 bezierTo、bezierBy、flipX、flipY、blink 接口 <a target="_blank" rel="noopener" href="https://github.com/cocos-creator/engine/pull/6327">#6327</a></li>
+<li>[Tween] 优化 Tween.to、Tween.by 的 API 代码智能提示，可以智能展示 target 属性</li>
+<li>[3D] 增加 Node.forward、Node.right、Node.up API 用于获取节点在世界坐标系中的各个方向 <a target="_blank" rel="noopener" href="https://github.com/cocos-creator/engine/pull/6287">#6287</a></li>
+</ul>
+<p>………(省略 查看详细 去 官方文档)</p>
+<p>从 2.3.0 开始，定制安卓原生工程时，需注意 <strong>Android</strong> 与 <strong>Android Instant</strong> 使用了同一个构建模板。</p>
+<ul>
+<li>如果是 Android 平台单独使用的代码请放入 app/src 目录,  单独使用的第三方库请放入 app/libs 目录。</li>
+<li>如果是 Android Instant 单独使用的代码和第三方库请分别放入 game/src, game/libs 目录。</li>
+<li>如果是 Android 和 Android Instant 共用的代码和第三方库，请分别放入 proj.android-studio 根目录底下的 src 目录和 libs 目录。</li>
+<li>proj.android-studio 根目录底下 jni/CocosAndroid.mk , jni/CocosApplication.mk，主要用于配置引擎相关的配置，开发者的配置，建议 Android 放到 app/jni/Android.mk 和 app/jni/Application.mk中，Android Instant 请放入 game/jni/Android.mk 和 game/jni/Application.mk 中。</li>
+<li>此外，在 Cocos Creator 编译 Android 时会默认执行 assembleRelease/Debug，编译 Android Instant 时会执行 instant:assembleRelease/Debug。</li>
+</ul>
+<p><strong>如自定义了音频前后台切换时的暂停逻辑，升级到 2.3.0 后请移除。</strong></p>
+<p>目前 Creator 游戏在所有平台上前后台互相切换时，都会在内部自动暂停和恢复音频。如果开发者之前有对这一块进行过定制，监听并执行了 cc.audioEngine.pause()/resume() 之类的音频操作，可能会和引擎默认行为冲突。如果有遇到相关的音频问题，只需移除相应的定制代码即可。</p>
+</blockquote>
+<p>看了这么多，选择升级是势在必行了，说干就干开始吧。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ol>
+<li>去官网下载：<a target="_blank" rel="noopener" href="https://www.cocos.com/creator">https://www.cocos.com/creator</a></li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095602730.png" alt="image-20200401095602730"></p>
+<ol>
+<li>下载后 安装 文件：</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095630684.png" alt="image-20200401095630684"></p>
+<ol>
+<li>安装成功后 大概长这样：</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095730445.png" alt="image-20200401095730445"></p>
+<ol>
+<li>然后我们打开 登录以及设置：</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401095844680.png" alt="image-20200401095844680"></p>
+<ol>
+<li>如果打开 显示英文，不习惯英文的 可以设置语言为 中文简体</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401100019890.png" alt="image-20200401100019890"></p>
+<ol>
+<li>可以设置 下载的编辑器的存放目录</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401102016622.png" alt="image-20200401102016622"></p>
+<p>如果 找不到，点击 右上角的 小齿轮 即可设置</p>
+<ol>
+<li>左边的Tab切换栏 分别是项目 和编辑器的管理 已经新闻动态（社区宣传和功能更新）以及一个新手入门的教程目录</li>
+<li>开始下载我们的编辑器</li>
+</ol>
+<p><img src="/post/e75157ff/image-20200401102256224.png" alt="image-20200401102256224"></p>
+<p>9.选择我们需要的编辑器版本 开始下载 成功后 </p>
+<p><img src="/post/e75157ff/image-20200427113511510.png" alt="image-20200427113511510"></p>
+<p>同样 如果我们已经下载好了引擎，可以选择添加本地版本即可。</p>
+<p>10.新的版本 变成了这样</p>
+<p><img src="/post/e75157ff/image-20200427113645197.png" alt="image-20200427113645197"></p>
+<p>里面 囊括了我们下载的引擎，然后 就可以 打开我们的引擎了。</p>
+<p><img src="/post/e75157ff/image-20200427113755660.png" alt="image-20200427113755660"></p>
+<p>至此，版本成功升级完毕。</p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>代码编辑器，使用Webstorm 习惯了，这次升级带来了一个问题是：打印log的时候 不显示 文件路径了</p>
+<p><img src="/post/e75157ff/Xnip2020-04-25_20-52-28.jpg" alt="Xnip2020-04-25_20-52-28"></p>
+<p><img src="/post/e75157ff/Xnip2020-04-25_20-52-08.jpg" alt="Xnip2020-04-25_20-52-08"></p>
+<p>发现 日志记录不在了，但是 用 Cocos Creator 或者 VSCode 甚至 Webstorm 打开的Chome 均显示正常</p>
+<p><img src="/post/e75157ff/Xnip2020-04-25_20-53-05.jpg" alt="Xnip2020-04-25_20-53-05"></p>
+<p>这个 问题 在论坛求助大佬，官方给出了解决方案：</p>
+<p>修改 .CocosCreator/profiles/features.json 文件 添加 “bundle-quick-compiler-project”: false 即可</p>
+<p><img src="/post/e75157ff/image-20200427115037380.png" alt="image-20200427115037380"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;xiaomi-runtime&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bundle-quick-compiler-project&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后 感谢Cocos Creator 团队大佬！</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cocos.com/creator">Cocos Creator 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cocos-creator-2-3-3-webstorm-console/91986">Cocos Creator 2.3.3 Webstorm console 控制面板无法输出文件路径</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/69641083.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Spine骨骼动画查看器SkeletonViewer</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/86ecd85d.html">
+        <span>Cocos Creator|Android 实战开发（下）</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/e75157ff.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%8F%90%E5%8D%87%E7%BD%91%E9%A1%B5%E9%A2%84%E8%A7%88%E6%97%B6%E7%9A%84%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">提升网页预览时的加载速度</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E-Cocos-%E5%B0%8F%E7%A7%98%E4%B9%A6%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.</span> <span class="toc-text">新增 Cocos 小秘书服务</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="toc-number"></span> <span class="toc-text">具体步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number"></span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number"></span> <span class="toc-text">参考链接</span></a>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

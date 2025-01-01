@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            记录一个抽奖算法（js） | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/53b65a2e.html">记录一个抽奖算法（js）</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-12-15
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/other/">other</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=记录一个抽奖算法（js）&url=http://blog.asroads.com/post/53b65a2e.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=记录一个抽奖算法（js）&url=http://blog.asroads.com/post/53b65a2e.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/53b65a2e.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/53b65a2e.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/53b65a2e.html&title=记录一个抽奖算法（js）" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=记录一个抽奖算法（js）&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/53b65a2e.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/53b65a2e.html&text=记录一个抽奖算法（js）" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/js/ >js</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>有同事想要写一个抽奖的算法，找我帮忙写个算法展示给其他人看，最好是可以脱离编辑器的，首先，我就想到了用Chome的console 面板运行JavaScript，于是就写了一段代码实现了这个抽奖，其中包括模拟多少级，平均中奖次数，已经最多可以中奖多少次。下面就把源码贴出，做个留念。</p>
+<span id="more"></span>
+
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>用户在每个等级有一次抽奖机会，初始概率是10%，如果当前等级抽奖没有抽中，则下次抽奖概率加上一个等级区间的的增量（这里是15%，25%，35%…..），如果本次中奖，则重新设置成初始的中奖概率，一个用户整个成长期有个总共中奖的上限，中奖次数达到上限后，不能再次中奖，这里我设置了200，是远远超过的，相当于没有限制，可以设置这个数，限制中奖次数。</p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ul>
+<li>代码实现</li>
+</ul>
+<p>其实算法不难，急速先用闭包实现一个timer（以免模拟次数很大的时候，程序卡死），然后设置一些常量 运行函数。话不多说，Show  The Code！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">           <span class="keyword">var</span> getCurrentValue = <span class="keyword">function</span> (<span class="params">list, value</span>) &#123;</span><br><span class="line">               <span class="keyword">let</span> msg = &#123;<span class="attr">index</span>:<span class="number">0</span>,<span class="attr">count</span>:<span class="number">0</span>&#125;;</span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; list.<span class="property">length</span>; j++) &#123;</span><br><span class="line">                   msg.<span class="property">index</span> = j;</span><br><span class="line">                   msg.<span class="property">count</span> = <span class="title function_">isRange</span>(list[j], value);</span><br><span class="line">                   <span class="keyword">if</span> (msg.<span class="property">count</span> &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">                       <span class="keyword">return</span> msg;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">return</span> msg;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">var</span> isRange = <span class="keyword">function</span> <span class="title function_">range</span>(<span class="params">array, value</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span>(value==array[<span class="number">0</span>])&#123;</span><br><span class="line">                   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">               &#125;<span class="keyword">else</span> <span class="keyword">if</span> (value &gt; array[<span class="number">0</span>] &amp;&amp; value &lt;= array[<span class="number">1</span>]) &#123;</span><br><span class="line">                   <span class="keyword">return</span> array[<span class="number">2</span>];</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//size和数组里面的最大值对应 这里是 37</span></span><br><span class="line">           <span class="keyword">var</span> size = <span class="number">37</span>, value = <span class="number">0</span>, result = <span class="literal">false</span>, awardCount = <span class="number">0</span>, awardMax = <span class="number">200</span>,baseValue = <span class="number">0.1</span>,clock = -<span class="number">1</span>,awardList = [];</span><br><span class="line">           <span class="keyword">var</span> list = [[<span class="number">5</span>, <span class="number">10</span>, <span class="number">0.15</span>], [<span class="number">11</span>, <span class="number">15</span>, <span class="number">0.25</span>], [<span class="number">16</span>, <span class="number">19</span>, <span class="number">0.35</span>], [<span class="number">20</span>, <span class="number">23</span>, <span class="number">0.45</span>], [<span class="number">24</span>, <span class="number">27</span>, <span class="number">0.55</span>], [<span class="number">28</span>, <span class="number">30</span>, <span class="number">0.65</span>], [<span class="number">31</span>, <span class="number">37</span>, <span class="number">0.70</span>]];</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= size; i++) &#123;</span><br><span class="line">               <span class="keyword">if</span> (awardCount &gt;= awardMax) &#123;</span><br><span class="line">                   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;中奖超过&quot;</span> + awardMax + <span class="string">&quot;次&quot;</span> + <span class="string">&quot;不能再次中奖&quot;</span>);</span><br><span class="line">                   <span class="keyword">continue</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">var</span> message = <span class="title function_">getCurrentValue</span>(list, i);</span><br><span class="line">               <span class="keyword">if</span> (message.<span class="property">count</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;等级为:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(i) + <span class="string">&quot;不符合条件&quot;</span>);</span><br><span class="line">                   <span class="keyword">continue</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span>(clock!=message.<span class="property">index</span>)&#123;</span><br><span class="line">                   clock = message.<span class="property">index</span>;</span><br><span class="line">                   value = baseValue;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span>(result)&#123;</span><br><span class="line">                   value = baseValue;</span><br><span class="line">               &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                   value += message.<span class="property">count</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">var</span> randomValue = <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line">               <span class="keyword">if</span> (randomValue &lt;= value) &#123;</span><br><span class="line">                   result = <span class="literal">true</span>;</span><br><span class="line">                   awardCount++;</span><br><span class="line">                   awardList.<span class="title function_">push</span>(i)</span><br><span class="line">               &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                   result = <span class="literal">false</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">let</span> output = i+<span class="string">&quot; &quot;</span>+<span class="string">&quot;当前概率：&quot;</span> + value.<span class="title function_">toFixed</span>(<span class="number">3</span>) + <span class="string">&quot;随机数是：&quot;</span> + randomValue.<span class="title function_">toFixed</span>(<span class="number">4</span>) + <span class="string">&quot;结果是：&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(result ? <span class="string">&quot;中奖！&quot;</span> : <span class="string">&quot;很遗憾&quot;</span>);</span><br><span class="line">               <span class="keyword">if</span>(result)&#123;</span><br><span class="line">                   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c&quot;</span>+output,<span class="string">&#x27;color:#0033ee;&#x27;</span>);</span><br><span class="line">               &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                   <span class="variable language_">console</span>.<span class="title function_">log</span>(output);</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">var</span> lastStr = awardList.<span class="title function_">join</span>(<span class="string">&quot; 次、&quot;</span>);</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c中奖总次数是：&quot;</span>+awardList.<span class="property">length</span>+<span class="string">&quot; 分别是：&quot;</span>+lastStr,<span class="string">&#x27;color:#0099ee;&#x27;</span>);</span><br><span class="line">           <span class="keyword">return</span> awardList.<span class="property">length</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">var</span> totalList = [],totalCount = <span class="number">10</span>;<span class="comment">//模拟总次数</span></span><br><span class="line">       <span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> n = <span class="number">0</span>; n &lt; totalCount; n++) &#123;</span><br><span class="line">               (<span class="keyword">function</span> (<span class="params">j</span>) &#123;<span class="comment">//闭包</span></span><br><span class="line">                   <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">                       <span class="keyword">var</span> res = <span class="title function_">foo</span>();</span><br><span class="line">                       totalList.<span class="title function_">push</span>(res);</span><br><span class="line">                       <span class="keyword">if</span>(totalCount-<span class="number">1</span> == j)&#123;</span><br><span class="line">                           <span class="keyword">var</span> sum = totalList.<span class="title function_">reduce</span>(<span class="function">(<span class="params">previous, current</span>) =&gt;</span> current += previous);</span><br><span class="line">                           <span class="keyword">var</span> avg =   sum / totalList.<span class="property">length</span>;</span><br><span class="line">                           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;数组：&quot;</span>+<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(totalList));</span><br><span class="line">                           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;%c总共模拟：&quot;</span>+n+<span class="string">&quot;次 平均中奖次数：&quot;</span>+avg,<span class="string">&#x27;color:#ff99ee;&#x27;</span>);</span><br><span class="line">                       &#125;</span><br><span class="line">                       <span class="variable language_">console</span>.<span class="title function_">log</span>(j);<span class="comment">//分别输出i的值</span></span><br><span class="line">                   &#125;, n*<span class="number">100</span>)</span><br><span class="line">               &#125;)(n);<span class="comment">//闭包</span></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="title function_">test</span>();<span class="comment">//启动代码函数</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打开Chome 黏贴代码</li>
+</ul>
+<p><img src="/post/53b65a2e/image-20191219193006272.png" alt="image-20191219193006272"></p>
+<ul>
+<li>点击Enter 键 运行 代码 查看输出</li>
+</ul>
+<p><img src="/post/53b65a2e/image-20191219193043943.png" alt="image-20191219193043943"></p>
+<p>此处我模拟了十轮，输出每次 概率 和最后的中奖次数，和平均中奖概率，其中有意思的是 设计到了两个知识点，一个是闭包，一个是怎么用数组求平均数。</p>
+<p>闭包代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">	<span class="comment">// setTimeout(function()&#123;</span></span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(i);<span class="comment">//分别输出i的值</span></span><br><span class="line">	<span class="comment">// &#125;,2000)			</span></span><br><span class="line">	&#125;	</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">test</span>();</span><br></pre></td></tr></table></figure>
+
+<p>求平均数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">2</span>, <span class="number">56</span>, <span class="number">3</span>, <span class="number">41</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">100</span>, <span class="number">23</span>];</span><br><span class="line"><span class="keyword">let</span> sum = values.<span class="title function_">reduce</span>(<span class="function">(<span class="params">previous, current</span>) =&gt;</span> current += previous);</span><br><span class="line"><span class="keyword">let</span> avg = sum / values.<span class="property">length</span>;</span><br><span class="line"><span class="comment">// avg = 28</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jstips.co/zh_cn/javascript/array-average-and-median/">数组平均值与中值</a></li>
+<li><a target="_blank" rel="noopener" href="https://miss-me.github.io/2018/09/01/%E7%94%A8setTimeout%E5%AE%9E%E7%8E%B0for%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84%E8%AE%A1%E6%97%B6%E5%99%A8/">用setTimeout实现for循环中的计时器</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/c3a12e4a.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>LayaAir2.0(2.4)IDE里面设置滤镜项目运行报错解决办法</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/d927b4f2.html">
+        <span>Cocos Creator Tween Max 小游戏引入</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/53b65a2e.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">具体步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

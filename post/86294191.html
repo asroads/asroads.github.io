@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            一些工作里常用的正则小技巧(持续更新) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/86294191.html">一些工作里常用的正则小技巧(持续更新)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-07-16
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/other/">other</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=一些工作里常用的正则小技巧(持续更新)&url=http://blog.asroads.com/post/86294191.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=一些工作里常用的正则小技巧(持续更新)&url=http://blog.asroads.com/post/86294191.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/86294191.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/86294191.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/86294191.html&title=一些工作里常用的正则小技巧(持续更新)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=一些工作里常用的正则小技巧(持续更新)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/86294191.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/86294191.html&text=一些工作里常用的正则小技巧(持续更新)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/RegExp/ >RegExp</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>众所周知编写程序或者有时候匹配搜索替换的时候，正则这个对于字符串来说特别好用，下面是我最近收集的一些常用的正则，后面会持续更新。便于日后工作中查阅，方便使用。</p>
+<span id="more"></span>
+
+<h3 id="Cocos-Creator-2-4-10-版本Typescript限制只能输入手机号"><a href="#Cocos-Creator-2-4-10-版本Typescript限制只能输入手机号" class="headerlink" title="Cocos Creator 2.4.10 版本Typescript限制只能输入手机号"></a>Cocos Creator 2.4.10 版本Typescript限制只能输入手机号</h3><p>我们需要做的是创建一个新的脚本，并将以下代码复制进去。请注意需要将<code>EditBox</code>组件附着在同一节点上，并且在Cocos Creator编辑器里设置好<code>cc.EditBox</code>的引用。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">EditboxComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">EditBox</span>)</span><br><span class="line">    <span class="attr">editbox</span>: cc.<span class="property">EditBox</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">editbox</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="string">&#x27;text-changed&#x27;</span>, <span class="variable language_">this</span>.<span class="property">onTextChanged</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onTextChanged</span>(<span class="params">text: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> phoneReg = <span class="regexp">/^1[3-9]\d&#123;9&#125;$/</span>;</span><br><span class="line">        <span class="keyword">if</span> (phoneReg.<span class="title function_">test</span>(text)) &#123;</span><br><span class="line">            <span class="comment">// 用户输入的是有效的手机号，你可以根据需要进行后续操作</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;手机号格式正确&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 用户输入的不是有效的手机号，你可以提示用户输入正确的手机号</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;请输入正确的手机号&quot;</span>);</span><br><span class="line">            <span class="comment">// 或者你可以清除用户输入的内容</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">editbox</span>.<span class="property">string</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码首先定义了一个<code>cc.EditBox</code>类型的属性<code>editbox</code>。你需要在Cocos Creator的属性检查器中设置这个属性，将EditBox组件关联到这个属性上。</p>
+<p>在<code>onLoad</code>方法中，我们注册了一个<code>text-changed</code>事件的监听器。当用户在EditBox中输入内容时，就会触发这个事件，并调用<code>onTextChanged</code>方法。</p>
+<p>在<code>onTextChanged</code>方法中，我们使用正则表达式来检查用户输入的内容是否符合手机号的模式。如果是，你可以根据需要进行后续操作。如果不是，你可以提示用户输入正确的手机号，或者清除用户输入的内容。</p>
+<h3 id="正则匹配-“inlineSpriteFrames”-其中-中间是非空内容"><a href="#正则匹配-“inlineSpriteFrames”-其中-中间是非空内容" class="headerlink" title="正则匹配 “inlineSpriteFrames”: {} 其中{}中间是非空内容"></a>正则匹配 “inlineSpriteFrames”: {} 其中{}中间是非空内容</h3><p>这个需求，主要是来源于小游戏中我需要对，小游戏平台的Assets Bundle 的meta 文件进行全局替换。下面的JavaScript正则表达式，这个表达式使用了负向预查的方式，确保匹配的字符串中不包含只有空白字符的情况。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">checkContent</span>(<span class="params">s</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> pattern = <span class="regexp">/&quot;inlineSpriteFrames&quot;\s*:\s*\&#123;(?! *\&#125;)[^&#125;]*\&#125;/</span>s;</span><br><span class="line">    <span class="keyword">var</span> match = s.<span class="title function_">match</span>(pattern);</span><br><span class="line">    <span class="keyword">if</span> (match) &#123;</span><br><span class="line">        <span class="keyword">return</span> match[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试有内容的字符串</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">`&quot;inlineSpriteFrames&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;wechatgame&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;jkw-game&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;ios&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;web-mobile&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;android&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;bytedance&quot;: false</span></span><br><span class="line"><span class="string">  &#125;`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">checkContent</span>(s));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试没有内容的字符串</span></span><br><span class="line">s = <span class="string">`&quot;inlineSpriteFrames&quot;: &#123;&#125;`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">checkContent</span>(s));  <span class="comment">// null</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个表达式中，<code>(?! *\&#125;)</code> 是一个负向预查，它会匹配到那些后面不是只有空白字符和 <code>&#125;</code> 的位置。<code>[^&#125;]*</code> 会匹配到任何不是 <code>&#125;</code> 的字符，<code>/s</code> 让 <code>.</code> 能够匹配到包括换行在内的任何字符。</p>
+<h4 id="拓展如果是可以匹配-内可以为空的内容"><a href="#拓展如果是可以匹配-内可以为空的内容" class="headerlink" title="拓展如果是可以匹配{} 内可以为空的内容"></a>拓展如果是可以匹配{} 内可以为空的内容</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">checkContent</span>(<span class="params">s</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> pattern = <span class="regexp">/&quot;inlineSpriteFrames&quot;\s*:\s*\&#123;[^&#125;]*\S+[^&#125;]*\&#125;/</span>s;</span><br><span class="line">    <span class="keyword">var</span> match = s.<span class="title function_">match</span>(pattern);</span><br><span class="line">    <span class="keyword">if</span> (match) &#123;</span><br><span class="line">        <span class="keyword">return</span> match[<span class="number">0</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试有内容的字符串</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">`&quot;inlineSpriteFrames&quot;: &#123;</span></span><br><span class="line"><span class="string">    &quot;wechatgame&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;jkw-game&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;ios&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;web-mobile&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;android&quot;: false,</span></span><br><span class="line"><span class="string">    &quot;bytedance&quot;: false</span></span><br><span class="line"><span class="string">  &#125;`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">checkContent</span>(s));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试没有内容的字符串</span></span><br><span class="line">s = <span class="string">`&quot;inlineSpriteFrames&quot;: &#123;&#125;`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">checkContent</span>(s));  <span class="comment">// null</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个 JavaScript 函数中，我们使用了类似的正则表达式。<code>/s</code> 标记让 <code>.</code> 能够匹配换行符。我们使用了 <code>\s*</code> 来匹配任意数量的空格，<code>[^&#125;]*\S+[^&#125;]*</code> 来确保在 <code>&#123;&#125;</code> 中至少有一个非空白字符。</p>
+<p>然后，我们测试了两个字符串，一个有内容的和一个没有内容的，以检验我们的函数是否能正确区分这两种情况。</p>
+<p><strong>注意，这样的情况没有处理多行的情况</strong></p>
+<h3 id="获取文件路径里最后的名字："><a href="#获取文件路径里最后的名字：" class="headerlink" title="获取文件路径里最后的名字："></a>获取文件路径里最后的名字：</h3><p>取得最后一个斜线 <code>/</code> 后面的部分，但是去掉文件扩展名 <code>.jpg</code> 或 <code>.png</code>。这种情况下，你可以使用以下正则表达式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> urls = [</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/shareCover=001.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/shareCover=002.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/shareCover=003.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/test.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/test.png&quot;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">resultStrings</span>: string[] = [];</span><br><span class="line"></span><br><span class="line">urls.<span class="title function_">forEach</span>(<span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> match = url.<span class="title function_">match</span>(<span class="regexp">/([^\/]+)(?=\.(jpg|png)$)/</span>);</span><br><span class="line">    <span class="keyword">if</span> (match) &#123;</span><br><span class="line">        resultStrings.<span class="title function_">push</span>(match[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(resultStrings); <span class="comment">// 输出处理后的字符串数组</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这段代码中，用正则表达式 <code>([^\/]+)(?=\.(jpg|png)$)</code> 来找出最后一个 <code>/</code> 后面的部分，但是并不包括文件扩展名 <code>.jpg</code> 或 <code>.png</code>。然后把匹配的部分添加到 <code>resultStrings</code> 数组中。最后，打印出 <code>resultStrings</code> 数组，这就是需要的字符串列表。</p>
+<p>当然如果仅仅是匹配 可以这样操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> urls = [</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/shareCover=001.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/shareCover=002.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/shareCover=003.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/test.jpg&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://baidu.com/miniConfig/wx/image/test.png&quot;</span></span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> regex = <span class="regexp">/[^\/]*(?=\.(jpg|png)$)/g</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">matchedStrings</span>: string[] = [];</span><br><span class="line"></span><br><span class="line">urls.<span class="title function_">forEach</span>(<span class="function"><span class="params">url</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> match = url.<span class="title function_">match</span>(regex);</span><br><span class="line">    <span class="keyword">if</span> (match) &#123;</span><br><span class="line">        matchedStrings.<span class="title function_">push</span>(match[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(matchedStrings); <span class="comment">// 输出匹配的字符串数组</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="匹配-一个-或者多个-的正则"><a href="#匹配-一个-或者多个-的正则" class="headerlink" title="匹配 一个 * 或者多个*的正则"></a>匹配 一个 * 或者多个*的正则</h3><p>使用JavaScript的 <code>RegExp.test()</code> 或 <code>String.match()</code> 方法来使用正则表达式。下面是两种方法的例子：</p>
+<p><strong>1. 使用 <code>RegExp.test()</code> 方法:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regex = <span class="regexp">/\*+/g</span>; </span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;我有一个*或者多个*的需求&quot;</span>; </span><br><span class="line"><span class="keyword">var</span> hasAsterisks = regex.<span class="title function_">test</span>(str); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hasAsterisks);  <span class="comment">// 如果str中包含一个或多个星号，将打印出true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>RegExp.test()</code> 方法会返回一个布尔值，如果字符串中含有与正则表达式匹配的部分，则返回 <code>true</code>，否则返回 <code>false</code>。</p>
+<p><strong>2. 使用 <code>String.match()</code> 方法:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regex = <span class="regexp">/\*+/g</span>; </span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;我有一个*或者多个*的需求&quot;</span>; </span><br><span class="line"><span class="keyword">var</span> matches = str.<span class="title function_">match</span>(regex); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(matches);  <span class="comment">// 如果str中包含一个或多个星号，将打印出包含这些星号的数组</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>String.match()</code> 方法会返回一个数组，包含与正则表达式匹配的所有部分。如果没有找到匹配的部分，则返回 <code>null</code>。</p>
+<h3 id="只能输入-26个字符和数字0-9"><a href="#只能输入-26个字符和数字0-9" class="headerlink" title="只能输入 26个字符和数字0-9"></a>只能输入 26个字符和数字0-9</h3><p>匹配长度为1-20的字符串，仅允许包含26个英文字母（大小写均可）和数字0-9：</p>
+<p>可以使用以下的正则表达式来匹配长度为1-20的字符串，仅允许包含26个英文字母（大小写均可）和数字0-9：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">^[A-<span class="title class_">Za</span>-z0-<span class="number">9</span>]&#123;<span class="number">1</span>,<span class="number">20</span>&#125;$</span><br></pre></td></tr></table></figure>
+
+<p>解释如下：</p>
+<ul>
+<li><code>^</code>：表示匹配行的开始。</li>
+<li><code>[A-Za-z0-9]</code>：方括号内的内容表示一个字符集，允许的字符包括大写字母A-Z，小写字母a-z以及数字0-9。</li>
+<li><code>&#123;1,20&#125;</code>：表示前面的字符集可以重复出现1次到20次。</li>
+<li><code>$</code>：表示匹配行的结束。</li>
+</ul>
+<p>在Cocos Creator中使用正则表达式限制输入框的内容，需要使用Typescript来编写一个组件。这个组件监听输入框的文本改变事件，并使用正则表达式来检查新的文本是否符合要求。这个过程可以如下实现：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span>  <span class="keyword">class</span> <span class="title class_">LimitComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">EditBox</span>)</span><br><span class="line">    <span class="attr">editBox</span>: cc.<span class="property">EditBox</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 正则表达式</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">regex</span>: <span class="title class_">RegExp</span> = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;^[A-Za-z0-9]&#123;1,20&#125;$&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当编辑框文本改变时</span></span><br><span class="line">    <span class="title function_">onTextChanged</span>(<span class="params">text: <span class="built_in">string</span>, editBox: cc.EditBox, customEventData: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">regex</span>.<span class="title function_">test</span>(text)) &#123;</span><br><span class="line">            <span class="comment">// 如果新的文本不符合要求，将其设为之前的文本</span></span><br><span class="line">            editBox.<span class="property">string</span> = editBox.<span class="property">string</span>;</span><br><span class="line">            cc.<span class="title function_">log</span>(<span class="string">&quot;输入内容不符合要求&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    start () &#123;</span><br><span class="line">        <span class="comment">// 初始化，为编辑框添加文本改变事件的监听</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">editBox</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="string">&#x27;text-changed&#x27;</span>, <span class="variable language_">this</span>.<span class="property">onTextChanged</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>请注意，上述代码需要将<code>cc.EditBox</code>组件添加到节点中，并将该节点挂载到<code>editBox</code>属性中。</p>
+<h4 id="匹配错误行数"><a href="#匹配错误行数" class="headerlink" title="匹配错误行数"></a>匹配错误行数</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subpackages\/main\/game\.<span class="property">js</span>:\d+:(\d+)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> errorMessage = <span class="string">&quot;MiniProgramError Cannot read property &#x27;unlock&#x27; of null TypeError: Cannot read property &#x27;unlock&#x27; of null at e.checkSysUnlock (http://127.0.0.1:48621/game/subpackages/main/game.js:1:6980332) at e.init (http://127.0.0.1:48621/game/subpackages/main/game.js:1:6973789) at e.onLoad (http://127.0.0.1:48621/game/subpackages/main/game.js:1:7425613) at http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:691203 at r._invoke (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:463172) at r.invoke (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:462491) at r.activateNode (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:692769) at r._activate (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:327724) at 70.cc.Director.runSceneImmediate (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:281991) at 70.cc.Director.&lt;anonymous&gt; (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:282303)&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> regex = <span class="regexp">/subpackages\/main\/game\.js:\d+:(\d+)/</span>;</span><br><span class="line"><span class="keyword">const</span> match = errorMessage.<span class="title function_">match</span>(regex);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (match) &#123;</span><br><span class="line">  <span class="keyword">const</span> columnNumber = match[<span class="number">1</span>];</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(columnNumber); <span class="comment">// 输出: 6980332</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const errorMessage = &quot;MiniProgramError Cannot read property &#x27;unlock&#x27; of null TypeError: Cannot read property &#x27;unlock&#x27; of null at e.checkSysUnlock (http://127.0.0.1:48621/game/subpackages/main/game.js:1:6980332) at e.init (http://127.0.0.1:48621/game/subpackages/main/game.js:1:6973789) at e.onLoad (http://127.0.0.1:48621/game/subpackages/main/game.js:1:7425613) at http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:691203 at r._invoke (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:463172) at r.invoke (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:462491) at r.activateNode (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:692769) at r._activate (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:327724) at 70.cc.Director.runSceneImmediate (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:281991) at 70.cc.Director.&lt;anonymous&gt; (http://127.0.0.1:48621/game/__context__/__plugin__/wx7095f7fa398a2f30/plugin.js:5:282303)&quot;;</span><br><span class="line"></span><br><span class="line">const regex = /subpackages\/main\/game\.js:\d+:(\d+)/g;</span><br><span class="line">const matches = [...errorMessage.matchAll(regex)];</span><br><span class="line"></span><br><span class="line">const extractedMatches = matches.map(match =&gt; match[1]);</span><br><span class="line">console.log(extractedMatches); // 输出提取出的内容数组</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="匹配特定的-TypeScript-或-JavaScript-导入语句，"><a href="#匹配特定的-TypeScript-或-JavaScript-导入语句，" class="headerlink" title="匹配特定的 TypeScript 或 JavaScript 导入语句，"></a>匹配特定的 TypeScript 或 JavaScript 导入语句，</h4><p>如 import { GConfig } from ‘../../../../config/GameConfig’;，你可以使用以下模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/import &#123; GConfig &#125; from &#x27;.*config/GameConfig&#x27;;?/</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/f50efc19.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator构建出web-mobile项目的时候自动刷新定向index.html</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/f849daeb.html">
+        <span>Mac环境下如何安装Python2和Python3</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/86294191.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cocos-Creator-2-4-10-%E7%89%88%E6%9C%ACTypescript%E9%99%90%E5%88%B6%E5%8F%AA%E8%83%BD%E8%BE%93%E5%85%A5%E6%89%8B%E6%9C%BA%E5%8F%B7"><span class="toc-number">1.</span> <span class="toc-text">Cocos Creator 2.4.10 版本Typescript限制只能输入手机号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D-%E2%80%9CinlineSpriteFrames%E2%80%9D-%E5%85%B6%E4%B8%AD-%E4%B8%AD%E9%97%B4%E6%98%AF%E9%9D%9E%E7%A9%BA%E5%86%85%E5%AE%B9"><span class="toc-number">2.</span> <span class="toc-text">正则匹配 “inlineSpriteFrames”: {} 其中{}中间是非空内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E5%A6%82%E6%9E%9C%E6%98%AF%E5%8F%AF%E4%BB%A5%E5%8C%B9%E9%85%8D-%E5%86%85%E5%8F%AF%E4%BB%A5%E4%B8%BA%E7%A9%BA%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">拓展如果是可以匹配{} 内可以为空的内容</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E9%87%8C%E6%9C%80%E5%90%8E%E7%9A%84%E5%90%8D%E5%AD%97%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">获取文件路径里最后的名字：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D-%E4%B8%80%E4%B8%AA-%E6%88%96%E8%80%85%E5%A4%9A%E4%B8%AA-%E7%9A%84%E6%AD%A3%E5%88%99"><span class="toc-number">4.</span> <span class="toc-text">匹配 一个 * 或者多个*的正则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E8%83%BD%E8%BE%93%E5%85%A5-26%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%92%8C%E6%95%B0%E5%AD%970-9"><span class="toc-number">5.</span> <span class="toc-text">只能输入 26个字符和数字0-9</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E9%94%99%E8%AF%AF%E8%A1%8C%E6%95%B0"><span class="toc-number">5.1.</span> <span class="toc-text">匹配错误行数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E7%89%B9%E5%AE%9A%E7%9A%84-TypeScript-%E6%88%96-JavaScript-%E5%AF%BC%E5%85%A5%E8%AF%AD%E5%8F%A5%EF%BC%8C"><span class="toc-number">5.2.</span> <span class="toc-text">匹配特定的 TypeScript 或 JavaScript 导入语句，</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

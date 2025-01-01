@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator Android(安卓)自动递增版本号 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/5ab869b6.html">Cocos Creator Android(安卓)自动递增版本号</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-01-28
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator Android(安卓)自动递增版本号&url=http://blog.asroads.com/post/5ab869b6.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator Android(安卓)自动递增版本号&url=http://blog.asroads.com/post/5ab869b6.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/5ab869b6.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/5ab869b6.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/5ab869b6.html&title=Cocos Creator Android(安卓)自动递增版本号" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator Android(安卓)自动递增版本号&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/5ab869b6.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/5ab869b6.html&text=Cocos Creator Android(安卓)自动递增版本号" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Cocos Creator 构建Android项目后，打包时修改版本号, 所以就想着如果版本号不需要每次修改，手动修改版本号 和 版本名字，很是麻烦，于是就想到了能不能自动打包的时候递增版本，于是网上找了一下，还真有这样的方法，下面就说说如何操作的。</p>
+<span id="more"></span>
+
+<p>Android 应用的版本管理是依赖 AndroidManifest.xml 中的两个属性：</p>
+<ul>
+<li><code>android:versionCode</code>：版本号，是一个大于 0 的整数，相当于 Build Number，随着版本的更新，这个必须是递增的。大的版本号，覆盖更新小的版本号；</li>
+<li><code>android:versionName</code>：版本名，是一个字符串，例如 <code>&quot;1.2.0&quot;</code>，这个是给人看的版本名，系统并不关心这个值，但是合理的版本名，对后期的维护和 bug 修复也非常重要。</li>
+</ul>
+<p>Android 应用的版本管理是依赖 AndroidManifest.xml 中的两个属性，通常是在 build.gradle 里面定义这两个值，如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android &#123;  </span><br><span class="line">    ...</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        ...</span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">&quot;1.0&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Gradle</code>基于<code>Groovy</code>, 是可以执行一些代码获取数据, 然后再用返回值作为配置属性的。下面说说详细步骤：</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="创建项目并构建安卓版本"><a href="#创建项目并构建安卓版本" class="headerlink" title="创建项目并构建安卓版本"></a>创建项目并构建安卓版本</h3><ol>
+<li>新建一个项目，这里我们起名字叫做 <code>androiddemo</code>，并构建安卓平台</li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128155352178.png" alt="image-20220128155352178"></p>
+<ol start="2">
+<li>我们使用签名命令生成一个测试密钥 密码为 ：<code>123456</code>    alias key 为：<code>alias_test</code>  此步骤为后面的记录账号密码用的如果 仅仅是递增版本号码可以跳过</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -v -keystore test-key.jks -keyalg RSA -keysize 2048 -validity 36500 -alias alias_test -deststoretype pkcs12</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/5ab869b6/image-20220128160622453.png" alt="image-20220128160622453"></p>
+<h3 id="配置Android-Studio"><a href="#配置Android-Studio" class="headerlink" title="配置Android Studio"></a>配置Android Studio</h3><ol start="3">
+<li>在app 文件夹新建一个<code>build.properties</code> 和 <code>version.gradle</code>文件</li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128171518018.png" alt="image-20220128171518018"></p>
+<p>内容分别如下：</p>
+<p><code>build.properties</code>：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#Build Properties</span><br><span class="line">#Tue Jan <span class="number">28</span> <span class="number">09</span>:<span class="number">53</span>:<span class="number">51</span> CST <span class="number">2022</span></span><br><span class="line">app_name=hello_world</span><br><span class="line">version_name=<span class="number">100</span></span><br><span class="line">version_code=<span class="number">100</span></span><br><span class="line">version_build=<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><code>version.gradle</code>：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ---------  version -------------------------------------------------</span></span><br><span class="line">updateVersion()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> updateVersion() &#123;</span><br><span class="line">    <span class="keyword">def</span> propertiesFile = file(<span class="string">&quot;build.properties&quot;</span>)</span><br><span class="line">    Properties properties = readProperties(propertiesFile)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> versionCode = properties[<span class="string">&quot;version_code&quot;</span>].toString().toInteger()</span><br><span class="line">    <span class="keyword">def</span> versionName = properties[<span class="string">&quot;version_name&quot;</span>].toString().toInteger()</span><br><span class="line">    <span class="keyword">def</span> appName = properties[<span class="string">&quot;app_name&quot;</span>].toString()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isReleaseTask(appName)) &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;&gt;&gt;&gt; Building Release...&quot;</span>)</span><br><span class="line">        versionCode++</span><br><span class="line">        versionName++</span><br><span class="line">        properties[<span class="string">&quot;version_code&quot;</span>] = versionCode.toString()</span><br><span class="line">        properties[<span class="string">&quot;version_name&quot;</span>] = versionName.toString()</span><br><span class="line">        writeProperties(propertiesFile, properties)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    android.defaultConfig.versionCode = versionCode</span><br><span class="line">    android.defaultConfig.versionName = versionName + getDateTime()</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;&gt;&gt;&gt; &quot;</span> + project.parent.name + <span class="string">&quot;   versionName:&quot;</span> + android.defaultConfig.versionName)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> isReleaseTask(appName) &#123;</span><br><span class="line">    <span class="keyword">def</span> tasks = gradle.getStartParameter().getTaskNames()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;:app:assembleRelease&quot;</span> <span class="keyword">in</span> tasks ||</span><br><span class="line">            <span class="string">&quot;ass&quot;</span> <span class="keyword">in</span> tasks ||</span><br><span class="line">            <span class="string">&quot;assemble&quot;</span> <span class="keyword">in</span> tasks ||</span><br><span class="line">            <span class="string">&quot;assembleRelease&quot;</span> <span class="keyword">in</span> tasks ||</span><br><span class="line">            <span class="string">&quot;:app:bundleRelease&quot;</span> <span class="keyword">in</span> tasks ||</span><br><span class="line">            <span class="string">&quot;bundleRelease&quot;</span> <span class="keyword">in</span> tasks||</span><br><span class="line">            <span class="string">&quot;:&quot;</span>+appName+<span class="string">&quot;:assembleRelease&quot;</span> <span class="keyword">in</span> tasks</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> Properties readProperties(propertiesFile) &#123;</span><br><span class="line">    <span class="keyword">if</span> (propertiesFile.canRead()) &#123;</span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties()</span><br><span class="line">        <span class="keyword">def</span> inputStream = <span class="keyword">new</span> FileInputStream(propertiesFile)</span><br><span class="line">        properties.load(inputStream)</span><br><span class="line">        inputStream.close()</span><br><span class="line">        <span class="keyword">return</span> properties</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">def</span> message = <span class="string">&quot;&gt;&gt;&gt; Could not read &quot;</span> + propertiesFile.name + <span class="string">&quot; file!&quot;</span></span><br><span class="line">        System.err.println(message)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> GradleException(message)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="keyword">static</span> writeProperties(propertiesFile, properties) &#123;</span><br><span class="line">    <span class="keyword">def</span> writer = propertiesFile.newWriter()</span><br><span class="line">    properties.store(writer, <span class="string">&quot;Build Properties&quot;</span>)</span><br><span class="line">    writer.close()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> getDateTime()&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date().format(<span class="string">&quot;.YYYYMMddHH&quot;</span>, TimeZone.getTimeZone(<span class="string">&quot;GMT+08:00&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------  version -------------------------------------------------</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>原有的 <code>build.gradle</code> 文件 修改为：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="attr">from:</span> <span class="string">&#x27;../config/sign.gradle&#x27;</span></span><br><span class="line">apply <span class="attr">from:</span> <span class="string">&#x27;./version.gradle&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">defaultConfig &#123;</span><br><span class="line">       applicationId <span class="string">&quot;org.cocos2d.demo&quot;</span></span><br><span class="line">       minSdkVersion PROP_MIN_SDK_VERSION</span><br><span class="line">       targetSdkVersion PROP_TARGET_SDK_VERSION</span><br><span class="line">       versionCode android.defaultConfig.versionCode</span><br><span class="line">       versionName android.defaultConfig.versionName</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//........     </span></span><br><span class="line">               </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">signingConfigs &#123;</span><br><span class="line"></span><br><span class="line">       release &#123;</span><br><span class="line">            <span class="keyword">if</span> (project.hasProperty(<span class="string">&quot;RELEASE_STORE_FILE&quot;</span>)) &#123;</span><br><span class="line">                storeFile file(RELEASE_STORE_FILE)</span><br><span class="line">                storePassword RELEASE_STORE_PASSWORD</span><br><span class="line">                keyAlias RELEASE_KEY_ALIAS</span><br><span class="line">                keyPassword RELEASE_KEY_PASSWORD</span><br><span class="line">            &#125;</span><br><span class="line">           keyAlias propertyKeyAliasStr</span><br><span class="line">           keyPassword propertyKeyPwdStr</span><br><span class="line">           storeFile file(propertyStoreFileStr)</span><br><span class="line">           storePassword propertyStorePwdStr</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="打开构建面板"><a href="#打开构建面板" class="headerlink" title="打开构建面板"></a>打开构建面板</h3><p>新版本  目录有变化 <code>assembleDebug</code>或<code>assembleRelease</code>被放置到other目录下</p>
+<p><img src="/post/5ab869b6/image-20220128172956050.png" alt="image-20220128172956050"></p>
+<p>如果没有找到Task 选项 需要 取消勾选 下面的选项</p>
+<p><code>Android Studio</code>-&gt;<code>Preferences</code>..-&gt;<code>Experimental</code>-&gt;<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=gradle&spm=1001.2101.3001.7020">gradle</a>-&gt;<code>Do not build Gradle task list during Gradle sync</code> 这个勾选去掉</p>
+<p><img src="/post/5ab869b6/image-20220128173048398.png" alt="image-20220128173048398"></p>
+<h3 id="配置我们的密钥"><a href="#配置我们的密钥" class="headerlink" title="配置我们的密钥"></a>配置我们的密钥</h3><ol>
+<li>新建一个 和 <code>app</code> 同级文件夹 <code>config</code> </li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128173406141.png" alt="image-20220128173406141"></p>
+<ol start="2">
+<li>内容如下：</li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128173441099.png" alt="image-20220128173441099"></p>
+<p><code>sign.gradle</code> 内容：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> signingConfigFile=<span class="string">&#x27;config/sign.properties&#x27;</span></span><br><span class="line">Properties localProperties = <span class="keyword">new</span> Properties()</span><br><span class="line">localProperties.load(project.rootProject.file(signingConfigFile).newDataInputStream())</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> keyAliasStr = localProperties.getProperty(<span class="string">&quot;signing.keyAlias&quot;</span>,<span class="literal">null</span>)</span><br><span class="line"><span class="keyword">def</span> keyPasswordStr = localProperties.getProperty(<span class="string">&quot;signing.keyPassword&quot;</span>,<span class="literal">null</span>)</span><br><span class="line"><span class="keyword">def</span> storeFileStr = localProperties.getProperty(<span class="string">&quot;signing.storeFile&quot;</span>,<span class="literal">null</span>)</span><br><span class="line"><span class="keyword">def</span> storePasswordStr = localProperties.getProperty(<span class="string">&quot;signing.storePassword&quot;</span>,<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line">ext&#123;</span><br><span class="line">    propertyHaveSigningConfigs = (keyAliasStr != <span class="literal">null</span> &amp;&amp; keyPasswordStr != <span class="literal">null</span> &amp;&amp; storeFileStr != <span class="literal">null</span> &amp;&amp; storePasswordStr != <span class="literal">null</span>)</span><br><span class="line">    propertyStoreFileStr = storeFileStr</span><br><span class="line">    propertyStorePwdStr = storePasswordStr</span><br><span class="line">    propertyKeyAliasStr = keyAliasStr</span><br><span class="line">    propertyKeyPwdStr = keyPasswordStr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sign.properties</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">signing.keyAlias=alias_test</span><br><span class="line">signing.keyPassword=<span class="number">123456</span></span><br><span class="line">signing.storeFile=..<span class="regexp">/config/</span>test-key.jks</span><br><span class="line">signing.storePassword=<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><ol>
+<li>然后点击 <code>Tasks</code> 下面的 <code>assembleRelease</code>选项构建项目</li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128175102181.png" alt="image-20220128175102181"></p>
+<ol start="2">
+<li>构建结果如下：</li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128175000038.png" alt="image-20220128175000038"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;artifactType&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;APK&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Directory&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;applicationId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;org.cocos2d.demo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;variantName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;release&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;elements&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SINGLE&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;filters&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;versionCode&quot;</span><span class="punctuation">:</span> <span class="number">101</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;versionName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;101.2022012817&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;outputFile&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hello_world-default-101.2022012817-release.apk&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> 解压<code>apk</code> 查看密钥信息</p>
+<p><img src="/post/5ab869b6/image-20220128175206185.png" alt="image-20220128175206185"></p>
+<p><img src="/post/5ab869b6/image-20220128175231082.png" alt="image-20220128175231082"></p>
+<ol start="3">
+<li>构建文件已经被正常修改</li>
+</ol>
+<p><img src="/post/5ab869b6/image-20220128175330273.png" alt="image-20220128175330273"></p>
+<p>最后 奉上源码地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/androiddemo">点击进入</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实简单的配置 可以优化我们的构建步骤，让构建更简单，更智能。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5d735f6fbd9eee5327ff7dc0/?lang=zh-cn">Android Studio的gradle找不到assembleDebug选项解决</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiangshanghuai/article/details/120993018">Android Studio 4.2之后不显示 gradle tasks list 问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7045160712276017160">Android gradle 正式编译自动修改版本号</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.imlushen.com/android-gradle-change-version-automatically/">Gradle动态修改版本号</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/7fbf0fc4.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>ID生成器的那些事儿</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/52c17b4d.html">
+        <span>Cocos Creator ScrollBar(滑动按钮)增强组件</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/5ab869b6.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%B9%B6%E6%9E%84%E5%BB%BA%E5%AE%89%E5%8D%93%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.</span> <span class="toc-text">创建项目并构建安卓版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEAndroid-Studio"><span class="toc-number">1.2.</span> <span class="toc-text">配置Android Studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E6%9E%84%E5%BB%BA%E9%9D%A2%E6%9D%BF"><span class="toc-number">1.3.</span> <span class="toc-text">打开构建面板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%88%91%E4%BB%AC%E7%9A%84%E5%AF%86%E9%92%A5"><span class="toc-number">1.4.</span> <span class="toc-text">配置我们的密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.5.</span> <span class="toc-text">构建项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Ohayoo广告变现SDK_iOS激励视频接入指南 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/a8fbd3f4.html">Ohayoo广告变现SDK_iOS激励视频接入指南</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-09-23
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Ohayoo广告变现SDK_iOS激励视频接入指南&url=http://blog.asroads.com/post/a8fbd3f4.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Ohayoo广告变现SDK_iOS激励视频接入指南&url=http://blog.asroads.com/post/a8fbd3f4.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/a8fbd3f4.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/a8fbd3f4.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/a8fbd3f4.html&title=Ohayoo广告变现SDK_iOS激励视频接入指南" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Ohayoo广告变现SDK_iOS激励视频接入指南&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/a8fbd3f4.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/a8fbd3f4.html&text=Ohayoo广告变现SDK_iOS激励视频接入指南" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/iOS/ >iOS</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>目前主流的引擎都是支持多平台发布的，一般来讲一个成功的游戏都是尽量多发几个平台，这样可以增加更多的收入，但是对于开发人员来讲，不免麻烦了许多，手里这款游戏，先后上了 App Store  快手等原生平台以及常见的几个小游戏平台，各大厂商的API 看了个遍。下面就说说Ohayoo广告变现的步骤。</p>
+<span id="more"></span>
+<p>这边是Cocos Creator 2.3.3版本 发布的iOS工程，恰好前面接过穿山甲和腾讯的流量汇的经验，虽然对于iOS 开发不熟悉，只能依葫芦画瓢，还是顺利接成功了</p>
+<h3 id="前期代码"><a href="#前期代码" class="headerlink" title="前期代码"></a>前期代码</h3><p>首先我们要做一个JavaScript环节的配置，我这边是判断是Ios的时候 初始化对应的 API实例来交互</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="title class_">PlatformPool</span>.<span class="property">ohayooios</span>:<span class="comment">//ios Ohayoo 平台</span></span><br><span class="line">			<span class="variable language_">this</span>.<span class="property">_api</span> = <span class="keyword">new</span> <span class="title class_">OhayooApi</span>();</span><br><span class="line">      <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>OhayooApi.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">BaseApi</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./BaseApi&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Browser</span> <span class="keyword">from</span> <span class="string">&quot;../base/Browser&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">OhayooApi</span> <span class="keyword">extends</span> <span class="title class_ inherited__">BaseApi</span> &#123;</span><br><span class="line">    instance = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">static</span> videoCallback = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(props);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">NAME</span> = <span class="string">&quot;OhayooApi&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----OhayooApi:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;constructor&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">login</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">login</span>(obj);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">initRewardedVideoAd</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">loadRewardedVideoAd</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    initRewardedVideoAd () &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="title class_">Browser</span>.<span class="property">isIOS</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">let</span> result = jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(<span class="string">&quot;AppController&quot;</span>, <span class="string">&quot;initRewardVideo:&quot;</span>,<span class="variable language_">this</span>.<span class="property">user_uuid</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;initRewardedVideoAd 返回值&quot;</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line">	  <span class="title function_">showRewardedVideoAd</span>(<span class="params">curUnitId, callback, aldType</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ios Ohayoo平台:播放广告&quot;</span>);</span><br><span class="line">        <span class="comment">// callback &amp;&amp; callback(&quot;success&quot;);</span></span><br><span class="line">        <span class="title class_">OhayooApi</span>.<span class="property">videoCallback</span> = callback;</span><br><span class="line">        <span class="keyword">let</span> result = jsb.<span class="property">reflection</span>.<span class="title function_">callStaticMethod</span>(<span class="string">&quot;AppController&quot;</span>, <span class="string">&quot;createVideoAdIOS:&quot;</span>,<span class="variable language_">this</span>.<span class="property">user_uuid</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;showRewardedVideoAd 返回值&quot;</span>, result);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">showBannerAd</span>(<span class="params">curUnitId, winWidth, position</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ios Ohayoo平台:显示Banner&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">hideBannerAd</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ios Ohayoo平台:关闭Banner&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">finishRewardVideo</span> = <span class="function">(<span class="params">flag</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;IOS 原生返回 finishRewardVideo:&quot;</span>, flag);</span><br><span class="line">    <span class="title class_">Browser</span>.<span class="property">isIOS</span>&amp;&amp;<span class="title class_">OhayooApi</span>.<span class="property">videoCallback</span>&amp;&amp;<span class="title class_">OhayooApi</span>.<span class="title function_">videoCallback</span>(flag);</span><br><span class="line">    <span class="title class_">OhayooApi</span>.<span class="property">videoCallback</span> = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>BaseApi.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads </span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">BaseApi</span> &#123;</span><br><span class="line">    i = <span class="literal">null</span>;<span class="comment">//平台全局对象实例</span></span><br><span class="line">    <span class="variable constant_">NAME</span> = <span class="string">&quot;BaseApi&quot;</span>;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    _user_uuid = <span class="string">&quot;&quot;</span>;<span class="comment">//用户唯一标识</span></span><br><span class="line">    <span class="title function_">login</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">user_uuid</span> = <span class="variable language_">this</span>.<span class="title function_">localStorageGetUuid</span>(<span class="string">&quot;uuid&quot;</span>);</span><br><span class="line">        obj.<span class="title function_">success</span>(&#123;</span><br><span class="line">            <span class="attr">param</span>: <span class="variable language_">this</span>.<span class="property">user_uuid</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  版本号比较 compareVersion(&#x27;1.11.0&#x27;, &#x27;1.9.9&#x27;) // 1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">v1</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">v2</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">compareVersion</span>(<span class="params">v1, v2</span>) &#123;</span><br><span class="line">        v1 = v1.<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">        v2 = v2.<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">        <span class="keyword">const</span> len = <span class="title class_">Math</span>.<span class="title function_">max</span>(v1.<span class="property">length</span>, v2.<span class="property">length</span>);</span><br><span class="line">        <span class="keyword">while</span> (v1.<span class="property">length</span> &lt; len) &#123;</span><br><span class="line">            v1.<span class="title function_">push</span>(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (v2.<span class="property">length</span> &lt; len) &#123;</span><br><span class="line">            v2.<span class="title function_">push</span>(<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">const</span> num1 = <span class="built_in">parseInt</span>(v1[i]);</span><br><span class="line">            <span class="keyword">const</span> num2 = <span class="built_in">parseInt</span>(v2[i]);</span><br><span class="line">            <span class="keyword">if</span> (num1 &gt; num2) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num1 &lt; num2) &#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">getSystemInfo</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">i</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">i</span>.<span class="title function_">getSystemInfoSync</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Browser.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads</span></span><br><span class="line"><span class="comment"> * Note: 客户端 基本信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Browser</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">now</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">sys</span>.<span class="title function_">now</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">browserType</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title class_">Browser</span>.<span class="property">usrWithKey</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;password&quot;</span>;<span class="comment">//特殊 平台修改这里</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Browser</span>.<span class="property">isAndroid</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;android&quot;</span>;<span class="comment">//android 平台修改这里</span></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="title class_">Browser</span>.<span class="property">isIOS</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;ohayooios&quot;</span>;<span class="comment">//ios 平台修改这里</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">browserType</span> === cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_WECHAT_GAME</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;wx&quot;</span>;<span class="comment">//小游戏 平台修改这里</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;web&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">isMiniGame</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">sys</span>.<span class="property">platform</span> === cc.<span class="property">sys</span>.<span class="property">WECHAT_GAME</span>;</span><br><span class="line">        <span class="comment">// return cc.sys.browserType === cc.sys.BROWSER_TYPE_WECHAT_GAME;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">isAndroid</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isNative</span>) &#123;</span><br><span class="line">            <span class="comment">// console.log(&quot;本地平台&quot;);</span></span><br><span class="line">            <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isMobile</span>) &#123;</span><br><span class="line">                <span class="comment">// console.log(&quot;本地移动平台&quot;);</span></span><br><span class="line">                <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">os</span> == cc.<span class="property">sys</span>.<span class="property">OS_ANDROID</span>) &#123;</span><br><span class="line">                    <span class="comment">// console.log(&quot;本地Android平台&quot;);</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">os</span> == cc.<span class="property">sys</span>.<span class="property">OS_IOS</span>) &#123;</span><br><span class="line">                    <span class="comment">// console.log(&quot;本地ios平台&quot;);</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(&quot;Web平台&quot;);</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">isIOS</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isNative</span>) &#123;</span><br><span class="line">            <span class="comment">// console.log(&quot;本地平台&quot;);</span></span><br><span class="line">            <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">isMobile</span>) &#123;</span><br><span class="line">                <span class="comment">// console.log(&quot;本地移动平台&quot;);</span></span><br><span class="line">                <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">os</span> == cc.<span class="property">sys</span>.<span class="property">OS_ANDROID</span>) &#123;</span><br><span class="line">                    <span class="comment">// console.log(&quot;本地Android平台&quot;);</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">os</span> == cc.<span class="property">sys</span>.<span class="property">OS_IOS</span>) &#123;</span><br><span class="line">                    <span class="comment">// console.log(&quot;本地ios平台&quot;);</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(&quot;Web平台&quot;);</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们交互的时候调用的是  <code>OhayooApi.js</code>  initRewardedVideoAd（初始化加载广告 不播放）  和 showRewardedVideoAd（加载广告并播放）</p>
+<h3 id="导出项目"><a href="#导出项目" class="headerlink" title="导出项目"></a>导出项目</h3><p> <img src="/post/a8fbd3f4/image-20200923192840244.png" alt="image-20200923192840244"></p>
+<h3 id="导入类库-和配置环境"><a href="#导入类库-和配置环境" class="headerlink" title="导入类库 和配置环境"></a>导入类库 和配置环境</h3><p>我们可以先下载 demo  对照demo 去实现 更容易</p>
+<h4 id="framework导入"><a href="#framework导入" class="headerlink" title="framework导入"></a>framework导入</h4><p><img src="/post/a8fbd3f4/1_1.png" alt="img"></p>
+<p>加入所需依赖库后如下</p>
+<p><img src="/post/a8fbd3f4/1_0.png" alt="img"></p>
+<p>在你的工程文件中选择Build Setting，在”Other Linker Flags”中加入”$(inherited) -ObjC”</p>
+<p><img src="/post/a8fbd3f4/1_2.png" alt="img"></p>
+<p>确认LightGameSDK.framework在TARGETS-&gt;Build Phases-&gt;Link Binary With Libraries下且status为required；同时，确保LightGameSDK.bundle在TARGETS-&gt;Build Phases-&gt;Copy Bundle Resources下才能正常使用SDK部分功能！添加以下bundle文件到主工程Target里：</p>
+<p><img src="/post/a8fbd3f4/1_6.png" alt="img"></p>
+<h4 id="SDK初始化"><a href="#SDK初始化" class="headerlink" title="SDK初始化"></a>SDK初始化</h4><p>AppController初始化代码<br>在AppController.mm中<code>#import &lt;LightGameSDK/LightGameSDK.h&gt;</code>头文件，并在你的程序启动后注册你的AppID（深度转化SDK的初始化配置，要在调用初始化之前）</p>
+<p><code>didFinishLaunchingWithOptions</code> 方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 设置debug log 方便查找问题.仅调试使⽤用。release版本请设置为 NO</span></span><br><span class="line">    [LightGameManager isDebuLog:YES];</span><br><span class="line">    <span class="comment">// 设置debug log 默认为中文，You can change to English:LGDebugLogType_English</span></span><br><span class="line">    [LightGameManager debugType:LGDebugLogType_Chinese];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 深度转化相关功能配置</span></span><br><span class="line">    LGBDConfig *bdCfg = [[LGBDConfig alloc] init];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 域名默认国内</span></span><br><span class="line">    <span class="comment">// LGBDAutoTrackServiceVendorSG,         // 新加坡</span></span><br><span class="line">    <span class="comment">// LGBDAutoTrackServiceVendorVA,         // 美东</span></span><br><span class="line">    bdCfg.serviceVendor = LGBDAutoTrackServiceVendorCN;</span><br><span class="line">    <span class="comment">// 是否在控制台输出⽇日志，仅调试使⽤用。release版本请设置为 NO</span></span><br><span class="line">    bdCfg.showDebugLog = NO;</span><br><span class="line">    <span class="comment">// 是否加密⽇日志，默认加密。release版本请设置为 YES</span></span><br><span class="line">    bdCfg.logNeedEncrypt = YES;</span><br><span class="line">    <span class="comment">// ⾃自定义 “⽤用户公共属性”</span></span><br><span class="line">    bdCfg.customHeaderBlock = ^NSDictionary&lt;NSString *,id&gt; * _Nonnull&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> @&#123;@<span class="string">&quot;gender&quot;</span>:@<span class="string">&quot;female&quot;</span>&#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//    [LightGameManager sharedInstance].platformAppId = @&quot;768&quot;;</span></span><br><span class="line">    </span><br><span class="line">    [LightGameManager startWithAppID:@<span class="string">&quot;你申请到的AppID&quot;</span> appName:@<span class="string">&quot;你的AppName&quot;</span> channel:@<span class="string">&quot;App Store&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>AppController 下面后面 添加方法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;AdNetSDKHelper.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 初始化视频</span></span><br><span class="line"><span class="comment">有参数，有返回值</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">+(NSString *)initRewardVideo:(NSString*)videoId&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;OC收到：有参数，有返回值 %@：hello&quot;</span>,videoId);</span><br><span class="line">    AdNetSDKHelper *sdk = AdNetSDKHelper::<span class="built_in">Singleton</span>();</span><br><span class="line">    sdk-&gt;<span class="built_in">Init</span>();</span><br><span class="line">    sdk-&gt;<span class="built_in">initRewardVideo</span>(<span class="string">&quot;initRewardVideo&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> @<span class="string">&quot;initRewardVideo&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 有参数，有返回值</span></span><br><span class="line"><span class="comment"> 点击显示视频</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">+(NSString *)createVideoAdIOS:(NSString*)videoId&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;OC收到：有参数，有返回值 %@：createVideoAdIOS&quot;</span>,videoId);</span><br><span class="line">    AdNetSDKHelper *sdk = AdNetSDKHelper::<span class="built_in">Singleton</span>();</span><br><span class="line">    sdk-&gt;<span class="built_in">playRewardVideo</span>(<span class="string">&quot;playRewardVideo&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> @<span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>需要添加几个文件</p>
+<p>AdNetSDKHelper.h 、AdNetSDKHelper.mm、AdSdkConnector.h、AdSdkConnector.mm</p>
+<p>AdNetSDKHelper.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> SanGuo_xy_ChannelSDK_h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SanGuo_xy_ChannelSDK_h</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos2d.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">USING_NS_CC;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AdNetSDKHelper</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">static</span> AdNetSDKHelper* <span class="title">Singleton</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Init</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">Login</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">initRewardVideo</span><span class="params">(std::string name)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">playRewardVideo</span><span class="params">(std::string name)</span></span>;</span><br><span class="line">    std::string channelName;</span><br><span class="line">    <span class="type">bool</span>        ok;</span><br><span class="line">    <span class="type">bool</span>        needLogin;</span><br><span class="line">    <span class="type">bool</span>        isLogin;</span><br><span class="line">    <span class="type">int</span>         user_id;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> AdNetSDKHelper* __instance__;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>AdNetSDKHelper.mm</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos2d.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;AdSdkConnector.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;AdNetSDKHelper.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span>  CHANNEL_MUYOUZYJ</span></span><br><span class="line">@interface AdNetSDKHelperCallbackHandler:UIViewController</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">@interface AdNetSDKHelperCallbackHandler:UIViewController</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">+ (AdNetSDKHelperCallbackHandler*)sharedHandler;</span><br><span class="line">@end</span><br><span class="line"><span class="type">static</span> NSString *kGDTMobSDKAppId = @<span class="string">&quot;19xxxx21&quot;</span>;<span class="comment">//你的 iOS id</span></span><br><span class="line"><span class="type">static</span> NSString *kGDTMobSDKVideoId = @<span class="string">&quot;94xxxx56&quot;</span>;<span class="comment">// 激励视频 id</span></span><br><span class="line">AdNetSDKHelper* AdNetSDKHelper::__instance__ = <span class="literal">NULL</span>;</span><br><span class="line"><span class="function">AdNetSDKHelper* <span class="title">AdNetSDKHelper::Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(AdNetSDKHelper::__instance__ == <span class="literal">NULL</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         AdNetSDKHelper::__instance__ = <span class="keyword">new</span> <span class="built_in">AdNetSDKHelper</span>();</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> AdNetSDKHelper::__instance__;</span><br><span class="line">&#125;;</span><br><span class="line"> <span class="function"><span class="type">void</span> <span class="title">AdNetSDKHelper::Init</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(@<span class="string">&quot;AdNetSDKHelper::Init&quot;</span>);</span><br><span class="line">    AdSdkConnector *adsdk = [AdSdkConnector getInstance];</span><br><span class="line">    [adsdk initBuAdSdkWarpper:kGDTMobSDKVideoId];</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AdNetSDKHelper::initRewardVideo</span><span class="params">(std::string name)</span></span>&#123;</span><br><span class="line">    AdSdkConnector *adsdk = [AdSdkConnector getInstance];</span><br><span class="line">    [adsdk loadVideo:kGDTMobSDKVideoId autoPlay:@<span class="string">&quot;not play&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">AdNetSDKHelper::playRewardVideo</span><span class="params">(std::string name)</span></span>&#123;</span><br><span class="line">    AdSdkConnector *adsdk = [AdSdkConnector getInstance];</span><br><span class="line">    [adsdk playVideo:kGDTMobSDKVideoId];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AdSdkConnector.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="comment">//#import &quot;GDTRewardVideoAd.h&quot;</span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;RootViewController.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;LightGameSDK/LGRewardedVideoAd.h&gt;</span></span></span><br><span class="line">@interface AdSdkConnector  : RootViewController&lt;LGRewardedVideoAdDelegate&gt;&#123;</span><br><span class="line">        <span class="type">bool</span> isRewardedVideoPlayFinish;</span><br><span class="line">        <span class="type">bool</span> isRewardedVideoAutoPlay;</span><br><span class="line">        NSString* rewardPlacementId;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//@property (nonatomic, strong) LGRewardedVideoAd *rewardVideoAd;</span></span><br><span class="line">+ (AdSdkConnector *) getInstance;            <span class="comment">//用来获取实例的方法</span></span><br><span class="line">- (<span class="type">void</span>) loadVideo: (NSString *)placementId autoPlay: (NSString *)autoPlayFlag;</span><br><span class="line">- (<span class="type">void</span>) initBuAdSdkWarpper: (NSString *)placementId;</span><br><span class="line">- (<span class="type">void</span>) playVideo: (NSString *)placementId;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>AdSdkConnector.mm</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;AppController.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;RootViewController.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos/scripting/js-bindings/jswrapper/SeApi.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;cocos2d.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;objc/runtime.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;AdSdkConnector.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> NSString *AdDetail_rewardedVideoAdKey = @<span class="string">&quot;AdDetail_rewardedVideoAdKey&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> AdSdkConnector *instance;    <span class="comment">//这里声明一下静态实例，方便javascript层调用</span></span><br><span class="line">@implementation AdSdkConnector</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//获取实例的方法，方便javascript层调用</span></span><br><span class="line">+(AdSdkConnector *) getInstance&#123;</span><br><span class="line">    <span class="keyword">if</span> (!instance) &#123;</span><br><span class="line">           instance = [[AdSdkConnector alloc] init];</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)init&#123;</span><br><span class="line">    <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//打开激励视频的方法</span></span><br><span class="line">-(<span class="type">void</span>) initBuAdSdkWarpper: (NSString *)placementId&#123;</span><br><span class="line"><span class="comment">// NSString* appidString = [[NSString alloc] initWithUTF8String: name];</span></span><br><span class="line"><span class="comment">// NSLog(@&quot;initBuAdSdkWarppers %@&quot;,appidString);</span></span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;initBuAdSdkWarppers&quot;</span>);</span><br><span class="line">    rewardPlacementId = placementId;</span><br><span class="line"><span class="comment">//    self.rewardedVideoAd.delegate = self;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>) loadVideo: (NSString *)placementId autoPlay: (NSString *)autoPlayFlag&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;loadVideo %@&quot;</span>,placementId);</span><br><span class="line">    BOOL res =  [autoPlayFlag isEqualToString:@<span class="string">&quot;play&quot;</span>];</span><br><span class="line">    <span class="keyword">if</span>(res)&#123;</span><br><span class="line">        isRewardedVideoAutoPlay = res;</span><br><span class="line">            <span class="built_in">NSLog</span>(@<span class="string">&quot;需要播放广告了&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         isRewardedVideoAutoPlay = res;</span><br><span class="line">          <span class="built_in">NSLog</span>(@<span class="string">&quot;不需要播放广告&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    [self __loadRewardedVideoADWithSlotID:placementId];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)__loadRewardedVideoADWithSlotID:(NSString *)slotID &#123;</span><br><span class="line">    LGRewardedVideoModel *rewardModel = [[LGRewardedVideoModel alloc] init];</span><br><span class="line">    <span class="comment">// 必填参数 这里使用 官方 demo自带的 参数</span></span><br><span class="line">    rewardModel.userId = @<span class="string">&quot;900546826&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 选填参数</span></span><br><span class="line">    rewardModel.rewardName = @<span class="string">&quot;特大激励&quot;</span>;</span><br><span class="line">    rewardModel.rewardAmount = <span class="number">10</span>;</span><br><span class="line">    rewardModel.extra = @<span class="string">&quot;serializedString.&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    self.rewardedVideoAd = [[LGRewardedVideoAd alloc] initWithSlotID:slotID rewardedVideoModel:rewardModel];</span><br><span class="line">    self.rewardedVideoAd.delegate = self;</span><br><span class="line">    [self.rewardedVideoAd loadAdData];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">objc_getAssociatedObject</span>(self, &amp;AdDetail_rewardedVideoAdKey);</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="type">void</span>)setRewardedVideoAd:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">objc_setAssociatedObject</span>(self, &amp;AdDetail_rewardedVideoAdKey, rewardedVideoAd, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 确认激励视频广告有效性之后，在合适的时机展示广告</span></span><br><span class="line">- (<span class="type">void</span>)playVideo: (NSString *)placementId &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;playVideo placementId...%@&quot;</span>,placementId);</span><br><span class="line">    <span class="keyword">if</span> (!self.rewardedVideoAd.isAdValid) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(@<span class="string">&quot;广告失效!，请重新拉取&quot;</span>);</span><br><span class="line">        [self loadVideo:placementId autoPlay:@<span class="string">&quot;play&quot;</span>];</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    [self showRewardAd];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///展示激励视频广告</span></span><br><span class="line">- (<span class="type">void</span>)showRewardAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;showRewardAd ...&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> ([self.rewardedVideoAd isAdValid]) &#123;</span><br><span class="line">        <span class="comment">// 视频内容load成功后才能展示广告</span></span><br><span class="line">        <span class="built_in">NSLog</span>(@<span class="string">&quot;showAdFromRootViewController ...&quot;</span>);</span><br><span class="line"><span class="comment">//        [self.rewardedVideoAd showAdFromRootViewController:self.navigationController];</span></span><br><span class="line">        UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;</span><br><span class="line">        <span class="keyword">if</span> (rootViewController != nil) &#123;</span><br><span class="line">            isRewardedVideoPlayFinish = <span class="literal">false</span>;</span><br><span class="line">            <span class="built_in">NSLog</span>(@<span class="string">&quot;isRewardedVideoPlayFinish ...&quot;</span>);</span><br><span class="line">            [self.rewardedVideoAd showAdFromRootViewController:rootViewController];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(@<span class="string">&quot;视图空了 拉取&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///在场景中展示激励视频广告</span></span><br><span class="line">- (<span class="type">void</span>)showRewardAdWithScene &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;showRewardAdWithScene ...&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> ([self.rewardedVideoAd isAdValid]) &#123;</span><br><span class="line">        <span class="comment">// 视频内容load成功后才能展示广告</span></span><br><span class="line">        <span class="built_in">NSLog</span>(@<span class="string">&quot;showAdFromRootViewController ..BURitSceneType_custom.&quot;</span>);</span><br><span class="line">        [self.rewardedVideoAd showAdFromRootViewController:self.navigationController ritScene:BURitSceneType_custom ritSceneDescribe:@<span class="string">&quot;BURitSceneType_custom&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> <span class="string">&lt;LGRewardedVideoAdDelegate&gt;</span></span></span><br><span class="line"><span class="comment">///以下代理按需实现</span></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdDidLoad:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd DidLoad...\n&quot;</span>);</span><br><span class="line">    <span class="comment">// 物料加载后广告才会可用</span></span><br><span class="line">    [self.rewardedVideoAd isAdValid];</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAd:(LGRewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd didFailWithError--%ld:%@\n&quot;</span>, (<span class="type">long</span>)error.code, error.localizedDescription);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdVideoDidLoad:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd VideoDidLoad...\n&quot;</span>);</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd 加载好了...\n&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(isRewardedVideoAutoPlay)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(@<span class="string">&quot;需要播放广告了!!&quot;</span>);</span><br><span class="line">        isRewardedVideoAutoPlay = NO;</span><br><span class="line">        UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;</span><br><span class="line">        <span class="keyword">if</span> (rootViewController != nil) &#123;</span><br><span class="line">            isRewardedVideoPlayFinish = <span class="literal">false</span>;</span><br><span class="line">            [self.rewardedVideoAd showAdFromRootViewController:rootViewController];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(@<span class="string">&quot;视图空了 拉取&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(@<span class="string">&quot;不需要播放广告!!&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdWillVisible:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd WillVisible...\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdDidVisible:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd DidVisible...\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdWillClose:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd WillClose...\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdDidClose:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd DidClose...\n&quot;</span>);</span><br><span class="line"><span class="comment">//    [self.navigationController popViewControllerAnimated:YES];</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//    self.rewardedVideoAd = nil;</span></span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;广告已关闭&quot;</span>);</span><br><span class="line"><span class="comment">//    [GDTAction logAction:GDTSDKActionNameCompleteOrder actionParam:@&#123;@&quot;value&quot;:@&quot;COMPLETE_ORDER&quot;&#125;];</span></span><br><span class="line">    [self callJsEngineCallBack:isRewardedVideoPlayFinish name:@<span class="string">&quot;video&quot;</span>];</span><br><span class="line">    [self loadVideo:rewardPlacementId autoPlay:@<span class="string">&quot;not play&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdDidClick:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd DidClick...\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdDidPlayFinish:(LGRewardedVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd DidPlayFinish... errer---%ld:%@\n&quot;</span>, error.code, error.localizedDescription);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdServerRewardDidSucceed:(LGRewardedVideoAd *)rewardedVideoAd verify:(BOOL)verify &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAdServerRewardDidSucceed verify...\n&quot;</span>);</span><br><span class="line">    isRewardedVideoPlayFinish = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdServerRewardDidFail:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd ServerRewardDidFail...\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)rewardedVideoAdDidClickSkip:(LGRewardedVideoAd *)rewardedVideoAd &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;rewardedVideoAd DidClickSkip...\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)callJsEngineCallBack:(BOOL) successful  name:(NSString*) name &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;callJsEngineCallBack...&quot;</span>);</span><br><span class="line">    NSString *funcNameStr = @<span class="string">&quot;finishRewardVideo&quot;</span>;</span><br><span class="line">    std::string funcName = [funcNameStr UTF8String];</span><br><span class="line"><span class="comment">//    NSNumber *successfulNumber = [NSNumber numberWithBool:successful];</span></span><br><span class="line">    std::string finish = <span class="string">&quot;fail&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(successful == <span class="literal">true</span>)&#123;</span><br><span class="line">        finish = <span class="string">&quot;success&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::string jsCallStr = cocos2d::StringUtils::format(<span class="string">&quot;%s(\&quot;%s\&quot;);&quot;</span>,funcName.<span class="built_in">c_str</span>(),finish.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;jsCallStr = %s&quot;</span>, jsCallStr.<span class="built_in">c_str</span>());</span><br><span class="line">    se::ScriptEngine::<span class="built_in">getInstance</span>()-&gt;<span class="built_in">evalString</span>(jsCallStr.<span class="built_in">c_str</span>());</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>以上 这些 就是代码的基本逻辑</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>主要是两个地方 一个是获取 UIViewController 的实例</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;</span><br><span class="line">       <span class="keyword">if</span> (rootViewController != nil) &#123;</span><br><span class="line">           isRewardedVideoPlayFinish = <span class="literal">false</span>;</span><br><span class="line">           <span class="built_in">NSLog</span>(@<span class="string">&quot;isRewardedVideoPlayFinish ...&quot;</span>);</span><br><span class="line">           [self.rewardedVideoAd showAdFromRootViewController:rootViewController];</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="built_in">NSLog</span>(@<span class="string">&quot;视图空了 拉取&quot;</span>);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外一个 回调 JS 代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="type">void</span>)callJsEngineCallBack:(BOOL) successful  name:(NSString*) name &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;callJsEngineCallBack...&quot;</span>);</span><br><span class="line">    NSString *funcNameStr = @<span class="string">&quot;finishRewardVideo&quot;</span>;</span><br><span class="line">    std::string funcName = [funcNameStr UTF8String];</span><br><span class="line"><span class="comment">//    NSNumber *successfulNumber = [NSNumber numberWithBool:successful];</span></span><br><span class="line">    std::string finish = <span class="string">&quot;fail&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(successful == <span class="literal">true</span>)&#123;</span><br><span class="line">        finish = <span class="string">&quot;success&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    std::string jsCallStr = cocos2d::StringUtils::format(<span class="string">&quot;%s(\&quot;%s\&quot;);&quot;</span>,funcName.<span class="built_in">c_str</span>(),finish.<span class="built_in">c_str</span>());</span><br><span class="line">    <span class="built_in">NSLog</span>(@<span class="string">&quot;jsCallStr = %s&quot;</span>, jsCallStr.<span class="built_in">c_str</span>());</span><br><span class="line">    se::ScriptEngine::<span class="built_in">getInstance</span>()-&gt;<span class="built_in">evalString</span>(jsCallStr.<span class="built_in">c_str</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面就是 整个代码的核心逻辑</p>
+<p>官方的demo 下载后 是这样的</p>
+<p><img src="/post/a8fbd3f4/image-20200923194529217.png" alt="image-20200923194529217"></p>
+<p>直接运行 Xcode 项目是错的</p>
+<p><img src="/post/a8fbd3f4/image-20200923194624465.png" alt="image-20200923194624465"></p>
+<p>官方的例子 代码在exampleLightGame/LightGameDemo/Home/Categories/Ad/Detail 下面的 </p>
+<p><img src="/post/a8fbd3f4/image-20200923194839459.png" alt="image-20200923194839459"></p>
+<p>这两个文件，然后根据官方例子 比着写要容易的多。</p>
+<h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p>如果遇到错误 </p>
+<blockquote>
+<p>rewardedVideoAd didFailWithError–40016:代码位ID 与应用ID 不匹配或者应用ID 缺失。初始化时需要填写appid，在activity中需要填写代码位ID。媒体要确保这两个填写正确且匹配。</p>
+</blockquote>
+<p>原因是 没有进行游戏初始化工作 需要 初始化</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[LightGameManager startWithAppID:@<span class="string">&quot;KMFzTCk4EJ1daUVjQswhG15abNQjM38ALrhxby08H8MjC1RYe+ceEEFHeLRaQy8pcdkwHk9hVt4tHVJoVswiGlpNdMBlZgIALpdZW39PeYBuRhIdLaVcFQVSPKRNQFFPf8FmXCk4EJ1daUVjQo1lHFxYPNczfmoAP4YiLTtXJj+KdUACBg==&quot;</span> appName:@<span class="string">&quot;light_game_sdk&quot;</span> channel:@<span class="string">&quot;App Store&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总来来说，不论是流量汇或者Ohayoo激励视频 都和 穿山甲很相似，这其中数穿山甲官方教程最为详细，反正就是几个文档结合着看吧 基本都是播放广告后添加一个监听，在视频广告结束后关闭的时候 下发奖励并且加载下一个广告，这样下次可以直接播放，不会出现加载的短暂黑屏。</p>
+<h3 id="常见问题汇总"><a href="#常见问题汇总" class="headerlink" title="常见问题汇总"></a>常见问题汇总</h3><table>
+<thead>
+<tr>
+<th><strong>序号</strong></th>
+<th><strong>问题类型</strong></th>
+<th><strong>问题描述</strong></th>
+<th><strong>影响</strong></th>
+<th><strong>解决方案</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>深度转化  SDK</td>
+<td>appname 与预期不一致</td>
+<td>影响数据分析</td>
+<td>cp接入sdk的初始化代码中的appname=开平后台的游戏中文名=提供给测试的appname</td>
+</tr>
+<tr>
+<td>2</td>
+<td>深度转化 SDK</td>
+<td>app_version 非 3 段式</td>
+<td>数据分析时无法区分版本</td>
+<td>cp 修改版本号为 X.X.X 三段式</td>
+</tr>
+<tr>
+<td>3</td>
+<td>深度转化 SDK</td>
+<td>channel 与预期不一致</td>
+<td>影响数据分析</td>
+<td>iOS 一定是 App StoreAndroid：一定不能是 App Store必须是英文官方渠道是 jrtt，其他请自行确认，避免使用 test</td>
+</tr>
+<tr>
+<td>4</td>
+<td>深度转化 SDK</td>
+<td>Android缺少appname上报</td>
+<td>无</td>
+<td>Android的深度转化由于设计原因，不需要上报appname</td>
+</tr>
+</tbody></table>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://ohayoo.cn/sdk/document/1642/18852/">前端SDK概述</a></li>
+<li><a target="_blank" rel="noopener" href="https://bytedance.feishu.cn/docs/doccnWUsiA5tsiCcmcIvan3z10c#">Ohayoo SDK服务器文档</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/6c4e035c.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>LayaBox2.X如何使用bignumber.js(decimal.js)</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/8be86f95.html">
+        <span>Cocos Creator使用jsencrypt本地存储加密(RSA)</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/a8fbd3f4.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">前期代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">导出项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E7%B1%BB%E5%BA%93-%E5%92%8C%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">3.</span> <span class="toc-text">导入类库 和配置环境</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#framework%E5%AF%BC%E5%85%A5"><span class="toc-number">3.1.</span> <span class="toc-text">framework导入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SDK%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">SDK初始化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">4.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%8F%92%E6%9B%B2"><span class="toc-number">5.</span> <span class="toc-text">小插曲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB"><span class="toc-number">7.</span> <span class="toc-text">常见问题汇总</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">8.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

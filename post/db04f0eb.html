@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            字节跳动头条小游戏更多游戏跳转 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/db04f0eb.html">字节跳动头条小游戏更多游戏跳转</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-02-04
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=字节跳动头条小游戏更多游戏跳转&url=http://blog.asroads.com/post/db04f0eb.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=字节跳动头条小游戏更多游戏跳转&url=http://blog.asroads.com/post/db04f0eb.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/db04f0eb.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/db04f0eb.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/db04f0eb.html&title=字节跳动头条小游戏更多游戏跳转" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=字节跳动头条小游戏更多游戏跳转&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/db04f0eb.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/db04f0eb.html&text=字节跳动头条小游戏更多游戏跳转" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>头条小游戏和微信小游戏基本语法都是相同的，只是多了录屏的功能，后期陆续更新了一些和微信略微不同的功能，更多游戏功能就是这样的，和微信的小游戏跳转基本功能是一致的，但是多了封装，面板是官方已经写好的，我们只要配置数据即可，而且有个更多好玩游戏 直达小游戏中心，让更多玩家找到更好玩的游戏。</p>
+<span id="more"></span>
+<p>接下来就简单的说说这个更多游戏的用法：</p>
+<p>总的来讲，其实更多游戏有两种实现方案，一种是初始化一个按钮即可，按钮显示的后续操作，已经封装好了，属于比较简单的，第二种是可以自己自定义入口按钮，这样可以添加更多的样式和操作，然后点击的时候调用更多游戏的面板即可，下面就说说这两种的挑战是如何实现的，首先我们打开官网：<a target="_blank" rel="noopener" href="https://microapp.bytedance.com/dev/cn/mini-game/develop/open-capacity/more-mini-game/functional-description">点击进入</a></p>
+<h3 id="tt-createMoreGamesButton-方法"><a href="#tt-createMoreGamesButton-方法" class="headerlink" title="tt.createMoreGamesButton 方法"></a>tt.createMoreGamesButton 方法</h3><p>这个方法是用 tt.createMoreGamesButton 创建一个按钮，按钮可以是文本和图片两种类型，如果是图片，必须是本地的图片，不能远程加载。</p>
+<p>参数Object 类型，属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>必填</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>string</td>
+<td></td>
+<td>是</td>
+<td>按钮的类型，取值 image 或 text。image 对应图片按钮，text 对应文本按钮</td>
+</tr>
+<tr>
+<td>image</td>
+<td>string</td>
+<td></td>
+<td>否</td>
+<td>按钮的背景图片，type 为 image 时必填。仅支持本地图片，目录包括代码包目录、临时文件目录和本地用户目录</td>
+</tr>
+<tr>
+<td>text</td>
+<td>string</td>
+<td>更多游戏</td>
+<td>否</td>
+<td>按钮上的文本内容， type 为 text 时有效</td>
+</tr>
+<tr>
+<td>style</td>
+<td>object</td>
+<td></td>
+<td>是</td>
+<td>按钮的样式</td>
+</tr>
+<tr>
+<td>appLaunchOptions</td>
+<td>Array<object></object></td>
+<td></td>
+<td>是</td>
+<td>小游戏的启动参数</td>
+</tr>
+<tr>
+<td>onNavigateToMiniGame</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>跳转小游戏时的回调函数</td>
+</tr>
+</tbody></table>
+<p>appLaunchOptions 参数说明  Array<object> 类型，结构如下:</object></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>appId</td>
+<td>string</td>
+<td></td>
+<td>是</td>
+<td>要打开的小游戏 appId</td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td></td>
+<td>否</td>
+<td>查询字符串，必须是 key1=val1&amp;key2=val2 的格式。可通过 tt.getLaunchOptionSync() 或 tt.onShow() 获取启动参数中的 query</td>
+</tr>
+<tr>
+<td>extraData</td>
+<td>object</td>
+<td></td>
+<td>否</td>
+<td>需要传递给目标小游戏的数据。可通过 tt.getLaunchOptionsSync() 或 tt.onShow() 返回的 referrerInfo 字段获取对应数据</td>
+</tr>
+</tbody></table>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> systemInfo = tt.<span class="title function_">getSystemInfoSync</span>();</span><br><span class="line"><span class="keyword">const</span> version = systemInfo.<span class="property">SDKVersion</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="title function_">compareVersion</span>(version, <span class="string">&#x27;1.33.0&#x27;</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasMoreGamesButton</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// iOS 不支持，建议先检测再使用</span></span><br><span class="line"><span class="keyword">if</span> (systemInfo.<span class="property">platform</span> === <span class="string">&quot;ios&quot;</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasMoreGamesButton</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// const url = &quot;more/btn_more_game&quot;;</span></span><br><span class="line"><span class="keyword">let</span> moreGameOptions = <span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>).<span class="property">config</span>.<span class="property">moreGame</span>.<span class="property">json</span>;</span><br><span class="line"><span class="keyword">let</span> array = <span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>).<span class="property">Tools</span>.<span class="title function_">objectToArray</span>(moreGameOptions), list = [];</span><br><span class="line">array.<span class="title function_">forEach</span>(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (value.<span class="property">show</span>) &#123;</span><br><span class="line">        list.<span class="title function_">push</span>(&#123;</span><br><span class="line">            <span class="attr">appId</span>: value.<span class="property">appId</span>,</span><br><span class="line">            <span class="attr">query</span>: <span class="string">&quot;name=&quot;</span> + value.<span class="property">name</span> + <span class="string">&quot;&amp;weight=&quot;</span> + value.<span class="property">weight</span>,</span><br><span class="line">            <span class="attr">extraData</span>: &#123;&#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">list.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a.<span class="property">weight</span> - b.<span class="property">weight</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">if</span> (list.<span class="property">length</span> == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasMoreGamesButton</span> = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">moreGamesButton</span> = tt.<span class="title function_">createMoreGamesButton</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;image&quot;</span>,</span><br><span class="line">    <span class="attr">image</span>: <span class="string">&quot;res/raw-assets/resources/btn_more_game.png&quot;</span>,<span class="comment">//图片路径</span></span><br><span class="line">    <span class="attr">style</span>: &#123;</span><br><span class="line">        <span class="attr">left</span>: <span class="number">20</span>,</span><br><span class="line">        <span class="attr">top</span>: <span class="number">40</span>,</span><br><span class="line">        <span class="attr">width</span>: <span class="number">45</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="number">45</span>,</span><br><span class="line">        <span class="attr">lineHeight</span>: <span class="number">40</span>,</span><br><span class="line">        <span class="attr">backgroundColor</span>: <span class="string">&quot;#ff000000&quot;</span>,<span class="comment">//最后两位表示透明度</span></span><br><span class="line">        <span class="attr">textColor</span>: <span class="string">&quot;#ffffff&quot;</span>,</span><br><span class="line">        <span class="attr">textAlign</span>: <span class="string">&quot;center&quot;</span>,</span><br><span class="line">        <span class="attr">fontSize</span>: <span class="number">16</span>,</span><br><span class="line">        <span class="attr">borderRadius</span>: <span class="number">4</span>,</span><br><span class="line">        <span class="attr">borderWidth</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">borderColor</span>: <span class="string">&quot;#ff000000&quot;</span><span class="comment">//最后两位表示透明度</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">appLaunchOptions</span>: list,</span><br><span class="line">    <span class="title function_">onNavigateToMiniGame</span>(<span class="params">res</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;跳转其他小游戏&quot;</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">moreGamesButton</span>.<span class="title function_">onTap</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;点击更多游戏&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 监听弹窗关闭</span></span><br><span class="line">tt.<span class="title function_">onMoreGamesModalClose</span>(<span class="keyword">function</span>(<span class="params">res</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;modal closed&quot;</span>, res);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 监听小游戏跳转</span></span><br><span class="line">tt.<span class="title function_">onNavigateToMiniProgram</span>(<span class="keyword">function</span>(<span class="params">res</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">errCode</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">errMsg</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>以上 即可在屏幕上 新建一个按钮  点击 可以直接打开</p>
+<h3 id="自定义按钮-然后打开更多游戏"><a href="#自定义按钮-然后打开更多游戏" class="headerlink" title="自定义按钮 然后打开更多游戏"></a>自定义按钮 然后打开更多游戏</h3><p>下面是挂在自定义按钮 组件上面的实体 比如一个Node 包括一个 按钮</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Browser</span> <span class="keyword">from</span> <span class="string">&quot;../Utils/Browser&quot;</span>;</span><br><span class="line"></span><br><span class="line">cc.<span class="title class_">Class</span>(&#123;</span><br><span class="line">    <span class="attr">extends</span>: cc.<span class="property">Component</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">properties</span>: &#123;</span><br><span class="line">        <span class="attr">moreGamesButton</span>: cc.<span class="property">Node</span>,</span><br><span class="line">        <span class="attr">hasMoreGamesButton</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">deltaPos</span>: <span class="literal">false</span>,<span class="comment">//点击整个操作 是否移动地图操作</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title class_">Browser</span>.<span class="title function_">isMiniGame</span>())&#123;</span><br><span class="line">            <span class="keyword">const</span> systemInfo = tt.<span class="title function_">getSystemInfoSync</span>();</span><br><span class="line">            <span class="keyword">const</span> version = systemInfo.<span class="property">SDKVersion</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>).<span class="property">Tools</span>.<span class="title function_">compareVersion</span>(version, <span class="string">&#x27;1.33.0&#x27;</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">hasMoreGamesButton</span> = <span class="literal">false</span>;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">active</span> = <span class="literal">false</span>;moreGameBtn.<span class="property">js</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// iOS 不支持，建议先检测再使用</span></span><br><span class="line">            <span class="keyword">if</span> (systemInfo.<span class="property">platform</span> === <span class="string">&quot;ios&quot;</span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">hasMoreGamesButton</span> = <span class="literal">false</span>;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">active</span> = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 监听弹窗关闭</span></span><br><span class="line">            tt.<span class="title function_">onMoreGamesModalClose</span>(<span class="keyword">function</span>(<span class="params">res</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;modal closed&quot;</span>, res);</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">// 监听小游戏跳转</span></span><br><span class="line">            tt.<span class="title function_">onNavigateToMiniProgram</span>(<span class="keyword">function</span>(<span class="params">res</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">errCode</span>);</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(res.<span class="property">errMsg</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// this.node.active = false;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> moreGameOptions = <span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>).<span class="property">config</span>.<span class="property">moreGame</span>.<span class="property">json</span>,count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> array = <span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>).<span class="property">Tools</span>.<span class="title function_">objectToArray</span>(moreGameOptions);</span><br><span class="line">        array.<span class="title function_">forEach</span>(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (value.<span class="property">show</span>) &#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">hasMoreGamesButton</span> = <span class="literal">false</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">active</span> = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">initListener</span>();</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onClose</span>(<span class="params"></span>) &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">initListener</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> delta = event.<span class="property">touch</span>.<span class="title function_">getDelta</span>();</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span> += delta.<span class="property">x</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span> += delta.<span class="property">y</span>;</span><br><span class="line">            <span class="keyword">let</span> left = (<span class="title class_">Browser</span>.<span class="property">width</span> - <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">width</span>) * -<span class="number">0.5</span>;</span><br><span class="line">            <span class="keyword">let</span> right = (<span class="title class_">Browser</span>.<span class="property">width</span> - <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">width</span>) * <span class="number">0.5</span>;</span><br><span class="line">            <span class="keyword">let</span> top = (<span class="title class_">Browser</span>.<span class="property">height</span> - <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">height</span>) * <span class="number">0.5</span>;</span><br><span class="line">            <span class="keyword">let</span> bottom = (<span class="title class_">Browser</span>.<span class="property">height</span> - <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">height</span>) * -<span class="number">0.5</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span> = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span> &lt; left ? left : <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span> = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span> &gt; right ? right : <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">x</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span> = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span> &lt; bottom ? bottom : <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span> = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span> &gt; top ? top : <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">y</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_CANCEL</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">move</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125;,<span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="function">(<span class="params">event</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">move</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125;, <span class="variable language_">this</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//是否是移动地图 如果是移动地图就不弹框</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">deltaPos</span> = event.<span class="title function_">getLocation</span>();</span><br><span class="line">        &#125;, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">moreGamesButton</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//如果移动地图 就 不再弹框</span></span><br><span class="line">            <span class="keyword">let</span> pos = event.<span class="title function_">getLocation</span>();</span><br><span class="line">            <span class="keyword">if</span> (<span class="title class_">Math</span>.<span class="title function_">abs</span>(pos.<span class="property">x</span> - <span class="variable language_">this</span>.<span class="property">deltaPos</span>.<span class="property">x</span>) &gt; <span class="number">10</span> || <span class="title class_">Math</span>.<span class="title function_">abs</span>(pos.<span class="property">y</span> - <span class="variable language_">this</span>.<span class="property">deltaPos</span>.<span class="property">y</span>) &gt; <span class="number">10</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span>, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;移动了&quot;</span>));</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">move</span> = <span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">move</span> = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable language_">this</span>.<span class="property">move</span>)<span class="keyword">return</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">showMoreGamesModal</span>(event);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">showMoreGamesModal</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>).<span class="property">audioMgr</span>.<span class="title function_">playEffect</span>(<span class="string">&quot;buttonClick&quot;</span>);</span><br><span class="line">        tt.<span class="title function_">showMoreGamesModal</span>(&#123;</span><br><span class="line">            <span class="attr">appLaunchOptions</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">appId</span>: <span class="string">&quot;tt89e6ff5b16cc6954&quot;</span>,</span><br><span class="line">                    <span class="attr">query</span>: <span class="string">&quot;name=养个神仙玩儿&amp;platform=tt&quot;</span>,</span><br><span class="line">                    <span class="attr">extraData</span>: &#123;&#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="title function_">success</span>(<span class="params">res</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;success&quot;</span>, res.<span class="property">errMsg</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="title function_">fail</span>(<span class="params">res</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;fail&quot;</span>, res.<span class="property">errMsg</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>Browser.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Browser</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> diff = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">now</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">sys</span>.<span class="title function_">now</span>()+<span class="title class_">Browser</span>.<span class="property">diff</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">clientWidth</span>()&#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">view</span>.<span class="title function_">getCanvasSize</span>().<span class="property">width</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">clientHeight</span>()&#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">view</span>.<span class="title function_">getCanvasSize</span>().<span class="property">height</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">width</span>()&#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">view</span>.<span class="title function_">getDesignResolutionSize</span>().<span class="property">width</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">height</span>()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Browser</span>.<span class="property">width</span>*(<span class="title class_">Browser</span>.<span class="property">clientHeight</span>/<span class="title class_">Browser</span>.<span class="property">clientWidth</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">browserType</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;tt&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">isMiniGame</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> cc.<span class="property">sys</span>.<span class="property">browserType</span> === cc.<span class="property">sys</span>.<span class="property">BROWSER_TYPE_WECHAT_GAME</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">isAndroid</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title class_">Browser</span>.<span class="title function_">isMiniGame</span>()&amp;&amp; <span class="title class_">Browser</span>.<span class="property">browserType</span> == <span class="string">&quot;qq&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(qq.<span class="title function_">getSystemInfoSync</span>().<span class="property">platform</span> === <span class="string">&quot;android&quot;</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span>  <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样 这个 自定义按钮 可以 自由的拖动，然后 如果点击的时候 可以打开 更多游戏面板。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>无论是用那种办法都是要 在game.json 里面配置：appid 不能少于 4个 不能多于10个 </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;deviceOrientation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;portrait&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;networkTimeout&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="number">5000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;connectSocket&quot;</span><span class="punctuation">:</span> <span class="number">5000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;uploadFile&quot;</span><span class="punctuation">:</span> <span class="number">5000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;downloadFile&quot;</span><span class="punctuation">:</span> <span class="number">5000</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;ttNavigateToMiniGameAppIdList&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;xxxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;xxxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;xxxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样一来，我们无法动态远程自定义控制 打开 添加的跳转程序列表（微信是可以的）比如我添加10个 打开的时候我可以显示其中的 1-10个都行，这个可以根据我远程或者服务器的数据判断哪些是可以显示，哪些是不需要显示的。从这个角度来讲，头条控制的更严格。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上是两种都能实现更多游戏的方法，个人更喜欢第二种，虽然有些麻烦，但是功能更多更全，但是还是没有达到可以自己控制我需要跳转哪些小游戏，以及我可以动态的排序显示等操作。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/3e50bf38.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator|Android 实战开发（上）</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/d5575747.html">
+        <span>CocosCreator导出Android项目采坑指南</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/db04f0eb.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#tt-createMoreGamesButton-%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">tt.createMoreGamesButton 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%89%E9%92%AE-%E7%84%B6%E5%90%8E%E6%89%93%E5%BC%80%E6%9B%B4%E5%A4%9A%E6%B8%B8%E6%88%8F"><span class="toc-number">2.</span> <span class="toc-text">自定义按钮 然后打开更多游戏</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-number">3.</span> <span class="toc-text">注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

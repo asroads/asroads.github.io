@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator摄像机移动以及缩放地图 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/5f9d2fe9.html">CocosCreator摄像机移动以及缩放地图</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-04-11
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator摄像机移动以及缩放地图&url=http://blog.asroads.com/post/5f9d2fe9.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator摄像机移动以及缩放地图&url=http://blog.asroads.com/post/5f9d2fe9.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/5f9d2fe9.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/5f9d2fe9.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/5f9d2fe9.html&title=CocosCreator摄像机移动以及缩放地图" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator摄像机移动以及缩放地图&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/5f9d2fe9.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/5f9d2fe9.html&text=CocosCreator摄像机移动以及缩放地图" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>签名文章写过地图移动<a href="https://blog.asroads.com/post/ce78284b.html">地图缩放拖动组件｜Cocos Creator 3.0</a>，用的是移动节点，后面有文章指出可以移动摄像机完成这样的效果，下面就简单的说一下如何用相机移动实现地图的移动和双指缩放。</p>
+<span id="more"></span>
+
+<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><ul>
+<li>Mac </li>
+<li>Cocos Creator2.4.8</li>
+</ul>
+<p>下面是效果：</p>
+<p><img src="/post/5f9d2fe9/1001.gif" alt="1001"></p>
+<p>web 和 原生均可运行 web 使用滚轮 原生使用双指</p>
+<h2 id="完整代码："><a href="#完整代码：" class="headerlink" title="完整代码："></a>完整代码：</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2022/4/10  12:33</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MapTouchScript</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&#x27;双指缩放速率&#x27;</span>, <span class="attr">max</span>: <span class="number">10</span>, <span class="attr">min</span>: <span class="number">0.001</span>&#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">fingerIncreaseRate</span>: <span class="built_in">number</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;瓦片地图&quot;</span>, <span class="attr">type</span>: cc.<span class="property">TiledMap</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">tileMap</span>: cc.<span class="property">TiledMap</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;相机&quot;</span>, <span class="attr">type</span>: cc.<span class="property">Camera</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">camera</span>: cc.<span class="property">Camera</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;缩放比例测试用，可以设置空&quot;</span>, <span class="attr">type</span>: cc.<span class="property">Label</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">descLabel</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;滚轮滑动比例&quot;</span>, <span class="attr">type</span>: cc.<span class="property">Integer</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">increaseRate</span>: <span class="built_in">number</span> = <span class="number">10000</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;初始化默认地图缩放比&quot;</span>, <span class="attr">type</span>: cc.<span class="property">Float</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">defaultScale</span>: <span class="built_in">number</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;初始化默认地图坐标&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">defaultPosition</span>: cc.<span class="property">Vec2</span> = <span class="keyword">new</span> cc.<span class="title class_">Vec2</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;缩放最小比例&quot;</span>, <span class="attr">type</span>: cc.<span class="property">Float</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">minZoomRatio</span>: <span class="built_in">number</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">tooltip</span>: <span class="string">&quot;缩放最大比例&quot;</span>, <span class="attr">type</span>: cc.<span class="property">Float</span>&#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">maxZoomRatio</span>: <span class="built_in">number</span> = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">begin</span>: cc.<span class="property">Vec3</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">isMoving</span>: <span class="built_in">boolean</span> = <span class="literal">false</span>; <span class="comment">// 是否拖动地图flag</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">onLoad</span>(<span class="params"></span>) &#123;</span><br><span class="line">        cc.<span class="property">macro</span>.<span class="property">ENABLE_TILEDMAP_CULLING</span> = <span class="literal">true</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span> = <span class="variable language_">this</span>.<span class="property">defaultScale</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="property">position</span> = cc.<span class="title function_">v3</span>(<span class="variable language_">this</span>.<span class="property">defaultPosition</span>.<span class="property">x</span>, <span class="variable language_">this</span>.<span class="property">defaultPosition</span>.<span class="property">y</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="comment">// 开始触摸</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tileMap</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_START</span>, <span class="function">(<span class="params">event: cc.Event.EventTouch</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">begin</span> = <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="property">position</span>;</span><br><span class="line">            cc.<span class="title function_">log</span>(<span class="string">&quot;begin: &quot;</span> + <span class="variable language_">this</span>.<span class="property">begin</span>);</span><br><span class="line">        &#125;, <span class="variable language_">this</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 触摸结束</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tileMap</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_END</span>, <span class="variable language_">this</span>.<span class="property">releaseTouchesEnd</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tileMap</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_CANCEL</span>, <span class="variable language_">this</span>.<span class="property">releaseTouchesEnd</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="comment">// 触摸中</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tileMap</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">TOUCH_MOVE</span>, <span class="variable language_">this</span>.<span class="property">onTouchMove</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">browserType</span> === <span class="string">&quot;chrome&quot;</span> || cc.<span class="property">sys</span>.<span class="property">browserType</span> === <span class="string">&quot;unknown&quot;</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">tileMap</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">MOUSE_WHEEL</span>, <span class="function">(<span class="params">event: cc.Event.EventMouse</span>)=&gt;</span>&#123;</span><br><span class="line">                <span class="comment">//滑轮缩放大小</span></span><br><span class="line">                <span class="keyword">let</span> <span class="attr">scale</span>: <span class="built_in">number</span> = <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span> - event.<span class="title function_">getScrollY</span>() / <span class="variable language_">this</span>.<span class="property">increaseRate</span> * -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">let</span> <span class="attr">screenPos</span>: cc.<span class="property">Vec2</span> = event.<span class="title function_">getLocation</span>();</span><br><span class="line">                <span class="comment">// 转化</span></span><br><span class="line">                <span class="keyword">let</span> realPos = cc.<span class="title function_">v3</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="title function_">getScreenToWorldPoint</span>(screenPos, realPos);</span><br><span class="line">                <span class="keyword">let</span> targetPos = <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="property">parent</span>.<span class="title function_">convertToNodeSpaceAR</span>(cc.<span class="title function_">v3</span>(realPos.<span class="property">x</span>, realPos.<span class="property">y</span>, <span class="number">0</span>));</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----realPos:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(realPos));</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----targetPos:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(targetPos));</span><br><span class="line">                <span class="comment">// this.targetScale += 0.5</span></span><br><span class="line">                <span class="comment">// let targetScale: number = scale;</span></span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">smoothOperate</span>(<span class="variable language_">this</span>.<span class="property">camera</span>, targetPos, scale);</span><br><span class="line">                event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">            &#125;, <span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">releaseTouchesEnd</span>(<span class="params">event: cc.Event.EventTouch</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">touches</span>: <span class="built_in">any</span>[] = event.<span class="title function_">getTouches</span>();</span><br><span class="line">        <span class="keyword">if</span> (touches.<span class="property">length</span> &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">isMoving</span> = <span class="literal">false</span>; <span class="comment">// 当容器中仅剩最后一个触摸点时将移动flag还原</span></span><br><span class="line">        &#125;</span><br><span class="line">        event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onTouchMove</span>(<span class="params">event: cc.Event.EventTouch</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> touches = event.<span class="title function_">getTouches</span>();</span><br><span class="line">        <span class="keyword">if</span> (touches.<span class="property">length</span> === <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> <span class="attr">touch</span>: cc.<span class="property">Touch</span> = touches[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">isMoving</span> || touch.<span class="title function_">getDelta</span>().<span class="title function_">mag</span>() &gt; <span class="number">10</span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">isMoving</span> = <span class="literal">true</span>;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">begin</span> = <span class="variable language_">this</span>.<span class="property">begin</span>.<span class="title function_">subtract</span>(cc.<span class="title function_">v3</span>(event.<span class="title function_">getDeltaX</span>(), event.<span class="title function_">getDeltaY</span>(), <span class="number">0</span>).<span class="title function_">divide</span>(<span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span>));</span><br><span class="line">                <span class="comment">// console.log(&quot;smile----this.begin:&quot; + JSON.stringify(this.begin));</span></span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">begin</span> = <span class="variable language_">this</span>.<span class="title function_">dealScalePos</span>(<span class="variable language_">this</span>.<span class="property">begin</span>, <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span>);</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="title function_">setPosition</span>(<span class="variable language_">this</span>.<span class="property">begin</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;距离小，不能移动&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (touches.<span class="property">length</span> === <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="comment">// multi touch</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">isMoving</span> = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">touch1</span>: cc.<span class="property">Touch</span> = touches[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">touch2</span>: cc.<span class="property">Touch</span> = touches[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">delta1</span>: cc.<span class="property">Vec2</span> = cc.<span class="title function_">v2</span>(touch1.<span class="title function_">getDelta</span>());</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">delta2</span>: cc.<span class="property">Vec2</span> = cc.<span class="title function_">v2</span>(touch2.<span class="title function_">getDelta</span>());</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">touchPoint1</span>: cc.<span class="property">Vec3</span> = <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="title function_">convertToNodeSpaceAR</span>(cc.<span class="title function_">v3</span>(touch1.<span class="title function_">getLocation</span>().<span class="property">x</span>, touch1.<span class="title function_">getLocation</span>().<span class="property">y</span>));</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">touchPoint2</span>: cc.<span class="property">Vec3</span> = <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="title function_">convertToNodeSpaceAR</span>(cc.<span class="title function_">v3</span>(touch2.<span class="title function_">getLocation</span>().<span class="property">x</span>, touch2.<span class="title function_">getLocation</span>().<span class="property">y</span>));</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">distance</span>: cc.<span class="property">Vec3</span> = touchPoint1.<span class="title function_">clone</span>().<span class="title function_">subtract</span>(touchPoint2.<span class="title function_">clone</span>());</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">delta</span>: cc.<span class="property">Vec2</span> = delta1.<span class="title function_">subtract</span>(delta2).<span class="title function_">multiplyScalar</span>(<span class="variable language_">this</span>.<span class="property">fingerIncreaseRate</span>).<span class="title function_">divide</span>(<span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span>);</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">targetScale</span>: <span class="built_in">number</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="title class_">Math</span>.<span class="title function_">abs</span>(distance.<span class="property">x</span>) &gt; <span class="title class_">Math</span>.<span class="title function_">abs</span>(distance.<span class="property">y</span>)) &#123;</span><br><span class="line">                targetScale = (distance.<span class="property">x</span> + delta.<span class="property">x</span>) / distance.<span class="property">x</span> * <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                targetScale = (distance.<span class="property">y</span> + delta.<span class="property">y</span>) / distance.<span class="property">y</span> * <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">zoomRatio</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 转化</span></span><br><span class="line">            <span class="keyword">let</span> centerX = (touch1.<span class="title function_">getLocation</span>().<span class="property">x</span> + touch2.<span class="title function_">getLocation</span>().<span class="property">x</span>) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">let</span> centerY = (touch1.<span class="title function_">getLocation</span>().<span class="property">y</span> + touch2.<span class="title function_">getLocation</span>().<span class="property">y</span>) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">screenPos</span>: cc.<span class="property">Vec3</span> = cc.<span class="title function_">v3</span>(centerX, centerY, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">let</span> realPos = cc.<span class="title function_">v3</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="title function_">getScreenToWorldPoint</span>(screenPos, realPos);</span><br><span class="line">            <span class="keyword">let</span> targetPos = <span class="variable language_">this</span>.<span class="property">camera</span>.<span class="property">node</span>.<span class="property">parent</span>.<span class="title function_">convertToNodeSpaceAR</span>(cc.<span class="title function_">v3</span>(realPos.<span class="property">x</span>, realPos.<span class="property">y</span>, <span class="number">0</span>));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Move centerPos:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(screenPos));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Move realPos:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(realPos));</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Move targetPos:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(targetPos));</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">smoothOperate</span>(<span class="variable language_">this</span>.<span class="property">camera</span>, targetPos, targetScale);</span><br><span class="line">        &#125;</span><br><span class="line">        event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">smoothOperate</span>(<span class="attr">camera</span>: cc.<span class="property">Camera</span>, <span class="attr">targetPos</span>: cc.<span class="property">Vec3</span>, <span class="attr">targetScale</span>: <span class="built_in">number</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (targetScale &gt; <span class="variable language_">this</span>.<span class="property">maxZoomRatio</span> || targetScale &lt; <span class="variable language_">this</span>.<span class="property">minZoomRatio</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        targetScale = cc.<span class="property">misc</span>.<span class="title function_">clampf</span>(targetScale, <span class="variable language_">this</span>.<span class="property">minZoomRatio</span>, <span class="variable language_">this</span>.<span class="property">maxZoomRatio</span>);</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">uiTouchPos</span>: cc.<span class="property">Vec3</span> = (targetPos.<span class="title function_">clone</span>().<span class="title function_">subtract</span>(camera.<span class="property">node</span>.<span class="property">position</span>.<span class="title function_">clone</span>())).<span class="title function_">multiplyScalar</span>(camera.<span class="property">zoomRatio</span>);</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">mapPos</span>: cc.<span class="property">Vec3</span> = targetPos.<span class="title function_">clone</span>().<span class="title function_">subtract</span>(uiTouchPos.<span class="title function_">divide</span>(targetScale));</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;mapPos:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(mapPos));</span><br><span class="line">        mapPos = <span class="variable language_">this</span>.<span class="title function_">dealScalePos</span>(mapPos, targetScale);</span><br><span class="line">        camera.<span class="property">zoomRatio</span> = targetScale;</span><br><span class="line">        camera.<span class="property">node</span>.<span class="property">position</span> = mapPos;</span><br><span class="line">        <span class="comment">// render ui</span></span><br><span class="line">        <span class="keyword">if</span> (cc.<span class="title function_">isValid</span>(<span class="variable language_">this</span>.<span class="property">descLabel</span>))</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">descLabel</span>.<span class="property">string</span> = <span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.floor(targetScale * <span class="number">100</span>)&#125;</span>%`</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">dealScalePos</span>(<span class="attr">targetPos</span>: cc.<span class="property">Vec3</span>, <span class="attr">zoomRatio</span>: <span class="built_in">number</span>): cc.<span class="property">Vec3</span> &#123;</span><br><span class="line">        <span class="comment">// 摄像机边界 约束</span></span><br><span class="line">        <span class="keyword">const</span> tileMapNode = <span class="variable language_">this</span>.<span class="property">tileMap</span>.<span class="property">node</span>, winSize = cc.<span class="property">winSize</span>;</span><br><span class="line">        <span class="keyword">let</span> maxX = ((tileMapNode.<span class="property">width</span> * tileMapNode.<span class="property">scaleX</span> - winSize.<span class="property">width</span> / zoomRatio) / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">let</span> maxY = ((tileMapNode.<span class="property">height</span> * tileMapNode.<span class="property">scaleY</span> - winSize.<span class="property">height</span> / zoomRatio) / <span class="number">2</span>);</span><br><span class="line">        targetPos.<span class="property">x</span> = cc.<span class="property">misc</span>.<span class="title function_">clampf</span>(targetPos.<span class="property">x</span>, -maxX, maxX);</span><br><span class="line">        targetPos.<span class="property">y</span> = cc.<span class="property">misc</span>.<span class="title function_">clampf</span>(targetPos.<span class="property">y</span>, -maxY, maxY);</span><br><span class="line">        <span class="keyword">return</span> targetPos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后源码 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/mapScaleDemo/%E6%91%84%E5%83%8F%E6%9C%BA%E7%A7%BB%E5%8A%A8/mapmove">点击前往</a></p>
+<h2 id="相关资源"><a href="#相关资源" class="headerlink" title="相关资源"></a>相关资源</h2><p>地图资源下载：<a target="_blank" rel="noopener" href="https://opengameart.org/content/terrain-transitions">https://opengameart.org/content/terrain-transitions</a></p>
+<p>地图编辑器下载：<a target="_blank" rel="noopener" href="https://github.com/mapeditor/tiled">https://github.com/mapeditor/tiled</a></p>
+<p>特定版本1.2：<a target="_blank" rel="noopener" href="https://github.com/mapeditor/tiled/releases/tag/v1.2.0">https://github.com/mapeditor/tiled/releases/tag/v1.2.0</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.writebug.com/git/lili/cocos_creator3-TiledMa">TiledMap(瓦片地图)组件</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/kuokuo666/article/details/104131738">CocosCreator摄像机缩放移动后坐标转化</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/bb43a92e.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Webstorm全局搜索快捷键Ctrl+Shift+F搜索失效解决</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/c6e8081.html">
+        <span>Windows10添加右键新建Markdown文件</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/5f9d2fe9.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">环境：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">完整代码：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">相关资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

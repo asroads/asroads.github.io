@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator ScrollBar(滑动按钮)增强组件 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/52c17b4d.html">Cocos Creator ScrollBar(滑动按钮)增强组件</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-01-11
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator ScrollBar(滑动按钮)增强组件&url=http://blog.asroads.com/post/52c17b4d.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator ScrollBar(滑动按钮)增强组件&url=http://blog.asroads.com/post/52c17b4d.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/52c17b4d.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/52c17b4d.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/52c17b4d.html&title=Cocos Creator ScrollBar(滑动按钮)增强组件" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator ScrollBar(滑动按钮)增强组件&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/52c17b4d.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/52c17b4d.html&text=Cocos Creator ScrollBar(滑动按钮)增强组件" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>众所周知，Cocos Creator自带的<code>cc.ScrollView</code>组件中的<code>ScrollBar</code>组件是无法拖动实现进度的，于是乎论坛就有人自己研发了这个功能，进来需求里有这个功能，于是就用到了，这里对前辈们的功能加以修改和整合，实现自己的需求，下面细说一下。</p>
+<span id="more"></span>
+<p>首先我们看看实现后的效果</p>
+<p>横向<code>ScrollView</code>列表：</p>
+<p><img src="/post/52c17b4d/001.gif" alt="001"></p>
+<p>纵向<code>ScrollView</code>列表：</p>
+<p><img src="/post/52c17b4d/002.gif" alt="002"></p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>管理器节点结构</p>
+<p><img src="/post/52c17b4d/image-20220111125029474.png" alt="image-20220111125029474"></p>
+<p><img src="/post/52c17b4d/image-20220111125209885.png" alt="image-20220111125209885"></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ol>
+<li>实现借鉴了论坛两位大佬的思路结合，依赖 cc.Slider组件实现。</li>
+<li>然后设置对应的进度</li>
+<li>如果是列表滑动，添加滑动监听函数，实现同步进度。</li>
+</ol>
+<h3 id="源码如下："><a href="#源码如下：" class="headerlink" title="源码如下："></a>源码如下：</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2022/1/10  5:51 PM</span></span><br><span class="line"><span class="comment"> * Note:滑动按钮增强</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property, requireComponent, menu&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="meta">@requireComponent</span>(cc.<span class="property">Slider</span>)</span><br><span class="line"><span class="meta">@menu</span>(<span class="string">&quot;组件库/ScrollBarEnhance&quot;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ScrollBarEnhance</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&quot;对应的（ScrollView）滑动列表&quot;</span>,</span><br><span class="line">        <span class="attr">type</span>: cc.<span class="property">ScrollView</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">scrollView</span>: cc.<span class="property">ScrollView</span> = <span class="literal">null</span>!;</span><br><span class="line">    <span class="comment">//滑动事件改变事件</span></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: [cc.<span class="property">Component</span>.<span class="property">EventHandler</span>],</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="variable constant_">CC_DEV</span> &amp;&amp; <span class="string">&quot;滑动事件改变事件&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">renderEvent</span>: cc.<span class="property">Component</span>.<span class="property">EventHandler</span>[] = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">vSlider</span>: cc.<span class="property">Slider</span> = <span class="literal">null</span>!;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="title function_">creatEventHandler</span>(<span class="params">target: cc.Node, component: <span class="built_in">string</span>, handler: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> e = <span class="keyword">new</span> cc.<span class="property">Component</span>.<span class="title class_">EventHandler</span>();</span><br><span class="line">        e.<span class="property">target</span> = target;</span><br><span class="line">        e.<span class="property">component</span> = component;</span><br><span class="line">        e.<span class="property">handler</span> = handler;</span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 外部修改进度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">refresh</span>(<span class="params">p: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> progress, slider = <span class="variable language_">this</span>.<span class="property">vSlider</span> || <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(cc.<span class="property">Slider</span>);</span><br><span class="line">        progress = <span class="title class_">Math</span>.<span class="title function_">min</span>(p, <span class="number">1</span>);</span><br><span class="line">        progress = <span class="title class_">Math</span>.<span class="title function_">max</span>(p, <span class="number">0</span>);</span><br><span class="line">        slider.<span class="property">progress</span> = progress;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">onSliderEvent</span>(slider, <span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;slider.progress----:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(slider.<span class="property">progress</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">addScrollChildIndex</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 增加scroll子节点区间功能 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">addScrollChildIndex</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">/** 禁用鼠标滚轮，滚轮在移动区间时ScrollEvent返回很怪异，没有SCROLL_ENDED事件回调 */</span></span><br><span class="line">            <span class="comment">// this.node.off(cc.Node.EventType.MOUSE_WHEEL);</span></span><br><span class="line">        <span class="keyword">const</span> scroll = <span class="variable language_">this</span>.<span class="property">scrollView</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">vSlider</span> = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(cc.<span class="property">Slider</span>);</span><br><span class="line">        <span class="keyword">let</span> className = cc.<span class="property">js</span>.<span class="title function_">getClassName</span>(<span class="variable language_">this</span>);</span><br><span class="line">        <span class="comment">/** Slider 事件监听 */</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">vSlider</span>.<span class="property">slideEvents</span>.<span class="title function_">push</span>(<span class="title class_">ScrollBarEnhance</span>.<span class="title function_">creatEventHandler</span>(<span class="variable language_">this</span>.<span class="property">node</span>, className, <span class="string">&#x27;onSliderEvent&#x27;</span>));</span><br><span class="line">        <span class="comment">/** ScrollView 事件监听 */</span></span><br><span class="line">        scroll.<span class="property">scrollEvents</span>.<span class="title function_">push</span>(<span class="title class_">ScrollBarEnhance</span>.<span class="title function_">creatEventHandler</span>(<span class="variable language_">this</span>.<span class="property">node</span>, className, <span class="string">&#x27;onScrollEvent&#x27;</span>));</span><br><span class="line">        <span class="comment">/** 初始化进度 */</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">scrollMoveEvent</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 滚动列表事件回调</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">scroll</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">eventType</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">customEventData</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onScrollEvent</span>(<span class="params">scroll: cc.ScrollView, eventType: cc.ScrollView.EventType, customEventData: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (eventType) &#123;</span><br><span class="line">            <span class="keyword">case</span> cc.<span class="property">ScrollView</span>.<span class="property">EventType</span>.<span class="property">SCROLL_BEGAN</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> cc.<span class="property">ScrollView</span>.<span class="property">EventType</span>.<span class="property">SCROLL_ENDED</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> cc.<span class="property">ScrollView</span>.<span class="property">EventType</span>.<span class="property">SCROLLING</span>:</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">scrollMoveEvent</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//滑动列表--滚动条改变</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">scrollMoveEvent</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> vertical = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="property">vertical</span>, maxScrollOffset, getScrollOffset;</span><br><span class="line">        <span class="keyword">if</span> (vertical) &#123;</span><br><span class="line">            maxScrollOffset = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getMaxScrollOffset</span>().<span class="property">y</span>;</span><br><span class="line">            getScrollOffset = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getScrollOffset</span>().<span class="property">y</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            maxScrollOffset = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getMaxScrollOffset</span>().<span class="property">x</span>;</span><br><span class="line">            getScrollOffset = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getScrollOffset</span>().<span class="property">x</span> * (-<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// console.log(&quot;maxScrollOffset&quot;, maxScrollOffset);</span></span><br><span class="line">        <span class="comment">// console.log(&quot;getScrollOffset&quot;, getScrollOffset);</span></span><br><span class="line">        <span class="keyword">if</span> (getScrollOffset / maxScrollOffset &gt; <span class="number">0</span> &amp;&amp; getScrollOffset / maxScrollOffset &lt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">vSlider</span>.<span class="property">progress</span> = getScrollOffset / maxScrollOffset;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getScrollOffset / maxScrollOffset &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">vSlider</span>.<span class="property">progress</span> = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">vSlider</span>.<span class="property">progress</span> = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// console.log(this.vSlider.progress);</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;scrollMoveEvent&quot;</span>, <span class="variable language_">this</span>.<span class="property">vSlider</span>.<span class="property">progress</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">renderEvent</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">renderEvent</span>.<span class="property">length</span>) &#123;</span><br><span class="line">            cc.<span class="property">Component</span>.<span class="property">EventHandler</span>.<span class="title function_">emitEvents</span>(<span class="variable language_">this</span>.<span class="property">renderEvent</span>, <span class="variable language_">this</span>.<span class="property">vSlider</span>.<span class="property">progress</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 滑动按钮 回调</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">slider</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">customEventData</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onSliderEvent</span>(<span class="params">slider, customEventData: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">        <span class="comment">// console.log(&quot;onSliderEvent&quot;, slider.progress);</span></span><br><span class="line">        <span class="keyword">let</span> vertical = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="property">vertical</span>, maxScrollOffsetX = <span class="number">0</span>, maxScrollOffsetY = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (vertical) &#123;</span><br><span class="line">            maxScrollOffsetX = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getScrollOffset</span>().<span class="property">x</span>;</span><br><span class="line">            maxScrollOffsetY = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getMaxScrollOffset</span>().<span class="property">y</span> * slider.<span class="property">progress</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            maxScrollOffsetX = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getMaxScrollOffset</span>().<span class="property">x</span> * slider.<span class="property">progress</span>;</span><br><span class="line">            maxScrollOffsetY = <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">getScrollOffset</span>().<span class="property">y</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">scrollView</span>.<span class="title function_">scrollToOffset</span>(cc.<span class="title function_">v2</span>(maxScrollOffsetX, maxScrollOffsetY), <span class="number">0.05</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意： <code>getScrollOffset = this.scrollView.getScrollOffset().x * (-1);</code></p>
+<p>是否乘以-1 根据自己的<code>scrollView</code>的<code>content</code>的<code>anchorX</code> 等因素决定，这里是从左到右 <code>anchorX</code> 是<code>0</code> 所以这样写。</p>
+<p>源码地址 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/ScrollBarExtra">点击进入</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cocos-creator-scrollbar-scrollview/39333">Cocos creator scrollbar支持拖动滑块来滚动scrollview吗</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/dengxiaochun/CocosCreatorExtra">CocosCreatorExtra</a></li>
+<li>3.x 实现 <a target="_blank" rel="noopener" href="https://forum.cocos.org/uploads/short-url/jcEvb835DsRG8vnMkS2DxhlzOrG.zip">cccscrollbar.zip</a> </li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/5ab869b6.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator Android(安卓)自动递增版本号</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/11bf4707.html">
+        <span>如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/52c17b4d.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">项目结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">源码如下：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator QQ小游戏采坑指南 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/ed3cfd44.html">Cocos Creator QQ小游戏采坑指南</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-10-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator QQ小游戏采坑指南&url=http://blog.asroads.com/post/ed3cfd44.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator QQ小游戏采坑指南&url=http://blog.asroads.com/post/ed3cfd44.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/ed3cfd44.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/ed3cfd44.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/ed3cfd44.html&title=Cocos Creator QQ小游戏采坑指南" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator QQ小游戏采坑指南&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/ed3cfd44.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/ed3cfd44.html&text=Cocos Creator QQ小游戏采坑指南" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>从今年开始，国内大厂纷纷对小游戏发力，除了微信，其他平台相继推出了小游戏的发布，这个对于游戏开发来说，研发一款游戏，上不同的平台，有更多的用户进入是好事，虽然大厂之间默契的语法风格个项目结构，已经让小游戏发布在不同平台很轻松了，但不同平台之间还是有一些细微的差异，之前游戏上了微信平台和头条平台（字节跳动）如今腾讯再次发力，开放了QQ小游戏平台，作为开发者自然不会放过这个入口，下面简述一下本次发布遇到的坑</p>
+<span id="more"></span>
+<p>因为项目是用JavaScript写的，遇到了这些问题，我自己用Typescript另外一个项目测试是好的，总的来讲，Typescript是未来开发H5小游戏和小程序的趋势。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul>
+<li>现象环境：QQ小游戏ios平台</li>
+<li>语言 JavaScript</li>
+<li>系统：安卓正常 ios 异常</li>
+</ul>
+<p>错误内容</p>
+<ul>
+<li><img src="/post/ed3cfd44/image-20191012101543314.png" alt="image-20191012101543314"></li>
+<li><img src="/post/ed3cfd44/image-20191012101606372.png" alt="image-20191012101606372"></li>
+<li><img src="/post/ed3cfd44/image-20191012101615443.png" alt="image-20191012101615443"></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">28</span>) onLoad@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/<span class="variable constant_">D0A5D194</span>-<span class="number">1302</span>-<span class="number">4019</span>-<span class="variable constant_">B0B0</span>-6E89B97C5BDB/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">5989</span>:<span class="number">157154</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/<span class="variable constant_">D0A5D194</span>-<span class="number">1302</span>-<span class="number">4019</span>-<span class="variable constant_">B0B0</span>-6E89B97C5BDB/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">413624</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/<span class="variable constant_">D0A5D194</span>-<span class="number">1302</span>-<span class="number">4019</span>-<span class="variable constant_">B0B0</span>-6E89B97C5BDB/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">223033</span></span><br><span class="line">invoke@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/<span class="variable constant_">D0A5D194</span>-<span class="number">1302</span>-<span class="number">4019</span>-<span class="variable constant_">B0B0</span>-6E89B97C5BDB/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">222358</span></span><br><span class="line">activateNode@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/<span class="variable constant_">D0A5D194</span>-<span class="number">1302</span>-<span class="number">4019</span>-<span class="variable constant_">B0B0</span>-6E89B97C5BDB/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">415190</span></span><br><span class="line">_onHierarchyChanged@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/<span class="variable constant_">D0A5D194</span>-<span class="number">1302</span>-<span class="number">4019</span>-<span class="variable constant_">B0B0</span>-6E89B97C5BDB/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">9</span>) 文件src/project.<span class="property">js</span>执行出现异常</span><br><span class="line"><span class="title class_">TypeError</span>: <span class="title class_">Attempted</span> to assign to readonly property., 在文件/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="title function_">js</span>(行<span class="number">140</span>,列<span class="number">10632</span>), 堆栈：/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">140</span>:<span class="number">10632</span></span><br><span class="line">l@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">140</span>:<span class="number">504</span></span><br><span class="line">a@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">140</span>:<span class="number">663</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">140</span>:<span class="number">679</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:1:15705</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:1:15833</span></span><br><span class="line">js@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">20</span>:<span class="number">901</span></span><br><span class="line">handle@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">392874</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">405979</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">406238</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">406238</span></span><br><span class="line">s@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">406238</span></span><br><span class="line">flowIn@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">407126</span></span><br><span class="line">append@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">401377</span></span><br><span class="line">load@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">381201</span></span><br><span class="line">prepare@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">135102</span></span><br><span class="line">run@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">135280</span></span><br><span class="line">boot@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">137</span>:<span class="number">1103</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">152</span>:<span class="number">854</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:1:15705</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:1:15833</span></span><br><span class="line"><span class="regexp">/var/m</span>obile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">153</span>:<span class="number">13</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:1:15705</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:1:15833</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:205007</span></span><br><span class="line">u@<span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:22638</span></span><br><span class="line">c@<span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:22812</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:23015</span></span><br><span class="line">callback@<span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:23194</span></span><br><span class="line">update@<span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:20162</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:20921</span></span><br><span class="line">forEach@[native code]</span><br><span class="line">update@<span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:20839</span></span><br><span class="line"><span class="attr">native</span>:<span class="comment">//service/sdkConfigJS:9:204232</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">49</span>) <span class="title class_">TypeError</span>: <span class="literal">null</span> is not an object (evaluating <span class="string">&#x27;this._components.push&#x27;</span>), 在文件/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="title function_">js</span>(行<span class="number">2</span>,列<span class="number">597691</span>), 堆栈：addComponent@/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">597691</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">5989</span>:<span class="number">102365</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">382879</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">381108</span></span><br><span class="line">/<span class="keyword">var</span>/mobile/<span class="title class_">Containers</span>/<span class="title class_">Data</span>/<span class="title class_">Application</span>/3CD0E0A2-117D-<span class="number">4501</span>-9AA6-<span class="variable constant_">B4596A056BC4</span>/<span class="title class_">Library</span>/<span class="title class_">Caches</span>/<span class="title class_">MiniGame</span>_v1/<span class="number">1109939334</span>/<span class="number">4</span>/<span class="number">0</span>/unpack/game.<span class="property">js</span>:<span class="number">2</span>:<span class="number">495697</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/ed3cfd44/image-20191012101830891.png" alt="image-20191012101830891"></p>
+<h3 id="原因查找"><a href="#原因查找" class="headerlink" title="原因查找"></a>原因查找</h3><blockquote>
+<p>(9) 文件src/project.js执行出现异常<br>TypeError: Attempted to assign to readonly property., 在文件/game.js(行137,列33533), 堆栈：/game.js:137:33533<br>r@/game.js:137:290<br>l@/game.js:137:449<br>/game.js:137:465</p>
+<p>js@/game.js:11:310<br>handle@/game.js:2:391721<br>a@/game.js:2:404282<br>a@/game.js:2:404541<br>a@/game.js:2:404541<br>a@/game.js:2:404541<br>flowIn@/game.js:2:405429<br>append@/game.js:2:399485<br>load@/game.js:2:380443<br>prepare@/game.js:2:131288<br>run@/game.js:2:131466<br>boot@/game.js:134:1103<br>/game.js:143:802</p>
+<p>/game.js:144:13</p>
+<p>i</p>
+<p>callback<br>update</p>
+<p>forEach@[native code]<br>update<br>creator打包微信小游戏发布到QQ平台上，开发者工具没有报错，网页和模拟器也没有报错，ios真机都会报这种错误，无法进入游戏，请问是什么原因？</p>
+<p><strong>已解决，QQ平台不支持window.Gobal={}的全局写法</strong></p>
+<p>请问你怎么改的？（window. 这种写法怎么改？）</p>
+<p>模块化脚本module.exports={},使用之前先在引用的脚本之前require</p>
+</blockquote>
+<h3 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.com/t/typeerror-attempted-to-assign-to-readonly/81682">TypeError: Attempted to assign to readonly</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/scripting/modular-script.html">模块化脚本</a></li>
+</ul>
+<h3 id="修改实例"><a href="#修改实例" class="headerlink" title="修改实例"></a>修改实例</h3><ul>
+<li>报错文件</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Global</span>= &#123;&#125;;</span><br><span class="line"><span class="comment">// window.Global = Global;</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Global</span>.<span class="property">BigNumber</span> = <span class="built_in">require</span>(<span class="string">&quot;BigNumber&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Global</span>.<span class="property">Https</span> = <span class="built_in">require</span>(<span class="string">&quot;Https&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Global.Notification = require(&quot;Notification&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Global</span>.<span class="property">Const</span> = <span class="built_in">require</span>(<span class="string">&quot;Const&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title class_">Global</span>.<span class="property">Tools</span> = <span class="built_in">require</span>(<span class="string">&quot;Tools&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// window.Platform = new Platform();</span></span><br><span class="line"><span class="title class_">Global</span>.<span class="property">Platform</span> = <span class="built_in">require</span>(<span class="string">&quot;platform&quot;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">Global</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>引用实例</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Platform</span> = <span class="built_in">require</span>(<span class="string">&#x27;platform&#x27;</span>); <span class="comment">// 平台引入</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Global</span> = <span class="built_in">require</span>(<span class="string">&#x27;Global&#x27;</span>); <span class="comment">// 全局</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">Notification</span> = <span class="built_in">require</span>(<span class="string">&#x27;Notification&#x27;</span>); <span class="comment">// 消息池</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>1.确保提审服游戏登陆加载，核心玩法、匹配功能能正常进行。（无此功能可忽略）<br>2.接入脏字接口（无用户输入，可忽略）<br><a target="_blank" rel="noopener" href="https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_safe.html#security-imgseccheck">https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_safe.html#security-imgseccheck</a><br>3.ios屏蔽任何与充值相关界面和引导。<br>4.ios和安卓同个账号不同数据。（纯广告变现的产品不需要区分）<br>5.不要有q群，公众号，论坛等引导出现。<br>6.检查游戏内新素材是否有违规。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>使用兼容性比较好，规范的写法，现在小程序小游戏越来越多，感觉和安卓手机在国内的发展很像，开发人员要不断的去兼容和适配每个平台。后面发现其实小游戏有个GameGlobal的属性</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/e8585cad.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Mac电脑常用软件整理</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/327c6098.html">
+        <span>Mac环境如何生成项目目录树形结构</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/ed3cfd44.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E6%9F%A5%E6%89%BE"><span class="toc-number">2.</span> <span class="toc-text">原因查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-number">3.</span> <span class="toc-text">参考地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">修改实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

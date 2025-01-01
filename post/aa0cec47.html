@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            初试Windows常用命令脚本 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/aa0cec47.html">初试Windows常用命令脚本</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-07-15
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=初试Windows常用命令脚本&url=http://blog.asroads.com/post/aa0cec47.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=初试Windows常用命令脚本&url=http://blog.asroads.com/post/aa0cec47.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/aa0cec47.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/aa0cec47.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/aa0cec47.html&title=初试Windows常用命令脚本" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=初试Windows常用命令脚本&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/aa0cec47.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/aa0cec47.html&text=初试Windows常用命令脚本" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Shell/ >Shell</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>之前开发一直使用的是<code>nodejs</code>或者<code>Python</code>作为脚本工具，近来使用<code>Windows</code>环境，于是就开始写了两个<code>Shell</code>脚本，有了一点小心得，于是记录一下，自己的学习路程，便于后面自己查阅。</p>
+<span id="more"></span>
+<p>常见的一些命令：</p>
+<p>打印：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;Hello&quot; #就是打印出来 hello 字符串</span><br></pre></td></tr></table></figure>
+
+<p>变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">&#123;a&#125; <span class="comment">#其中a是变量 格式就是用 $和&#123;&#125; 包裹</span></span></span><br></pre></td></tr></table></figure>
+
+<p>sleep  睡眠</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sleep 1s    睡眠1秒</span><br><span class="line"></span><br><span class="line">sleep 1m   睡眠1分</span><br><span class="line"></span><br><span class="line">sleep 1h   睡眠1小时</span><br></pre></td></tr></table></figure>
+
+<p>要修改文件的内容，可以用如下的命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/被替换的内容/要替换成的内容/g&#x27; file</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用的一些用法"><a href="#常用的一些用法" class="headerlink" title="常用的一些用法"></a>常用的一些用法</h3><h4 id="脚本调用另一个脚本的三种方法"><a href="#脚本调用另一个脚本的三种方法" class="headerlink" title="脚本调用另一个脚本的三种方法"></a>脚本调用另一个脚本的三种方法</h4><p>假如有脚本 <code>first.sh</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">@file:first.sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------</span></span><br><span class="line">echo &#x27;I am first file&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>如何在其它<code>Shell</code>脚本中调用<code>first.sh</code>呢？主要有三种方法：source、点号以及sh命令。</p>
+<ol>
+<li>source</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---------------</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">@file:second.sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">---------------</span></span><br><span class="line">echo &#x27;Hello World&#x27;</span><br><span class="line">source first.sh</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>点号</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">echo &#x27;Hello World&#x27;</span><br><span class="line">. first.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>sh 命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">echo &#x27;Hello World&#x27;</span><br><span class="line">sh  first.sh</span><br></pre></td></tr></table></figure>
+
+<p>三者输出的结果都是：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br><span class="line">I am first file</span><br></pre></td></tr></table></figure>
+
+<p>三者的区别:使用 source 命令和点号是等价的，类似于 C/C++ 中的 #include 预处理指令，都是将指定的脚本内容拷贝至当前的脚本中，由一个 Shell 进程来执行。使用sh命令来调用另外的脚本和前面两种方法有着本质的区别。使用sh命令则会开启新的Shell进程来执行指定的脚本，这样的话，父进程中的变量在子进程中就无法访问</p>
+<h3 id="常见的一些错误："><a href="#常见的一些错误：" class="headerlink" title="常见的一些错误："></a>常见的一些错误：</h3><h4 id="command-not-found”报错处理"><a href="#command-not-found”报错处理" class="headerlink" title="command not found”报错处理"></a>command not found”报错处理</h4><h6 id="定义STR1变量，值为hello"><a href="#定义STR1变量，值为hello" class="headerlink" title="定义STR1变量，值为hello"></a>定义<code>STR1</code>变量，值为hello</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义STR1变量，值为abc</span></span><br><span class="line"></span><br><span class="line">STR1 = &quot;hello&quot;(错误写法)</span><br><span class="line"></span><br><span class="line">STR1=&quot;hello&quot;(正确写法)</span><br></pre></td></tr></table></figure>
+
+<h6 id="比较两个字符串是否相等中if语句的写法"><a href="#比较两个字符串是否相等中if语句的写法" class="headerlink" title="比较两个字符串是否相等中if语句的写法"></a>比较两个字符串是否相等中if语句的写法</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">STR1=&quot;1234&quot;</span><br><span class="line">STR2=&quot;12345&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="keyword">if</span>[<span class="variable">$STR1</span>=<span class="variable">$STR2</span>](错误写法)</span></span><br><span class="line">if [ $STR1 = $STR2 ] ;then</span><br><span class="line">　　echo &quot;相等&quot;</span><br><span class="line">else</span><br><span class="line">　　echo &quot;不相等&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行shell脚本报错：Permission-denied"><a href="#运行shell脚本报错：Permission-denied" class="headerlink" title="运行shell脚本报错：Permission denied"></a>运行shell脚本报错：Permission denied</h5><p>问题原因：<code>=</code>右边多了一个空格</p>
+<h3 id="实践检验"><a href="#实践检验" class="headerlink" title="实践检验"></a>实践检验</h3><p>最后是学习后写的两个小游戏的两个脚本：</p>
+<p><code>CopyScript.sh</code> 小游戏构建后 替换 代码脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">小游戏仅仅构建代码替换工具脚本</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--------------- 项目构建所指向路径</span></span><br><span class="line">source_folder=&quot;D:\Build\mini\wxbuild&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--------------- Release 完整路径 ---------------</span></span><br><span class="line">rc_source_path=$source_folder&quot;\wechatgame\src\project.js&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--------------- debug 完整路径 ---------------</span></span><br><span class="line">debug_source_path=$source_folder&quot;\wechatgame\src\project.dev.js&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--------------- 微信开发者工具项目运行所指向路径 ---------------</span></span><br><span class="line">target_path=&quot;D:\Build\mini\wx\wechatgame\engine\src\project.js&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo &quot;代码复制开始运行...&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--------------- Debug ---------------</span></span><br><span class="line">if test -e $debug_source_path</span><br><span class="line">then</span><br><span class="line">	echo &quot;------------本次构建为 Debug 调试模式------------&quot;</span><br><span class="line">	echo $debug_source_path &quot;exist!&quot;</span><br><span class="line">	cp $debug_source_path $target_path</span><br><span class="line">	echo &quot;Debug模式代码复制完毕！&quot;</span><br><span class="line">else</span><br><span class="line">	echo &quot;Debug file doesn&#x27;t exist&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">--------------- Release ---------------</span></span><br><span class="line">if test -e $rc_source_path</span><br><span class="line">then</span><br><span class="line">	echo &quot;------------本次构建为 Release 调试模式------------&quot;</span><br><span class="line">	echo $rc_source_path &quot;exist!&quot;</span><br><span class="line">	cp $rc_source_path $target_path</span><br><span class="line">	echo &quot;Release 模式 代码复制完毕！&quot;</span><br><span class="line">else</span><br><span class="line">	echo &quot;Release file doesn&#x27;t exist&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;代码复制完成！！&quot;</span><br><span class="line">exec /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><code>CustomMoveFolder.sh</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">小游戏完整构建代码替换工具脚本</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">首屏相关 把远程资源挪出去</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------ 微信开发者运行项目父目录</span></span><br><span class="line">project_wx=&quot;wx&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------ Cocos Creator构建路径</span> </span><br><span class="line">build_wx=&quot;wxbuild&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------ 工具打开CDN资源对应本地目录</span></span><br><span class="line">project_wx_cdn_res=$project_wx&quot;/res&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------ 工具打开项目根目录</span></span><br><span class="line">project_wx_game=$project_wx&quot;/wechatgame&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">------------------ Cocos Creator构建路径</span></span><br><span class="line">wxbuild_path=$build_wx&quot;/wechatgame&quot;</span><br><span class="line"></span><br><span class="line">if [ -d $project_wx_cdn_res ]</span><br><span class="line">then</span><br><span class="line">	echo &quot;准备删除原&quot;$project_wx_cdn_res&quot;...&quot;</span><br><span class="line">	rm -rf $project_wx_cdn_res</span><br><span class="line">	echo $project_wx_cdn_res&quot;删除完毕！&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ -d $project_wx_game ]</span><br><span class="line">then</span><br><span class="line">	rm -rf $project_wx_game</span><br><span class="line">	echo $project_wx_game&quot;存在删除...&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ -d $wxbuild_path ]</span><br><span class="line">then</span><br><span class="line">	echo &quot;开始复制&quot;$wxbuild_path&quot; 到 &quot;$project_wx_game&quot;...&quot;</span><br><span class="line">	cp -a $wxbuild_path $project_wx</span><br><span class="line">	echo &quot;复制操作结束准备下一步工作...&quot;</span><br><span class="line"></span><br><span class="line">	sleep 1s</span><br><span class="line"><span class="meta prompt_">	</span></span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash"><span class="built_in">source</span> ./wx/wechatgame/autorun.sh</span></span><br><span class="line">	if [ -d $project_wx&quot;/res&quot; ]</span><br><span class="line">	then</span><br><span class="line">		rm -rf $project_wx&quot;/res&quot;</span><br><span class="line">		echo $project_wx&quot;文件夹存在删除...&quot;</span><br><span class="line">	fi</span><br><span class="line">	</span><br><span class="line">	mv $project_wx_game&quot;/res&quot; $project_wx&quot;/res&quot;</span><br><span class="line">	</span><br><span class="line">	mv $project_wx_game&quot;/res_internal&quot; $project_wx_game&quot;/res&quot;</span><br><span class="line">	</span><br><span class="line">	if [ -d $project_wx_game&quot;/engine&quot; ]</span><br><span class="line">	then</span><br><span class="line">		echo $project_wx_game&quot;文件夹已经存在，无需新建&quot;</span><br><span class="line">	else</span><br><span class="line">		mkdir $project_wx_game&quot;/engine&quot;</span><br><span class="line">		echo $project_wx_game&quot;/engine文件夹不存在，新建文件夹...&quot;</span><br><span class="line">	fi</span><br><span class="line">	</span><br><span class="line">	if test -e  $project_wx_game&quot;/adapter-min.js&quot;</span><br><span class="line">	then</span><br><span class="line">		mv $project_wx_game&quot;/adapter-min.js&quot; $project_wx_game&quot;/engine&quot;</span><br><span class="line">	fi</span><br><span class="line">	</span><br><span class="line">	if test -e  $project_wx_game&quot;/adapter.js&quot;</span><br><span class="line">	then</span><br><span class="line">		mv $project_wx_game&quot;/adapter.js&quot; $project_wx_game&quot;/engine&quot;</span><br><span class="line">	fi</span><br><span class="line">	mv $project_wx_game&quot;/ccRequire.js&quot; $project_wx_game&quot;/engine&quot;</span><br><span class="line">	mv $project_wx_game&quot;/game.js&quot; $project_wx_game&quot;/engine&quot;</span><br><span class="line">	mv $project_wx_game&quot;/main.js&quot; $project_wx_game&quot;/engine&quot;</span><br><span class="line">	mv $project_wx_game&quot;/src&quot; $project_wx_game&quot;/engine&quot;</span><br><span class="line">	mv $project_wx_game&quot;/GameBackup.js&quot; $project_wx_game&quot;/game.js&quot;</span><br><span class="line">	sed -i &#x27;s/cocos\/cocos2d-js-min.js/..\/cocos\/cocos2d-js-min.js/g&#x27; $project_wx_game\/engine\/game.js</span><br><span class="line">	</span><br><span class="line">	echo &quot;首屏操作OK！&quot;</span><br><span class="line">	echo &quot;小游戏全部操作结束，打开工具调试吧！&quot;</span><br><span class="line">else</span><br><span class="line">    echo $wxbuild_path&quot;不存在&quot;</span><br><span class="line"><span class="meta prompt_">	#</span><span class="language-bash"><span class="built_in">mkdir</span> <span class="variable">$build_wx</span></span></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">exec /bin/bash</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>源码 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/minigame/buildScript">点击前往</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_28771631/article/details/113028516">bash shell sleep_Shell脚本中让进程休眠的方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/k346k346/article/details/86751705">Shell 脚本调用另一个脚本的三种方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000015015729">关于在shell中运行命令，提示permission denied</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/5023b0ce.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>如何获取文件夹内所有图片的物理大小以及宽高</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/c7330ce.html">
+        <span>SourceTree合并其他分支的某一次提交</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/aa0cec47.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">常用的一些用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E8%B0%83%E7%94%A8%E5%8F%A6%E4%B8%80%E4%B8%AA%E8%84%9A%E6%9C%AC%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">脚本调用另一个脚本的三种方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E4%B8%80%E4%BA%9B%E9%94%99%E8%AF%AF%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">常见的一些错误：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#command-not-found%E2%80%9D%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">command not found”报错处理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89STR1%E5%8F%98%E9%87%8F%EF%BC%8C%E5%80%BC%E4%B8%BAhello"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">定义STR1变量，值为hello</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E7%9B%B8%E7%AD%89%E4%B8%ADif%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%86%99%E6%B3%95"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">比较两个字符串是否相等中if语句的写法</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%90%E8%A1%8Cshell%E8%84%9A%E6%9C%AC%E6%8A%A5%E9%94%99%EF%BC%9APermission-denied"><span class="toc-number">2.1.1.</span> <span class="toc-text">运行shell脚本报错：Permission denied</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%E6%A3%80%E9%AA%8C"><span class="toc-number">3.</span> <span class="toc-text">实践检验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number"></span> <span class="toc-text">参考</span></a>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

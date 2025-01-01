@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            函数防抖与节流和TypeScript装饰结合 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/21c1b53.html">函数防抖与节流和TypeScript装饰结合</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-07-02
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/other/">other</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=函数防抖与节流和TypeScript装饰结合&url=http://blog.asroads.com/post/21c1b53.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=函数防抖与节流和TypeScript装饰结合&url=http://blog.asroads.com/post/21c1b53.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/21c1b53.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/21c1b53.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/21c1b53.html&title=函数防抖与节流和TypeScript装饰结合" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=函数防抖与节流和TypeScript装饰结合&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/21c1b53.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/21c1b53.html&text=函数防抖与节流和TypeScript装饰结合" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>很多时候，用户在交互过程中有时候操作需要异步处理，或者需要等待，不能让用户频繁交互，或者防止客户端和服务器频繁交互都会做出一些限制，其中常用的操作是函数防抖和函数节流，对于函数做一些处理后，让用户的行为效果延迟发送，或者在一定期间内只能发送一次。Typescript的函数是支持装饰器的，下面就介绍一下如何通过装饰器来让函数防抖和节流。</p>
+<span id="more"></span>
+
+<h2 id="防抖Debounce和节流throttle"><a href="#防抖Debounce和节流throttle" class="headerlink" title="防抖Debounce和节流throttle"></a>防抖Debounce和节流throttle</h2><p>函数防抖和函数节流：优化高频率执行js代码的一种手段，js中的一些事件如浏览器的<code>resize</code>、<code>scroll</code>，鼠标的<code>mousemove</code>、mouseover，input输入框的keypress等事件在触发时，会不断地调用绑定在事件上的回调函数，极大地浪费资源，降低前端性能。为了优化体验，需要对这类事件进行调用次数的限制。</p>
+<p>首先我们介绍函数防抖：</p>
+<h3 id="函数防抖（debounce）"><a href="#函数防抖（debounce）" class="headerlink" title="函数防抖（debounce）"></a>函数防抖（<code>debounce</code>）</h3><p><strong>防抖概念：</strong>在事件被触发n时间段后再执行回调，如果在这n时间段内又被触发，则重新计时。就是将多次高频操作优化为只在最后一次执行（某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次）</p>
+<p><strong>防抖原理</strong>：是维护一个计时器，在规定的<code>delay</code>时间后触发函数，但是在<code>delay</code>时间内再次触发的话，就会取消之前的计时器而重新设置。<strong>这样一来，只有最后一次操作能被触发。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">debounce</span>(<span class="params">fn, delay</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> timer = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">     <span class="comment">// 清除已存在的定时器</span></span><br><span class="line">     timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer)</span><br><span class="line">     timer = <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>)</span><br><span class="line">     &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数节流（throttle）"><a href="#函数节流（throttle）" class="headerlink" title="函数节流（throttle）"></a>函数节流（<code>throttle</code>）</h3><p><strong>节流概念：</strong>节流就是每隔一段时间后执行一次，也就是降低频率，将高频操作优化成低频操作。简单说：每隔一段时间，只执行一次函数。</p>
+<p><strong>节流原理：</strong> 有定时器 版本 和 世界戳版本  </p>
+<ul>
+<li>定时器版本的节流函数其重点是利用闭包保存<code>timer</code>变量</li>
+<li>时间戳版本的节流函数重点是利用闭包保存上一次的时间<code>previous</code></li>
+</ul>
+<p>定时器</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定时器版本</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">fn, wait</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">            timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                timer = <span class="literal">null</span>;</span><br><span class="line">            &#125;, wait)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间戳</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 时间戳版本</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">fn, wait</span>) &#123;</span><br><span class="line">    <span class="comment">// 上一次执行时间</span></span><br><span class="line">    <span class="keyword">let</span> previous = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">...args</span>) &#123;</span><br><span class="line">        <span class="comment">// 当前时间</span></span><br><span class="line">        <span class="keyword">let</span> now = +<span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">        <span class="keyword">if</span> (now - previous &gt; wait) &#123;</span><br><span class="line">            previous = now;</span><br><span class="line">            fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TypeScript装饰器"><a href="#TypeScript装饰器" class="headerlink" title="TypeScript装饰器"></a>TypeScript装饰器</h2><p>TypeScript 中的装饰器使用 @expression 这种形式，expression 求值后为一个函数，<strong>它在运行时被调用，被装饰的声明信息会被做为参数传入。</strong></p>
+<p>装饰者模式就是动态的给类或对象增加功能的设计模式，TypeScript 中的装饰器可以被附加到类声明、方法、 访问符(getter/setter)、属性和参数上。</p>
+<p><strong>命令行</strong> 编译文件时：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tsc --target ES5 --experimentalDecorators mytest.ts</span><br></pre></td></tr></table></figure>
+
+<p>配置文件 <strong>tsconfig.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES5&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>装饰器实际上就是一个函数，在使用时前面加上 <strong>@</strong> 符号，写在要装饰的声明之前，多个装饰器同时作用在一个声明时，可以写一行或换行写：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 装饰器换行写</span></span><br><span class="line"><span class="meta">@testA</span></span><br><span class="line"><span class="meta">@testB</span></span><br><span class="line">declaration</span><br><span class="line"></span><br><span class="line"><span class="comment">//装饰器写一行</span></span><br><span class="line"><span class="meta">@testA</span> <span class="meta">@testB</span> ...</span><br><span class="line">declaration</span><br></pre></td></tr></table></figure>
+
+<p>作用在类的方法上，有静态方法和原型方法。作用在静态方法上，装饰器函数接收的是类构造函数；作用在原型方法上，装饰器函数接收的是原型对象。装饰器器函数（方法）需要保留(<code>target</code>,<code>key</code>,<code>descriptor</code>)三个参数—原型对象、方法名、描述对象。</p>
+<p>下面写个例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">limit: <span class="built_in">number</span> = <span class="number">0</span></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> func = descriptor.<span class="property">value</span></span><br><span class="line">        descriptor.<span class="property">value</span> = <span class="keyword">async</span> (...<span class="attr">args</span>: <span class="built_in">any</span>[]) =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(!flag) <span class="keyword">return</span> </span><br><span class="line">            flag = <span class="literal">false</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                func.<span class="title function_">apply</span>(<span class="variable language_">this</span>, ...args)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(error)    </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!limit) <span class="keyword">return</span> flag = <span class="literal">true</span></span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                flag = <span class="literal">true</span></span><br><span class="line">            &#125;, limit);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">    <span class="meta">@throttle</span>(<span class="number">1000</span>)</span><br><span class="line">    <span class="title function_">fn</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;fn&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> test = <span class="keyword">new</span> <span class="title class_">Test</span>()</span><br><span class="line"><span class="built_in">setInterval</span>(test.<span class="property">fn</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="装饰器版本"><a href="#装饰器版本" class="headerlink" title="装饰器版本"></a>装饰器版本</h4><p>话不多说，最后看一下最终代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于操作函数防抖，防抖就是将多次高频操作优化为只在最后一次执行</span></span><br><span class="line"><span class="comment"> * 某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> wait 延时ms后再执行</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> immediate 是否立即执行</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@constructor</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">Debounce</span> = (<span class="params">wait: <span class="built_in">number</span>, immediate: <span class="built_in">boolean</span> = <span class="literal">true</span></span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">const</span> fn = descriptor.<span class="property">value</span>;</span><br><span class="line">        descriptor.<span class="property">value</span> = <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Debounce timer&quot;</span>, timer);</span><br><span class="line">            <span class="comment">// 立即执行的功能（timer为空表示首次触发）</span></span><br><span class="line">            <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">                    fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                    timer = <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">                        timer = <span class="literal">null</span>;</span><br><span class="line">                    &#125;, wait);</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 有新的触发，则把定时器清空</span></span><br><span class="line">                    timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">                    <span class="comment">// 重新计时</span></span><br><span class="line">                    timer = <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">                        fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                    &#125;, wait);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 有新的触发，则把定时器清空</span></span><br><span class="line">                timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">                <span class="comment">// 重新计时</span></span><br><span class="line">                timer = <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">                    fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                &#125;, wait);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">return</span> descriptor;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于操作函数节流，节流就间隔时间段 时间内执行一次，</span></span><br><span class="line"><span class="comment"> * 也就是降低频率，将高频操作优化成低频操作。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> wait 间隔ms 期间内再次触发无效</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@constructor</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">Throttle</span> = (<span class="params">wait: <span class="built_in">number</span></span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">let</span> fn = descriptor.<span class="property">value</span>;</span><br><span class="line">        descriptor.<span class="property">value</span> = <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Throttle timer&quot;</span>, timer);</span><br><span class="line">            <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">                fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                timer = <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">                    timer = <span class="literal">null</span>;</span><br><span class="line">                &#125;, wait);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>游戏内使用：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Debounce</span>(<span class="number">2000</span>)</span><br><span class="line">   <span class="keyword">private</span> <span class="title function_">testTouchHandler</span>(<span class="params">touchDebounce,data</span>)&#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;-----------Debounce&quot;</span>)</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Debounce:&quot;</span> + data + <span class="string">&quot;:&quot;</span>  +<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>()));</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Throttle</span>(<span class="number">2000</span>)</span><br><span class="line">   <span class="keyword">private</span> <span class="title function_">testTouchHandler2</span>(<span class="params">touchThrottle,data</span>)&#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;-----------Throttle&quot;</span>)</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Throttle:&quot;</span> +data+  <span class="string">&quot;:&quot;</span>  +<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>()));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码看起来整洁，而且实现了函数防抖和函数节流。</p>
+<h4 id="动态添加和取消版本"><a href="#动态添加和取消版本" class="headerlink" title="动态添加和取消版本"></a>动态添加和取消版本</h4><p>最后再放出一个可以动态添加和取消的防抖和节流的代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@description</span>: 防抖函数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> &#123;<span class="type">Function</span>&#125; func 回调函数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  wait 等待时间 ms</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> &#123;<span class="type">Boolean</span>&#125; immediate 是否立即执行</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span>: result func返回的结果</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">debounce</span>(<span class="params">func: <span class="built_in">Function</span>, wait: <span class="built_in">number</span> = <span class="number">100</span>, immediate: <span class="built_in">boolean</span> = <span class="literal">false</span></span>) &#123;</span><br><span class="line">       <span class="keyword">let</span> <span class="attr">timeoutID</span>: <span class="built_in">number</span> = <span class="number">0</span>, <span class="attr">result</span>: <span class="built_in">any</span>;</span><br><span class="line">       <span class="keyword">let</span> <span class="attr">debounced</span>: <span class="title class_">FunDebounceOrThrottle</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">           <span class="built_in">clearTimeout</span>(timeoutID);</span><br><span class="line">           <span class="keyword">let</span> arg = <span class="variable language_">arguments</span>;</span><br><span class="line">           <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">               <span class="keyword">if</span> (!timeoutID) result = func.<span class="title function_">apply</span>(func, arg);</span><br><span class="line">               timeoutID = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                   timeoutID = <span class="number">0</span>;</span><br><span class="line">               &#125;, wait);</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               timeoutID = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                   func.<span class="title function_">apply</span>(func, arg);</span><br><span class="line">               &#125;, wait);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> result;</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="comment">// 取消防抖</span></span><br><span class="line">       debounced.<span class="property">cancel</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">           <span class="built_in">clearTimeout</span>(timeoutID);</span><br><span class="line">           timeoutID = <span class="number">0</span>;</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="keyword">return</span> debounced;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@description</span>: 节流函数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> &#123;<span class="type">Function</span>&#125; func 回调函数</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  wait 等待时间 ms</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125; options leading代表是否开头执行，tailing代表是否结尾执行</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span>: null</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">throttle</span>(<span class="params">func: <span class="built_in">Function</span>, wait: <span class="built_in">number</span>, options: IThrottleOptions = &#123;leading: <span class="literal">true</span>, trailing: <span class="literal">true</span>&#125;</span>) &#123;</span><br><span class="line">       <span class="keyword">let</span> <span class="attr">timeoutID</span>: <span class="built_in">number</span> = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">let</span> previous = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">let</span> <span class="attr">throttled</span>: <span class="title class_">FunDebounceOrThrottle</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">           <span class="keyword">let</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">           <span class="keyword">if</span> (!previous &amp;&amp; !options.<span class="property">leading</span>) previous = now;</span><br><span class="line">           <span class="keyword">let</span> remaining = wait - (now - previous);</span><br><span class="line">           <span class="keyword">let</span> arg = <span class="variable language_">arguments</span>;</span><br><span class="line">           <span class="keyword">if</span> (remaining &lt;= <span class="number">0</span> || remaining &gt; wait) &#123;</span><br><span class="line">               <span class="keyword">if</span> (timeoutID) &#123;</span><br><span class="line">                   <span class="built_in">clearTimeout</span>(timeoutID);</span><br><span class="line">                   timeoutID = <span class="number">0</span>;</span><br><span class="line">               &#125;</span><br><span class="line">               previous = now;</span><br><span class="line">               func.<span class="title function_">apply</span>(func, arg);</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!timeoutID &amp;&amp; options.<span class="property">trailing</span>) &#123;</span><br><span class="line">               timeoutID = <span class="variable language_">window</span>.<span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                   previous = !options.<span class="property">leading</span> ? <span class="number">0</span> : <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">                   timeoutID = <span class="number">0</span>;</span><br><span class="line">                   func.<span class="title function_">apply</span>(func, arg);</span><br><span class="line">               &#125;, remaining);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="comment">// 取消节流</span></span><br><span class="line">       throttled.<span class="property">cancel</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">           <span class="built_in">clearTimeout</span>(timeoutID);</span><br><span class="line">           previous = <span class="number">0</span>;</span><br><span class="line">           timeoutID = <span class="number">0</span>;</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="keyword">return</span> throttled;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，动态添加和取消也有了，装饰器版本也有了，一下子学习这么多，想必一定很累吧，爽歪歪，完美收工！</p>
+<h4 id="2024年5月15日更新"><a href="#2024年5月15日更新" class="headerlink" title="2024年5月15日更新"></a>2024年5月15日更新</h4><p><code>CreatorExtensions.ts</code> 装饰器代码更新</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: jsroads</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/5/15 17:30</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 工具函数</span></span><br><span class="line"><span class="keyword">const</span> delayDefault = <span class="number">500</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于操作函数防抖，防抖就是将多次高频操作优化为只在最后一次执行</span></span><br><span class="line"><span class="comment"> * 某个函数在某段时间内，无论触发了多少次回调，都只执行最后一次</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> wait 延时ms后再执行</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> immediate 是否立即执行</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@constructor</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> debounce = (<span class="attr">wait</span>: <span class="built_in">number</span> = delayDefault, <span class="attr">immediate</span>: <span class="built_in">boolean</span> = <span class="literal">true</span>): <span class="function"><span class="params">MethodDecorator</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>): <span class="title class_">PropertyDescriptor</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">timer</span>: <span class="built_in">number</span> | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">const</span> fn = descriptor.<span class="property">value</span>!;</span><br><span class="line">        descriptor.<span class="property">value</span> = <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params"><span class="variable language_">this</span>: <span class="built_in">any</span>, ...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">            <span class="comment">// 立即执行的功能（timer为空表示首次触发）</span></span><br><span class="line">            <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">                    fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        timer = <span class="literal">null</span>;</span><br><span class="line">                    &#125;, wait);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 有新的触发，则把定时器清空</span></span><br><span class="line">                    timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">                    <span class="comment">// 重新计时</span></span><br><span class="line">                    timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                    &#125;, wait);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 有新的触发，则把定时器清空</span></span><br><span class="line">                timer &amp;&amp; <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">                <span class="comment">// 重新计时</span></span><br><span class="line">                timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                &#125;, wait);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">return</span> descriptor;</span><br><span class="line">    &#125; <span class="keyword">as</span> <span class="title class_">MethodDecorator</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于操作函数节流，节流就间隔时间段 时间内执行一次，</span></span><br><span class="line"><span class="comment"> * 也就是降低频率，将高频操作优化成低频操作。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> wait 间隔ms 期间内再次触发无效</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@constructor</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> throttle = (<span class="attr">wait</span>: <span class="built_in">number</span> = delayDefault): <span class="function"><span class="params">MethodDecorator</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">target: <span class="built_in">any</span>, key: <span class="built_in">string</span>, descriptor: PropertyDescriptor</span>): <span class="title class_">PropertyDescriptor</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">timer</span>: <span class="built_in">number</span> | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">const</span> fn = descriptor.<span class="property">value</span>!;</span><br><span class="line">        descriptor.<span class="property">value</span> = <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params"><span class="variable language_">this</span>: <span class="built_in">any</span>, ...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">                fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">                timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    timer = <span class="literal">null</span>;</span><br><span class="line">                &#125;, wait);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">return</span> descriptor;</span><br><span class="line">    &#125; <span class="keyword">as</span> <span class="title class_">MethodDecorator</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903662519599111">防抖和节流原理分析</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c9fe37cdf200">再谈函数节流与防抖 - 利用装饰器 @decorator 来实现</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022415199">装饰者模式和TypeScript装饰器</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/ArXO9ytrOZ44uaXyzkYKBw">这篇文章助你理解函数防抖与函数节流</a></li>
+<li><a target="_blank" rel="noopener" href="https://qytayh.github.io/2021/08/TS%E8%A3%85%E9%A5%B0%E5%99%A8%E4%B9%8B%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/#%E9%98%B2%E6%8A%96%EF%BC%88debounce%EF%BC%89">TS装饰器之防抖节流</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/321d82c3.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>一次关于Cocos Creator的JSC加密浅尝辄止</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/bdcf7fdc.html">
+        <span>Rollupjs构建JavaScript项目初试牛刀</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/21c1b53.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%B2%E6%8A%96Debounce%E5%92%8C%E8%8A%82%E6%B5%81throttle"><span class="toc-number">1.</span> <span class="toc-text">防抖Debounce和节流throttle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%98%B2%E6%8A%96%EF%BC%88debounce%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">函数防抖（debounce）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%EF%BC%88throttle%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">函数节流（throttle）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TypeScript%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">TypeScript装饰器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E7%89%88%E6%9C%AC"><span class="toc-number">2.0.1.</span> <span class="toc-text">装饰器版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%8F%96%E6%B6%88%E7%89%88%E6%9C%AC"><span class="toc-number">2.0.2.</span> <span class="toc-text">动态添加和取消版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2024%E5%B9%B45%E6%9C%8815%E6%97%A5%E6%9B%B4%E6%96%B0"><span class="toc-number">2.0.3.</span> <span class="toc-text">2024年5月15日更新</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

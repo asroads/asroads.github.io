@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Mac系统Cocos Creator Native 原生Android和ios打包 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/d130eaa6.html">Mac系统Cocos Creator Native 原生Android和ios打包</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-10-17
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Mac系统Cocos Creator Native 原生Android和ios打包&url=http://blog.asroads.com/post/d130eaa6.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Mac系统Cocos Creator Native 原生Android和ios打包&url=http://blog.asroads.com/post/d130eaa6.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/d130eaa6.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/d130eaa6.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/d130eaa6.html&title=Mac系统Cocos Creator Native 原生Android和ios打包" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Mac系统Cocos Creator Native 原生Android和ios打包&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/d130eaa6.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/d130eaa6.html&text=Mac系统Cocos Creator Native 原生Android和ios打包" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Cocos Creator是个能发布多平台的引擎工具，之前一直用来发布Web项目，微信小游戏，头条小游戏，QQ小游戏的项目，今天尝试了一下如何发布Native 安卓（Android）apk和ios的ipa 文件。</p>
+<span id="more"></span>
+
+<p>Cocos Creator 使用基于 cocos2d-x 引擎的 JSB 技术实现跨平台发布原生应用。在使用 Cocos Creator 打包发布到原生平台之前，需要先配置好 cocos2d-x 相关的开发环境。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li>Android 环境（Android Studio）<a target="_blank" rel="noopener" href="http://www.android-studio.org/">点击下载</a></li>
+<li>ios环境  （Xcode）（可以Appstore下载）<a target="_blank" rel="noopener" href="https://developer.apple.com/xcode/">进入官网</a></li>
+<li>Cocos Creator <a target="_blank" rel="noopener" href="https://www.cocos.com/creator">进入官网</a></li>
+<li>Python2.75+（Mac电脑自带）（<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">进入官网</a>）</li>
+<li>Java SDK （JDK）<a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">点击下载</a></li>
+</ul>
+<h4 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h4><ul>
+<li>Java SDK</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p>本地输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Last login: Thu Oct 17 14:39:48 on ttys001</span><br><span class="line">bogon:~ smile$ java -version</span><br><span class="line">java version &quot;12.0.1&quot; 2019-04-16</span><br><span class="line">Java(TM) SE Runtime Environment (build 12.0.1+12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 12.0.1+12, mixed mode, sharing)</span><br><span class="line">bogon:~ smile$</span><br></pre></td></tr></table></figure>
+
+<p>如果不能正确输出，请重新配置JDK环境，如何配置JDK，在此不再赘述。</p>
+<ul>
+<li>Python</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Python</span><br></pre></td></tr></table></figure>
+
+<p>本地输出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bogon:~ smile$ Python</span><br><span class="line">Python 2.7.16 (v2.7.16:413a49145e, Mar  2 2019, 14:32:10)</span><br><span class="line">[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.57)] on darwin</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt;&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>安装Xcode和Android Studio</p>
+</li>
+<li><p>安装 Android Studio 完成后，参考官方文档，打开 SDK Manager</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://developer.android.com/studio/intro/update.html#sdk-manager">SDK Manager 使用说明（需要使用 VPN）</a></p>
+<blockquote>
+<ol>
+<li><p>在 SDK Platforms 分页栏，勾选你希望安装的 API Level，也就是支持安卓系统的版本，推荐选择最低兼容的 API Level 16（4.1) 和所需的主流 API Level 23（6.0）、API Level 26（8.0）和 API Level 28（9.0）。</p>
+</li>
+<li><p>在 SDK Tools 分页栏，首先勾选右下角的 <code>Show Package Details</code>，显示分版本的工具选择。</p>
+</li>
+<li><p>在 <code>Android SDK Build-Tools</code> 里，选择最新的 build tools 版本。</p>
+</li>
+<li><p>勾选 <code>Android SDK Platform-Tools</code>, <code>Android SDK Tools</code> 和 <code>Android Support Library</code></p>
+</li>
+<li><p>勾选 <code>NDK</code>，确保版本在 r16 及以上。</p>
+</li>
+<li><p>记住窗口上方所示的 Android SDK Location 指示的目录，稍后我们需要在 Cocos Creator 里填写这个 SDK 所在位置。</p>
+</li>
+<li><p>点击 <code>OK</code>，根据提示完成安装。</p>
+<p>Cocos2d-x 自带的编译工具 Cocos Console 需要以下运行环境：</p>
+<ul>
+<li>Python 2.7.5+，<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">下载页</a>，注意不要下载 Python 3.x 版本。</li>
+<li>Windows 下需要安装 Visual Studio 2015 或 2017 社区版，<a target="_blank" rel="noopener" href="https://www.visualstudio.com/downloads/download-visual-studio-vs">下载页</a></li>
+<li>Mac 下需要安装 Xcode 和命令行工具，<a target="_blank" rel="noopener" href="https://developer.apple.com/xcode/download/">下载页</a></li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><strong>注意：如果没有<code>Android Support Library</code> 那么用最后一个就可以出来Android Support Repository 就可以了</strong></p>
+<ul>
+<li><p>推荐几个镜像服务器：</p>
+<blockquote>
+<p><a href="https://link.zhihu.com/?target=http://1.mirrors.neusoft.edu.cn">http://1.mirrors.neusoft.edu.cn</a> //东软信息学院，端口：80</p>
+<p><a href="https://link.zhihu.com/?target=http://2.ubuntu.buct.edu.cn/ubuntu.buct.cn">http://2.ubuntu.buct.edu.cn/ubuntu.buct.cn</a> //北京化工大学，端口：80</p>
+<p><a href="https://link.zhihu.com/?target=http://3.mirrors.opencas.cn">http://3.mirrors.opencas.cn</a> (<a href="https://link.zhihu.com/?target=http://mirrors.opencas.org/mirrors.opencas.ac.cn">http://mirrors.opencas.org/mirrors.opencas.ac.cn</a>) //中国科学院开源协会</p>
+<p><a href="https://link.zhihu.com/?target=http://4.sdk.gdgshanghai.com">http://4.sdk.gdgshanghai.com</a> 端口：8000 //上海GDG镜像服务器</p>
+<p><a href="https://link.zhihu.com/?target=http://5.mirrors.dormforce.net">http://5.mirrors.dormforce.net</a> //（栋力无限）电子科技大学，端口：80</p>
+</blockquote>
+</li>
+<li><p>最终效果</p>
+</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017160918319.jpeg" alt="image-20191017160918319"></p>
+<p><img src="/post/d130eaa6/image-20191017161004642.jpeg" alt="image-20191017161004642"></p>
+<ul>
+<li><p>安装ios 需要的Xcode </p>
+</li>
+<li><p>在这里需要配置以下两个路径：</p>
+<ul>
+<li><strong>NDK 路径</strong>，选择 <code>Android SDK Location</code> 路径下的 <code>ndk-bundle</code> 文件夹（NDK 是其根目录），不需要编译 Android 平台的话这里可以跳过。</li>
+<li><strong>Android SDK 路径</strong>，选择刚才在 SDK Manager 中记下的 <code>Android SDK Location</code> 路径（Android SDK 的目录下应该包含 build-tools、platforms 等文件夹），不需要编译 Android 平台的话这里可以跳过。</li>
+</ul>
+<p>配置完成后点击 <strong>保存</strong> 按钮，保存并关闭窗口。</p>
+<p><strong>注意</strong>：这里的配置会在编译 <strong>原生工程</strong> 的时候生效。如果没有生效（一些 Mac 机器有可能出现这个情况），可能需要您尝试到 <strong>系统环境变量</strong> 设置这些值：<code>COCOS_CONSOLE_ROOT</code>, <code>NDK_ROOT</code>, <code>ANDROID_SDK_ROOT</code>。</p>
+</li>
+<li><p>如果遇到 <code>NDK_ROOT not defined. Please define NDK_ROOT in your environment</code> 这个错误</p>
+<p>就是环境变量的问题：</p>
+<ul>
+<li><p>问题原因：使用了<code>zsh ＋ iTerm2</code> 的配置，所以它默认启动时执行的脚本文件是 <code>～/.zshrc</code>文件</p>
+</li>
+<li><p>解决办法：参考 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/635e6cc35268">简书-DayBreakL</a></p>
+<p><code>vim ~/.zshrc</code>  //打开配置文件<code>.zshrc</code><br> <code>source ~/.bash_profile;</code>//在<code>.zshrc</code>文件末尾加上这句话，保存退出<br> <code>source ~/.bash_profile;</code>//再终端中执行一次这个命令</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h4><ul>
+<li>我们大家Cocos Creator新建一个项目,我这里叫 mynativedemo</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017155805750.jpeg" alt="image-20191017155805750"></p>
+<ul>
+<li>等待项目生成</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017155925239.jpeg" alt="image-20191017155925239"></p>
+<ul>
+<li>我们项目生成，我们需要更改一下项目的参数设置</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017160017354.jpeg" alt="image-20191017160017354"></p>
+<ul>
+<li>打开菜单–&gt; 偏好设置</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017160057975.jpeg" alt="image-20191017160057975"></p>
+<ul>
+<li>偏好设置–&gt;原生开发环境配置<ul>
+<li><strong>NDK 路径</strong>，选择 <code>Android SDK Location</code> 路径下的 <code>ndk-bundle</code> 文件夹（NDK 是其根目录）</li>
+<li><strong>Android SDK 路径</strong>，选择刚才在 SDK Manager 中记下的 <code>Android SDK Location</code> 路径（Android SDK 的目录下应该包含 build-tools、platforms 等文件夹）</li>
+<li>默认 <code>/Users/smile/Library/Android/sdk/ndk-bundle</code>(此处Android Studio 4.1后有改动)</li>
+<li><code>/Users/smile/Library/Android/sdk/ndk/21.3.6528147</code></li>
+<li>默认 <code>/Users/smile/Library/Android/sdk</code></li>
+</ul>
+<strong>2020-11-24 更新 –开始</strong>升级Android Studio 4.1 关于 Android Studio 4.1这样配置会报错 A problem occurred configuring project ‘:app’.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NDK is missing a “platforms” directory.</span><br><span class="line">If you are using NDK, verify the ndk.dir is <span class="built_in">set</span> to a valid NDK directory. It is currently <span class="built_in">set</span> to C:\DJZHAO\Workspace\Android\Sdk\ndk-bundle.</span><br><span class="line">If you are not using NDK, <span class="built_in">unset</span> the NDK variable from ANDROID_NDK_HOME or local.properties to remove this warning.</span><br></pre></td></tr></table></figure>
+
+解决办法 NDK 路径不对，重新配置正确的路径 应修改为 <img src="/post/d130eaa6/image-20201124132939890.png" alt="image-20201124132939890"><code>/Users/smile/Library/Android/sdk/ndk/21.3.6528147</code>    其中<code>21.3.6528147</code> 是自己对应下载的NDK下载ADK <img src="/post/d130eaa6/image-20201124132351651.png" alt="image-20201124132351651"><strong>2020-11-24 更新 –结束</strong></li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017160336544.jpeg" alt="image-20191017160336544"></p>
+<ul>
+<li>偏好设置–&gt;预览运行 修改 我这里写 750 X 1334 竖屏 </li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017161435248.jpeg" alt="image-20191017161435248"></p>
+<ul>
+<li>打开  项目–&gt;项目设置</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017161602143.jpeg" alt="image-20191017161602143"></p>
+<ul>
+<li>项目设置–&gt;项目预览  设置分辨率、 适配宽度</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017161928244.jpeg" alt="image-20191017161928244"></p>
+<h2 id="安卓平台（apk）"><a href="#安卓平台（apk）" class="headerlink" title="安卓平台（apk）"></a>安卓平台（apk）</h2><ul>
+<li>选择  项目–&gt;构建发布</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017162024592.jpeg" alt="image-20191017162024592"></p>
+<ul>
+<li><p>设置需要的选项</p>
+<p><img src="/post/d130eaa6/image-20191017162631119.jpeg" alt="image-20191017162631119"></p>
+</li>
+</ul>
+<blockquote>
+<p>Portrait —&gt; 这个是竖屏展示；</p>
+<p>Upside Down    –&gt; 这个是手机竖屏，但是你的手机需要倒过来；</p>
+<p>Landscape Left      –&gt; 这个是横屏，屏幕在home键左边；（常用的）</p>
+<p>Landscape Right    –&gt; 这个也是横屏，屏幕在home右边。</p>
+</blockquote>
+<p>附加 Android 的 API Levels对应表 大家可以根据这个表 判断自己要兼容的版本</p>
+<h4 id="Android-的-API-Levels对应表"><a href="#Android-的-API-Levels对应表" class="headerlink" title="Android 的 API Levels对应表"></a>Android 的 API Levels对应表</h4><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>版本号</th>
+<th>发行日期</th>
+<th>API等级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Android 11</td>
+<td>11</td>
+<td>2020-09-08</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Android 10</td>
+<td>10</td>
+<td>2019-09-03</td>
+<td>29</td>
+</tr>
+<tr>
+<td>Pie</td>
+<td>9</td>
+<td>2018-08-06</td>
+<td>28</td>
+</tr>
+<tr>
+<td>Oreo</td>
+<td>8.0 – 8.1</td>
+<td>2017-08-21</td>
+<td>26 – 27</td>
+</tr>
+<tr>
+<td>Nougat</td>
+<td>7.0 – 7.1.2</td>
+<td>2016-08-22</td>
+<td>24 – 25</td>
+</tr>
+<tr>
+<td>Marshmallow</td>
+<td>6.0 – 6.0.1</td>
+<td>2015-10-05</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Lollipop</td>
+<td>5.0 – 5.1.1</td>
+<td>2014-11-12</td>
+<td>21 – 22</td>
+</tr>
+<tr>
+<td>KitKat</td>
+<td>4.4 – 4.4.4</td>
+<td>2013-10-31</td>
+<td>19 – 20</td>
+</tr>
+<tr>
+<td>Jelly Bean</td>
+<td>4.1 – 4.3.1</td>
+<td>2012-07-09</td>
+<td>16 – 18</td>
+</tr>
+<tr>
+<td>Ice Cream Sandwich</td>
+<td>4.0 – 4.0.4</td>
+<td>2011-10-18</td>
+<td>14 – 15</td>
+</tr>
+<tr>
+<td>Honeycomb</td>
+<td>3.0 – 3.2.6</td>
+<td>2011-02-22</td>
+<td>11 – 13</td>
+</tr>
+<tr>
+<td>Gingerbread</td>
+<td>2.3 – 2.3.7</td>
+<td>2010-12-06</td>
+<td>9 – 10</td>
+</tr>
+<tr>
+<td>Froyo</td>
+<td>2.2 – 2.2.3</td>
+<td>2010-05-20</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Eclair</td>
+<td>2.0 – 2.1</td>
+<td>2009-10-26</td>
+<td>5 – 7</td>
+</tr>
+<tr>
+<td>Donut</td>
+<td>1.6</td>
+<td>2009-09-15</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Cupcake</td>
+<td>1.5</td>
+<td>2009-04-27</td>
+<td>3</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>1.1</td>
+<td>2009-02-09</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>1.0</td>
+<td>2008-09-23</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>等待发布成功</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017162717336.jpeg" alt="image-20191017162717336"></p>
+<p>控制台没有输出错误log</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Start building assets</span><br><span class="line">Enable <span class="string">&quot;内联所有 SpriteFrame&quot;</span> <span class="keyword">in</span> native platform will increase the package size used <span class="keyword">in</span> hot update.</span><br><span class="line">Finish building assets</span><br><span class="line">Start building plugin scripts</span><br><span class="line">Checked Python Version [2.7.16]</span><br><span class="line">Built to <span class="string">&quot;/test/cc/mynativedemo/build/jsb-link&quot;</span> successfully</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>此时我们的项目已经生成 在 .build 文件夹下</li>
+<li>修改我们的项目 自定义部分</li>
+<li>然后点击 编译按钮</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017162959672.jpeg" alt="image-20191017162959672"></p>
+<ul>
+<li>等待项目完成</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017163025828.jpeg" alt="image-20191017163025828"></p>
+<p><img src="/post/d130eaa6/image-20191017164659108.jpeg" alt="image-20191017164659108"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Skipping task <span class="string">&#x27;:hello_world:assembleRelease&#x27;</span> as it has no actions.</span><br><span class="line">:hello_world:assembleRelease (Thread[Task worker <span class="keyword">for</span> <span class="string">&#x27;:&#x27;</span> Thread 3,5,main]) completed. Took 0.0 secs.</span><br><span class="line">BUILD SUCCESSFUL <span class="keyword">in</span> 14m 13s</span><br><span class="line">59 actionable tasks: 59 executed</span><br><span class="line">Move apk to /test/cc/mynativedemo/build/jsb-link/publish/android</span><br><span class="line">Build succeed.</span><br><span class="line">Compile native project successfully.</span><br></pre></td></tr></table></figure>
+
+<p>路径 <code>build/jsb-link/publish/android</code>下 生成我们的APK文件</p>
+<p><img src="/post/d130eaa6/image-20191017164915280.jpeg" alt="image-20191017164915280"></p>
+<ul>
+<li>点击安装 运行效果</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017171806738.jpeg" alt="image-20191017171806738"></p>
+<p>关于返回键不能正常关掉游戏的问题，此处先不谈这些，只讨论如何正确发布，这个问题，后面再说如何解决</p>
+<h2 id="ios-平台（ipad）"><a href="#ios-平台（ipad）" class="headerlink" title="ios 平台（ipad）"></a>ios 平台（ipad）</h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ul>
+<li>需要正确安装的Xcode</li>
+<li>然后需要安装开发者证书</li>
+<li>需要再证书添加调试设备者账号ID</li>
+</ul>
+<h3 id="开始构建设置"><a href="#开始构建设置" class="headerlink" title="开始构建设置"></a>开始构建设置</h3><ul>
+<li>选择  项目–&gt;构建发布</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017162024592.jpeg" alt="image-20191017172508043"></p>
+<ul>
+<li><p>设置需要的选项</p>
+<p><img src="/post/d130eaa6/image-20191017172508043.jpeg" alt="image-20191017172508043"></p>
+</li>
+<li><p>成功构建后</p>
+</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017172615058.jpeg" alt="image-20191017172615058"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Checked Python Version [2.7.16]</span><br><span class="line">Start building assets</span><br><span class="line">Enable <span class="string">&quot;内联所有 SpriteFrame&quot;</span> <span class="keyword">in</span> native platform will increase the package size used <span class="keyword">in</span> hot update.</span><br><span class="line">Finish building assets</span><br><span class="line">Start building plugin scripts</span><br><span class="line">Checked Python Version [2.7.16]</span><br><span class="line">Built to <span class="string">&quot;/test/cc/mynativedemo/build/jsb-link&quot;</span> successfully</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>找到 构建目录.build 目录下面的 jsb-link–&gt;frameworks–&gt;runtime-src–&gt;proj.ios_mac–&gt;hello_world.xcodeproj 使用 Xcode 打开</p>
+<p><img src="/post/d130eaa6/image-20191017172921364.jpeg" alt="image-20191017172921364"></p>
+</li>
+<li><p>修改我们项目的配置</p>
+<ul>
+<li>修改秘钥</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017173103276.jpeg" alt="image-20191017173103276"></p>
+<ul>
+<li><p>修改后</p>
+<p><img src="/post/d130eaa6/image-20191017174336649.jpeg" alt="image-20191017174336649"></p>
+</li>
+</ul>
+</li>
+<li><p>修改我们调试设备 Build Settings</p>
+<p><img src="/post/d130eaa6/image-20191017174454507.jpeg" alt="image-20191017174454507"></p>
+<p><img src="/post/d130eaa6/image-20191017174610543.jpeg" alt="image-20191017174610543"></p>
+<ul>
+<li>连接我们的设备 然后点击运行按钮等待</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017174727660.jpeg" alt="image-20191017174727660"></p>
+<p><img src="/post/d130eaa6/image-20191017174758089.jpeg" alt="image-20191017174758089"></p>
+<ul>
+<li>编译结束</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017175007955.jpeg" alt="image-20191017175007955"></p>
+<p><img src="/post/d130eaa6/image-20191017175119545.jpeg" alt="image-20191017175119545"></p>
+<p>OK 调试结束</p>
+</li>
+<li><p>导出我们的ipad 文件</p>
+<ul>
+<li><p>选择 Achieve </p>
+<p><img src="/post/d130eaa6/image-20191017175321044.jpeg" alt="image-20191017175321044"></p>
+<p>等待编译结束</p>
+<p><img src="/post/d130eaa6/image-20191017175349905.jpeg" alt="image-20191017175349905"></p>
+</li>
+<li><p>结束后 会主动弹出一个窗口 或者我们自己打开 Window–&gt; Organizer 打开窗口</p>
+<p><img src="/post/d130eaa6/image-20191017175936077.jpeg" alt="image-20191017175936077"></p>
+<p>选择 Development 点击 Next 然后 继续 Next </p>
+<p><img src="/post/d130eaa6/image-20191017181115155.jpeg" alt="image-20191017181115155"></p>
+<p>然后选择 Profile 点击 Next</p>
+<p><img src="/post/d130eaa6/image-20191017181139645.jpeg" alt="image-20191017181139645"></p>
+</li>
+</ul>
+</li>
+<li><p>最后选择 导出 export 我们的项目</p>
+</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017180543007.jpeg" alt="image-20191017180543007"></p>
+<p>选择导出目录</p>
+<p><img src="/post/d130eaa6/image-20191017180617273.jpeg" alt="image-20191017180617273"></p>
+<p>最后 打开已经生成 ipa文件</p>
+<p><img src="/post/d130eaa6/image-20191017180707333.jpeg" alt="image-20191017180707333"></p>
+<p>备注 导出的项目 目录 <code>/Users/smile/Library/Developer/Xcode/Archives</code> 点击小箭头 可以打开</p>
+<p><img src="/post/d130eaa6/image-20191017181525986.jpeg" alt="image-20191017181525986"></p>
+<h3 id="使用iTools-安装-ipa-文件"><a href="#使用iTools-安装-ipa-文件" class="headerlink" title="使用iTools 安装 ipa 文件"></a>使用iTools 安装 ipa 文件</h3><ul>
+<li>下载 iTools <a target="_blank" rel="noopener" href="http://www.itools.cn/">进入官网</a></li>
+<li>安装iTools</li>
+<li>打开iTools软件</li>
+</ul>
+<p><img src="/post/d130eaa6/image-20191017182156967.jpeg" alt="image-20191017182156967"></p>
+<p>安装我们生成的ipa 文件</p>
+<p><img src="/post/d130eaa6/image-20191017182400689.jpeg" alt="image-20191017182400689"></p>
+<p>安装成功</p>
+<p><img src="/post/d130eaa6/image-20191017182429311.jpeg" alt="image-20191017182429311"></p>
+<p>打开运行成功</p>
+<p><img src="/post/d130eaa6/image-20191017182627753.jpeg" alt="image-20191017182627753"></p>
+<h3 id="本地-模拟器删除缓存"><a href="#本地-模拟器删除缓存" class="headerlink" title="本地 模拟器删除缓存"></a>本地 模拟器删除缓存</h3><p>删除：<code>/Applications/CocosCreator.app/Contents/Resources/cocos2d-x/simulator/mac/Simulator.app/Contents/Resources/jsb.sqlite</code> 这个文件即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/CocosCreator.app/Contents/Resources/cocos2d-x/simulator/mac/Simulator.app/Contents/Resources/jsb.sqlite</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>注意：删除 整个 resources 文件夹 会导致运行不起来</strong></p>
+<p>关于安卓手机如何监听返回键</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">systemEvent</span>.<span class="title function_">on</span>(cc.<span class="property">SystemEvent</span>.<span class="property">EventType</span>.<span class="property">KEY_DOWN</span>, <span class="variable language_">this</span>.<span class="property">onKeyDown</span>, <span class="variable language_">this</span>);</span><br><span class="line"><span class="title function_">onKeyDown</span>(<span class="params">event</span>) &#123;</span><br><span class="line">       <span class="keyword">switch</span> (event.<span class="property">keyCode</span>) &#123;</span><br><span class="line">           <span class="keyword">case</span> cc.<span class="property">macro</span>.<span class="property">KEY</span>.<span class="property">back</span>:</span><br><span class="line">               cc.<span class="property">game</span>.<span class="title function_">end</span>();</span><br><span class="line">               <span class="keyword">break</span>;</span><br><span class="line">           <span class="attr">default</span>:</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// if (!this._toExitGame) &#123;</span></span><br><span class="line">       <span class="comment">//     // 首次点击，重置该标记</span></span><br><span class="line">       <span class="comment">//     this._toExitGame = true;</span></span><br><span class="line">       <span class="comment">//</span></span><br><span class="line">       <span class="comment">//     // 发出后退消息，这里监听者来弹出提示：再次点击后退，退出游戏。</span></span><br><span class="line">       <span class="comment">//     // 这里要替换成自己的消息处理方法</span></span><br><span class="line">       <span class="comment">//     // AppFacade.getInstance().sendNotification(GAMEEVENTS.APP.TRY_EXIT);</span></span><br><span class="line">       <span class="comment">//</span></span><br><span class="line">       <span class="comment">//     // 3秒后没有再次按【后退】按钮，则重置该标记</span></span><br><span class="line">       <span class="comment">//     this.node.runAction(cc.sequence(cc.delayTime(3), cc.callFunc(() =&gt; &#123;</span></span><br><span class="line">       <span class="comment">//         this._toExitGame = false;</span></span><br><span class="line">       <span class="comment">//         // this.label.string = &#x27;&#x27;;</span></span><br><span class="line">       <span class="comment">//     &#125;)));</span></span><br><span class="line">       <span class="comment">// &#125;else&#123;</span></span><br><span class="line">       <span class="comment">//     // 已经点击过一次，则直接退出</span></span><br><span class="line">       <span class="comment">//     cc.game.end();</span></span><br><span class="line">       <span class="comment">//     return;</span></span><br><span class="line">       <span class="comment">// &#125;</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2021-09-24 更新</strong></p>
+<p>最新版本 使用 Cocos Creator 3.3.1 版本  安卓版本 Target API Level 为 30 情况下 返回键已经无效 可以使用一个迂回的方案解决</p>
+<p>AppActivity.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onKeyDown</span><span class="params">(<span class="type">int</span> keyCode, KeyEvent event)</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(keyCode == KeyEvent.KEYCODE_BACK) &#123;</span><br><span class="line">          Cocos2dxHelper.runOnGLThread(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">              <span class="meta">@Override</span></span><br><span class="line">              <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123; </span><br><span class="line">    Cocos2dxJavascriptJavaBridge.evalString(<span class="string">&quot;cc.game.jsBridge.onBackPressed();&quot;</span>);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">super</span>.onKeyDown(keyCode, event);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lebsharing/article/details/110004131">https://blog.csdn.net/lebsharing/article/details/110004131</a></p>
+<p>JavaScript 端 写对应处理即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">onBackPressed</span>(<span class="params"></span>) &#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;----onBackPressed----&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他相关问题 比如 Editbox 等问题 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onKeyDown</span><span class="params">(<span class="type">int</span> keyCode, KeyEvent event)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_BACK)&#123;</span><br><span class="line">        <span class="keyword">if</span>(hasExitBox)&#123;<span class="comment">//直接调用sdk的退出框</span></span><br><span class="line">            OutFace.getInstance(<span class="built_in">this</span>).outQuit(<span class="built_in">this</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                jsonObject.put(<span class="string">&quot;status&quot;</span>,<span class="number">0</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            sActivity.evalStringWithJsonData(<span class="string">&quot;xxx.showExitAlert&quot;</span>, jsonObject);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">super</span>.onKeyDown(keyCode, event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>思路：就是自己把信息传到 Javascript 那边，然后处理对应的动作。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>打包Native安装包，应该了解安卓环境或者Xcode环境，熟悉项目目录结构文件配置，能更轻松顺利的解决遇到的问题。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/c841f719.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>如何解决'libpng warning: iCCP: known incorrect sRGB profile'警告</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/e8585cad.html">
+        <span>Mac电脑常用软件整理</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/d130eaa6.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">前期准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.1.</span> <span class="toc-text">配置环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.2.</span> <span class="toc-text">新建项目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E5%B9%B3%E5%8F%B0%EF%BC%88apk%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">安卓平台（apk）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-%E7%9A%84-API-Levels%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-number">2.0.1.</span> <span class="toc-text">Android 的 API Levels对应表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ios-%E5%B9%B3%E5%8F%B0%EF%BC%88ipad%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">ios 平台（ipad）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">3.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%9E%84%E5%BB%BA%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">开始构建设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8iTools-%E5%AE%89%E8%A3%85-ipa-%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">使用iTools 安装 ipa 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0-%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98"><span class="toc-number">3.4.</span> <span class="toc-text">本地 模拟器删除缓存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

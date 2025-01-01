@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator Xcode下使用cocoapods|iOS | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/5cd1001.html">Cocos Creator Xcode下使用cocoapods|iOS</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-10-27
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator Xcode下使用cocoapods|iOS&url=http://blog.asroads.com/post/5cd1001.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator Xcode下使用cocoapods|iOS&url=http://blog.asroads.com/post/5cd1001.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/5cd1001.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/5cd1001.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/5cd1001.html&title=Cocos Creator Xcode下使用cocoapods|iOS" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator Xcode下使用cocoapods|iOS&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/5cd1001.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/5cd1001.html&text=Cocos Creator Xcode下使用cocoapods|iOS" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>众所周知<code>ios</code>项目可以使用<code>cocoapods</code>来添加依赖，之前一直是直接添加这个依赖，这几天遇到了URL一直添加失败的问题，不知道是网络还是哪里设置不正确导致的，于是就迫不得用<code>cocoapods</code>来添加依赖库，这里初步做个简单的介绍后期好自己慢慢学习和使用，首先<code>cocoapods</code>是像NPM一样的一个依赖库(包)管理工具，添加后，必须使用它独有的项目文件打开项目才行。</p>
+<span id="more"></span>
+<p>先介绍一下如何安装和遇到的问题</p>
+<h3 id="安装cocoapods"><a href="#安装cocoapods" class="headerlink" title="安装cocoapods"></a>安装cocoapods</h3><ol>
+<li>首先全局安装 <code>cocoapods</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install cocoapods</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在自己的Cocos Creator 导出的iOS项目内 比如我的是<code>jsb-default/frameworks/runtime-src/proj.ios_mac/</code> 文件夹内 执行初始化</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod init</span><br></pre></td></tr></table></figure>
+
+<p>此时 会生成一个 Podfile文件</p>
+<p>打开我们查看内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Uncomment the next line to define a global platform <span class="keyword">for</span> your project</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">platform :ios, <span class="string">&#x27;9.0&#x27;</span></span></span><br><span class="line"></span><br><span class="line">target &#x27;EnMetro-desktop&#x27; do</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Comment the next line <span class="keyword">if</span> you don<span class="string">&#x27;t want to use dynamic frameworks</span></span></span><br><span class="line">  use_frameworks!</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"><span class="string">Pods for EnMetro-desktop</span></span></span><br><span class="line"></span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">target &#x27;EnMetro-mobile&#x27; do</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"><span class="string">Comment the next line if you don&#x27;</span>t want to use dynamic frameworks</span></span><br><span class="line">  use_frameworks!</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Pods <span class="keyword">for</span> EnMetro-mobile</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>然后 在 <code># Pods for EnMetro-mobile</code> 下面添加自己要添加的依赖</p>
+<p>比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">target &#x27;EnMetro-mobile&#x27; do</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">Comment the next line <span class="keyword">if</span> you don<span class="string">&#x27;t want to use dynamic frameworks</span></span></span><br><span class="line">  use_frameworks!</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash"><span class="string">Pods for EnMetro-mobile</span></span></span><br><span class="line">  pod &#x27;FBSDKCoreKit&#x27;, &#x27;8.0.0&#x27;</span><br><span class="line">  pod &#x27;FBSDKLoginKit&#x27;, &#x27;8.0.0&#x27;</span><br><span class="line">  pod &#x27;FBSDKShareKit&#x27;, &#x27;8.0.0&#x27;</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>保存文件，运行<code>pod install</code>命令安装:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod install</span><br></pre></td></tr></table></figure>
+
+<p>等待安装完毕，重新打开编译运行项目：</p>
+<h3 id="遇到的问题："><a href="#遇到的问题：" class="headerlink" title="遇到的问题："></a>遇到的问题：</h3><p>安装一切顺利，但是编译的时候遇到报错：</p>
+<p>diff: /Podfile.lock: No such file or directory<br>diff: /Manifest.lock: No such file or directory</p>
+<p>The sandbox is not in sync with the Podfile.lock. Run ‘pod install’ or update your CocoaPods installation.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PhaseScriptExecution [CP]\ Check\ Pods\ Manifest.lock /Users/smile/Library/Developer/Xcode/DerivedData/EnMetro-dfhuietnxklqjidrjtacqvlqjphj/Build/Intermediates.noindex/EnMetro.build/Debug-iphoneos/EnMetro-mobile.build/Script-0FDC1DA3E81283C765782768.sh (in target &#x27;EnMetro-mobile&#x27; from project &#x27;EnMetro&#x27;)</span><br><span class="line">    cd /Users/smile/my/build/train/enohayoo/jsb-default/frameworks/runtime-src/proj.ios_mac</span><br><span class="line">    /bin/sh -c /Users/smile/Library/Developer/Xcode/DerivedData/EnMetro-dfhuietnxklqjidrjtacqvlqjphj/Build/Intermediates.noindex/EnMetro.build/Debug-iphoneos/EnMetro-mobile.build/Script-0FDC1DA3E81283C765782768.sh</span><br><span class="line"></span><br><span class="line">diff: /Podfile.lock: No such file or directory</span><br><span class="line">diff: /Manifest.lock: No such file or directory</span><br><span class="line">error: The sandbox is not in sync with the Podfile.lock. Run &#x27;pod install&#x27; or update your CocoaPods installation.</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/5cd1001/image-20201026200205054.png" alt="image-20201026200205054"></p>
+<p>网上搜索了一写错误的解决办法都没有真正解决这个问题，比如：</p>
+<blockquote>
+<h4 id="1、问题描述"><a href="#1、问题描述" class="headerlink" title="1、问题描述"></a>1、问题描述</h4><ul>
+<li>之前碰到过此类问题，原因是之前用了测试版本的pod，然后回归正式版本，导致找不到pod文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">复制diff: /../Podfile.lock: No such file or directory</span><br><span class="line">diff: /Manifest.lock: No such file or directory error: The sandbox is not in sync with the Podfile.lock.</span><br><span class="line">Run &#x27;pod install&#x27; or update your CocoaPods installation.</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、解决方案"><a href="#2、解决方案" class="headerlink" title="2、解决方案"></a>2、解决方案</h4><ul>
+<li><h5 id="2-1-方案一："><a href="#2-1-方案一：" class="headerlink" title="2.1 方案一："></a>2.1 方案一：</h5><ul>
+<li>收先关闭xcode 然后pod install</li>
+<li>如果不行就先删除xcworkspace Podfile.lock Pods文件夹 ~/Library/Developer/Xcode/DerivedData路径下对应工程的文件夹</li>
+<li>然后 pod install</li>
+</ul>
+</li>
+<li><h5 id="2-2-方案二："><a href="#2-2-方案二：" class="headerlink" title="2.2 方案二："></a>2.2 方案二：</h5><ul>
+<li>pod deintegrate –verbose</li>
+<li>pod install –verbose</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>试了好几遍 依旧不行</p>
+<p>后面看了一篇链接 文章 才知道是咋回事  <a target="_blank" rel="noopener" href="https://xmanyou.com/the-sandbox-is-not-in-sync-with-the-podfile-lock-run-pod-install-or-update-your-cocoapods-installation/">Cocos Creator 报错：The sandbox is not in sync with the Podfile.lock. Run ‘pod install’ or update your CocoaPods installation.</a></p>
+<p>原来是我安装cocoapods 的时候 发出了警告  路径不对</p>
+<p><img src="/post/5cd1001/image-20201027103945783.png" alt="image-20201027103945783"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PODS_PODFILE_DIR_PATH = $&#123;SRCROOT&#125;/.</span><br><span class="line">PODS_ROOT = $&#123;SRCROOT&#125;/Pods</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>解决方法是</strong>：修改 <code>UserConfigIOS.debug.xcconfig</code> 和 <code>UserConfigIOS.release.xcconfig</code>文件里面的引入 </p>
+<p><img src="/post/5cd1001/image-20201027103015441.png" alt="image-20201027103015441"></p>
+<p><code>UserConfigIOS.debug.xcconfig</code> 添加一行  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Configuration settings file format documentation can be found at:</span><br><span class="line">// https://help.apple.com/xcode/#/dev745c5c974</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include <span class="string">&quot;../../cocos2d-x/cocos/platform/ios/CCModuleConfigIOS.debug.xcconfig&quot;</span></span></span><br><span class="line">// 添加这一行</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include <span class="string">&quot;../Pods/Target Support Files/Pods-EnMetro-mobile/Pods-EnMetro-mobile.debug.xcconfig&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>PS：<code>Pods-EnMetro-mobile/Pods-EnMetro-mobile.debug.xcconfig</code> 是自己项目的具体路径和名字</p>
+<p><code>UserConfigIOS.release.xcconfig</code> 添加一行 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// Configuration settings file format documentation can be found at:</span><br><span class="line">// https://help.apple.com/xcode/#/dev745c5c974</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include <span class="string">&quot;../../cocos2d-x/cocos/platform/ios/CCModuleConfigIOS.release.xcconfig&quot;</span></span></span><br><span class="line">// 添加这一行</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">include <span class="string">&quot;../Pods/Target Support Files/Pods-EnMetro-mobile/Pods-EnMetro-mobile.release.xcconfig&quot;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>PS：<code>Pods-EnMetro-mobile/Pods-EnMetro-mobile.release.xcconfig</code> 是自己项目的具体路径和名字</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://xmanyou.com/the-sandbox-is-not-in-sync-with-the-podfile-lock-run-pod-install-or-update-your-cocoapods-installation/">Cocos Creator 报错：The sandbox is not in sync with the Podfile.lock. Run ‘pod install’ or update your CocoaPods installation.</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/CH520/p/9720916.html">如何解决diff: /../Podfile.lock: No such file or directory 的问题</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/ddcbf515.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator 原生开发总结续</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/27482d4a.html">
+        <span>2020，谈谈生活</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/5cd1001.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85cocoapods"><span class="toc-number">1.</span> <span class="toc-text">安装cocoapods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">遇到的问题：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">1、问题描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">2.2.</span> <span class="toc-text">2、解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1 方案一：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2 方案二：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">参考链接</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

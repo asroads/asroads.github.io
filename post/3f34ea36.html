@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Layabox2.3.0如何配置代码编辑器(WebStorm2019) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/3f34ea36.html">Layabox2.3.0如何配置代码编辑器(WebStorm2019)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-09-24
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Layabox2.3.0如何配置代码编辑器(WebStorm2019)&url=http://blog.asroads.com/post/3f34ea36.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Layabox2.3.0如何配置代码编辑器(WebStorm2019)&url=http://blog.asroads.com/post/3f34ea36.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/3f34ea36.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/3f34ea36.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/3f34ea36.html&title=Layabox2.3.0如何配置代码编辑器(WebStorm2019)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Layabox2.3.0如何配置代码编辑器(WebStorm2019)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/3f34ea36.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/3f34ea36.html&text=Layabox2.3.0如何配置代码编辑器(WebStorm2019)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E6%8A%80%E6%9C%AF/ >技术</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Webstorm/ >Webstorm</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>今天看到新闻，Laya官方更新了新版本，新版本很多优势，有了很多更新，看到公众号下面有人留言说，希望有个外置的代码编辑器，其实我从学习开发Layabox一直都是用的Webstorm外置编辑器，打开了两个IDE，Webstorm主攻代码，配置了编译，LayaboxIDE主攻美术和项目构建。整体来讲和Cocos开发差不多，效率很快，特别是再用上快捷键。下面我就把这个配置分享一下，希望更多的人能够提高效率。</p>
+<span id="more"></span>
+
+<h3 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://www.jetbrains.com/webstorm/">Webstorm</a></li>
+<li><a target="_blank" rel="noopener" href="https://layabox.com/">Layabox</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.cn/">npm</a>环境（安装教程不再赘述）或者 <a target="_blank" rel="noopener" href="https://npm.taobao.org/">淘宝镜像npm</a></li>
+</ul>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ol>
+<li>首先打开我们的Layabox </li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924194713152.jpeg" alt="image-20190924194713152"></p>
+<ol start="2">
+<li>新建一个项目 我这边起名字 idedemo </li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924194837296.jpeg" alt="image-20190924194837296"></p>
+<ol start="3">
+<li>我们看到 Layabox 的编译文件处于 .laya 文件夹下</li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924195013484.jpeg" alt="image-20190924195013484"></p>
+<ol start="4">
+<li>我们打开我们Webstorm软件</li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924195131072.jpeg" alt="image-20190924195131072"></p>
+<ol start="5">
+<li>我们用Webstorm 打开我们刚刚新建的项目 选择项目文件夹即可</li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924195313820.jpeg" alt="image-20190924195313820"></p>
+<ol start="6">
+<li>我们打印一下compile.js文件的里面的 process.argv,准备替换（我们用LayaboxIDE）点击那个编译按钮，然后就能看的参数的值</li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924195724793.jpeg" alt="image-20190924195724793"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&quot;/Applications/LayaAirIDE_beta2.3.0.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper&quot;</span>,<span class="string">&quot;/Applications/LayaAirIDE_beta2.3.0.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js&quot;</span>,<span class="string">&quot;--gulpfile=/test/laya/demos/idedemo/.laya/compile.js&quot;</span>,<span class="string">&quot;compile&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>我们观察这个compile.js文件发现 Laya集合了几个工具</li>
+</ol>
+<ul>
+<li>gulp</li>
+<li>rollup</li>
+<li>rollup-plugin-typescript2</li>
+<li>rollup-plugin-glsl</li>
+</ul>
+<ol start="8">
+<li>我们接下来用npm 安装上面几个插件</li>
+<li>安装成功后，在.laya目录下复制 compile.js 新建一个名字为 gulpfile.js (必须是这个名字)</li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924200252783.jpeg" alt="image-20190924200252783"></p>
+<ol start="10">
+<li>右键菜单 选择 </li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924200412048.jpeg" alt="image-20190924200412048"></p>
+<ol start="11">
+<li>修改我们这个参数配置</li>
+</ol>
+<p><img src="/post/3f34ea36/image-20190924200457724.jpeg" alt="image-20190924200457724"></p>
+<p>主要是修改我们这个 gulp 路径</p>
+<p><img src="/post/3f34ea36/image-20190924200526822.jpeg" alt="image-20190924200526822"></p>
+<p>选择 Layabox 自带的 gulp 文件夹</p>
+<p><img src="/post/3f34ea36/image-20190924200632868.jpeg" alt="image-20190924200632868"></p>
+<p>具体路径地址(你根据自己地址写)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Applications</span>/<span class="title class_">LayaAirIDE</span>_beta2<span class="number">.3</span><span class="number">.0</span>.<span class="property">app</span>/<span class="title class_">Contents</span>/<span class="title class_">Resources</span>/app/node_modules/gulp</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li>接下来修改 我们新建的文件 gulpfile.js 的代码</li>
+</ol>
+<p>原代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> useIDENode = process.<span class="property">argv</span>[<span class="number">0</span>].<span class="title function_">indexOf</span>(<span class="string">&quot;LayaAir&quot;</span>) &gt; -<span class="number">1</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+
+<p>修改为</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> addvalue = process.<span class="property">argv</span>.<span class="title function_">splice</span>(<span class="number">2</span>,<span class="number">2</span>)[<span class="number">1</span>];</span><br><span class="line">process.<span class="property">argv</span>[process.<span class="property">argv</span>.<span class="property">length</span>-<span class="number">2</span>] = addvalue+<span class="string">&quot;=&quot;</span>+process.<span class="property">argv</span>[process.<span class="property">argv</span>.<span class="property">length</span>-<span class="number">2</span>].<span class="title function_">replace</span>(<span class="string">&quot;gulpfile&quot;</span>,<span class="string">&quot;compile&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> useIDENode = process.<span class="property">argv</span>[<span class="number">0</span>].<span class="title function_">indexOf</span>(<span class="string">&quot;node&quot;</span>) &gt; -<span class="number">1</span> ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+
+<p>之所以这么修改是因为</p>
+<p>layaIde 编译 compile.js 打印的 process.argv  内容是</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span><span class="string">&quot;/Applications/LayaAirIDE_beta2.3.0.app/Contents/Frameworks/Code Helper.app/Contents/MacOS/Code Helper&quot;</span><span class="punctuation">,</span><span class="string">&quot;/Applications/LayaAirIDE_beta2.3.0.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js&quot;</span><span class="punctuation">,</span><span class="string">&quot;--gulpfile=/test/laya/demos/idedemo/.laya/compile.js&quot;</span><span class="punctuation">,</span><span class="string">&quot;compile&quot;</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>而我本地的 Webstorm 编译 gulpfile.js 打印的 process.argv  内容是</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span><span class="string">&quot;/usr/local/bin/node&quot;</span><span class="punctuation">,</span><span class="string">&quot;/Applications/LayaAirIDE_beta2.3.0.app/Contents/Resources/app/node_modules/gulp/bin/gulp.js&quot;</span><span class="punctuation">,</span><span class="string">&quot;--no-color&quot;</span><span class="punctuation">,</span><span class="string">&quot;--gulpfile&quot;</span><span class="punctuation">,</span><span class="string">&quot;/test/laya/demos/idedemo/.laya/gulpfile.js&quot;</span><span class="punctuation">,</span><span class="string">&quot;--tasks&quot;</span><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>读者可以根据自己的环境  更改内容，以上便是如果使用Webstorm 编译Laya2.0项目.</p>
+<p>双击这个 compile 然后 发现 编辑通过</p>
+<p><img src="/post/3f34ea36/image-20190924201158236.jpeg" alt="image-20190924201158236"></p>
+<p><img src="/post/3f34ea36/image-20190924201231747.jpeg" alt="image-20190924201231747"></p>
+<p>我们写一行输出</p>
+<p><img src="/post/3f34ea36/image-20190924201346213.jpeg" alt="image-20190924201346213"></p>
+<p>然后重新编译</p>
+<p><img src="/post/3f34ea36/image-20190924201423882.jpeg" alt="image-20190924201423882"></p>
+<p>我们发现 正确输出 但是 文件路径指向了我们生成的 js 文件 这个不是我们要的</p>
+<p>注意: 这样编译后，我们发现在调试的时候，编译器总是指向编译后的JavaScript文件，这个是个很头疼的时候，上次因为忙，今天得以进一步了解，其实还是参数的问题</p>
+<p>需要修改代码：</p>
+<p>原代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用browserify，转换ts到js，并输出到bin/js目录</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&quot;compile&quot;</span>, prevTasks, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">	<span class="comment">// 发布时调用编译功能，判断是否点击了编译选项</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="variable language_">global</span>.<span class="property">publish</span> &amp;&amp; !<span class="variable language_">global</span>.<span class="property">config</span>.<span class="property">compile</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">global</span>.<span class="property">publish</span> &amp;&amp; <span class="variable language_">global</span>.<span class="property">config</span>.<span class="property">compile</span>) &#123;</span><br><span class="line">		<span class="comment">// 发布时调用编译，workSpaceDir使用publish.js里的变量</span></span><br><span class="line">		workSpaceDir = <span class="variable language_">global</span>.<span class="property">workSpaceDir</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> rollup.<span class="title function_">rollup</span>(&#123;</span><br><span class="line">		<span class="attr">input</span>: workSpaceDir + <span class="string">&#x27;/src/Main.ts&#x27;</span>,</span><br><span class="line">		<span class="attr">treeshake</span>: <span class="literal">true</span>,<span class="comment">//建议忽略</span></span><br><span class="line">		<span class="attr">plugins</span>: [</span><br><span class="line">			<span class="title function_">typescript</span>(&#123;</span><br><span class="line">				<span class="attr">check</span>: <span class="literal">false</span>, <span class="comment">//Set to false to avoid doing any diagnostic checks on the code</span></span><br><span class="line">				<span class="attr">tsconfigOverride</span>:&#123;<span class="attr">compilerOptions</span>:&#123;<span class="attr">removeComments</span>: <span class="literal">true</span>&#125;&#125;</span><br><span class="line">			&#125;),</span><br><span class="line">			<span class="title function_">glsl</span>(&#123;</span><br><span class="line">				<span class="comment">// By default, everything gets included</span></span><br><span class="line">				<span class="attr">include</span>: <span class="regexp">/.*(.glsl|.vs|.fs)$/</span>,</span><br><span class="line">				<span class="attr">sourceMap</span>: <span class="literal">false</span>,</span><br><span class="line">				<span class="attr">compress</span>:<span class="literal">false</span></span><br><span class="line">			&#125;),</span><br><span class="line">			<span class="comment">/*terser(&#123;</span></span><br><span class="line"><span class="comment">				output: &#123;</span></span><br><span class="line"><span class="comment">				&#125;,</span></span><br><span class="line"><span class="comment">				numWorkers:1,//Amount of workers to spawn. Defaults to the number of CPUs minus 1</span></span><br><span class="line"><span class="comment">				sourcemap: false</span></span><br><span class="line"><span class="comment">			&#125;)*/</span>        </span><br><span class="line">		]</span><br><span class="line">	&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">bundle</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> bundle.<span class="title function_">write</span>(&#123;</span><br><span class="line">			<span class="attr">file</span>: workSpaceDir + <span class="string">&#x27;/bin/js/bundle.js&#x27;</span>,</span><br><span class="line">			<span class="attr">format</span>: <span class="string">&#x27;iife&#x27;</span>,</span><br><span class="line">			<span class="attr">name</span>: <span class="string">&#x27;laya&#x27;</span>,</span><br><span class="line">			<span class="attr">sourcemap</span>: <span class="literal">false</span></span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>修改后</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用browserify，转换ts到js，并输出到bin/js目录</span></span><br><span class="line">gulp.<span class="title function_">task</span>(<span class="string">&quot;compile&quot;</span>, prevTasks, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">	<span class="comment">// 发布时调用编译功能，判断是否点击了编译选项</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="variable language_">global</span>.<span class="property">publish</span> &amp;&amp; !<span class="variable language_">global</span>.<span class="property">config</span>.<span class="property">compile</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">global</span>.<span class="property">publish</span> &amp;&amp; <span class="variable language_">global</span>.<span class="property">config</span>.<span class="property">compile</span>) &#123;</span><br><span class="line">		<span class="comment">// 发布时调用编译，workSpaceDir使用publish.js里的变量</span></span><br><span class="line">		workSpaceDir = <span class="variable language_">global</span>.<span class="property">workSpaceDir</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> rollup.<span class="title function_">rollup</span>(&#123;</span><br><span class="line">		<span class="attr">input</span>: workSpaceDir + <span class="string">&#x27;/src/Main.ts&#x27;</span>,</span><br><span class="line">		<span class="attr">treeshake</span>: <span class="literal">true</span>,<span class="comment">//建议忽略</span></span><br><span class="line">		<span class="attr">plugins</span>: [</span><br><span class="line">			<span class="title function_">typescript</span>(&#123;</span><br><span class="line">				<span class="attr">check</span>: <span class="literal">false</span>, <span class="comment">//Set to false to avoid doing any diagnostic checks on the code</span></span><br><span class="line">				<span class="attr">tsconfigOverride</span>:&#123;<span class="attr">compilerOptions</span>:&#123;<span class="attr">removeComments</span>: <span class="literal">true</span>&#125;&#125;</span><br><span class="line">			&#125;),</span><br><span class="line">			<span class="title function_">glsl</span>(&#123;</span><br><span class="line">				<span class="comment">// By default, everything gets included</span></span><br><span class="line">				<span class="attr">include</span>: <span class="regexp">/.*(.glsl|.vs|.fs)$/</span>,</span><br><span class="line">				<span class="attr">sourceMap</span>: <span class="literal">false</span>,</span><br><span class="line">				<span class="attr">compress</span>:<span class="literal">false</span></span><br><span class="line">			&#125;),</span><br><span class="line">			<span class="comment">/*terser(&#123;</span></span><br><span class="line"><span class="comment">				output: &#123;</span></span><br><span class="line"><span class="comment">				&#125;,</span></span><br><span class="line"><span class="comment">				numWorkers:1,//Amount of workers to spawn. Defaults to the number of CPUs minus 1</span></span><br><span class="line"><span class="comment">				sourcemap: false</span></span><br><span class="line"><span class="comment">			&#125;)*/</span>        </span><br><span class="line">		]</span><br><span class="line">	&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">bundle</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> bundle.<span class="title function_">write</span>(&#123;</span><br><span class="line">			<span class="attr">file</span>: workSpaceDir + <span class="string">&#x27;/bin/js/bundle.js&#x27;</span>,</span><br><span class="line">			<span class="attr">format</span>: <span class="string">&#x27;iife&#x27;</span>,</span><br><span class="line">			<span class="attr">name</span>: <span class="string">&#x27;laya&#x27;</span>,</span><br><span class="line">			<span class="attr">sourcemap</span>: <span class="literal">true</span></span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其实就是修改 sourcemap: true 而已</p>
+<p>另外去修改 我们的项目配置文件 tsconfig.json 里面 的 tsconfig.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es6&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es6&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;noEmitHelpers&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;node_modules&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>同理也是  sourcemap: true 然后重新编译我们的项目 </p>
+<p><img src="/post/3f34ea36/image-20190924201833740.jpeg" alt="image-20190924201833740"></p>
+<p>同理 也可以断点调试</p>
+<p><img src="/post/3f34ea36/image-20190924201904468.jpeg" alt="image-20190924201904468"></p>
+<p><img src="/post/3f34ea36/image-20190924201918327.jpeg" alt="image-20190924201918327"></p>
+<p>以上 全部搞定</p>
+<p><strong>2019年12月20日 发现 本地环境更新 编译报错：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">semantic error TS2354: This syntax requires an imported helper but module <span class="string">&#x27;tslib&#x27;</span> cannot be found</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决办法</strong>：参考链接 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/52801814/this-syntax-requires-an-imported-helper-but-module-tslib-cannot-be-found-wit">stackoverflow</a></p>
+<blockquote>
+<p>Noob mistake (which I just made). Try:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install tslib</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i</span><br></pre></td></tr></table></figure>
+
+<p>Personally before signing off on Friday I did a <code>git clean -fxd</code>, but no <code>npm i</code> so all the npm packages were missing. Doh!</p>
+</blockquote>
+<p>我只用了 <code>npm install tslib</code> 就成功解决问题。</p>
+<p><strong>另外关于Layabox1.x版本 和前面的2.x 版本 细节可以参考我的另外一篇文章</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.asroads.com/2019/03/01/tool/Webstorm%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AELayabox2-0%E9%A1%B9%E7%9B%AE/">Webstorm如何配置Layabox2.0项目</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.asroads.com/2019/04/12/tool/Mac%E4%B8%8B%E5%BC%80%E5%90%AFChrome%E9%9D%9E%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F/">Mac下开启Chrome非安全模式</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/f967797a.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>简单优化一下个人博客</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/a99e4075.html">
+        <span>Mac电脑如何查看已连接的WiFi密码</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/3f34ea36.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">软件下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">环境配置</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

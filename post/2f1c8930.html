@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator 3.x 使用第三方库axios.js | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/2f1c8930.html">Cocos Creator 3.x 使用第三方库axios.js</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-08-25
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator 3.x 使用第三方库axios.js&url=http://blog.asroads.com/post/2f1c8930.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator 3.x 使用第三方库axios.js&url=http://blog.asroads.com/post/2f1c8930.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/2f1c8930.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/2f1c8930.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/2f1c8930.html&title=Cocos Creator 3.x 使用第三方库axios.js" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator 3.x 使用第三方库axios.js&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/2f1c8930.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/2f1c8930.html&text=Cocos Creator 3.x 使用第三方库axios.js" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/axios/ >axios</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>终于升级到 <code>Cocos Creator 3.x</code> 版本了，接下来就是一步步的踩坑，比如之前的项目用的是 <a target="_blank" rel="noopener" href="https://github.com/axios/axios">axios</a> 这个类库，<code>2.x</code> 正常引入，3.x就报错了，下面说说这个报错，以及如何解决。</p>
+<span id="more"></span>
+
+<p>下面说一下 具体说明</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<h3 id="Axios-是什么"><a href="#Axios-是什么" class="headerlink" title="Axios 是什么?"></a>Axios 是什么?</h3><p>Axios 是一个基于 <em><a target="_blank" rel="noopener" href="https://javascript.info/promise-basics">promise</a></em> 网络请求库，作用于<a target="_blank" rel="noopener" href="https://nodejs.org/"><code>node.js</code></a> 和浏览器中。 它是 <em><a target="_blank" rel="noopener" href="https://www.lullabot.com/articles/what-is-an-isomorphic-application">isomorphic</a></em> 的(即同一套代码可以运行在浏览器和node.js中)。在服务端它使用原生 node.js <code>http</code> 模块, 而在客户端 (浏览端) 则使用 XMLHttpRequests。</p>
+</blockquote>
+<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><h4 id="npm"><a href="#npm" class="headerlink" title="npm"></a><a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm</a></h4><h4 id="axios"><a href="#axios" class="headerlink" title="axios"></a><a target="_blank" rel="noopener" href="https://github.com/axios/axios">axios</a></h4><h4 id="axios-retry"><a href="#axios-retry" class="headerlink" title="axios-retry"></a><a target="_blank" rel="noopener" href="https://github.com/softonic/axios-retry">axios-retry</a></h4><h4 id="is-retry-allowed"><a href="#is-retry-allowed" class="headerlink" title="is-retry-allowed"></a><a target="_blank" rel="noopener" href="https://github.com/sindresorhus/is-retry-allowed">is-retry-allowed</a></h4><p>相关链接：<a target="_blank" rel="noopener" href="https://axios-http.com/zh/docs/instance">axios官方文档(最新)</a>   <a target="_blank" rel="noopener" href="http://axios-js.com/zh-cn/docs/">axios中文文档（原）</a></p>
+<h3 id="API-说明"><a href="#API-说明" class="headerlink" title="API 说明"></a>API 说明</h3><p>2021年12月01 更新说明</p>
+<p>现在官方网站API 和demo已经说的很清楚了，也很容易理解，直接配置测试即可，这里不再赘述。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>首先关于<a target="_blank" rel="noopener" href="https://www.cocos.com/docs">Cocos Creator 2.4.x</a> 版本如何引入第三方库，前面几篇文章反复的说明，大家可以借鉴前面的文章，按部就班基本没有什么问题。现在<code>3.x</code> 版本如果 不是按照官方npm 的安装方法，而是采取手动安装的话，会报错。</p>
+<p>比如下面代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;_decorator, <span class="title class_">Component</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;../libs/axios&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = _decorator;</span><br><span class="line"><span class="meta">@ccclass</span>(<span class="string">&#x27;FirstScene&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">FirstScene</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    <span class="title function_">testHandler</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;8888888888&quot;</span>));</span><br><span class="line">        <span class="comment">//https://xxxxx/better.json 这个 修改成自己的地址，我这里测试用</span></span><br><span class="line">        axios.<span class="title function_">get</span>(<span class="string">&#x27;https://xxxxx/better.json&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;登陆成功啊&quot;</span>);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res));</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;登陆失败&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>报错如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">无法从 file:///Users/smile/work/temp/ccc3/axiosdemo/assets/src/FirstScene.ts 解析出模块 ../libs/axios，已将其视为外部模块。</span><br><span class="line">你是否遗漏了扩展名？请注意你不能在模块说明符中省略扩展名。</span><br></pre></td></tr></table></figure>
+
+<p>很奇怪的错误，找了很久，最后一无所获，后面又回到官方文档看到这几句话：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// foo.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="number">2</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">c</span> = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// test.mjs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// default 指向 module.exports</span></span><br><span class="line"><span class="keyword">import</span> foo <span class="keyword">from</span> <span class="string">&#x27;./foo.js&#x27;</span>; <span class="comment">// 等价于 import &#123; default as foo &#125; from &#x27;./foo.js&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(foo)); <span class="comment">// &#123;&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入 foo 模块的所有导出</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> module_foo <span class="keyword">from</span> <span class="string">&#x27;./foo.js&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(module_foo)); <span class="comment">// &#123;&quot;c&quot;:3,&quot;default&quot;:&#123;&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; a &#125; <span class="keyword">from</span> <span class="string">&#x27;./foo.js&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// Error: a is not defined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据上方第三点，c 有独立导出</span></span><br><span class="line"><span class="keyword">import</span> &#123; c &#125; <span class="keyword">from</span> <span class="string">&#x27;./foo.js&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c); <span class="comment">// 3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>后面 对比了一下，就是我的类库 导入的时候 没有写 后缀名 .js 。于是带着猜测 添加上后缀。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;_decorator, <span class="title class_">Component</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axiosRetry <span class="keyword">from</span> <span class="string">&quot;../libs/axios-retry&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;../libs/axios.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = _decorator;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">Constructor</span>&lt;T = <span class="built_in">unknown</span>&gt; = <span class="keyword">new</span> (...<span class="attr">args</span>: <span class="built_in">any</span>[]) =&gt; T;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span>(<span class="string">&#x27;FirstScene&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">FirstScene</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// Platform.initAPI();</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">testHandler</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;8888888888&quot;</span>));</span><br><span class="line">        <span class="title function_">axiosRetry</span>(axios, &#123;<span class="attr">retries</span>: <span class="number">3</span>&#125;);</span><br><span class="line">        axios.<span class="title function_">get</span>(<span class="string">&#x27;https://cdn.mini.52muyou.com/xiaoyouxi/test/game/better.json&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;登陆成功啊&quot;</span>);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res));</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;登陆失败&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">testObject</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> getMyComponent&lt;T <span class="keyword">extends</span> <span class="title class_">Component</span>&gt;(<span class="attr">classConstructor</span>: <span class="title class_">Constructor</span>&lt;T&gt;): T &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(classConstructor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>发现编辑器不再报错，成功获取到数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">smile----:&quot;8888888888&quot;</span><br><span class="line">登陆成功啊</span><br><span class="line">&#123;&quot;data&quot;:...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>随后添加 一个 插件 axios-retry   这个插件一直没有成功，后面我就直接 把代码修改为ts 文件引入了。最终代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">namespace</span> = &#x27;axios-retry&#x27;;</span><br><span class="line">/**</span><br><span class="line"> * @param  &#123;<span class="title class_">Error</span>&#125;  error</span><br><span class="line"> * <span class="meta">@return</span> &#123;<span class="built_in">boolean</span>&#125;</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">isNetworkError</span>(<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        !error.<span class="property">response</span> &amp;&amp;</span><br><span class="line">        <span class="title class_">Boolean</span>(error.<span class="property">code</span>) &amp;&amp; <span class="comment">// Prevents retrying cancelled requests</span></span><br><span class="line">        error.<span class="property">code</span> !== <span class="string">&#x27;ECONNABORTED&#x27;</span> &amp;&amp; <span class="comment">// Prevents retrying timed out requests</span></span><br><span class="line">        <span class="title function_">isRetryAllowed</span>(error)</span><br><span class="line">    ); <span class="comment">// Prevents retrying unsafe errors</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">SAFE_HTTP_METHODS</span> = [<span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;head&#x27;</span>, <span class="string">&#x27;options&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">IDEMPOTENT_HTTP_METHODS</span> = <span class="variable constant_">SAFE_HTTP_METHODS</span>.<span class="title function_">concat</span>([<span class="string">&#x27;put&#x27;</span>, <span class="string">&#x27;delete&#x27;</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">Error</span>&#125;  <span class="variable">error</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">isRetryableError</span>(<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        error.<span class="property">code</span> !== <span class="string">&#x27;ECONNABORTED&#x27;</span> &amp;&amp;</span><br><span class="line">        (!error.<span class="property">response</span> || (error.<span class="property">response</span>.<span class="property">status</span> &gt;= <span class="number">500</span> &amp;&amp; error.<span class="property">response</span>.<span class="property">status</span> &lt;= <span class="number">599</span>))</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">Error</span>&#125;  <span class="variable">error</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">isSafeRequestError</span>(<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!error.<span class="property">config</span>) &#123;</span><br><span class="line">        <span class="comment">// Cannot determine if the request can be retried</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">isRetryableError</span>(error) &amp;&amp; <span class="variable constant_">SAFE_HTTP_METHODS</span>.<span class="title function_">indexOf</span>(error.<span class="property">config</span>.<span class="property">method</span>) !== -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">Error</span>&#125;  <span class="variable">error</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">isIdempotentRequestError</span>(<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!error.<span class="property">config</span>) &#123;</span><br><span class="line">        <span class="comment">// Cannot determine if the request can be retried</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">isRetryableError</span>(error) &amp;&amp; <span class="variable constant_">IDEMPOTENT_HTTP_METHODS</span>.<span class="title function_">indexOf</span>(error.<span class="property">config</span>.<span class="property">method</span>) !== -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">Error</span>&#125;  <span class="variable">error</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">isNetworkOrIdempotentRequestError</span>(<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">isNetworkError</span>(error) || <span class="title function_">isIdempotentRequestError</span>(error);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number</span>&#125; - delay in milliseconds, always 0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">noDelay</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">number</span>&#125; [retryNumber=0]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number</span>&#125; - delay in milliseconds</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">exponentialDelay</span>(<span class="params">retryNumber = <span class="number">0</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> delay = <span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">2</span>, retryNumber) * <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">const</span> randomSum = delay * <span class="number">0.2</span> * <span class="title class_">Math</span>.<span class="title function_">random</span>(); <span class="comment">// 0-20% of the delay</span></span><br><span class="line">    <span class="keyword">return</span> delay + randomSum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Initializes and returns the retry state for the given request/config</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">AxiosRequestConfig</span>&#125; <span class="variable">config</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">Object</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getCurrentState</span>(<span class="params">config</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> currentState = config[<span class="keyword">namespace</span>] || &#123;&#125;;</span><br><span class="line">    currentState.<span class="property">retryCount</span> = currentState.<span class="property">retryCount</span> || <span class="number">0</span>;</span><br><span class="line">    config[<span class="keyword">namespace</span>] = currentState;</span><br><span class="line">    return currentState;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * <span class="title class_">Returns</span> the axios-retry options for the current request</span><br><span class="line"> * @param  &#123;<span class="title class_">AxiosRequestConfig</span>&#125; config</span><br><span class="line"> * <span class="meta">@param</span>  &#123;<span class="title class_">AxiosRetryConfig</span>&#125; defaultOptions</span><br><span class="line"> * <span class="meta">@return</span> &#123;<span class="title class_">AxiosRetryConfig</span>&#125;</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getRequestOptions</span>(<span class="params">config, defaultOptions</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, defaultOptions, config[<span class="keyword">namespace</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @param  &#123;<span class="title class_">Axios</span>&#125; axios</span><br><span class="line"> * <span class="meta">@param</span>  &#123;<span class="title class_">AxiosRequestConfig</span>&#125; config</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fixConfig</span>(<span class="params">axios, config</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (axios.<span class="property">defaults</span>.<span class="property">agent</span> === config.<span class="property">agent</span>) &#123;</span><br><span class="line">        <span class="keyword">delete</span> config.<span class="property">agent</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (axios.<span class="property">defaults</span>.<span class="property">httpAgent</span> === config.<span class="property">httpAgent</span>) &#123;</span><br><span class="line">        <span class="keyword">delete</span> config.<span class="property">httpAgent</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (axios.<span class="property">defaults</span>.<span class="property">httpsAgent</span> === config.<span class="property">httpsAgent</span>) &#123;</span><br><span class="line">        <span class="keyword">delete</span> config.<span class="property">httpsAgent</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Adds response interceptors to an axios instance to retry requests failed due to network issues</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@example</span></span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * import axios from &#x27;axios&#x27;;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * axiosRetry(axios, &#123; retries: 3 &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * axios.get(&#x27;http://example.com/test&#x27;) // The first request fails and the second returns &#x27;ok&#x27;</span></span><br><span class="line"><span class="comment"> *   .then(result =&gt; &#123;</span></span><br><span class="line"><span class="comment"> *     result.data; // &#x27;ok&#x27;</span></span><br><span class="line"><span class="comment"> *   &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * // Exponential back-off retry delay between requests</span></span><br><span class="line"><span class="comment"> * axiosRetry(axios, &#123; retryDelay : axiosRetry.exponentialDelay&#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * // Custom retry delay</span></span><br><span class="line"><span class="comment"> * axiosRetry(axios, &#123; retryDelay : (retryCount) =&gt; &#123;</span></span><br><span class="line"><span class="comment"> *   return retryCount * 1000;</span></span><br><span class="line"><span class="comment"> * &#125;&#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * // Also works with custom axios instances</span></span><br><span class="line"><span class="comment"> * const client = axios.create(&#123; baseURL: &#x27;http://example.com&#x27; &#125;);</span></span><br><span class="line"><span class="comment"> * axiosRetry(client, &#123; retries: 3 &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * client.get(&#x27;/test&#x27;) // The first request fails and the second returns &#x27;ok&#x27;</span></span><br><span class="line"><span class="comment"> *   .then(result =&gt; &#123;</span></span><br><span class="line"><span class="comment"> *     result.data; // &#x27;ok&#x27;</span></span><br><span class="line"><span class="comment"> *   &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * // Allows request-specific configuration</span></span><br><span class="line"><span class="comment"> * client</span></span><br><span class="line"><span class="comment"> *   .get(&#x27;/test&#x27;, &#123;</span></span><br><span class="line"><span class="comment"> *     &#x27;axios-retry&#x27;: &#123;</span></span><br><span class="line"><span class="comment"> *       retries: 0</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> *   &#125;)</span></span><br><span class="line"><span class="comment"> *   .catch(error =&gt; &#123; // The first request fails</span></span><br><span class="line"><span class="comment"> *     error !== undefined</span></span><br><span class="line"><span class="comment"> *   &#125;);</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Axios</span>&#125; axios An axios instance (the axios object or one created from axios.create)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125; [defaultOptions]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number</span>&#125; [defaultOptions.retries=3] Number of retries</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">boolean</span>&#125; [defaultOptions.shouldResetTimeout=false]</span></span><br><span class="line"><span class="comment"> *        Defines if the timeout should be reset between retries</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Function</span>&#125; [defaultOptions.retryCondition=isNetworkOrIdempotentRequestError]</span></span><br><span class="line"><span class="comment"> *        A function to determine if the error can be retried</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Function</span>&#125; [defaultOptions.retryDelay=noDelay]</span></span><br><span class="line"><span class="comment"> *        A function to determine the delay between retry requests</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">axiosRetry</span>(<span class="params">axios, defaultOptions</span>) &#123;</span><br><span class="line">    axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> currentState = <span class="title function_">getCurrentState</span>(config);</span><br><span class="line">        currentState.<span class="property">lastRequestTime</span> = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">        <span class="keyword">return</span> config;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="literal">null</span>, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> config = error.<span class="property">config</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If we have no information to retry the request</span></span><br><span class="line">        <span class="keyword">if</span> (!config) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> &#123;</span><br><span class="line">            retries = <span class="number">3</span>,</span><br><span class="line">            retryCondition = isNetworkOrIdempotentRequestError,</span><br><span class="line">            retryDelay = noDelay,</span><br><span class="line">            shouldResetTimeout = <span class="literal">false</span></span><br><span class="line">        &#125; = <span class="title function_">getRequestOptions</span>(config, defaultOptions);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> currentState = <span class="title function_">getCurrentState</span>(config);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> shouldRetry = <span class="title function_">retryCondition</span>(error) &amp;&amp; currentState.<span class="property">retryCount</span> &lt; retries;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (shouldRetry) &#123;</span><br><span class="line">            currentState.<span class="property">retryCount</span> += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">const</span> delay = <span class="title function_">retryDelay</span>(currentState.<span class="property">retryCount</span>, error);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Axios fails merging this configuration to the default configuration because it has an issue</span></span><br><span class="line">            <span class="comment">// with circular structures: https://github.com/mzabriskie/axios/issues/370</span></span><br><span class="line">            <span class="title function_">fixConfig</span>(axios, config);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!shouldResetTimeout &amp;&amp; config.<span class="property">timeout</span> &amp;&amp; currentState.<span class="property">lastRequestTime</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> lastRequestDuration = <span class="title class_">Date</span>.<span class="title function_">now</span>() - currentState.<span class="property">lastRequestTime</span>;</span><br><span class="line">                <span class="comment">// Minimum 1ms timeout (passing 0 or less to XHR means no timeout)</span></span><br><span class="line">                config.<span class="property">timeout</span> = <span class="title class_">Math</span>.<span class="title function_">max</span>(config.<span class="property">timeout</span> - lastRequestDuration - delay, <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            config.<span class="property">transformRequest</span> = [<span class="function"><span class="params">data</span> =&gt;</span> data];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">resolve</span>(<span class="title function_">axios</span>(config)), delay));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> denyList = <span class="keyword">new</span> <span class="title class_">Set</span>([</span><br><span class="line">    <span class="string">&#x27;ENOTFOUND&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ENETUNREACH&#x27;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// SSL errors from https://github.com/nodejs/node/blob/fc8e3e2cdc521978351de257030db0076d79e0ab/src/crypto/crypto_common.cc#L301-L328</span></span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_GET_ISSUER_CERT&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_GET_CRL&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_DECRYPT_CERT_SIGNATURE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_DECRYPT_CRL_SIGNATURE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_SIGNATURE_FAILURE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CRL_SIGNATURE_FAILURE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_NOT_YET_VALID&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_HAS_EXPIRED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CRL_NOT_YET_VALID&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CRL_HAS_EXPIRED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ERROR_IN_CERT_NOT_BEFORE_FIELD&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ERROR_IN_CERT_NOT_AFTER_FIELD&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ERROR_IN_CRL_LAST_UPDATE_FIELD&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ERROR_IN_CRL_NEXT_UPDATE_FIELD&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;OUT_OF_MEM&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;DEPTH_ZERO_SELF_SIGNED_CERT&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;SELF_SIGNED_CERT_IN_CHAIN&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_GET_ISSUER_CERT_LOCALLY&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;UNABLE_TO_VERIFY_LEAF_SIGNATURE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_CHAIN_TOO_LONG&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_REVOKED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;INVALID_CA&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;PATH_LENGTH_EXCEEDED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;INVALID_PURPOSE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_UNTRUSTED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;CERT_REJECTED&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;HOSTNAME_MISMATCH&#x27;</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> Use `error?.code` when targeting Node.js 14</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">isRetryAllowed</span>(<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> !denyList.<span class="title function_">has</span>(error &amp;&amp; error.<span class="property">code</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Compatibility with CommonJS</span></span><br><span class="line">axiosRetry.<span class="property">isNetworkError</span> = isNetworkError;</span><br><span class="line">axiosRetry.<span class="property">isSafeRequestError</span> = isSafeRequestError;</span><br><span class="line">axiosRetry.<span class="property">isIdempotentRequestError</span> = isIdempotentRequestError;</span><br><span class="line">axiosRetry.<span class="property">isNetworkOrIdempotentRequestError</span> = isNetworkOrIdempotentRequestError;</span><br><span class="line">axiosRetry.<span class="property">exponentialDelay</span> = exponentialDelay;</span><br><span class="line">axiosRetry.<span class="property">isRetryableError</span> = isRetryableError;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后完整调用测试：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;_decorator, <span class="title class_">Component</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;cc&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axiosRetry <span class="keyword">from</span> <span class="string">&quot;../libs/axios-retry&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;../libs/axios.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = _decorator;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">Constructor</span>&lt;T = <span class="built_in">unknown</span>&gt; = <span class="keyword">new</span> (...<span class="attr">args</span>: <span class="built_in">any</span>[]) =&gt; T;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span>(<span class="string">&#x27;FirstScene&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">FirstScene</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    <span class="title function_">testHandler</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;8888888888&quot;</span>));</span><br><span class="line">        <span class="title function_">axiosRetry</span>(axios, &#123;<span class="attr">retries</span>: <span class="number">3</span>&#125;);</span><br><span class="line">        axios.<span class="title function_">get</span>(<span class="string">&#x27;https://xxxxx/better.json&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;登陆成功啊&quot;</span>);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res));</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;登陆失败&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以修改一下 地址 然后回发现 重试次数 已经生效 三次。</p>
+<p><img src="/post/2f1c8930/image-20210825150811399.png" alt="image-20210825150811399"></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><strong>typescript忽略文件或者内容</strong> 参考地址 <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_38069630/article/details/108194188">TS语法忽略、eslint忽略</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">单行忽略</span><br><span class="line"><span class="comment">// @ts-ignore</span></span><br><span class="line"></span><br><span class="line">忽略全文</span><br><span class="line"><span class="comment">// @ts-nocheck</span></span><br><span class="line"></span><br><span class="line">取消忽略全文</span><br><span class="line"><span class="comment">// @ts-check</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>eslint忽略+typescript忽略</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable */</span></span><br><span class="line"><span class="keyword">const</span> watermark = <span class="built_in">require</span>(<span class="string">&quot;watermark-dom&quot;</span>); <span class="comment">// @ts-ignore</span></span><br><span class="line"><span class="comment">/* eslint-enable */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>Object.values</code> 提示不能使用</p>
+<p><img src="/post/2f1c8930/image-20210825151158103.png" alt="image-20210825151158103"></p>
+<p>修改 <code>tsconfig.json</code>的<code>compilerOptions</code> 选项</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;es2017&quot;</span><span class="punctuation">,</span> <span class="string">&quot;dom&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>更新细节参考：<a target="_blank" rel="noopener" href="https://www.tslang.cn/docs/handbook/compiler-options.html">编译选项</a></p>
+<p>最后  给个demo地址 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/axios/3.x/axiosdemo">点击前往</a></p>
+<h3 id="原生环境相关问题"><a href="#原生环境相关问题" class="headerlink" title="原生环境相关问题"></a>原生环境相关问题</h3><h5 id="isStandardBrowserEnv-方法"><a href="#isStandardBrowserEnv-方法" class="headerlink" title="isStandardBrowserEnv 方法"></a>isStandardBrowserEnv 方法</h5><p>原来代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Determine if we&#x27;re running in a standard browser environment</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This allows axios to run in a web worker, and react-native.</span></span><br><span class="line"><span class="comment"> * Both environments support XMLHttpRequest, but not fully standard globals.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * web workers:</span></span><br><span class="line"><span class="comment"> *  typeof window -&gt; undefined</span></span><br><span class="line"><span class="comment"> *  typeof document -&gt; undefined</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * react-native:</span></span><br><span class="line"><span class="comment"> *  navigator.product -&gt; &#x27;ReactNative&#x27;</span></span><br><span class="line"><span class="comment"> * nativescript</span></span><br><span class="line"><span class="comment"> *  navigator.product -&gt; &#x27;NativeScript&#x27; or &#x27;NS&#x27;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isStandardBrowserEnv</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> navigator !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; (navigator.<span class="property">product</span> === <span class="string">&#x27;ReactNative&#x27;</span> ||</span><br><span class="line">                                           navigator.<span class="property">product</span> === <span class="string">&#x27;NativeScript&#x27;</span> ||</span><br><span class="line">                                           navigator.<span class="property">product</span> === <span class="string">&#x27;NS&#x27;</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="keyword">typeof</span> <span class="variable language_">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="variable language_">document</span> !== <span class="string">&#x27;undefined&#x27;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Determine if we&#x27;re running in a standard browser environment</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This allows axios to run in a web worker, and react-native.</span></span><br><span class="line"><span class="comment"> * Both environments support XMLHttpRequest, but not fully standard globals.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * web workers:</span></span><br><span class="line"><span class="comment"> *  typeof window -&gt; undefined</span></span><br><span class="line"><span class="comment"> *  typeof document -&gt; undefined</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * react-native:</span></span><br><span class="line"><span class="comment"> *  navigator.product -&gt; &#x27;ReactNative&#x27;</span></span><br><span class="line"><span class="comment"> * nativescript</span></span><br><span class="line"><span class="comment"> *  navigator.product -&gt; &#x27;NativeScript&#x27; or &#x27;NS&#x27;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isStandardBrowserEnv</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> cc !== <span class="string">&quot;undefined&quot;</span> ||(<span class="keyword">typeof</span> navigator !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; (navigator.<span class="property">product</span> === <span class="string">&#x27;ReactNative&#x27;</span> ||</span><br><span class="line">                                           navigator.<span class="property">product</span> === <span class="string">&#x27;NativeScript&#x27;</span> ||</span><br><span class="line">                                           navigator.<span class="property">product</span> === <span class="string">&#x27;NS&#x27;</span>))) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// https://stackoverflow.com/questions/63700678/i-want-to-use-axios-with-android-build-of-cocoscreator</span></span><br><span class="line">  <span class="comment">// if (cc.sys.isNative</span></span><br><span class="line">  <span class="comment">// 	&amp;&amp; typeof navigator !== &#x27;undefined&#x27;</span></span><br><span class="line">  <span class="comment">// 	&amp;&amp; typeof navigator.product !== &#x27;undefined&#x27;) &#123;</span></span><br><span class="line">  <span class="comment">// 	Object.defineProperty(navigator, &quot;product&quot;, &#123;value: &quot;NativeScript&quot;&#125;);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// if (typeof navigator !== &#x27;undefined&#x27; &amp;&amp; (navigator.product === &#x27;ReactNative&#x27; ||</span></span><br><span class="line">  <span class="comment">// 	navigator.product === &#x27;NativeScript&#x27; ||</span></span><br><span class="line">  <span class="comment">// 	navigator.product === &#x27;NS&#x27;)) &#123;</span></span><br><span class="line">  <span class="comment">// 	return false;</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="keyword">typeof</span> <span class="variable language_">window</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="variable language_">document</span> !== <span class="string">&#x27;undefined&#x27;</span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/63700678/i-want-to-use-axios-with-android-build-of-cocoscreator">I want to use axios with Android build of CocosCreator</a></p>
+<h5 id="getDefaultAdapter-方法"><a href="#getDefaultAdapter-方法" class="headerlink" title="getDefaultAdapter 方法"></a>getDefaultAdapter 方法</h5><p>原代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getDefaultAdapter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> adapter;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">XMLHttpRequest</span> !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// For browsers use XHR adapter</span></span><br><span class="line">    adapter = <span class="title function_">__webpack_require__</span>(<span class="comment">/*! ./adapters/xhr */</span> <span class="string">&quot;./lib/adapters/xhr.js&quot;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> process !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(process) === <span class="string">&#x27;[object process]&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// For node use HTTP adapter</span></span><br><span class="line">    adapter = <span class="title function_">__webpack_require__</span>(<span class="comment">/*! ./adapters/http */</span> <span class="string">&quot;./lib/adapters/xhr.js&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> adapter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改后:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getDefaultAdapter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// var adapter;</span></span><br><span class="line">  <span class="comment">// if (typeof XMLHttpRequest !== &#x27;undefined&#x27;) &#123;</span></span><br><span class="line">  <span class="comment">//   // For browsers use XHR adapter</span></span><br><span class="line">  <span class="comment">//   adapter = __webpack_require__(/*! ./adapters/xhr */ &quot;./lib/adapters/xhr.js&quot;);</span></span><br><span class="line">  <span class="comment">// &#125; else if (typeof process !== &#x27;undefined&#x27; &amp;&amp; Object.prototype.toString.call(process) === &#x27;[object process]&#x27;) &#123;</span></span><br><span class="line">  <span class="comment">//   // For node use HTTP adapter</span></span><br><span class="line">  <span class="comment">//   adapter = __webpack_require__(/*! ./adapters/http */ &quot;./lib/adapters/xhr.js&quot;);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">  <span class="comment">// return adapter;</span></span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">__webpack_require__</span>(<span class="comment">/*! ./adapters/http */</span> <span class="string">&quot;./lib/adapters/xhr.js&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改原因：报错  _process undefined</p>
+<h2 id="其他相关"><a href="#其他相关" class="headerlink" title="其他相关"></a>其他相关</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ljharb/qs">qs</a>  一个 url参数转化 (parse和stringify)的轻量级js库</li>
+<li><strong>fly.js</strong> 一个基于promise的http请求库, 可以用在node.js, Weex, 微信小程序, 浏览器, React Native中</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/209a8f2.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>从一个UI左右无限翻页组件说起</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/a44f759.html">
+        <span>Python3把Excel文件转成json并合并成一个文件</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/2f1c8930.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Axios-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">Axios 是什么?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">环境：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#npm"><span class="toc-number">2.0.1.</span> <span class="toc-text">npm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#axios"><span class="toc-number">2.0.2.</span> <span class="toc-text">axios</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#axios-retry"><span class="toc-number">2.0.3.</span> <span class="toc-text">axios-retry</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#is-retry-allowed"><span class="toc-number">2.0.4.</span> <span class="toc-text">is-retry-allowed</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API-%E8%AF%B4%E6%98%8E"><span class="toc-number">2.1.</span> <span class="toc-text">API 说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">3.1.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%94%9F%E7%8E%AF%E5%A2%83%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="toc-number">3.2.</span> <span class="toc-text">原生环境相关问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#isStandardBrowserEnv-%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.0.1.</span> <span class="toc-text">isStandardBrowserEnv 方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#getDefaultAdapter-%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.0.2.</span> <span class="toc-text">getDefaultAdapter 方法</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9B%B8%E5%85%B3"><span class="toc-number">4.</span> <span class="toc-text">其他相关</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

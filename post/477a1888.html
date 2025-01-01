@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            LayaAir2.0(LayaBox)之小游戏开放域开发 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/477a1888.html">LayaAir2.0(LayaBox)之小游戏开放域开发</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-03-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=LayaAir2.0(LayaBox)之小游戏开放域开发&url=http://blog.asroads.com/post/477a1888.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=LayaAir2.0(LayaBox)之小游戏开放域开发&url=http://blog.asroads.com/post/477a1888.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/477a1888.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/477a1888.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/477a1888.html&title=LayaAir2.0(LayaBox)之小游戏开放域开发" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=LayaAir2.0(LayaBox)之小游戏开放域开发&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/477a1888.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/477a1888.html&text=LayaAir2.0(LayaBox)之小游戏开放域开发" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h3 id="Laya2-0-开放域简介"><a href="#Laya2-0-开放域简介" class="headerlink" title="Laya2.0 开放域简介"></a>Laya2.0 开放域简介</h3><p>自从2018年秋开始，layabox 公司发布了2.0 版本，在2.0 版本里面多了一个组件，就是 <code>WXOpenDataViewer</code>组件这个歌组件是专门为 做微信小游戏 显示开放域使用的，我自己在论坛上找了很久没有找到合适的教程，官方文档也是写的模棱两可，于是自己探索了两天，终于悟得真经，准备记下来，便于以后查找，顺便分享给那些对这个组件不熟悉的开发者。</p>
+<span id="more"></span>
+
+<h3 id="开发步骤"><a href="#开发步骤" class="headerlink" title="开发步骤"></a>开发步骤</h3><ul>
+<li>机器上已经安装了Layabox的2.0 版本</li>
+<li>需要新建两个项目，一个主域项目，一个开放域项目（关于主域和开放域（子域）的概念此处不多说）</li>
+<li>最好编译到微信预览效果</li>
+</ul>
+<h4 id="新建子域（开放域）项目"><a href="#新建子域（开放域）项目" class="headerlink" title="新建子域（开放域）项目"></a>新建子域（开放域）项目</h4><ul>
+<li>首先打开 LayaAir 新建项目面板  新建项目 <code>sunDemo</code></li>
+</ul>
+<p><img src="/post/477a1888/image-20190307195813680.png" alt="image-20190307195813680"></p>
+<ul>
+<li>官方已经给我们搭建好了 基本的结构和框架，我们只需要修改部分细节即可 首先修改 Main下面的 方法</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307200032836.png" alt="image-20190307200032836"></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">		 <span class="comment">//设置子域</span></span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">isWXOpenDataContext</span> = <span class="literal">true</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">isWXPosMsg</span> = <span class="literal">true</span>;</span><br><span class="line">		<span class="comment">//根据IDE设置初始化引擎		</span></span><br><span class="line">		<span class="title class_">Laya</span>.<span class="title function_">init</span>(<span class="title class_">GameConfig</span>.<span class="property">width</span>, <span class="title class_">GameConfig</span>.<span class="property">height</span>,<span class="literal">false</span>);</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">scaleMode</span> = <span class="title class_">GameConfig</span>.<span class="property">scaleMode</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">screenMode</span> = <span class="title class_">GameConfig</span>.<span class="property">screenMode</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">alignV</span> = <span class="title class_">GameConfig</span>.<span class="property">alignV</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">alignH</span> = <span class="title class_">GameConfig</span>.<span class="property">alignH</span>;</span><br><span class="line">		<span class="comment">// 关于透传接口，请参考: https://ldc2.layabox.com/doc/?nav=zh-ts-5-0-7</span></span><br><span class="line">		<span class="keyword">var</span> mark = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">onMiniGame</span>)&#123;</span><br><span class="line">			<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">window</span>.<span class="property">wx</span>.<span class="title function_">onMessage</span>(<span class="keyword">function</span>(<span class="params">data</span>)&#123;<span class="comment">//微信接受信息</span></span><br><span class="line">				<span class="keyword">if</span>(data.<span class="property">url</span> == <span class="string">&quot;res/atlas/test.atlas&quot;</span> || data.<span class="property">url</span> == <span class="string">&quot;test/1.png&quot;</span></span><br><span class="line">				||data.<span class="property">url</span> == <span class="string">&quot;test/2.png&quot;</span>||data.<span class="property">url</span> == <span class="string">&quot;test/3.png&quot;</span>)&#123;</span><br><span class="line">					mark ++;</span><br><span class="line">					<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------data.url:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data.<span class="property">url</span>));</span><br><span class="line">					<span class="keyword">if</span>(mark == <span class="number">4</span>)<span class="comment">//确认数据全部接收后</span></span><br><span class="line">						<span class="title class_">Laya</span>.<span class="property">loader</span>.<span class="title function_">load</span>([<span class="string">&quot;res/atlas/test.atlas&quot;</span>, <span class="string">&quot;test/1.png&quot;</span>,</span><br><span class="line">						 <span class="string">&quot;test/2.png&quot;</span>, <span class="string">&quot;test/3.png&quot;</span>],<span class="title class_">Laya</span>.<span class="property">Handler</span>.<span class="title function_">create</span>(<span class="variable language_">this</span>,<span class="variable language_">this</span>.<span class="property">onComplete</span>));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;.<span class="title function_">bind</span>(<span class="variable language_">this</span>));</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="title class_">Laya</span>.<span class="property">loader</span>.<span class="title function_">load</span>(<span class="string">&quot;res/atlas/test.atlas&quot;</span>,<span class="title class_">Laya</span>.<span class="property">Handler</span>.<span class="title function_">create</span>(<span class="variable language_">this</span>,<span class="variable language_">this</span>.<span class="property">onComplete</span>));</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">				</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="title function_">onComplete</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">		<span class="comment">//初始化rank排行榜</span></span><br><span class="line">		<span class="keyword">var</span> rank = <span class="keyword">new</span> <span class="title class_">BigRank</span>();</span><br><span class="line">		<span class="comment">//初始化</span></span><br><span class="line">		rank.<span class="title function_">init</span>();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>然后修改  BigRank 这个类 </li>
+</ul>
+<p><img src="/post/477a1888/image-20190307200411384.png" alt="image-20190307200411384"></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">init</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="title function_">addChild</span>(<span class="variable language_">this</span>);</span><br><span class="line">            <span class="comment">//初始化list数据</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">onMiniGame</span>)&#123;</span><br><span class="line">                <span class="comment">//接受来自主域的信息</span></span><br><span class="line">                wx.<span class="title function_">onMessage</span>(<span class="variable language_">this</span>.<span class="property">recevieData</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>));</span><br><span class="line">                <span class="comment">// 直接展示数据</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 接收信息</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> message 收到的主域传过来的信息</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="title function_">recevieData</span>(message):<span class="built_in">void</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> _$this =<span class="variable language_">this</span>;</span><br><span class="line">            <span class="keyword">var</span> <span class="attr">type</span>:<span class="title class_">String</span> = message.<span class="property">type</span>;</span><br><span class="line">            <span class="keyword">switch</span>(<span class="keyword">type</span>)</span><br><span class="line">            &#123;   </span><br><span class="line">                <span class="attr">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// this.getFriendData();</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">setlist</span>(<span class="variable language_">this</span>.<span class="property">arr</span>);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>然后 记得编译 素材  Ctrl+F12   和 编译项目  ，最后 发布项目 </li>
+</ul>
+<p><img src="/post/477a1888/image-20190307200615015.png" alt="image-20190307200615015"></p>
+<p><img src="/post/477a1888/image-20190307200631605.png" alt="image-20190307200631605"></p>
+<ul>
+<li>做完这些之后，准备 主域的准备</li>
+</ul>
+<h4 id="主域设置"><a href="#主域设置" class="headerlink" title="主域设置"></a>主域设置</h4><ul>
+<li><p>新建项目fatherDemo  然后 新建一个素材页面 名字叫 MyDialog,然后新建一个Ts 文件，并且 继承这个类</p>
+<p><img src="/post/477a1888/image-20190307200847491.png" alt="image-20190307200847491"></p>
+<p><img src="/post/477a1888/image-20190307200921833.png" alt="image-20190307200921833"></p>
+</li>
+<li><p>我们此时 做上面的 图片 做背景 是衬托，你自己可以略过此步骤</p>
+</li>
+</ul>
+<ul>
+<li>我们开始拖入一个  开放域组件到舞台</li>
+<li><img src="/post/477a1888/image-20190307201222269.png" alt="image-20190307201222269"></li>
+<li>设置 宽高和位置</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307201245098.png" alt="image-20190307201245098"></p>
+<ul>
+<li>新建的 Typescript 文件 如下</li>
+<li><img src="/post/477a1888/image-20190307201329143.png" alt="image-20190307201329143"></li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;ui&#125; <span class="keyword">from</span> <span class="string">&quot;../ui/layaMaxUI&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MyDialogUI</span> = ui.<span class="property">game</span>.<span class="property">MyDialogUI</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MyDialog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">MyDialogUI</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onOpened</span>(<span class="attr">param</span>: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;mylog------:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;onOpened&quot;</span>));</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">openDataView</span>.<span class="title function_">postMsg</span>(<span class="string">&quot;test10086&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时 主域已经准备完毕。</p>
+<h4 id="两个项目合并"><a href="#两个项目合并" class="headerlink" title="两个项目合并"></a>两个项目合并</h4><ul>
+<li>把 刚刚 导出的 子域项目 sunDemo 的 导出文件夹 中的部分文件，复制到 主域项目fatherDemo 项目下面的bin 目录，并且自己新建一个目录，我这边 叫做 “open” 你可以自己定义你的目录名字</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307201648692.png" alt="image-20190307201648692"></p>
+<ul>
+<li>修改 fatherDemo 项目 bin  目录下面的 game.json 文件 添加开放域设置</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307201746843.png" alt="image-20190307201746843"></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;deviceOrientation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;portrait&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;showStatusBar&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;networkTimeout&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="number">10000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;connectSocket&quot;</span><span class="punctuation">:</span> <span class="number">10000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;uploadFile&quot;</span><span class="punctuation">:</span> <span class="number">10000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;downloadFile&quot;</span><span class="punctuation">:</span> <span class="number">10000</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;openDataContext&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./open&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>然后 把 sunDemo 子域项目 <code>laya/assets</code>里面的 test  复制到 fatherDemo主域项目的 对应文件夹 laya/assets 下面 ，然后 编译素材 和代码 </p>
+<p><img src="/post/477a1888/image-20190307202022134.png" alt="image-20190307202022134"></p>
+</li>
+<li><p>准备好一切后 开始 可以发布 项目 </p>
+</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307202047767.png" alt="image-20190307202047767"></p>
+<p>项目发布文本 ，准备用微信模拟器预览效果</p>
+<h4 id="微信模拟器预览效果"><a href="#微信模拟器预览效果" class="headerlink" title="微信模拟器预览效果"></a>微信模拟器预览效果</h4><ul>
+<li>打开模拟器，导入项目，如果自己没有appid 自己可以申请一个 或者自己用系统测试 Appid</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307202204983.png" alt="image-20190307202204983"></p>
+<ul>
+<li>最后效果 如图</li>
+</ul>
+<p><img src="/post/477a1888/image-20190307202229138.png" alt="image-20190307202229138"></p>
+<h3 id="后续追加"><a href="#后续追加" class="headerlink" title="后续追加"></a>后续追加</h3><p><strong>2019-08-24：</strong></p>
+<p>以前在开放域里面获取自己的信息，找出哪个是自己的时候，总是从主域里面获取，这样就涉及到获取得到自己的信息，以前总是让用户去授权，然后得到自己的排行，后来发现，其实在子域里面可以直接获取自己的信息：</p>
+<p>代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">GameConfig</span> <span class="keyword">from</span> <span class="string">&quot;./GameConfig&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BigRank</span> <span class="keyword">from</span> <span class="string">&quot;./BigRank&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BigData</span> <span class="keyword">from</span> <span class="string">&quot;./BigData&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">RANK_LIST_CONST</span> = &#123;</span><br><span class="line">	<span class="variable constant_">RANK_OPEN</span> : <span class="string">&quot;rank_open&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">	<span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">		 <span class="comment">//设置子域</span></span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">isWXOpenDataContext</span> = <span class="literal">true</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">isWXPosMsg</span> = <span class="literal">true</span>;</span><br><span class="line">		<span class="comment">//根据IDE设置初始化引擎		</span></span><br><span class="line">		<span class="title class_">Laya</span>.<span class="title function_">init</span>(<span class="title class_">GameConfig</span>.<span class="property">width</span>, <span class="title class_">GameConfig</span>.<span class="property">height</span>,<span class="literal">false</span>);</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">scaleMode</span> = <span class="title class_">GameConfig</span>.<span class="property">scaleMode</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">screenMode</span> = <span class="title class_">GameConfig</span>.<span class="property">screenMode</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">alignV</span> = <span class="title class_">GameConfig</span>.<span class="property">alignV</span>;</span><br><span class="line">		<span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="property">alignH</span> = <span class="title class_">GameConfig</span>.<span class="property">alignH</span>;</span><br><span class="line">		<span class="comment">// 关于透传接口，请参考: https://ldc2.layabox.com/doc/?nav=zh-ts-5-0-7</span></span><br><span class="line">		<span class="keyword">var</span> mark = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">onMiniGame</span>)&#123;</span><br><span class="line">			<span class="keyword">let</span> path = [<span class="string">&quot;res/atlas/rank.atlas&quot;</span>, <span class="string">&quot;rank/fontclip_rank.png&quot;</span>];</span><br><span class="line">			<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">window</span>.<span class="property">wx</span>.<span class="title function_">onMessage</span>(<span class="keyword">function</span>(<span class="params">data</span>)&#123;<span class="comment">//微信接受信息</span></span><br><span class="line">				<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;jsroads------message:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data.<span class="property">url</span>));</span><br><span class="line">				<span class="keyword">if</span>(data.<span class="property">url</span>&amp;&amp;<span class="variable language_">this</span>.<span class="title function_">checkURL</span>(path,data.<span class="property">url</span>))&#123;</span><br><span class="line">					mark ++;</span><br><span class="line">					<span class="keyword">if</span>(mark == path.<span class="property">length</span>)<span class="comment">//确认数据全部接收后</span></span><br><span class="line">						<span class="comment">// console.log(&quot;smile------path:&quot; + JSON.stringify(path));</span></span><br><span class="line">						<span class="title class_">Laya</span>.<span class="property">loader</span>.<span class="title function_">load</span>(path,<span class="title class_">Laya</span>.<span class="property">Handler</span>.<span class="title function_">create</span>(<span class="variable language_">this</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">							<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;jsroads------:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;子域素材传送成功&quot;</span>));</span><br><span class="line">							wx.<span class="title function_">getUserInfo</span>(&#123;</span><br><span class="line">								<span class="attr">openIdList</span>: [<span class="string">&#x27;selfOpenId&#x27;</span>],</span><br><span class="line">								<span class="attr">lang</span>: <span class="string">&#x27;zh_CN&#x27;</span>,</span><br><span class="line">								<span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">									<span class="comment">// console.log(&quot;userInfo&quot;+JSON.stringify(res));</span></span><br><span class="line">									<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span> = res.<span class="property">data</span>[<span class="number">0</span>];</span><br><span class="line">								&#125;,</span><br><span class="line">								<span class="attr">fail</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">									<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;userInfo&quot;</span>+<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;fail&quot;</span>));</span><br><span class="line">								&#125;,</span><br><span class="line">								<span class="attr">complete</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">									<span class="comment">// console.log(&quot;userInfo&quot;+JSON.stringify(selfData));</span></span><br><span class="line">								&#125;</span><br><span class="line">							&#125;);</span><br><span class="line">						&#125;));</span><br><span class="line">				&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="keyword">let</span> <span class="attr">code</span>: <span class="built_in">string</span> = data.<span class="property">code</span>;</span><br><span class="line">					<span class="keyword">if</span>(!code)<span class="keyword">return</span>;</span><br><span class="line">					<span class="comment">// console.log(&quot;jsroads------message.code:&quot; + JSON.stringify(data.code));</span></span><br><span class="line">					<span class="keyword">switch</span> (code) &#123;</span><br><span class="line">						<span class="keyword">case</span> <span class="variable constant_">RANK_LIST_CONST</span>.<span class="property">RANK_OPEN</span>:</span><br><span class="line">							<span class="title class_">BigRank</span>.<span class="property">ins</span>.<span class="title function_">open</span>(<span class="literal">false</span>,data);</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">						<span class="attr">default</span>:</span><br><span class="line">							<span class="keyword">break</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;.<span class="title function_">bind</span>(<span class="variable language_">this</span>));</span><br><span class="line">		&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="title class_">Laya</span>.<span class="property">loader</span>.<span class="title function_">load</span>(<span class="string">&quot;res/atlas/rank.atlas&quot;</span>,<span class="title class_">Laya</span>.<span class="property">Handler</span>.<span class="title function_">create</span>(<span class="variable language_">this</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">				<span class="title class_">BigRank</span>.<span class="property">ins</span>.<span class="title function_">open</span>(<span class="literal">false</span>,<span class="literal">null</span>);</span><br><span class="line">			&#125;));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="title function_">checkURL</span>(<span class="attr">list</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,<span class="attr">testStr</span>:<span class="built_in">string</span>):<span class="built_in">boolean</span>&#123;</span><br><span class="line">		<span class="keyword">let</span> <span class="attr">bool</span>:<span class="built_in">boolean</span> = <span class="literal">false</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; list.<span class="property">length</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">let</span>  str = list[i];</span><br><span class="line">			<span class="keyword">if</span>(testStr.<span class="title function_">indexOf</span>(str)!=-<span class="number">1</span>)&#123;</span><br><span class="line">				bool = <span class="literal">true</span>;</span><br><span class="line">				<span class="keyword">return</span> bool</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> bool;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//激活启动类</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Main</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>核心代码是：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wx.<span class="title function_">getUserInfo</span>(&#123;</span><br><span class="line">								<span class="attr">openIdList</span>: [<span class="string">&#x27;selfOpenId&#x27;</span>],</span><br><span class="line">								<span class="attr">lang</span>: <span class="string">&#x27;zh_CN&#x27;</span>,</span><br><span class="line">								<span class="attr">success</span>: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">									<span class="comment">// console.log(&quot;userInfo&quot;+JSON.stringify(res));</span></span><br><span class="line">									<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span> = res.<span class="property">data</span>[<span class="number">0</span>];</span><br><span class="line">								&#125;,</span><br><span class="line">								<span class="attr">fail</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">									<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;userInfo&quot;</span>+<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&quot;fail&quot;</span>));</span><br><span class="line">								&#125;,</span><br><span class="line">								<span class="attr">complete</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">									<span class="comment">// console.log(&quot;userInfo&quot;+JSON.stringify(selfData));</span></span><br><span class="line">								&#125;</span><br><span class="line">							&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>整理排行的代码，也做了一点更改：<code>BigRank.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;ui&#125; <span class="keyword">from</span> <span class="string">&quot;./ui/layaMaxUI&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BigData</span> <span class="keyword">from</span> <span class="string">&quot;./BigData&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Browser</span> = <span class="title class_">Laya</span>.<span class="property">Browser</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">BigRank</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ui.rank.BigUI</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="attr">AVATAR_URL</span>: <span class="built_in">string</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">ins</span>(): <span class="title class_">BigRank</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">_ins</span>) <span class="variable language_">this</span>.<span class="property">_ins</span> = <span class="keyword">new</span> <span class="title class_">BigRank</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_ins</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">_ins</span>: <span class="title class_">BigRank</span>;</span><br><span class="line">    <span class="comment">// private  myRank: BigItem;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**获取好友排行榜时的key */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_key</span>: <span class="title class_">String</span> = <span class="string">&#x27;test10086&#x27;</span>;</span><br><span class="line">    <span class="comment">/**list初始化使用的数据 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">arr</span>: <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt; = [</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">1</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户1&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">100</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">2</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户2&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">75</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">3</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户3&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">50</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">4</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户4&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">25</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">5</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户5&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">15</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">6</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户6&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">10</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">7</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户7&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">5</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">index</span>: <span class="number">8</span>, <span class="attr">avatarIP</span>: <span class="string">&#x27;rank/head.png&#x27;</span>, <span class="title class_">UserName</span>: <span class="string">&quot;测试用户8&quot;</span>, <span class="title class_">RankValue</span>: <span class="number">1</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">onOpened</span>(<span class="attr">param</span>: <span class="built_in">any</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// console.log(&quot;jsroads------Sun:&quot; + JSON.stringify(&quot;onOpened&quot;));</span></span><br><span class="line">        param = param||&#123;<span class="attr">userInfo</span>:&#123;<span class="attr">nickName</span>:<span class="string">&quot;薛定谔的猫&quot;</span>,<span class="attr">score</span>:<span class="number">100</span>,<span class="attr">avatarUrl</span>:<span class="string">&quot;&quot;</span>&#125;&#125;;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">size</span>(param.<span class="property">width</span>,param.<span class="property">height</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">visible</span> = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(param.<span class="property">force</span>&amp;&amp;<span class="title class_">BigData</span>.<span class="property">ins</span>[param.<span class="property">key</span>])&#123;</span><br><span class="line">            <span class="title class_">BigRank</span>.<span class="property">ins</span>.<span class="title function_">drawRankList</span>(<span class="title class_">BigData</span>.<span class="property">ins</span>[param.<span class="property">key</span>],param.<span class="property">score</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="title class_">Browser</span>.<span class="property">onMiniGame</span>)&#123;</span><br><span class="line">                wx.<span class="title function_">getFriendCloudStorage</span>(&#123;</span><br><span class="line">                    <span class="attr">keyList</span>: [param.<span class="property">key</span>],</span><br><span class="line">                    <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">res</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">                        <span class="comment">//关于拿到的数据详细情况可以产看微信文档</span></span><br><span class="line">                        <span class="comment">// //https://developers.weixin.qq.com/minigame/dev/api/UserGameData.html</span></span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;-----------------getFriendCloudStorage------------&#x27;</span>);</span><br><span class="line">                        <span class="comment">// console.log(&quot;jsroads------res.data:&quot; + JSON.stringify(res.data));</span></span><br><span class="line">                        <span class="title class_">BigData</span>.<span class="property">ins</span>[param.<span class="property">key</span>] = <span class="title class_">BigRank</span>.<span class="property">ins</span>.<span class="title function_">processData</span>(res.<span class="property">data</span>,param.<span class="property">key</span>);</span><br><span class="line">                        <span class="title class_">BigRank</span>.<span class="property">ins</span>.<span class="title function_">drawRankList</span>(<span class="title class_">BigData</span>.<span class="property">ins</span>[param.<span class="property">key</span>],param.<span class="property">score</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    , <span class="attr">fail</span>: <span class="keyword">function</span> (<span class="params">data</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------------------获取托管数据失败--------------------&#x27;</span>);</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">setlist</span>(<span class="variable language_">this</span>.<span class="property">arr</span>);</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">visible</span> = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置list arr</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr 赋值用的arr</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">setlist</span>(arr):<span class="built_in">void</span>&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_list</span>.<span class="property">array</span> =arr;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_list</span>.<span class="title function_">refresh</span>();</span><br><span class="line">        <span class="title class_">Laya</span>.<span class="property">stage</span>.<span class="title function_">addChild</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">drawRankList</span>(<span class="attr">data</span>: <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;,score): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="comment">// console.log(&quot;drawRankList:&quot;+ JSON.stringify(data));</span></span><br><span class="line">        <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>) &#123;</span><br><span class="line">            <span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">score</span> = score;</span><br><span class="line">            index = <span class="variable language_">this</span>.<span class="title function_">checkWhichIsMe</span>(data);</span><br><span class="line">            <span class="keyword">if</span> (index == -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">index</span> = index;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        data.<span class="title function_">sort</span>(<span class="function">(<span class="params">one, another</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (one.<span class="property">score</span> &gt; another.<span class="property">score</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        data.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">item, index, array</span>) &#123;</span><br><span class="line">            item.<span class="property">index</span> = index;</span><br><span class="line">            <span class="keyword">if</span> (item.<span class="property">avatarUrl</span> == <span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">avatarUrl</span>) &#123;</span><br><span class="line">                <span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">index</span> = index;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// console.log(&quot;jsroads------last:&quot; + JSON.stringify(data));</span></span><br><span class="line">        <span class="comment">// data =  data.concat(data)</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_list</span>.<span class="property">array</span> = data;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_list</span>.<span class="title function_">scrollTo</span>(<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">index</span>==-<span class="number">1</span>?<span class="number">0</span>:<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">index</span>);</span><br><span class="line">        <span class="keyword">if</span>(data.<span class="property">length</span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">initSetMyself</span>(<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">container</span>.<span class="property">visible</span> = <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">container</span>.<span class="property">visible</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">visible</span> = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> userInfo 用户自己信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data 数据列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">checkWhichIsMe</span>(data): <span class="built_in">any</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">item</span>: <span class="built_in">any</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; data.<span class="property">length</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> userInfoElement = data[i];</span><br><span class="line">            <span class="keyword">if</span> (userInfoElement.<span class="property">avatarUrl</span> == <span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">avatarUrl</span>) &#123;</span><br><span class="line">                item = userInfoElement;</span><br><span class="line">                item.<span class="property">score</span> = <span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">score</span>;</span><br><span class="line">                <span class="keyword">return</span> item.<span class="property">index</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">initSetMyself</span>(<span class="params">userInfo:<span class="built_in">any</span></span>)&#123;</span><br><span class="line">        <span class="comment">// this.container.destroyChildren();</span></span><br><span class="line">        <span class="comment">// this.myRank = new BigItem();</span></span><br><span class="line">        <span class="comment">// this.container.addChild(this.myRank);</span></span><br><span class="line">        <span class="comment">// this.myRank.setMyDataSource(userInfo)</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">processData</span>(<span class="params">data:<span class="built_in">Array</span>&lt;<span class="built_in">any</span>&gt;,_key</span>) &#123;</span><br><span class="line">        <span class="comment">// 根据 data 做相应处理   有成绩且成绩数据格式正确</span></span><br><span class="line">        <span class="keyword">return</span> data.<span class="title function_">map</span>(<span class="function">(<span class="params">player</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> score = player.<span class="property">KVDataList</span>.<span class="title function_">find</span>(<span class="function">(<span class="params">&#123;key&#125;</span>) =&gt;</span> key === _key);</span><br><span class="line">            <span class="keyword">if</span> (!score) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">// 为避免 score.value 中出现无法解析的意外数据</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                player.<span class="property">score</span> = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">JSON</span>.<span class="title function_">parse</span>(score.<span class="property">value</span>).<span class="property">score</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">delete</span> player.<span class="property">KVDataList</span>;</span><br><span class="line">            <span class="keyword">return</span> player</span><br><span class="line">            <span class="comment">// 剔除无效数据</span></span><br><span class="line">        &#125;).<span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data !== <span class="literal">null</span>).<span class="title function_">sort</span>( <span class="comment">// 按胜场排序</span></span><br><span class="line">            <span class="function">(<span class="params">one, another</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (one.<span class="property">score</span> &gt; another.<span class="property">score</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ).<span class="title function_">slice</span>(<span class="number">0</span>, <span class="number">1000</span>);<span class="comment">// 取前100名</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">onClosed</span>(<span class="keyword">type</span>?: <span class="built_in">string</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="title class_">BigRank</span>.<span class="property">_ins</span> = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 接收信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> message 收到的主域传过来的信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">recevieData</span>(message): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> _$this = <span class="variable language_">this</span>;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">type</span>: <span class="title class_">String</span> = message.<span class="property">type</span>;</span><br><span class="line">        <span class="keyword">switch</span> (<span class="keyword">type</span>) &#123;</span><br><span class="line">            <span class="attr">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 上报自己的数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data 上报数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">setSelfData</span>(<span class="attr">data</span>: <span class="title class_">String</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> kvDataList = [];</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">obj</span>: <span class="built_in">any</span> = &#123;&#125;;</span><br><span class="line">        obj.<span class="property">wxgame</span> = &#123;&#125;;</span><br><span class="line">        obj.<span class="property">wxgame</span>.<span class="property">value1</span> = data;</span><br><span class="line">        obj.<span class="property">wxgame</span>.<span class="property">update_time</span> = <span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="title function_">now</span>();</span><br><span class="line">        kvDataList.<span class="title function_">push</span>(&#123;<span class="string">&quot;key&quot;</span>: <span class="variable language_">this</span>.<span class="property">_key</span>, <span class="string">&quot;value&quot;</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(obj)&#125;);</span><br><span class="line">        wx.<span class="title function_">setUserCloudStorage</span>(&#123;</span><br><span class="line">            <span class="title class_">KVDataList</span>: kvDataList,</span><br><span class="line">            <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">e</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(&#x27;-----success:&#x27; + JSON.stringify(e));</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">fail</span>: <span class="keyword">function</span> (<span class="params">e</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(&#x27;-----fail:&#x27; + JSON.stringify(e));</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">complete</span>: <span class="keyword">function</span> (<span class="params">e</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(&#x27;-----complete:&#x27; + JSON.stringify(e));</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>BigItem.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;ui&#125; <span class="keyword">from</span> <span class="string">&quot;./ui/layaMaxUI&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BigData</span> <span class="keyword">from</span> <span class="string">&quot;./BigData&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">LanguageTrans</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./LanguageTrans&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">BigItem</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ui.rank.BigItemUI</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">set</span> <span class="title function_">dataSource</span>(<span class="params">value</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!value) <span class="keyword">return</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">img_head</span>.<span class="property">skin</span> = value.<span class="property">avatarUrl</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">text_name</span>.<span class="property">text</span> = value.<span class="property">nickname</span>.<span class="title function_">slice</span>(<span class="number">0</span>,<span class="number">6</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">scoreText</span>.<span class="property">text</span> = <span class="title class_">LanguageTrans</span>.<span class="title function_">fomatCNByNumber</span>(value.<span class="property">score</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rank_font</span>.<span class="property">value</span> = (value.<span class="property">index</span>+<span class="number">1</span>).<span class="title function_">toString</span>();</span><br><span class="line">        <span class="keyword">if</span>(<span class="title class_">BigData</span>.<span class="property">ins</span>.<span class="property">user</span>.<span class="property">avatarUrl</span> == value.<span class="property">avatarUrl</span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">bg</span>.<span class="property">skin</span> = <span class="string">&quot;rank/img_1.png&quot;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">bg</span>.<span class="property">skin</span> = <span class="string">&quot;rank/img_2.png&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(value.<span class="property">index</span>&lt;<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">headBorder</span>.<span class="property">skin</span> = <span class="string">&quot;rank/img_rank_&quot;</span>+(value.<span class="property">index</span>+<span class="number">1</span>)+<span class="string">&quot;.png&quot;</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">headBorder</span>.<span class="property">skin</span> = <span class="string">&quot;rank/img_rank_4.png&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>BigData.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">BigData</span> &#123;</span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">user</span>(): <span class="built_in">any</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_user</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">user</span>(<span class="params">value: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_user</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">rankData</span>(): <span class="built_in">any</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_rankData</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">rankData</span>(<span class="params">value: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_rankData</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">get</span> <span class="title function_">ins</span>(): <span class="title class_">BigData</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">_ins</span>) <span class="variable language_">this</span>.<span class="property">_ins</span> = <span class="keyword">new</span> <span class="title class_">BigData</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_ins</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_rankData</span>: <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_user</span>: <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="attr">_ins</span>: <span class="title class_">BigData</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>numberMin  方法：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 得到数字 从第三位开始全部更换成0</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> <span class="variable">n</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">numberMin</span>(<span class="params">n: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> num = <span class="title class_">Math</span>.<span class="title function_">floor</span>(n);</span><br><span class="line">      <span class="keyword">if</span> (num &gt;= <span class="title class_">LanguageTrans</span>.<span class="property">K</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> str = num.<span class="title function_">toString</span>();</span><br><span class="line">          <span class="keyword">let</span> headStr = str.<span class="title function_">slice</span>(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">          <span class="keyword">let</span> endStr = str.<span class="title function_">slice</span>(<span class="number">2</span>, str.<span class="property">length</span>);</span><br><span class="line">          <span class="keyword">let</span> i = <span class="built_in">parseInt</span>(headStr) * <span class="title class_">Math</span>.<span class="title function_">pow</span>(<span class="number">10</span>, endStr.<span class="property">length</span>);</span><br><span class="line">          <span class="keyword">return</span> i;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> num;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个项目我没有 访问微信的云，而是用了Laya官方自带的本地数据，主要是目录结构比较麻烦，如果用过LayaAir1.0版本，那么这个基本变化不大，但是要注意的是 Layabox 2.0 的Scene 的打开和加载的方式，如果打开不对，就会出现问题，我就遇到了，虽然可以正常显示，位置正确，但是 滑动交互区域不对，只有 四分之一，或者上面的一半是有效交互区域，其他区域可见，但不能交互，无法拖动，后来，我重新整理了这些，然后逐一分析，最终解决问题。</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/aonaufly/2315353">LayaAir之小游戏开放域开发</a></li>
+<li><a target="_blank" rel="noopener" href="https://ldc2.layabox.com/doc/?nav=zh-ts-5-0-7">微信开放数据域</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/tutorial/open-ability/open-data.html">关系链数据使用指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/aonaufly/2315364">LayaAir之小游戏的坑之解决之道</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/16692a87.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Layabox2.0 学习笔记1</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/7ccbe150.html">
+        <span>Webstorm如何配置Layabox2.0项目</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/477a1888.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Laya2-0-%E5%BC%80%E6%94%BE%E5%9F%9F%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Laya2.0 开放域简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">开发步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AD%90%E5%9F%9F%EF%BC%88%E5%BC%80%E6%94%BE%E5%9F%9F%EF%BC%89%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.1.</span> <span class="toc-text">新建子域（开放域）项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%9F%9F%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">主域设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%90%88%E5%B9%B6"><span class="toc-number">2.3.</span> <span class="toc-text">两个项目合并</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E6%A8%A1%E6%8B%9F%E5%99%A8%E9%A2%84%E8%A7%88%E6%95%88%E6%9E%9C"><span class="toc-number">2.4.</span> <span class="toc-text">微信模拟器预览效果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E8%BF%BD%E5%8A%A0"><span class="toc-number">3.</span> <span class="toc-text">后续追加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

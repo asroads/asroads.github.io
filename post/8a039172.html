@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            TweenMax如何在Cocos Creator 3.0使用 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/8a039172.html">TweenMax如何在Cocos Creator 3.0使用</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-04-29
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=TweenMax如何在Cocos Creator 3.0使用&url=http://blog.asroads.com/post/8a039172.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=TweenMax如何在Cocos Creator 3.0使用&url=http://blog.asroads.com/post/8a039172.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/8a039172.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/8a039172.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/8a039172.html&title=TweenMax如何在Cocos Creator 3.0使用" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=TweenMax如何在Cocos Creator 3.0使用&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/8a039172.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/8a039172.html&text=TweenMax如何在Cocos Creator 3.0使用" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/TweenMax/ >TweenMax</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p><strong>TweenLite/TweenMax</strong>是<a target="_blank" rel="noopener" href="https://greensock.com/">GreenSock</a> 动画平台中的核心动画工具，Cocos Creator 官方给出的Tween动画只能解决日常使用的一些单个物体缓动的动画，比如 <code>yoyo</code>、<code>staggerTo</code>方法、<code>reverse</code>这些方法都没有，多个物体移动做起来特别费劲。如何面对复杂些的2d动画制作，就要引入新的做法，<strong>TweenMax</strong>是个不错的方法，很多API 和官方的API都相似，上手容易而且这个类库体积也很小。前面已经讲过Cocos Creator 2.x如何引入游戏，这里说说3.0的用法。</p>
+<span id="more"></span>
+
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><h2 id><a href="#" class="headerlink" title></a><img src="/post/8a039172/tween.gif" alt="tween"></h2><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><a target="_blank" rel="noopener" href="https://www.cocos.com/docs">Cocos Creator 3.0</a> 开始 Node的很多属性和方法都修改了。<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/3.0/manual/zh/release-notes/upgrade-guide-v3.0.html">Cocos Creator 3.0 升级指南</a></p>
+<p>比如：常用 的 <code>opacity</code>，<code>color</code>，<code>scale</code>  <code>x</code>,<code>y</code> <code>size</code> <code>width</code>, <code>height</code>等 其中一部分变成只读，属性的子属性不能直接写入</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TweenMax</span>.<span class="title function_">to</span>(<span class="variable language_">this</span>.<span class="property">logo</span>, <span class="number">2</span>, &#123;</span><br><span class="line">   <span class="attr">position</span>:<span class="title function_">v3</span>(<span class="number">300</span>,<span class="number">500</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码动画异常，但是也无报错，是过了2秒后确实 位置变了，但动画没有正常播放。</p>
+<p> <a target="_blank" rel="noopener" href="https://www.cocos.com/docs">Cocos Creator3.0</a> 项目里 可以找到  <code>cc.d.ts</code> 文件下 Node 属性项目 好多属性都是 ReadOnly 这样的属性 只能整体替换 无法单独写入属性。按照正常的方法导入项目，发现无法使用，应该angle 这个改变的动画应该是可以的，其他的比如<code>position</code>、 <code>opacity</code>、<code>scale</code> 都无法正常生效，如果想改变 <code>width</code>和<code>height</code> 还必须对<code>Node</code>节点的<code>UITransform</code>组件来设置，做个动画特别费劲，那怎么办呢？老规矩去论坛看看吧，无果，那网上搜索看看。</p>
+<h3 id="不生效不报错"><a href="#不生效不报错" class="headerlink" title="不生效不报错"></a>不生效不报错</h3><p>现象：3.0 使用是不生效也不报错</p>
+<h3 id="一点线索"><a href="#一点线索" class="headerlink" title="一点线索"></a>一点线索</h3><ol>
+<li><p>首先英文不好的我，找到了一个 TweenMax 中文网站，这个是学习者的福音。<a target="_blank" rel="noopener" href="https://www.tweenmax.com.cn/">https://www.tweenmax.com.cn/</a></p>
+</li>
+<li><p>这个是之前的文章里已经说过的一个站点，里面详细了说明了这个动画类库的历史和用法以及官方的不少例子的中文翻译。</p>
+</li>
+<li><p>第二个自然而然去官方网站转转，发现现在这个类库升级了叫 gsap 他们有两个版本 一个<a target="_blank" rel="noopener" href="https://greensock.com/docs/">3.x</a>一个<a target="_blank" rel="noopener" href="https://greensock.com/docs/v2">2.x</a></p>
+</li>
+<li><p>于是我有个想法 如果Tween Max不能用 用 gsap 是不是也可以呢，很快结果告诉我，依然是失败的。</p>
+</li>
+<li><p>但是这次我从 官方的代码里找到了一些线索</p>
+</li>
+</ol>
+<h3 id="猜测"><a href="#猜测" class="headerlink" title="猜测"></a>猜测</h3><p>首先因为TweenMax 代码写了几千行，而自己没有什么耐心，阅读完，这个还是JavaScript写的，具体参数传入后，做了什么，为什么没报错，也不生效呢。但是gsap不同 官方给出了对应的Typescript的声明文件地址这里。<a target="_blank" rel="noopener" href="https://greensock.com/docs/v3/Installation">https://greensock.com/docs/v3/Installation</a></p>
+<p>GitHub 地址 <a target="_blank" rel="noopener" href="https://github.com/greensock/GSAP">https://github.com/greensock/GSAP</a></p>
+<p>项目下面 有个这个文件 <a target="_blank" rel="noopener" href="https://github.com/greensock/GSAP/blob/master/types/gsap-core.d.ts">https://github.com/greensock/GSAP/blob/master/types/gsap-core.d.ts</a></p>
+<p>里面有 vars: TweenVars 这样的写法 意味着  里面很多参数 都是 TweenValue 类型</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">FunctionBasedValue</span>&lt;T&gt; = <span class="function">(<span class="params">index: <span class="built_in">number</span>, target: <span class="built_in">any</span>, targets: <span class="built_in">any</span>[]</span>) =&gt;</span> T;</span><br><span class="line"> <span class="keyword">type</span> <span class="title class_">ArrayValue</span> = <span class="built_in">any</span>[] | <span class="title class_">FunctionBasedValue</span>&lt;<span class="built_in">any</span>[]&gt;;</span><br><span class="line"> <span class="keyword">type</span> <span class="title class_">BooleanValue</span> = <span class="built_in">boolean</span> | <span class="title class_">FunctionBasedValue</span>&lt;<span class="built_in">boolean</span>&gt;;</span><br><span class="line"> <span class="keyword">type</span> <span class="title class_">NumberValue</span> = <span class="built_in">number</span> | <span class="title class_">FunctionBasedValue</span>&lt;<span class="built_in">number</span>&gt;;</span><br><span class="line"> <span class="keyword">type</span> <span class="title class_">StringValue</span> = <span class="built_in">string</span> | <span class="title class_">FunctionBasedValue</span>&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line"> <span class="keyword">type</span> <span class="title class_">ElementValue</span> = <span class="title class_">Element</span> | <span class="title class_">FunctionBasedValue</span>&lt;<span class="title class_">Element</span>&gt;;</span><br><span class="line"> <span class="keyword">type</span> <span class="title class_">TweenValue</span> = <span class="title class_">NumberValue</span> | <span class="title class_">StringValue</span>;</span><br></pre></td></tr></table></figure>
+
+<p>看了这些声明文件 这里大概有个理解，仅供大家参考，就是传入的参数类型必须是 <code>number</code> 或者 <code>string</code>类型 或者是<code>Function</code>比如上面传入的 <code>Vec3</code>、<code>Size</code> 这样的复杂类型是无法正常使用。故而我们的动画展示失败。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>既然猜测的线索有了，那么我们传入人家需要的类型不就可以了吗？答案是不行！为什么？？？</p>
+<p>上面已经说了，我们无法像以前2.x版本写动画了比如：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TweenMax</span>.<span class="title function_">to</span>(<span class="variable language_">this</span>.<span class="property">role</span>, <span class="number">5</span>, &#123;</span><br><span class="line">      <span class="attr">x</span>: <span class="number">500</span>,</span><br><span class="line">      <span class="attr">onComplete</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`666666`</span>);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>因为 x y 这样属性 不是node 的可以修改的属性，那怎么办呢？下面我提供一个解决的思路，大家如果有更好的解决方案，希望分享出来。</p>
+<p>Cocos Creator 是基于组件的，那么我们就写一个中间转换的组件。这里名字叫做TweenMaxNode.ts,大家可以拓展更多的属性，这里我只拓展了几个常用的属性。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2021/4/29.1:01 下午</span></span><br><span class="line"><span class="comment"> * Note:jsroads@163.com</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> &#123;_decorator, <span class="title class_">Color</span>, <span class="title class_">Component</span>, <span class="title class_">Node</span>, <span class="title class_">Renderable2D</span>, <span class="title class_">UIOpacity</span>, <span class="title class_">UITransform</span>&#125; <span class="keyword">from</span> <span class="string">&quot;cc&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass&#125; = _decorator;</span><br><span class="line"><span class="meta">@ccclass</span>(<span class="string">&quot;TweenMaxNode&quot;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">TweenMaxNode</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">x</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">position</span>.<span class="property">x</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">x</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">setPosition</span>(value, <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">position</span>.<span class="property">y</span>, <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">position</span>.<span class="property">z</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">y</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">position</span>.<span class="property">y</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">y</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">setPosition</span>(<span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">position</span>.<span class="property">y</span>, value, <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">position</span>.<span class="property">z</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">scale</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">scale</span>.<span class="property">x</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get pos(): Vec2 &#123;</span></span><br><span class="line">    <span class="comment">//     return v2(this.node.position.x, this.node.position.y);</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// set pos(value: Vec2) &#123;</span></span><br><span class="line">    <span class="comment">//     this.node.setPosition(v3(value.x, value.y));</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">scale</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">setScale</span>(value, value, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">scaleX</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">scale</span>.<span class="property">x</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">scaleX</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">setScale</span>(value, <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">scale</span>.<span class="property">y</span>, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">scaleY</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">scale</span>.<span class="property">y</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">scaleY</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">setScale</span>(<span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">scale</span>.<span class="property">x</span>, value, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">width</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> transform = &lt;<span class="title class_">UITransform</span>&gt;<span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UITransform</span>);</span><br><span class="line">        <span class="keyword">return</span> transform.<span class="property">width</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">width</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> transform = &lt;<span class="title class_">UITransform</span>&gt;<span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UITransform</span>);</span><br><span class="line">        transform.<span class="property">width</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">height</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> transform = &lt;<span class="title class_">UITransform</span>&gt;<span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UITransform</span>);</span><br><span class="line">        <span class="keyword">return</span> transform.<span class="property">height</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">height</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> transform = &lt;<span class="title class_">UITransform</span>&gt;<span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UITransform</span>);</span><br><span class="line">        transform.<span class="property">height</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">opacity</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> render = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">Renderable2D</span>);</span><br><span class="line">        <span class="keyword">if</span> (render !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> render.<span class="property">color</span>.<span class="property">a</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> <span class="attr">opacity</span>: <span class="title class_">UIOpacity</span> = &lt;<span class="title class_">UIOpacity</span>&gt;<span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UIOpacity</span>);</span><br><span class="line">        <span class="keyword">if</span> (opacity !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> opacity.<span class="property">opacity</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">255</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get contentSize(): Size &#123;</span></span><br><span class="line">    <span class="comment">//     const transform = &lt;UITransform&gt;this.node.getComponent(UITransform);</span></span><br><span class="line">    <span class="comment">//     return transform.contentSize;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="comment">// set contentSize(value: Size) &#123;</span></span><br><span class="line">    <span class="comment">//     const transform = &lt;UITransform&gt;this.node.getComponent(UITransform);</span></span><br><span class="line">    <span class="comment">//     transform.setContentSize(value);</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">opacity</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> render = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">Renderable2D</span>);</span><br><span class="line">        <span class="keyword">if</span> (render !== <span class="literal">null</span>) &#123;</span><br><span class="line">            render.<span class="property">color</span> = <span class="keyword">new</span> <span class="title class_">Color</span>(render.<span class="property">color</span>.<span class="property">r</span>, render.<span class="property">color</span>.<span class="property">g</span>, render.<span class="property">color</span>.<span class="property">b</span>, value)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> <span class="attr">opacity</span>: <span class="title class_">UIOpacity</span> = &lt;<span class="title class_">UIOpacity</span>&gt;<span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">getComponent</span>(<span class="title class_">UIOpacity</span>);</span><br><span class="line">        <span class="keyword">if</span> (opacity !== <span class="literal">null</span>) &#123;</span><br><span class="line">            opacity.<span class="property">opacity</span> = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">angle</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">angle</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">angle</span>(<span class="params">value: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">angle</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">trans</span>(<span class="attr">node</span>: <span class="title class_">Node</span>): <span class="title class_">TweenMaxNode</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &lt;<span class="title class_">TweenMaxNode</span>&gt;node.<span class="title function_">getComponent</span>(<span class="title class_">TweenMaxNode</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在我们需要使用 TweenMax动画的Node节点上 挂在即可。比如这样：</p>
+<p><img src="/post/8a039172/image-20210429182140961.png" alt="image-20210429182140961"></p>
+<p>下面我们导入我们的TweenMax 文件</p>
+<p>这里给出两个地址：<a target="_blank" rel="noopener" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/TweenMax-latest-beta.js">https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/TweenMax-latest-beta.js</a></p>
+<p>另外一个 github 下载后备份的（防止上面地址失效）<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/blob/main/TweenMax/TweenMax.js">TweenMax.js 点击查看</a></p>
+<p>如果需要压缩 可以自己去压缩代码 这里提供个在线网站：<a target="_blank" rel="noopener" href="https://obfuscator.io/">https://obfuscator.io/</a></p>
+<p>另外我们还需要一个 Typescript 的声明文件 这里提供一个  <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/blob/main/TweenMax/TweenMax.d.ts">TweenMax.d.ts 点击查看</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2021/4/29.1:31 下午</span></span><br><span class="line"><span class="comment"> * Note:jsroads@163.com</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">TweenMax</span> &#123;</span><br><span class="line">    <span class="comment">// onComplete: Function;</span></span><br><span class="line">    <span class="comment">/**可用于存储你需要的数据*/</span></span><br><span class="line">    <span class="attr">data</span>: <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**获取动画的目标对象*/</span></span><br><span class="line">    <span class="attr">target</span>: <span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**获取动画的父级时间轴对象（只读）*/</span></span><br><span class="line">    <span class="keyword">readonly</span> <span class="attr">timeline</span>: <span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**一个存储了传递给构造器的配置变量的对象。包含动画选项和回调函数等。例如delay、paused、onComplete*/</span></span><br><span class="line">    <span class="attr">vars</span>: <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    defaultEase : <span class="title class_">Ease</span>;</span><br><span class="line">    defaultOverwrite : <span class="built_in">string</span>;</span><br><span class="line">    onOverwrite : <span class="title class_">Function</span>;</span><br><span class="line">    <span class="attr">selector</span>:<span class="built_in">any</span>;</span><br><span class="line">    ticker : <span class="title class_">Object</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *构造函数</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> target 应该影响其属性的目标对象（或对象数组）</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> duration 持续时间（以秒为单位）</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> vars 参数对象，用于定义应该补间的每个属性的结束值以及任何特殊属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">target: <span class="built_in">Object</span>, duration: <span class="built_in">Number</span>, vars: <span class="built_in">Object</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">to</span>(<span class="attr">target</span>: <span class="title class_">Object</span>, <span class="attr">duration</span>: <span class="title class_">Number</span>, <span class="attr">vars</span>: <span class="title class_">Object</span>): <span class="title class_">TweenMax</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">from</span>(<span class="attr">target</span>: <span class="title class_">Object</span>, <span class="attr">duration</span>: <span class="title class_">Number</span>, <span class="attr">vars</span>: <span class="title class_">Object</span>): <span class="title class_">TweenMax</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">fromTo</span>( <span class="attr">target</span>:<span class="title class_">Object</span>, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">fromVars</span>:<span class="title class_">Object</span>, <span class="attr">toVars</span>:<span class="title class_">Object</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">staggerTo</span>( <span class="attr">targets</span>:<span class="built_in">any</span>[], <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">vars</span>:<span class="title class_">Object</span>, <span class="attr">stagger</span>:<span class="title class_">Number</span>, <span class="attr">onCompleteAll</span>:<span class="title class_">Function</span>, <span class="attr">onCompleteAllParams</span>:<span class="built_in">any</span>[], <span class="attr">onCompleteAllScope</span>:<span class="built_in">any</span> ) : <span class="built_in">any</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">staggerFrom</span>( <span class="attr">targets</span>:<span class="built_in">any</span>[], <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">vars</span>:<span class="title class_">Object</span>, <span class="attr">stagger</span>:<span class="title class_">Number</span>, <span class="attr">onCompleteAll</span>:<span class="title class_">Function</span>, <span class="attr">onCompleteAllParams</span>:<span class="built_in">any</span>[], <span class="attr">onCompleteAllScope</span>:<span class="built_in">any</span> ) : <span class="built_in">any</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">staggerFromTo</span>( <span class="attr">targets</span>:<span class="built_in">any</span>[], <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">fromVars</span>:<span class="title class_">Object</span>, <span class="attr">toVars</span>:<span class="title class_">Object</span>, <span class="attr">stagger</span>:<span class="title class_">Number</span>, <span class="attr">onCompleteAll</span>:<span class="title class_">Function</span>, <span class="attr">onCompleteAllParams</span>:<span class="built_in">any</span>[], <span class="attr">onCompleteAllScope</span>:<span class="built_in">any</span> ) : <span class="built_in">any</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">delayedCall</span>( <span class="attr">delay</span>:<span class="title class_">Number</span>, <span class="attr">callback</span>:<span class="title class_">Function</span>, <span class="attr">params</span>:<span class="built_in">any</span>[], <span class="attr">scope</span>:<span class="built_in">any</span>, <span class="attr">useFrames</span>:<span class="title class_">Boolean</span>) : <span class="title class_">TweenMax</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getTweensOf</span>( <span class="attr">target</span>:<span class="title class_">Object</span>, <span class="attr">onlyActive</span>:<span class="title class_">Boolean</span> ):<span class="built_in">any</span> ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getAllTweens</span>( <span class="attr">includeTimelines</span>:<span class="title class_">Boolean</span> ) : <span class="built_in">any</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killDelayedCallsTo</span>( <span class="attr">callback</span>:<span class="title class_">Function</span> ) :<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killTweensOf</span>( <span class="attr">target</span>:<span class="title class_">Object</span>, vars?:<span class="title class_">Object</span> ) :<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killAll</span>( <span class="attr">complete</span>:<span class="title class_">Boolean</span>, <span class="attr">tweens</span>:<span class="title class_">Boolean</span>, <span class="attr">delayedCalls</span>:<span class="title class_">Boolean</span>, <span class="attr">timelines</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killChildTweensOf</span>( <span class="attr">parent</span>:<span class="title class_">Object</span>, <span class="attr">complete</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">pauseAll</span>( <span class="attr">tweens</span>:<span class="title class_">Boolean</span>, <span class="attr">delayedCalls</span>:<span class="title class_">Boolean</span>, <span class="attr">timelines</span>:<span class="title class_">Boolean</span> ):<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">resumeAll</span>( <span class="attr">tweens</span>:<span class="title class_">Boolean</span>, <span class="attr">delayedCalls</span>:<span class="title class_">Boolean</span>, <span class="attr">timelines</span>:<span class="title class_">Boolean</span> ):<span class="built_in">any</span> ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">set</span>( <span class="attr">target</span>:<span class="title class_">Object</span>, <span class="attr">vars</span>:<span class="title class_">Object</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">isActive</span>(): <span class="title class_">Boolean</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">delay</span>(value?: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">duration</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">eventCallback</span>(<span class="attr">type</span>: <span class="title class_">String</span>, callback?: <span class="title class_">Function</span>, params?: <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, scope?: <span class="built_in">any</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">endTime</span>(<span class="attr">includeRepeats</span>: <span class="title class_">Boolean</span>): <span class="title class_">Number</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 刷新任何内部记录的开始/结束值，如果您想要重新启动动画而不恢复任何先前记录的起始值，这将非常有用。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">invalidate</span>():<span class="title class_">TweenMax</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">kill</span>(vars?: <span class="built_in">any</span>, target?: <span class="built_in">any</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">pause</span>(<span class="attr">atTime</span>: <span class="built_in">any</span>, <span class="attr">suppressEvents</span>: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">paused</span>(<span class="attr">value</span>: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">play</span>(<span class="attr">from</span>: <span class="built_in">any</span>, <span class="attr">suppressEvents</span>: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">progress</span>(<span class="attr">value</span>: <span class="title class_">Number</span>, <span class="attr">suppressEvents</span>: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重启</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> includeDelay（default =  false） - 确定重新启动时是否遵循延迟（如果有）</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> suppressEvents（default =  true） - 如果  true （默认值），当播放头移动到time 参数中定义的新位置时，不会触发任何事件或回调。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">restart</span>(includeDelay?: <span class="title class_">Boolean</span>, suppressEvents?: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">resume</span>(<span class="keyword">from</span>?: <span class="built_in">any</span>, suppressEvents?: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反转播放，以便动画的所有方面都向后定向，包括例如补间的简易性。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> from （default =  null） - 动画开始反向播放的时间（或TimelineLite / TimelineMax实例的标签）（如果没有定义，它将从播放头当前所在的任何地方开始播放）。要从动画的最后开始，请使用  0。负数相对于动画结束，因此-1将从结尾开始为1秒</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">reverse</span>(<span class="keyword">from</span>?: <span class="built_in">any</span>, suppressEvents?: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取或设置动画的反转状态，指示是否应该向后播放动画。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> value （default =  false） - 省略参数返回当前值（getter），而定义参数则设置值（setter）并返回实例本身以便于链接</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">reversed</span>(value?: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重复动画</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> value 次数（第一次不计算在内）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">repeat</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取或设置重复之间的秒数（或基于帧的补间的帧）的时间量。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">repeatDelay</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 跳转到指定时间(不影响实例是暂停还是反转)</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> time 要去的时间</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> suppressEvents（default = true）-如果true（默认值），当播放头移动到time 参数中定义的新位置时，不会触发任何事件或回调。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">seek</span>(<span class="attr">time</span>: <span class="built_in">any</span>, suppressEvents?: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">startTime</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">time</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">timeScale</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ease: Ease;// (or Function or String);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取或设置补间的总持续时间（以秒为单位）（或基于帧的补间的帧），包括任何重复或repeatDelay。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> value （default =  NaN） - 省略参数返回当前值（getter），而定义参数则设置值（setter）并返回实例本身以便于链接。负值将从 动画的END开始解释</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">totalDuration</span>(<span class="attr">value</span>: <span class="title class_">Number</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">totalProgress</span>(<span class="attr">value</span>: <span class="title class_">Number</span>, <span class="attr">suppressEvents</span>: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">totalTime</span>(<span class="attr">time</span>: <span class="title class_">Number</span>, <span class="attr">suppressEvents</span>: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态更新补间值，即使补间正在进行中，它们也会无缝地改变路线。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> vars 包含应具有udpated的目标值的属性的对象。但如果你改变一个插件值，则需要完全定义它,例如，要将目标值更新x为300并将目标值更新y为500，请传递:&#123;x:300, y:500&#125;</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> resetDuration （默认值=  false） -如果补间已开始（或成品），并  resetDuration 是  true，补间将重新启动。如果  resetDuration 是  false，则补间的时间将被接受（不重启），并且将调整每个补间属性的起始值，使其看起来无缝地重定向到新的目标值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">updateTo</span>(<span class="attr">vars</span>: <span class="built_in">object</span>, resetDuration?: <span class="title class_">Boolean</span>): <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Ease</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">func?: (...args: <span class="built_in">any</span>[]) =&gt; <span class="built_in">void</span>, extraParams?: <span class="built_in">any</span>[], <span class="keyword">type</span>?: <span class="built_in">number</span>, power?: <span class="built_in">number</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Translates the tween&#x27;s progress ratio into the corresponding ease ratio. */</span></span><br><span class="line">    <span class="title function_">getRatio</span>(<span class="attr">p</span>: <span class="built_in">number</span>): <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">EaseLookup</span> &#123;</span><br><span class="line">    <span class="title function_">find</span>(<span class="attr">name</span>: <span class="built_in">string</span>): <span class="title class_">Ease</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Back</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Back</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Back</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Back</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">config</span>(<span class="attr">overshoot</span>: <span class="built_in">number</span>): <span class="title class_">Elastic</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Bounce</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Bounce</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Bounce</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Bounce</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Circ</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Circ</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Circ</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Circ</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Cubic</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Cubic</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Cubic</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Cubic</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Elastic</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Elastic</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Elastic</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Elastic</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">config</span>(<span class="attr">amplitude</span>: <span class="built_in">number</span>, <span class="attr">period</span>: <span class="built_in">number</span>): <span class="title class_">Elastic</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Expo</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Expo</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Expo</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Expo</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Linear</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">ease</span>: <span class="title class_">Linear</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Linear</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Linear</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeNone</span>: <span class="title class_">Linear</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Linear</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Quad</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Quad</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Quad</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Quad</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Quart</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Quart</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Quart</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Quart</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Quint</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Quint</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Quint</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Quint</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Sine</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeIn</span>: <span class="title class_">Sine</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeInOut</span>: <span class="title class_">Sine</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">easeOut</span>: <span class="title class_">Sine</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">SlowMo</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">ease</span>: <span class="title class_">SlowMo</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">config</span>(<span class="attr">linearRatio</span>: <span class="built_in">number</span>, <span class="attr">power</span>: <span class="built_in">number</span>, <span class="attr">yoyoMode</span>: <span class="built_in">boolean</span>): <span class="title class_">SlowMo</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">SteppedEase</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">staps: <span class="built_in">number</span></span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">config</span>(<span class="attr">steps</span>: <span class="built_in">number</span>): <span class="title class_">SteppedEase</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">RoughEaseConfig</span> &#123;</span><br><span class="line">    clamp?: <span class="built_in">boolean</span>;</span><br><span class="line">    points?: <span class="built_in">number</span>;</span><br><span class="line">    randomize?: <span class="built_in">boolean</span>;</span><br><span class="line">    strength?: <span class="built_in">number</span>;</span><br><span class="line">    taper?: <span class="string">&quot;in&quot;</span> | <span class="string">&quot;out&quot;</span> | <span class="string">&quot;both&quot;</span> | <span class="string">&quot;none&quot;</span>;</span><br><span class="line">    template?: <span class="title class_">Ease</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">RoughEase</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Ease</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="attr">ease</span>: <span class="title class_">RoughEase</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">vars: RoughEaseConfig</span>);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">config</span>(steps?: <span class="built_in">number</span>): <span class="title class_">RoughEase</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="title class_">Power0</span>: <span class="keyword">typeof</span> <span class="title class_">Linear</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="title class_">Power1</span>: <span class="keyword">typeof</span> <span class="title class_">Quad</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="title class_">Power2</span>: <span class="keyword">typeof</span> <span class="title class_">Cubic</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="title class_">Power3</span>: <span class="keyword">typeof</span> <span class="title class_">Quart</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="title class_">Power4</span>: <span class="keyword">typeof</span> <span class="title class_">Quint</span>;</span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">const</span> <span class="title class_">Strong</span>: <span class="keyword">typeof</span> <span class="title class_">Quint</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>解决这些问题，参考了 一些网上的解决方案：不分先后</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://greensock.com/forums/topic/20602-how-to-use-tweenmax-with-cocos-creator/">How To Use TweenMax with Cocos Creator</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://greensock.com/forums/topic/19943-possible-to-remove-plugins-from-gsap-builds/">Possible To Remove Plugins from GSAP builds</a> 可以让Cocos Creator 使用的TweenMax</p>
+</li>
+</ul>
+<p>具体 可以查看另外几篇博客：</p>
+<ul>
+<li><a href="https://blog.asroads.com/post/b0aa25e3.html">Layabox2.0贝塞尔曲线运动引入TweenMax</a></li>
+<li><a href="https://blog.asroads.com/post/2376105a.html">Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild 解决方法</a></li>
+<li><a href="https://blog.asroads.com/post/d927b4f2.html">Cocos Creator Tween Max 小游戏引入</a></li>
+</ul>
+<p>所有源码路径：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/blob/main/TweenMax">点击查看</a></p>
+<h2 id="一些疑点"><a href="#一些疑点" class="headerlink" title="一些疑点"></a>一些疑点</h2><p>上面这样转达属性，会不会造成内存浪费或者性能变差，这些没有深究，希望后面有机会继续探索，另外，如果有人有什么看法可以联系我。邮箱：<a href="mailto:&#x6a;&#115;&#x72;&#111;&#x61;&#x64;&#x73;&#x40;&#x31;&#x36;&#x33;&#x2e;&#99;&#x6f;&#109;">&#x6a;&#115;&#x72;&#111;&#x61;&#x64;&#x73;&#x40;&#x31;&#x36;&#x33;&#x2e;&#99;&#x6f;&#109;</a></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b02e85.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>SnailGitLite或SnailSVN无法将difftool.sh安装到脚本目录</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/49b1096d.html">
+        <span>PureMVC如何在Cocos Creator 3.0使用</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/8a039172.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">最终效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%94%9F%E6%95%88%E4%B8%8D%E6%8A%A5%E9%94%99"><span class="toc-number">3.1.</span> <span class="toc-text">不生效不报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E7%82%B9%E7%BA%BF%E7%B4%A2"><span class="toc-number">3.2.</span> <span class="toc-text">一点线索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8C%9C%E6%B5%8B"><span class="toc-number">3.3.</span> <span class="toc-text">猜测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">3.4.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E7%96%91%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">一些疑点</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

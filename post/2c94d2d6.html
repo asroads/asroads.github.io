@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            最近写的一个下载和复制的Python脚本 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/2c94d2d6.html">最近写的一个下载和复制的Python脚本</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-10-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=最近写的一个下载和复制的Python脚本&url=http://blog.asroads.com/post/2c94d2d6.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=最近写的一个下载和复制的Python脚本&url=http://blog.asroads.com/post/2c94d2d6.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/2c94d2d6.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/2c94d2d6.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/2c94d2d6.html&title=最近写的一个下载和复制的Python脚本" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=最近写的一个下载和复制的Python脚本&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/2c94d2d6.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/2c94d2d6.html&text=最近写的一个下载和复制的Python脚本" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>有时候项目需要一些批量处理的脚本，最近就遇到了一些需求，于是记下来，后面用到的时候直接拿来使用方便简单。这里是两个功能，一个是从网上下载一批文件，保存到本地的目录，另外一个是批量复制并且覆盖原来的文件。</p>
+<span id="more"></span>
+
+<h2 id="批量下载"><a href="#批量下载" class="headerlink" title="批量下载"></a>批量下载</h2><p>由于脚本不太复杂，这里直接给出脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">download_files_from_list</span>(<span class="params">file_path, root_dir, split_index=<span class="number">1</span></span>):</span><br><span class="line">    <span class="comment"># 确保根目录存在</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(root_dir):</span><br><span class="line">        os.makedirs(root_dir)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 打开文件并逐行读取URL</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">            url = line.strip()</span><br><span class="line">            <span class="comment"># 使用指定的索引分割URL，以获取路径</span></span><br><span class="line">            decoded_url = urllib.parse.unquote(url)</span><br><span class="line">            <span class="comment"># 现在path_from_url使用解码后的URL</span></span><br><span class="line">            path_from_url = <span class="string">&quot;/&quot;</span>.join(decoded_url.split(<span class="string">&quot;/&quot;</span>)[split_index:])</span><br><span class="line">            <span class="comment"># path_from_url = &quot;/&quot;.join(url.split(&quot;/&quot;)[split_index:])</span></span><br><span class="line">            <span class="comment"># 创建本地保存路径</span></span><br><span class="line">            local_path = os.path.join(root_dir, path_from_url)</span><br><span class="line">            local_dir = os.path.dirname(local_path)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 确保本地目录存在</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(local_dir):</span><br><span class="line">                os.makedirs(local_dir)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 下载文件并保存到本地</span></span><br><span class="line">            response = requests.get(url)</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(local_path, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> out_file:</span><br><span class="line">                out_file.write(response.content)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Downloaded <span class="subst">&#123;url&#125;</span> to <span class="subst">&#123;local_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) &lt; <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Usage: python down.py &lt;file_path&gt; &lt;root_dir&gt; [split_index]&quot;</span>)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    file_path = sys.argv[<span class="number">1</span>]</span><br><span class="line">    root_dir = sys.argv[<span class="number">2</span>]</span><br><span class="line">    split_index = <span class="built_in">int</span>(sys.argv[<span class="number">3</span>]) <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) == <span class="number">4</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    download_files_from_list(file_path, root_dir, split_index)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h3><p>这里主要解释一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用指定的索引分割URL，以获取路径</span></span><br><span class="line">decoded_url = urllib.parse.unquote(url)</span><br><span class="line"><span class="comment"># 现在path_from_url使用解码后的URL</span></span><br><span class="line">path_from_url = <span class="string">&quot;/&quot;</span>.join(decoded_url.split(<span class="string">&quot;/&quot;</span>)[split_index:])</span><br><span class="line"><span class="comment"># path_from_url = &quot;/&quot;.join(url.split(&quot;/&quot;)[split_index:])</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>由于有时候我们下载的文件内容 可能是 <code>%E7%81%AB%E8%BD%A6%E9%B8%A3%E7%AC%9B</code>此时我们需要进行一次转码操作，把这个转成正确的显示比如 这里应该是 <code>火车鸣笛</code></p>
+<p>这些URL中的中文部分使用的是“百分号编码”（Percent-Encoding），这是一种在URI（统一资源标识符）中表示特殊字符的方法。在这种编码中，非ASCII字符（如中文字符）会被转换成百分号（%）后跟两位十六进制数。这种编码允许将字符表示为URL可以理解的格式。</p>
+<p>例如，中文字符“火”被编码为 <code>%E7%81%AB</code>。这里，“E7”，“81”，和“AB”是字符“火”在UTF-8编码下的十六进制字节表示。</p>
+<p>要对这些URL进行解码，可以使用Python中的 <code>urllib.parse.unquote</code> 函数，它会自动将百分号编码转换回原始字符。</p>
+<h4 id="额外的正则替换"><a href="#额外的正则替换" class="headerlink" title="额外的正则替换"></a>额外的正则替换</h4><p>这里是我自己这边独有的，比如我的文件 需要批量替换一些文本，比如我这里需要替换 逗号 file 开头 0000 UTC 结尾的所有的内容 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">, file.*?<span class="number">0000</span> <span class="variable constant_">UTC</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python downFile.py ./diZhiTest1.txt  ./out 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="批量复制覆盖"><a href="#批量复制覆盖" class="headerlink" title="批量复制覆盖"></a>批量复制覆盖</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> ast</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">replace_files_from_dir</span>(<span class="params">source_dir, target_dir, extensions</span>):</span><br><span class="line">    <span class="comment"># 遍历目标目录</span></span><br><span class="line">    <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(target_dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            <span class="comment"># 只处理指定后缀的文件</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">any</span>(file.endswith(ext) <span class="keyword">for</span> ext <span class="keyword">in</span> extensions):</span><br><span class="line">                <span class="comment"># 检查源目录中是否存在同名文件</span></span><br><span class="line">                source_file_path = os.path.join(source_dir, file)</span><br><span class="line">                <span class="keyword">if</span> os.path.exists(source_file_path):</span><br><span class="line">                    target_file_path = os.path.join(root, file)</span><br><span class="line">                    <span class="comment"># 使用源文件替换目标文件</span></span><br><span class="line">                    shutil.copy(source_file_path, target_file_path)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;Replaced <span class="subst">&#123;target_file_path&#125;</span> with <span class="subst">&#123;source_file_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(sys.argv) != <span class="number">4</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Usage: python replace.py &lt;source_dir&gt; &lt;target_dir&gt; &lt;extensions&gt;&quot;</span>)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    source_dir = sys.argv[<span class="number">1</span>]</span><br><span class="line">    target_dir = sys.argv[<span class="number">2</span>]</span><br><span class="line">    <span class="comment"># 使用 ast.literal_eval 安全地将字符串转换为列表</span></span><br><span class="line">    extensions = ast.literal_eval(sys.argv[<span class="number">3</span>])</span><br><span class="line">    replace_files_from_dir(source_dir, target_dir, extensions)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="调用-1"><a href="#调用-1" class="headerlink" title="调用"></a>调用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 replace.py /Users/ydc012/Documents/FilesCopy/replaceFiles/替换测试/压缩后 /Users/ydc012/Documents/FilesCopy/replaceFiles/替换测试/remote &quot;[&#x27;.png&#x27;,&#x27;.jpg&#x27;]&quot;</span><br></pre></td></tr></table></figure>
+
+<p>第三个参数是 复制文件的后缀。</p>
+<h2 id="其他拓展"><a href="#其他拓展" class="headerlink" title="其他拓展"></a>其他拓展</h2><p>这里再说一个python 里面关于 https地址的替换，我这里是实现时 构建后修改资源目录 <code>settings.js</code> 下面的 <code>server</code> 属性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 settings.js</span></span><br><span class="line"><span class="comment"># 替换 &lt;channel&gt; 和 &lt;mode&gt; 以构建 cdn_url</span></span><br><span class="line">cdn_url = os.path.join(CDN_URL.replace(<span class="string">&#x27;&lt;channel&gt;&#x27;</span>,CHANNEL).replace(<span class="string">&#x27;&lt;mode&gt;&#x27;</span>,GAME_MODE),folder)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;远程CDN目录&quot;</span>,cdn_url)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;SETTINGS_FILE&quot;</span>,SETTINGS_FILE)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(SETTINGS_FILE, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">    settings_content = file.read()</span><br><span class="line"><span class="comment"># 用于匹配文件中的server属性的正则表达式</span></span><br><span class="line">pattern = <span class="string">r&#x27;(server\s*:\s*&quot;)[^&quot;]*(&quot;)&#x27;</span></span><br><span class="line"><span class="comment"># 执行替换操作</span></span><br><span class="line">new_content = re.sub(pattern, <span class="string">r&#x27;\1&#x27;</span> + cdn_url + <span class="string">r&#x27;\2&#x27;</span>, settings_content)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(SETTINGS_FILE, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(new_content)</span><br></pre></td></tr></table></figure>
+
+<p>核心代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用于匹配文件中的server属性的正则表达式</span></span><br><span class="line">pattern = <span class="string">r&#x27;(server\s*:\s*&quot;)[^&quot;]*(&quot;)&#x27;</span></span><br><span class="line"><span class="comment"># 执行替换操作</span></span><br><span class="line">new_content = re.sub(pattern, <span class="string">r&#x27;\1&#x27;</span> + cdn_url + <span class="string">r&#x27;\2&#x27;</span>, settings_content)</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/26b6e7c.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator2.4.x发布VIVO小游戏</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/fa75ff33.html">
+        <span>如何在Mac上配置一个本地Web服务器</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/2c94d2d6.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">批量下载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A"><span class="toc-number">1.1.</span> <span class="toc-text">解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E6%AD%A3%E5%88%99%E6%9B%BF%E6%8D%A2"><span class="toc-number">1.1.1.</span> <span class="toc-text">额外的正则替换</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%B9%E9%87%8F%E5%A4%8D%E5%88%B6%E8%A6%86%E7%9B%96"><span class="toc-number">2.</span> <span class="toc-text">批量复制覆盖</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E7%94%A8-1"><span class="toc-number">2.1.</span> <span class="toc-text">调用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8B%93%E5%B1%95"><span class="toc-number">3.</span> <span class="toc-text">其他拓展</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

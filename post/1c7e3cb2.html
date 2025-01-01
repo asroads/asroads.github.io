@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            使用Rolup.js构建一个自己的类库 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/1c7e3cb2.html">使用Rolup.js构建一个自己的类库</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-06-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=使用Rolup.js构建一个自己的类库&url=http://blog.asroads.com/post/1c7e3cb2.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=使用Rolup.js构建一个自己的类库&url=http://blog.asroads.com/post/1c7e3cb2.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/1c7e3cb2.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/1c7e3cb2.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/1c7e3cb2.html&title=使用Rolup.js构建一个自己的类库" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=使用Rolup.js构建一个自己的类库&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/1c7e3cb2.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/1c7e3cb2.html&text=使用Rolup.js构建一个自己的类库" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/js/ >js</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/rollupjs/ >rollupjs</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>代码编程，程序开发久了，基本都会逐渐形成一套自己收集的技术类库和常用的一些方法，有时候是从优秀的大神那里学习，有的是通过自己工作的摸索，然后都想作为类库为自己所用，有个源码更新的地方，甚至想到后期拿到社区开源供大家使用。</p>
+<span id="more"></span>
+<p>下面说一下如何使用<code>Rollup.js</code>编译自己的类库，然后供<code>Cocos Creator</code>使用。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Windows10</li>
+<li>npm</li>
+<li>ts</li>
+<li>rollup.js</li>
+<li>Cocos Creator2.3.3</li>
+</ul>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><ol>
+<li>首先我们新建一个项目名字叫做<code>tslibsdemo</code></li>
+<li>新建一个 <code>package.json</code> 内容如下：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tslibsdemo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;tslibsdemo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;rollup --config&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;files&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;dist&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES6&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jsroads&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;repository&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;@rollup/plugin-typescript&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.2.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@types/node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^16.3.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;rollup&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.53.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ts-node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^10.1.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tslib&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.3.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.3.5&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>新建一个 <code>rollup.config.js</code> 文件，内容如下:</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> typescript <span class="keyword">from</span> <span class="string">&#x27;@rollup/plugin-typescript&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">input</span>: <span class="string">&#x27;src/index.ts&#x27;</span>,</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">dir</span>: <span class="string">&#x27;./dist&#x27;</span>,</span><br><span class="line">        <span class="attr">format</span>: <span class="string">&#x27;esm&#x27;</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;MyBundle&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">plugins</span>: [<span class="title function_">typescript</span>()]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>新建 <code>tsconfig.json</code> 文件 内容如下：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">/* Visit https://aka.ms/tsconfig.json to read more about this file */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Basic Options */</span></span><br><span class="line">    <span class="comment">// &quot;incremental&quot;: true,                         /* Enable incremental compilation */</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES6&quot;</span><span class="punctuation">,</span>                                <span class="comment">/* Specify ECMAScript target version: &#x27;ES3&#x27; (default), &#x27;ES5&#x27;, &#x27;ES2015&#x27;, &#x27;ES2016&#x27;, &#x27;ES2017&#x27;, &#x27;ES2018&#x27;, &#x27;ES2019&#x27;, &#x27;ES2020&#x27;, &#x27;ES2021&#x27;, or &#x27;ESNEXT&#x27;. */</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES6&quot;</span><span class="punctuation">,</span>                           <span class="comment">/* Specify module code generation: &#x27;none&#x27;, &#x27;commonjs&#x27;, &#x27;amd&#x27;, &#x27;system&#x27;, &#x27;umd&#x27;, &#x27;es2015&#x27;, &#x27;es2020&#x27;, or &#x27;ESNext&#x27;. */</span></span><br><span class="line">    <span class="comment">// &quot;lib&quot;: [],                                   /* Specify library files to be included in the compilation. */</span></span><br><span class="line">    <span class="comment">// &quot;allowJs&quot;: true,                             /* Allow javascript files to be compiled. */</span></span><br><span class="line">    <span class="comment">// &quot;checkJs&quot;: true,                             /* Report errors in .js files. */</span></span><br><span class="line">    <span class="comment">// &quot;jsx&quot;: &quot;preserve&quot;,                           /* Specify JSX code generation: &#x27;preserve&#x27;, &#x27;react-native&#x27;, &#x27;react&#x27;, &#x27;react-jsx&#x27; or &#x27;react-jsxdev&#x27;. */</span></span><br><span class="line">     <span class="attr">&quot;declaration&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                         <span class="comment">/* Generates corresponding &#x27;.d.ts&#x27; file. */</span></span><br><span class="line">    <span class="comment">// &quot;declarationMap&quot;: true,                      /* Generates a sourcemap for each corresponding &#x27;.d.ts&#x27; file. */</span></span><br><span class="line">    <span class="comment">// &quot;sourceMap&quot;: true,                           /* Generates corresponding &#x27;.map&#x27; file. */</span></span><br><span class="line">    <span class="comment">// &quot;outFile&quot;: &quot;./&quot;,                             /* Concatenate and emit output to single file. */</span></span><br><span class="line">     <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist&quot;</span><span class="punctuation">,</span>                              <span class="comment">/* Redirect output structure to the directory. */</span></span><br><span class="line"><span class="comment">//     &quot;rootDir&quot;: &quot;./src&quot;,                             /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */</span></span><br><span class="line">    <span class="comment">// &quot;composite&quot;: true,                           /* Enable project compilation */</span></span><br><span class="line">    <span class="comment">// &quot;tsBuildInfoFile&quot;: &quot;./&quot;,                     /* Specify file to store incremental compilation information */</span></span><br><span class="line">    <span class="comment">// &quot;removeComments&quot;: true,                      /* Do not emit comments to output. */</span></span><br><span class="line">    <span class="comment">// &quot;noEmit&quot;: true,                              /* Do not emit outputs. */</span></span><br><span class="line">    <span class="comment">// &quot;importHelpers&quot;: true,                       /* Import emit helpers from &#x27;tslib&#x27;. */</span></span><br><span class="line">    <span class="comment">// &quot;downlevelIteration&quot;: true,                  /* Provide full support for iterables in &#x27;for-of&#x27;, spread, and destructuring when targeting &#x27;ES5&#x27; or &#x27;ES3&#x27;. */</span></span><br><span class="line">    <span class="comment">// &quot;isolatedModules&quot;: true,                     /* Transpile each file as a separate module (similar to &#x27;ts.transpileModule&#x27;). */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Strict Type-Checking Options */</span></span><br><span class="line">    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                                 <span class="comment">/* Enable all strict type-checking options. */</span></span><br><span class="line">    <span class="comment">// &quot;noImplicitAny&quot;: true,                       /* Raise error on expressions and declarations with an implied &#x27;any&#x27; type. */</span></span><br><span class="line">    <span class="comment">// &quot;strictNullChecks&quot;: true,                    /* Enable strict null checks. */</span></span><br><span class="line">    <span class="comment">// &quot;strictFunctionTypes&quot;: true,                 /* Enable strict checking of function types. */</span></span><br><span class="line">    <span class="comment">// &quot;strictBindCallApply&quot;: true,                 /* Enable strict &#x27;bind&#x27;, &#x27;call&#x27;, and &#x27;apply&#x27; methods on functions. */</span></span><br><span class="line">    <span class="comment">// &quot;strictPropertyInitialization&quot;: true,        /* Enable strict checking of property initialization in classes. */</span></span><br><span class="line">    <span class="comment">// &quot;noImplicitThis&quot;: true,                      /* Raise error on &#x27;this&#x27; expressions with an implied &#x27;any&#x27; type. */</span></span><br><span class="line">    <span class="comment">// &quot;alwaysStrict&quot;: true,                        /* Parse in strict mode and emit &quot;use strict&quot; for each source file. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Additional Checks */</span></span><br><span class="line">    <span class="comment">// &quot;noUnusedLocals&quot;: true,                      /* Report errors on unused locals. */</span></span><br><span class="line">    <span class="comment">// &quot;noUnusedParameters&quot;: true,                  /* Report errors on unused parameters. */</span></span><br><span class="line">    <span class="comment">// &quot;noImplicitReturns&quot;: true,                   /* Report error when not all code paths in function return a value. */</span></span><br><span class="line">    <span class="comment">// &quot;noFallthroughCasesInSwitch&quot;: true,          /* Report errors for fallthrough cases in switch statement. */</span></span><br><span class="line">    <span class="comment">// &quot;noUncheckedIndexedAccess&quot;: true,            /* Include &#x27;undefined&#x27; in index signature results */</span></span><br><span class="line">    <span class="comment">// &quot;noImplicitOverride&quot;: true,                  /* Ensure overriding members in derived classes are marked with an &#x27;override&#x27; modifier. */</span></span><br><span class="line">    <span class="comment">// &quot;noPropertyAccessFromIndexSignature&quot;: true,  /* Require undeclared properties from index signatures to use element accesses. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Module Resolution Options */</span></span><br><span class="line">    <span class="comment">// &quot;moduleResolution&quot;: &quot;node&quot;,                  /* Specify module resolution strategy: &#x27;node&#x27; (Node.js) or &#x27;classic&#x27; (TypeScript pre-1.6). */</span></span><br><span class="line">    <span class="comment">// &quot;baseUrl&quot;: &quot;./&quot;,                             /* Base directory to resolve non-absolute module names. */</span></span><br><span class="line">    <span class="comment">// &quot;paths&quot;: &#123;&#125;,                                 /* A series of entries which re-map imports to lookup locations relative to the &#x27;baseUrl&#x27;. */</span></span><br><span class="line">    <span class="comment">// &quot;rootDirs&quot;: [],                              /* List of root folders whose combined content represents the structure of the project at runtime. */</span></span><br><span class="line">    <span class="comment">// &quot;typeRoots&quot;: [],                             /* List of folders to include type definitions from. */</span></span><br><span class="line">    <span class="comment">// &quot;types&quot;: [],                                 /* Type declaration files to be included in compilation. */</span></span><br><span class="line">    <span class="comment">// &quot;allowSyntheticDefaultImports&quot;: true,        /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */</span></span><br><span class="line">    <span class="attr">&quot;esModuleInterop&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                        <span class="comment">/* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies &#x27;allowSyntheticDefaultImports&#x27;. */</span></span><br><span class="line">    <span class="comment">// &quot;preserveSymlinks&quot;: true,                    /* Do not resolve the real path of symlinks. */</span></span><br><span class="line">    <span class="comment">// &quot;allowUmdGlobalAccess&quot;: true,                /* Allow accessing UMD globals from modules. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Source Map Options */</span></span><br><span class="line">    <span class="comment">// &quot;sourceRoot&quot;: &quot;&quot;,                            /* Specify the location where debugger should locate TypeScript files instead of source locations. */</span></span><br><span class="line">    <span class="comment">// &quot;mapRoot&quot;: &quot;&quot;,                               /* Specify the location where debugger should locate map files instead of generated locations. */</span></span><br><span class="line">    <span class="comment">// &quot;inlineSourceMap&quot;: true,                     /* Emit a single file with source maps instead of having a separate file. */</span></span><br><span class="line">    <span class="comment">// &quot;inlineSources&quot;: true,                       /* Emit the source alongside the sourcemaps within a single file; requires &#x27;--inlineSourceMap&#x27; or &#x27;--sourceMap&#x27; to be set. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Experimental Options */</span></span><br><span class="line">    <span class="comment">// &quot;experimentalDecorators&quot;: true,              /* Enables experimental support for ES7 decorators. */</span></span><br><span class="line">    <span class="comment">// &quot;emitDecoratorMetadata&quot;: true,               /* Enables experimental support for emitting type metadata for decorators. */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Advanced Options */</span></span><br><span class="line">    <span class="attr">&quot;skipLibCheck&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>                           <span class="comment">/* Skip type checking of declaration files. */</span></span><br><span class="line">    <span class="attr">&quot;forceConsistentCasingInFileNames&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span>        <span class="comment">/* Disallow inconsistently-cased references to the same file. */</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;test&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>新建一个 <code>src</code> 文件夹，作为代码存放目录，新建一个 <code>dist</code> 文件夹 作为构建编译后的目录。</li>
+</ol>
+<h2 id="放入写好的类库"><a href="#放入写好的类库" class="headerlink" title="放入写好的类库"></a>放入写好的类库</h2><ol>
+<li>放入三个模块作为测试：自定义 log 、 EnumUtils.ts和MathUtils.ts。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">│  EnumUtils.ts</span><br><span class="line">│  index.ts</span><br><span class="line">│  MathUtils.ts</span><br><span class="line">│</span><br><span class="line">└─log</span><br><span class="line">        CCLogger.ts</span><br><span class="line">        LoggerInterface.ts</span><br><span class="line">        NativeLogger.ts</span><br></pre></td></tr></table></figure>
+
+<p> EnumUtils.ts </p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">EnumUtils</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getNamesAndValues</span>(<span class="params">e: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">getNames</span>(e).<span class="title function_">map</span>(<span class="function"><span class="params">_name</span> =&gt;</span> &#123; <span class="keyword">return</span> &#123; <span class="attr">name</span>: _name, <span class="attr">value</span>: e[_name] <span class="keyword">as</span> <span class="built_in">number</span> &#125;; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getNames</span>(<span class="params">e: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">getObjectValues</span>(e).<span class="title function_">filter</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="keyword">typeof</span> v === <span class="string">&quot;string&quot;</span>) <span class="keyword">as</span> <span class="built_in">string</span>[];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getValues</span>(<span class="params">e: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">getObjectValues</span>(e).<span class="title function_">filter</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="keyword">typeof</span> v === <span class="string">&quot;number&quot;</span>) <span class="keyword">as</span> <span class="built_in">number</span>[];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="title function_">getObjectValues</span>(<span class="attr">e</span>: <span class="built_in">any</span>): (<span class="built_in">number</span> | <span class="built_in">string</span>)[] &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(e).<span class="title function_">map</span>(<span class="function"><span class="params">k</span> =&gt;</span> e[k]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MathUtils.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数学计算工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MathUtils</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 弧度制转换为角度值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> radian 弧度制</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getAngle</span>(<span class="attr">radian</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">180</span> * radian / <span class="title class_">Math</span>.<span class="property">PI</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 角度值转换为弧度制</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">angle</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getRadian</span>(<span class="attr">angle</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> angle / <span class="number">180</span> * <span class="title class_">Math</span>.<span class="property">PI</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取两点间弧度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p1X</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p1Y</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p2X</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p2Y</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getRadian2</span>(<span class="attr">p1X</span>: <span class="built_in">number</span>, <span class="attr">p1Y</span>: <span class="built_in">number</span>, <span class="attr">p2X</span>: <span class="built_in">number</span>, <span class="attr">p2Y</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">xdis</span>: <span class="built_in">number</span> = p2X - p1X;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">ydis</span>: <span class="built_in">number</span> = p2Y - p1Y;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">atan2</span>(ydis, xdis);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取两点间距离</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p1X</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p1Y</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p2X</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">p2Y</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getDistance</span>(<span class="attr">p1X</span>: <span class="built_in">number</span>, <span class="attr">p1Y</span>: <span class="built_in">number</span>, <span class="attr">p2X</span>: <span class="built_in">number</span>, <span class="attr">p2Y</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">disX</span>: <span class="built_in">number</span> = p2X - p1X;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">disY</span>: <span class="built_in">number</span> = p2Y - p1Y;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">disQ</span>: <span class="built_in">number</span> = disX * disX + disY * disY;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">sqrt</span>(disQ);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">toFixedStr</span>(<span class="attr">value</span>: <span class="built_in">number</span>, <span class="attr">fixCount</span>: <span class="built_in">number</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> value.<span class="title function_">toFixed</span>(fixCount).<span class="title function_">replace</span>(<span class="regexp">/\.?0*$/</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">toPercentStr</span>(<span class="attr">value</span>: <span class="built_in">number</span>, <span class="attr">fixCount</span>: <span class="built_in">number</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">toFixedStr</span>(value * <span class="number">100</span>, fixCount) + <span class="string">&quot;%&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">toFixedWan</span>(<span class="attr">value</span>: <span class="built_in">number</span>): <span class="built_in">string</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> wanFix = <span class="number">100000</span>;</span><br><span class="line">        <span class="keyword">let</span> wanFloat = wanFix / <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">var</span> v = <span class="title class_">Math</span>.<span class="title function_">floor</span>(value / wanFloat) * wanFloat;</span><br><span class="line">        <span class="keyword">return</span> value &gt; wanFix ? <span class="string">`<span class="subst">$&#123;MathUtils.toFixedStr(v / wanFix * <span class="number">10</span>, <span class="number">1</span>)&#125;</span>万`</span> : value.<span class="title function_">toString</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//value = ceil(e*(a*(level^d) + b*(level) + c))</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">getFinalValueBasedOnParams</span>(<span class="attr">level</span>: <span class="built_in">number</span>, <span class="attr">paramList</span>: <span class="title class_">Array</span>&lt;<span class="built_in">number</span>&gt;, needCeil?: <span class="built_in">boolean</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (paramList.<span class="property">length</span> &lt; <span class="number">5</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> ret = paramList[<span class="number">4</span>] * (paramList[<span class="number">0</span>] * <span class="title class_">Math</span>.<span class="title function_">pow</span>(level, paramList[<span class="number">3</span>]) + paramList[<span class="number">1</span>] * level + paramList[<span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">if</span> (needCeil) &#123;</span><br><span class="line">            ret = <span class="title class_">Math</span>.<span class="title function_">ceil</span>(ret);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取一个区间的随机数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> $from 最小值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> $end 最大值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">limit</span>(<span class="attr">$from</span>: <span class="built_in">number</span>, <span class="attr">$end</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        $from = <span class="title class_">Math</span>.<span class="title function_">min</span>($from, $end);</span><br><span class="line">        $end = <span class="title class_">Math</span>.<span class="title function_">max</span>($from, $end);</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">range</span>: <span class="built_in">number</span> = $end - $from;</span><br><span class="line">        <span class="keyword">return</span> $from + <span class="title class_">Math</span>.<span class="title function_">random</span>() * range;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取一个区间的随机数(帧数)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> $from 最小值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> $end 最大值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">number</span>&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">limitInteger</span>(<span class="attr">$from</span>: <span class="built_in">number</span>, <span class="attr">$end</span>: <span class="built_in">number</span>): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">round</span>(<span class="title class_">MathUtils</span>.<span class="title function_">limit</span>($from, $end));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在一个数组中随机获取一个元素</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arr 数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> &#123;<span class="type">any</span>&#125; 随机出来的结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title function_">randomArray</span>(<span class="attr">arr</span>: <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;): <span class="built_in">any</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="attr">index</span>: <span class="built_in">number</span> = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * arr.<span class="property">length</span>);</span><br><span class="line">        <span class="keyword">return</span> arr[index];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LoggerInterface.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">LoggerInterface</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化日志</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> option 参数选项</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">init</span>(<span class="attr">option</span>: <span class="title class_">LoggerOption</span>): <span class="built_in">void</span>;</span><br><span class="line">    <span class="title function_">log</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span>;</span><br><span class="line">    <span class="title function_">debug</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span>;</span><br><span class="line">    <span class="title function_">info</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span>;</span><br><span class="line">    <span class="title function_">warn</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span>;</span><br><span class="line">    <span class="title function_">error</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">LoggerOption</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否允许输出log</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="attr">enableLog</span>: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CCLogger.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">LoggerInterface</span>, <span class="title class_">LoggerOption</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./LoggerInterface&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span>  <span class="keyword">class</span> <span class="title class_">CCLogger</span> <span class="keyword">implements</span> <span class="title class_">LoggerInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_option</span>: <span class="title class_">LoggerOption</span> = <span class="literal">null</span>!;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">init</span>(<span class="attr">option</span>: <span class="title class_">LoggerOption</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> = option;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">log</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="property">log</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">debug</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="property">debug</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">info</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="property">info</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">warn</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="property">warn</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">error</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="property">error</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>NativeLogger.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">LoggerInterface</span>, <span class="title class_">LoggerOption</span> &#125; <span class="keyword">from</span> <span class="string">&quot;./LoggerInterface&quot;</span>;</span><br><span class="line"><span class="keyword">export</span>  <span class="keyword">class</span> <span class="title class_">NativeLogger</span> <span class="keyword">implements</span> <span class="title class_">LoggerInterface</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="attr">_option</span>: <span class="title class_">LoggerOption</span> = <span class="literal">null</span>!;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">init</span>(<span class="attr">option</span>: <span class="title class_">LoggerOption</span>): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> = option;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">log</span>(<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="variable language_">this</span>.<span class="title function_">_format</span>(args));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">debug</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="title function_">debug</span>(<span class="variable language_">this</span>.<span class="title function_">_format</span>(args));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">info</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="variable language_">this</span>.<span class="title function_">_format</span>(args));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">error</span>(<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="variable language_">this</span>.<span class="title function_">_format</span>(args));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">warn</span>(<span class="params">...args: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_option</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">_option</span>.<span class="property">enableLog</span> &amp;&amp; <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="variable language_">this</span>.<span class="title function_">_format</span>(args));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 原生平台上不能直接打印object和array，因此这里将object和array转换为字符串进行输出，方便在 Android Logcat 中直接看 log 结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">_format</span>(...<span class="attr">args</span>: <span class="built_in">any</span>[]): <span class="built_in">string</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="attr">msg</span>: <span class="built_in">string</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        args.<span class="title function_">forEach</span>(<span class="function">(<span class="params">value: <span class="built_in">any</span>, index: <span class="built_in">number</span>, array: <span class="built_in">any</span>[]</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (value == <span class="literal">null</span>) &#123;</span><br><span class="line">                msg += <span class="string">&quot;null&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">const</span> valType = <span class="keyword">typeof</span> value;</span><br><span class="line">                <span class="keyword">if</span> (valType === <span class="string">&quot;string&quot;</span> || valType === <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">                    msg += value;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    msg += <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(value);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (index + <span class="number">1</span> &lt; array.<span class="property">length</span>) &#123;</span><br><span class="line">                msg += <span class="string">&quot;,&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>index.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;<span class="title class_">CCLogger</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./log/CCLogger&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;<span class="title class_">NativeLogger</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./log/NativeLogger&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;<span class="title class_">LoggerInterface</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./log/LoggerInterface&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;<span class="title class_">EnumUtils</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./EnumUtils&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;<span class="title class_">MathUtils</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./MathUtils&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><ol>
+<li>初始化npm依赖:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/1c7e3cb2/image-20220613134155965.png" alt="image-20220613134155965"></p>
+<p>成功后 多出一个目录 <code>node_modules</code></p>
+<ol start="2">
+<li>如果没有安装 <code>rollup</code> 需要安装:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --global rollup</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>接下来可以运行命令查看：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认使用rollup.config.js</span></span><br><span class="line">$ rollup --config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者, 使用自定义的配置文件，这里使用my.config.js作为配置文件</span></span><br><span class="line">$ rollup --config my.config.js</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/1c7e3cb2/image-20220613133954889-16550987977421.png" alt="image-20220613133954889"></p>
+<p>更多命令参考 <a target="_blank" rel="noopener" href="https://www.rollupjs.com/">https://www.rollupjs.com/</a></p>
+<p>当然也可以写个shell 脚本 比如 叫做 <code>build.sh</code>  内容：<code>rollup --config</code></p>
+<ol start="4">
+<li>查看结果：</li>
+</ol>
+<p><img src="/post/1c7e3cb2/image-20220613134333044.png" alt="image-20220613134333044"></p>
+<h2 id="测试类库"><a href="#测试类库" class="headerlink" title="测试类库"></a>测试类库</h2><ol>
+<li><p>新建一个<code>Cocos Creator</code>项目 <code>libsbuilddemo</code></p>
+</li>
+<li><p>引入刚刚构建好的 dist 目录下的文件：</p>
+</li>
+<li><p>在新建的项目 <code>HelloWorld.ts</code> 的 <code>start</code> 方法 写入测试代码：</p>
+</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">CCLogger</span>, <span class="title class_">MathUtils</span>&#125; <span class="keyword">from</span> <span class="string">&quot;../libs/MyLibs&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Helloworld</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Label</span>)</span><br><span class="line">    <span class="attr">label</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="attr">text</span>: <span class="built_in">string</span> = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"> </span><br><span class="line">    start () &#123;</span><br><span class="line">        <span class="comment">// init logic</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">label</span>.<span class="property">string</span> = <span class="variable language_">this</span>.<span class="property">text</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">let</span> radian = <span class="number">270</span></span><br><span class="line">        <span class="keyword">let</span> angle = <span class="title class_">MathUtils</span>.<span class="title function_">getRadian</span>(radian);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(angle));</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">let</span> logger = <span class="keyword">new</span> <span class="title class_">CCLogger</span>()</span><br><span class="line">        logger.<span class="title function_">init</span>( &#123;<span class="attr">enableLog</span>:<span class="literal">true</span>&#125; )</span><br><span class="line">        logger.<span class="title function_">log</span>(<span class="string">&quot;日志输出&quot;</span>)</span><br><span class="line">        logger.<span class="title function_">error</span>(<span class="string">&quot;错误日志&quot;</span>)</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>查看输出结果：<br><img src="/post/1c7e3cb2/image-20220613135129571.png" alt="image-20220613135129571"></li>
+</ol>
+<p>以上就是如何使用 rollup.js 构建自己的类库的整个过程。</p>
+<p>上面代码链接地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/buildprj">点击前往</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.rollupjs.com/"><strong>rollup.js 中文文档</strong></a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/117548">import自己写的库错误，如何使用ts正确的写一个npm库？</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/xuanyangyang/ts-demo">参考项目GitHub链接</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/606dcf1e.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator3.5.x引入第三方库crypto-js</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/4779a2c4.html">
+        <span>Windows10系统安装Python2和Python3</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/1c7e3cb2.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">新建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%BE%E5%85%A5%E5%86%99%E5%A5%BD%E7%9A%84%E7%B1%BB%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">放入写好的类库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-number">4.</span> <span class="toc-text">运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%B1%BB%E5%BA%93"><span class="toc-number">5.</span> <span class="toc-text">测试类库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

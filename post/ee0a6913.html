@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator扩展内置组件做Checkbox | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/ee0a6913.html">CocosCreator扩展内置组件做Checkbox</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-10-18
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator扩展内置组件做Checkbox&url=http://blog.asroads.com/post/ee0a6913.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator扩展内置组件做Checkbox&url=http://blog.asroads.com/post/ee0a6913.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/ee0a6913.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/ee0a6913.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/ee0a6913.html&title=CocosCreator扩展内置组件做Checkbox" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator扩展内置组件做Checkbox&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/ee0a6913.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/ee0a6913.html&text=CocosCreator扩展内置组件做Checkbox" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Checkbox/ >Checkbox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Cocos Creator 内置了一些常用的组件，在游戏使用的时候很方便，如果我们想要拓展一下组件，就需要简单的了解一下如何拓展，官方文档给的说明有限 <a target="_blank" rel="noopener" href="http://docs.cocos.com/creator/manual/zh/extension/extends-inspector.html">扩展 Inspector</a>，使得很多时候无从下手，下面简单的记录一下如何拓展组件，做一个多选组件。</p>
+<span id="more"></span>
+<p>首先代码这里用 官方的单选按钮(cc.Toggle)和单选按钮组(<code>ToggleContainer</code>) 做基本参考，然后拓展组件。</p>
+<p>先看一下 最终效果：</p>
+<p><img src="/post/ee0a6913/1000.gif" alt="1000"></p>
+<p>先说一下环境：</p>
+<ul>
+<li>Cocos Creator 2.3.4 （我这里用最新版2.4.6已经查看不到 Inspector）</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><ol>
+<li>新建一个项目，然后新建一个系统组件，这里新建一个<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/api/zh/classes/Toggle.html">cc.Toggle</a></li>
+</ol>
+<p><img src="/post/ee0a6913/image-20211018175619369.png" alt="image-20211018175619369"></p>
+<ol start="2">
+<li>选中我们的组件，然后选择Cocos Creator 的菜单 【开发者】—&gt; 【开发者工具】</li>
+</ol>
+<p><img src="/post/ee0a6913/image-20211018175737071.png" alt="image-20211018175737071"></p>
+<ol start="3">
+<li>然后查看【Sources】–&gt;【inspector】–&gt;【inspectors】–&gt;【comps】–【toggle.js】</li>
+</ol>
+<p><img src="/post/ee0a6913/image-20211018175940547.png" alt="image-20211018175940547"></p>
+<ol start="4">
+<li>然后选择代码 我们简单的格式化一下</li>
+</ol>
+<p><img src="/post/ee0a6913/image-20211018180047402.png" alt="image-20211018180047402"></p>
+<ol start="5">
+<li>格式化后变成这样 </li>
+</ol>
+<p><img src="/post/ee0a6913/image-20211018180113521.png" alt="image-20211018180113521"></p>
+<ol start="6">
+<li><p>保存文件到我们的自定义目录 ，这个目录是我们自定义插件的目录，自己先新建一个插件：custom-component，然后在目录下新建文件夹 inspectors/comps</p>
+</li>
+<li><p>然后把上面 第5步 的文件保存在这个目录下 名字修改为 checkbox</p>
+<p><img src="/post/ee0a6913/image-20211018180534743.png" alt="image-20211018180534743"></p>
+<p><img src="/post/ee0a6913/image-20211018181013523.png" alt="image-20211018181013523"></p>
+<h2 id="重新美化代码"><a href="#重新美化代码" class="headerlink" title="重新美化代码"></a>重新美化代码</h2><p>其实上面的代码已经可以继承，但是我们还是要格式化美化一下代码，这里为选择Webstorm，首先我新建了一个test.html</p>
+<p>然后，我把template 后面的字符串复制 然后粘贴一下，此时，编辑器帮着自动的美化了，重新拷贝回去即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&quot;cc-toggle&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">dependencies</span>: [<span class="string">&quot;packages://inspector/share/gray-material.js&quot;</span>],</span><br><span class="line">    <span class="attr">template</span>: <span class="string">`&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.target&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.target&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;div class=&quot;horizontal layout end-justified&quot; style=&quot;padding:5px 0;margin-bottom:5px;&quot;&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-button class=&quot;blue tiny&quot;</span></span><br><span class="line"><span class="string">             v-disabled=&quot;multi&quot;</span></span><br><span class="line"><span class="string">             @confirm=&quot;resetNodeSize&quot;</span></span><br><span class="line"><span class="string">             :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">  &gt;</span></span><br><span class="line"><span class="string">    Resize to Target</span></span><br><span class="line"><span class="string">  &lt;/ui-button&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.interactable&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.interactable&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.enableAutoGrayEffect&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.auto_gray_effect&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;cc-gray-section</span></span><br><span class="line"><span class="string">        v-if=&quot;target.enableAutoGrayEffect.value&quot;</span></span><br><span class="line"><span class="string">        :target.sync=&quot;target&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/cc-gray-section&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.transition&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.transition&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;div</span></span><br><span class="line"><span class="string">        v-if=&quot;!_updateValueMulti(target.transition, 1, multi)&quot;</span></span><br><span class="line"><span class="string">&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.normalColor&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.normal_color&#x27;)&#125;&#125;&quot;&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.pressedColor&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.pressed_color&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.hoverColor&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.hover_color&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.disabledColor&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.disabled_color&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.duration&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.duration&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;div</span></span><br><span class="line"><span class="string">        v-if=&quot;!_updateValueMulti(target.transition, 2, multi)&quot;</span></span><br><span class="line"><span class="string">&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.normalSprite&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.normal_sprite&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.pressedSprite&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.pressed_sprite&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.hoverSprite&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.hover_sprite&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.disabledSprite&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.disabled_sprite&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;div</span></span><br><span class="line"><span class="string">        v-if=&quot;!_updateValueMulti(target.transition, 3, multi)&quot;</span></span><br><span class="line"><span class="string">&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.duration&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.duration&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">  &lt;ui-prop indent=1</span></span><br><span class="line"><span class="string">           v-prop=&quot;target.zoomScale&quot;</span></span><br><span class="line"><span class="string">           :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">           tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.zoom_scale&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">  &gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.isChecked&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.isChecked&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.checkMark&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.checkMark&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string">&lt;ui-prop</span></span><br><span class="line"><span class="string">        v-prop=&quot;target.toggleGroup&quot;</span></span><br><span class="line"><span class="string">        tooltip=&quot;&#123;&#123;T(&#x27;COMPONENT.toggle.toggleGroup&#x27;)&#125;&#125;&quot;</span></span><br><span class="line"><span class="string">        :multi-values=&quot;multi&quot;</span></span><br><span class="line"><span class="string">&gt;&lt;/ui-prop&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;cc-array-prop :target.sync=&quot;target.checkEvents&quot;&gt;&lt;/cc-array-prop&gt;</span></span><br><span class="line"><span class="string">`</span>,</span><br><span class="line">    <span class="attr">props</span>: &#123;<span class="attr">target</span>: &#123;<span class="attr">twoWay</span>: !<span class="number">0</span>, <span class="attr">type</span>: <span class="title class_">Object</span>&#125;, <span class="attr">multi</span>: &#123;<span class="attr">type</span>: <span class="title class_">Boolean</span>&#125;&#125;,</span><br><span class="line">    <span class="attr">methods</span>: &#123;</span><br><span class="line">        <span class="attr">T</span>: <span class="title class_">Editor</span>.<span class="property">T</span>, <span class="title function_">resetNodeSize</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> t = &#123;<span class="attr">id</span>: <span class="variable language_">this</span>.<span class="property">target</span>.<span class="property">uuid</span>.<span class="property">value</span>, <span class="attr">path</span>: <span class="string">&quot;_resizeToTarget&quot;</span>, <span class="attr">type</span>: <span class="string">&quot;Boolean&quot;</span>, <span class="attr">isSubProp</span>: !<span class="number">1</span>, <span class="attr">value</span>: !<span class="number">0</span>&#125;;</span><br><span class="line">            <span class="title class_">Editor</span>.<span class="property">Ipc</span>.<span class="title function_">sendToPanel</span>(<span class="string">&quot;scene&quot;</span>, <span class="string">&quot;scene:set-property&quot;</span>, t)</span><br><span class="line">        &#125;, <span class="attr">_updateValueMulti</span>: <span class="function">(<span class="params">t, n, e</span>) =&gt;</span> e ? t.<span class="property">values</span>.<span class="title function_">some</span>(<span class="function"><span class="params">t</span> =&gt;</span> t !== n) : t.<span class="property">value</span> !== n</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h2><p>Checkbox.ts</p>
+</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">CheckboxContainer</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./CheckboxContainer&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2021/10/14.11:17 上午</span></span><br><span class="line"><span class="comment"> * Note:多选按钮 配合 CheckboxContainer 多选按钮组用</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, inspector, property, executeInEditMode, menu&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">EventType</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@event</span> <span class="variable">click</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &#123;<span class="type">Event.EventCustom</span>&#125; <span class="variable">event</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> &#123;<span class="type">Button</span>&#125; <span class="variable">button</span> - The Button component.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="variable constant_">CLICK</span> = <span class="string">&#x27;click&#x27;</span>,</span><br><span class="line">    <span class="variable constant_">TOGGLE</span> = <span class="string">&#x27;toggle&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="meta">@executeInEditMode</span></span><br><span class="line"><span class="meta">@menu</span>(<span class="string">&quot;组件库/Checkbox&quot;</span>)</span><br><span class="line"><span class="meta">@inspector</span>(<span class="string">&quot;packages://custom-component/inspectors/comps/checkbox.js&quot;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Checkbox</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Button</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="title class_">EventType</span> = <span class="title class_">EventType</span>;</span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="title class_">CheckboxContainer</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">toggleGroup</span>: <span class="title class_">CheckboxContainer</span> = <span class="literal">null</span>!;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * If Toggle is clicked, it will trigger event&#x27;s handler.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * Toggle 按钮的点击事件列表。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: [cc.<span class="property">Component</span>.<span class="property">EventHandler</span>],</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&#x27;i18n:toggle.check_events&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">checkEvents</span>: cc.<span class="property">Component</span>.<span class="property">EventHandler</span>[] = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">_resizeToTarget</span>(<span class="params">value: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (value) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">_resizeNodeToTargetNode</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">_toggleContainer</span>(): <span class="title class_">CheckboxContainer</span> | <span class="literal">null</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> parent = <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">parent</span>!;</span><br><span class="line">        <span class="keyword">if</span> (parent.<span class="property">isValid</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> parent.<span class="title function_">getComponent</span>(<span class="string">&#x27;CheckboxContainer&#x27;</span>) <span class="keyword">as</span> <span class="title class_">CheckboxContainer</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="keyword">protected</span> _isChecked = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * When this value is true, the check mark component will be enabled,</span></span><br><span class="line"><span class="comment">     * otherwise the check mark component will be disabled.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * 如果这个设置为 true，则 check mark 组件会处于 enabled 状态，否则处于 disabled 状态。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&#x27;i18n:toggle.isChecked&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">isChecked</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_isChecked</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">isChecked</span>(<span class="params">value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">_set</span>(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="attr">_checkMark</span>: cc.<span class="property">Sprite</span> | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * The image used for the checkmark.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * Toggle 处于选中状态时显示的图片。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: cc.<span class="property">Sprite</span>,</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&#x27;i18n:toggle.checkMark&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">checkMark</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_checkMark</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">checkMark</span>(<span class="params">value</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">_checkMark</span> === value) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_checkMark</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">playEffect</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">_checkMark</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_checkMark</span>.<span class="property">node</span>.<span class="property">active</span> = <span class="variable language_">this</span>.<span class="property">_isChecked</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * Set isChecked without invoking checkEvents.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * 设置 isChecked 而不调用 checkEvents 回调。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">value</span> - 是否被按下</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">setIsCheckedWithoutNotify</span>(<span class="params">value: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">_set</span>(value, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">onEnable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">onEnable</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">playEffect</span>();</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable constant_">CC_EDITOR</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="title class_">Checkbox</span>.<span class="property">EventType</span>.<span class="property">CLICK</span>, <span class="variable language_">this</span>.<span class="property">_internalToggle</span>, <span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">onDisable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">onDisable</span>();</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable constant_">CC_EDITOR</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">off</span>(<span class="title class_">Checkbox</span>.<span class="property">EventType</span>.<span class="property">CLICK</span>, <span class="variable language_">this</span>.<span class="property">_internalToggle</span>, <span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title class_">OnDestroy</span>() &#123;</span><br><span class="line">        <span class="keyword">const</span> group = <span class="variable language_">this</span>.<span class="property">_toggleContainer</span>;</span><br><span class="line">        <span class="keyword">if</span> (group) &#123;</span><br><span class="line">            group.<span class="title function_">ensureValidState</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">_resizeNodeToTargetNode</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">target</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> target = <span class="variable language_">this</span>.<span class="property">target</span> || <span class="variable language_">this</span>.<span class="property">node</span>;</span><br><span class="line">        <span class="keyword">const</span> contentSize = target.<span class="title function_">getContentSize</span>();</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable constant_">CC_EDITOR</span> &amp;&amp; contentSize) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">setContentSize</span>(contentSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">_internalToggle</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">isChecked</span> = !<span class="variable language_">this</span>.<span class="property">isChecked</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">_set</span>(<span class="params">value: <span class="built_in">boolean</span>, emitEvent = <span class="literal">true</span></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">_isChecked</span> == value) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_isChecked</span> = value;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> group = <span class="variable language_">this</span>.<span class="property">_toggleContainer</span>;</span><br><span class="line">        <span class="keyword">if</span> (group &amp;&amp; group.<span class="property">enabled</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">enabled</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> anyTogglesChecked = group.<span class="title function_">anyTogglesChecked</span>();</span><br><span class="line">            <span class="keyword">const</span> allowSwitchOff = group.<span class="property">allowSwitchOff</span>;</span><br><span class="line">            <span class="keyword">const</span> isCheckbox = group.<span class="property">isCheckbox</span>;</span><br><span class="line">            <span class="comment">// if (value || (!anyTogglesChecked &amp;&amp; !allowSwitchOff)) &#123;</span></span><br><span class="line">            <span class="keyword">if</span> (isCheckbox) &#123;</span><br><span class="line">                group.<span class="title function_">notifyToggleCheck</span>(<span class="variable language_">this</span>, emitEvent);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (value || (!anyTogglesChecked)) &#123;</span><br><span class="line">                    <span class="variable language_">this</span>.<span class="property">_isChecked</span> = <span class="literal">true</span>;</span><br><span class="line">                    group.<span class="title function_">notifyToggleCheck</span>(<span class="variable language_">this</span>, emitEvent);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">playEffect</span>();</span><br><span class="line">        <span class="keyword">if</span> (emitEvent) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">_emitToggleEvents</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">_emitToggleEvents</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">emit</span>(<span class="title class_">Checkbox</span>.<span class="property">EventType</span>.<span class="property">TOGGLE</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">checkEvents</span>) &#123;</span><br><span class="line">            cc.<span class="property">Component</span>.<span class="property">EventHandler</span>.<span class="title function_">emitEvents</span>(<span class="variable language_">this</span>.<span class="property">checkEvents</span>, <span class="variable language_">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>CheckboxContainer.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Checkbox</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./Checkbox&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2021/10/14.4:18 下午</span></span><br><span class="line"><span class="comment"> * Note:多选按钮组</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property, executeInEditMode, menu&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="meta">@executeInEditMode</span></span><br><span class="line"><span class="meta">@menu</span>(<span class="string">&quot;组件库/CheckboxContainer&quot;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CheckboxContainer</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * If Toggle is clicked, it will trigger event&#x27;s handler.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * Toggle 按钮的点击事件列表。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: [cc.<span class="property">Component</span>.<span class="property">EventHandler</span>],</span><br><span class="line">        <span class="attr">serializable</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&#x27;i18n:toggle_group.check_events&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">checkEvents</span>: cc.<span class="property">Component</span>.<span class="property">EventHandler</span>[] = [];</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="keyword">public</span> <span class="attr">_isCheckbox</span>: <span class="built_in">boolean</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&#x27;是否多选按钮组,否则单选&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">isCheckbox</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_isCheckbox</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">isCheckbox</span>(<span class="params">value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_isCheckbox</span> = value;</span><br><span class="line">        <span class="keyword">if</span> (value) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_allowSwitchOff</span> = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span></span><br><span class="line">    <span class="keyword">protected</span> _allowSwitchOff = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * If this setting is true, a toggle could be switched off and on when pressed.</span></span><br><span class="line"><span class="comment">     * If it is false, it will make sure there is always only one toggle could be switched on</span></span><br><span class="line"><span class="comment">     * and the already switched on toggle can&#x27;t be switched off.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * 如果这个设置为 true，那么 toggle 按钮在被点击的时候可以反复地被选中和未选中。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@property</span>(&#123;</span><br><span class="line">        <span class="attr">tooltip</span>: <span class="string">&#x27;i18n:toggle_group.allowSwitchOff&#x27;</span>,</span><br><span class="line">        <span class="attr">visible</span>: <span class="keyword">function</span> (<span class="params"><span class="variable language_">this</span>: CheckboxContainer</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> !<span class="variable language_">this</span>.<span class="property">isCheckbox</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">allowSwitchOff</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_allowSwitchOff</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> <span class="title function_">allowSwitchOff</span>(<span class="params">value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_allowSwitchOff</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * Read only property, return the toggle items array reference managed by ToggleContainer.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * 只读属性，返回 toggleContainer 管理的 toggle 数组引用。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">get</span> <span class="title function_">toggleItems</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">node</span>.<span class="property">children</span>.<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> toggle = item.<span class="title function_">getComponent</span>(<span class="string">&#x27;Checkbox&#x27;</span>) <span class="keyword">as</span> <span class="title class_">Checkbox</span>;</span><br><span class="line">            <span class="keyword">if</span> (toggle &amp;&amp; toggle.<span class="property">enabled</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> toggle;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;).<span class="title function_">filter</span>(<span class="title class_">Boolean</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">onEnable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">ensureValidState</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">CHILD_ADDED</span>, <span class="variable language_">this</span>.<span class="property">ensureValidState</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">on</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">CHILD_REMOVED</span>, <span class="variable language_">this</span>.<span class="property">ensureValidState</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">onDisable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">off</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">CHILD_ADDED</span>, <span class="variable language_">this</span>.<span class="property">ensureValidState</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">off</span>(cc.<span class="property">Node</span>.<span class="property">EventType</span>.<span class="property">CHILD_REMOVED</span>, <span class="variable language_">this</span>.<span class="property">ensureValidState</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">activeToggles</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">toggleItems</span>.<span class="title function_">filter</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> x!.<span class="property">isChecked</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">anyTogglesChecked</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> !!<span class="variable language_">this</span>.<span class="property">toggleItems</span>.<span class="title function_">find</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> x!.<span class="property">isChecked</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@en</span></span></span><br><span class="line"><span class="comment">     * Refresh the state of the managed toggles.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@zh</span></span></span><br><span class="line"><span class="comment">     * 刷新管理的 toggle 状态。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">toggle</span> - 需要被更新的 toggle。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">emitEvent</span> - 是否需要触发事件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">notifyToggleCheck</span>(<span class="params">toggle: Checkbox, emitEvent = <span class="literal">true</span></span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">enabledInHierarchy</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">isCheckbox</span>) &#123;</span><br><span class="line">            <span class="comment">// for (let i = 0; i &lt; this.toggleItems.length; i++) &#123;</span></span><br><span class="line">            <span class="comment">//     const item = this.toggleItems[i]!;</span></span><br><span class="line">            <span class="comment">//     if (item === toggle) &#123;</span></span><br><span class="line">            <span class="comment">//         continue;</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">//     item.setIsCheckedWithoutNotify(false);</span></span><br><span class="line">            <span class="comment">// &#125;</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="variable language_">this</span>.<span class="property">toggleItems</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">const</span> item = <span class="variable language_">this</span>.<span class="property">toggleItems</span>[i]!;</span><br><span class="line">                <span class="keyword">if</span> (item === toggle) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (emitEvent) &#123;</span><br><span class="line">                    item.<span class="property">isChecked</span> = <span class="literal">false</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    item.<span class="title function_">setIsCheckedWithoutNotify</span>(<span class="literal">false</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (emitEvent&amp;&amp;<span class="variable language_">this</span>.<span class="property">checkEvents</span>) &#123;</span><br><span class="line">            cc.<span class="property">Component</span>.<span class="property">EventHandler</span>.<span class="title function_">emitEvents</span>(<span class="variable language_">this</span>.<span class="property">checkEvents</span>, toggle);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ensureValidState</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> toggles = <span class="variable language_">this</span>.<span class="property">toggleItems</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">allowSwitchOff</span> &amp;&amp; !<span class="variable language_">this</span>.<span class="title function_">anyTogglesChecked</span>() &amp;&amp; toggles.<span class="property">length</span> !== <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> toggle = toggles[<span class="number">0</span>]!;</span><br><span class="line">            toggle.<span class="property">isChecked</span> = <span class="literal">true</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">notifyToggleCheck</span>(toggle);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> activeToggles = <span class="variable language_">this</span>.<span class="title function_">activeToggles</span>();</span><br><span class="line">        <span class="keyword">if</span> (activeToggles.<span class="property">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> firstToggle = activeToggles[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; activeToggles.<span class="property">length</span>; ++i) &#123;</span><br><span class="line">                <span class="keyword">const</span> toggle = activeToggles[i];</span><br><span class="line">                <span class="keyword">if</span> (toggle === firstToggle) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">isCheckbox</span>) &#123;</span><br><span class="line">                    toggle!.<span class="title function_">setIsCheckedWithoutNotify</span>(<span class="literal">false</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    toggle!.<span class="property">isChecked</span> = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们拖动一个单选按钮组，测试一下：</p>
+<p><img src="/post/ee0a6913/image-20211105155053132.png" alt="image-20211105155053132"></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="title function_">checkBoxHandler</span>(<span class="params">checkbox:Checkbox</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----name:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(checkbox.<span class="property">name</span>));</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;smile----isChecked:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(checkbox.<span class="property">isChecked</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/ee0a6913/image-20211019120249172.png" alt="image-20211019120249172"></p>
+<p><img src="/post/ee0a6913/1000.gif" alt="1000"></p>
+<p>输出结果：</p>
+<p><img src="/post/ee0a6913/image-20211019125454781.png" alt="image-20211019125454781"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来说这个实现不难，拿Cocos Creator 3.3.2的源码直接修改的，重要的是学习了一下，如何拓展内置组件的做法。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cocos-creator-inspector/91178">Cocos Creator 扩展内置组件(含 inspector 扩展)新手教程</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/7ab13ee0.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>谈谈工作的设计与实践</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/d8bb8fd2.html">
+        <span>Xcode13编译提示错误The Legacy Build System will be removed in a future release</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/ee0a6913.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">创建项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E7%BE%8E%E5%8C%96%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">重新美化代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">编写代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

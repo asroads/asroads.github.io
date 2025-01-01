@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator 小游戏首屏加速显示 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/c50519e6.html">Cocos Creator 小游戏首屏加速显示</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-02-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator 小游戏首屏加速显示&url=http://blog.asroads.com/post/c50519e6.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator 小游戏首屏加速显示&url=http://blog.asroads.com/post/c50519e6.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/c50519e6.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/c50519e6.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/c50519e6.html&title=Cocos Creator 小游戏首屏加速显示" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator 小游戏首屏加速显示&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/c50519e6.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/c50519e6.html&text=Cocos Creator 小游戏首屏加速显示" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>众所周知，小游戏平台对加载时常和性能的要求是很高的，但是对于<code>Cocos Creator</code>这样的多个平台功能很全的引擎来讲做一些小游戏的时候显得很重，于是论坛里面有了各种技巧和方法，这里介绍一种首屏快速显示的方法。</p>
+<span id="more"></span>
+<p>最新版本的Cocos Creator已经可以支持首屏单独处理，不过还是携带了官方的引擎文件，尽管我们知道引擎可以裁切，但裁切后的文件基本还是有<code>1MB</code>左右，对于小游戏这样的体量来讲还是大了不少，于是论坛里有人提出各种思路，众人拾柴火焰高，于是有人利用<code>JavaScript</code>代码写了一套首屏渲染的代码，可以脱离引擎，理论上其他引擎比如<code>Layabox</code>同样适用。下面我从介绍小游戏开始到如何操作详细的记录一下，有小游戏基础的，可以直接跳过看方法，本篇教程适用于<code>Cocos Creator 2.x</code> </p>
+<h2 id="微信小游戏"><a href="#微信小游戏" class="headerlink" title="微信小游戏"></a>微信小游戏</h2><p><strong>微信小游戏</strong>是一种基于微信平台开发，不需要下载安装即可使用的全新游戏应用，体现了“用完即走”的理念，充分节省用户的手机空间。小游戏无论是开发以及使用都相当轻便快捷，同时基于微信的社交属性让小游戏具备较强的社交传播力，用户可以和朋友一起享受游戏的乐趣。期待您的加入一起构建小游戏的生态。</p>
+<p>微信小游戏是小程序的一个类目。用户完成小程序注册后，可选择“游戏”类目并开始开发、调试小游戏。</p>
+<p>启动可以分为两种情况，一种是<strong>冷启动</strong>，一种是<strong>热启动</strong>。</p>
+<ul>
+<li>冷启动：如果用户首次打开，或小程序销毁后被用户再次打开，此时小程序需要重新加载启动，即冷启动。</li>
+<li>热启动：如果用户已经打开过某小程序，然后在一定时间内再次打开该小程序，此时小程序并未被销毁，只是从后台状态进入前台状态，这个过程就是热启动。</li>
+</ul>
+<h3 id="创收方式"><a href="#创收方式" class="headerlink" title="创收方式"></a>创收方式</h3><ul>
+<li>虚拟支付 道具付费充值，目前需要资质比较多，游戏需要版号等</li>
+<li>广告收入，比如 Banner 插屏广告，原生广告，激励视频广告等 比较适合小团队 </li>
+</ul>
+<h3 id="代码审核与发布"><a href="#代码审核与发布" class="headerlink" title="代码审核与发布"></a>代码审核与发布</h3><h4 id="包体审核"><a href="#包体审核" class="headerlink" title="包体审核"></a>包体审核</h4><p>登录微信公众平台小程序，进入开发管理，开发版本中展示已上传的代码，管理员可提交审核或是删除代码。</p>
+<h4 id="资质审核"><a href="#资质审核" class="headerlink" title="资质审核"></a>资质审核</h4><p>提交资质文档。</p>
+<p>非文化互动二级类目需提交：《计算机软件著作权登记证书》《游戏自审自查报告》</p>
+<p> 文化互动二级类目需提交：《商标注册证》《游戏自审自查报告》</p>
+<p> 牌类三级类目需额外提交：《广电总局版号批文》 </p>
+<p>开通虚拟支付游戏均需提交：《广电总局版号批文》</p>
+<p>请根据小游戏软著授权、小游戏品牌合作等素材露出、使用他人的商标或 IP 等场景，选填上传相关授权书及授权人的权利证明。</p>
+<h3 id="背后技术相关"><a href="#背后技术相关" class="headerlink" title="背后技术相关"></a>背后技术相关</h3><p>微信小游戏运行在多种平台上：<code>iOS</code>（<code>iPhone/iPad</code>）微信客户端、<code>Android</code> 微信客户端、PC 微信客户端、Mac 微信客户端和用于调试的微信开发者工具。</p>
+<p>各平台脚本执行环境是各不相同的：</p>
+<ul>
+<li>在 <code>iOS</code> 上，小程序逻辑层的 <code>javascript</code> 代码运行在 <code>JavaScriptCore</code> 中；</li>
+<li>在 Android 上，小程序逻辑层的 <code>javascript</code> 代码运行在 <a target="_blank" rel="noopener" href="https://developers.google.com/v8/">V8</a> 中；</li>
+<li>在 开发工具上，小程序逻辑层的 <code>javascript</code> 代码是运行在 <a target="_blank" rel="noopener" href="https://nwjs.io/">NW.js</a> 中。</li>
+</ul>
+<h4 id="引擎-amp-绑定"><a href="#引擎-amp-绑定" class="headerlink" title="引擎&amp;绑定"></a>引擎&amp;绑定</h4><ol>
+<li><p>微信客户端使用的 <code>V8</code>和<code>JavaScriptCore</code> 引擎， 小游戏对开发者暴露的是 <code>JS</code> 的接口，开发者调用某些 <code>JS</code> 函数时，最终会调用到客户端底层的原生能力。而从 <code>JS</code> 到客户端底层之间的桥接能力，就是所谓的 <code>JS</code> 绑定。</p>
+</li>
+<li><p><code>JS</code> 绑定又分为两种：裸绑定和非裸绑定。裸绑定是通过 <code>V8</code>/<code>JavaScriptCore</code> 提供的原生接口，将某个 <code>JS</code> 函数和原生函数实现绑定到一起，这是最直接，也是最高效的绑定方式。</p>
+</li>
+<li><p>非裸绑定是指通过某个 <code>JS</code> 和原生的通信的桥梁（<code>evaluate</code>/<code>prompt</code>/<code>postMessage</code> 等等），在此基础上再封装和转发具体的函数调用。由于存在中间一层的转发处理，会有额外的消耗。</p>
+</li>
+<li><p>实现了自己的绑定库: <code>jsbinding</code>，公司内是开源的，未来计划对外也开源，特点：</p>
+<ol>
+<li>简单易用，支持类绑定</li>
+<li>裸绑定，性能高</li>
+<li>同时支持 <code>V8</code> 和 <code>JavaScriptCore</code></li>
+<li>支持 <a target="_blank" rel="noopener" href="https://nodeaddons.com/">node addon</a> 绑定实现</li>
+<li>未来甚至计划提供 <a target="_blank" rel="noopener" href="https://webassembly.org/">WebAssembly</a> 的绑定实现，<code>JsApi</code> 的调用链路：</li>
+</ol>
+</li>
+</ol>
+<p><img src="/post/c50519e6/image-20230207082606255.png" alt="image-20230207082606255"></p>
+<h3 id="小游戏配置"><a href="#小游戏配置" class="headerlink" title="小游戏配置"></a>小游戏配置</h3><p>小游戏根目录下的 <code>game.json</code> 文件用来对小游戏进行配置。文件内容为一个 JSON 对象</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;deviceOrientation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;portrait&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;networkTimeout&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="number">5000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;connectSocket&quot;</span><span class="punctuation">:</span> <span class="number">5000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;uploadFile&quot;</span><span class="punctuation">:</span> <span class="number">5000</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;downloadFile&quot;</span><span class="punctuation">:</span> <span class="number">5000</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;navigateToMiniProgramAppIdList&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;wxe5f52902cf4de896&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cocos&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;provider&quot;</span><span class="punctuation">:</span> <span class="string">&quot;wx7095f7fa398a2f30&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.3.3&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cocos&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;subpackages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;engine&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;root&quot;</span><span class="punctuation">:</span> <span class="string">&quot;engine/&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="入口文件"><a href="#入口文件" class="headerlink" title="入口文件"></a>入口文件</h3><p><code>minigame/game.js</code> - 开发者定义的小游戏入口文件。</p>
+<h3 id="全局对象"><a href="#全局对象" class="headerlink" title="全局对象"></a>全局对象</h3><p><code>wx</code> 是 小游戏 <code>API</code> 全局对象（类型<code>Object</code> ），用于承载小游戏能力相关 API。具体请参考<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/">小游戏 API 参考文档</a>。</p>
+<h3 id="环境差异"><a href="#环境差异" class="headerlink" title="环境差异"></a>环境差异</h3><p>尽管各运行环境是十分相似的，但是还是有些许区别：</p>
+<ul>
+<li><code>JavaScript</code> 语法和 <code>API</code> 支持不一致：语法上开发者可以通过开启 <code>ES6</code> 转 <code>ES5</code> 的功能来规避（<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/devtools/codecompile.html#es6-%E8%BD%AC-es5">详情</a>）；此外，小游戏基础库内置了必要的<code>Polyfill</code>，来弥补 <code>API</code> 的差异（<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/runtime/js-support.html">详情</a>)。</li>
+</ul>
+<h3 id="运行限制"><a href="#运行限制" class="headerlink" title="运行限制"></a>运行限制</h3><p>基于安全考虑，小程序中不支持动态执行 <code>JS</code> 代码，即：</p>
+<ul>
+<li>不支持使用 <code>eval</code> 执行 <code>JS</code> 代码</li>
+<li>不支持使用 <code>new Function</code> 创建函数</li>
+</ul>
+<h3 id="分包加载"><a href="#分包加载" class="headerlink" title="分包加载"></a>分包加载</h3><ul>
+<li>整个小游戏所有分包大小不超过 <code>20M</code></li>
+<li>单个分包不限制大小，主包不超过 <code>4M</code></li>
+</ul>
+<h2 id="运行性能"><a href="#运行性能" class="headerlink" title="运行性能"></a>运行性能</h2><h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><blockquote>
+<p><strong>总启动耗时</strong>：从玩家点击小游戏到首屏渲染的总加载耗时。</p>
+<p><strong>总启动耗时（冷启动）</strong>：从玩家点击小游戏到首屏渲染的总加载（需要下载号码包的情况）耗时。</p>
+<p><strong>启动代码包加载耗时</strong>：小游戏启动阶段，启动代码包加载的耗时。</p>
+<p><strong>首屏渲染耗时</strong>：小游戏启动阶段，首屏渲染的耗时。</p>
+<p><strong>代码包加载留存率（总）</strong>：从玩家点击小游戏到代码包加载完成的留存率。</p>
+<p><strong>代码包加载留存率（冷启动）</strong>：从玩家点击小游戏到代码包加载（需要下载号码包的情况）完成的留存率。</p>
+<p><strong>首屏打开留存率</strong>：从玩家点击小游戏到首屏渲染界面的留存率。</p>
+<p><strong>性能 - 流失用户</strong>：代码包加载阶段离开的用户。</p>
+<p><strong>FPS均值</strong>：每秒采集的帧率数据平均值。</p>
+<p><strong>FPS方差</strong>：每秒采集的帧率数据方差。</p>
+<p><strong>CPU均值</strong>：CPU占用率均值。</p>
+<p><strong>内存均值</strong>：内存占用绝对值均值。</p>
+<p><strong>内存增长</strong>：内存占用相对于小游戏启动时刻增长的内存。</p>
+<p><strong>平均网络延迟</strong>：请求业务服务器数据是耗时平均值。</p>
+<p><strong>平均包长</strong>：请求业务服务器数据返回包大小平均值。</p>
+<p><strong>错误量</strong>：请求业务服务器数据错误量。</p>
+<p><strong>内存异常退出次数</strong>：小游戏运行过程中，由于内存占用过大而导致系统 KILL 掉异常退出的次数。</p>
+<p><strong>内存异常退出人数</strong>：小游戏运行过程中，由于内存占用过大而导致系统 KILL 掉异常退出的人数。</p>
+<p><strong>网络总请求数</strong>：统计不同接口（request,<code>downloadFile</code>）成功、失败量，此指标按5%采样率对全网所有真实数据进行采集。</p>
+<p><strong>网络请求错误数</strong>：请求错误次数，HTTP Status Code : [400,599]。</p>
+<p><strong>网络请求错误率</strong>：请求错误次数与总请求次数的比值，即网络请求错误数/网络总请求数，统计PV&gt;100并根据此指标排序。</p>
+<p><strong>网络请求耗时</strong>：网络接口（request,<code>downloadFile</code>）的请求耗时，是否成功（根据HTTP status code）、不同网络条件下的数据统计。</p>
+<p><strong>网络请求数据长度</strong>：网络接口（request,<code>downloadFile</code>）的数据回包大小，是否成功（根据HTTP status code）、不同网络条件下的数据统计。</p>
+<p><strong>网络接口延迟</strong>：网络接口（request,<code>downloadFile</code>）请求耗时均值，统计PV&gt;100并根据此指标排序。</p>
+</blockquote>
+<h3 id="开发者需要关注哪些性能指标"><a href="#开发者需要关注哪些性能指标" class="headerlink" title="开发者需要关注哪些性能指标"></a>开发者需要关注哪些性能指标</h3><p>主要由启动和运行两个阶段产生性能问题。</p>
+<ul>
+<li>启动阶段：启动时长，该数据将显著影响用户打开留存率</li>
+<li>运行阶段：内存峰值、Crash率、CPU占用、流畅度、网络等</li>
+<li>其他兼容性问题，包括 <code>JS</code> 异常、黑屏等严重问题</li>
+</ul>
+<p><img src="/post/c50519e6/perf-mesure-summary.67211faf.png" alt="img"></p>
+<h3 id="环境评测"><a href="#环境评测" class="headerlink" title="环境评测"></a>环境评测</h3><p>开发与现网两个环境进行评测。</p>
+<p>开发阶段：</p>
+<ul>
+<li>评测过程的客观环境更为稳定（比如固定的机型基线，网络环境等）</li>
+<li>Profile数据更为详细，方便掌握性能细节</li>
+</ul>
+<p>现网阶段：</p>
+<ul>
+<li>基于统计角度进行评测，从整体采样数据取反映游戏质量</li>
+<li>覆盖开发测试阶段无法预估的业务场景，比如网络异常、特定条件下的 <code>JS</code> 异常等</li>
+</ul>
+<p><img src="/post/c50519e6/perf-mesure-steps.3472cfdb.png" alt="img"></p>
+<p>评测的方法，开发者可以利用<a target="_blank" rel="noopener" href="https://perfdog.qq.com/">PerfDog</a> 或<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/performance/perf-tools-cloudtest.html">小游戏云测试</a>进行数据获取</p>
+<h4 id="性能基线"><a href="#性能基线" class="headerlink" title="性能基线"></a>性能基线</h4><p><img src="/post/c50519e6/image-20220701114832749.png" alt="image-20220701114832749"></p>
+<h2 id="Cocos-开发小游戏"><a href="#Cocos-开发小游戏" class="headerlink" title="Cocos 开发小游戏"></a>Cocos 开发小游戏</h2><p><img src="/post/c50519e6/image-20220701115919228.png" alt="image-20220701115919228"></p>
+<h3 id="性能运行状况"><a href="#性能运行状况" class="headerlink" title="性能运行状况"></a>性能运行状况</h3><p>游戏性能出现问题，可以总结为就是比较卡，不流畅。</p>
+<p>Cocos Creator 预览运行时左下角show fps 中的指标可以直观的表现游戏的运行状况。</p>
+<p>Cocos Creator 2.x版本</p>
+<p><img src="/post/c50519e6/image-20220629111224704.png" alt="image-20220629111224704"></p>
+<p>性能指标解释</p>
+<p>Frame time（ms）： 就是 一帧所用的时间，  是  Game  Logic（ms） + Renderer（ms）的时间综合。</p>
+<p>FPS：  (帧/秒) 每秒传输帧数 ，帧率越低越卡。</p>
+<p>Draw Call：CPU给 GPU 发的一个渲染指令，Draw Call越多，性能越差。<strong>特别解释</strong>：DrawCall 中文译为“绘制调用”或“绘图指令”。Draw Call 是一种行为（指令），即 CPU 调用图形 API，命令 GPU 进行图形绘制，一般可以简称为“DC”。</p>
+<p>game logic ：游戏每帧逻辑时间 ,时间越短越好</p>
+<p> renderer  ：渲染时间 ,时间越短越好</p>
+<p>WebGL：暂未查阅到相关解释</p>
+<p>Cocos Creator 3.x 版本</p>
+<p><img src="/post/c50519e6/image-20220629112342149.png" alt="image-20220629112342149"></p>
+<p>Framerate(FPS): 帧率是以帧称为单位的位图图像连续出现在显示器上的频率，物质在1s内完成周期性变化的次数叫做频率，常用f表示 f=1/T；</p>
+<p>Draw Call：是一种行为（指令），即 CPU 调用图形 API，命令 GPU 进行图形绘制，可以了理解为渲染调用次数；详细可以参考 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c0f4598cbb20">查看</a></p>
+<p>Frame time（ms）：每帧的时间；如果你游戏帧率是60fps,，则每帧时间为1/60=0.01666，就是16ms;</p>
+<p>Instance Count: 实例数量</p>
+<p>Triangle: 三角面数量，在2D游戏开发中，纹理贴图都是矩形存在的，一个矩形由两个三角形组成，所以一张纹理贴图占用两个三角面数量</p>
+<p>Game Logic(ms): 游戏逻辑耗时</p>
+<p>Physics(ms): 物理引擎耗时</p>
+<p>Randerer(ms): 渲染耗时</p>
+<p>GFX Texture Men(M): 纹理缓存</p>
+<p>GFX Buffer Men(M): GFX 缓存<br>参考链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7ae9045043ef">https://www.jianshu.com/p/7ae9045043ef</a></p>
+<h2 id="首屏优化"><a href="#首屏优化" class="headerlink" title="首屏优化"></a>首屏优化</h2><h3 id="启动优化最佳实践"><a href="#启动优化最佳实践" class="headerlink" title="启动优化最佳实践"></a>启动优化最佳实践</h3><p>优化小游戏的启动性能， 很明显需要降低启动时序中的各个步骤耗时。</p>
+<p><img src="/post/c50519e6/perf-action-start-optimization.7c318061.png" alt="img"></p>
+<p>更多细节参考：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/performance/perf-action-start2.html">如何提升启动速度</a></p>
+<h3 id="首屏资源"><a href="#首屏资源" class="headerlink" title="首屏资源"></a>首屏资源</h3><p>核心思想：<strong>简化首屏首个包</strong></p>
+<p><img src="/post/c50519e6/image-20230207082925574.png" alt="image-20230207082925574"></p>
+<h4 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h4><p>微信小游戏的启动性能优化之首屏渲染</p>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/minigame/article/doc/000c86f5ee81b8c05b2bc9cc650013">https://developers.weixin.qq.com/community/minigame/article/doc/000c86f5ee81b8c05b2bc9cc650013</a></p>
+<p>开放数据域UI绘制解决方案发布 —— 轻量级的Canvas渲染引擎<br><a target="_blank" rel="noopener" href="https://github.com/wechat-miniprogram/minigame-canvas-engine/blob/master/demos/cocoscreator">https://github.com/wechat-miniprogram/minigame-canvas-engine/blob/master/demos/cocoscreator</a></p>
+<p>注意：插件添加后不能移除</p>
+<p><img src="/post/c50519e6/image-20220629110805164.png" alt="image-20220629110805164"></p>
+<p><img src="/post/c50519e6/image-20220629134747369.png" alt="image-20220629134747369"></p>
+<h4 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h4><p>使用最新的<code>Cocos Creator</code> 比如 <code>3.5.2</code> 构建小游戏 选择替换插屏 然后修改相关代码</p>
+<p><strong>注意</strong>：本次优化先探索了【方案一】方案，成功后，发现了【方案二】方案，最后使用简化版的【方案二】方案</p>
+<p>【方案二】的论坛讨论地址  <a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/115923/18">求助 cocoscreator3.x实现的微信小游戏启动时间过长</a></p>
+<p>后面 官方自己再 <code>Cocos Creator 3.x</code> 做了优化，于是我就借用<code>Cocos Creator 3.x</code> 让<code>Cocos Creator 2.x</code>版本还魂。最后实现了此功能</p>
+<p>其他相关技术：</p>
+<p><img src="/post/c50519e6/image-20220628205508014.png" alt="image-20220628205508014"></p>
+<p>涉及的技术 <code>webgl</code> 相关的渲染库 <a target="_blank" rel="noopener" href="https://pixijs.com/">https://pixijs.com/</a>  关于 <code>pixijs</code> 更多了解 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6885743821825507342">如何用pixi.js开发微信小游戏</a>【掘金】</p>
+<h3 id="游戏分包"><a href="#游戏分包" class="headerlink" title="游戏分包"></a>游戏分包</h3><ul>
+<li>分包大小的限制,<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/base-ability/subPackage/useSubPackage.html">使用代码分包</a>，目前小游戏分包大小有以下限制：<ul>
+<li>整个小游戏所有分包大小不超过 <code>20M</code></li>
+<li>单个分包不限制大小，主包不超过 <code>4M</code></li>
+<li><strong>Adapter 下载地址</strong> <a target="_blank" rel="noopener" href="https://res.wx.qq.com/wxdoc/dist/assets/media/weapp-adapter.9568fddf.zip">weapp-adapter.zip</a>  <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/best-practice/adapter.html">Adapter文档</a></li>
+</ul>
+</li>
+</ul>
+<p>使用方法 <code>game.json</code> 配置正常如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;subpackages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;engine&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;root&quot;</span><span class="punctuation">:</span> <span class="string">&quot;subpackages/engine/&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h3><h4 id="引擎模块裁切"><a href="#引擎模块裁切" class="headerlink" title="引擎模块裁切"></a>引擎模块裁切</h4><p>核心思想：去除不必要(项目内未使用)的引擎模块，比如<code>3d</code>相关、<code>Physics</code>和<code>TiledMap</code>等模块。</p>
+<p>引擎模块功能介绍 <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d18e2ffb7c56">点击前往</a></p>
+<p>去掉不必要的模块后引擎文件减小，全部模块打包后接近<code>2MB</code>，裁切后降低到<code>1.1MB</code>，对于小游戏来讲是个不错的办法，原生平台不考虑包体情况可以忽略。</p>
+<h4 id="首屏资源拆解（非必须）"><a href="#首屏资源拆解（非必须）" class="headerlink" title="首屏资源拆解（非必须）"></a>首屏资源拆解（非必须）</h4><p>适用于没有首屏的老项目，目前最新版已经可以勾选</p>
+<h4 id="资源拆解"><a href="#资源拆解" class="headerlink" title="资源拆解"></a>资源拆解</h4><p>工具 ：首屏拆解插件：论坛地址：<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/88071">https://forum.cocos.org/t/topic/88071</a></p>
+<p>插件地址：<a target="_blank" rel="noopener" href="https://github.com/dylan465/plugin_internal_res_packer">https://github.com/dylan465/plugin_internal_res_packer</a></p>
+<p>关键代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打包启动场景资源</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法1：读路径 </span></span><br><span class="line"><span class="comment">// queryAssets(&#x27;db://assets/Scene/LaunchScene.fire&#x27;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法2：读配置</span></span><br><span class="line"><span class="keyword">var</span> startSceneUuid = options.<span class="property">startScene</span>;</span><br><span class="line"><span class="title function_">copyAssets</span>([startSceneUuid]);</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：</p>
+<ol>
+<li><p>把该插件文件夹拷贝到{项目根目录}<code>/packages</code>下，重启<code>Cocos Creator</code>生效。如果想全局所有项目使用该插件，把插件文件夹拷贝到 <code>&#123;用户名&#125;/.CocosCreator/packages</code>下。</p>
+</li>
+<li><p>构建微信小游戏项目，勾选<code>MD5 cache</code>，取消勾选调试模式（正式打包才启用该插件功能）</p>
+</li>
+<li><p>构建完成后，会多出一个<code>res_internal</code>文件夹，这个文件夹就是内置的资源。把原本<code>res</code>文件夹资源上传到服务器后，移除<code>res</code>文件夹，最后把<code>res_internal</code>重命名为<code>res</code>。</p>
+</li>
+</ol>
+<p><img src="/post/c50519e6/image-20230207084046046.png" alt="image-20230207084046046"></p>
+<h3 id="代码压缩"><a href="#代码压缩" class="headerlink" title="代码压缩"></a>代码压缩</h3><h4 id="HDS-在线JS混淆加密器V3-可以下载离线版本"><a href="#HDS-在线JS混淆加密器V3-可以下载离线版本" class="headerlink" title="HDS 在线JS混淆加密器V3 可以下载离线版本"></a>HDS 在线JS混淆加密器V3 可以下载离线版本</h4><p>相关网站：<a target="_blank" rel="noopener" href="http://www.moralsoft.com/hdojso.html">http://www.moralsoft.com/hdojso.html</a></p>
+<p><img src="/post/c50519e6/image-20220628205741410.png" alt="image-20220628205741410"></p>
+<h4 id="JavaScript-Obfuscator-Tool"><a href="#JavaScript-Obfuscator-Tool" class="headerlink" title="JavaScript Obfuscator Tool"></a>JavaScript Obfuscator Tool</h4><p>相关网站：<a target="_blank" rel="noopener" href="https://obfuscator.io/">https://obfuscator.io/</a></p>
+<p><img src="/post/c50519e6/image-20220628205853639.png" alt="image-20220628205853639"></p>
+<p>更多了解：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904153592889357">Javascript的压缩与混淆</a>【掘金】</p>
+<h4 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a>代码格式化</h4><p><a target="_blank" rel="noopener" href="http://jsnice.org/">http://jsnice.org/</a></p>
+<p><img src="/post/c50519e6/image-20220628210149589.png" alt="image-20220628210149589"></p>
+<h3 id="资源压缩"><a href="#资源压缩" class="headerlink" title="资源压缩"></a>资源压缩</h3><p>工具：<strong>tinypng</strong>：<a target="_blank" rel="noopener" href="https://tinypng.com/">https://tinypng.com/</a></p>
+<p><img src="/post/c50519e6/image-20230207084236247.png" alt="image-20230207084236247"></p>
+<p>工具：改图鸭:<a target="_blank" rel="noopener" href="https://www.gaituya.com/yasuo/">https://www.gaituya.com/yasuo/</a></p>
+<p><img src="/post/c50519e6/image-20230207084330213.png" alt="image-20230207084330213"></p>
+<p>命令行工具：pngquant:<a target="_blank" rel="noopener" href="https://pngquant.org/">https://pngquant.org</a></p>
+<p><img src="/post/c50519e6/image-20230207084743092.png" alt="image-20230207084743092"></p>
+<p>批处理工具 相关技术 <a target="_blank" rel="noopener" href="https://github.com/RmondJone/PicPngquant">https://github.com/RmondJone/PicPngquant</a></p>
+<p><img src="/post/c50519e6/image-20230207084832527.png" alt="image-20230207084832527"></p>
+<p>字体瘦身</p>
+<p>软件 <a target="_blank" rel="noopener" href="http://ecomfe.github.io/fontmin/#banner">Fontmin</a></p>
+<p><img src="/post/c50519e6/image-20230207084910946.png" alt="image-20230207084910946"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/coderhsw/fontmin-client">fontmin-client</a> 基于<code>Fontmin</code>实现的字体压缩工具</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DavidSheh/CommonChineseCharacter">添加游戏开发常用字体</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DavidSheh/CommonChineseCharacter/blob/master/3500%E5%B8%B8%E7%94%A8%E5%AD%97.txt">3500常用字.txt</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DavidSheh/CommonChineseCharacter/blob/master/7000%E5%B8%B8%E7%94%A8%E5%AD%97.txt">7000常用字.txt</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/DavidSheh/CommonChineseCharacter/blob/master/7000%E5%B8%B8%E7%94%A8%E5%AD%97%E4%BC%98%E5%8C%96%E7%89%88.txt">7000常用字优化版.txt</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.esjson.com/delSpace.html">文本去除空格在线工具</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/elephantnose/characters">3500个常用汉字以及5000+ 生僻字集合</a></p>
+<h3 id="位图字体"><a href="#位图字体" class="headerlink" title="位图字体"></a>位图字体</h3><p>在线地址： <a target="_blank" rel="noopener" href="https://snowb.org/">https://snowb.org/</a></p>
+<p><img src="/post/c50519e6/image-20230207085735139.png" alt="image-20230207085735139"></p>
+<h2 id="首屏优化插件"><a href="#首屏优化插件" class="headerlink" title="首屏优化插件"></a>首屏优化插件</h2><p><strong>小游戏启动优化</strong>  <a target="_blank" rel="noopener" href="https://store.cocos.com/app/detail/4442">点击前往</a></p>
+<p><img src="/post/c50519e6/image-20230207085907205.png" alt="image-20230207085907205"></p>
+<blockquote>
+<p>作用</p>
+<p>首屏启动优化</p>
+<p>使用方式</p>
+<p>将首屏图片命名为<code>first.jpg</code>放入<code>settings</code>根目录,在Cocos中构建即可</p>
+<p>支持平台</p>
+<p>理论上微信、抖音、快手小游戏都支持，目前只测试微信</p>
+<p>支持版本</p>
+<p>2.4.10上测试，理论支持2.4.x，不支持其他版本</p>
+<p>售后</p>
+<p>代码开源，不负责任何售后，构建中出错，请卸载该插件，插件没有开关选项，推荐将插件安装在项目。</p>
+<p>原理</p>
+<p><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cocos-creator-50/94999">Cocos Creator 微信小游戏平台启动与包体优化（首屏渲染耗时降低 50%）</a> 该文作者非本人（这里是插件作者）~</p>
+</blockquote>
+<p>本人（这个是我本文作者）这里做了拓展功能 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/fastFirstScreen">点击前往</a>  建议使用 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/fastFirstScreen/%E8%AE%BA%E5%9D%9B%E6%94%B9%E8%89%AF%E7%89%88%E6%9C%AC%E5%88%9D">论坛改良版本初</a>  因<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/fastFirstScreen/%E6%94%B9%E8%89%AF%E7%89%88%E6%9C%AC%E4%BA%8C">改良版本二</a> 是对自己的项目做了特殊处理。</p>
+<h2 id="拓展知识资源"><a href="#拓展知识资源" class="headerlink" title="拓展知识资源"></a>拓展知识资源</h2><h3 id="微信小游戏示例"><a href="#微信小游戏示例" class="headerlink" title="微信小游戏示例"></a>微信小游戏示例</h3><p>微信<a target="_blank" rel="noopener" href="https://github.com/wechat-miniprogram/minigame-demo">小游戏示例源码</a>，欢迎扫描以下小程序码体验。</p>
+<blockquote>
+<p>提示：请使用微信开发者工具或微信客户端 6.7.2 及以上版本运行。</p>
+</blockquote>
+<p>[![img](Cocos-Creator-小游戏首屏加速显示/QR code.jpg)](<a target="_blank" rel="noopener" href="https://github.com/wechat-miniprogram/minigame-demo/blob/master/readmeImages/QR">https://github.com/wechat-miniprogram/minigame-demo/blob/master/readmeImages/QR</a> code.jpg)</p>
+<p><img src="/post/c50519e6/samplePlate.png" alt="img"></p>
+<h3 id="轻量级canvas渲染引擎"><a href="#轻量级canvas渲染引擎" class="headerlink" title="轻量级canvas渲染引擎"></a>轻量级canvas渲染引擎</h3><p><img src="/post/c50519e6/screenshot.gif" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wechat-miniprogram/minigame-canvas-engine">minigame-canvas-engine</a>相关文档 可以查看这里<a target="_blank" rel="noopener" href="https://wechat-miniprogram.github.io/minigame-canvas-engine/">点击前往</a></p>
+<p>更多相关原理 [手把手教你打造一款轻量级canvas渲染引擎](</p>
+<h2 id="其他踩坑"><a href="#其他踩坑" class="headerlink" title="其他踩坑"></a>其他踩坑</h2><h3 id="启动游戏报错"><a href="#启动游戏报错" class="headerlink" title="启动游戏报错"></a>启动游戏报错</h3><p>问题出现，有时候启动游戏，一开始就报错，心中不免疑惑，影响打包吗？哪里出错了？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Window &quot;main&quot; unresponsive: [object Object]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/c50519e6/image-20220630103510037.png" alt="image-20220630103510037"></p>
+<p>解决方案：暂无，不影响打包</p>
+<p>群友回复<br><img src="/post/c50519e6/image-20220630103830709.png" alt="image-20220630103830709"></p>
+<p>官方回复：</p>
+<p><img src="/post/c50519e6/image-20220630103426417.png" alt="image-20220630103426417"></p>
+<h3 id="分包加载报错"><a href="#分包加载报错" class="headerlink" title="分包加载报错"></a>分包加载报错</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>项目资源引用错误<span class="punctuation">]</span> 项目资源 subpackages/firstRes/raw-assets/<span class="number">58</span>/<span class="number">582</span>c1f41<span class="number">-2</span>b52<span class="number">-4</span>d83<span class="number">-873</span>f-f8adcb46f1c6<span class="number">.5</span>d3ac.jpg 所在的分包尚未加载</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/c50519e6/image-20220628204904851.png" alt="image-20220628204904851"></p>
+<p>报错原因：子包中的资源不要在主包中有引用关系，可以找找子包中有哪些图片在主包的场景或者预制中有挂载。不嫌麻烦就在子包的资源中查找引用，看看是否是在主包的资源上使用。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/subpackages-png/93805">项目资源 subpackages/…png 所在的分包尚未加载【Cocos论坛】</a></p>
+<h3 id="图片尺寸过大"><a href="#图片尺寸过大" class="headerlink" title="图片尺寸过大"></a>图片尺寸过大</h3><p><img src="/post/c50519e6/image-20220628203416799.png" alt="image-20220628203416799"></p>
+<p>解决办法：把图切成合格的，比如2份 或者 4份</p>
+<h3 id="JSON-parse方法-报错"><a href="#JSON-parse方法-报错" class="headerlink" title="JSON.parse方法 报错"></a>JSON.parse方法 报错</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;SyntaxError: Unexpected end of JSON input</span></span><br><span class="line"><span class="string">    at JSON.parse (&lt;anonymous&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;SyntaxError: Unexpected token u in JSON at position 0</span></span><br><span class="line"><span class="string">    at JSON.parse (&lt;anonymous&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<p>原因是 取到了 空字符串 或者 undefined</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="literal">null</span>)<span class="comment">//正常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="literal">false</span>)<span class="comment">//正常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&quot;[]&quot;</span>)<span class="comment">//正常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&quot;&quot;</span>)<span class="comment">//异常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="literal">undefined</span>)<span class="comment">//异常</span></span><br></pre></td></tr></table></figure>
+
+<p>其实仔细看 应该理解JSON.parse 里面必须是一个对象，双引号 里面虽然为空 但是不能正常</p>
+<h3 id="项目配置服务器地址"><a href="#项目配置服务器地址" class="headerlink" title="项目配置服务器地址"></a>项目配置服务器地址</h3><p>小游戏需要配置<strong>资源</strong>和<strong>请求</strong>服务器白名单:</p>
+<p><img src="/post/c50519e6/image-20220628204326621.png" alt="image-20220628204326621"></p>
+<p>相关限制如下：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/base-ability/network.html">https://developers.weixin.qq.com/minigame/dev/guide/base-ability/network.html</a></p>
+<blockquote>
+<p>服务器域名请在 「小程序后台 - 开发 - 开发设置 - 服务器域名」 中进行配置，配置时需要注意：</p>
+<ul>
+<li>域名只支持 <code>https</code> (<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/network/request/wx.request.html">wx.request</a>、<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/network/upload/wx.uploadFile.html">wx.uploadFile</a>、<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html">wx.downloadFile</a>) 和 <code>wss</code> (<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/network/websocket/wx.connectSocket.html">wx.connectSocket</a>) 协议；</li>
+<li>域名不能使用 IP 地址（小程序的<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/mDNS.html">局域网</a> IP 除外）或 localhost；</li>
+<li>可以配置端口，如 <a href="https://myserver.com:8080，但是配置后只能向">https://myserver.com:8080，但是配置后只能向</a> <a target="_blank" rel="noopener" href="https://myserver.com:8080/">https://myserver.com:8080</a> 发起请求。如果向 <a target="_blank" rel="noopener" href="https://myserver.com、https//myserver.com:9091">https://myserver.com、https://myserver.com:9091</a> 等 URL 请求则会失败。</li>
+<li>如果不配置端口。如 <a target="_blank" rel="noopener" href="https://myserver.com,那么请求的/">https://myserver.com，那么请求的</a> URL 中也不能包含端口，甚至是默认的 443 端口也不可以。如果向 <a target="_blank" rel="noopener" href="https://myserver.com/">https://myserver.com:443</a> 请求则会失败。</li>
+<li>域名必须经过 ICP 备案；</li>
+<li><strong>出于安全考虑，<code>api.weixin.qq.com</code> 不能被配置为服务器域名，相关 API 也不能在小程序内调用。</strong> 开发者应将 AppSecret 保存到后台服务器中，通过服务器使用 <code>getAccessToken</code> 接口获取 <code>access_token</code>，并调用相关 API；</li>
+<li>不支持配置父域名，使用子域名。</li>
+</ul>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于小游戏来讲，其实无非是几点：</p>
+<ol>
+<li>对于用不到的资源和素材坚决不加载</li>
+<li>对于必须要用的资源，想办法复用和压缩</li>
+<li>对于可能用的资源，可以懒加载，就是用的时候再去加载</li>
+</ol>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/49b55b1c.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Mac电脑sourcetree导入git项目报错git status failed with code -1</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/ad87d566.html">
+        <span>Git fatal: detected dubious ownership in repository如何解决</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/c50519e6.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F"><span class="toc-number">1.</span> <span class="toc-text">微信小游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E6%94%B6%E6%96%B9%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">创收方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%A0%B8%E4%B8%8E%E5%8F%91%E5%B8%83"><span class="toc-number">1.2.</span> <span class="toc-text">代码审核与发布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E4%BD%93%E5%AE%A1%E6%A0%B8"><span class="toc-number">1.2.1.</span> <span class="toc-text">包体审核</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E8%B4%A8%E5%AE%A1%E6%A0%B8"><span class="toc-number">1.2.2.</span> <span class="toc-text">资质审核</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E5%90%8E%E6%8A%80%E6%9C%AF%E7%9B%B8%E5%85%B3"><span class="toc-number">1.3.</span> <span class="toc-text">背后技术相关</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E6%93%8E-amp-%E7%BB%91%E5%AE%9A"><span class="toc-number">1.3.1.</span> <span class="toc-text">引擎&amp;绑定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.</span> <span class="toc-text">小游戏配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6"><span class="toc-number">1.5.</span> <span class="toc-text">入口文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.6.</span> <span class="toc-text">全局对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%B7%AE%E5%BC%82"><span class="toc-number">1.7.</span> <span class="toc-text">环境差异</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E9%99%90%E5%88%B6"><span class="toc-number">1.8.</span> <span class="toc-text">运行限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%85%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.9.</span> <span class="toc-text">分包加载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%80%A7%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">运行性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">2.1.</span> <span class="toc-text">性能指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E8%80%85%E9%9C%80%E8%A6%81%E5%85%B3%E6%B3%A8%E5%93%AA%E4%BA%9B%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">2.2.</span> <span class="toc-text">开发者需要关注哪些性能指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%84%E6%B5%8B"><span class="toc-number">2.3.</span> <span class="toc-text">环境评测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%9F%BA%E7%BA%BF"><span class="toc-number">2.3.1.</span> <span class="toc-text">性能基线</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cocos-%E5%BC%80%E5%8F%91%E5%B0%8F%E6%B8%B8%E6%88%8F"><span class="toc-number">3.</span> <span class="toc-text">Cocos 开发小游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E8%BF%90%E8%A1%8C%E7%8A%B6%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text">性能运行状况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">首屏优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">4.1.</span> <span class="toc-text">启动优化最佳实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A6%96%E5%B1%8F%E8%B5%84%E6%BA%90"><span class="toc-number">4.2.</span> <span class="toc-text">首屏资源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80"><span class="toc-number">4.2.1.</span> <span class="toc-text">方案一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="toc-number">4.2.2.</span> <span class="toc-text">方案二</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%88%86%E5%8C%85"><span class="toc-number">4.3.</span> <span class="toc-text">游戏分包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="toc-number">4.4.</span> <span class="toc-text">代码优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E6%93%8E%E6%A8%A1%E5%9D%97%E8%A3%81%E5%88%87"><span class="toc-number">4.4.1.</span> <span class="toc-text">引擎模块裁切</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A6%96%E5%B1%8F%E8%B5%84%E6%BA%90%E6%8B%86%E8%A7%A3%EF%BC%88%E9%9D%9E%E5%BF%85%E9%A1%BB%EF%BC%89"><span class="toc-number">4.4.2.</span> <span class="toc-text">首屏资源拆解（非必须）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%8B%86%E8%A7%A3"><span class="toc-number">4.4.3.</span> <span class="toc-text">资源拆解</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%8E%8B%E7%BC%A9"><span class="toc-number">4.5.</span> <span class="toc-text">代码压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HDS-%E5%9C%A8%E7%BA%BFJS%E6%B7%B7%E6%B7%86%E5%8A%A0%E5%AF%86%E5%99%A8V3-%E5%8F%AF%E4%BB%A5%E4%B8%8B%E8%BD%BD%E7%A6%BB%E7%BA%BF%E7%89%88%E6%9C%AC"><span class="toc-number">4.5.1.</span> <span class="toc-text">HDS 在线JS混淆加密器V3 可以下载离线版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript-Obfuscator-Tool"><span class="toc-number">4.5.2.</span> <span class="toc-text">JavaScript Obfuscator Tool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">4.5.3.</span> <span class="toc-text">代码格式化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E5%8E%8B%E7%BC%A9"><span class="toc-number">4.6.</span> <span class="toc-text">资源压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E5%9B%BE%E5%AD%97%E4%BD%93"><span class="toc-number">4.7.</span> <span class="toc-text">位图字体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96%E6%8F%92%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">首屏优化插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E7%9F%A5%E8%AF%86%E8%B5%84%E6%BA%90"><span class="toc-number">6.</span> <span class="toc-text">拓展知识资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%A4%BA%E4%BE%8B"><span class="toc-number">6.1.</span> <span class="toc-text">微信小游戏示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7canvas%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="toc-number">6.2.</span> <span class="toc-text">轻量级canvas渲染引擎</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E8%B8%A9%E5%9D%91"><span class="toc-number">7.</span> <span class="toc-text">其他踩坑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B8%B8%E6%88%8F%E6%8A%A5%E9%94%99"><span class="toc-number">7.1.</span> <span class="toc-text">启动游戏报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%85%E5%8A%A0%E8%BD%BD%E6%8A%A5%E9%94%99"><span class="toc-number">7.2.</span> <span class="toc-text">分包加载报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8%E8%BF%87%E5%A4%A7"><span class="toc-number">7.3.</span> <span class="toc-text">图片尺寸过大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-parse%E6%96%B9%E6%B3%95-%E6%8A%A5%E9%94%99"><span class="toc-number">7.4.</span> <span class="toc-text">JSON.parse方法 报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%B0%E5%9D%80"><span class="toc-number">7.5.</span> <span class="toc-text">项目配置服务器地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator远程加载BMFont(位图字体)方案 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/3ddc6ccc.html">Cocos Creator远程加载BMFont(位图字体)方案</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-05-15
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator远程加载BMFont(位图字体)方案&url=http://blog.asroads.com/post/3ddc6ccc.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator远程加载BMFont(位图字体)方案&url=http://blog.asroads.com/post/3ddc6ccc.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/3ddc6ccc.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/3ddc6ccc.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/3ddc6ccc.html&title=Cocos Creator远程加载BMFont(位图字体)方案" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator远程加载BMFont(位图字体)方案&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/3ddc6ccc.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/3ddc6ccc.html&text=Cocos Creator远程加载BMFont(位图字体)方案" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/BMFont/ >BMFont</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏开发中为了减少DrawCall的数量，有时候文本显示经常使用位图显示，就是我们常说的BMFont字体，位图字体，由 <code>fnt</code> 文件和同名的 <code>png</code> 图片文件共同组成。<strong>位图字体（Bitmap Font）</strong> 是一种游戏开发中常用的字体资源。下面我们就介绍一下如何通过远程加载 BMFont 来使用自定义字体，从而在游戏中使用使得渲染性能提升。</p>
+<span id="more"></span>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>位图字体由 <strong>fnt</strong> 格式的字体文件和一张 <strong>png</strong> 图片组成，fnt 文件提供了对每一个字符小图的索引。</p>
+<p>开发环境：Cocos Creator2.4.13</p>
+<h3 id="常用位图自己工具"><a href="#常用位图自己工具" class="headerlink" title="常用位图自己工具"></a>常用位图自己工具</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://71squared.com/glyphdesigner">Glyph Designer</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/libgdx/libgdx/wiki/Hiero">Hiero</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.angelcode.com/products/bmfont/">BMFont (Windows)</a></li>
+<li><a target="_blank" rel="noopener" href="https://snowb.org/%EF%BC%88%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%AB%99%EF%BC%89">https://snowb.org/（在线网站）</a></li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="素材准备"><a href="#素材准备" class="headerlink" title="素材准备"></a>素材准备</h3><p>这里 使用 在线网站制作 <a target="_blank" rel="noopener" href="https://snowb.org/">https://snowb.org/</a></p>
+<p><img src="/post/3ddc6ccc/image-20240515161953788.png" alt="image-20240515161953788"></p>
+<ul>
+<li><p><code>game_test_font.fnt</code> BMFont 主文件</p>
+</li>
+<li><p><code>game_test_font.png</code> BMFont 纹理文件</p>
+<p><img src="/post/3ddc6ccc/image-20240515162040137.png" alt="image-20240515162040137"></p>
+</li>
+</ul>
+<h3 id="BMFont-JSON-文件提取"><a href="#BMFont-JSON-文件提取" class="headerlink" title="BMFont JSON 文件提取"></a>BMFont JSON 文件提取</h3><ul>
+<li>将 <code>game_test_font.fnt</code> 文件拖入 <code>Cocos Creator</code> 任意目录中 （爆红不用管），然后右键点击 <code>game_test_font</code>，选择前往 library中的资源位置</li>
+</ul>
+<p><img src="/post/3ddc6ccc/image-20240515162150855.png" alt="image-20240515162150855"></p>
+<ul>
+<li><p>将该文件复制并重命名为 <code>game_test_font.json</code>，添加到我们的前面准备好的位图文件同目录中, 此时将 <code>game_test_font.json</code>，<code>game_test_font.png</code> 上传到CDN（云端）即可</p>
+<p><img src="/post/3ddc6ccc/image-20240515162250608.png" alt="image-20240515162250608"></p>
+</li>
+</ul>
+<p><img src="/post/3ddc6ccc/image-20240515162659604.png" alt="image-20240515162659604"></p>
+<ul>
+<li>此时<code>game_test_font.fnt</code>（可以删除）这里建议保留 便于后期继续查找问题。</li>
+<li>这时我们远程资源的地址已经有了<ul>
+<li><a target="_blank" rel="noopener" href="http://xxxxx.com/tcs/test/minitest/game_test_font.png">http://xxxxx.com/tcs/test/minitest/game_test_font.png</a></li>
+<li><a target="_blank" rel="noopener" href="http://xxxxx.com/tcs/test/minitest/game_test_font.json">http://xxxxx.com/tcs/test/minitest/game_test_font.json</a></li>
+<li><a target="_blank" rel="noopener" href="http://xxxxx.com/tcs/test/minitest/game_test_font.fnt">http://xxxxx.com/tcs/test/minitest/game_test_font.fnt</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h3><h4 id="FontAtlas-类"><a href="#FontAtlas-类" class="headerlink" title="FontAtlas 类"></a>FontAtlas 类</h4><ul>
+<li><code>FontAtlas</code> 类用于记录字母在字体图片纹理中的位置信息和在文本中的偏移量信息。</li>
+</ul>
+<h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><ul>
+<li><code>_letterDefinitions</code>: 记录字母信息的对象</li>
+<li><code>_texture</code>: 字体图片纹理</li>
+</ul>
+<h5 id="原型方法"><a href="#原型方法" class="headerlink" title="原型方法"></a>原型方法</h5><ul>
+<li><code>addLetterDefinitions(letter, letterDefinition)</code>: 添加字母信息</li>
+<li><code>cloneLetterDefinition()</code>: 克隆字</li>
+<li><code>getTexture()</code>: 获取字体图片纹理</li>
+<li><code>getLetter(key)</code>: 获取指定字母的信息</li>
+<li><code>getLetterDefinitionForChar(char)</code>: 获取指定字符的字母信息</li>
+<li><code>clear()</code>: 清空字母信息</li>
+</ul>
+<h4 id="FontLetterDefinition-类"><a href="#FontLetterDefinition-类" class="headerlink" title="FontLetterDefinition 类"></a>FontLetterDefinition 类</h4><ul>
+<li><code>FontLetterDefinition</code> 类用于记录字母在字体图片纹理中的位置信息和在文本中的偏移量信息。</li>
+</ul>
+<h5 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h5><ul>
+<li><p><code>u</code>: 字母在纹理图片中的 x 坐标</p>
+<p><code>v</code>: 字母在纹理图片中的 y 坐标</p>
+<p><code>w</code>: 字母占用纹理图片的宽度</p>
+<p><code>h</code>: 字母占用纹理图片的高度</p>
+<p><code>offsetX</code>: 字母在文本中的 x 偏移量</p>
+<p><code>offsetY</code>: 字母在文本中的 y 偏移量</p>
+<p><code>textureID</code>: 纹理图片的 ID</p>
+<p><code>valid</code>: 字母是否有效</p>
+<p><code>xAdvance</code>: 字母的 x 方向偏移量</p>
+</li>
+</ul>
+<p><code>HelloWorld.ts</code> 代码</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">FntConfig</span>, <span class="title class_">IBitmapFont</span>&#125; <span class="keyword">from</span> <span class="string">&quot;./IBitmapFont&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Helloworld</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Label</span>)</span><br><span class="line">    <span class="attr">label</span>: cc.<span class="property">Label</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">bmFontInfo</span>: &#123; <span class="attr">font_texture</span>: cc.<span class="property">Texture2D</span>, <span class="attr">font_json</span>: cc.<span class="property">JsonAsset</span> &#125; = &#123;<span class="attr">font_texture</span>:<span class="literal">null</span>,<span class="attr">font_json</span>:<span class="literal">null</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">      	<span class="comment">//注意 xxxx.xxx.com 这个要改成你自己真实的地址</span></span><br><span class="line">        <span class="keyword">const</span> list = [</span><br><span class="line">            &#123;<span class="attr">url</span>: <span class="string">&quot;https://xxxx.xxx.com/tcs/test/minitest/game_test_font.png&quot;</span>, <span class="attr">type</span>: <span class="string">&quot;png&quot;</span>&#125;,</span><br><span class="line">            &#123;<span class="attr">url</span>: <span class="string">&quot;https://xxxx.xxx.com/tcs/test/minitest/game_test_font.json&quot;</span>, <span class="attr">type</span>: <span class="string">&quot;json&quot;</span>&#125;,</span><br><span class="line">        ]</span><br><span class="line">        <span class="title class_">Promise</span>.<span class="title function_">all</span>(list.<span class="title function_">map</span>(<span class="function"><span class="params">item</span> =&gt;</span> <span class="variable language_">this</span>.<span class="title function_">loadRemoteSource</span>(item.<span class="property">url</span>, item.<span class="property">type</span>, <span class="literal">true</span>)))</span><br><span class="line">            .<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">showBMfont</span>(res);</span><br><span class="line">            &#125;)</span><br><span class="line">            .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 处理加载资源失败的情况</span></span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Failed to load resources:&quot;</span>, error);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">showBMfont</span>(<span class="params">list: <span class="built_in">any</span>[]</span>) &#123;</span><br><span class="line">        list.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 判断 res 是否是 cc.Texture2D 的实例</span></span><br><span class="line">            <span class="keyword">if</span> (item <span class="keyword">instanceof</span> cc.<span class="property">Texture2D</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;res 是 cc.Texture2D 类型&quot;</span>);</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">bmFontInfo</span>.<span class="property">font_texture</span> = item;</span><br><span class="line">                <span class="comment">// 在这里可以进行 cc.Texture2D 相关的操作</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item <span class="keyword">instanceof</span> cc.<span class="property">JsonAsset</span>) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;res 是 cc.JsonAsset 类型&quot;</span>);</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">bmFontInfo</span>.<span class="property">font_json</span> = item;</span><br><span class="line">                <span class="comment">// 在这里可以进行 cc.Texture2D 相关的操作</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;res 不是 cc.Texture2D 也不是 cc.JsonAsset 类型&quot;</span>);</span><br><span class="line">                <span class="comment">// 如果不是 cc.Texture2D 类型，你可以尝试输出 res，或者进一步检查其类型</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置位图字体</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setLabelBMFont</span>(<span class="variable language_">this</span>.<span class="property">label</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">setLabelBMFont</span>(<span class="params">label: cc.Label</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> bmFont = <span class="keyword">new</span> cc.<span class="title class_">BitmapFont</span>();</span><br><span class="line">        <span class="keyword">const</span> <span class="attr">json</span>:<span class="title class_">IBitmapFont</span> = &lt;<span class="title class_">IBitmapFont</span>&gt;<span class="variable language_">this</span>.<span class="property">bmFontInfo</span>.<span class="property">font_json</span>.<span class="property">json</span>;</span><br><span class="line">        <span class="keyword">const</span> texture = <span class="variable language_">this</span>.<span class="property">bmFontInfo</span>.<span class="property">font_texture</span>;</span><br><span class="line">        <span class="keyword">const</span> spriteFrame = <span class="keyword">new</span> cc.<span class="title class_">SpriteFrame</span>(texture);</span><br><span class="line">        <span class="keyword">const</span> dictionary = <span class="variable language_">this</span>.<span class="title function_">getFontDefDictionary</span>(spriteFrame, json.<span class="property">_fntConfig</span>);</span><br><span class="line"></span><br><span class="line">        bmFont[<span class="string">&quot;spriteFrame&quot;</span>] = spriteFrame;</span><br><span class="line">        bmFont[<span class="string">&quot;fontSize&quot;</span>] = json.<span class="property">fontSize</span>;</span><br><span class="line">        bmFont[<span class="string">&quot;_fntConfig&quot;</span>] = json.<span class="property">_fntConfig</span>;</span><br><span class="line">        bmFont[<span class="string">&quot;_fontDefDictionary&quot;</span>] = dictionary;</span><br><span class="line">        label.<span class="property">font</span> = bmFont;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加载远端字体</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">url</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">type</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> <span class="variable">forceUpdate</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@private</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">loadRemoteSource</span>(<span class="params">url: <span class="built_in">string</span>, <span class="keyword">type</span>: <span class="built_in">string</span>, forceUpdate?: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="attr">forceUpdateStr</span>: <span class="built_in">string</span> = forceUpdate ? <span class="string">`?time=<span class="subst">$&#123;cc.sys.now()&#125;</span>`</span> : <span class="string">&quot;&quot;</span>;</span><br><span class="line">        url += forceUpdateStr;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            cc.<span class="property">assetManager</span>.<span class="title function_">loadRemote</span>(url, <span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(err);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="title function_">resolve</span>(res)</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">getFontDefDictionary</span>(<span class="params">texture:cc.SpriteFrame, data:FntConfig</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="title class_">FontconstterDefinition</span> = <span class="keyword">function</span> <span class="title function_">FontconstterDefinition</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">u</span> = <span class="number">0</span>; <span class="comment">// 字母在纹理图片中的 x 坐标</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">v</span> = <span class="number">0</span>; <span class="comment">// 字母在纹理图片中的 y 坐标</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">w</span> = <span class="number">0</span>; <span class="comment">// 字母占用纹理图片的宽度</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">h</span> = <span class="number">0</span>; <span class="comment">// 字母占用纹理图片的高度</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">offsetX</span> = <span class="number">0</span>; <span class="comment">// 字母在文本中的 x 偏移量</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">offsetY</span> = <span class="number">0</span>; <span class="comment">// 字母在文本中的 y 偏移量</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">textureID</span> = <span class="number">0</span>; <span class="comment">// 纹理图片的 ID</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">valid</span> = <span class="literal">false</span>; <span class="comment">// 字母是否有效</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">xAdvance</span> = <span class="number">0</span>; <span class="comment">// 字母的 x 方向偏移量</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="title class_">FontAtlas</span> = <span class="keyword">function</span> <span class="title function_">FontAtlas</span>(<span class="params">texture</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span> = &#123;&#125;;<span class="comment">// 记录字母信息的对象</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">_texture</span> = texture;<span class="comment">// 字体图片纹理</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// FontAtlas 的原型方法</span></span><br><span class="line">        <span class="title class_">FontAtlas</span>.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">            <span class="attr">constructor</span>: <span class="title class_">FontAtlas</span>,</span><br><span class="line">            <span class="comment">// 添加字母信息</span></span><br><span class="line">            <span class="title function_">addconstterDefinitions</span>(<span class="params">constter, constterDefinition</span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span>[constter] = constterDefinition;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 克隆字母信息</span></span><br><span class="line">            <span class="title function_">cloneconstterDefinition</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> copyconstterDefinitions = &#123;&#125;;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span>) &#123;</span><br><span class="line">                    <span class="keyword">const</span> value = <span class="keyword">new</span> <span class="title class_">FontconstterDefinition</span>();</span><br><span class="line">                    cc.<span class="property">js</span>.<span class="title function_">mixin</span>(value, <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span>[key]);</span><br><span class="line">                    copyconstterDefinitions[key] = value;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> copyconstterDefinitions;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 获取字体图片纹理</span></span><br><span class="line">            <span class="title function_">getTexture</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_texture</span>;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 获取指定字母的信息</span></span><br><span class="line">            <span class="title function_">getLetter</span>(<span class="params">key</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span>[key];</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 获取指定字符的字母信息</span></span><br><span class="line">            <span class="title function_">getLetterDefinitionForChar</span>(<span class="params">char</span>) &#123;</span><br><span class="line">                <span class="keyword">const</span> key = char.<span class="title function_">charCodeAt</span>(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">const</span> hasKey = <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span>.<span class="title function_">hasOwnProperty</span>(key);</span><br><span class="line">                <span class="keyword">return</span> hasKey ? <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span>[key] : <span class="literal">null</span>;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="comment">// 清空字母信息</span></span><br><span class="line">            <span class="title function_">clear</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">_constterDefinitions</span> = &#123;&#125;;</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">const</span> fontAtlas = <span class="keyword">new</span> <span class="title class_">FontAtlas</span>(texture); <span class="comment">// 创建字体图集对象</span></span><br><span class="line">        <span class="keyword">const</span> fontDict = data.<span class="property">fontDefDictionary</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> fontDef <span class="keyword">in</span> fontDict) &#123;</span><br><span class="line">            <span class="keyword">const</span> constter = <span class="keyword">new</span> <span class="title class_">FontconstterDefinition</span>(); <span class="comment">// 创建字母信息对象</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> rect = fontDict[fontDef].<span class="property">rect</span>;</span><br><span class="line">            constter.<span class="property">offsetX</span> = fontDict[fontDef].<span class="property">xOffset</span>;</span><br><span class="line">            constter.<span class="property">offsetY</span> = fontDict[fontDef].<span class="property">yOffset</span>;</span><br><span class="line">            constter.<span class="property">w</span> = rect.<span class="property">width</span>;</span><br><span class="line">            constter.<span class="property">h</span> = rect.<span class="property">height</span>;</span><br><span class="line">            constter.<span class="property">u</span> = rect.<span class="property">x</span>;</span><br><span class="line">            constter.<span class="property">v</span> = rect.<span class="property">y</span>;</span><br><span class="line">            <span class="comment">//<span class="doctag">FIXME:</span> only one texture supported for now</span></span><br><span class="line">            constter.<span class="property">textureID</span> = <span class="number">0</span>;</span><br><span class="line">            constter.<span class="property">valid</span> = <span class="literal">true</span>;</span><br><span class="line">            constter.<span class="property">xAdvance</span> = fontDict[fontDef].<span class="property">xAdvance</span>;</span><br><span class="line">            fontAtlas.<span class="title function_">addconstterDefinitions</span>(fontDef, constter);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> fontAtlas;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>IBitmapFont.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: jsroads</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/5/15 20:43</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">IBitmapFont</span> &#123;</span><br><span class="line">    <span class="attr">__type__</span>: <span class="built_in">string</span></span><br><span class="line">    <span class="attr">_name</span>: <span class="built_in">string</span></span><br><span class="line">    <span class="attr">_objFlags</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">_native</span>: <span class="built_in">string</span></span><br><span class="line">    <span class="attr">fntDataStr</span>: <span class="built_in">string</span></span><br><span class="line">    <span class="attr">spriteFrame</span>: <span class="title class_">SpriteFrame</span></span><br><span class="line">    <span class="attr">fontSize</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">_fntConfig</span>: <span class="title class_">FntConfig</span></span><br><span class="line">    <span class="attr">_fontDefDictionary</span>: <span class="built_in">any</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">SpriteFrame</span> &#123;</span><br><span class="line">    <span class="attr">__uuid__</span>: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">FntConfig</span> &#123;</span><br><span class="line">    <span class="attr">commonHeight</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">fontSize</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">atlasName</span>: <span class="built_in">string</span></span><br><span class="line">    <span class="attr">fontDefDictionary</span>: <span class="title class_">FontDefDictionary</span></span><br><span class="line">    <span class="attr">kerningDict</span>: <span class="title class_">KerningDict</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">FontDefDictionary</span> &#123;</span><br><span class="line">    [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="title class_">IFontDefDictionary</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">KerningDict</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">IFontDefDictionary</span> &#123;</span><br><span class="line">    <span class="attr">rect</span>: <span class="title class_">IFontRect</span></span><br><span class="line">    <span class="attr">xOffset</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">yOffset</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">xAdvance</span>: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">IFontRect</span> &#123;</span><br><span class="line">    <span class="attr">x</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">y</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">width</span>: <span class="built_in">number</span></span><br><span class="line">    <span class="attr">height</span>: <span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/post/3ddc6ccc/image-20240515205538959.png" alt="image-20240515205538959"></p>
+<h3 id="其他拓展"><a href="#其他拓展" class="headerlink" title="其他拓展"></a>其他拓展</h3><p>远程加载骨骼动画的方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> assetRes = &#123;</span><br><span class="line">  <span class="attr">image</span>: <span class="literal">null</span>, <span class="comment">// 存储图片资源</span></span><br><span class="line">  <span class="attr">ske</span>: <span class="literal">null</span>, <span class="comment">// 存储骨骼动画资源</span></span><br><span class="line">  <span class="attr">atlas</span>: <span class="literal">null</span>, <span class="comment">// 存储 atlas 资源</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> urlArray = url.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fileName = urlArray[urlArray.<span class="property">length</span> - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> resUrl = url + <span class="string">&#x27;/&#x27;</span> + fileName;</span><br><span class="line"></span><br><span class="line">assetRes.<span class="property">image</span> = <span class="keyword">await</span> <span class="title function_">getResource</span>(resUrl + <span class="string">&#x27;.png&#x27;</span>); <span class="comment">// 加载图片资源</span></span><br><span class="line">assetRes.<span class="property">ske</span> = <span class="keyword">await</span> <span class="title function_">getResource</span>(resUrl + <span class="string">&#x27;.json&#x27;</span>); <span class="comment">// 加载骨骼动画资源</span></span><br><span class="line">assetRes.<span class="property">atlas</span> = <span class="keyword">await</span> <span class="title function_">getResource</span>(resUrl + <span class="string">&#x27;.atlas&#x27;</span>); <span class="comment">// 加载 atlas 资源</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断节点是否有骨骼</span></span><br><span class="line"><span class="keyword">const</span> skeletonData = <span class="keyword">new</span> sp.<span class="title class_">SkeletonData</span>(); <span class="comment">// 创建骨骼数据对象</span></span><br><span class="line">skeletonData.<span class="property">skeletonJson</span> = assetRes.<span class="property">ske</span>.<span class="property">json</span>; <span class="comment">// 装载骨骼动画数据</span></span><br><span class="line">skeletonData.<span class="property">atlasText</span> = assetRes.<span class="property">atlas</span>.<span class="property">text</span>; <span class="comment">// 装载 atlas 数据</span></span><br><span class="line">skeletonData.<span class="property">textures</span> = [assetRes.<span class="property">image</span>]; <span class="comment">// 加载图片</span></span><br><span class="line">skeletonData.<span class="property">textureNames</span> = [fileName + <span class="string">&#x27;.png&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> skeletonComponent = node.<span class="title function_">getComponent</span>(sp.<span class="property">Skeleton</span>);</span><br><span class="line"><span class="keyword">if</span> (!skeletonComponent) &#123;</span><br><span class="line">  skeletonComponent = node.<span class="title function_">addComponent</span>(sp.<span class="property">Skeleton</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">skeletonComponent.<span class="property">skeletonData</span> = skeletonData;</span><br><span class="line">skeletonComponent.<span class="title function_">setSkin</span>(<span class="string">&#x27;default&#x27;</span>);</span><br><span class="line">skeletonComponent.<span class="title function_">setAnimation</span>(<span class="number">0</span>, <span class="string">&#x27;animation&#x27;</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文核心参考了原作者的核心方法，部分素材和制作流程来自笔者本人，正如原作者说的：BMFont，Skeleton 这一类都是Cocos Creator需要同时加载多个文件才可以正常运行的组件。这里需要理解Cocos Creator加载的核心逻辑，就可以实现动态远程加载自己需要的素材。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7225100740380082237">Cocos Creator 远程加载 BMFont 方案</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/d11b313e.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>ASTC纹理压缩介绍</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/b5d455d0.html">
+        <span>使用ts-node编写一个简单的git对比脚本工具</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/3ddc6ccc.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E4%BD%8D%E5%9B%BE%E8%87%AA%E5%B7%B1%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.</span> <span class="toc-text">常用位图自己工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A0%E6%9D%90%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text">素材准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BMFont-JSON-%E6%96%87%E4%BB%B6%E6%8F%90%E5%8F%96"><span class="toc-number">2.2.</span> <span class="toc-text">BMFont JSON 文件提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81"><span class="toc-number">2.3.</span> <span class="toc-text">核心代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FontAtlas-%E7%B1%BB"><span class="toc-number">2.3.1.</span> <span class="toc-text">FontAtlas 类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-number">2.3.1.2.</span> <span class="toc-text">原型方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FontLetterDefinition-%E7%B1%BB"><span class="toc-number">2.3.2.</span> <span class="toc-text">FontLetterDefinition 类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7-1"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%8B%93%E5%B1%95"><span class="toc-number">2.4.</span> <span class="toc-text">其他拓展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

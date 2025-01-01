@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Webstorm常用技巧 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/572cb29c.html">Webstorm常用技巧</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-06-15
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Webstorm常用技巧&url=http://blog.asroads.com/post/572cb29c.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Webstorm常用技巧&url=http://blog.asroads.com/post/572cb29c.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/572cb29c.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/572cb29c.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/572cb29c.html&title=Webstorm常用技巧" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Webstorm常用技巧&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/572cb29c.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/572cb29c.html&text=Webstorm常用技巧" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E6%8A%80%E6%9C%AF/ >技术</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Webstorm/ >Webstorm</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h3 id="Webstorm-常用的一些技巧"><a href="#Webstorm-常用的一些技巧" class="headerlink" title="Webstorm 常用的一些技巧"></a>Webstorm 常用的一些技巧</h3><p>从2015年开始使用Webstorm有几年了，很多时候遇到问题总是去网上搜索，显得麻烦，顺便记录一些，常用的技巧，这样以后重装电脑系统了，换环境了，可以一并找到，不用每次遇到问题都重新搜索一遍。（持续更新）</p>
+<span id="more"></span>
+
+<h3 id="Mac彻底删除WebStorm"><a href="#Mac彻底删除WebStorm" class="headerlink" title="Mac彻底删除WebStorm"></a>Mac彻底删除WebStorm</h3><h4 id="背景原因："><a href="#背景原因：" class="headerlink" title="背景原因："></a>背景原因：</h4><p>有时候不小心点击了某个地方，或者执行了某些操作，回不到正常的编程环境,或者错误设置了某些选项回不到最初的设置了</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤:"></a>步骤:</h4><h6 id="一-删除程序应用"><a href="#一-删除程序应用" class="headerlink" title="一. 删除程序应用"></a>一. 删除程序应用</h6><ol>
+<li>点击Finder</li>
+<li>选择左侧栏中的<strong>Applcations</strong>选项</li>
+<li>找到webstrom应用，点击右键，选择<strong>Move to Trash(移入到垃圾箱)</strong></li>
+<li>将垃圾箱清空</li>
+</ol>
+<h6 id="二-删除目录下的App文件夹"><a href="#二-删除目录下的App文件夹" class="headerlink" title="二. 删除目录下的App文件夹"></a>二. 删除目录下的App文件夹</h6><ol>
+<li>打开终端</li>
+<li><strong>cd ~/Library/Preferences/</strong></li>
+<li>ls 查看该目录下所有App文件夹,找到webstrom的文件夹(我的是WebStrom2018.3)</li>
+<li>rm -rf WebStrom2018.3</li>
+<li><strong>cd ~/Library/Caches/</strong></li>
+<li>ls 查看该目录下所有App文件夹,找到webstrom的文件夹(我的是WebStrom2018.3)</li>
+<li>rm -rf WebStrom2018.3</li>
+<li><strong>cd ~/Library/Application Support/</strong></li>
+<li>ls 查看该目录下所有App文件夹,找到webstrom的文件夹(我的是WebStrom2018.3)</li>
+<li>rm -rf WebStrom2018.3</li>
+<li><strong>~/Library/Logs/</strong></li>
+<li>ls 查看该目录下所有App文件夹,找到webstrom的文件夹(我的是WebStrom2018.3)</li>
+<li>rm -rf WebStrom2018.3</li>
+<li>当前已完全卸载了<br> 注：如果命令不能进入目录，利用Command + Shift + G 快捷键跳转到某个目录，以此删除即可</li>
+<li>原文链接：<a target="_blank" rel="noopener" href="https://juejin.im/post/5ce20342e51d4510bf1d65d2">https://juejin.im/post/5ce20342e51d4510bf1d65d2</a></li>
+</ol>
+<p><strong>注意：如果是最新版的 Webstorm 需要删除 的是 <code>jetbrains</code> 这个名字开头 或者含有 jetbrains 的文件夹 即可</strong></p>
+<p><strong>~/Library/Application Support/</strong>  有两个文件夹</p>
+<p><img src="/post/572cb29c/image-20200618100713237.png" alt="image-20200616145210704"></p>
+<p>**记得 重置后 要 重置缓存 必要的话 **</p>
+<ul>
+<li>删除项目下面的 .idea 文件夹</li>
+<li>Invalidate Cache/Restart</li>
+</ul>
+<p><img src="/post/572cb29c/image-20200616145210704.png" alt="image-20200616145210704"></p>
+<h3 id="JavaScript-项目跨域"><a href="#JavaScript-项目跨域" class="headerlink" title="JavaScript 项目跨域"></a>JavaScript 项目跨域</h3><h4 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h4><ul>
+<li><p>做游戏需要连接服务器调试，有时候访问需要跨域</p>
+</li>
+<li><p>解决办法：</p>
+<pre><code>- 在Webstorm 设置的 Web Browsers 下 大家自己调试的浏览器 点击编辑 在命令行里输入
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">--args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/572cb29c/image-20200529130131982.png" alt="image-20200529130131982"></p>
+</li>
+</ul>
+<p>顺便推荐一款Chome 清缓存和本地数据的插件：</p>
+<h4 id="Clear-Cache"><a href="#Clear-Cache" class="headerlink" title="Clear Cache"></a>Clear Cache</h4><p><img src="/post/572cb29c/image-20200529130729764.png" alt="image-20200529130729764"></p>
+<p>地址：<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn">https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn</a></p>
+<p><img src="/post/572cb29c/image-20200529130754454.png" alt="image-20200529130754454"></p>
+<p>选择上面两项即可。</p>
+<h4 id="LocalStorage-Manager"><a href="#LocalStorage-Manager" class="headerlink" title="LocalStorage Manager"></a>LocalStorage Manager</h4><p>地址：<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/localstorage-manager/fkhoimdhngkiicbjobkinobjkoefhkap">https://chrome.google.com/webstore/detail/localstorage-manager/fkhoimdhngkiicbjobkinobjkoefhkap</a></p>
+<p><img src="/post/572cb29c/image-20201201170450447.png" alt="image-20201201170450447"></p>
+<h4 id="如何去掉-拓展程序按钮"><a href="#如何去掉-拓展程序按钮" class="headerlink" title="如何去掉 拓展程序按钮"></a>如何去掉 拓展程序按钮</h4><p>地址：<a href="http://blog.asroads.com/post/bc9dfd0b.html">http://blog.asroads.com/post/bc9dfd0b.html</a></p>
+<h3 id="忽略隐藏指定类型的文件指定文件-如-meta-不显示"><a href="#忽略隐藏指定类型的文件指定文件-如-meta-不显示" class="headerlink" title="忽略隐藏指定类型的文件指定文件(如.meta)不显示"></a>忽略隐藏指定类型的文件指定文件(如.meta)不显示</h3><p>Cocos 项目 在Webstorm 里面打开后 每个文件都佩带一个 .meta 文件，想忽略不显示</p>
+<p><img src="/post/572cb29c/image-20190903185643229.png" alt="image-20190903185643229"></p>
+<p>忽略文件加入:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*.<span class="property">meta</span>;</span><br></pre></td></tr></table></figure>
+
+<p>以上即可。</p>
+<p>Webstorm 2020.3 升级后 界面更改  2020-12-01 更新</p>
+<p><img src="/post/572cb29c/image-20201201164521009.png" alt="image-20201201164521009"></p>
+<p>此时我们添加后无论是 点击 Apply 或者 OK 都不生效 或者是 Apply 按钮灰色  此时要按照下面操作</p>
+<p><strong>注意： 此时应该在添加自己忽略的类型后 键盘操作 <code>Enter（回车）</code> 键</strong></p>
+<h3 id="搜索忽略指定的文件夹"><a href="#搜索忽略指定的文件夹" class="headerlink" title="搜索忽略指定的文件夹"></a>搜索忽略指定的文件夹</h3><p>有时候项目内很多文件和我们研发调试代码无关，比如素材或者派生文件，此时我们需要忽略这些文件，这样在查找问题的生活就极大的缩小了范围。</p>
+<p><img src="/post/572cb29c/image-20200529131313612.png" alt="image-20200529131313612"></p>
+<p>同理 想要取消忽略 再次选择 设置即可</p>
+<p><img src="/post/572cb29c/image-20200529131343973.png" alt="image-20200529131343973"></p>
+<h3 id="Webstorm-Consloe-面板-中文不能输出"><a href="#Webstorm-Consloe-面板-中文不能输出" class="headerlink" title="Webstorm Consloe 面板 中文不能输出"></a>Webstorm Consloe 面板 中文不能输出</h3><p>有时候我们安装了新的版本 Webstorm 后发现 控制面板 不能输出 中文</p>
+<p><img src="/post/572cb29c/image-20200529131627900.png" alt="image-20200529131627900"></p>
+<p>结果这样显示：</p>
+<p><img src="/post/572cb29c/image-20200529131846232.png" alt="image-20200529131846232"></p>
+<p>先说说 网上搜索的方法（经查看设置后 问题依然存在）</p>
+<p>首先 采用 本地安装目录中bin文件夹下的webstorm.vmoptions   -Dfile.encoding=UTF-8<br><img src="/post/572cb29c/image-20200529132117496.png" alt="image-20200529132117496"></p>
+<p>File&gt;Setting&gt;Editor&gt;File Encodings，将Global Encoding、Project Encoding、Default encodeing for properties files这三项都设置成UTF-8，点击OK或者Apply</p>
+<p><img src="/post/572cb29c/image-20200529132227654.png" alt="image-20200529132227654"></p>
+<p>问题依然存在，怎么办，自己摸索了很久。终于找到原因，就是字体问题。</p>
+<p>我们设置字体（能显示中文的字体）</p>
+<p><img src="/post/572cb29c/image-20200529133841482.png" alt="image-20200529133841482"></p>
+<p>最后成功了！</p>
+<p><img src="/post/572cb29c/image-20200529133857201.png" alt="image-20200529133857201"></p>
+<p>最后 重启 Webstorm 即可解决乱码问题。(注意 一定是完全退出，不是关闭项目打开 是退出Webstorm 重新打开)</p>
+<h3 id="文件Size过大无法格式化"><a href="#文件Size过大无法格式化" class="headerlink" title="文件Size过大无法格式化"></a>文件Size过大无法格式化</h3><p>起因：我本地有个压缩后的Javascript文件特别大，大于20MB了，此时无法使用WebStorm自带的代码格式化工具格式化代码</p>
+<p>查找：经过一番查找才知道原因是：</p>
+<p>Users often change the location of the <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html">default IDE directories</a>. For more information, refer to <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/directories-used-by-the-ide-to-store-settings-caches-plugins-and-logs.html#change-ide-dirs">Change the location of IDE directories</a>.</p>
+<p>Limits that can affect performance:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>idea.max.content.load.filesize</code></td>
+<td>Maximum size of files (in kilobytes) that WebStorm is able to open. Working with large files can affect editor performance and increase memory consumption. The default value is <code>20000</code>.</td>
+</tr>
+<tr>
+<td><code>idea.max.intellisense.filesize</code></td>
+<td>Maximum size of files (in kilobytes) for which WebStorm provides coding assistance. Coding assistance for large files can affect editor performance and increase memory consumption. The default value is <code>2500</code>.</td>
+</tr>
+<tr>
+<td><code>idea.cycle.buffer</code></td>
+<td>Maximum size of the console cyclic buffer (in kilobytes). If the console output size exceeds this value, the oldest lines are deleted. To disable the cyclic buffer, set <code>idea.cycle.buffer.size=disabled</code>.</td>
+</tr>
+<tr>
+<td><code>idea.max.vcs.loaded.size.kb</code></td>
+<td>Maximum size (in kilobytes) that WebStorm loads for showing past file contents when <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/comparing-files-and-folders.html">comparing changes</a>. The default value is <code>20480</code>.</td>
+</tr>
+</tbody></table>
+<p>解决方法：</p>
+<ol>
+<li><p>打开webstorm 的 help菜单</p>
+<p><img src="/post/572cb29c/image-20240227165758481.png" alt="image-20240227165758481"></p>
+<p>找到 Edit Custom Properties 选项。</p>
+</li>
+<li><p>设置为：</p>
+</li>
+</ol>
+<p><img src="/post/572cb29c/image-20240227165925548.png" alt="image-20240227165925548"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">idea.max.content.load.filesize = 512000</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>重启Webstorm 可以正常格式化</li>
+</ol>
+<p> 如果不能正常生效 去 APP 配置文件下 修改同名文件 idea.properties </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#---------------------------------------------------------------------</span><br><span class="line">idea.max.intellisense.filesize=512000</span><br><span class="line"></span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line"># Maximum file size (in KiB) the IDE is able to open.</span><br><span class="line">#---------------------------------------------------------------------</span><br><span class="line">idea.max.content.load.filesize=512000</span><br></pre></td></tr></table></figure>
+
+<p>参考链接 <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/webstorm/tuning-the-ide.html#configure-platform-properties">https://www.jetbrains.com/help/webstorm/tuning-the-ide.html#configure-platform-properties</a></p>
+<h3 id="“More-than-100-matches”-in-search-搜索结果超过100个内容时，如何显示更多"><a href="#“More-than-100-matches”-in-search-搜索结果超过100个内容时，如何显示更多" class="headerlink" title="“More than 100 matches” in search 搜索结果超过100个内容时，如何显示更多"></a>“More than 100 matches” in search 搜索结果超过100个内容时，如何显示更多</h3><p>当搜索内容超过100个时候，webstorm 默认只显示100个，如何显示更多呢？</p>
+<p>在setting-&gt;advanced Setting 中可以找到这个值，直接修改。</p>
+<h3 id><a href="#" class="headerlink" title></a><img src="/post/572cb29c/image-20240227170322370.png" alt="image-20240227170322370"></h3><p>参考地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qielanyu_/article/details/119924981">webstorm 2021.2 linux版本设置搜索文件匹配最大条数</a> </p>
+<h4 id="webstorm-删除-最近项目列表"><a href="#webstorm-删除-最近项目列表" class="headerlink" title="webstorm 删除 最近项目列表"></a>webstorm 删除 最近项目列表</h4><p>比如我的路径是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/ydc012/Library/Application Support/JetBrains/WebStorm2024.1/options/recentProjects.xml</span><br></pre></td></tr></table></figure>
+
+<p>使用文本编辑器打开 <code>recentProjects.xml</code> 文件。</p>
+<ol>
+<li><strong>清空最近项目列表</strong>：</li>
+<li>在  <code>recentProjects.xml</code> 文件中，删除  标签及其所有子标签的内容，确保文件格式正确。例如：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">component</span> <span class="attr">name</span>=<span class="string">&quot;RecentProjectsManager&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 清空此处内容 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">component</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>保存并关闭文件</strong>。</p>
+</li>
+<li><p><strong>重新打开 WebStorm</strong>：你会发现最近项目列表已经被清空。</p>
+</li>
+</ol>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b9cefc56.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Layabox2.0引入puremvc框架</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/86c31a9c.html">
+        <span>LayaBox2.0横向滑动特效</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/572cb29c.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Webstorm-%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">Webstorm 常用的一些技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac%E5%BD%BB%E5%BA%95%E5%88%A0%E9%99%A4WebStorm"><span class="toc-number">2.</span> <span class="toc-text">Mac彻底删除WebStorm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">背景原因：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">步骤:</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%80-%E5%88%A0%E9%99%A4%E7%A8%8B%E5%BA%8F%E5%BA%94%E7%94%A8"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">一. 删除程序应用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%8C-%E5%88%A0%E9%99%A4%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84App%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.2.0.2.</span> <span class="toc-text">二. 删除目录下的App文件夹</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript-%E9%A1%B9%E7%9B%AE%E8%B7%A8%E5%9F%9F"><span class="toc-number">3.</span> <span class="toc-text">JavaScript 项目跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.1.</span> <span class="toc-text">详细步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Clear-Cache"><span class="toc-number">3.2.</span> <span class="toc-text">Clear Cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LocalStorage-Manager"><span class="toc-number">3.3.</span> <span class="toc-text">LocalStorage Manager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89-%E6%8B%93%E5%B1%95%E7%A8%8B%E5%BA%8F%E6%8C%89%E9%92%AE"><span class="toc-number">3.4.</span> <span class="toc-text">如何去掉 拓展程序按钮</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%BD%E7%95%A5%E9%9A%90%E8%97%8F%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%87%E5%AE%9A%E6%96%87%E4%BB%B6-%E5%A6%82-meta-%E4%B8%8D%E6%98%BE%E7%A4%BA"><span class="toc-number">4.</span> <span class="toc-text">忽略隐藏指定类型的文件指定文件(如.meta)不显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%BF%BD%E7%95%A5%E6%8C%87%E5%AE%9A%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">5.</span> <span class="toc-text">搜索忽略指定的文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Webstorm-Consloe-%E9%9D%A2%E6%9D%BF-%E4%B8%AD%E6%96%87%E4%B8%8D%E8%83%BD%E8%BE%93%E5%87%BA"><span class="toc-number">6.</span> <span class="toc-text">Webstorm Consloe 面板 中文不能输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6Size%E8%BF%87%E5%A4%A7%E6%97%A0%E6%B3%95%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">7.</span> <span class="toc-text">文件Size过大无法格式化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9CMore-than-100-matches%E2%80%9D-in-search-%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E8%B6%85%E8%BF%87100%E4%B8%AA%E5%86%85%E5%AE%B9%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E6%98%BE%E7%A4%BA%E6%9B%B4%E5%A4%9A"><span class="toc-number">8.</span> <span class="toc-text">“More than 100 matches” in search 搜索结果超过100个内容时，如何显示更多</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#webstorm-%E5%88%A0%E9%99%A4-%E6%9C%80%E8%BF%91%E9%A1%B9%E7%9B%AE%E5%88%97%E8%A1%A8"><span class="toc-number">9.1.</span> <span class="toc-text">webstorm 删除 最近项目列表</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

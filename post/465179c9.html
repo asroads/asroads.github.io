@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            hexo 博客插件升级感触 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/465179c9.html">hexo 博客插件升级感触</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-01-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/other/">other</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=hexo 博客插件升级感触&url=http://blog.asroads.com/post/465179c9.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=hexo 博客插件升级感触&url=http://blog.asroads.com/post/465179c9.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/465179c9.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/465179c9.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/465179c9.html&title=hexo 博客插件升级感触" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=hexo 博客插件升级感触&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/465179c9.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/465179c9.html&text=hexo 博客插件升级感触" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/hexo/ >hexo</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>从 博客搭建开始，到现在一年多了，陆陆续续更新了几十篇自己的所学所感，最近在浏览别人博客的时候，觉得有些人的博客的打开速度比我的快，就想着，是不是要更新一下博客的插件，于是就尝试了一下，当然中间遇到了问题，给我带来了一些思考。</p>
+<span id="more"></span>
+
+<h3 id="思考一"><a href="#思考一" class="headerlink" title="思考一"></a>思考一</h3><p>盲目的升级了所有插件，升级了 环境，导致 <code>hexo generate</code> 运行后 编译报错很奇怪，去网上搜索问题，有网友指出是插件版本问题（这个毫无疑问，因为我也是升级了 插件导致的）网友的建议是 使用稳定版的插件</p>
+<p>于是我重新还原了项目，分为几步走，</p>
+<ul>
+<li>我一个 一个插件升级</li>
+<li>升级一个插件后，就重新编译 测试一下 ，后面我在所有插件只剩下  hexo 这个安装包 的时候 都是OK的</li>
+<li>那么问题很明显了，我的报错是 我升级 hexo 引起的，那是不是 最新的 hexo 触发了什么问题吗 这样呆着疑问我继续找问题，我把 我大部分的文章都 移动出来，就剩下几篇简单的文章，发现是可以通过编译的</li>
+<li>此时我一个文章添加进去，哪个添加进去后 报错了，肯定是那个文章 格式不对，后来 经过一点点摸索，终于大概 20分钟后，找到了报错地方是 一个 http 地址引起的</li>
+<li>我的报错 是 【ERR_INVALID_URL】 这个类型的，我再文章里 直接写了的  <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 这样的 导致的，于是我 就把  <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a>  改成了  <code>http://localhost:4000</code>  添加了 代码格式 就没事了，但我后面 测试 发现这个问题 又不见了，可以 直接写地址，这个 很奇怪，估计应该是 插件 升级 后 不兼容引起的 如果我重新 建文章 到没有直接触发这个问题</li>
+<li>最后 成功 把 hexo  从 3.9.0 升级到 4.2.0</li>
+</ul>
+<h3 id="思考二"><a href="#思考二" class="headerlink" title="思考二"></a>思考二</h3><p>以前 对 npm 安装的插件理解不是很深入，以前总觉得 <code>package.json</code> 是插件结果的一个体现，比如我项目用了什么插件，里面就显示了 使用的插件结果，这次安装，升级后，理解了，这个 文件 其实 蛮重要的，在项目内 可以删掉  <code>node_modules</code> 文件夹 然后 直接运行 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>就能 直接读取 <code>package.json</code>文件里 配置好的 插件 直接 生成对应的环境  以前 我总是一个个 重新安装一遍，很费精力，如果想来，是自己对 npm 使用的方式不对，根本原因是自己对 npm 理解不够深入引起的，这次本来是 升级一下博客，结果还额外理解了 npm 的知识，内心还是很开心的。</p>
+<h4 id="其他-2021-08-30-更新"><a href="#其他-2021-08-30-更新" class="headerlink" title="其他 2021-08-30 更新"></a>其他 2021-08-30 更新</h4><h5 id="博客-突然不能-部署-hexo-d"><a href="#博客-突然不能-部署-hexo-d" class="headerlink" title="博客 突然不能 部署 hexo d"></a>博客 突然不能 部署 hexo d</h5><p>报错如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The “mode“ argument must be integer. Received an instance of Object</span><br></pre></td></tr></table></figure>
+
+<p>原因：</p>
+<p>node.js和hexo存在版本适配的关系，所以当可能是一个版本过高一个版本过低导致的出现问题。</p>
+<p>解决这个问题可以将hexo更新至高版本，也可以重新安装一个低版本的node。</p>
+<p>参考：</p>
+<blockquote>
+<h3 id="Node-js-版本限制"><a href="#Node-js-版本限制" class="headerlink" title="Node.js 版本限制"></a>Node.js 版本限制</h3><p>我们强烈建议永远安装最新版本的 Hexo，以及 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/#%E5%AE%89%E8%A3%85%E5%89%8D%E6%8F%90">推荐的 Node.js 版本</a>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Hexo 版本</th>
+<th align="left">最低兼容 Node.js 版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">5.0+</td>
+<td align="left">10.13.0</td>
+</tr>
+<tr>
+<td align="left">4.1 - 4.2</td>
+<td align="left">8.10</td>
+</tr>
+<tr>
+<td align="left">4.0</td>
+<td align="left">8.6</td>
+</tr>
+<tr>
+<td align="left">3.3 - 3.9</td>
+<td align="left">6.9</td>
+</tr>
+<tr>
+<td align="left">3.2 - 3.3</td>
+<td align="left">0.12</td>
+</tr>
+<tr>
+<td align="left">3.0 - 3.1</td>
+<td align="left">0.10 or iojs</td>
+</tr>
+<tr>
+<td align="left">0.0.1 - 2.8</td>
+<td align="left">0.10</td>
+</tr>
+</tbody></table>
+</blockquote>
+<h5 id="hexo-更新后-发现-警告如下"><a href="#hexo-更新后-发现-警告如下" class="headerlink" title="hexo 更新后 发现 警告如下"></a>hexo 更新后 发现 警告如下</h5><p><img src="/post/465179c9/image-20210830123523269.png" alt="image-20210830123523269"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated.</span><br></pre></td></tr></table></figure>
+
+<p>修改方式：</p>
+<p>_config.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deprecated</span></span><br><span class="line"><span class="attr">external_link:</span> <span class="literal">true</span><span class="string">|false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># New option</span></span><br><span class="line"><span class="attr">external_link:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span><span class="string">|false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2022-05-31-更新"><a href="#2022-05-31-更新" class="headerlink" title="2022-05-31 更新"></a>2022-05-31 更新</h3><p>换了电脑windows 更新博客 发现抱错 具体原因是 电脑新环境没有公钥生成</p>
+<p><img src="/post/465179c9/image-20220531111336691.png" alt="image-20220531111336691"></p>
+<p>解决方案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your github user name&quot;</span><br><span class="line">git config --global user.email &quot;your github 注册邮箱&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>代码执行后，生成公钥</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your github 注册邮箱&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/465179c9/image-20220531111650773.png" alt="image-20220531111650773"></p>
+<p>此时公钥保存在 C:\Users\ .ssh 的文件夹下，打开id_rsa.pub文件，将里面的内容全部复制； 然后去GitHub的Settings, 找到SSH and GPG keys的页面， 新建一个SSH Key, 将刚才复制的内容粘贴到新建的SSH Key中并点击保存。</p>
+<p>保存后输入以下代码检测SSH Key生效</p>
+<p>ssh <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#x75;&#98;&#46;&#x63;&#x6f;&#109;">&#103;&#105;&#x74;&#x40;&#103;&#x69;&#116;&#104;&#x75;&#98;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>出现下面的文字，则本地和Github远程连接上了</p>
+<p><img src="/post/465179c9/image-20220531112107348.png" alt="image-20220531112107348"></p>
+<p>按照链接： <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/2778">https://github.com/hexojs/hexo/issues/2778</a> 中的方法，我执行了以下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo config deploy.repository git@github.com:[yourgitname]/[yourgitname].github.io.git</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/465179c9/image-20220531112329853.png" alt="image-20220531112329853"></p>
+<p>再次执行 <code>hexo d</code> 成功部署</p>
+<p>参考地址:<a target="_blank" rel="noopener" href="https://blog.csdn.net/Candle_light/article/details/114992784">执行Hexo d报错Spawn failed， 以及OpenSSL SSL_read: Connection was reset, errno 10054</a></p>
+<h3 id="2023-12-07-更新"><a href="#2023-12-07-更新" class="headerlink" title="2023-12-07 更新"></a>2023-12-07 更新</h3><p>Hexo 目前最新版本已经是 7.0.0，最近恰好有个时间，就顺便升级了一下博客，其中一些依赖已经被弃用 需要简单的更换下面简单的说一下，一些注意的地方。</p>
+<p><strong>使用 <code>sass</code> 代替 <code>node-sass</code></strong>:<code>node-sass</code> 已经被标记为弃用，现在推荐使用 Dart Sass (<code>sass</code>)。您可以通过卸载 <code>node-sass</code> 并安装 <code>sass</code> 来替换，卸载 <code>node-sass</code>：<code>npm uninstall node-sass</code>。安装 Dart Sass：<code>npm install sass</code>。</p>
+<p><strong>安装特定版本的 Hexo</strong>:</p>
+<ul>
+<li><p>使用 npm 安装指定版本的 Hexo。例如，如果您想安装 Hexo 7.0.0，您可以运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo@7.0.0</span><br></pre></td></tr></table></figure></li>
+<li><p>如果想将 Hexo 安装为全局模块，可以在命令中加上 -g 标志：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo@7.0.0 -g</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>修复缓存目录的权限</strong></p>
+<p>运行以下命令来更改 npm 缓存目录的所有权：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) ~/.npm</span><br></pre></td></tr></table></figure>
+
+<p><strong>清理 npm 缓存</strong>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm cache clean --force</span><br></pre></td></tr></table></figure>
+
+<p><strong>检查全局 Hexo CLI 版本</strong>:</p>
+<p>运行 <code>npm list -g --depth=0</code> 查看全局安装的所有 npm 包，包括 Hexo CLI 的版本。确认全局安装的 Hexo CLI 版本。</p>
+<p><strong>检查 Hexo CLI 的实际路径</strong>:运行 <code>which hexo</code> 来查看实际运行的 Hexo CLI 的路径。</p>
+<p><strong>单独检查每个包的最新版本</strong>:使用以下命令来查看每个 npm 包的最新版本:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm show [package-name] version</span><br></pre></td></tr></table></figure>
+
+<p>例如，要检查 <code>hexo-abbrlink</code> 的最新版本，您可以运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm show hexo-abbrlink version</span><br></pre></td></tr></table></figure>
+
+<p>本次遇到的问题，是更新后，运行 hexo -g 构建后，发现 标签为空：</p>
+<h4 id="需要修改两个地方，主要是我使用的主题hexo-theme-meadow问题："><a href="#需要修改两个地方，主要是我使用的主题hexo-theme-meadow问题：" class="headerlink" title="需要修改两个地方，主要是我使用的主题hexo-theme-meadow问题："></a>需要修改两个地方，主要是我使用的主题<a target="_blank" rel="noopener" href="https://github.com/kb1000fx/hexo-theme-meadow">hexo-theme-meadow</a>问题：</h4><ol>
+<li>修改 <code>layout</code> 目录下的 <code>tag.ejs</code>  为 <code>tags.ejs</code></li>
+</ol>
+<p><img src="/post/465179c9/image-20231207103018001.png" alt="image-20231207103018001"></p>
+<p>原内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#x27;_partial/page/collapse&#x27;,&#123;pagetype: &#x27;tag&#x27;&#125;) %&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#x27;_partial/page/tags&#x27;) %&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>layout/_partial/page/tags.ejs 内容修改：其实就是 把 `&lt;%site.tags.data.forEach(function(element) </li>
+</ol>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/bf975f9e.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>关于2018-2019的思考</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/8ed10383.html">
+        <span>npm升级所有可更新包</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/465179c9.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E4%B8%80"><span class="toc-number">1.</span> <span class="toc-text">思考一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E4%BA%8C"><span class="toc-number">2.</span> <span class="toc-text">思考二</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96-2021-08-30-%E6%9B%B4%E6%96%B0"><span class="toc-number">2.1.</span> <span class="toc-text">其他 2021-08-30 更新</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2-%E7%AA%81%E7%84%B6%E4%B8%8D%E8%83%BD-%E9%83%A8%E7%BD%B2-hexo-d"><span class="toc-number">2.1.1.</span> <span class="toc-text">博客 突然不能 部署 hexo d</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js-%E7%89%88%E6%9C%AC%E9%99%90%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">Node.js 版本限制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#hexo-%E6%9B%B4%E6%96%B0%E5%90%8E-%E5%8F%91%E7%8E%B0-%E8%AD%A6%E5%91%8A%E5%A6%82%E4%B8%8B"><span class="toc-number">3.0.1.</span> <span class="toc-text">hexo 更新后 发现 警告如下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2022-05-31-%E6%9B%B4%E6%96%B0"><span class="toc-number">4.</span> <span class="toc-text">2022-05-31 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2023-12-07-%E6%9B%B4%E6%96%B0"><span class="toc-number">5.</span> <span class="toc-text">2023-12-07 更新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9%E4%B8%A4%E4%B8%AA%E5%9C%B0%E6%96%B9%EF%BC%8C%E4%B8%BB%E8%A6%81%E6%98%AF%E6%88%91%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%BB%E9%A2%98hexo-theme-meadow%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">5.1.</span> <span class="toc-text">需要修改两个地方，主要是我使用的主题hexo-theme-meadow问题：</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

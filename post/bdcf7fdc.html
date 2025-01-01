@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Rollupjs构建JavaScript项目初试牛刀 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/bdcf7fdc.html">Rollupjs构建JavaScript项目初试牛刀</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-07-01
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Rollupjs构建JavaScript项目初试牛刀&url=http://blog.asroads.com/post/bdcf7fdc.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Rollupjs构建JavaScript项目初试牛刀&url=http://blog.asroads.com/post/bdcf7fdc.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/bdcf7fdc.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/bdcf7fdc.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/bdcf7fdc.html&title=Rollupjs构建JavaScript项目初试牛刀" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Rollupjs构建JavaScript项目初试牛刀&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/bdcf7fdc.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/bdcf7fdc.html&text=Rollupjs构建JavaScript项目初试牛刀" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/js/ >js</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/rollupjs/ >rollupjs</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/md5/ >md5</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏开发过程中有时候难免会引入第三方类库，这些年随着Javascript发展的迅速，加上Typescript后来居上的趋势，前端变得越来越受到开发者的青睐，有时候我们去官网或者下载类库的时候，官方给出的源码是没有打包的源码，需要我们自己初始化环境，编译成自己想要的格式或者标准。今天就说说其中的一个<a target="_blank" rel="noopener" href="https://www.rollupjs.com/">rollupjs</a> 构建。</p>
+<span id="more"></span>
+<p>我们先看看 中文官网介绍：</p>
+<p><img src="/post/bdcf7fdc/twitter-card-20210701131620791.jpg" alt="rollup.js logo"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.rollupjs.com/">Rollup</a> 是一个 JavaScript 模块打包器，可以将小块代码编译成大块复杂的代码。Rollup 对代码模块使用新的标准化格式，这些标准都包含在 JavaScript 的 ES6 版本中，而不是以前的特殊解决方案，如 CommonJS 和 AMD。ES6 模块可以使你自由、无缝地使用你最喜爱的 library 中那些最有用独立函数，而你的项目不必携带其他未使用的代码。</p>
+</blockquote>
+<p>就是说，<a target="_blank" rel="noopener" href="https://www.rollupjs.com/">Rollup</a> 可以帮助我们构建多个js 生成一个js 文件来使用，这个在很多类库特别常见。简单的说构建方式是两种，一个是命令行构建，一个是配置文件构建</p>
+<h3 id="命令行的参数-Command-line-flags"><a href="#命令行的参数-Command-line-flags" class="headerlink" title="命令行的参数(Command line flags)"></a>命令行的参数(Command line flags)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-i, --input &lt;filename&gt;      要打包的文件（必须）</span><br><span class="line">-o, --file &lt;output&gt;         输出的文件 (如果没有这个参数，则直接输出到控制台)</span><br><span class="line">-f, --format &lt;format&gt;       输出的文件类型 (amd, cjs, esm, iife, umd)</span><br><span class="line">-e, --external &lt;ids&gt;        将模块ID的逗号分隔列表排除</span><br><span class="line">-g, --globals &lt;pairs&gt;       以`module ID:Global` 键值对的形式，用逗号分隔开 </span><br><span class="line">                              任何定义在这里模块ID定义添加到外部依赖</span><br><span class="line">-n, --name &lt;name&gt;           生成UMD模块的名字</span><br><span class="line">-h, --<span class="built_in">help</span>                  输出 <span class="built_in">help</span> 信息</span><br><span class="line">-m, --sourcemap             生成 sourcemap (`-m inline` <span class="keyword">for</span> inline map)</span><br><span class="line">--amd.id                    AMD模块的ID，默认是个匿名函数</span><br><span class="line">--amd.define                使用Function来代替`define`</span><br><span class="line">--no-strict                 在生成的包中省略`<span class="string">&quot;use strict&quot;</span>;`</span><br><span class="line">--no-conflict               对于UMD模块来说，给全局变量生成一个无冲突的方法</span><br><span class="line">--intro                     在打包好的文件的块的内部(wrapper内部)的最顶部插入一段内容</span><br><span class="line">--outro                     在打包好的文件的块的内部(wrapper内部)的最底部插入一段内容</span><br><span class="line">--banner                    在打包好的文件的块的外部(wrapper外部)的最顶部插入一段内容</span><br><span class="line">--footer                    在打包好的文件的块的外部(wrapper外部)的最底部插入一段内容</span><br><span class="line">--interop                   包含公共的模块（这个选项是默认添加的）</span><br></pre></td></tr></table></figure>
+
+<p>此外，还可以使用以下参数：</p>
+<h6 id="h-help"><a href="#h-help" class="headerlink" title="-h/--help"></a><code>-h</code>/<code>--help</code></h6><p>打印帮助文档。</p>
+<h6 id="v-version"><a href="#v-version" class="headerlink" title="-v/--version"></a><code>-v</code>/<code>--version</code></h6><p>打印已安装的Rollup版本号。</p>
+<h6 id="w-watch"><a href="#w-watch" class="headerlink" title="-w/--watch"></a><code>-w</code>/<code>--watch</code></h6><p>监听源文件是否有改动，如果有改动，重新打包</p>
+<h6 id="silent"><a href="#silent" class="headerlink" title="--silent"></a><code>--silent</code></h6><p>不要将警告打印到控制台。</p>
+<h3 id="配置文件-Configuration-files"><a href="#配置文件-Configuration-files" class="headerlink" title="配置文件(Configuration files)"></a>配置文件(Configuration files)</h3><p>Rollup的配置文件是可选的，但是使用配置文件的作用很强大，而且很方便，因此我们推荐你使用</p>
+<p>配置文件是一个ES6模块，它对外暴露一个对象，这个对象包含了一些Rollup需要的一些选项。通常，我们把这个配置文件叫做<code>rollup.config.js</code>，它通常位于项目的根目录</p>
+<p>如果你想使用Rollup的配置文件，记得在命令行里加上<code>--config</code>或者<code>-c</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认使用</span></span><br><span class="line">$ rollup.config.js$ rollup --config</span><br><span class="line"><span class="comment"># 或者, 使用自定义的配置文件，这里使用my.config.js作为配置文件</span></span><br><span class="line">$ rollup --config my.config.js</span><br></pre></td></tr></table></figure>
+
+<p>常用的核心配置输入(input <em><code>-i</code>/<code>--input</code></em>)</p>
+<blockquote>
+<p><code>String</code> 这个包的入口点 (例如：你的 <code>main.js</code> 或者 <code>app.js</code> 或者 <code>index.js</code>)</p>
+<h4 id="文件-file-o-output-file"><a href="#文件-file-o-output-file" class="headerlink" title="文件(file -o/--output.file)"></a>文件(file <em><code>-o</code>/<code>--output.file</code></em>)</h4><p><code>String</code> 要写入的文件。也可用于生成 sourcemaps，如果适用</p>
+<h4 id="格式-format-f-output-format"><a href="#格式-format-f-output-format" class="headerlink" title="格式(format -f/--output.format)"></a>格式(format <em><code>-f</code>/<code>--output.format</code></em>)</h4><p><code>String</code> 生成包的格式。 下列之一:</p>
+<ul>
+<li><code>amd</code> – 异步模块定义，用于像RequireJS这样的模块加载器</li>
+<li><code>cjs</code> – CommonJS，适用于 Node 和 Browserify/Webpack</li>
+<li><code>esm</code> – 将软件包保存为 ES 模块文件，在现代浏览器中可以通过 <code>&lt;script type=module&gt;</code> 标签引入</li>
+<li><code>iife</code> – 一个自动执行的功能，适合作为<code>&lt;script&gt;</code>标签。（如果要为应用程序创建一个捆绑包，您可能想要使用它，因为它会使文件大小变小。）</li>
+<li><code>umd</code> – 通用模块定义，以<code>amd</code>，<code>cjs</code> 和 <code>iife</code> 为一体</li>
+<li><code>system</code> - SystemJS 加载器格式</li>
+</ul>
+<h4 id="生成包名称-name-n-name"><a href="#生成包名称-name-n-name" class="headerlink" title="生成包名称(name -n/--name)"></a>生成包名称(name <em><code>-n</code>/<code>--name</code></em>)</h4><p><code>String</code> 变量名，代表你的 <code>iife</code>/<code>umd</code> 包，同一页上的其他脚本可以访问它。</p>
+</blockquote>
+<p>完整配置地址：<a target="_blank" rel="noopener" href="https://www.rollupjs.com/guide/big-list-of-options">大选项列表</a></p>
+<h3 id="Md5例子"><a href="#Md5例子" class="headerlink" title="Md5例子"></a>Md5例子</h3><p>学习一个工具最好的方式，就是拿例子来一遍，下面我们就用一个MD5算法的项目说明一下：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/md5-typescript">Md5 typescript</a></p>
+<p>我们下载项目后 项目地址<a target="_blank" rel="noopener" href="https://github.com/Hipparch/Md5-typescript">点击前往</a> 目录如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">├── LICENSE</span><br><span class="line">├── README.md</span><br><span class="line">├── dist</span><br><span class="line">|  ├── bundles</span><br><span class="line">|  |  ├── bundle.umd.js</span><br><span class="line">|  |  └── bundle.umd.min.js</span><br><span class="line">|  ├── index.d.ts</span><br><span class="line">|  ├── index.js</span><br><span class="line">|  ├── index.js.map</span><br><span class="line">|  └── index.metadata.json</span><br><span class="line">├── index.ts</span><br><span class="line">├── package.json</span><br><span class="line">├── rollup.config.js</span><br><span class="line">└── tsconfig.json</span><br><span class="line"></span><br><span class="line">directory: 2 file: 12</span><br></pre></td></tr></table></figure>
+
+<p>此时 我们可以查看 <code>tsconfig.json</code> 修改我们的配置 成功后运行 <code>tsc</code>  命令</p>
+<h4 id="修改-rollup-config-js"><a href="#修改-rollup-config-js" class="headerlink" title="修改 rollup.config.js"></a>修改 rollup.config.js</h4><p>修改这个配置，这里如下修改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> input = <span class="string">&#x27;dist/index.js&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> defaultName = <span class="string">&#x27;MD5&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">input</span>: input,</span><br><span class="line">    <span class="attr">output</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">file</span>: <span class="string">&#x27;dist/bundle/md5.browser.umd.js&#x27;</span>,</span><br><span class="line">            <span class="attr">format</span>: <span class="string">&#x27;umd&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: defaultName,</span><br><span class="line">            <span class="attr">sourcemap</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">file</span>: <span class="string">&#x27;dist/bundle/md5.browser.esm.js&#x27;</span>,</span><br><span class="line">            <span class="attr">format</span>: <span class="string">&#x27;es&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: defaultName,</span><br><span class="line">            <span class="attr">sourcemap</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">file</span>: <span class="string">&#x27;dist/bundle/md5.browser.cjs.js&#x27;</span>,</span><br><span class="line">            <span class="attr">format</span>: <span class="string">&#x27;cjs&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: defaultName,</span><br><span class="line">            <span class="attr">sourcemap</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">file</span>: <span class="string">&#x27;dist/bundle/md5.js&#x27;</span>,</span><br><span class="line">            <span class="attr">format</span>: <span class="string">&#x27;iife&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: defaultName,</span><br><span class="line">            <span class="attr">sourcemap</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rollup -c</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">smile@bogon Md5-typescript-master % rollup -c</span><br><span class="line"></span><br><span class="line">dist/index.js → dist/bundle/md5.browser.umd.js, dist/bundle/md5.browser.esm.js, dist/bundle/md5.browser.cjs.js, dist/bundle/md5.js...</span><br><span class="line">created dist/bundle/md5.browser.umd.js, dist/bundle/md5.browser.esm.js, dist/bundle/md5.browser.cjs.js, dist/bundle/md5.js <span class="keyword">in</span> 93ms</span><br><span class="line">smile@bogon Md5-typescript-master % </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">├── .idea</span><br><span class="line">|  ├── .gitignore</span><br><span class="line">|  ├── Md5-typescript-master.iml</span><br><span class="line">|  ├── modules.xml</span><br><span class="line">|  └── workspace.xml</span><br><span class="line">├── LICENSE</span><br><span class="line">├── README.md</span><br><span class="line">├── dist</span><br><span class="line">|  ├── bundle</span><br><span class="line">|  |  ├── md5.browser.cjs.js</span><br><span class="line">|  |  ├── md5.browser.esm.js</span><br><span class="line">|  |  ├── md5.browser.umd.js</span><br><span class="line">|  |  └── md5.js</span><br><span class="line">|  ├── bundles</span><br><span class="line">|  |  ├── bundle.umd.js</span><br><span class="line">|  |  └── bundle.umd.min.js</span><br><span class="line">|  ├── index.d.ts</span><br><span class="line">|  ├── index.js</span><br><span class="line">|  ├── index.js.map</span><br><span class="line">|  └── index.metadata.json</span><br><span class="line">├── index.ts</span><br><span class="line">├── package.json</span><br><span class="line">├── rollup.config.js</span><br><span class="line">└── tsconfig.json</span><br><span class="line"></span><br><span class="line">directory: 4 file: 20</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|  |  ├── md5.browser.cjs.js</span><br><span class="line">|  |  ├── md5.browser.esm.js</span><br><span class="line">|  |  ├── md5.browser.umd.js</span><br><span class="line">|  |  └── md5.js</span><br></pre></td></tr></table></figure>
+
+<p>这几个文件就是我们最终生成的文件  如果是作为第三方库 导入 <code>Typescript</code> 项目 就带上 声明文件 <code>index.d.ts</code> 即可。</p>
+<p>用法：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Md5</span>&#125; <span class="keyword">from</span> <span class="string">&quot;md5-typescript&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Md5</span>.<span class="title function_">init</span>(<span class="string">&#x27;test&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>更多加密算法参考：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/crypto-js">crypto-js</a> </p>
+<p>最后放上项目源码地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/md5%26xxtea">点击进入</a></p>
+<h3 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h3><h4 id="MD5简介"><a href="#MD5简介" class="headerlink" title="MD5简介"></a>MD5简介</h4><p>MD5是一种信息摘要算法（Message-Digest Algorithm），可以产生出一个128位（8位(bit)=1字节(byte),16字节）的散列值（hash）.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12345</span>   <span class="title class_">MD5</span>===&gt; e10adc3949ba59abbe56e057f20f883e</span><br><span class="line"><span class="comment">// 说好的128位,为什么有32个字符.</span></span><br><span class="line"><span class="comment">//这串码是16进制表示,1位==4位二进制.</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">12345</span>   <span class="title class_">MD5</span>===&gt; e10adc3949ba59abbe56e057f20f883e</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="comment">// 说好的128位,为什么有32个字符.</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="comment">//这串码是16进制表示,1位==4位二进制.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="MD5-加密后的类型（16位与-32位的区别）"><a href="#MD5-加密后的类型（16位与-32位的区别）" class="headerlink" title="MD5 加密后的类型（16位与 32位的区别）"></a>MD5 加密后的类型（16位与 32位的区别）</h4><p>MD5 加密后的位数一般为两种，16 位与 32 位。16 位实际上是从 32 位字符串中，取中间的第 9 位到第 24 位的部分,MD5 加密后的字符串又分为大写与小写两种，也就是其中的字母是大写还是小写。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> md5_16 = md5_32.<span class="title function_">substring</span>(<span class="number">8</span>, <span class="number">24</span>);</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>字符串</th>
+<th>123456</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>16位小写</td>
+<td>49ba59abbe56e057</td>
+</tr>
+<tr>
+<td>16位大写</td>
+<td>49BA59ABBE56E057</td>
+</tr>
+<tr>
+<td>32位小写</td>
+<td>e10adc3949ba59abbe56e057f20f883e</td>
+</tr>
+<tr>
+<td>32位大写</td>
+<td>E10ADC3949BA59ABBE56E057F20F883E</td>
+</tr>
+</tbody></table>
+<h3 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/50048269">10分钟快速入门rollup.js</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rollupjs.com/">rollupjs中文文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000021691476">一文读懂 MD5 算法</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/21c1b53.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>函数防抖与节流和TypeScript装饰结合</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/9839845c.html">
+        <span>技术工作的一些心得</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/bdcf7fdc.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E5%8F%82%E6%95%B0-Command-line-flags"><span class="toc-number">1.</span> <span class="toc-text">命令行的参数(Command line flags)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#h-help"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">-h&#x2F;--help</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#v-version"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">-v&#x2F;--version</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#w-watch"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">-w&#x2F;--watch</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#silent"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">--silent</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-Configuration-files"><span class="toc-number">2.</span> <span class="toc-text">配置文件(Configuration files)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6-file-o-output-file"><span class="toc-number">2.1.</span> <span class="toc-text">文件(file -o&#x2F;--output.file)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F-format-f-output-format"><span class="toc-number">2.2.</span> <span class="toc-text">格式(format -f&#x2F;--output.format)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%8C%85%E5%90%8D%E7%A7%B0-name-n-name"><span class="toc-number">2.3.</span> <span class="toc-text">生成包名称(name -n&#x2F;--name)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Md5%E4%BE%8B%E5%AD%90"><span class="toc-number">3.</span> <span class="toc-text">Md5例子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-rollup-config-js"><span class="toc-number">3.1.</span> <span class="toc-text">修改 rollup.config.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E7%9F%A5%E8%AF%86"><span class="toc-number">4.</span> <span class="toc-text">拓展知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5%E7%AE%80%E4%BB%8B"><span class="toc-number">4.1.</span> <span class="toc-text">MD5简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5-%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%8816%E4%BD%8D%E4%B8%8E-32%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%89"><span class="toc-number">4.2.</span> <span class="toc-text">MD5 加密后的类型（16位与 32位的区别）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-number">5.</span> <span class="toc-text">参考地址</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

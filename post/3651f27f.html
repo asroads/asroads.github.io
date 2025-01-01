@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            ios游戏跳转到App Store下载页面 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/3651f27f.html">ios游戏跳转到App Store下载页面</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-12-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=ios游戏跳转到App Store下载页面&url=http://blog.asroads.com/post/3651f27f.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=ios游戏跳转到App Store下载页面&url=http://blog.asroads.com/post/3651f27f.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/3651f27f.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/3651f27f.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/3651f27f.html&title=ios游戏跳转到App Store下载页面" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=ios游戏跳转到App Store下载页面&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/3651f27f.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/3651f27f.html&text=ios游戏跳转到App Store下载页面" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/iOS/ >iOS</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏发布到Appstore后，后续如果有版本需要更新，就要提醒用户去更新，此时最好的方式有两种，第一：用热更新的方式，这种玩家不需要主动去下载包，可以直接更新，第二种，让玩家去App Store 商店下载更新。第一种热更新方案，前面的文章已经说过，这里介绍第二种方案。</p>
+<span id="more"></span>
+
+<h3 id="获取游戏地址"><a href="#获取游戏地址" class="headerlink" title="获取游戏地址"></a>获取游戏地址</h3><ul>
+<li><p>七麦数据网站</p>
+<ul>
+<li>首先打开网站 输入游戏的名称搜索找到对应的游戏</li>
+</ul>
+<p><img src="/post/3651f27f/image-20191207175518032.png" alt="image-20191207175518032"></p>
+<ul>
+<li>点击游戏 图标 进入游戏介绍</li>
+</ul>
+<p><img src="/post/3651f27f/image-20191207175734295.png" alt="image-20191207175734295"></p>
+<ul>
+<li>目前，推荐使用的下载链接的格式为：<a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/id123456789%EF%BC%8C%E6%8A%8A%E6%95%B0%E5%AD%97%E6%8D%A2%E6%88%90%E4%BD%A0%E7%9A%84AppId">https://apps.apple.com/cn/app/id123456789，把数字换成你的AppId</a></li>
+<li>WWDC2019后，AppStore应用的下载链接域名变了，从itunes.apple.com变成了apps.apple.com</li>
+</ul>
+</li>
+</ul>
+<h3 id="获取AppStore-游戏最新信息"><a href="#获取AppStore-游戏最新信息" class="headerlink" title="获取AppStore 游戏最新信息"></a>获取AppStore 游戏最新信息</h3><p>苹果提供了一个很友好的iTunes接口，供我们获取App Store中App当前的最新信息，这是<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=http://www.apple.com/itunes/affiliates/resources/documentation/itunes-store-web-service-search-api.html"> iTunes </a>接口地址 ，有兴趣可以看一下，我们要用到的接口如下，xxx 处换成自己 App 的 AppId ，AppId 可以在 iTunes Connect 里面看到</p>
+<p><strong>接口：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://itunes.apple.com/lookup?<span class="built_in">id</span>=xxx</span><br></pre></td></tr></table></figure>
+
+<p>//xxx 为上面获取的游戏ID</p>
+<p>比如：微信的AppId为<code>414478124</code> 那么就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://itunes.apple.com/lookup?id=414478124</span><br></pre></td></tr></table></figure>
+
+<p>得到信息 大概如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;resultCount&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;results&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;screenshotUrls&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/a1/d7/a0/a1d7a023-6501-4e61-a512-d9b3c4bdae25/pr_source.jpg/392x696bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is5-ssl.mzstatic.com/image/thumb/Purple123/v4/ac/e9/47/ace9478e-837e-7983-1b8e-f6824502e558/pr_source.jpg/392x696bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/0c/84/f3/0c84f344-9b30-11b4-e86c-a8959f1f2b7b/pr_source.jpg/392x696bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/51/d9/d5/51d9d53b-64ea-a54b-19fa-ee4856c0656f/pr_source.jpg/392x696bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/18/95/5b/18955b84-51f4-4da0-a365-823aaf9b3b60/pr_source.jpg/392x696bb.jpg&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;ipadScreenshotUrls&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;https://is4-ssl.mzstatic.com/image/thumb/Purple123/v4/5b/66/dc/5b66dcd7-ef51-2a83-d371-eba89da899e7/pr_source.jpg/576x768bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/9a/b9/36/9ab936f5-e689-56ad-9dd1-b5c1416441b7/pr_source.jpg/576x768bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/76/10/8c/76108cdb-2105-378d-9e09-d7e8067081b9/pr_source.jpg/576x768bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/6e/04/56/6e04566d-0b9d-7407-5934-832b96ad81ad/pr_source.jpg/576x768bb.jpg&quot;</span><span class="punctuation">,</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple123/v4/b2/64/d8/b264d80c-ddb0-cbae-8741-af48681208c9/pr_source.jpg/576x768bb.jpg&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;appletvScreenshotUrls&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;artworkUrl60&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/c4/a2/57/c4a257ac-e9e7-3366-df1b-af6d1e961beb/source/60x60bb.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;artworkUrl512&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/c4/a2/57/c4a257ac-e9e7-3366-df1b-af6d1e961beb/source/512x512bb.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;artworkUrl100&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://is2-ssl.mzstatic.com/image/thumb/Purple113/v4/c4/a2/57/c4a257ac-e9e7-3366-df1b-af6d1e961beb/source/100x100bb.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;artistViewUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://apps.apple.com/cn/developer/%E6%B5%B7%E5%8D%97%E7%88%B1%E4%B9%90%E6%B8%B8%E6%96%87%E5%8C%96%E5%8F%91%E5%B1%95%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/id1218170813?uo=4&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;supportedDevices&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;iPad2Wifi-iPad2Wifi&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad23G-iPad23G&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone4S-iPhone4S&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadThirdGen-iPadThirdGen&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadThirdGen4G-iPadThirdGen4G&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone5-iPhone5&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPodTouchFifthGen-iPodTouchFifthGen&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadFourthGen-iPadFourthGen&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadFourthGen4G-iPadFourthGen4G&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini-iPadMini&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini4G-iPadMini4G&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone5c-iPhone5c&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone5s-iPhone5s&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadAir-iPadAir&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadAirCellular-iPadAirCellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMiniRetina-iPadMiniRetina&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMiniRetinaCellular-iPadMiniRetinaCellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone6-iPhone6&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone6Plus-iPhone6Plus&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadAir2-iPadAir2&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadAir2Cellular-iPadAir2Cellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini3-iPadMini3&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini3Cellular-iPadMini3Cellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPodTouchSixthGen-iPodTouchSixthGen&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone6s-iPhone6s&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone6sPlus-iPhone6sPlus&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini4-iPadMini4&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini4Cellular-iPadMini4Cellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadPro-iPadPro&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadProCellular-iPadProCellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadPro97-iPadPro97&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadPro97Cellular-iPadPro97Cellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhoneSE-iPhoneSE&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone7-iPhone7&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone7Plus-iPhone7Plus&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad611-iPad611&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad612-iPad612&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad71-iPad71&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad72-iPad72&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad73-iPad73&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad74-iPad74&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone8-iPhone8&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone8Plus-iPhone8Plus&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhoneX-iPhoneX&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad75-iPad75&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad76-iPad76&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhoneXS-iPhoneXS&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhoneXSMax-iPhoneXSMax&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhoneXR-iPhoneXR&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad812-iPad812&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad834-iPad834&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad856-iPad856&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPad878-iPad878&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini5-iPadMini5&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadMini5Cellular-iPadMini5Cellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadAir3-iPadAir3&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadAir3Cellular-iPadAir3Cellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPodTouchSeventhGen-iPodTouchSeventhGen&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone11-iPhone11&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone11Pro-iPhone11Pro&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadSeventhGen-iPadSeventhGen&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPadSeventhGenCellular-iPadSeventhGenCellular&quot;</span><span class="punctuation">,</span> <span class="string">&quot;iPhone11ProMax-iPhone11ProMax&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;isGameCenterEnabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;advisories&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;features&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;iosUniversal&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;software&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;trackCensoredName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;养个神仙玩儿&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;languageCodesISO2A&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;EN&quot;</span><span class="punctuation">,</span> <span class="string">&quot;ZH&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;fileSizeBytes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;60417024&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;contentAdvisoryRating&quot;</span><span class="punctuation">:</span> <span class="string">&quot;4+&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;averageUserRatingForCurrentVersion&quot;</span><span class="punctuation">:</span> <span class="number">5.0</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;userRatingCountForCurrentVersion&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;trackViewUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://apps.apple.com/cn/app/%E5%85%BB%E4%B8%AA%E7%A5%9E%E4%BB%99%E7%8E%A9%E5%84%BF/id1484061103?uo=4&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;trackContentRating&quot;</span><span class="punctuation">:</span> <span class="string">&quot;4+&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;trackName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;养个神仙玩儿&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;trackId&quot;</span><span class="punctuation">:</span> <span class="number">1484061103</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;sellerName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Hainan 5AGame Cultural Development Co., Ltd.&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;primaryGenreName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Games&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;genreIds&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;6014&quot;</span><span class="punctuation">,</span> <span class="string">&quot;7015&quot;</span><span class="punctuation">,</span> <span class="string">&quot;7014&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;formattedPrice&quot;</span><span class="punctuation">:</span> <span class="string">&quot;免费&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;minimumOsVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;8.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;currentVersionReleaseDate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2019-12-04T02:43:12Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;releaseNotes&quot;</span><span class="punctuation">:</span> <span class="string">&quot;—版本优化&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;isVppDeviceBasedLicensingEnabled&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;primaryGenreId&quot;</span><span class="punctuation">:</span> <span class="number">6014</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;currency&quot;</span><span class="punctuation">:</span> <span class="string">&quot;CNY&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;artistId&quot;</span><span class="punctuation">:</span> <span class="number">1218170813</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;artistName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;海南爱乐游文化发展有限公司&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;genres&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;游戏&quot;</span><span class="punctuation">,</span> <span class="string">&quot;模拟游戏&quot;</span><span class="punctuation">,</span> <span class="string">&quot;角色扮演游戏&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;price&quot;</span><span class="punctuation">:</span> <span class="number">0.00</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;放置与养成完美的结合，卡通风格人物更加生动\n用你的商业头脑，经营你的商业仙界\n\n【游戏玩法】\n1、无关卡和等级限制，自由发挥，经营你的仙界。\n2、可爱清新游戏画风，趣味十足，发挥游戏空间。\n3、修炼和关怀换成长，神仙打工，增加游戏收益。&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;bundleId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.hnaly.ygsxwer&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;releaseDate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2019-11-11T00:32:33Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.5&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;wrapperType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;software&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;averageUserRating&quot;</span><span class="punctuation">:</span> <span class="number">2.5</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;userRatingCount&quot;</span><span class="punctuation">:</span> <span class="number">23</span></span><br><span class="line">	<span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/post/3651f27f/image-20191209131918862.png" alt="image-20191209131918862"></p>
+<p>其中有我们需要的信息</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;resultCount&quot;</span> <span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;results&quot;</span> <span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;artistId&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;开发者 ID&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;artistName&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;开发者名称&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;trackCensoredName&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;审查名称&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;trackContentRating&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;评级&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;trackId&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;应用程序 ID&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;trackName&quot;</span> = <span class="string">&quot;应用程序名称&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;trackViewUrl&quot;</span> = <span class="string">&quot;应用程序下载网址&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;userRatingCount&quot;</span> = <span class="string">&quot;用户评论数量&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;userRatingCountForCurrentVersion&quot;</span> = <span class="string">&quot;当前版本的用户评论数量&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;version&quot;</span> = <span class="string">&quot;版本号&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;releaseNotes&quot;</span>=<span class="string">&quot;更新内容&quot;</span></span><br><span class="line">        <span class="string">&quot;description&quot;</span>=<span class="string">&quot;应用介绍&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><ul>
+<li>如果我们想在游戏每次登陆的时候提示用户去更新，那么我们需要一个弹窗提示：</li>
+</ul>
+<p>检查版本是否是最新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/// 检查版本更新</span><br><span class="line">- (void)checkVersion &#123;</span><br><span class="line">    NSURL * url = [NSURL URLWithString:@&quot;http://itunes.apple.com/lookup?id=414478124&quot;];</span><br><span class="line">    [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) &#123;</span><br><span class="line">        NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];</span><br><span class="line">        NSArray *results = dataDic[@&quot;results&quot;];</span><br><span class="line">        if (results &amp;&amp; results.count &gt; 0) &#123;</span><br><span class="line">            NSDictionary *response = results.firstObject;</span><br><span class="line">            NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@&quot;CFBundleShortVersionString&quot;]; // 软件的当前版本</span><br><span class="line">            NSString *lastestVersion = response[@&quot;version&quot;]; // AppStore 上软件的最新版本</span><br><span class="line">            if (currentVersion &amp;&amp; lastestVersion &amp;&amp; ![self isLastestVersion:currentVersion compare:lastestVersion]) &#123;</span><br><span class="line">                NSString * releaseNotes = response[@&quot;releaseNotes&quot;]; // 新版本更新内容</span><br><span class="line">                NSString * alertContent = [NSString stringWithFormat:@&quot;%@\n\n是否前往 AppStore 更新版本？&quot;,releaseNotes];</span><br><span class="line">                // 给出提示是否前往 AppStore 更新</span><br><span class="line">                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;检测到有版本更新&quot; message:alertContent preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">                [alert addAction:[UIAlertAction actionWithTitle:@&quot;前往&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) &#123;</span><br><span class="line">                    NSString *trackViewUrl = response[@&quot;trackViewUrl&quot;]; // AppStore 上软件的地址</span><br><span class="line">                    if (trackViewUrl) &#123;</span><br><span class="line">                        NSURL *appStoreURL = [NSURL URLWithString:trackViewUrl];</span><br><span class="line">                        if ([[UIApplication sharedApplication] canOpenURL:appStoreURL]) &#123;</span><br><span class="line">                            [[UIApplication sharedApplication] openURL:appStoreURL];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;]];</span><br><span class="line">                [alert addAction:[UIAlertAction actionWithTitle:@&quot;取消&quot; style:UIAlertActionStyleCancel handler:nil]];</span><br><span class="line">                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;] resume];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较版本大小：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/// 判断是否最新版本号（大于或等于为最新）</span><br><span class="line">- (BOOL)isLastestVersion:(NSString *)currentVersion compare:(NSString *)lastestVersion &#123;</span><br><span class="line">    if (currentVersion &amp;&amp; lastestVersion) &#123;</span><br><span class="line">        // 拆分成数组</span><br><span class="line">        NSMutableArray *currentItems = [[currentVersion componentsSeparatedByString:@&quot;.&quot;] mutableCopy];</span><br><span class="line">        NSMutableArray *lastestItems = [[lastestVersion componentsSeparatedByString:@&quot;.&quot;] mutableCopy];</span><br><span class="line">        // 如果数量不一样补0</span><br><span class="line">        NSInteger currentCount = currentItems.count;</span><br><span class="line">        NSInteger lastestCount = lastestItems.count;</span><br><span class="line">        if (currentCount != lastestCount) &#123;</span><br><span class="line">            NSInteger count = labs(currentCount - lastestCount); // 取绝对值</span><br><span class="line">            for (int i = 0; i &lt; count; ++i) &#123;</span><br><span class="line">                if (currentCount &gt; lastestCount) &#123;</span><br><span class="line">                    [lastestItems addObject:@&quot;0&quot;];</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    [currentItems addObject:@&quot;0&quot;];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 依次比较</span><br><span class="line">        BOOL isLastest = YES;</span><br><span class="line">        for (int i = 0; i &lt; currentItems.count; ++i) &#123;</span><br><span class="line">            NSString *currentItem = currentItems[i];</span><br><span class="line">            NSString *lastestItem = lastestItems[i];</span><br><span class="line">            if (currentItem.integerValue != lastestItem.integerValue) &#123;</span><br><span class="line">                isLastest = currentItem.integerValue &gt; lastestItem.integerValue;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return isLastest;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后我们在 <code>AppController.mm</code> 文件的 <code>didFinishLaunchingWithOptions</code> 方法内调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self checkVersion];</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果我们需要更改大版本的时候强制用户更新，需要去掉取消按钮，并且优先比较大的版本</li>
+</ul>
+<p>检查版本代码更新为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">/// 检查版本更新</span><br><span class="line">- (void)checkVersion &#123;</span><br><span class="line">//    NSURL * url = [NSURL URLWithString:@&quot;http://itunes.apple.com/lookup?id=414478124&quot;];</span><br><span class="line">    NSURL * url = [NSURL URLWithString:@&quot;https://itunes.apple.com/cn/lookup?id=414478124&quot;];</span><br><span class="line">    [[[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) &#123;</span><br><span class="line">        NSDictionary * dataDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];</span><br><span class="line">        NSArray *results = dataDic[@&quot;results&quot;];</span><br><span class="line">        if (results &amp;&amp; results.count &gt; 0) &#123;</span><br><span class="line">            NSDictionary *response = results.firstObject;</span><br><span class="line">            NSString *currentVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@&quot;CFBundleShortVersionString&quot;]; // 软件的当前版本</span><br><span class="line">            NSString *lastestVersion = response[@&quot;version&quot;]; // AppStore 上软件的最新版本</span><br><span class="line">//            lastestVersion = @&quot;2.0.2&quot;;//测试 数据 线上注释</span><br><span class="line">            NSLog(@&quot;currentVersion %@：&quot;,currentVersion);</span><br><span class="line">            NSLog(@&quot;lastestVersion %@：&quot;,lastestVersion);</span><br><span class="line">            if (currentVersion &amp;&amp; lastestVersion &amp;&amp; ![self isMustLastestVersion:currentVersion compare:lastestVersion]) &#123;</span><br><span class="line">                    NSString * releaseNotes = response[@&quot;releaseNotes&quot;]; // 新版本更新内容</span><br><span class="line">                    NSString * alertContent = [NSString stringWithFormat:@&quot;%@\n\n是否前往 AppStore 更新版本？&quot;,releaseNotes];</span><br><span class="line">                    // 给出提示是否前往 AppStore 更新</span><br><span class="line">                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;检测到有版本更新&quot; message:alertContent preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">                    [alert addAction:[UIAlertAction actionWithTitle:@&quot;前往&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) &#123;</span><br><span class="line">                        NSString *trackViewUrl = response[@&quot;trackViewUrl&quot;]; // AppStore 上软件的地址</span><br><span class="line">                        if (trackViewUrl) &#123;</span><br><span class="line">                            NSURL *appStoreURL = [NSURL URLWithString:trackViewUrl];</span><br><span class="line">                            if ([[UIApplication sharedApplication] canOpenURL:appStoreURL]) &#123;</span><br><span class="line">                                [[UIApplication sharedApplication] openURL:appStoreURL];</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;]];</span><br><span class="line">//                    [alert addAction:[UIAlertAction actionWithTitle:@&quot;取消&quot; style:UIAlertActionStyleCancel handler:nil]];</span><br><span class="line">                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];</span><br><span class="line">                &#125;else if (currentVersion &amp;&amp; lastestVersion &amp;&amp; ![self isLastestVersion:currentVersion compare:lastestVersion]) &#123;</span><br><span class="line">                NSString * releaseNotes = response[@&quot;releaseNotes&quot;]; // 新版本更新内容</span><br><span class="line">                NSString * alertContent = [NSString stringWithFormat:@&quot;%@\n\n是否前往 AppStore 更新版本？&quot;,releaseNotes];</span><br><span class="line">                // 给出提示是否前往 AppStore 更新</span><br><span class="line">                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;检测到有版本更新&quot; message:alertContent preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">                [alert addAction:[UIAlertAction actionWithTitle:@&quot;前往&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) &#123;</span><br><span class="line">                    NSString *trackViewUrl = response[@&quot;trackViewUrl&quot;]; // AppStore 上软件的地址</span><br><span class="line">                    if (trackViewUrl) &#123;</span><br><span class="line">                        NSURL *appStoreURL = [NSURL URLWithString:trackViewUrl];</span><br><span class="line">                        if ([[UIApplication sharedApplication] canOpenURL:appStoreURL]) &#123;</span><br><span class="line">                            [[UIApplication sharedApplication] openURL:appStoreURL];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;]];</span><br><span class="line">                [alert addAction:[UIAlertAction actionWithTitle:@&quot;取消&quot; style:UIAlertActionStyleCancel handler:nil]];</span><br><span class="line">                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">             NSLog(@&quot;未知错误&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;] resume];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>检查是否为大的版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/// 判断是否最新版本号（必须更新）</span><br><span class="line">- (BOOL)isMustLastestVersion:(NSString *)currentVersion compare:(NSString *)lastestVersion &#123;</span><br><span class="line">    if (currentVersion &amp;&amp; lastestVersion) &#123;</span><br><span class="line">        // 拆分成数组</span><br><span class="line">        NSMutableArray *currentItems = [[currentVersion componentsSeparatedByString:@&quot;.&quot;] mutableCopy];</span><br><span class="line">        NSMutableArray *lastestItems = [[lastestVersion componentsSeparatedByString:@&quot;.&quot;] mutableCopy];</span><br><span class="line">        // 如果数量不一样补0</span><br><span class="line">        NSInteger currentCount = currentItems.count;</span><br><span class="line">        NSInteger lastestCount = lastestItems.count;</span><br><span class="line">        if (currentCount != lastestCount) &#123;</span><br><span class="line">            NSInteger count = labs(currentCount - lastestCount); // 取绝对值</span><br><span class="line">            for (int i = 0; i &lt; count; ++i) &#123;</span><br><span class="line">                if (currentCount &gt; lastestCount) &#123;</span><br><span class="line">                    [lastestItems addObject:@&quot;0&quot;];</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    [currentItems addObject:@&quot;0&quot;];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 依次比较</span><br><span class="line">        BOOL isLastest = YES;</span><br><span class="line">        NSString *currentItem = currentItems[0];</span><br><span class="line">        NSString *lastestItem = lastestItems[0];</span><br><span class="line">        if (currentItem.integerValue != lastestItem.integerValue) &#123;</span><br><span class="line">            isLastest = currentItem.integerValue &gt; lastestItem.integerValue;</span><br><span class="line">        &#125;</span><br><span class="line">        return isLastest;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/// 判断是否最新版本号（大于或等于为最新）</span><br><span class="line">- (BOOL)isLastestVersion:(NSString *)currentVersion compare:(NSString *)lastestVersion &#123;</span><br><span class="line">    if (currentVersion &amp;&amp; lastestVersion) &#123;</span><br><span class="line">        // 拆分成数组</span><br><span class="line">        NSMutableArray *currentItems = [[currentVersion componentsSeparatedByString:@&quot;.&quot;] mutableCopy];</span><br><span class="line">        NSMutableArray *lastestItems = [[lastestVersion componentsSeparatedByString:@&quot;.&quot;] mutableCopy];</span><br><span class="line">        // 如果数量不一样补0</span><br><span class="line">        NSInteger currentCount = currentItems.count;</span><br><span class="line">        NSInteger lastestCount = lastestItems.count;</span><br><span class="line">        if (currentCount != lastestCount) &#123;</span><br><span class="line">            NSInteger count = labs(currentCount - lastestCount); // 取绝对值</span><br><span class="line">            for (int i = 0; i &lt; count; ++i) &#123;</span><br><span class="line">                if (currentCount &gt; lastestCount) &#123;</span><br><span class="line">                    [lastestItems addObject:@&quot;0&quot;];</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    [currentItems addObject:@&quot;0&quot;];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 依次比较</span><br><span class="line">        BOOL isLastest = YES;</span><br><span class="line">        for (int i = 0; i &lt; currentItems.count; ++i) &#123;</span><br><span class="line">            NSString *currentItem = currentItems[i];</span><br><span class="line">            NSString *lastestItem = lastestItems[i];</span><br><span class="line">            if (currentItem.integerValue != lastestItem.integerValue) &#123;</span><br><span class="line">                isLastest = currentItem.integerValue &gt; lastestItem.integerValue;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return isLastest;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同理 调用方法是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self checkVersion];</span><br></pre></td></tr></table></figure>
+
+<h3 id="服务器动态更新配置"><a href="#服务器动态更新配置" class="headerlink" title="服务器动态更新配置"></a>服务器动态更新配置</h3><p>其实另外两种种常见的更新方式：</p>
+<ul>
+<li><p>把配置文件放在CDN服务器，每次更新的时候去CDN服务器下载配置文件，比如json,但是目前Cocos Creator 不支持 引用链接地址【<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/scripting/load-assets.html">点击前往- 获取和加载资源</a>】</p>
+<blockquote>
+<p>目前的此类手动资源加载还有一些限制，对用户影响比较大的是：</p>
+<ol>
+<li>原生平台远程加载不支持图片文件以外类型的资源</li>
+<li>这种加载方式只支持图片、声音、文本等原生资源类型，不支持 SpriteFrame、SpriteAtlas、Tilemap 等资源的直接加载和解析（需要后续版本中的 AssetBundle 支持）</li>
+<li>Web 端的远程加载受到浏览器的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">CORS 跨域策略限制</a>，如果对方服务器禁止跨域访问，那么会加载失败，而且由于 WebGL 安全策略的限制，即便对方服务器允许 http 请求成功之后也无法渲染。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>使用HTTPS请求服务器，从服务器获取对用的数据，通过获取的信息去判断然后根据结果去弹框，弹框代码如下：</p>
+</li>
+</ul>
+<h3 id="iOS-提示框"><a href="#iOS-提示框" class="headerlink" title="iOS 提示框"></a>iOS 提示框</h3><p>由于对objective-c 语法熟识度有限，自己就从网上找了一个大神写好的弹框【**<a target="_blank" rel="noopener" href="https://github.com/alanshen0118/ALAlertView">ALAlertView</a>**】，拿来就用了，基本已经满足这个需求了</p>
+<p>ALAlertView.m</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  ALAlertView.m</span><br><span class="line">//  Sollair</span><br><span class="line">//</span><br><span class="line">//  Created by alan on 8/8/16.</span><br><span class="line">//  Copyright © 2016 bjdv. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#import &quot;ALAlertView.h&quot;</span><br><span class="line">#define kIOS9_OR_LATER ( [[[UIDevice currentDevice] systemVersion] compare:@&quot;9.0&quot;] != NSOrderedAscending )</span><br><span class="line"></span><br><span class="line">@interface ALAlertView ()</span><br><span class="line"></span><br><span class="line">@property (copy, nonatomic) CancelCallBack cancelCallBack;</span><br><span class="line"></span><br><span class="line">@property (copy, nonatomic) OtherCallBack otherCallBack;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ALAlertView</span><br><span class="line"></span><br><span class="line">+ (instancetype)alertView &#123;</span><br><span class="line">    return [[[self class] alloc] init];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - public method</span><br><span class="line">#pragma mark -- class method</span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">+ (void)showMessage:(NSString *)message &#123;</span><br><span class="line">    [[[self class] alertView] showMessage:message];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message &#123;</span><br><span class="line">    [[[self class] alertView] showAlertViewWithTitle:title message:message];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> *  @param dismissCallBack 确定回调</span><br><span class="line"> */</span><br><span class="line">+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message dismissCallBack:(CancelCallBack)dismissCallBack &#123;</span><br><span class="line">    [[[self class] alertView] showAlertViewWithTitle:title message:message dismissCallBack:dismissCallBack];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark -- object method</span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">- (void)showMessage:(NSString *)message &#123;</span><br><span class="line">    [self showAlertViewWithTitle:nil message:message];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message &#123;</span><br><span class="line">    [self showAlertViewWithTitle:title message:message cancelButtonTitle:@&quot;确定&quot; cancelCallBack:nil otherCallBack:nil otherButtonTitles:nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> *  @param dismissCallBack 确定回调</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message dismissCallBack:(CancelCallBack)dismissCallBack &#123;</span><br><span class="line">    [self showAlertViewWithTitle:title message:message cancelButtonTitle:@&quot;确定&quot; cancelCallBack:dismissCallBack otherCallBack:nil otherButtonTitles:nil, nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark -- base method</span><br><span class="line">/**</span><br><span class="line"> *  提示框基础方法</span><br><span class="line"> *</span><br><span class="line"> *  @param title             标题</span><br><span class="line"> *  @param message           消息</span><br><span class="line"> *  @param cancelButtonTitle 取消按钮标题</span><br><span class="line"> *  @param cancelCallBack    取消按钮回调</span><br><span class="line"> *  @param otherCallBack     其他按钮回调</span><br><span class="line"> *  @param otherButtonTitles 其他按钮</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle cancelCallBack:(CancelCallBack)cancelCallBack otherCallBack:(OtherCallBack)otherCallBack otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION&#123;</span><br><span class="line">#if __IPHONE_OS_VERSION_MIN_REQUIRED &gt;= __IPHONE_9_0</span><br><span class="line">    //初始化AlertController</span><br><span class="line">    UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">    //定义va_list</span><br><span class="line">    va_list argsList;</span><br><span class="line">    //指向首地址</span><br><span class="line">    va_start(argsList, otherButtonTitles);</span><br><span class="line">    NSInteger index = 0;</span><br><span class="line">    //遍历</span><br><span class="line">    while (otherButtonTitles) &#123;</span><br><span class="line">        //过滤入参类型</span><br><span class="line">        if (![otherButtonTitles isKindOfClass:[NSString class]]) &#123;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        //过滤空字符串</span><br><span class="line">        if (![self isBlankString:otherButtonTitles]) &#123;</span><br><span class="line">            //添加提示框按钮动作</span><br><span class="line">            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:otherButtonTitles style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                if (otherCallBack) &#123;</span><br><span class="line">                    [alertViewController dismissViewControllerAnimated:YES completion:nil];</span><br><span class="line">                    otherCallBack(index);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;];</span><br><span class="line">            [alertViewController addAction:alertAction];</span><br><span class="line">        &#125;</span><br><span class="line">        //指向下一个地址</span><br><span class="line">        otherButtonTitles = va_arg(argsList, NSString *);</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">    va_end(argsList);</span><br><span class="line">    </span><br><span class="line">    //取消按钮</span><br><span class="line">    if (![self isBlankString:cancelButtonTitle]) &#123;</span><br><span class="line">        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">            //点击过后关闭提示框</span><br><span class="line">            if (cancelCallBack) &#123;</span><br><span class="line">                [alertViewController dismissViewControllerAnimated:YES completion:nil];</span><br><span class="line">                //取消回调方法</span><br><span class="line">                cancelCallBack();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">        [alertViewController addAction:alertAction];</span><br><span class="line">    &#125;</span><br><span class="line">    //从当前控制器中模态弹出提示框</span><br><span class="line">    [[self getCurrentViewController] presentViewController:alertViewController animated:YES completion:nil];</span><br><span class="line">    </span><br><span class="line">#else</span><br><span class="line">    if (kIOS9_OR_LATER) &#123;</span><br><span class="line">        UIAlertController *alertViewController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];</span><br><span class="line">        va_list argsList;</span><br><span class="line">        va_start(argsList, otherButtonTitles);</span><br><span class="line">        NSInteger index = 0;</span><br><span class="line">        while (otherButtonTitles) &#123;</span><br><span class="line">            if (![otherButtonTitles isKindOfClass:[NSString class]]) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">            if (![self isBlankString:otherButtonTitles]) &#123;</span><br><span class="line">                UIAlertAction *alertAction = [UIAlertAction actionWithTitle:otherButtonTitles style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                    if (otherCallBack) &#123;</span><br><span class="line">                        [alertViewController dismissViewControllerAnimated:YES completion:nil];</span><br><span class="line">                        otherCallBack(index);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;];</span><br><span class="line">                [alertViewController addAction:alertAction];</span><br><span class="line">            &#125;</span><br><span class="line">            otherButtonTitles = va_arg(argsList, NSString *);</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        va_end(argsList);</span><br><span class="line">        if (![self isBlankString:cancelButtonTitle]) &#123;</span><br><span class="line">            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) &#123;</span><br><span class="line">                if (cancelCallBack) &#123;</span><br><span class="line">                    [alertViewController dismissViewControllerAnimated:YES completion:nil];</span><br><span class="line">                    cancelCallBack();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;];</span><br><span class="line">            [alertViewController addAction:alertAction];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        [[self getCurrentViewController] presentViewController:alertViewController animated:YES completion:nil];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        self.cancelCallBack = [cancelCallBack copy];</span><br><span class="line">        self.otherCallBack = [otherCallBack copy];</span><br><span class="line">        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:cancelButtonTitle otherButtonTitles:nil];</span><br><span class="line">        va_list argsList;</span><br><span class="line">        va_start(argsList, otherButtonTitles);</span><br><span class="line">        NSInteger index = 0;</span><br><span class="line">        while (otherButtonTitles) &#123;</span><br><span class="line">            if (![self isBlankString:otherButtonTitles]) &#123;</span><br><span class="line">                [alertView addButtonWithTitle:otherButtonTitles];</span><br><span class="line">            &#125;</span><br><span class="line">            otherButtonTitles = va_arg(argsList, NSString *);</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        va_end(argsList);</span><br><span class="line">        </span><br><span class="line">        [alertView show];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - System Delegate</span><br><span class="line">#pragma mark -- UIAlertViewDelegete</span><br><span class="line">#if __IPHONE_OS_VERSION_MIN_REQUIRED &lt; __IPHONE_9_0</span><br><span class="line">- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex &#123;</span><br><span class="line">    NSInteger otherButtonIndex = 0;</span><br><span class="line">    if (alertView.cancelButtonIndex == 0) &#123;</span><br><span class="line">        if (buttonIndex == 0) &#123;</span><br><span class="line">            if (self.cancelCallBack) &#123;</span><br><span class="line">                self.cancelCallBack();</span><br><span class="line">            &#125;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        otherButtonIndex = buttonIndex - 1;</span><br><span class="line">    &#125;</span><br><span class="line">    if (self.otherCallBack) &#123;</span><br><span class="line">        self.otherCallBack(otherButtonIndex);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#pragma mark - Utils</span><br><span class="line">/**</span><br><span class="line"> *  判断空字符串</span><br><span class="line"> *</span><br><span class="line"> *  @param string 字符串</span><br><span class="line"> *</span><br><span class="line"> *  @return 是否为空</span><br><span class="line"> */</span><br><span class="line">- (BOOL)isBlankString:(NSString *)string &#123;</span><br><span class="line">    if (string == nil || string == NULL) &#123;</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    if ([string isKindOfClass:[NSNull class]]) &#123;</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) &#123;</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  获取当前视图控制器</span><br><span class="line"> *</span><br><span class="line"> *  @return 当前视图控制器</span><br><span class="line"> */</span><br><span class="line">- (UIViewController *)getCurrentViewController</span><br><span class="line">&#123;</span><br><span class="line">    UIViewController *currentViewController = nil;</span><br><span class="line">    UIWindow * window = [[UIApplication sharedApplication] keyWindow];</span><br><span class="line">    </span><br><span class="line">    if ([window subviews].count == 0) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (window.windowLevel != UIWindowLevelNormal) &#123;</span><br><span class="line">        NSArray *windows = [[UIApplication sharedApplication] windows];</span><br><span class="line">        for(UIWindow * subWindow in windows)</span><br><span class="line">        &#123;</span><br><span class="line">            if (subWindow.windowLevel == UIWindowLevelNormal) &#123;</span><br><span class="line">                window = subWindow;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    UIView *frontView = [[window subviews] objectAtIndex:0];</span><br><span class="line">    id nextResponder = [frontView nextResponder];</span><br><span class="line">    </span><br><span class="line">    if ([nextResponder isKindOfClass:[UIViewController class]]) &#123;</span><br><span class="line">        currentViewController = nextResponder;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        currentViewController = window.rootViewController;</span><br><span class="line">    &#125;</span><br><span class="line">    return currentViewController;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ALAlertView.h</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  ALAlertView.h</span><br><span class="line">//  Sollair</span><br><span class="line">//</span><br><span class="line">//  Created by alan on 8/8/16.</span><br><span class="line">//  Copyright © 2016 bjdv. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">#define kIOS9_OR_LATER ( [[[UIDevice currentDevice] systemVersion] compare:@&quot;9.0&quot;] != NSOrderedAscending )</span><br><span class="line"></span><br><span class="line">#define XXALERT(msg) [ALAlertView showMessage:msg];</span><br><span class="line"></span><br><span class="line">typedef void(^CancelCallBack)();</span><br><span class="line">typedef void(^OtherCallBack)(NSInteger buttonIndex);</span><br><span class="line"></span><br><span class="line">@interface ALAlertView : NSObject&lt;UIAlertViewDelegate&gt;</span><br><span class="line"></span><br><span class="line">+ (instancetype)alertView;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">+ (void)showMessage:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> *  @param dismissCallBack 确定回调</span><br><span class="line"> */</span><br><span class="line">+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message dismissCallBack:(CancelCallBack)dismissCallBack;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框基础方法</span><br><span class="line"> *</span><br><span class="line"> *  @param title             标题</span><br><span class="line"> *  @param message           消息</span><br><span class="line"> *  @param cancelButtonTitle 取消按钮标题</span><br><span class="line"> *  @param cancelCallBack    取消按钮回调</span><br><span class="line"> *  @param otherCallBack     其他按钮回调</span><br><span class="line"> *  @param otherButtonTitles 其他按钮</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle cancelCallBack:(CancelCallBack)cancelCallBack otherCallBack:(OtherCallBack)otherCallBack otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">- (void)showMessage:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> *  @param dismissCallBack 确定回调</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message dismissCallBack:(CancelCallBack)dismissCallBack;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>调用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+(NSString *)updateGames:(NSString*)userId&#123;</span><br><span class="line">    NSLog(@&quot;OC收到：有参数，有返回值 %@：userId&quot;,userId);</span><br><span class="line">//    [[ALAlertView alertView] showAlertViewWithTitle:@&quot;标题&quot; message:@&quot;消息&quot; dismissCallBack:^&#123;</span><br><span class="line">//        NSLog(@&quot;用户点击了确定&quot;);</span><br><span class="line">//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;https://apps.apple.com/cn/app/id1484061103?mt=8&quot;]];</span><br><span class="line">//    &#125;];</span><br><span class="line">    [[ALAlertView alertView] showAlertViewWithTitle:@&quot;更新提示&quot; message:@&quot;游戏有新的版本可以更新&quot; cancelButtonTitle:@&quot;取消&quot; cancelCallBack:^&#123;</span><br><span class="line">            NSLog(@&quot;用户点击了取消&quot;);</span><br><span class="line">     &#125;otherCallBack:^(NSInteger buttonIndex)&#123;</span><br><span class="line">         NSLog(@&quot;用户点击了确定&quot;);</span><br><span class="line">         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;https://apps.apple.com/cn/app/id1484061103?mt=8&quot;]];</span><br><span class="line">     &#125; otherButtonTitles:@&quot;确定&quot;, nil];</span><br><span class="line">    return @&quot;updateGames&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1be092e00c6f">iOS如何快速获取App在AppStore的下载地址</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cocoachina.com/articles/24601">iOS 获取 AppStore 上 APP 版本号比较提示更新</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.codeleading.com/article/9993524143/">iOS简单调用系统提示框(UIAlertController)</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.coolketang.com/staticIOS/5b0953b4ac502e0062c27f31.html">利用 iTunes 接口检查 App 版本更新</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d81a0ca7b149">iOS跳转AppStore相关</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7fb04f9daad5">ios 开发之UIAlertController</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/61ac842eddc5">cocos creator iOS原生分享接入</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/d927b4f2.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator Tween Max 小游戏引入</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/c091ccec.html">
+        <span>Excel将转置数据从行到列或者丛列到行</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/3651f27f.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%B8%B8%E6%88%8F%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">获取游戏地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96AppStore-%E6%B8%B8%E6%88%8F%E6%9C%80%E6%96%B0%E4%BF%A1%E6%81%AF"><span class="toc-number">2.</span> <span class="toc-text">获取AppStore 游戏最新信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8A%A8%E6%80%81%E6%9B%B4%E6%96%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">服务器动态更新配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-%E6%8F%90%E7%A4%BA%E6%A1%86"><span class="toc-number">5.</span> <span class="toc-text">iOS 提示框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

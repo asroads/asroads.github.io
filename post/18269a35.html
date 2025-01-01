@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Layabox-学习笔记-(7) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/18269a35.html">Layabox-学习笔记-(7)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2018-09-03
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Layabox-学习笔记-(7)&url=http://blog.asroads.com/post/18269a35.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Layabox-学习笔记-(7)&url=http://blog.asroads.com/post/18269a35.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/18269a35.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/18269a35.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/18269a35.html&title=Layabox-学习笔记-(7)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Layabox-学习笔记-(7)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/18269a35.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/18269a35.html&text=Layabox-学习笔记-(7)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h3 id="LayaBox-微信小游戏-游戏分享"><a href="#LayaBox-微信小游戏-游戏分享" class="headerlink" title="LayaBox 微信小游戏 游戏分享"></a>LayaBox 微信小游戏 游戏分享</h3><p>我们知道 常见的微信游戏有三种分享 分别是 转发菜单、被动转发、主动转发</p>
+<span id="more"></span>
+
+<h4 id="转发菜单分享"><a href="#转发菜单分享" class="headerlink" title="转发菜单分享"></a>转发菜单分享</h4><p>总共分两步：</p>
+<ol>
+<li>显示出系统菜单的“转发”按钮</li>
+<li>添加系统菜单转发监听函数</li>
+</ol>
+<h5 id="显示出系统菜单"><a href="#显示出系统菜单" class="headerlink" title="显示出系统菜单"></a>显示出系统菜单</h5><p>用到的函数<code>wx.showShareMenu(Object object)</code></p>
+<blockquote>
+<p>支持版本 &gt;= 1.1.0</p>
+<p>显示当前页面的转发按钮</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><h5 id="Object-object"><a href="#Object-object" class="headerlink" title="Object object"></a>Object object</h5><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>是否必填</th>
+<th>说明</th>
+<th>支持版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>withShareTicket</td>
+<td>boolean</td>
+<td></td>
+<td>是</td>
+<td>是否使用带 shareTicket 的转发<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/tutorial/open-ability/share.html">详情</a></td>
+<td></td>
+</tr>
+<tr>
+<td>success</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>接口调用成功的回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>fail</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>接口调用失败的回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>complete</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>接口调用结束的回调函数（调用成功、失败都会执行）</td>
+<td></td>
+</tr>
+</tbody></table>
+</blockquote>
+<blockquote>
+<p>wx.hideShareMenu(Object object)</p>
+<p>支持版本 &gt;= 1.1.0</p>
+<p>隐藏转发按钮</p>
+<h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h4><h5 id="object"><a href="#object" class="headerlink" title="object"></a>object</h5><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>是否必填</th>
+<th>说明</th>
+<th>支持版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>success</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>接口调用成功的回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>fail</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>接口调用失败的回调函数</td>
+<td></td>
+</tr>
+<tr>
+<td>complete</td>
+<td>function</td>
+<td></td>
+<td>否</td>
+<td>接口调用结束的回调函数（调用成功、失败都会执行）</td>
+<td></td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>点击右上角按钮，会弹出菜单，菜单中的“转发”选项默认不展示。通过 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/share/wx.showShareMenu.html">wx.showShareMenu()</a> 和 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/api/share/wx.hideShareMenu.html">wx.hideShareMenu()</a> 可动态显示、隐藏这个选项。</p>
+<p>比如我的实现是：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> shareObj = &#123;</span><br><span class="line">       <span class="attr">complete</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Complete&quot;</span>);</span><br><span class="line">       &#125;,</span><br><span class="line">       <span class="attr">success</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Success&quot;</span>);</span><br><span class="line">       &#125;,</span><br><span class="line">       <span class="attr">fail</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Fail&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   wx.<span class="title function_">showShareMenu</span>(shareObj);</span><br></pre></td></tr></table></figure>
+
+<h5 id="添加系统菜单转发监听"><a href="#添加系统菜单转发监听" class="headerlink" title="添加系统菜单转发监听"></a>添加系统菜单转发监听</h5><p>需要用到的函数：wx.onShareAppMessage(function callback)  <strong>注意参数是方法</strong></p>
+<blockquote>
+<h4 id="callback-回调函数"><a href="#callback-回调函数" class="headerlink" title="callback 回调函数"></a>callback 回调函数</h4><h5 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h5><h6 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h6><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+<th>支持版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>title</td>
+<td>string</td>
+<td>转发标题，不传则默认使用当前小游戏的昵称。</td>
+<td></td>
+</tr>
+<tr>
+<td>imageUrl</td>
+<td>string</td>
+<td>转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4</td>
+<td></td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>查询字符串，必须是 key1=val1&amp;key2=val2 的格式。从这条转发消息进入后，可通过 wx.getLaunchOptionSync() 或 wx.onShow() 获取启动参数中的 query。</td>
+<td></td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>比如我的实现是：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用微信菜单分享 path 是你的网络URL地址 或者本地创建</span></span><br><span class="line">wx.<span class="title function_">onShareAppMessage</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;微信小游戏分享标题&#x27;</span>,</span><br><span class="line">        <span class="attr">imageUrl</span>: <span class="string">&quot;path&quot;</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ShareAppMessageSuccess&quot;</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">fail</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ShareAppMessageFail&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="主动分享"><a href="#主动分享" class="headerlink" title="主动分享"></a>主动分享</h4><p><code>wx.shareAppMessage(Object object)</code></p>
+<blockquote>
+<h4 id="参数-2"><a href="#参数-2" class="headerlink" title="参数"></a>参数</h4><h5 id="Object-object-1"><a href="#Object-object-1" class="headerlink" title="Object object"></a>Object object</h5><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>是否必填</th>
+<th>说明</th>
+<th>支持版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>title</td>
+<td>string</td>
+<td></td>
+<td>否</td>
+<td>转发标题，不传则默认使用当前小游戏的昵称。</td>
+<td></td>
+</tr>
+<tr>
+<td>imageUrl</td>
+<td>string</td>
+<td></td>
+<td>否</td>
+<td>转发显示图片的链接，可以是网络图片路径或本地图片文件路径或相对代码包根目录的图片文件路径。显示图片长宽比是 5:4</td>
+<td></td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td></td>
+<td>否</td>
+<td>查询字符串，从这条转发消息进入后，可通过 wx.getLaunchInfoSync() 或 wx.onShow() 获取启动参数中的 query。必须是 key1=val1&amp;key2=val2 的格式。</td>
+<td></td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>比如我的实现：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="attr">title</span>: <span class="string">&quot;分享的标题&quot;</span>,</span><br><span class="line">    <span class="attr">imageUrl</span>: <span class="string">&quot;path&quot;</span>,</span><br><span class="line">    <span class="attr">success</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ShareSuccess&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;;</span><br><span class="line"> wx.<span class="title function_">shareAppMessage</span>(obj);</span><br></pre></td></tr></table></figure>
+
+<p>可能要了解的还有有 <code>wx.getShareInfo(Object object)</code>、<code>wx.hideShareMenu(Object object)</code>、<code>wx.offShareAppMessage(function callback)</code>、<code>wx.updateShareMenu(Object object)</code></p>
+<p>参考文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/document/render/canvas/wx.createCanvas.html">微信小游戏API</a> （比较权威，更新和接口更改都有）</li>
+<li><a target="_blank" rel="noopener" href="https://www.w3cschool.cn/wxagame/wxagame-yt462itn.html">w3cschool微信小游戏API</a>（可以搜索）</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/ba6692cc.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Windows下如何安装Python和pip</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/841f3d86.html">
+        <span>Window 电脑技巧集锦</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/18269a35.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#LayaBox-%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F-%E6%B8%B8%E6%88%8F%E5%88%86%E4%BA%AB"><span class="toc-number">1.</span> <span class="toc-text">LayaBox 微信小游戏 游戏分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E5%8F%91%E8%8F%9C%E5%8D%95%E5%88%86%E4%BA%AB"><span class="toc-number">1.1.</span> <span class="toc-text">转发菜单分享</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%87%BA%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">显示出系统菜单</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Object-object"><span class="toc-number">1.2.1.</span> <span class="toc-text">Object object</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0-1"><span class="toc-number">1.3.</span> <span class="toc-text">参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#object"><span class="toc-number">1.3.1.</span> <span class="toc-text">object</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%B3%BB%E7%BB%9F%E8%8F%9C%E5%8D%95%E8%BD%AC%E5%8F%91%E7%9B%91%E5%90%AC"><span class="toc-number">1.3.2.</span> <span class="toc-text">添加系统菜单转发监听</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#callback-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">callback 回调函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">1.4.1.</span> <span class="toc-text">返回值</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Object"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Object</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%8A%A8%E5%88%86%E4%BA%AB"><span class="toc-number">1.5.</span> <span class="toc-text">主动分享</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0-2"><span class="toc-number">1.6.</span> <span class="toc-text">参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Object-object-1"><span class="toc-number">1.6.1.</span> <span class="toc-text">Object object</span></a></li></ol></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

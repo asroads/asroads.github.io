@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/e64c75a7.html">CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-02-28
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景&url=http://blog.asroads.com/post/e64c75a7.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景&url=http://blog.asroads.com/post/e64c75a7.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/e64c75a7.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/e64c75a7.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/e64c75a7.html&title=CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/e64c75a7.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/e64c75a7.html&text=CocosCreator2.4.13如何启动场景更改为AssetBundle内的场景" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p><code>CocosCreator</code>从2.4开始可以自定义<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/asset-manager/bundle.html">Asset Bundle</a>，这个功能给开发者带来了很多自由设计素材结构的空间，使得开发者更容易把游戏设计为模块化，使得开发者可以更自由的设置合理分配资源。在自己实践过程中，慢慢的积累了一些开发心得，下面就谈谈如何让<code>CocosCreator</code>启动自己自定义<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/asset-manager/bundle.html">Asset Bundle</a>,其中包括使用插件代替手动更新方案。</p>
+<span id="more"></span>
+
+<h2 id="目前现状"><a href="#目前现状" class="headerlink" title="目前现状"></a>目前现状</h2><h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p><img src="/post/e64c75a7/image-20240301160849483.png" alt="image-20240301160849483"></p>
+<h3 id="设置启动场景Bundle"><a href="#设置启动场景Bundle" class="headerlink" title="设置启动场景Bundle"></a>设置启动场景Bundle</h3><p><img src="/post/e64c75a7/image-20240301161514543.png" alt="image-20240301161514543"></p>
+<h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><p><img src="/post/e64c75a7/image-20240301161637054.png" alt="image-20240301161637054"></p>
+<ol>
+<li><p>此时我们发现 无法勾选 <code>bundle</code>内的场景为启动场景<br><img src="/post/e64c75a7/image-20240301161725187.png" alt="image-20240301161725187"></p>
+</li>
+<li><p>我们查看一下 构建后的<code>settings.js</code> 和 <code>main.js</code> 数据内容</p>
+</li>
+</ol>
+<p><img src="/post/e64c75a7/image-20240301161917585.png" alt="image-20240301161917585"></p>
+<p><img src="/post/e64c75a7/image-20240301161940951.png" alt="image-20240301161940951"></p>
+<h2 id="项目改造"><a href="#项目改造" class="headerlink" title="项目改造"></a>项目改造</h2><h3 id="项目分析"><a href="#项目分析" class="headerlink" title="项目分析"></a>项目分析</h3><p>此时我们静下来分析一下，按照<code>CocosCreator</code>的流程，如果我们想启动我们自己的<code>Bundle</code>内的场景，那么必须要加载我们的自定义的<code>Bundle</code> 然后设置启动场景为我们想要的启动场景。下面说一下具体步骤。</p>
+<ol>
+<li>修改<code>main.js</code> 的文件内容 将 我们自己自定义的<code>bundle</code>添加进去，个人建议添加到 内置<code>bundle</code>后面：</li>
+</ol>
+<p>原来代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bundleRoot = [<span class="variable constant_">INTERNAL</span>];</span><br></pre></td></tr></table></figure>
+
+<p>替换后：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bundleRoot = [<span class="variable constant_">INTERNAL</span>,<span class="string">&quot;launch&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改setting.js文件（我这里勾选了调试模式，所以没有MD5）</li>
+</ol>
+<p>原内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">launchScene</span>: <span class="string">&quot;db://assets/scene/MainScene.fire&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<p>替换后:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">launchScene</span>: <span class="string">&quot;db://assets/bundles/launch/MiniLaunchScene.fire&quot;</span>,</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>此时我们使用微信开发者工具验证一下</li>
+</ol>
+<p><img src="/post/e64c75a7/image-20240301163049419.png" alt="image-20240301163049419"></p>
+<ol start="4">
+<li>此时我们发现可以正常运行，证明思路可行。</li>
+</ol>
+<h3 id="进一步优化"><a href="#进一步优化" class="headerlink" title="进一步优化"></a>进一步优化</h3><p>此时，我们知道，构建后修改文件，就可以达到我们希望的效果，那么我们如何每次避免手动修改呢？问题来了。</p>
+<p>是否可以使用 自定义发布模版 的 <code>build-templates</code>更改呢？</p>
+<p>下面我们尝试一下：</p>
+<p><img src="/post/e64c75a7/image-20240301163619303.png" alt="image-20240301163619303"></p>
+<p>但是构建后的<code>setting.js</code>没有被替换<br><img src="/post/e64c75a7/image-20240301164220602.png" alt="image-20240301164220602"></p>
+<p>那有没有其他方法呢？答案是有的，插件实现。</p>
+<h3 id="修改构建插件"><a href="#修改构建插件" class="headerlink" title="修改构建插件"></a>修改构建插件</h3><ol>
+<li>我们新建一个插件</li>
+</ol>
+<p><img src="/post/e64c75a7/image-20240301164451071.png" alt="image-20240301164451071"></p>
+<ol start="2">
+<li><code>index.js</code> 内容：备注：此文件对插件无用，默认就行，可以跳过不看</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// panel/index.js, this filename needs to match the one registered in package.json</span></span><br><span class="line"><span class="title class_">Editor</span>.<span class="property">Panel</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">  <span class="comment">// css style for panel</span></span><br><span class="line">  <span class="attr">style</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    :host &#123; margin: 5px; &#125;</span></span><br><span class="line"><span class="string">    h2 &#123; color: #f90; &#125;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// html template for panel</span></span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h2&gt;excel-cmd&lt;/h2&gt;</span></span><br><span class="line"><span class="string">    &lt;hr /&gt;</span></span><br><span class="line"><span class="string">    &lt;div&gt;State: &lt;span id=&quot;label&quot;&gt;--&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;hr /&gt;</span></span><br><span class="line"><span class="string">    &lt;ui-button id=&quot;btn&quot;&gt;Send To Main&lt;/ui-button&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// element and variable binding</span></span><br><span class="line">  <span class="attr">$</span>: &#123;</span><br><span class="line">    <span class="attr">btn</span>: <span class="string">&#x27;#btn&#x27;</span>,</span><br><span class="line">    <span class="attr">label</span>: <span class="string">&#x27;#label&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// method executed when template and styles are successfully loaded and initialized</span></span><br><span class="line">  ready () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$btn</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;confirm&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title class_">Editor</span>.<span class="property">Ipc</span>.<span class="title function_">sendToMain</span>(<span class="string">&#x27;excel-cmd:clicked&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// register your ipc messages here</span></span><br><span class="line">  <span class="attr">messages</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;excel-cmd:hello&#x27;</span> (event) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$label</span>.<span class="property">innerText</span> = <span class="string">&#x27;Hello!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><code>package.json</code> 内容：</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bundle-change-first&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;The package template for getting started.&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jsroads&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main-menu&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;panel&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;panel/index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dockable&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;BundleFast&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;width&quot;</span><span class="punctuation">:</span> <span class="number">400</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;height&quot;</span><span class="punctuation">:</span> <span class="number">300</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><code>main.js</code></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> miniAdapterActualPlatform = [<span class="string">&quot;bytedance&quot;</span>, <span class="string">&quot;wechatgame&quot;</span>];</span><br><span class="line"><span class="keyword">const</span> webAdapterActualPlatform = [<span class="string">&quot;web-mobile&quot;</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newLaunchScene = <span class="string">&quot;db://assets/bundles/launch/MiniLaunchScene.fire&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newLaunchBundle = <span class="string">`&quot;launch&quot;`</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onBuildFinish</span>(<span class="params">options, callback</span>) &#123;</span><br><span class="line">    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">&quot;[bundle-change-first]&quot;</span>, options.<span class="property">platform</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;web-mobile&quot;</span> === options.<span class="property">platform</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (webAdapterActualPlatform.<span class="title function_">indexOf</span>(options.<span class="property">actualPlatform</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">            callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">modifySettings</span>(options);</span><br><span class="line">        <span class="title function_">modifyMainJS</span>(options);</span><br><span class="line">        <span class="title class_">Editor</span>.<span class="title function_">success</span>(<span class="string">&quot;[bundle-change-first]&quot;</span>, <span class="string">&quot;web-mobile首屏启动优化完成&quot;</span>);</span><br><span class="line">        <span class="title function_">callback</span>();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;mini-game&quot;</span> === options.<span class="property">platform</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (miniAdapterActualPlatform.<span class="title function_">indexOf</span>(options.<span class="property">actualPlatform</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">            callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title function_">modifyMiniSettings</span>(options);</span><br><span class="line">        <span class="title function_">modifyMiniMainJS</span>(options);</span><br><span class="line">        <span class="title class_">Editor</span>.<span class="title function_">success</span>(<span class="string">&quot;[bundle-change-first]&quot;</span>, <span class="string">&quot;小游戏首屏启动优化完成&quot;</span>);</span><br><span class="line">        <span class="title function_">callback</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modifySettings</span>(<span class="params">options</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> dirPath = path.<span class="title function_">join</span>(options.<span class="property">dest</span>, <span class="string">&quot;src&quot;</span>); <span class="comment">// 假设文件在 src 目录下</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 列出目录中的所有文件</span></span><br><span class="line">    fs.<span class="title function_">readdir</span>(dirPath, <span class="keyword">function</span> (<span class="params">err, files</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error reading the directory:&quot;</span>, err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 正则表达式匹配文件名</span></span><br><span class="line">        <span class="keyword">const</span> regex = <span class="regexp">/^settings\.[0-9a-f]+\.js$/</span>;</span><br><span class="line">        files.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">file</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (regex.<span class="title function_">test</span>(file)) &#123;</span><br><span class="line">                <span class="comment">// 匹配到的文件</span></span><br><span class="line">                <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(dirPath, file);</span><br><span class="line">                fs.<span class="title function_">readFile</span>(filePath, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error reading the file:&quot;</span>, err);</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 修改文件内容</span></span><br><span class="line">                    <span class="keyword">let</span> modifiedData = data.<span class="title function_">replace</span>(<span class="regexp">/(launchScene\s*:\s*&quot;)([^&quot;]*)(&quot;)/</span>, <span class="string">`$1<span class="subst">$&#123;newLaunchScene&#125;</span>$3`</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 保存修改后的文件</span></span><br><span class="line">                    fs.<span class="title function_">writeFile</span>(filePath, modifiedData, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error writing to the file:&quot;</span>, err);</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;File updated successfully&quot;</span>);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modifyMainJS</span>(<span class="params">options</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> dirPath = options.<span class="property">dest</span>; <span class="comment">//main.js 目录下</span></span><br><span class="line">    <span class="comment">// 列出目录中的所有文件</span></span><br><span class="line">    fs.<span class="title function_">readdir</span>(dirPath, <span class="keyword">function</span> (<span class="params">err, files</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error reading the directory:&quot;</span>, err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 正则表达式匹配文件名</span></span><br><span class="line">        <span class="keyword">const</span> regex = <span class="regexp">/^main\.[0-9a-f]+\.js$/</span>;</span><br><span class="line">        files.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">file</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (regex.<span class="title function_">test</span>(file)) &#123;</span><br><span class="line">                <span class="comment">// 匹配到的文件</span></span><br><span class="line">                <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(dirPath, file);</span><br><span class="line">                fs.<span class="title function_">readFile</span>(filePath, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error reading the file:&quot;</span>, err);</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">// 修改文件内容</span></span><br><span class="line">                    <span class="keyword">let</span> modifiedData = data.<span class="title function_">replace</span>(<span class="regexp">/var bundleRoot = \[INTERNAL\];/</span>, <span class="string">`var bundleRoot = [INTERNAL,<span class="subst">$&#123;newLaunchBundle&#125;</span>];`</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 保存修改后的文件</span></span><br><span class="line">                    fs.<span class="title function_">writeFile</span>(filePath, modifiedData, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error writing to the file:&quot;</span>, err);</span><br><span class="line">                            <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;File updated successfully&quot;</span>);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modifyMiniSettings</span>(<span class="params">options</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(options.<span class="property">dest</span>, <span class="string">&quot;src&quot;</span>, <span class="string">&quot;settings.js&quot;</span>); <span class="comment">// settings.js 文件的实际路径</span></span><br><span class="line">    fs.<span class="title function_">readFile</span>(filePath, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error reading the file:&quot;</span>, err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 使用正则表达式查找和替换值</span></span><br><span class="line">        <span class="keyword">let</span> modifiedData = data.<span class="title function_">replace</span>(<span class="regexp">/(launchScene\s*:\s*&quot;)([^&quot;]*)(&quot;)/</span>, <span class="string">`$1<span class="subst">$&#123;newLaunchScene&#125;</span>$3`</span>);</span><br><span class="line">        <span class="comment">// modifiedData = modifiedData.replace(/(server\s*:\s*&quot;)[^&quot;]*(&quot;)/, `$1&quot;$&#123;newServer&#125;&quot;`);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将修改后的内容写回文件</span></span><br><span class="line">        fs.<span class="title function_">writeFile</span>(filePath, modifiedData, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error writing to the file:&quot;</span>, err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;File updated successfully&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">modifyMiniMainJS</span>(<span class="params">options</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(options.<span class="property">dest</span>, <span class="string">&quot;main.js&quot;</span>); <span class="comment">// main.js 文件的实际路径</span></span><br><span class="line">    fs.<span class="title function_">readFile</span>(filePath, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error reading the file:&quot;</span>, err);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 使用正则表达式查找和替换值</span></span><br><span class="line">        <span class="keyword">let</span> modifiedData = data.<span class="title function_">replace</span>(<span class="regexp">/var bundleRoot = \[INTERNAL\];/</span>, <span class="string">`var bundleRoot = [INTERNAL,<span class="subst">$&#123;newLaunchBundle&#125;</span>];`</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将修改后的内容写回文件</span></span><br><span class="line">        fs.<span class="title function_">writeFile</span>(filePath, modifiedData, <span class="string">&quot;utf8&quot;</span>, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error writing to the file:&quot;</span>, err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;File updated successfully&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="title function_">load</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// Editor.Builder.on(&#x27;build-start&#x27;, onBuildStart);</span></span><br><span class="line">        <span class="title class_">Editor</span>.<span class="property">Builder</span>.<span class="title function_">on</span>(<span class="string">&quot;build-finished&quot;</span>, onBuildFinish);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">unload</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// Editor.Builder.removeListener(&#x27;build-start&#x27;, onBuildStart);</span></span><br><span class="line">        <span class="title class_">Editor</span>.<span class="property">Builder</span>.<span class="title function_">removeListener</span>(<span class="string">&quot;build-finished&quot;</span>, onBuildFinish);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">messages</span>: &#123;&#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果你的场景和我的不同 注意修改下面两行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newLaunchScene = <span class="string">&quot;db://assets/bundles/launch/MiniLaunchScene.fire&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newLaunchBundle = <span class="string">`&quot;launch&quot;`</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>我们分别构建<code>web-mobile</code>和微信小游戏发现插件在构建后已经完全按照我们的意愿修改了。如果<code>web</code> 版本想进一步优化，那么就结合我们上面的提到的自定义发布模版 ，具体内容可以参考：<a href="https://blog.asroads.com/post/f50efc19.html">CocosCreator构建出web-mobile项目的时候自动刷新定向index.html</a></p>
+<p><img src="/post/e64c75a7/image-20240301172005385.png" alt="image-20240301172005385"></p>
+<p>其中 <code>index.html</code> 核心内容如下：</p>
+<p><img src="/post/e64c75a7/image-20240301172159013.png" alt="image-20240301172159013"></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 当前URL</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> url = location.<span class="property">href</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 如果浏览器支持 window.performance 并且页面是通过刷新按钮加载的</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">performance</span> &amp;&amp; <span class="variable language_">window</span>.<span class="property">performance</span>.<span class="title function_">getEntriesByType</span>(<span class="string">&quot;navigation&quot;</span>)[<span class="number">0</span>].<span class="property">type</span> === <span class="string">&quot;reload&quot;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;用户点击刷新，重新定向&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 生成随机数和时间戳</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 如果URL已经包含查询字符串</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (location.<span class="property">search</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 正则替换已存在的v和t参数</span></span></span><br><span class="line"><span class="language-javascript">      url = url.<span class="title function_">replace</span>(<span class="regexp">/([?&amp;])v=\d*/</span>, <span class="string">&#x27;$1v=&#x27;</span> + randomNumber);</span></span><br><span class="line"><span class="language-javascript">      url = url.<span class="title function_">replace</span>(<span class="regexp">/([?&amp;])t=\d*/</span>, <span class="string">&#x27;$1t=&#x27;</span> + timestamp);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 如果URL中没有v和t参数，那么添加它们</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (!url.<span class="title function_">includes</span>(<span class="string">&#x27;?v=&#x27;</span>) &amp;&amp; !url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;v=&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;&amp;v=&#x27;</span> + randomNumber;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (!url.<span class="title function_">includes</span>(<span class="string">&#x27;?t=&#x27;</span>) &amp;&amp; !url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;t=&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 如果URL没有查询字符串，那么添加v和t参数</span></span></span><br><span class="line"><span class="language-javascript">      url += <span class="string">&#x27;?v=&#x27;</span> + randomNumber + <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 重定向到新的URL</span></span></span><br><span class="line"><span class="language-javascript">    location.<span class="property">href</span> = url;</span></span><br><span class="line"><span class="language-javascript">  &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;首次进入或用户非刷新的方式进入页面&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 随机数和时间戳</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 如果URL已经包含查询字符串</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (location.<span class="property">search</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 如果URL中已经有了随机数和时间戳参数，就不再进行重定向</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (url.<span class="title function_">includes</span>(<span class="string">&#x27;?v=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;v=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;?t=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;t=&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Already redirected, won&#x27;t redirect again&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果URL中没有随机数和时间戳参数，添加它们</span></span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;&amp;v=&#x27;</span> + randomNumber;</span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 重定向到新的URL</span></span></span><br><span class="line"><span class="language-javascript">        location.<span class="property">href</span> = url;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 如果URL没有查询字符串，那么添加随机数和时间戳参数，并进行重定向</span></span></span><br><span class="line"><span class="language-javascript">      url += <span class="string">&#x27;?v=&#x27;</span> + randomNumber;</span></span><br><span class="line"><span class="language-javascript">      url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">      location.<span class="property">href</span> = url;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>做完这些，回过头来看，其实只要我们善于思考和观察源码，分析+验证很多时候还是可以实现我们自己的需求。做技术就是不断的拓展自己的失业，废弃已经不再适用当下的知识，去攫取寻找能够在未来用的上的技术。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b43441e1.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator抖音小游戏高性能模式</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/873d72e9.html">
+        <span>TexturePacker如何使用命令行构建纹理</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/e64c75a7.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E7%8E%B0%E7%8A%B6"><span class="toc-number">1.</span> <span class="toc-text">目前现状</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">新建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%90%AF%E5%8A%A8%E5%9C%BA%E6%99%AFBundle"><span class="toc-number">1.2.</span> <span class="toc-text">设置启动场景Bundle</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.3.</span> <span class="toc-text">构建项目</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%94%B9%E9%80%A0"><span class="toc-number">2.</span> <span class="toc-text">项目改造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-number">2.1.</span> <span class="toc-text">项目分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BC%98%E5%8C%96"><span class="toc-number">2.2.</span> <span class="toc-text">进一步优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%9E%84%E5%BB%BA%E6%8F%92%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">修改构建插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-number">2.4.</span> <span class="toc-text">验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

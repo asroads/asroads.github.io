@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            效率工具脚本-CDN预热脚本 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/d81ac378.html">效率工具脚本-CDN预热脚本</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-07-29
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=效率工具脚本-CDN预热脚本&url=http://blog.asroads.com/post/d81ac378.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=效率工具脚本-CDN预热脚本&url=http://blog.asroads.com/post/d81ac378.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/d81ac378.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/d81ac378.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/d81ac378.html&title=效率工具脚本-CDN预热脚本" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=效率工具脚本-CDN预热脚本&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/d81ac378.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/d81ac378.html&text=效率工具脚本-CDN预热脚本" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/nodejs/ >nodejs</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>最近游戏随着体量不断增多，有时候版本更新内容很多，此时使用了CDN预热功能，这个界面是可以手动预热地址和上传文件的，于是我就写了一个CDN预热脚本，下面就简单的记录一下。</p>
+<span id="more"></span>
+
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>现在市场上 流行的脚本，基本都是Python和nodejs，下面这个脚本分别给出。</p>
+<h3 id="python脚本版本"><a href="#python脚本版本" class="headerlink" title="python脚本版本"></a>python脚本版本</h3><p><img src="/post/d81ac378/image-20240729130922845.png" alt="image-20240729130922845"></p>
+<p>cdn_main.py 源码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_valid_directory</span>(<span class="params">prompt</span>):</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        path = <span class="built_in">input</span>(prompt).strip().replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(path):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;路径不存在: <span class="subst">&#123;path&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> os.path.isdir(path):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;这不是一个有效的目录: <span class="subst">&#123;path&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> path</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">compare_directories</span>(<span class="params">prev_dir, curr_dir</span>):</span><br><span class="line">    new_files = []</span><br><span class="line">    existing_files = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(curr_dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            curr_file_path = os.path.join(root, file)</span><br><span class="line">            rel_path = os.path.relpath(curr_file_path, curr_dir)</span><br><span class="line">            prev_file_path = os.path.join(prev_dir, rel_path)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(prev_file_path):</span><br><span class="line">                new_files.append(curr_file_path)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                existing_files.append(curr_file_path)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> new_files, existing_files</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">classify_files_by_extension</span>(<span class="params">files, extensions</span>):</span><br><span class="line">    classified_files = &#123;ext: [] <span class="keyword">for</span> ext <span class="keyword">in</span> extensions&#125;</span><br><span class="line">    other_files = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">        _, ext = os.path.splitext(file)</span><br><span class="line">        ext = ext.lower()</span><br><span class="line">        <span class="keyword">if</span> ext <span class="keyword">in</span> classified_files:</span><br><span class="line">            classified_files[ext].append(file)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            other_files.append(file)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> classified_files, other_files</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sort_files_by_size</span>(<span class="params">files, descending=<span class="literal">True</span></span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sorted</span>(files, key=<span class="keyword">lambda</span> file: os.path.getsize(file), reverse=descending)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_url_prefix</span>(<span class="params">files, prefix, base_path</span>):</span><br><span class="line">    <span class="keyword">return</span> [os.path.join(prefix, os.path.relpath(file, base_path)) <span class="keyword">for</span> file <span class="keyword">in</span> files]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">save_classified_files</span>(<span class="params">classified_files</span>):</span><br><span class="line">    output_dir = <span class="string">&quot;output&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 清空 output 目录</span></span><br><span class="line">    <span class="keyword">if</span> os.path.exists(output_dir):</span><br><span class="line">        shutil.rmtree(output_dir)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;已清空目录: <span class="subst">&#123;output_dir&#125;</span>&quot;</span>)</span><br><span class="line">    os.makedirs(output_dir)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ext, files <span class="keyword">in</span> classified_files.items():</span><br><span class="line">        file_path = os.path.join(output_dir, <span class="string">f&quot;<span class="subst">&#123;ext[<span class="number">1</span>:]&#125;</span>.txt&quot;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">                f.write(<span class="string">f&quot;<span class="subst">&#123;file&#125;</span>\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    previous_version_path = get_valid_directory(<span class="string">&quot;请输入上一个版本的remote目录路径: &quot;</span>)</span><br><span class="line">    current_version_path = get_valid_directory(<span class="string">&quot;请输入当前要热更版本的remote目录路径: &quot;</span>)</span><br><span class="line"></span><br><span class="line">    new_files, existing_files = compare_directories(previous_version_path, current_version_path)</span><br><span class="line"></span><br><span class="line">    extensions_input = <span class="built_in">input</span>(<span class="string">&quot;请输入要分类的后缀名（多个后缀用逗号分隔，直接回车统计所有后缀）: &quot;</span>).strip()</span><br><span class="line">    <span class="keyword">if</span> extensions_input:</span><br><span class="line">        extensions = extensions_input.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        extensions = [ext.strip().lower() <span class="keyword">if</span> ext.startswith(<span class="string">&#x27;.&#x27;</span>) <span class="keyword">else</span> <span class="string">&#x27;.&#x27;</span> + ext.strip().lower() <span class="keyword">for</span> ext <span class="keyword">in</span> extensions]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        extensions = <span class="built_in">set</span>(os.path.splitext(file)[<span class="number">1</span>].lower() <span class="keyword">for</span> file <span class="keyword">in</span> new_files)</span><br><span class="line"></span><br><span class="line">    classified_files, other_files = classify_files_by_extension(new_files, extensions)</span><br><span class="line"></span><br><span class="line">    sort_order = <span class="built_in">input</span>(<span class="string">&quot;请输入排序规则 (默认从大到小排序，输入N从小到大排序): &quot;</span>).strip().upper()</span><br><span class="line">    descending = sort_order != <span class="string">&#x27;N&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ext, files <span class="keyword">in</span> classified_files.items():</span><br><span class="line">        classified_files[ext] = sort_files_by_size(files, descending=descending)</span><br><span class="line"></span><br><span class="line">    url_prefix = <span class="built_in">input</span>(<span class="string">&quot;请输入要添加的URL前缀: &quot;</span>).strip()</span><br><span class="line">    <span class="keyword">for</span> ext, files <span class="keyword">in</span> classified_files.items():</span><br><span class="line">        classified_files[ext] = add_url_prefix(files, url_prefix, current_version_path)</span><br><span class="line"></span><br><span class="line">    save_classified_files(classified_files)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h4><ol>
+<li>使用脚本运行 <code>python3 cdn_main.py</code></li>
+<li>依次根据提示输入对应目录以及规则</li>
+<li>等待完成</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Last login: Sat Jul 27 14:32:08 on ttys000</span><br><span class="line">YDC012deMac-mini~/TestCase/Python/hot_cdn_plus(main|●6✚2…) % python3 cdn_main.py</span><br><span class="line">请输入上一个版本的remote目录路径: /Users/ydc012/Downloads/old</span><br><span class="line">请输入当前要热更版本的remote目录路径: /Users/ydc012/Downloads/new</span><br><span class="line">请输入要分类的后缀名（多个后缀用逗号分隔，直接回车统计所有后缀）:</span><br><span class="line">请输入排序规则 (默认从大到小排序，输入N从小到大排序):</span><br><span class="line">请输入要添加的URL前缀: https://xxxxx/tcs/mini/wx/publish/wechatgame_release/remote</span><br><span class="line">已清空目录: output</span><br><span class="line">YDC012deMac-mini~/TestCase/Python/hot_cdn_plus(main|●6✚2…) %</span><br></pre></td></tr></table></figure>
+
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li><strong>get_valid_directory</strong>: 获取并验证用户输入的目录路径。</li>
+<li><strong>compare_directories</strong>: 比较两个目录，生成新的文件列表和现有文件列表。</li>
+<li><strong>classify_files_by_extension</strong>: 根据文件后缀名分类文件。</li>
+<li><strong>sort_files_by_size</strong>: 按文件大小排序文件列表。</li>
+<li><strong>add_url_prefix</strong>: 为文件路径添加URL前缀。</li>
+<li><strong>save_classified_files</strong>: 将分类后的文件路径保存到输出目录的文本文件中。<strong>output目录</strong>：如果<code>output</code>目录不存在，则创建该目录，并将每个后缀的文件列表保存到相应的<code>.txt</code>文件中。</li>
+</ul>
+<p>仓库地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/blob/main/upcdnScript/Python%E7%89%88%E6%9C%AC.zip">点击前往</a></p>
+<h3 id="nodejs版本"><a href="#nodejs版本" class="headerlink" title="nodejs版本"></a>nodejs版本</h3><p><img src="/post/d81ac378/image-20240729131216955.png" alt="image-20240729131216955"></p>
+<p>hot-main.js 源码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取并验证用户输入的目录路径</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getValidDirectory</span>(<span class="params">prompt</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>).<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">            <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">            <span class="attr">output</span>: process.<span class="property">stdout</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        readline.<span class="title function_">question</span>(prompt, <span class="function">(<span class="params">inputPath</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> cleanedPath = inputPath.<span class="title function_">trim</span>().<span class="title function_">replace</span>(<span class="regexp">/ /g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(cleanedPath)) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`路径不存在: <span class="subst">$&#123;cleanedPath&#125;</span>`</span>);</span><br><span class="line">                readline.<span class="title function_">close</span>();</span><br><span class="line">                <span class="title function_">resolve</span>(<span class="title function_">getValidDirectory</span>(prompt));</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!fs.<span class="title function_">lstatSync</span>(cleanedPath).<span class="title function_">isDirectory</span>()) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`这不是一个有效的目录: <span class="subst">$&#123;cleanedPath&#125;</span>`</span>);</span><br><span class="line">                readline.<span class="title function_">close</span>();</span><br><span class="line">                <span class="title function_">resolve</span>(<span class="title function_">getValidDirectory</span>(prompt));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                readline.<span class="title function_">close</span>();</span><br><span class="line">                <span class="title function_">resolve</span>(cleanedPath);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较目录，获取新文件和现有文件</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">compareDirectories</span>(<span class="params">prevDir, currDir</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> newFiles = [];</span><br><span class="line">    <span class="keyword">let</span> existingFiles = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">walkDir</span>(<span class="params">dir, callback</span>) &#123;</span><br><span class="line">        fs.<span class="title function_">readdirSync</span>(dir).<span class="title function_">forEach</span>(<span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> fullPath = path.<span class="title function_">join</span>(dir, file);</span><br><span class="line">            <span class="keyword">if</span> (fs.<span class="title function_">lstatSync</span>(fullPath).<span class="title function_">isDirectory</span>()) &#123;</span><br><span class="line">                <span class="title function_">walkDir</span>(fullPath, callback);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="title function_">callback</span>(fullPath);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">walkDir</span>(currDir, <span class="function">(<span class="params">currFilePath</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> relPath = path.<span class="title function_">relative</span>(currDir, currFilePath);</span><br><span class="line">        <span class="keyword">const</span> prevFilePath = path.<span class="title function_">join</span>(prevDir, relPath);</span><br><span class="line">        <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(prevFilePath)) &#123;</span><br><span class="line">            newFiles.<span class="title function_">push</span>(currFilePath);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            existingFiles.<span class="title function_">push</span>(currFilePath);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; newFiles, existingFiles &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按文件后缀名分类</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">classifyFilesByExtension</span>(<span class="params">files, extensions</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> classifiedFiles = &#123;&#125;;</span><br><span class="line">    extensions.<span class="title function_">forEach</span>(<span class="function"><span class="params">ext</span> =&gt;</span> classifiedFiles[ext] = []);</span><br><span class="line">    <span class="keyword">let</span> otherFiles = [];</span><br><span class="line"></span><br><span class="line">    files.<span class="title function_">forEach</span>(<span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> ext = path.<span class="title function_">extname</span>(file).<span class="title function_">toLowerCase</span>();</span><br><span class="line">        <span class="keyword">if</span> (extensions.<span class="title function_">includes</span>(ext)) &#123;</span><br><span class="line">            classifiedFiles[ext].<span class="title function_">push</span>(file);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            otherFiles.<span class="title function_">push</span>(file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; classifiedFiles, otherFiles &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按文件大小排序</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sortFilesBySize</span>(<span class="params">files, descending = <span class="literal">true</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> files.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> sizeA = fs.<span class="title function_">statSync</span>(a).<span class="property">size</span>;</span><br><span class="line">        <span class="keyword">const</span> sizeB = fs.<span class="title function_">statSync</span>(b).<span class="property">size</span>;</span><br><span class="line">        <span class="keyword">return</span> descending ? sizeB - sizeA : sizeA - sizeB;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加URL前缀</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addUrlPrefix</span>(<span class="params">files, prefix, basePath</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> files.<span class="title function_">map</span>(<span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> relPath = path.<span class="title function_">relative</span>(basePath, file).<span class="title function_">replace</span>(<span class="regexp">/\\/g</span>, <span class="string">&#x27;/&#x27;</span>); <span class="comment">// 确保使用正斜线</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;prefix&#125;</span>/<span class="subst">$&#123;relPath&#125;</span>`</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存分类后的文件列表</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">saveClassifiedFiles</span>(<span class="params">classifiedFiles</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> outputDir = <span class="string">&#x27;output&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(outputDir)) &#123;</span><br><span class="line">        fs.<span class="title function_">rmdirSync</span>(outputDir, &#123; <span class="attr">recursive</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`已清空目录: <span class="subst">$&#123;outputDir&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    fs.<span class="title function_">mkdirSync</span>(outputDir);</span><br><span class="line"></span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">keys</span>(classifiedFiles).<span class="title function_">forEach</span>(<span class="function"><span class="params">ext</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(outputDir, <span class="string">`<span class="subst">$&#123;ext.substring(<span class="number">1</span>)&#125;</span>.txt`</span>);</span><br><span class="line">        fs.<span class="title function_">writeFileSync</span>(filePath, classifiedFiles[ext].<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">main</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> previousVersionPath = <span class="keyword">await</span> <span class="title function_">getValidDirectory</span>(<span class="string">&quot;请输入上一个版本的remote目录路径: &quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> currentVersionPath = <span class="keyword">await</span> <span class="title function_">getValidDirectory</span>(<span class="string">&quot;请输入当前要热更版本的remote目录路径: &quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123; newFiles, existingFiles &#125; = <span class="title function_">compareDirectories</span>(previousVersionPath, currentVersionPath);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>).<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">        <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">        <span class="attr">output</span>: process.<span class="property">stdout</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    readline.<span class="title function_">question</span>(<span class="string">&quot;请输入要分类的后缀名（多个后缀用逗号分隔，直接回车统计所有后缀）: &quot;</span>, <span class="function">(<span class="params">extensionsInput</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> extensions;</span><br><span class="line">        <span class="keyword">if</span> (extensionsInput.<span class="title function_">trim</span>()) &#123;</span><br><span class="line">            extensions = extensionsInput.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>).<span class="title function_">map</span>(<span class="function"><span class="params">ext</span> =&gt;</span> ext.<span class="title function_">trim</span>().<span class="title function_">toLowerCase</span>());</span><br><span class="line">            extensions = extensions.<span class="title function_">map</span>(<span class="function"><span class="params">ext</span> =&gt;</span> ext.<span class="title function_">startsWith</span>(<span class="string">&#x27;.&#x27;</span>) ? ext : <span class="string">`.<span class="subst">$&#123;ext&#125;</span>`</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            extensions = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="keyword">new</span> <span class="title class_">Set</span>(newFiles.<span class="title function_">map</span>(<span class="function"><span class="params">file</span> =&gt;</span> path.<span class="title function_">extname</span>(file).<span class="title function_">toLowerCase</span>())));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> &#123; classifiedFiles, otherFiles &#125; = <span class="title function_">classifyFilesByExtension</span>(newFiles, extensions);</span><br><span class="line"></span><br><span class="line">        readline.<span class="title function_">question</span>(<span class="string">&quot;请输入排序规则 (默认从大到小排序，输入N从小到大排序): &quot;</span>, <span class="function">(<span class="params">sortOrder</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> descending = sortOrder.<span class="title function_">trim</span>().<span class="title function_">toUpperCase</span>() !== <span class="string">&#x27;N&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> ext <span class="keyword">in</span> classifiedFiles) &#123;</span><br><span class="line">                classifiedFiles[ext] = <span class="title function_">sortFilesBySize</span>(classifiedFiles[ext], descending);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            readline.<span class="title function_">question</span>(<span class="string">&quot;请输入要添加的URL前缀: &quot;</span>, <span class="function">(<span class="params">urlPrefix</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">let</span> ext <span class="keyword">in</span> classifiedFiles) &#123;</span><br><span class="line">                    classifiedFiles[ext] = <span class="title function_">addUrlPrefix</span>(classifiedFiles[ext], urlPrefix, currentVersionPath);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="title function_">saveClassifiedFiles</span>(classifiedFiles);</span><br><span class="line">                readline.<span class="title function_">close</span>();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">main</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用说明-1"><a href="#使用说明-1" class="headerlink" title="使用说明"></a>使用说明</h4><ol>
+<li>使用 node hot-main.js 运行脚本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node hot-main.js</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>依次输入相关的提示目录</li>
+<li>等待生成结果</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Last login: Sat Jul 27 14:26:43 on ttys000</span><br><span class="line">YDC012deMac-mini~/TestCase/node/hot-cdn(:|✔) % node hot-main.js</span><br><span class="line">请输入上一个版本的remote目录路径: /Users/ydc012/Downloads/old</span><br><span class="line">请输入当前要热更版本的remote目录路径: /Users/ydc012/Downloads/new</span><br><span class="line">请输入要分类的后缀名（多个后缀用逗号分隔，直接回车统计所有后缀）:</span><br><span class="line">请输入排序规则 (默认从大到小排序，输入N从小到大排序):</span><br><span class="line">请输入要添加的URL前缀: https://xxxxx.com/tcs/mini/wx/publish/wechatgame_release/remote</span><br><span class="line">已清空目录: output</span><br><span class="line">(node:50982) [DEP0147] DeprecationWarning: In future versions of Node.js, fs.rmdir(path, &#123; recursive: true &#125;) will be removed. Use fs.rm(path, &#123; recursive: true &#125;) instead</span><br><span class="line">(Use `node --trace-deprecation ...` to show where the warning was created)</span><br><span class="line">YDC012deMac-mini~/TestCase/node/hot-cdn(:|✔) %</span><br></pre></td></tr></table></figure>
+
+<p>仓库地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/upcdnScript/hot-cdn-nodejs%E7%89%88%E6%9C%AC">点击前往</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>工作中，重复繁杂的工作，学会使用脚本也减轻工作，而且避免缺少步骤出错，脚本不是一下子写出来的，都是一点点学习，一点点积累，时间久了，工具会越来越完善。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/dec86a14.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Node.js项目打包为Mac可执行文件和Windows可执行文件exe</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/7fbc7c01.html">
+        <span>CocosCreator2.4.xAndroid返回键退出或最小化</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/d81ac378.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E8%84%9A%E6%9C%AC%E7%89%88%E6%9C%AC"><span class="toc-number">1.1.</span> <span class="toc-text">python脚本版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.1.</span> <span class="toc-text">使用说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">1.1.2.</span> <span class="toc-text">说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodejs%E7%89%88%E6%9C%AC"><span class="toc-number">1.2.</span> <span class="toc-text">nodejs版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">使用说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

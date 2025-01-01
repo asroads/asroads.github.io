@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Layabox-学习笔记-(5) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/2a10f8b7.html">Layabox-学习笔记-(5)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2018-08-24
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Layabox-学习笔记-(5)&url=http://blog.asroads.com/post/2a10f8b7.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Layabox-学习笔记-(5)&url=http://blog.asroads.com/post/2a10f8b7.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/2a10f8b7.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/2a10f8b7.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/2a10f8b7.html&title=Layabox-学习笔记-(5)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Layabox-学习笔记-(5)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/2a10f8b7.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/2a10f8b7.html&text=Layabox-学习笔记-(5)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h3 id="Layabox-关于微信小游戏-用户授权-接入"><a href="#Layabox-关于微信小游戏-用户授权-接入" class="headerlink" title="Layabox 关于微信小游戏 用户授权 接入"></a>Layabox 关于微信小游戏 用户授权 接入</h3><h4 id="接入原因"><a href="#接入原因" class="headerlink" title="接入原因"></a>接入原因</h4><p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/doc/0000a26e1aca6012e896a517556c01">2018年4月15日微信团队发了新的接口调整的公告</a>  </p>
+<p><strong>小程序与小游戏获取用户信息接口调整，请开发者注意升级</strong></p>
+<span id="more"></span>
+
+<blockquote>
+<p>为优化用户体验，使用 wx.getUserInfo 接口直接弹出授权框的开发方式将逐步不再支持。从2018年4月30日开始，小程序与小游戏的体验版、开发版调用 wx.getUserInfo 接口，将无法弹出授权询问框，默认调用失败。正式版暂不受影响。开发者可使用以下方式获取或展示用户信息：</p>
+<p>一、小程序:</p>
+<p>1、使用 button 组件，并将 open-type 指定为 getUserInfo 类型，获取用户基本信息。</p>
+<p>详情参考文档:</p>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/component/button.html">https://developers.weixin.qq.com/miniprogram/dev/component/button.html</a></p>
+<p>2、使用 open-data 展示用户基本信息。</p>
+<p>详情参考文档:</p>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html">https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html</a></p>
+<p>二、小游戏：</p>
+<p>1、使用用户信息按钮 UserInfoButton。</p>
+<p>详情参考文档:</p>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/document/open-api/user-info/wx.createUserInfoButton.html">https://developers.weixin.qq.com/minigame/dev/document/open-api/user-info/wx.createUserInfoButton.html</a></p>
+<p>2、开放数据域下的展示用户信息。</p>
+<p>详细参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/document/open-api/data/wx.getUserInfo.html">https://developers.weixin.qq.com/minigame/dev/document/open-api/data/wx.getUserInfo.html</a></p>
+<p>请各位开发者注意及时调整接口。</p>
+</blockquote>
+<p>这个时候 我们知道 第三条 是关于小游戏 用户信息的，以前我们登录的生活 直接获取用户信息，如果没有授权的用户自动弹出用户授权信息，已经授权的则不会弹出，这次修改改变了原来的逻辑。</p>
+<h4 id="更新办法"><a href="#更新办法" class="headerlink" title="更新办法"></a>更新办法</h4><p>在微信小游戏API版本&gt;=2.0.1之后 就可以使用新的方法 <code>UserInfoButton wx.createUserInfoButton(Object object)</code> 来实现以前的功能。</p>
+<p>以前我们可以这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">private <span class="title function_">starGame</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> userInfo = game platform.<span class="title function_">getUserInfo</span>();<span class="comment">//game 是你游戏对象的实例</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;用户数据：&quot;</span>,userInfo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以后要改用新的API规则自己主动调用。</p>
+<p>官方给出的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> button = wx.<span class="title function_">createUserInfoButton</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;text&#x27;</span>,</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;获取用户信息&#x27;</span>,</span><br><span class="line">    <span class="attr">style</span>: &#123;</span><br><span class="line">        <span class="attr">left</span>: <span class="number">10</span>,</span><br><span class="line">        <span class="attr">top</span>: <span class="number">76</span>,</span><br><span class="line">        <span class="attr">width</span>: <span class="number">200</span>,</span><br><span class="line">        <span class="attr">height</span>: <span class="number">40</span>,</span><br><span class="line">        <span class="attr">lineHeight</span>: <span class="number">40</span>,</span><br><span class="line">        <span class="attr">backgroundColor</span>: <span class="string">&#x27;#ff0000&#x27;</span>,</span><br><span class="line">        <span class="attr">color</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">        <span class="attr">textAlign</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">        <span class="attr">fontSize</span>: <span class="number">16</span>,</span><br><span class="line">        <span class="attr">borderRadius</span>: <span class="number">4</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">button.<span class="title function_">onTap</span>((res) = &gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>表示可以用两种类型  文本按钮 和图片按钮 来触发  下面的 style 对象是设置 按钮的样式 还有一些其他的参数是可选的。大家可以自行去看官方的API 写 的很详细。《<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/document/open-api/user-info/wx.createUserInfoButton.html">UserInfoButton wx.createUserInfoButton(Object object)</a>》</p>
+<p>这样 我们在登录游戏的时候  可以通过 用户的设置信息 获得 有没有经过授权，然后判断是否主动弹出让用户授权的页面。接口是 <code>wx.getSetting(Object object)</code><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/document/open-api/setting/wx.getSetting.html">API地址点击查看</a></p>
+<p>返回的信息下面 有个 <code>authSetting</code>的属性 里面包含一个<code>scope.userInfo</code>的属性。这个属性是个boolean类型的，我们可以根据这个类型进行操作。</p>
+<p><strong>问题得以解决</strong></p>
+<p>我的示例代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by asroads on 2018/8/21 上午11:45</span></span><br><span class="line"><span class="comment"> * Note:  微信授权UI</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">module</span> smile &#123;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MyAuthorize</span> &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取用户设置信息（关于授权...）</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> getWXSetting = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> seting = &#123;</span><br><span class="line">                <span class="attr">complete</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;wxsetingComplete&quot;</span>);</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">success</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="comment">// console.log(&quot;setingSuccess:&quot; + JSON.stringify(scope));</span></span><br><span class="line">                    <span class="keyword">if</span> (scope &amp;&amp; scope.<span class="property">authSetting</span> &amp;&amp; scope.<span class="property">authSetting</span>[<span class="string">&#x27;scope.userInfo&#x27;</span>]) </span><br><span class="line">                        <span class="title class_">MyAuthorize</span>.<span class="title function_">showCallbackFunction</span>();<span class="comment">//如果已经授权</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;notAuthorize&quot;</span>);</span><br><span class="line">                        <span class="title class_">MyAuthorize</span>.<span class="title function_">initUserInfoButton</span>();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">fail</span>: <span class="function">(<span class="params">scope</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;wxsetingFail&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            mygame.<span class="property">platform</span>.<span class="property">Instance</span>.<span class="title function_">getSetting</span>(seting);</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  显示开始游戏</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> showCallbackFunction = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;这里写你的开始游戏界面&quot;</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 初始化 用户信息授权按钮 和监听点击事件</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> initUserInfoButton = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> button = <span class="title class_">MyAuthorize</span>.<span class="title function_">creatUserInfoButton</span>();</span><br><span class="line">            button.<span class="title function_">onTap</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// console.log(&quot;sucess:&quot; + JSON.stringify(res));</span></span><br><span class="line">                button.<span class="title function_">destroy</span>();</span><br><span class="line">            &#125;);</span><br><span class="line">            button.<span class="title function_">show</span>();</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 创建 按钮</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> creatUserInfoButton = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">imgWidth</span>: <span class="built_in">number</span> = <span class="number">279</span>;</span><br><span class="line">            <span class="keyword">let</span> <span class="attr">imgHeight</span>: <span class="built_in">number</span> = <span class="number">179</span>;</span><br><span class="line">            <span class="keyword">let</span> button = mygame.<span class="property">platform</span>.<span class="property">Instance</span>.<span class="title function_">createUserInfoButton</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;image&#x27;</span>,</span><br><span class="line">                <span class="attr">text</span>: <span class="string">&#x27;获取用户信息&#x27;</span>,</span><br><span class="line">                <span class="attr">image</span>: <span class="string">&#x27;path/login.png&#x27;</span>,</span><br><span class="line">                <span class="attr">style</span>: &#123;</span><br><span class="line">                    <span class="attr">left</span>: (<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">clientWidth</span> - imgWidth) / <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">top</span>: (<span class="title class_">Laya</span>.<span class="property">Browser</span>.<span class="property">clientHeight</span> - imgHeight) / <span class="number">2</span>,</span><br><span class="line">                    <span class="attr">width</span>: imgWidth,</span><br><span class="line">                    <span class="attr">height</span>: imgHeight,</span><br><span class="line">                    <span class="attr">lineHeight</span>: <span class="number">40</span>,</span><br><span class="line">                    <span class="attr">backgroundColor</span>: <span class="string">&#x27;#ff0000&#x27;</span>,</span><br><span class="line">                    <span class="attr">color</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">                    <span class="attr">textAlign</span>: <span class="string">&#x27;center&#x27;</span>,</span><br><span class="line">                    <span class="attr">fontSize</span>: <span class="number">16</span>,</span><br><span class="line">                    <span class="attr">borderRadius</span>: <span class="number">4</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">withCredentials</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">lang</span>: <span class="string">&#x27;zh_CN&#x27;</span></span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">return</span> button;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Layabox-关于微信小游戏-网络加载"><a href="#Layabox-关于微信小游戏-网络加载" class="headerlink" title="Layabox 关于微信小游戏 网络加载"></a>Layabox 关于微信小游戏 网络加载</h3><p>刚开始我按照官方文档 设置了白名单，但是本地测试一直是采用的网络加载，后来才发现，这个设置<strong>只有在微信平台下才起作用</strong>，所以我在 chome 和 layaair本地测试无效。是layabox 专为微信API 特意定制的设置方法</p>
+<blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">material.<span class="property">diffuseTexture</span> = <span class="title class_">Laya</span>.<span class="property">Texture2D</span>.<span class="title function_">load</span>(<span class="string">&quot;res/layabox.png&quot;</span>);</span><br><span class="line">box.<span class="property">meshRender</span>.<span class="property">material</span> = material;</span><br><span class="line"><span class="title class_">Laya</span>.<span class="property">URL</span>.<span class="property">basePath</span> = <span class="string">&quot;https://XXXX.com&quot;</span>;<span class="comment">//请把XXXX换成自己的真实网址；</span></span><br><span class="line"><span class="comment">//在此之下，再使用load加载资源，都会自动加入URL网址。从网络上动态加载。</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>白名单 设置也很简单</p>
+<blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">MiniAdpter</span>.<span class="property">nativefiles</span> =  [</span><br><span class="line">    <span class="string">&quot;wxlocal&quot;</span>,</span><br><span class="line">    <span class="string">&quot;res/atlas/houzi.atlas&quot;</span>,</span><br><span class="line">    <span class="string">&quot;res/atlas/houzi.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;common/tishi.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;common/bg.png&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ui.json&quot;</span>,</span><br><span class="line">    <span class="string">&quot;newLb/bg031.png&quot;</span></span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>Layabox 官方文档 <a target="_blank" rel="noopener" href="http://ldc.layabox.com/doc/?nav=zh-ts-5-0-4">http://ldc.layabox.com/doc/?nav=zh-ts-5-0-4</a></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/13dab74.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Layabox-学习笔记-(6)</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/433c776b.html">
+        <span>git忽略而不提交文件的3种情形</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/2a10f8b7.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Layabox-%E5%85%B3%E4%BA%8E%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F-%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83-%E6%8E%A5%E5%85%A5"><span class="toc-number">1.</span> <span class="toc-text">Layabox 关于微信小游戏 用户授权 接入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%85%A5%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.1.</span> <span class="toc-text">接入原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%8A%9E%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">更新办法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Layabox-%E5%85%B3%E4%BA%8E%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F-%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">Layabox 关于微信小游戏 网络加载</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

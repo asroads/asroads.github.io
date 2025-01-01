@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            字节小游戏接入友盟SDK | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/fc1ba9c0.html">字节小游戏接入友盟SDK</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-12-09
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=字节小游戏接入友盟SDK&url=http://blog.asroads.com/post/fc1ba9c0.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=字节小游戏接入友盟SDK&url=http://blog.asroads.com/post/fc1ba9c0.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/fc1ba9c0.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/fc1ba9c0.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/fc1ba9c0.html&title=字节小游戏接入友盟SDK" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=字节小游戏接入友盟SDK&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/fc1ba9c0.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/fc1ba9c0.html&text=字节小游戏接入友盟SDK" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%8F%8B%E7%9B%9F/ >友盟</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>2021年做游戏项目的时候，接过很多家的SDK，其中有快手、腾讯、Ohayoo和一家国外的SDK，数据统计的也接过好几家，如热云等，这两天忽然有个接入<a target="_blank" rel="noopener" href="https://www.umeng.com/">友盟</a>的需求，于是接完后，开始记录一下接入的过程。</p>
+<span id="more"></span>
+
+<p><img src="/post/fc1ba9c0/image-20221209180430342.png" alt="image-20221209180430342"></p>
+<p>虽然字节小游戏有自己的数据统计方法和平台分析，但是有个缺点是无法实时统计数据，特别是有实时统计分析需求的自然而然要找一家这样的公司，恰好友盟具备了这个实时统计分析。</p>
+<p><a target="_blank" rel="noopener" href="https://www.umeng.com/">友盟</a>是一家数据统计分析公司，旗下的产品可以接入多个平台，其中有原生，小游戏和网站等。</p>
+<p>可以具体可以参考：</p>
+<p><img src="/post/fc1ba9c0/image-20221209180559395.png" alt="image-20221209180559395"></p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/organizations/umengplus/projects">示例代码Demo</a>  官方例子里没有 字节的 我们可以参考 微信小游戏的即可： <a target="_blank" rel="noopener" href="https://gitee.com/umengplus/mp-demos/tree/master/wx-game">wx-game</a></p>
+<p>下面 简单的说一下整个步骤：</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="下载sdk"><a href="#下载sdk" class="headerlink" title="下载sdk"></a>下载sdk</h3><ol>
+<li>首先我们打开网站首页 <a target="_blank" rel="noopener" href="https://www.umeng.com/">点击前往</a></li>
+</ol>
+<p><img src="/post/fc1ba9c0/image-20221209181024012.png" alt="image-20221209181024012"></p>
+<ol start="2">
+<li><p>找到 【开发者中心】—&gt;【SDK】按照页面选择 自己的端 然后选择平台 勾选协议，下载SDK</p>
+<p><img src="/post/fc1ba9c0/image-20221209181210474.png" alt="image-20221209181210474"></p>
+</li>
+<li><p>SDK下载成功后，如下图所示：</p>
+</li>
+</ol>
+<p><img src="/post/fc1ba9c0/image-20221209181409958.png" alt="image-20221209181409958"></p>
+<p><img src="/post/fc1ba9c0/image-20221209181431754.png" alt="image-20221209181431754"></p>
+<p>uma.min.js  这个就是我们要用的 代码类库。</p>
+<h3 id="注册账号申请游戏"><a href="#注册账号申请游戏" class="headerlink" title="注册账号申请游戏"></a>注册账号申请游戏</h3><p><a target="_blank" rel="noopener" href="https://developer.umeng.com/docs/147615/cate/147615">小程序统计 U-MiniProgram</a> 文档下面 找到 当前的平台文档：</p>
+<p><img src="/post/fc1ba9c0/image-20221209181650500.png" alt="image-20221209181650500"></p>
+<p>字节小游戏 接入文档 <a target="_blank" rel="noopener" href="https://developer.umeng.com/docs/147615/detail/181348">点击前往</a></p>
+<p>其中文档里面有详细的步骤，另外一直再更新，我这里就不在转述，大家把这个页面细看一遍，有些注意事项，下面看看。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h4 id="引入类库注意事项"><a href="#引入类库注意事项" class="headerlink" title="引入类库注意事项"></a>引入类库注意事项</h4><ol>
+<li>游戏内的引入，文档是这么写的</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> uma = <span class="built_in">require</span>(<span class="string">&#x27;./utils/uma.min&#x27;</span>);</span><br><span class="line"></span><br><span class="line">uma.<span class="title function_">init</span>(&#123;</span><br><span class="line">  <span class="attr">appKey</span>:<span class="string">&#x27;YOUR_UMENG_APPKEY&#x27;</span>,<span class="comment">//由友盟分配的APP_KEY</span></span><br><span class="line">  <span class="attr">autoGetOpenid</span>:<span class="literal">true</span>,<span class="comment">// 是否需要通过友盟后台获取openid或匿名openid，如若需要，请到友盟后台设置appId及secret</span></span><br><span class="line">  <span class="attr">debug</span>:<span class="literal">true</span>,<span class="comment">//是否打开调试模式</span></span><br><span class="line">  <span class="attr">uploadUserInfo</span>:<span class="literal">true</span><span class="comment">// 自动上传用户信息，设为false取消上传，默认为false</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>我这里 稍有改变：</p>
+<p>原来说的 <code>game.js</code> 前面写法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> uma = <span class="built_in">require</span>(<span class="string">&#x27;./utils/uma.min&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我的<code>game.js</code>写法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;adapter-min.js&#x27;</span>);</span><br><span class="line"></span><br><span class="line">__globalAdapter.<span class="title function_">init</span>();</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;cocos/cocos2d-js-min.js&#x27;</span>);</span><br><span class="line"></span><br><span class="line">__globalAdapter.<span class="title function_">adaptEngine</span>();</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;./ccRequire&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;./src/settings&#x27;</span>); <span class="comment">// Introduce Cocos Service here</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">uma</span> = <span class="built_in">require</span>(<span class="string">&#x27;utils/uma.min&#x27;</span>)<span class="comment">//注意如果放到前面第一行，真机下黑屏具体原因不详，这里不多探究</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;./main&#x27;</span>); <span class="comment">// <span class="doctag">TODO:</span> move to common</span></span><br><span class="line"><span class="comment">// Adjust devicePixelRatio</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cc.<span class="property">view</span>.<span class="property">_maxPixelRatio</span> = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">platform</span> !== cc.<span class="property">sys</span>.<span class="property">BYTEDANCE_GAME_SUB</span>) &#123;</span><br><span class="line">  <span class="comment">// Release Image objects after uploaded gl texture</span></span><br><span class="line">  cc.<span class="property">macro</span>.<span class="property">CLEANUP_IMAGE_CACHE</span> = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">boot</span>();</span><br></pre></td></tr></table></figure>
+
+<p>其实我后面测试 这个 全局的<code>uma</code> 和 <code>tt.uma</code> 是同一个对象，所以有时候文档写 <code>uma</code>下的方法有时候写<code>tt.uma</code>下的方法 其实是同一个对象的用法。</p>
+<h4 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h4><p>一般来说我们不会使用官方的自带的那些模板事件，都是自定义事件，关于如何使用自定义事件，这里可以参考</p>
+<p><strong>小程序自定义事件文档</strong>  <a target="_blank" rel="noopener" href="https://developer.umeng.com/docs/147615/detail/207197">点击前往</a>  文档虽然是小程序的 但是小游戏用法一样。大家要看一下注意事项</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">trackEvent</span>(<span class="string">&#x27;事件ID&#x27;</span>,&#123;<span class="string">&#x27;属性1&#x27;</span>:<span class="string">&#x27;属性值1&#x27;</span>,<span class="string">&#x27;属性2&#x27;</span>:<span class="string">&#x27;属性值2&#x27;</span>&#125;);</span><br><span class="line"><span class="comment">// 字符型属性值</span></span><br><span class="line"><span class="title function_">trackEvent</span>(<span class="string">&#x27;ViewProductDetails&#x27;</span>,&#123;<span class="string">&#x27;Category&#x27;</span>:<span class="string">&#x27;家电&#x27;</span>,<span class="string">&#x27;ItemName&#x27;</span>:<span class="string">&#x27;西门子冰箱&#x27;</span>&#125;);</span><br><span class="line"><span class="comment">// 数值型属性值</span></span><br><span class="line"><span class="title function_">trackEvent</span>(<span class="string">&#x27;Pay&#x27;</span>,&#123;<span class="string">&#x27;PayAmount&#x27;</span>:<span class="number">6999</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>总的来说，就是事件ID是<strong>字符串类型</strong>，后面是 <code>Javascript</code> 对象，但是<strong>对象的属性值仅支持字符串和数值两种类型</strong>，不支持其他类型。</p>
+<p>另外就是要记得在后台自己添加对应的事件，否则无法统计成功！！！</p>
+<p><a target="_blank" rel="noopener" href="https://databank.umeng.com/sdc/manage">https://databank.umeng.com/sdc/manage</a></p>
+<p><img src="/post/fc1ba9c0/image-20221209183435944.png" alt="image-20221209183435944"></p>
+<p>如果事件触发次数一直为0，需要检查一下，自己选择 的天数是不是今日，我就被这个坑了一个多小时。</p>
+<p><img src="/post/fc1ba9c0/image-20221209183540026.png" alt="image-20221209183540026"></p>
+<p>顺便提醒大家 也看看 这个常见问题，其实很多疑惑的地方瞬间就明白了，不得不说他们家的文档是如何设计的，真的很奇怪，重要问题的答案都藏得很深。</p>
+<p><img src="/post/fc1ba9c0/image-20221209183720748.png" alt="image-20221209183720748"></p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>日志中打印这个：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[UMENG]--获取<span class="built_in">id</span>标识失败，暂缓发送</span><br></pre></td></tr></table></figure>
+
+<p>解决答案 <strong><a target="_blank" rel="noopener" href="https://developer.umeng.com/docs/147615/detail/250223">SDK集成，获取id标识失败怎么办？</a></strong></p>
+<p><img src="/post/fc1ba9c0/image-20221209184242546.png" alt="image-20221209184242546"></p>
+<p>以上是小游戏的整个步骤，下面是一个新的需求，同事要统计一下 导出的 web 测试包 每天有多少人访问。于是新的需求就出现了，对H5 页面不是很擅长的我，自然而然想到了 用友盟接入，下面是简要步骤。</p>
+<h2 id="web网页统计访问"><a href="#web网页统计访问" class="headerlink" title="web网页统计访问"></a>web网页统计访问</h2><p>后面接到一个需求要统计 web 页面访问次数，于是想到了 用这个 友盟去统计</p>
+<ol>
+<li>首先外面新建一个 H5 类型的 小程序统计</li>
+</ol>
+<p><img src="/post/fc1ba9c0/image-20221220013527706.png" alt="image-20221220013527706"></p>
+<ol start="2">
+<li>注册成功后按照步骤注入代码</li>
+</ol>
+<blockquote>
+<h2 id="2-1-页面曝光埋点"><a href="#2-1-页面曝光埋点" class="headerlink" title="2.1 页面曝光埋点"></a>2.1 页面曝光埋点</h2><h2 id="sendPV"><a href="#sendPV" class="headerlink" title="sendPV"></a>sendPV</h2><p>sendPV 方法将发送一条页面 PV 日志，其 API 定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">复制<span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.sendPV&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [pageEventConfig, userData]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其中</p>
+<ul>
+<li>pageEventConfig 为页面事件的配置，只需要写死{ is_auto: false } 即可</li>
+<li>userdata 为本次页面事件的扩展参数，其取值为一个 JSON 对象(平铺的简单对象，不能多层嵌套)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">复制<span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.sendPV&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [&#123;</span><br><span class="line">      <span class="attr">is_auto</span>: <span class="literal">false</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">      param1： <span class="number">111</span>，</span><br><span class="line">      <span class="attr">param2</span>: <span class="string">&#x27;222&#x27;</span></span><br><span class="line">  &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>效果如： <img src="/post/fc1ba9c0/p301765.png" alt="2"></p>
+<p><strong>警告</strong></p>
+<p><strong>：sdk 默认提供自动pv的能力；但若metaInfo配置信息中aplus-waiting等于MAN时，此时pv的发送时机改为由开发者自己控制，特别是当您的H5应用是一个单页应用时，您必须通过调用sendPV来发送页面曝光事件；pv事件一定要发送，否则影响新增、活跃、分享回流等指标的计算！！</strong></p>
+<h2 id="2-2-页面点击事件"><a href="#2-2-页面点击事件" class="headerlink" title="2.2 页面点击事件"></a>2.2 页面点击事件</h2><p>record 用于发送一条事件日志，其 API 定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">复制<span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.record&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [eventCode, eventType, eventParams]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其中，</p>
+<ul>
+<li>eventCode：事件ID 或 事件编码</li>
+<li>eventType：’CLK’</li>
+<li>eventParams 为本次事件中上报的事件参数。其取值为一个JSON对象（平铺的简单对象，不能多层嵌套）</li>
+<li>调用 record api 上报参数时，该次赋值仅对该条事件有效</li>
+<li>保留属性：uid, aplus, spm-url, spm-pre, spm-cnt, pvid, <em>dev_id,</em> anony_id, <em>user_id,</em> user_nick, _session_id</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">复制<span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line"><span class="comment">//一个简单的demo</span></span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.record&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [<span class="string">&#x27;yourTrackerEventCode&#x27;</span>, <span class="string">&#x27;CLK&#x27;</span>, &#123;</span><br><span class="line">     <span class="attr">param1</span>: <span class="string">&#x27;111&#x27;</span>,</span><br><span class="line">     <span class="attr">param2</span>: <span class="string">&#x27;222&#x27;</span>,</span><br><span class="line">     <span class="attr">param3</span>: <span class="number">333</span></span><br><span class="line">   &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="/post/fc1ba9c0/p301766.png" alt="3"></p>
+<h2 id="2-3-元数据设置"><a href="#2-3-元数据设置" class="headerlink" title="2.3 元数据设置"></a>2.3 元数据设置</h2><p>用于变更 SDK 的默认设置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">复制<span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.setMetaInfo&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [metaName, metaValue, mode]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li><p>metaName 为可配置的元数据项，可配置的 meta项见下文列表</p>
+</li>
+<li><p>metaValue 为对应的元配置项取值</p>
+</li>
+<li><p>mode 为模式，其取值为枚举值：</p>
+</li>
+<li><ul>
+<li>“OVERWRITE”: 覆盖模式，原 meta 值将直接被覆盖，注意对于取值为单值的 meta 只有覆盖模式<ul>
+<li>默认值</li>
+</ul>
+</li>
+<li>“APPEND”: 追加模式，适用于 meta 取值为数组对象的 meta，追加模式下原取值保留</li>
+</ul>
+</li>
+</ul>
+<p>用于动态获取 SDK 的当前配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aplus.<span class="title function_">getMetaInfo</span>(metaName);</span><br></pre></td></tr></table></figure>
+
+<p>目前支持的 metaName 及 metaValue见，<strong>附表1</strong></p>
+<h2 id="2-4-上报时机"><a href="#2-4-上报时机" class="headerlink" title="2.4 上报时机"></a>2.4 上报时机</h2><p>有些信息如用户id、用户昵称等是异步获取的，这种情况下如果您需要等待异步信息获取成功后再上报日志，sdk这边提供了设置元配置信息_hold = BLOCK 来阻塞上报，再时机成熟时通过更新元配置信息_hold=START来开启上报</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">复制<span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line"><span class="comment">//如采集用户信息是异步行为，需要先阻止SDK上报，设置BLOCK埋点</span></span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.setMetaInfo&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [<span class="string">&#x27;_hold&#x27;</span>, <span class="string">&#x27;BLOCK&#x27;</span>] </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">...异步耗时流程</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 因为采集用户信息是异步行为，故需要先设置BLOCK，再设置START</span></span><br><span class="line"> <span class="comment">// 设置_hold=START后，事先被block住的日志会携带上用户信息逐条发出</span></span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line"> <span class="attr">action</span>: <span class="string">&#x27;aplus.setMetaInfo&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [<span class="string">&#x27;_hold&#x27;</span>, <span class="string">&#x27;START&#x27;</span>] </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id><a href="#" class="headerlink" title></a></h2></blockquote>
+<ol start="3">
+<li>按照上面 前面操作的 <strong>页面曝光埋点</strong> 引入即可 </li>
+<li>等几分钟 查看数据 下面是 页面曝光 和 自定义埋点 </li>
+</ol>
+<p><img src="/post/fc1ba9c0/image-20221220014003380.png" alt="image-20221220014003380"></p>
+<p><img src="/post/fc1ba9c0/image-20221220014036111.png" alt="image-20221220014036111"></p>
+<ol start="5">
+<li>核心代码：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line">  <span class="attr">action</span>: <span class="string">&#x27;aplus.sendPV&#x27;</span>,</span><br><span class="line">  <span class="attr">arguments</span>: [&#123;</span><br><span class="line">    <span class="attr">is_auto</span>: <span class="literal">false</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    <span class="attr">param1</span>: <span class="number">111</span>,</span><br><span class="line">    <span class="attr">param2</span>: <span class="string">&#x27;222&#x27;</span></span><br><span class="line">  &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;测试打点！！！&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123;aplus_queue&#125; = <span class="variable language_">window</span>;</span><br><span class="line"><span class="comment">//一个简单的demo</span></span><br><span class="line">aplus_queue.<span class="title function_">push</span>(&#123;</span><br><span class="line">    <span class="attr">action</span>: <span class="string">&#x27;aplus.record&#x27;</span>,</span><br><span class="line">    <span class="attr">arguments</span>: [<span class="string">&#x27;login&#x27;</span>, <span class="string">&#x27;CLK&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">param1</span>: <span class="string">&#x27;111&#x27;</span>,</span><br><span class="line">        <span class="attr">param2</span>: <span class="string">&#x27;222&#x27;</span>,</span><br><span class="line">        <span class="attr">param3</span>: <span class="number">333</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>以上 就是 web 页面 使用 友盟统计的简要步骤。</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实接入过程不是很复杂，但是因为官网的一些文档杂乱，和小游戏文档的部分缺失，导致一些新手接入的时候，会找不到东西南北，很多时候，接入小游戏可以横向参考微信小游戏，或者纵向参考小程序的做法，基本都可以找到解决方案，另外就是必须登录账号去看文档，很多文档操作的关键步骤，藏在管理台的侧边栏，这个很尴尬。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/7f706bee.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator微信小游戏接入原生模板(格子广告)</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/e037b783.html">
+        <span>Windows环境和Mac环境下Git换行结尾冲突</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/fc1ba9c0.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDsdk"><span class="toc-number">1.1.</span> <span class="toc-text">下载sdk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%B4%A6%E5%8F%B7%E7%94%B3%E8%AF%B7%E6%B8%B8%E6%88%8F"><span class="toc-number">1.2.</span> <span class="toc-text">注册账号申请游戏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.</span> <span class="toc-text">注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E7%B1%BB%E5%BA%93%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.0.1.</span> <span class="toc-text">引入类库注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6"><span class="toc-number">2.0.2.</span> <span class="toc-text">自定义事件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E7%BD%91%E9%A1%B5%E7%BB%9F%E8%AE%A1%E8%AE%BF%E9%97%AE"><span class="toc-number">4.</span> <span class="toc-text">web网页统计访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%A1%B5%E9%9D%A2%E6%9B%9D%E5%85%89%E5%9F%8B%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">2.1 页面曝光埋点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sendPV"><span class="toc-number">6.</span> <span class="toc-text">sendPV</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%A1%B5%E9%9D%A2%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">2.2 页面点击事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%85%83%E6%95%B0%E6%8D%AE%E8%AE%BE%E7%BD%AE"><span class="toc-number">8.</span> <span class="toc-text">2.3 元数据设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E4%B8%8A%E6%8A%A5%E6%97%B6%E6%9C%BA"><span class="toc-number">9.</span> <span class="toc-text">2.4 上报时机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">10.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">11.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

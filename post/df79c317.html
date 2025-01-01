@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator如何使用BSON|2.x|3.x | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/df79c317.html">Cocos Creator如何使用BSON|2.x|3.x</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-06-08
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator如何使用BSON|2.x|3.x&url=http://blog.asroads.com/post/df79c317.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator如何使用BSON|2.x|3.x&url=http://blog.asroads.com/post/df79c317.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/df79c317.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/df79c317.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/df79c317.html&title=Cocos Creator如何使用BSON|2.x|3.x" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator如何使用BSON|2.x|3.x&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/df79c317.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/df79c317.html&text=Cocos Creator如何使用BSON|2.x|3.x" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/bson/ >bson</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p><a target="_blank" rel="noopener" href="https://bsonspec.org/">BSON</a>是一种二进制数据格式，官方解释是一种二进制格式的<a target="_blank" rel="noopener" href="http://json.org/">JSON</a>，在传输中由于数据被压缩，具有体积小，修改速度快等优势。故而得到一些应用和开发中的青睐，下面介绍一下如何在<a target="_blank" rel="noopener" href="https://www.cocos.com/">Cocos Creator</a>里面引入<a target="_blank" rel="noopener" href="https://bsonspec.org/">BSON</a></p>
+<span id="more"></span>
+
+<h2 id="BSON简单介绍"><a href="#BSON简单介绍" class="headerlink" title="BSON简单介绍"></a>BSON简单介绍</h2><p>首先我们去官方网站，<a target="_blank" rel="noopener" href="https://www.mongodb.com/json-and-bson">JSON and BSON</a> 找到一些关于 <code>JSON</code> 和<code>BSON</code>的介绍和对比：</p>
+<h3 id="JSON-vs-BSON"><a href="#JSON-vs-BSON" class="headerlink" title="JSON vs BSON"></a>JSON vs BSON</h3><table>
+<thead>
+<tr>
+<th align="left"></th>
+<th><strong>JSON</strong></th>
+<th><strong>BSON</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Encoding</td>
+<td>UTF-8 String</td>
+<td>Binary</td>
+</tr>
+<tr>
+<td align="left">Data Support</td>
+<td>String, Boolean, Number, Array</td>
+<td>String, Boolean, Number (Integer, Float, Long, Decimal128…), Array, Date, Raw Binary</td>
+</tr>
+<tr>
+<td align="left">Readability</td>
+<td>Human and Machine</td>
+<td>Machine Only</td>
+</tr>
+</tbody></table>
+<p>了解一些信息后 我们打开 <a target="_blank" rel="noopener" href="https://bsonspec.org/">BSON 官网</a> </p>
+<p><img src="/post/df79c317/image-20210608162835917.png" alt="image-20210608162835917"></p>
+<p>然后可以看到很多语言的支持情况，这里我们选择 </p>
+<ul>
+<li>Node.js<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/mongodb/js-bson">bson</a> - BSON serialization and deserialization library used by the official MongoDB Node.js driver.</li>
+</ul>
+</li>
+</ul>
+<p>接下来是具体步骤：</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="全局变量模式-amp-插件导入"><a href="#全局变量模式-amp-插件导入" class="headerlink" title="全局变量模式&amp;插件导入"></a>全局变量模式&amp;插件导入</h3><h3 id="下载编译js-bson"><a href="#下载编译js-bson" class="headerlink" title="下载编译js-bson"></a>下载编译js-bson</h3><ol>
+<li>首先外面<a target="_blank" rel="noopener" href="https://github.com/mongodb/js-bson">js-bson</a> 到本地</li>
+</ol>
+<p><img src="/post/df79c317/image-20210608163150480.png" alt="image-20210608163150480"></p>
+<ol start="2">
+<li><p>编译项目，生成需要的类库，需要node 环境 和 tsc 环境 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="修改生成后的文件"><a href="#修改生成后的文件" class="headerlink" title="修改生成后的文件"></a>修改生成后的文件</h3><ol>
+<li>首先我们找到 <code>dist</code> 文件夹 下的 <code>bson.bundle.js</code> 然后 修改 </li>
+</ol>
+<p>原代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="variable constant_">BSON</span> = (<span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span></span>) &#123;</span><br><span class="line">	<span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">  ......</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">exports</span>;</span><br><span class="line"></span><br><span class="line">&#125;(&#123;&#125;));</span><br></pre></td></tr></table></figure>
+
+<p>修改后：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">bson</span> = (<span class="keyword">function</span> (<span class="params"><span class="built_in">exports</span></span>) &#123;</span><br><span class="line">	<span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">	<span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">  ......</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">exports</span>;</span><br><span class="line"></span><br><span class="line">&#125;(&#123;&#125;));</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>然后我们找到根目录下生成的 bson.d.ts 声明文件 </li>
+</ol>
+<p>原代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Binary</span> &#123;</span><br><span class="line">    <span class="attr">_bsontype</span>: <span class="string">&#x27;Binary&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/** <span class="doctag">@public</span> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">type</span> <span class="title class_">UUIDExtended</span> = &#123;</span><br><span class="line">    <span class="attr">$uuid</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>修改后：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="variable language_">global</span> &#123;</span><br><span class="line">  <span class="keyword">declare</span> <span class="keyword">namespace</span> bson &#123;</span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">Binary</span> &#123;</span><br><span class="line">    	<span class="attr">_bsontype</span>: <span class="string">&#x27;Binary&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">/** <span class="doctag">@public</span> */</span></span><br><span class="line">		<span class="keyword">export</span> <span class="keyword">declare</span> <span class="keyword">type</span> <span class="title class_">UUIDExtended</span> = &#123;</span><br><span class="line">    		<span class="attr">$uuid</span>: <span class="built_in">string</span>;</span><br><span class="line">		&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p>修改完毕后 测试一下我们的结果：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> doc = &#123; <span class="attr">long</span>: bs.<span class="property">Long</span>.<span class="title function_">fromNumber</span>(<span class="number">100</span>) &#125;;</span><br><span class="line"><span class="keyword">const</span> data = bs.<span class="title function_">serialize</span>(doc);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;data:&#x27;</span>, data);</span><br></pre></td></tr></table></figure>
+
+<p>结果如下</p>
+<p><img src="/post/df79c317/image-20210608164626005.png" alt="image-20210608164626005"></p>
+<p>本方法适合 <code>Cocos Creator 2.x</code> 和 <code>Cocos Creator 3.1.x</code></p>
+<p>最后 项目源码 地址  </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/bson/2.4.x">Cocos Creator 2.x demo</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/bson/3.1.x">Cocos Creator 3.1.x demo</a></li>
+</ul>
+<h3 id="ES6-模块方式-引入"><a href="#ES6-模块方式-引入" class="headerlink" title="ES6 模块方式 引入"></a>ES6 模块方式 引入</h3><p>官方类库下载后 根据提示运行命令：npm install 或 npm run build 生成的 dist 目录下有四个文件，分别是四种格式，首先我们查看 根目录下的 配置文件叫做<code>rollup.config.js</code>，</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">output<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        file<span class="punctuation">:</span> &#x27;dist/bson.browser.umd.js&#x27;<span class="punctuation">,</span></span><br><span class="line">        format<span class="punctuation">:</span> &#x27;umd&#x27;<span class="punctuation">,</span></span><br><span class="line">        name<span class="punctuation">:</span> defaultName<span class="punctuation">,</span></span><br><span class="line">        exports<span class="punctuation">:</span> &#x27;named&#x27;<span class="punctuation">,</span></span><br><span class="line">        sourcemap<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        file<span class="punctuation">:</span> &#x27;dist/bson.browser.esm.js&#x27;<span class="punctuation">,</span></span><br><span class="line">        format<span class="punctuation">:</span> &#x27;es&#x27;<span class="punctuation">,</span></span><br><span class="line">        name<span class="punctuation">:</span> defaultName<span class="punctuation">,</span></span><br><span class="line">        exports<span class="punctuation">:</span> &#x27;named&#x27;<span class="punctuation">,</span></span><br><span class="line">        sourcemap<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        file<span class="punctuation">:</span> &#x27;dist/bson.bundle.js&#x27;<span class="punctuation">,</span></span><br><span class="line">        format<span class="punctuation">:</span> &#x27;iife&#x27;<span class="punctuation">,</span></span><br><span class="line">        name<span class="punctuation">:</span> defaultName<span class="punctuation">,</span></span><br><span class="line">        exports<span class="punctuation">:</span> &#x27;named&#x27;<span class="punctuation">,</span></span><br><span class="line">        sourcemap<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 format 这个属性 这里我们稍作知识拓展：</p>
+<blockquote>
+<h4 id="格式-format-f-output-format"><a href="#格式-format-f-output-format" class="headerlink" title="格式(format -f/--output.format)"></a>格式(format <em><code>-f</code>/<code>--output.format</code></em>)</h4><p><code>String</code> 生成包的格式。 下列之一:</p>
+<ul>
+<li><code>amd</code> – 异步模块定义，用于像RequireJS这样的模块加载器</li>
+<li><code>cjs</code> – CommonJS，适用于 Node 和 Browserify/Webpack</li>
+<li><code>esm</code> – 将软件包保存为 ES 模块文件，在现代浏览器中可以通过 <code>&lt;script type=module&gt;</code> 标签引入</li>
+<li><code>iife</code> – 一个自动执行的功能，适合作为<code>&lt;script&gt;</code>标签。（如果要为应用程序创建一个捆绑包，您可能想要使用它，因为它会使文件大小变小。）</li>
+<li><code>umd</code> – 通用模块定义，以<code>amd</code>，<code>cjs</code> 和 <code>iife</code> 为一体</li>
+<li><code>system</code> - SystemJS 加载器格式</li>
+</ul>
+</blockquote>
+<p>看到这些 我们知道 dist 目录下 为我们生成了 四种不同环境下的文件，这里如果我们使用 ES6 模式就用 bson.esm.js  这个文件 记得 文件名字要重命名为 bson.js</p>
+<p><img src="/post/df79c317/image-20210611120623128.png" alt="image-20210611120623128"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  &#123;deserialize, <span class="title class_">Long</span>, serialize&#125; <span class="keyword">from</span> <span class="string">&quot;../libs/bson&quot;</span>;</span><br><span class="line"><span class="comment">// Serialize a document</span></span><br><span class="line"> <span class="keyword">const</span> doc = &#123; <span class="attr">long</span>: <span class="title class_">Long</span>.<span class="title function_">fromNumber</span>(<span class="number">100</span>) &#125;;</span><br><span class="line"> <span class="keyword">const</span> data = <span class="title function_">serialize</span>(doc);</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;data:&#x27;</span>, data);</span><br><span class="line"></span><br><span class="line"> <span class="comment">// De serialize it again</span></span><br><span class="line"> <span class="keyword">const</span> doc_2 = <span class="title function_">deserialize</span>(data);</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;doc_2:&#x27;</span>, doc_2);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<p><img src="/post/df79c317/image-20210611121034324.png" alt="image-20210611121034324"></p>
+<h2 id="知识拓展"><a href="#知识拓展" class="headerlink" title="知识拓展"></a>知识拓展</h2><p>Cocos 引用第三方库的两种方式：</p>
+<h3 id="插件模式"><a href="#插件模式" class="headerlink" title="插件模式"></a>插件模式</h3><ol>
+<li>用编辑器导出为插件</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XX.yy</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Import-引入引用"><a href="#Import-引入引用" class="headerlink" title="Import  引入引用"></a>Import  引入引用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import * as x from &#x27;x&#x27;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前还没有真正理解 Cocos Creator 关于第三方 node库的怎么最优雅的方式使用，后续工作中会再深入探索和研究，查漏补缺的学习，这次先做个简单的引入。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/bson">BSON parser</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/bSy2XtK70F7OOCpI00nGDQ">Creator | TS项目中引入第三方JS库的两种方式</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/9839845c.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>技术工作的一些心得</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/3fb18aea.html">
+        <span>Mac关闭Microsoft AutoUpdate更新弹框提示</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/df79c317.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BSON%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">BSON简单介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-vs-BSON"><span class="toc-number">1.1.</span> <span class="toc-text">JSON vs BSON</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E6%A8%A1%E5%BC%8F-amp-%E6%8F%92%E4%BB%B6%E5%AF%BC%E5%85%A5"><span class="toc-number">2.1.</span> <span class="toc-text">全局变量模式&amp;插件导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91js-bson"><span class="toc-number">2.2.</span> <span class="toc-text">下载编译js-bson</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%94%9F%E6%88%90%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">修改生成后的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="toc-number">2.4.</span> <span class="toc-text">测试结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ES6-%E6%A8%A1%E5%9D%97%E6%96%B9%E5%BC%8F-%E5%BC%95%E5%85%A5"><span class="toc-number">2.5.</span> <span class="toc-text">ES6 模块方式 引入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F-format-f-output-format"><span class="toc-number">2.5.1.</span> <span class="toc-text">格式(format -f&#x2F;--output.format)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E6%8B%93%E5%B1%95"><span class="toc-number">3.</span> <span class="toc-text">知识拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">插件模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Import-%E5%BC%95%E5%85%A5%E5%BC%95%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">Import  引入引用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.xAndroid返回键退出或最小化 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/7fbc7c01.html">CocosCreator2.4.xAndroid返回键退出或最小化</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-07-22
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.xAndroid返回键退出或最小化&url=http://blog.asroads.com/post/7fbc7c01.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.xAndroid返回键退出或最小化&url=http://blog.asroads.com/post/7fbc7c01.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/7fbc7c01.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/7fbc7c01.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/7fbc7c01.html&title=CocosCreator2.4.xAndroid返回键退出或最小化" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.xAndroid返回键退出或最小化&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/7fbc7c01.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/7fbc7c01.html&text=CocosCreator2.4.xAndroid返回键退出或最小化" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏开发中，有时候用户点击了返回键（原生<code>Android</code>）需要我们对当前的<code>App</code>进行最小化或者退出操作，很多<code>CocosCreator</code>的开发者，例如笔者，对原生这块儿不是很熟悉，于是就想着写个文档记录一下，也希望帮到同样需求的人。</p>
+<span id="more"></span>
+
+<h2 id="构建原生Android"><a href="#构建原生Android" class="headerlink" title="构建原生Android"></a>构建原生Android</h2><p>本次使用环境</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NDK路径 /Users/myuser/Library/Android/sdk/ndk/21.4.7075529</span><br><span class="line">Android SDK路径 /Users/myuser/Library/Android/sdk</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/7fbc7c01/c0bbfdac68e611094963561c972803541a801f01_2_689x436.png" alt="image"></p>
+<p><img src="/post/7fbc7c01/4d0c4870d2ef66845104d496a9179704fbc63864_2_328x500.jpeg" alt="image"></p>
+<p>注意如果是<code>Apple M2（M3）</code>芯片需要修改 <code>ndk-build</code>文件，笔者本地测试过 <code>NDK 25</code> 就不需要修改关于<code>M2</code> 的修改。<img src="/post/7fbc7c01/073a2e80c02969df88f5395aeaa3d11274f71318.png" alt="image"></p>
+<p><img src="/post/7fbc7c01/916bb48ada199ac1fe3599369dcbced4ce31076f.png" alt="image"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch -x86_64 /bin/bash $DIR/build/ndk-build &quot;$@&quot;</span><br></pre></td></tr></table></figure>
+
+<p>其他关于 Gradle 和 Gradle 插件的相关知识<br><a target="_blank" rel="noopener" href="https://developer.android.com/build/releases/gradle-plugin?hl=zh-cn">https://developer.android.com/build/releases/gradle-plugin?hl=zh-cn 1</a></p>
+<h2 id="增加逻辑"><a href="#增加逻辑" class="headerlink" title="增加逻辑"></a>增加逻辑</h2><h3 id="退出操作"><a href="#退出操作" class="headerlink" title="退出操作"></a>退出操作</h3><h4 id="方法一-Android端处理"><a href="#方法一-Android端处理" class="headerlink" title="方法一 Android端处理"></a>方法一 Android端处理</h4><ol>
+<li><p>首先需要让<code>Activity</code> 获取焦点 在<code>Activity</code>的<code>onCreate</code>中的最后，为<code>SurfaceView</code>加上<code>focus</code><br><code>mGLSurfaceView.requestFocus();</code></p>
+</li>
+<li><p><code>AppActivity.java</code>路径：<code>build/jsb-default/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java</code></p>
+</li>
+</ol>
+<p><img src="/post/7fbc7c01/image-20240722115046215.png" alt="image-20240722115046215"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加焦点</span></span><br><span class="line"><span class="built_in">this</span>.getGLSurfaceView().requestFocus();</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在<code>Android</code>工程中，<code>AppActivity</code>类里，覆盖如下方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchKeyEvent</span><span class="params">(KeyEvent event)</span> &#123;</span><br><span class="line"><span class="comment">//拦截返回键</span></span><br><span class="line"><span class="keyword">if</span> (event.getKeyCode() == KeyEvent.KEYCODE_BACK)&#123;</span><br><span class="line"><span class="comment">//判断触摸UP事件才会进行返回事件处理</span></span><br><span class="line"><span class="keyword">if</span> (event.getAction() == KeyEvent.ACTION_UP) &#123;</span><br><span class="line">		onBackPressed();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//只要是返回事件，直接返回true，表示消费掉</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">super</span>.dispatchKeyEvent(event);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onBackPressed</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="comment">// do something…</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二-在Javascript端处理"><a href="#方法二-在Javascript端处理" class="headerlink" title="方法二 在Javascript端处理"></a>方法二 在Javascript端处理</h4><ol>
+<li>监听系统按键</li>
+<li>处理按键信息</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (cc.<span class="property">sys</span>.<span class="property">platform</span> == cc.<span class="property">sys</span>.<span class="property">ANDROID</span>) &#123;</span><br><span class="line">    cc.<span class="property">systemEvent</span>.<span class="title function_">on</span>(cc.<span class="property">SystemEvent</span>.<span class="property">EventType</span>.<span class="property">KEY_DOWN</span>, <span class="variable language_">this</span>.<span class="property">onKeyDown</span>, <span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">onKeyDown</span>(<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (event.<span class="property">keyCode</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> cc.<span class="property">macro</span>.<span class="property">KEY</span>.<span class="property">back</span>:</span><br><span class="line">        <span class="comment">// 参考步骤3</span></span><br><span class="line">        <span class="comment">//dosomeThing</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>退出游戏：为了防止玩家误点，一般会要求再点一次<em>后退</em>才确认退出游戏。退出游戏的话，用 <code>cc.game.end()</code>。</p>
+<p>简单流程：<br>1). 添加标记<code>_toExitGame</code>来记录首次按键。<br>2). 首次点击<em>后退</em>时，该标记设置为true，发出消息，用于弹出提示“再次点击后退，退出游戏”。<br>3). 如果3秒内没有再次点击，则重置该标记。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">_toExitGame</span>) &#123;</span><br><span class="line">    <span class="comment">// 首次点击，重置该标记</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_toExitGame</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// 发出后退消息，这里监听者来弹出提示：再次点击后退，退出游戏。这里可以替换成自己的消息处理方法</span></span><br><span class="line">    <span class="comment">// this.sendNotification(GAMEEVENTS.APP.TRY_EXIT);</span></span><br><span class="line">    <span class="comment">// 3秒后没有再次按【后退】按钮，则重置该标记</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">scheduleOnce</span>(() = &gt;&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_toExitGame</span> = <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">// this.label.string = &#x27;&#x27;;</span></span><br><span class="line">    &#125;,<span class="number">3</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 已经点击过一次，则直接退出</span></span><br><span class="line">    cc.<span class="property">game</span>.<span class="title function_">end</span>();</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：测试中，如果发现某些手机不兼容，请使用方法一</strong></p>
+<h3 id="最小化App"><a href="#最小化App" class="headerlink" title="最小化App"></a>最小化App</h3><ol>
+<li><p>首先需要让<code>Activity</code> 获取焦点 在<code>Activity</code>的<code>onCreate</code>中的最后，为<code>SurfaceView</code>加上<code>focus</code><br><code>mGLSurfaceView.requestFocus();</code></p>
+</li>
+<li><p><code>AppActivity.java</code>路径：<code>build/jsb-default/frameworks/runtime-src/proj.android-studio/app/src/org/cocos2dx/javascript/AppActivity.java</code></p>
+</li>
+<li><p>具体代码</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加焦点</span></span><br><span class="line"><span class="built_in">this</span>.getGLSurfaceView().requestFocus();</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/7fbc7c01/image-20240722115046215.png" alt="image-20240722115046215"></p>
+<ol start="4">
+<li>在<code>Android</code>工程中，<code>AppActivity</code>类里，覆盖如下方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchKeyEvent</span><span class="params">(KeyEvent event)</span> &#123;</span><br><span class="line"><span class="comment">//拦截返回键</span></span><br><span class="line"><span class="keyword">if</span> (event.getKeyCode() == KeyEvent.KEYCODE_BACK)&#123;</span><br><span class="line"><span class="comment">//判断触摸UP事件才会进行返回事件处理</span></span><br><span class="line"><span class="keyword">if</span> (event.getAction() == KeyEvent.ACTION_UP) &#123;</span><br><span class="line">		<span class="comment">//onBackPressed();//退出</span></span><br><span class="line">  	 moveTaskToBack(<span class="literal">true</span>);<span class="comment">//最小化</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//只要是返回事件，直接返回true，表示消费掉</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">super</span>.dispatchKeyEvent(event);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onBackPressed</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="comment">// do something…</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过介绍，学习了如何在<code>Android</code>应用中实现退出和窗口最小化的功能。通过调用<code>onBackPressed</code>和<code>moveTaskToBack(true)</code>方法，我们可以将应用窗口退出或最小化到后台，让应用退出或在后台运行但不占据用户屏幕空间。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_16213335/10030971">android 窗口最小化</a> </li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/115267">【分享】Cocos Creator Android 平台监听返回按键无效的解决方案</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/unknown-keycode-6/76298/7">安卓监听返回键Unknown keyCode：6</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/android-9-api-28/82215">返回键监听在Android 9 (API 28)后有问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/140553">cocos creator 2.4.5 android 退出返回键</a></li>
+<li><a target="_blank" rel="noopener" href="https://xmanyou.com/cocos-creator-shi-xian-an-zhuo-an-fan-hui-jian-tui-chu-you-xi/">Cocos Creator 实现安卓按【后退】键退出游戏</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/d81ac378.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>效率工具脚本-CDN预热脚本</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/85d041b7.html">
+        <span>Cocos Creator原生Android开发风云再起</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/7fbc7c01.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%8E%9F%E7%94%9FAndroid"><span class="toc-number">1.</span> <span class="toc-text">构建原生Android</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E9%80%BB%E8%BE%91"><span class="toc-number">2.</span> <span class="toc-text">增加逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">退出操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-Android%E7%AB%AF%E5%A4%84%E7%90%86"><span class="toc-number">2.1.1.</span> <span class="toc-text">方法一 Android端处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-%E5%9C%A8Javascript%E7%AB%AF%E5%A4%84%E7%90%86"><span class="toc-number">2.1.2.</span> <span class="toc-text">方法二 在Javascript端处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%96App"><span class="toc-number">2.2.</span> <span class="toc-text">最小化App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

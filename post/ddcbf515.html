@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator 原生开发总结续 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/ddcbf515.html">Cocos Creator 原生开发总结续</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-11-15
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator 原生开发总结续&url=http://blog.asroads.com/post/ddcbf515.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator 原生开发总结续&url=http://blog.asroads.com/post/ddcbf515.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/ddcbf515.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/ddcbf515.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/ddcbf515.html&title=Cocos Creator 原生开发总结续" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator 原生开发总结续&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/ddcbf515.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/ddcbf515.html&text=Cocos Creator 原生开发总结续" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/iOS/ >iOS</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>之前以为和原生交互比较少，就写了几篇文章后面越来越多，就遇到了很多问题，于是在写一个这几天遇到的问题吧，关于数据转换和一些小技巧的。</p>
+<span id="more"></span>
+
+<h2 id="OC"><a href="#OC" class="headerlink" title="OC"></a>OC</h2><h3 id="NSArray、NSDictionary打印中文现乱码"><a href="#NSArray、NSDictionary打印中文现乱码" class="headerlink" title="NSArray、NSDictionary打印中文现乱码"></a>NSArray、NSDictionary打印中文现乱码</h3><p>在iOS开发中，经常需要查看数组中得元素是否是自己想要的，但是苹果并没有对直接打印数组中得中文作处理，直接打印就会出现一堆很讨厌的东西</p>
+<p>地址 <a target="_blank" rel="noopener" href="https://github.com/LiHe0308/XcodeLog">https://github.com/LiHe0308/XcodeLog</a></p>
+<h3 id="openURL-deprecated-in-iOS-10-警告"><a href="#openURL-deprecated-in-iOS-10-警告" class="headerlink" title="openURL: deprecated in iOS 10 警告"></a>openURL: deprecated in iOS 10 警告</h3><p>原来的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:APPSTORE_URL]];</span><br></pre></td></tr></table></figure>
+
+<p>修改后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">UIApplication *application = [UIApplication sharedApplication];</span><br><span class="line">       NSURL *URL = [NSURL URLWithString:APPSTORE_URL];</span><br><span class="line">       [application openURL:URL options:@&#123;&#125; completionHandler:^(BOOL success) &#123;</span><br><span class="line">           if (success) &#123;</span><br><span class="line">                NSLog(@&quot;Opened url&quot;);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;];</span><br></pre></td></tr></table></figure>
+
+<p>参考地址 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39548010/openurl-deprecated-in-ios-10">openURL: deprecated in iOS 10</a></p>
+<h3 id="ALAlertView"><a href="#ALAlertView" class="headerlink" title="ALAlertView"></a>ALAlertView</h3><p>地址:<a target="_blank" rel="noopener" href="https://github.com/alanshen0118/ALAlertView">https://github.com/alanshen0118/ALAlertView</a></p>
+<h4 id="对外接口"><a href="#对外接口" class="headerlink" title="对外接口"></a>对外接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">+ (instancetype)alertView;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">+ (void)showMessage:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  类方法  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> *  @param dismissCallBack 确定回调</span><br><span class="line"> */</span><br><span class="line">+ (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message dismissCallBack:(CancelCallBack)dismissCallBack;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框基础方法</span><br><span class="line"> *</span><br><span class="line"> *  @param title             标题</span><br><span class="line"> *  @param message           消息</span><br><span class="line"> *  @param cancelButtonTitle 取消按钮标题</span><br><span class="line"> *  @param cancelCallBack    取消按钮回调</span><br><span class="line"> *  @param otherCallBack     其他按钮回调</span><br><span class="line"> *  @param otherButtonTitles 其他按钮</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle cancelCallBack:(CancelCallBack)cancelCallBack otherCallBack:(OtherCallBack)otherCallBack otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">- (void)showMessage:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> *  提示框（只显示标题和消息）</span><br><span class="line"> *</span><br><span class="line"> *  @param title   标题</span><br><span class="line"> *  @param message 消息</span><br><span class="line"> *  @param dismissCallBack 确定回调</span><br><span class="line"> */</span><br><span class="line">- (void)showAlertViewWithTitle:(NSString *)title message:(NSString *)message dismissCallBack:(CancelCallBack)dismissCallBack;</span><br></pre></td></tr></table></figure>
+
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  ViewController.m</span><br><span class="line">//  ALAlertViewDemo</span><br><span class="line">//</span><br><span class="line">//  Created by alan on 8/22/16.</span><br><span class="line">//  Copyright © 2016 bjdv. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line">#import &quot;ALAlertView.h&quot;</span><br><span class="line"></span><br><span class="line">@interface ViewController ()</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)viewDidAppear:(BOOL)animated &#123;</span><br><span class="line">    [super viewDidAppear:animated];</span><br><span class="line">    [[ALAlertView alertView] showMessage:@&quot;建议在界面完成加载后调用&quot;];</span><br><span class="line">&#125;</span><br><span class="line">- (IBAction)e__message:(id)sender &#123;</span><br><span class="line">    XXALERT(@&quot;消息&quot;);</span><br><span class="line">    </span><br><span class="line">//    [ALAlertView showMessage:@&quot;消息&quot;];</span><br><span class="line">//    [[ALAlertView alertView] showMessage:@&quot;消息&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)e__messageAndTitle:(id)sender &#123;</span><br><span class="line">    </span><br><span class="line">    [[ALAlertView alertView] showAlertViewWithTitle:@&quot;标题&quot; message:@&quot;消息&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)e__mutiButtons:(id)sender &#123;</span><br><span class="line">    [[ALAlertView alertView] showAlertViewWithTitle:@&quot;标题&quot; message:@&quot;消息&quot; cancelButtonTitle:@&quot;取消&quot; cancelCallBack:^&#123;</span><br><span class="line">        NSLog(@&quot;cancel回调&quot;);</span><br><span class="line">    &#125; otherCallBack:^(NSInteger buttonIndex) &#123;</span><br><span class="line">        NSLog(@&quot;第%zi个按钮回调&quot;, buttonIndex + 1);</span><br><span class="line">    &#125; otherButtonTitles:@&quot;按钮1&quot;, @&quot;按钮2&quot;, @&quot;按钮3&quot;, nil];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (IBAction)e__mutiAlertWithoutOverlay:(id)sender &#123;</span><br><span class="line">    [ALAlertView showAlertViewWithTitle:nil message:@&quot;第一条信息&quot; dismissCallBack:^&#123;</span><br><span class="line">        [[ALAlertView alertView] showMessage:@&quot;第二条消息&quot;];</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)didReceiveMemoryWarning &#123;</span><br><span class="line">    [super didReceiveMemoryWarning];</span><br><span class="line">    // Dispose of any resources that can be recreated.</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<h3 id="退出App"><a href="#退出App" class="headerlink" title="退出App"></a>退出App</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit(0);</span><br></pre></td></tr></table></figure>
+
+<p>其他相关</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abort();</span><br></pre></td></tr></table></figure>
+
+<p>苹果退出有两种方式：exit(0);和abort();</p>
+<p>exit和abort都是终止程序执行退出的处理函数，其中exit是正常退出，abort是异常退出，退出时会输出错误信息，然后再调用exit退出。</p>
+<p>用户体验来说，exit就像是程序崩溃了，直接退出程序。abort就像是点击了home键，有过渡动画，一般我们在使用的时候会选择abort();</p>
+<p>但是苹果审核好像是不支持这样去操，会造成很不好的用户体验，有很大的机率会拒绝审核，但是查看官方文档用到exit(0)；</p>
+<p>方法:<br> 在plist添加屬性Application does not run in background = YES，调用exit(0)</p>
+<h3 id="iOS-App内评分"><a href="#iOS-App内评分" class="headerlink" title="iOS App内评分"></a>iOS App内评分</h3><p>苹果在iOS 10.3中增加了App评分的新API，用户可以直接在App内评分，而不用跳转到App Store。<br>使用非常简单，只有一行代码，但也说明了它没有任何可定制性。<br>此API使用前需要 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;StoreKit/StoreKit.h&gt;:</span><br><span class="line">if (@available(iOS 10.3, *)) &#123;</span><br><span class="line">        [SKStoreReviewController requestReview];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 只能评分，不能编写评论</span><br><span class="line"> * 有次数限制，一年只能使用三次</span><br><span class="line"> * 使用次数超限后，需要跳转appstore</span><br><span class="line"> */</span><br><span class="line">- (IBAction)systemComentBtnAction:(UIButton *)sender &#123;</span><br><span class="line"></span><br><span class="line">if([SKStoreReviewController respondsToSelector:@selector(requestReview)]) &#123;// iOS 10.3 以上支持</span><br><span class="line">    //防止键盘遮挡</span><br><span class="line">    [[UIApplication sharedApplication].keyWindow endEditing:YES];</span><br><span class="line">    [SKStoreReviewController requestReview];</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong><br>苹果官方说不能骚扰用户，因此使用此API有非常严格的限制。<br>按苹果规定，<strong>每台设备、每个App、每年只能弹出3次</strong>该提示窗口，如果超过这个次数，则什么都不会显示。</p>
+<h4 id="Deep-Link"><a href="#Deep-Link" class="headerlink" title="Deep Link"></a>Deep Link</h4><p>大家应该都知道跳转到App Store的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *appURL = @&quot;https://itunes.apple.com/cn/app/idAppID&quot;;</span><br><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:appURL]];</span><br></pre></td></tr></table></figure>
+
+<p>下面介绍一种可以直接跳转到评分页面的方法。这个方法其实在上述新API的注释中苹果已经提到，他们称为“Deep Link”。使用方式与上面的方法一致，只是在URL后面拼接一个query params：<code>action=write-review</code>。<br> 下面是完整代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString *appURL = @&quot;https://itunes.apple.com/cn/app/idAppID?action=write-review&quot;;</span><br><span class="line">[[UIApplication sharedApplication] openURL:[NSURL URLWithString:appURL]];</span><br></pre></td></tr></table></figure>
+
+<p>作者：乌鸢<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/4f9fe2e1879e">https://www.jianshu.com/p/4f9fe2e1879e</a><br>来源：简书</p>
+<p>作者：贝尔特伦<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e3f6d584d679">https://www.jianshu.com/p/e3f6d584d679</a><br>来源：简书</p>
+<h3 id="iOS字符串转JSON"><a href="#iOS字符串转JSON" class="headerlink" title="iOS字符串转JSON"></a>iOS字符串转JSON</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">+(NSDictionary*)dictionaryWithJsonString:(NSString*)jsonString &#123;</span><br><span class="line">    </span><br><span class="line">    if(jsonString ==nil) &#123;</span><br><span class="line">        </span><br><span class="line">        return nil;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSData*jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">    </span><br><span class="line">    NSError*err;</span><br><span class="line">    </span><br><span class="line">    NSDictionary*dic = [NSJSONSerialization JSONObjectWithData:jsonData</span><br><span class="line">                        </span><br><span class="line">                                                       options:NSJSONReadingMutableContainers</span><br><span class="line">                        </span><br><span class="line">                                                         error:&amp;err];</span><br><span class="line">    </span><br><span class="line">    if(err) &#123;</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;json解析失败：%@&quot;,err);</span><br><span class="line">        </span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    NSMutableDictionary*newdict=[[NSMutableDictionary alloc]init];</span><br><span class="line">    </span><br><span class="line">    for(NSString*keys in dic)</span><br><span class="line">        </span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        if(dic[keys]==[NSNull null])</span><br><span class="line">            </span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            [newdict setObject:@&quot; &quot;forKey:keys];</span><br><span class="line">            </span><br><span class="line">            continue;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        [newdict setObject:[NSString stringWithFormat:@&quot;%@&quot;,dic[keys]]forKey:keys];</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return newdict;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h2><h3 id="Android-使用-JavaScript-调用-Java-方法"><a href="#Android-使用-JavaScript-调用-Java-方法" class="headerlink" title="Android 使用 JavaScript 调用 Java 方法"></a>Android 使用 JavaScript 调用 Java 方法</h3><p>在 Android 应用中，Cocos 引擎的渲染和 JS 的逻辑是在 GL 线程中进行的，而 Android 本身的 UI 更新是在 App 的 UI 线程进行的，所以如果我们在 JS 中调用的 Java 方法有任何刷新 UI 的操作，都需要在 UI 线程进行。</p>
+<p>参考 ：<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/advanced-topics/java-reflection.html">如何在 Android 平台上使用 JavaScript 直接调用 Java 方法</a></p>
+<h3 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h3><ul>
+<li><strong>KillProcess()：</strong><br>可以杀死当前应用活动的进程，这一操作将会把所有该进程内的资源（包括线程全部清理掉）。当然，由于ActivityManager时刻监听着进程，一旦发现进程被非正常Kill，它将会试图去重启这个进程。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android<span class="selector-class">.os</span><span class="selector-class">.Process</span><span class="selector-class">.killProcess</span>(android<span class="selector-class">.os</span><span class="selector-class">.Process</span><span class="selector-class">.myPid</span>());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>System.exit()：</strong><br>Java中结束进程的方法，调用它将关闭当前的JVM虚拟机。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.<span class="built_in">exit</span>(<span class="number">0</span>);<span class="comment">//正常退出</span></span><br><span class="line">System.<span class="built_in">exit</span>(<span class="number">1</span>);<span class="comment">//非正常退出</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>KillProcess()</strong> 和 **System.exit()**，许多人都使用过，当你栈里只有一个Activity的时候，这个措施是行之有效的。但当关闭多个Activity的时候，栈里有多个Activity时，这两个方法就不起作用了。<br>因为通过杀进程方式退出，会被系统认为异常退出，会保存应用的一些状态信息比如Activity运行栈，然后会恢复这个应用。当恢复一个Android应用程序时，会先从栈里面移除异常的Activity，相当于Back键操作。</p>
+</blockquote>
+<p>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1adb4a6b8618">https://www.jianshu.com/p/1adb4a6b8618</a><br>来源：简书</p>
+<h3 id="JSONObject"><a href="#JSONObject" class="headerlink" title="JSONObject"></a>JSONObject</h3><h5 id="net-sf-json-JSONObject"><a href="#net-sf-json-JSONObject" class="headerlink" title="net.sf.json.JSONObject"></a>net.sf.json.JSONObject</h5><p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/json-lib/">https://sourceforge.net/projects/json-lib/</a></p>
+<h5 id="org-json-JSONObject"><a href="#org-json-JSONObject" class="headerlink" title="org.json.JSONObject"></a>org.json.JSONObject</h5><p>系统自带的 需要 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JSONObject</span> <span class="variable">paramsObj</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>(paramDataStr);</span><br></pre></td></tr></table></figure>
+
+<p>示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">parseJSONWithJSONObject</span><span class="params">(String JsonData)</span> &#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">JSONArray</span> <span class="variable">jsonArray</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONArray</span>(jsonData);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i &lt; jsonArray.length(); i++)    &#123;</span><br><span class="line">            <span class="type">JSONObject</span> <span class="variable">jsonObject</span> <span class="operator">=</span> jsonArray.getJSONObject(i);</span><br><span class="line">            <span class="type">String</span> <span class="variable">id</span> <span class="operator">=</span> jsonObject.getString(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> jsonObject.getString(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">version</span> <span class="operator">=</span> jsonObect.getString(<span class="string">&quot;version&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;id&quot;</span> + id + <span class="string">&quot;;name&quot;</span> + name + <span class="string">&quot;;version&quot;</span> + version);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception e)</span><br><span class="line">    &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="签名文件-keystore-和-jks"><a href="#签名文件-keystore-和-jks" class="headerlink" title="签名文件.keystore 和 .jks"></a>签名文件.keystore 和 .jks</h3><p>参考地址:<a target="_blank" rel="noopener" href="https://my.oschina.net/Agnes2017/blog/1824614">签名文件.keystore 和 .jks</a></p>
+<h3 id="安卓播放广告时候-切到后台-返回后广告不见了"><a href="#安卓播放广告时候-切到后台-返回后广告不见了" class="headerlink" title="安卓播放广告时候 切到后台 返回后广告不见了"></a>安卓播放广告时候 切到后台 返回后广告不见了</h3><p>解决办法:<br>修改  AndroidManifest.xml 里面主 Activity 启动模式为 singleTop</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:name</span>=<span class="string">&quot;org.cocos2dx.javascript.AppActivity&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:screenOrientation</span>=<span class="string">&quot;portrait&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:configChanges</span>=<span class="string">&quot;orientation|keyboardHidden|screenSize|screenLayout&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:label</span>=<span class="string">&quot;@string/app_name&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:theme</span>=<span class="string">&quot;@android:style/Theme.NoTitleBar.Fullscreen&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:resizeableActivity</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">           <span class="attr">android:launchMode</span>=<span class="string">&quot;singleTop&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>参考地址:<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/creator/92318">creator接了穿山甲激励视频，切后台广告会关闭怎么处理？</a></p>
+<h2 id="Cocos-Creator"><a href="#Cocos-Creator" class="headerlink" title="Cocos Creator"></a>Cocos Creator</h2><h3 id="cc-blink-对应cc-tween如何使用？"><a href="#cc-blink-对应cc-tween如何使用？" class="headerlink" title="cc.blink 对应cc,tween如何使用？"></a>cc.blink 对应cc,tween如何使用？</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> blinkAction = cc.<span class="title function_">blink</span>(<span class="number">0.1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">runAction</span>(blinkAction);</span><br></pre></td></tr></table></figure>
+
+<p>在cc.tween如何使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="title function_">tween</span>(<span class="variable language_">this</span>.<span class="property">node</span>)</span><br><span class="line">    .<span class="title function_">blink</span>(<span class="number">0</span>,<span class="number">1</span>, <span class="number">1</span>)</span><br><span class="line">    .<span class="title function_">start</span>();</span><br></pre></td></tr></table></figure>
+
+<p>参考地址:<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cc-blink-cc-tween/91499">请问闪烁 cc.blink 对应cc,tween如何使用？</a></p>
+<h3 id="JavaScriptJavaBridge-CallInfo-isn’t-valid"><a href="#JavaScriptJavaBridge-CallInfo-isn’t-valid" class="headerlink" title="JavaScriptJavaBridge::CallInfo isn’t valid!"></a>JavaScriptJavaBridge::CallInfo isn’t valid!</h3><h4 id="原因一："><a href="#原因一：" class="headerlink" title="原因一："></a>原因一：</h4><p>方法为定义找不到，或者方法的类名字和 java和Javascript不一致</p>
+<h4 id="原因二："><a href="#原因二：" class="headerlink" title="原因二："></a>原因二：</h4><p>java里接口定义错误，记得要加static</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">loginWithWX</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="原因三："><a href="#原因三：" class="headerlink" title="原因三："></a>原因三：</h4><p>如果方法名加了static,并且方法名字和参数都没有写错，并且你的方法不是写在AppActivity里面的话，那就考虑是不是release包的代码混淆问题了。cocos打包的模版里面在proguard-rules.pro里自动加了排除混淆的代码<br>-keep public class org.cocos2dx.** { <em>; }<br>-dontwarn org.cocos2dx.</em>*<br>如果你的方法在其他类里面，记得在proguard-rules.pro给你的包名也加上这样的配置。</p>
+<h2 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h2><p>在线EXCEL转JSON工具</p>
+<p><a target="_blank" rel="noopener" href="https://uutool.cn/excel2json/">https://uutool.cn/excel2json/</a></p>
+<p>在线JSON转EXCEL</p>
+<p><a target="_blank" rel="noopener" href="https://uutool.cn/json2excel/">https://uutool.cn/json2excel/</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44861716/article/details/104358437">Android安卓 Activity四种启动模式(launchMode) standard, singleTop, singleTask, singleInstance</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/creator-unityads/80430">creator原生项目接入UnityAds，激励视频时双进程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/caiqimin__/article/details/108431804">Cocos—JavaScriptJavaBridge::CallInfo isn’t valid!</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/bfae5412.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Android和ios存储小试牛刀</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/5cd1001.html">
+        <span>Cocos Creator Xcode下使用cocoapods|iOS</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/ddcbf515.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OC"><span class="toc-number">1.</span> <span class="toc-text">OC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NSArray%E3%80%81NSDictionary%E6%89%93%E5%8D%B0%E4%B8%AD%E6%96%87%E7%8E%B0%E4%B9%B1%E7%A0%81"><span class="toc-number">1.1.</span> <span class="toc-text">NSArray、NSDictionary打印中文现乱码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openURL-deprecated-in-iOS-10-%E8%AD%A6%E5%91%8A"><span class="toc-number">1.2.</span> <span class="toc-text">openURL: deprecated in iOS 10 警告</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ALAlertView"><span class="toc-number">1.3.</span> <span class="toc-text">ALAlertView</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E5%A4%96%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.1.</span> <span class="toc-text">对外接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.3.2.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%80%E5%87%BAApp"><span class="toc-number">1.4.</span> <span class="toc-text">退出App</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS-App%E5%86%85%E8%AF%84%E5%88%86"><span class="toc-number">1.5.</span> <span class="toc-text">iOS App内评分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Deep-Link"><span class="toc-number">1.5.1.</span> <span class="toc-text">Deep Link</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iOS%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%ACJSON"><span class="toc-number">1.6.</span> <span class="toc-text">iOS字符串转JSON</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android"><span class="toc-number">2.</span> <span class="toc-text">Android</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-%E4%BD%BF%E7%94%A8-JavaScript-%E8%B0%83%E7%94%A8-Java-%E6%96%B9%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">Android 使用 JavaScript 调用 Java 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%80%E5%87%BA"><span class="toc-number">2.2.</span> <span class="toc-text">退出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSONObject"><span class="toc-number">2.3.</span> <span class="toc-text">JSONObject</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#net-sf-json-JSONObject"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">net.sf.json.JSONObject</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#org-json-JSONObject"><span class="toc-number">2.3.0.2.</span> <span class="toc-text">org.json.JSONObject</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6-keystore-%E5%92%8C-jks"><span class="toc-number">2.4.</span> <span class="toc-text">签名文件.keystore 和 .jks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E6%92%AD%E6%94%BE%E5%B9%BF%E5%91%8A%E6%97%B6%E5%80%99-%E5%88%87%E5%88%B0%E5%90%8E%E5%8F%B0-%E8%BF%94%E5%9B%9E%E5%90%8E%E5%B9%BF%E5%91%8A%E4%B8%8D%E8%A7%81%E4%BA%86"><span class="toc-number">2.5.</span> <span class="toc-text">安卓播放广告时候 切到后台 返回后广告不见了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cocos-Creator"><span class="toc-number">3.</span> <span class="toc-text">Cocos Creator</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cc-blink-%E5%AF%B9%E5%BA%94cc-tween%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">cc.blink 对应cc,tween如何使用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScriptJavaBridge-CallInfo-isn%E2%80%99t-valid"><span class="toc-number">3.2.</span> <span class="toc-text">JavaScriptJavaBridge::CallInfo isn’t valid!</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E4%B8%80%EF%BC%9A"><span class="toc-number">3.2.1.</span> <span class="toc-text">原因一：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E4%BA%8C%EF%BC%9A"><span class="toc-number">3.2.2.</span> <span class="toc-text">原因二：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E4%B8%89%EF%BC%9A"><span class="toc-number">3.2.3.</span> <span class="toc-text">原因三：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%BA%BF%E5%B7%A5%E5%85%B7"><span class="toc-number">4.</span> <span class="toc-text">在线工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

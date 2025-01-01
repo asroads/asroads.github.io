@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/16d8396f.html">Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-10-14
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体&url=http://blog.asroads.com/post/16d8396f.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体&url=http://blog.asroads.com/post/16d8396f.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/16d8396f.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/16d8396f.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/16d8396f.html&title=Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/16d8396f.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/16d8396f.html&text=Cocos Creator 微信小游戏更改settings.js为zip压缩格式加载减小包体" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>新版本CocosCreator已经对小游戏平台做了不少优化，其中包括更快速的渲染首屏页面，把资源配置文件格式修改为json格式（相当于可以存放到远程资源服务器）从而给代码留出更多的空间（首包4MB，总包不超过20MB），对于很多游戏来说是件很好的事情，但对于一直使用旧版本引擎开发的人来讲，需要自己做这些事情，首屏的问题社区已经给了很好的方案，这里不再赘述，文章后面会给出几个优秀的链接，大家自己根据文章里的步骤做就好了，下面说说如何把资源settings.js修改为json，然后压缩为zip，加载到游戏内使用。</p>
+<span id="more"></span>
+
+<p>由于操作的项目早期资源没有资源设计，全部一股脑放到了resources里面，导致出包的时候settings文件很大，和代码相当。于是就想着要么让文件瘦身，要么压缩。瘦身是件长期有益但是耗时比较久容易引发问题，需要精力和时间，鉴于工期时间紧，先做压缩，后期再做资源调整优化处理。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Cocos Creator 2.3.3</li>
+<li>系统环境 Windows 10</li>
+<li>用到的技术 <code>nodejs</code></li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li>首先我们把我们项目构建为微信小游戏，然后找到构建后的settings.js</li>
+</ol>
+<p><img src="/post/16d8396f/image-20220815101534420.png" alt="image-20220815101534420"></p>
+<ol start="2">
+<li>然后查看一下 小游戏如何引用的（这里简单的讲述一下加载引用逻辑，这样我们可以做到知其然，知其所以然），首先我们打开 构建后的代码<code>game.js</code> 文件，然后查看源码。</li>
+</ol>
+<p><img src="/post/16d8396f/image-20220815102101754.png" alt="image-20220815102101754"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;./src/settings&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>这个就是代码的引入逻辑。然后查看一下 <code>settings.js</code>文件内容</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">window._CCSettings=&#123;</span><br><span class="line">platform:&quot;wechatgame&quot;,groupList:[]</span><br><span class="line">...//此处省略源文件内容 基本都是资源的信息</span><br><span class="line">&#125;;(function(e)&#123;var t=e.uuids,s=e.md5AssetsMap;for(var i in s)for(var r=s[i],n=0;n&lt;r.length;n+=2)&quot;number&quot;==typeof r[n]&amp;&amp;(r[n]=t[r[n]])&#125;)(window._CCSettings);</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>根据上面的结构，可以看出文件的内容被赋值给了全局变量下的一个属性<code>_CCSettings</code>，然后进行了一些操作。</li>
+<li>然后我们看另外一个文件<code>main.js</code>文件内容。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">boot</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> settings = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = <span class="literal">undefined</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>我们看到，文件开头就进行了一个再次的引用，然后把全局变量赋值给一个局部变量后，就被置空了，相当于<code>window._CCSettings</code>的生命价值和周期就此结束了，于是我们就有了思路，就是在这个过程中我们要先加载对应的<code>json</code>文件，然后对内容处理，然后把结果赋值给这个 局部变量 <code>settings</code>即可.</p>
+<ol start="6">
+<li>如果尽可能的保留原来的代码流程，这里我想到了异步加载后处理，于是我们新建一个js 文件这里叫做 application.js 然后写入以下代码:</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">loadSettingsJson</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> settings = <span class="string">&#x27;engine/src/settings.json&#x27;</span>;<span class="comment">//这里是自己的settings.json路径</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> fsUtils !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; !settings.<span class="title function_">startsWith</span>(<span class="string">&#x27;http&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">const</span> result = fsUtils.<span class="title function_">readJsonSync</span>(settings);</span><br><span class="line">      <span class="keyword">if</span> (result <span class="keyword">instanceof</span> <span class="title class_">Error</span>) &#123;</span><br><span class="line">        <span class="title function_">reject</span>(result);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = result;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;window._CCSettings&quot;</span>,<span class="variable language_">window</span>.<span class="property">_CCSettings</span>);</span><br><span class="line">        <span class="title function_">resolve</span>();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> requestSettings = <span class="keyword">function</span> <span class="title function_">requestSettings</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">        xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, settings);</span><br><span class="line">        xhr.<span class="property">responseType</span> = <span class="string">&#x27;text&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        xhr.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">          <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">response</span>);</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;window._CCSettings&quot;</span>,<span class="variable language_">window</span>.<span class="property">_CCSettings</span>);</span><br><span class="line">          <span class="title function_">resolve</span>();</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        xhr.<span class="property">onerror</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (retryCount-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="built_in">setTimeout</span>(requestSettings, retryInterval);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;request settings failed!&#x27;</span>));</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        xhr.<span class="title function_">send</span>(<span class="literal">null</span>);</span><br><span class="line">      &#125;;</span><br><span class="line">      <span class="keyword">let</span> retryCount = <span class="number">3</span>;</span><br><span class="line">      <span class="keyword">const</span> retryInterval = <span class="number">2000</span>;</span><br><span class="line">      <span class="title function_">requestSettings</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">loadSettingsZip</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> filePath = <span class="string">&#x27;engine/src/settings.zip&#x27;</span>; <span class="comment">// 下载路径</span></span><br><span class="line">  <span class="keyword">const</span> fileManager = wx.<span class="title function_">getFileSystemManager</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">    fileManager.<span class="title function_">unzip</span>(&#123;</span><br><span class="line">      <span class="attr">zipFilePath</span>: filePath,   <span class="comment">// 资源下载后路径</span></span><br><span class="line">      <span class="attr">targetPath</span>: wx.<span class="property">env</span>.<span class="property">USER_DATA_PATH</span>, <span class="comment">// 解压资源存放路径</span></span><br><span class="line">      <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">res</span>) &#123;<span class="comment">// 解压成功</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;res&quot;</span> , res)</span><br><span class="line">        <span class="keyword">let</span> result = fileManager.<span class="title function_">readFileSync</span>(<span class="string">`<span class="subst">$&#123;wx.env.USER_DATA_PATH&#125;</span>/settings.json`</span>,<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(result);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;window._CCSettings&quot;</span>,<span class="variable language_">window</span>.<span class="property">_CCSettings</span>);</span><br><span class="line">        <span class="title function_">resolve</span>();</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">fail</span>: <span class="keyword">function</span> (<span class="params">error</span>) &#123;<span class="comment">// 解压失败</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span> , error)</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">      <span class="title function_">complete</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete settings&quot;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">composeSettings</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> t = e.<span class="property">uuids</span>, s = e.<span class="property">md5AssetsMap</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> s) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> r = s[i], n = <span class="number">0</span>; n &lt; r.<span class="property">length</span>; n += <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="string">&quot;number&quot;</span> == <span class="keyword">typeof</span> r[n] &amp;&amp; (r[n] = t[r[n]])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">resolve</span>();</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">loadSettingsJson</span> = loadSettingsJson;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">loadSettingsZip</span> = loadSettingsZip;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">composeSettings</span> = composeSettings;</span><br></pre></td></tr></table></figure>
+
+<p>上面给出了三个方法，第一个是 如果不压缩，直接修改格式用，第二个是把 <code>json</code>压缩后直接加载<code>zip</code>用，第三个其实就是把 原来的<code>settings.js</code>代码后面的转换方法复制过来，等待前面加载处理后，再次对数据处理。</p>
+<ol start="7">
+<li>做完这些然后回到我们前面提到的 <code>main.js</code>文件 修改：</li>
+</ol>
+<p>原来内容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">boot</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> settings = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = <span class="literal">undefined</span>;</span><br></pre></td></tr></table></figure>
+
+<p>修改后:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">const</span> &#123;loadSettingsJson,composeSettings,loadSettingsZip&#125; = <span class="built_in">require</span>(<span class="string">&quot;../fastScreen/application&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">boot</span> = <span class="keyword">async</span> <span class="keyword">function</span> (<span class="params"></span>) &#123; </span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">loadSettingsZip</span>(); </span><br><span class="line">  <span class="keyword">await</span> <span class="title function_">composeSettings</span>(<span class="variable language_">window</span>.<span class="property">_CCSettings</span>); </span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> settings = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_CCSettings</span> = <span class="literal">undefined</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="8">
+<li>然后去修改我们的资源，把 <code>settings.js</code> 里面的 <code>window._CCSettings</code> 后面的内容转换为<code>json</code>格式然后压缩为zip即可。这里给出一个在线转换<code>js</code>对象为<code>json</code>的网站（<a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=1006">JavaScript对象转JSON点击前往</a>）</li>
+<li>至此，操作全部结束，可以重新预览效果。</li>
+</ol>
+<h2 id="脚本一键处理"><a href="#脚本一键处理" class="headerlink" title="脚本一键处理"></a>脚本一键处理</h2><p>如果按照上面的步骤每次操作，或者是把一些操作做成模板，构建后操作也可以，但是还是避免不了手动操作，比如修改js 文件为json 然后压缩，对于版本迭代不频繁的，一切好说，但是对于频繁发布版本，或者使用工具构建发布的 就相对来说比较麻烦，于是下面就说一些如何使用脚本操作。</p>
+<p>其实主要的步骤是三个：</p>
+<ol>
+<li>修改js 内容为 json</li>
+<li>对修改后的json 压缩为zip，并且删除json 和js</li>
+<li>修改引入对应逻辑</li>
+</ol>
+<p>这里我们借助nodejs 来实现这个功能。完整源码（点击前往），下面主要说一些核心逻辑的代码：</p>
+<h4 id="JavaScript对象转json"><a href="#JavaScript对象转json" class="headerlink" title="JavaScript对象转json"></a>JavaScript对象转json</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; <span class="variable">s$jscomp$3</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">undefined</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">runit</span>(<span class="params">s$jscomp$3</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> s$jscomp$3 === <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">    s$jscomp$3 = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;txt1&quot;</span>).<span class="property">value</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;spanError&quot;</span>)) &#123;</span><br><span class="line">    <span class="comment">/** <span class="doctag">@type</span> &#123;<span class="type">string</span>&#125; */</span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;spanError&quot;</span>).<span class="property">innerText</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (s$jscomp$3.<span class="title function_">trim</span>() != <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (s$jscomp$3.<span class="title function_">trim</span>().<span class="title function_">endsWith</span>(<span class="string">&quot;...&quot;</span>)) &#123;</span><br><span class="line">        s$jscomp$3 = s$jscomp$3.<span class="title function_">trim</span>().<span class="title function_">slice</span>(<span class="number">0</span>, -<span class="number">3</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">/** <span class="doctag">@type</span> &#123;<span class="type">*</span>&#125; */</span></span><br><span class="line">      <span class="keyword">var</span> o$jscomp$0 = <span class="built_in">eval</span>(<span class="string">&quot;(&quot;</span> + s$jscomp$3 + <span class="string">&quot;)&quot;</span>);</span><br><span class="line">      <span class="keyword">var</span> terse$jscomp$0 = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;chkTerse&quot;</span>).<span class="property">checked</span>;</span><br><span class="line">      <span class="comment">/** <span class="doctag">@type</span> &#123;<span class="type">string</span>&#125; */</span></span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;txta&quot;</span>).<span class="property">value</span> = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(o$jscomp$0, <span class="literal">null</span>, terse$jscomp$0 ? <span class="number">0</span> : <span class="number">3</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;spanError&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">/** <span class="doctag">@type</span> &#123;<span class="type">string</span>&#125; */</span></span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;spanError&quot;</span>).<span class="property">innerText</span> = <span class="string">&quot;Invalid Javascript Object entered.&quot;</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">alert</span>(<span class="string">&quot;Invalid Javascript Object Entered entered.&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考: <a target="_blank" rel="noopener" href="http://www.atoolbox.net/Tool.php?Id=1006">http://www.atoolbox.net/Tool.php?Id=1006</a></p>
+<h4 id="压缩-json-为-zip-格式"><a href="#压缩-json-为-zip-格式" class="headerlink" title="压缩 json 为 zip 格式"></a>压缩 json 为 zip 格式</h4><p>这里使用一个第三方库 <a target="_blank" rel="noopener" href="https://github.com/Stuk/jszip">jszip</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="title class_">JSZip</span> = <span class="built_in">require</span>(<span class="string">&#x27;jszip&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> config = &#123;    <span class="comment">// 文件根目录</span></span><br><span class="line">    <span class="attr">dir</span>:<span class="string">&quot;C:/objs/ariport/&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 把mtl文件和obj文件打包成zip压缩包</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type"></span>&#125; fileName 不带文件后缀的文件名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type"></span>&#125; &#123;<span class="type">delSource = false </span>&#125; = &#123;&#125; 是否删除源文件</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">toZipOfMtlObj</span> (fileName, &#123; delSource = <span class="literal">false</span> &#125; = &#123;&#125;) &#123;</span><br><span class="line">    <span class="keyword">var</span> zip = <span class="keyword">new</span> <span class="title class_">JSZip</span>();</span><br><span class="line">    <span class="keyword">var</span> extArr = [<span class="string">&#x27;.mtl&#x27;</span>, <span class="string">&#x27;.obj&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    extArr.<span class="title function_">forEach</span>(<span class="function"><span class="params">ext</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> file = fileName + ext;</span><br><span class="line">        <span class="keyword">let</span> content = <span class="title function_">getFileContent</span>(fileName + ext);</span><br><span class="line">        zip.<span class="title function_">file</span>(file, content);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 压缩</span></span><br><span class="line">    zip.<span class="title function_">generateAsync</span>(&#123;</span><br><span class="line">        <span class="comment">// 压缩类型选择nodebuffer，在回调函数中会返回zip压缩包的Buffer的值，再利用fs保存至本地</span></span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;nodebuffer&quot;</span>,</span><br><span class="line">        <span class="comment">// 压缩算法</span></span><br><span class="line">        <span class="attr">compression</span>: <span class="string">&quot;DEFLATE&quot;</span>,</span><br><span class="line">        <span class="attr">compressionOptions</span>: &#123;</span><br><span class="line">            <span class="attr">level</span>: <span class="number">9</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">content</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> zip = fileName + <span class="string">&#x27;.zip&#x27;</span>;</span><br><span class="line">        <span class="comment">// 写入磁盘</span></span><br><span class="line">        fs.<span class="title function_">writeFile</span>(<span class="title function_">getFullFileName</span>(zip), content, <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">                <span class="comment">// 是否删除源文件</span></span><br><span class="line">                <span class="keyword">if</span> (delSource) &#123;</span><br><span class="line">                    extArr.<span class="title function_">forEach</span>(<span class="function"><span class="params">ext</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="title function_">delFile</span>(fileName + ext);</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(zip + <span class="string">&#x27;压缩失败&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取文件内容</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">string</span>&#125; fileName 文件名 file.mtl</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getFileContent</span> (fileName) &#123;　　 <span class="comment">// 指定encoding会返回一个string，否则返回一个Buffer</span></span><br><span class="line">    <span class="keyword">let</span> content = fs.<span class="title function_">readFileSync</span>(<span class="title function_">getFullFileName</span>(fileName), &#123; <span class="attr">encoding</span>: <span class="string">&quot;utf-8&quot;</span> &#125;);</span><br><span class="line">    <span class="keyword">return</span> content;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取完整文件路径</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">string</span>&#125; fileName 文件名 file.mtl</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getFullFileName</span> (fileName) &#123;</span><br><span class="line">    <span class="keyword">return</span> path.<span class="title function_">join</span>(config.<span class="property">dir</span>, fileName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 删除文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  &#123;<span class="type">string</span>&#125; fileName 文件名 file.mtl</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">delFile</span> (fileName) &#123;</span><br><span class="line">    fs.<span class="title function_">unlink</span>(<span class="title function_">getFullFileName</span>(fileName), <span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!!err) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;删除文件失败：&#x27;</span> + file);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考地址:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xieqian/p/10023203.html">Node.js使用jszip实现打包zip压缩包</a></p>
+<h4 id="修改代码逻辑"><a href="#修改代码逻辑" class="headerlink" title="修改代码逻辑"></a>修改代码逻辑</h4><p><code>JSUtils.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123;<span class="title class_">GameConst</span>&#125; = <span class="built_in">require</span>(<span class="string">&quot;./GameConst&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> fileMainName = <span class="string">&quot;main&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> fileGameName = <span class="string">&quot;game&quot;</span>;</span><br><span class="line"><span class="comment">//写入文件，会完全替换之前JSON文件中的内容</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">changeJS</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//修改main.js</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`开始修改<span class="subst">$&#123;fileMainName&#125;</span>.js`</span>)</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// const dir = &quot;D:\\Build\\mini\\wx\\wechatgame\\engine\\&quot;;</span></span><br><span class="line">        <span class="keyword">const</span> dir = <span class="string">`<span class="subst">$&#123;GameConst.wxToolProjectRoot&#125;</span>\\<span class="subst">$&#123;GameConst.platform&#125;</span>\\<span class="subst">$&#123;GameConst.subPackageFileName&#125;</span>\\`</span>;</span><br><span class="line">        <span class="keyword">const</span> pathMain = <span class="string">`<span class="subst">$&#123;dir&#125;</span><span class="subst">$&#123;fileMainName&#125;</span>.js`</span>;</span><br><span class="line">        <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(pathMain)) &#123;</span><br><span class="line">            <span class="keyword">let</span> data = fs.<span class="title function_">readFileSync</span>(pathMain, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> (data.<span class="title function_">indexOf</span>(<span class="string">&#x27;async&#x27;</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">let</span> resultString = data.<span class="title function_">replace</span>(<span class="string">`&quot;use strict&quot;;`</span>, <span class="string">`&quot;use strict&quot;;\n \n const &#123;loadSettingsJson,composeSettings,loadSettingsZip&#125; = require(&quot;../fastScreen/application&quot;);`</span>)</span><br><span class="line">                resultString = resultString.<span class="title function_">replace</span>(<span class="string">`window.boot = function () &#123;`</span>, <span class="string">`window.boot = async function () &#123; \n  await loadSettingsZip(); \n  await composeSettings(window._CCSettings); \n`</span>)</span><br><span class="line">                <span class="keyword">if</span> (!resultString) <span class="keyword">return</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    fs.<span class="title function_">writeFile</span>(pathMain, resultString, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`更改<span class="subst">$&#123;fileMainName&#125;</span>.js 成功`</span>);</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Invalid Javascript Object Entered entered.&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`无须修改<span class="subst">$&#123;fileMainName&#125;</span>.js`</span>)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//修改game.js</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// const dir = &quot;D:\\Build\\mini\\wx\\wechatgame\\engine\\&quot;;</span></span><br><span class="line">        <span class="keyword">const</span> dir = <span class="string">`<span class="subst">$&#123;GameConst.wxToolProjectRoot&#125;</span>\\<span class="subst">$&#123;GameConst.platform&#125;</span>\\<span class="subst">$&#123;GameConst.subPackageFileName&#125;</span>\\`</span>;</span><br><span class="line">        <span class="keyword">const</span> pathGame = <span class="string">`<span class="subst">$&#123;dir&#125;</span><span class="subst">$&#123;fileGameName&#125;</span>.js`</span>;</span><br><span class="line">        <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(pathGame)) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`开始修改<span class="subst">$&#123;fileGameName&#125;</span>.js`</span>)</span><br><span class="line">            <span class="keyword">let</span> gameData = fs.<span class="title function_">readFileSync</span>(pathGame, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> (gameData.<span class="title function_">indexOf</span>(<span class="string">&#x27;settings&#x27;</span>) !== -<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">let</span> gamedataString = gameData.<span class="title function_">replace</span>(<span class="string">`require(&#x27;./src/settings&#x27;);`</span>, <span class="string">``</span>)</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    fs.<span class="title function_">writeFile</span>(pathGame, gamedataString, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`更改<span class="subst">$&#123;fileGameName&#125;</span>.js 成功`</span>);</span><br><span class="line">                    &#125;)</span><br><span class="line">                &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Invalid Javascript Object Entered entered.&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`无须修改<span class="subst">$&#123;fileGameName&#125;</span>.js`</span>)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">changeJS</span> = changeJS;</span><br></pre></td></tr></table></figure>
+
+<p><code>GameConst.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">GameConst</span> = &#123;</span><br><span class="line">    <span class="comment">// url:&quot;D:\\Build\\mini\\js2json2zip&quot;,</span></span><br><span class="line">    <span class="attr">ccBuildProjectRoot</span>:<span class="string">&quot;D:\\Build\\mini\\wxbuild&quot;</span>,</span><br><span class="line">    <span class="attr">wxToolProjectRoot</span>:<span class="string">&quot;D:\\Build\\mini\\wx&quot;</span>,</span><br><span class="line">    <span class="attr">platform</span>: <span class="string">&quot;wechatgame&quot;</span>,</span><br><span class="line">    <span class="attr">subPackageFileName</span>: <span class="string">&quot;engine&quot;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>老规矩：最后源码地址（<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/js2json2zip">点击前往</a>）</p>
+<h2 id="首屏优化"><a href="#首屏优化" class="headerlink" title="首屏优化"></a>首屏优化</h2><p>关于首屏优化这里给出几个不错的文章，本人就是按照这些步骤操作的。</p>
+<h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/article/doc/000c86f5ee81b8c05b2bc9cc650013">微信小游戏的启动性能优化之首屏渲染</a></li>
+</ul>
+<h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><ol>
+<li>先使用 最新版本的 Cocos Creator 构建微信小游戏的包</li>
+<li>然后修改为自己 Cocos Creator 可以使用的即可</li>
+</ol>
+<p>论坛初步讨论帖子：<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/topic/115923/18">https://forum.cocos.org/t/topic/115923/18</a></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/289f6da2.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Tree展示工具tree-node-cli介绍</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/61e73eb2.html">
+        <span>CocosCreator如何使用async.js</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/16d8396f.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E4%B8%80%E9%94%AE%E5%A4%84%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">脚本一键处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JavaScript%E5%AF%B9%E8%B1%A1%E8%BD%ACjson"><span class="toc-number">3.0.1.</span> <span class="toc-text">JavaScript对象转json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9-json-%E4%B8%BA-zip-%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.0.2.</span> <span class="toc-text">压缩 json 为 zip 格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91"><span class="toc-number">3.0.3.</span> <span class="toc-text">修改代码逻辑</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text">首屏优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80"><span class="toc-number">4.1.</span> <span class="toc-text">方案一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="toc-number">4.2.</span> <span class="toc-text">方案二</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

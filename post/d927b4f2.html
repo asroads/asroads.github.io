@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator Tween Max 小游戏引入 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/d927b4f2.html">Cocos Creator Tween Max 小游戏引入</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-12-08
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator Tween Max 小游戏引入&url=http://blog.asroads.com/post/d927b4f2.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator Tween Max 小游戏引入&url=http://blog.asroads.com/post/d927b4f2.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/d927b4f2.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/d927b4f2.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/d927b4f2.html&title=Cocos Creator Tween Max 小游戏引入" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator Tween Max 小游戏引入&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/d927b4f2.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/d927b4f2.html&text=Cocos Creator Tween Max 小游戏引入" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/TweenMax/ >TweenMax</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>之前的文章里写过关于Layabox如何引入TweenMax类库的，对于Cocos Creator来讲基本大同小异，不同是是可以作为插件导入，直接使用，很是方便，只是在发布小游戏的时候，突然就冒出一个 TweenMax is not defined，于是查找了各方资料，得以解决。</p>
+<span id="more"></span>
+
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p><img src="/post/d927b4f2/image-20191209155240060.png" alt="image-20191209155240060"></p>
+<p>文章描述：在Web和模拟器下都是好的，发布小游戏后，报错显示 <code>TweenMax is not defined</code></p>
+<h3 id="类库导入"><a href="#类库导入" class="headerlink" title="类库导入"></a>类库导入</h3><p>关于TweenMax如何导入 可以参考两篇文章，一个是Cocos Creator官方的 插件导入</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/manual/zh/scripting/plugin-scripts.html">插件脚本</a></li>
+<li><a href="http://blog.asroads.com/post/b0aa25e3.html">Layabox2.0贝塞尔曲线运动引入TweenMax</a></li>
+<li><a href="http://blog.asroads.com/post/2376105a.html">Cocos Creator 引入TweenMax Uncaught TypeError: container.appendChild 解决方法</a></li>
+</ul>
+<h3 id="修复问题"><a href="#修复问题" class="headerlink" title="修复问题"></a>修复问题</h3><ul>
+<li><p>第一种办法是在小游戏里面通过Require 引入文件，这样就能解决问题</p>
+<p><img src="/post/d927b4f2/image-20191209155413880.png" alt="image-20191209155413880"></p>
+<p>我们发现 此时 我们的 TweenMax类库 不在我们打包的代码里面</p>
+</li>
+</ul>
+<p><img src="/post/d927b4f2/image-20191209160225182.png" alt="image-20191209160225182"></p>
+<p>我们通过文件路径 找到了我们的 TweenMax 文件 然后通过 require方式进行导入 选择导入：方法是 在 game.js 前面添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">TweenMax</span> = <span class="variable language_">global</span>.<span class="property">TweenMax</span> = <span class="built_in">require</span>(<span class="string">&#x27;./src/assets/Script/libs/TweenMax&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/d927b4f2/image-20191209160352310.png" alt="image-20191209160352310"></p>
+<ul>
+<li><p>第二种办法是 在代码里追加几行代码：</p>
+<ul>
+<li>A 方案</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">TweenMax</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">TweenMax</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Back</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Back</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Bounce</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Bounce</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Circ</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Circ</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Cubic</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Cubic</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Elastic</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Elastic</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Expo</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Expo</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Linear</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Linear</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Quad</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Quad</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Quart</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Quart</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Quint</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Quint</span>;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">Sine</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">Sine</span>;</span><br></pre></td></tr></table></figure>
+
+<p>此时调用代码 可以这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TweenMax</span>.<span class="title function_">to</span>(<span class="variable language_">this</span>.<span class="property">sp</span>, <span class="number">0.75</span>, &#123;</span><br><span class="line">       <span class="attr">bezier</span>:&#123;<span class="attr">type</span>:<span class="string">&quot;soft&quot;</span>,<span class="attr">values</span>:[&#123;<span class="attr">x</span>:<span class="number">50</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">300</span>, <span class="attr">y</span>:<span class="number">300</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">600</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;], <span class="attr">autoRotate</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">       <span class="attr">ease</span>:<span class="title class_">Bounce</span>.<span class="property">easeIn</span>,<span class="attr">overwrite</span>:<span class="literal">true</span>,<span class="attr">repeat</span>:-<span class="number">1</span>,<span class="attr">yoyo</span>:<span class="literal">true</span></span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>B方案 也可以只追加一行：比如</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">TweenMax</span> = _gsScope.<span class="property">_gsDefine</span>.<span class="property">globals</span>.<span class="property">TweenMax</span>;</span><br></pre></td></tr></table></figure>
+
+<p>但是此时 如果需要用一些特效的时候 必须用 字符串 比如 </p>
+<p>写代码需比如  <code>Bounce.easeIn</code> 要这样写 ”Bounce.easeIn“：当然在A方案里 那样写B 方案这样的调用也是对的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">TweenMax</span>.<span class="title function_">to</span>(<span class="variable language_">this</span>.<span class="property">sp</span>, <span class="number">0.75</span>, &#123;</span><br><span class="line">            <span class="attr">bezier</span>:&#123;<span class="attr">type</span>:<span class="string">&quot;soft&quot;</span>,<span class="attr">values</span>:[&#123;<span class="attr">x</span>:<span class="number">50</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">300</span>, <span class="attr">y</span>:<span class="number">300</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">600</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;], <span class="attr">autoRotate</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">            <span class="attr">ease</span>:<span class="string">&quot;Bounce.easeIn&quot;</span>,<span class="attr">overwrite</span>:<span class="literal">true</span>,<span class="attr">repeat</span>:-<span class="number">1</span>,<span class="attr">yoyo</span>:<span class="literal">true</span></span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>最后无论通过何种办法 结果运行 如下</p>
+<p><img src="/post/d927b4f2/image-20191209160447270.png" alt="image-20191209160447270"></p>
+<p><img src="/post/d927b4f2/result.gif" alt="result"></p>
+<p>效果展示 OK</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/tweenlite/59580">微信小游戏使用TweenLite的问题</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/53b65a2e.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>记录一个抽奖算法（js）</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/3651f27f.html">
+        <span>ios游戏跳转到App Store下载页面</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/d927b4f2.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%BA%93%E5%AF%BC%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">类库导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">修复问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

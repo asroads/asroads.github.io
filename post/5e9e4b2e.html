@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.11插件小试牛刀 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/5e9e4b2e.html">CocosCreator2.4.11插件小试牛刀</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-04-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.11插件小试牛刀&url=http://blog.asroads.com/post/5e9e4b2e.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.11插件小试牛刀&url=http://blog.asroads.com/post/5e9e4b2e.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/5e9e4b2e.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/5e9e4b2e.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/5e9e4b2e.html&title=CocosCreator2.4.11插件小试牛刀" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.11插件小试牛刀&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/5e9e4b2e.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/5e9e4b2e.html&text=CocosCreator2.4.11插件小试牛刀" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Bash/ >Bash</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/shell/ >shell</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>开发项目的时候，有时候需要对项目素材或者代码进行一些查找或者处理的时候，这时候就会用到插件，之前自己也买过别人的插件，但是研究不多，最近开发功能的时候，用到了几个插件，原作者的功能无法实现我的需求，于是我只能在原作者的基础上进行二次开发，于是就了解了一些插件的知识。</p>
+<span id="more"></span>
+
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><h3 id="小游戏开发"><a href="#小游戏开发" class="headerlink" title="小游戏开发"></a>小游戏开发</h3><p>现在做的还是微信小游戏和抖音小游戏，有时候为了远程可以控制游戏的一些开关，就需要把一些配置选项放到远程（CDN）服务器上，我一般使用json 做配置表，有时候需要配置一些选项或者版本号，构建发布的时候，需要修改几个地方，于是我就想到了能不能在构建的时候把这个文件修改了呢？答案是可以的。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p><code>package.json</code> 插件配置文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;minigame-ad-helper&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;小游戏微信切换助手&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jsroads&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;main.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;executeOrder&quot;</span><span class="punctuation">:</span> <span class="number">100</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>mfs.js</code> 工具类</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归创建文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; dirName </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; mode </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">mkdirSync</span>(<span class="params">dirName, mode</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(dirName)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">mkdirSync</span>(path.<span class="title function_">dirname</span>(dirName), mode)) &#123;</span><br><span class="line">        fs.<span class="title function_">mkdirSync</span>(dirName, mode);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">mkdirSync</span> = mkdirSync;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归删除</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; src </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">rmSync</span>(<span class="params">src</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fs.<span class="title function_">existsSync</span>(src)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_">isFile</span>(src)) &#123;</span><br><span class="line">            fs.<span class="title function_">unlinkSync</span>(src);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> files = fs.<span class="title function_">readdirSync</span>(src);</span><br><span class="line">        files.<span class="title function_">forEach</span>(<span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> curPath = path.<span class="title function_">join</span>(src, file);</span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_">isDirectory</span>(curPath)) &#123;</span><br><span class="line">                <span class="title function_">rmSync</span>(curPath);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isFile</span>(curPath)) &#123;</span><br><span class="line">                fs.<span class="title function_">unlinkSync</span>(curPath);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        fs.<span class="title function_">rmdirSync</span>(src);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;删除文件失败，给定的路径不存在，请给出正确的路径&quot;</span>, src);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">rmSync</span> = rmSync;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 递归复制文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; src </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; dst </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">copySync</span>(<span class="params">src, dst</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(src)) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;原路径不存在&#x27;</span>, src);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">isFile</span>(src)) &#123;</span><br><span class="line">        <span class="keyword">let</span> dstDir = path.<span class="title function_">parse</span>(dst).<span class="property">dir</span>;</span><br><span class="line">        <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(dstDir)) &#123;</span><br><span class="line">            <span class="title function_">mkdirSync</span>(dstDir);</span><br><span class="line">        &#125;</span><br><span class="line">        fs.<span class="title function_">copyFileSync</span>(src, dst);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isDirectory</span>(src)) &#123;</span><br><span class="line">        <span class="keyword">const</span> files = fs.<span class="title function_">readdirSync</span>(src);</span><br><span class="line">        files.<span class="title function_">forEach</span>(<span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> srcPath = path.<span class="title function_">join</span>(src, file);</span><br><span class="line">            <span class="keyword">const</span> dstPath = path.<span class="title function_">join</span>(dst, file);</span><br><span class="line">            <span class="title function_">copySync</span>(srcPath, dstPath);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">copySync</span> = copySync;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取文件夹下所有文件路径</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; src </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">readdirAllSync</span>(<span class="params">src</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">_readdirSync</span>(src, []);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">readdirAllSync</span> = readdirAllSync;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">readdirSync</span> = fs.<span class="property">readdirSync</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">_readdirSync</span>(<span class="params">src, paths</span>) &#123;</span><br><span class="line">    paths = paths || [];</span><br><span class="line">    <span class="keyword">const</span> files = fs.<span class="title function_">readdirSync</span>(src);</span><br><span class="line">    files.<span class="title function_">forEach</span>(<span class="function">(<span class="params">file</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> filePath = path.<span class="title function_">join</span>(src, file);</span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_">isFile</span>(filePath)) &#123;</span><br><span class="line">            paths.<span class="title function_">push</span>(filePath);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">isDirectory</span>(filePath)) &#123;</span><br><span class="line">            <span class="title function_">_readdirSync</span>(filePath, paths);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> paths;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 是否是文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; path </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isFile</span>(<span class="params">path</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> stat = fs.<span class="title function_">statSync</span>(path);</span><br><span class="line">    <span class="keyword">return</span> stat.<span class="title function_">isFile</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 是否是文件夹</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; path </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isDirectory</span>(<span class="params">path</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> stat = fs.<span class="title function_">statSync</span>(path);</span><br><span class="line">    <span class="keyword">return</span> stat.<span class="title function_">isDirectory</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">size</span>(<span class="params">path</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> stat = fs.<span class="title function_">statSync</span>(path);</span><br><span class="line">    <span class="keyword">return</span> stat.<span class="property">size</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">size</span> = size;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">writeFileSync</span>(<span class="params">p, data, option</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> dirName = path.<span class="title function_">parse</span>(p).<span class="property">dir</span>;</span><br><span class="line">    <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(path)) &#123;</span><br><span class="line">        <span class="title function_">mkdirSync</span>(dirName);</span><br><span class="line">    &#125;</span><br><span class="line">    fs.<span class="title function_">writeFileSync</span>(p, data, option);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">writeFileSync</span> = writeFileSync;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">readFileSync</span> = fs.<span class="property">readFileSync</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文件或文件夹是否存在</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; dirName </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">exists</span> = fs.<span class="property">existsSync</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 拼接路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">join</span> = path.<span class="property">join</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 读取后缀</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">extname</span> = path.<span class="property">extname</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">relative</span> = path.<span class="property">relative</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">parse</span> = path.<span class="property">parse</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">existsSync</span> = fs.<span class="property">existsSync</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">relative</span> = path.<span class="property">relative</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>main.js</code> 核心逻辑处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mfs = <span class="built_in">require</span>(<span class="string">&quot;./util/mfs&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> adapterActualPlatform = [<span class="string">&quot;wechatgame&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onBuildStart</span>(<span class="params">options, callback</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;mini-game&quot;</span> === options.<span class="property">platform</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (adapterActualPlatform.<span class="title function_">indexOf</span>(options.<span class="property">actualPlatform</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">            callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">&quot;[minigame-ad-helper]&quot;</span>, <span class="string">&quot;小游戏修广告小助手修改开始 onBuildStart&quot;</span>);</span><br><span class="line">        <span class="keyword">const</span> <span class="title class_">WeiChatConfigPath</span> = mfs.<span class="title function_">join</span>(options.<span class="property">project</span>, <span class="string">&quot;assets&quot;</span>, <span class="string">&quot;resources&quot;</span>, <span class="string">&quot;json&quot;</span>, <span class="string">&quot;WeiChatConfig.json&quot;</span>);</span><br><span class="line">        <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="title class_">WeiChatConfigPath</span>);</span><br><span class="line">        <span class="keyword">const</span> weiChatConfig = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(mfs.<span class="title function_">readFileSync</span>(<span class="title class_">WeiChatConfigPath</span>));</span><br><span class="line">        <span class="keyword">const</span> versionBuildConfig = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(mfs.<span class="title function_">readFileSync</span>(mfs.<span class="title function_">join</span>(options.<span class="property">project</span>, <span class="string">&quot;settings&quot;</span>, <span class="string">`<span class="subst">$&#123;options.actualPlatform&#125;</span>.json`</span>)));</span><br><span class="line">        <span class="keyword">let</span> appid = versionBuildConfig[<span class="string">&quot;appid&quot;</span>];</span><br><span class="line">        <span class="keyword">if</span> (!appid) &#123;</span><br><span class="line">            callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        weiChatConfig[<span class="string">&quot;curAppid&quot;</span>] = appid;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> data = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(weiChatConfig, <span class="literal">null</span>, <span class="number">4</span>);</span><br><span class="line">        mfs.<span class="title function_">writeFileSync</span>(<span class="title class_">WeiChatConfigPath</span>, data);</span><br><span class="line">        <span class="keyword">let</span> count = <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// Editor.assetdb.saveExists(&#x27;db://assets/resources/json/version.json&#x27;, data)</span></span><br><span class="line">        <span class="title class_">Editor</span>.<span class="property">assetdb</span>.<span class="title function_">refresh</span>(<span class="string">&quot;db://assets/resources/json/WeiChatConfig.json&quot;</span>, <span class="keyword">function</span> (<span class="params">err, results</span>) &#123;</span><br><span class="line">            results.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">result</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (result.<span class="property">command</span> === <span class="string">&quot;delete&quot;</span>) &#123;</span><br><span class="line">                    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`微信小游戏广告修改完毕为:delete`</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.<span class="property">command</span> === <span class="string">&quot;change&quot;</span> || result.<span class="property">command</span> === <span class="string">&quot;create&quot;</span>) &#123;</span><br><span class="line">                    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`微信小游戏广告修改完毕为:change:<span class="subst">$&#123;appid&#125;</span>`</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`微信小游戏广告修改完毕为:<span class="subst">$&#123;result.command&#125;</span>`</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            count--;</span><br><span class="line">            <span class="keyword">if</span> (count === <span class="number">0</span>) &#123;</span><br><span class="line">                callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">const</span> gamePath = mfs.<span class="title function_">join</span>(options.<span class="property">project</span>, <span class="string">&quot;assets&quot;</span>, <span class="string">&quot;resources&quot;</span>, <span class="string">&quot;json&quot;</span>, <span class="string">&quot;config.json&quot;</span>);</span><br><span class="line">        <span class="title class_">Editor</span>.<span class="title function_">log</span>(gamePath);</span><br><span class="line">        <span class="keyword">const</span> gameConfig = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(mfs.<span class="title function_">readFileSync</span>(gamePath));</span><br><span class="line">        <span class="keyword">let</span> urlList = versionBuildConfig[<span class="string">&quot;REMOTE_SERVER_ROOT&quot;</span>].<span class="title function_">split</span>(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">        <span class="keyword">const</span> gameStr = urlList[urlList.<span class="property">length</span> - <span class="number">4</span>];</span><br><span class="line">        gameConfig[<span class="string">&quot;wechat&quot;</span>][<span class="string">&quot;channel&quot;</span>] = gameStr;</span><br><span class="line">        <span class="keyword">let</span> gameData = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(gameConfig, <span class="literal">null</span>, <span class="number">4</span>);</span><br><span class="line">        mfs.<span class="title function_">writeFileSync</span>(gamePath, gameData);</span><br><span class="line">        <span class="comment">// Editor.assetdb.saveExists(&#x27;db://assets/resources/json/version.json&#x27;, data)</span></span><br><span class="line">        <span class="title class_">Editor</span>.<span class="property">assetdb</span>.<span class="title function_">refresh</span>(<span class="string">&quot;db://assets/resources/json/config.json&quot;</span>, <span class="keyword">function</span> (<span class="params">err, results</span>) &#123;</span><br><span class="line">            results.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">result</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (result.<span class="property">command</span> === <span class="string">&quot;delete&quot;</span>) &#123;</span><br><span class="line">                    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`游戏channel修改完毕为:delete`</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.<span class="property">command</span> === <span class="string">&quot;change&quot;</span> || result.<span class="property">command</span> === <span class="string">&quot;create&quot;</span>) &#123;</span><br><span class="line">                    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`游戏channel修改完毕为:change:<span class="subst">$&#123;gameStr&#125;</span>`</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`游戏channel修改完毕为:<span class="subst">$&#123;result.command&#125;</span>`</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            count--;</span><br><span class="line">            <span class="keyword">if</span> (count === <span class="number">0</span>) &#123;</span><br><span class="line">                callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">callback</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onBuildFinish</span>(<span class="params">options, callback</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;mini-game&quot;</span> === options.<span class="property">platform</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (adapterActualPlatform.<span class="title function_">indexOf</span>(options.<span class="property">actualPlatform</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">            callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">callback</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="title function_">load</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">//修改</span></span><br><span class="line">        <span class="title class_">Editor</span>.<span class="property">Builder</span>.<span class="title function_">on</span>(<span class="string">&quot;build-start&quot;</span>, onBuildStart);</span><br><span class="line">        <span class="comment">// Editor.Builder.on(&#x27;build-finished&#x27;, onBuildFinish);</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">unload</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">//修改</span></span><br><span class="line">        <span class="title class_">Editor</span>.<span class="property">Builder</span>.<span class="title function_">removeListener</span>(<span class="string">&quot;build-start&quot;</span>, onBuildStart);</span><br><span class="line">        <span class="comment">// Editor.Builder.removeListener(&#x27;build-finished&#x27;, onBuildFinish);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><ol>
+<li>上面的核心类 在于监听 构建前 去获取 构建参数 <code>options.platform</code>和<code>options.actualPlatform</code>  来判断构建的平台</li>
+<li>读取构建面板填写的信息 比如 CDN路径 比如版本号</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> versionBuildConfig = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(mfs.<span class="title function_">readFileSync</span>(mfs.<span class="title function_">join</span>(options.<span class="property">project</span>, <span class="string">&quot;settings&quot;</span>, <span class="string">`<span class="subst">$&#123;options.actualPlatform&#125;</span>.json`</span>)));</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>然后修改我们项目内的json文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">WeiChatConfigPath</span> = mfs.<span class="title function_">join</span>(options.<span class="property">project</span>, <span class="string">&quot;assets&quot;</span>, <span class="string">&quot;resources&quot;</span>, <span class="string">&quot;json&quot;</span>, <span class="string">&quot;WeiChatConfig.json&quot;</span>);</span><br><span class="line"><span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="title class_">WeiChatConfigPath</span>);</span><br><span class="line"><span class="keyword">const</span> weiChatConfig = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(mfs.<span class="title function_">readFileSync</span>(<span class="title class_">WeiChatConfigPath</span>));</span><br></pre></td></tr></table></figure></li>
+<li><p>保存文件，并且刷新项目</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Editor</span>.<span class="property">assetdb</span>.<span class="title function_">refresh</span>(<span class="string">&quot;db://assets/resources/json/WeiChatConfig.json&quot;</span>, <span class="keyword">function</span> (<span class="params">err, results</span>) &#123;</span><br><span class="line">          results.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">result</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (result.<span class="property">command</span> === <span class="string">&quot;delete&quot;</span>) &#123;</span><br><span class="line">                  <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`微信小游戏广告修改完毕为:delete`</span>);</span><br><span class="line">              &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.<span class="property">command</span> === <span class="string">&quot;change&quot;</span> || result.<span class="property">command</span> === <span class="string">&quot;create&quot;</span>) &#123;</span><br><span class="line">                  <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`微信小游戏广告修改完毕为:change:<span class="subst">$&#123;appid&#125;</span>`</span>);</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  <span class="title class_">Editor</span>.<span class="title function_">log</span>(<span class="string">`微信小游戏广告修改完毕为:<span class="subst">$&#123;result.command&#125;</span>`</span>);</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">          count--;</span><br><span class="line">          <span class="keyword">if</span> (count === <span class="number">0</span>) &#123;</span><br><span class="line">              callback &amp;&amp; <span class="title function_">callback</span>();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>当然了这个插件是为自己的项目定制的功能，但是可以举一反三，就是我们可以选择在项目构建前或者构建后修改我们项目的文件的内容</li>
+</ol>
+<h2 id="小游戏快速启动"><a href="#小游戏快速启动" class="headerlink" title="小游戏快速启动"></a>小游戏快速启动</h2><h3 id="老生常谈的话题"><a href="#老生常谈的话题" class="headerlink" title="老生常谈的话题"></a>老生常谈的话题</h3><ol>
+<li>小游戏快速启动一直是一个常常提及的话题，最近又研究了新的构建方式，这种适合体量不大的游戏</li>
+</ol>
+<p>首先我们看一下构建面板：</p>
+<p><img src="/post/5e9e4b2e/image-20230412232034438.png" alt="image-20230412232034438"></p>
+<ol start="2">
+<li>这里跟以往不同，选择了 <strong>引擎分离</strong> 和 <strong>初始场景分包</strong> </li>
+<li>以前做的时候不怎么使用 <strong>引擎分离</strong> 究其原因是，游戏体量比较大，一般使用的是先用原生Javascript绘制一个图片，然后用分包形式加载游戏的主包，采取的手段，现在游戏体量比较小，就采用新的方式。</li>
+<li>引擎分离，需要把引擎插件的 path 修改为空。具体文档可以看这里：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/minigame/dev/guide/base-ability/game-engine-plugin.html">点击访问</a></li>
+</ol>
+<blockquote>
+<p>(1) 对于 <code>plugins</code> 中有 <code>path</code> 字段的使用方式，上传/预览时，<strong>使用</strong>该字段指定的<strong>路径中的文件</strong>作为引用的插件代码并会进行合法性校验。</p>
+<p>(2) 对于 <code>plugins</code> 中无 <code>path</code> 字段的使用方式，上传/预览时，系统会直接<strong>使用线上</strong>已发布的全量的 <code>provider</code> 的 <code>version</code> 版本的文件作为引用的<strong>插件代码</strong></p>
+</blockquote>
+<ol start="5">
+<li>为了每次可以快速修改，我这里提供一个命令脚本：需要跟 <code>wechatgame</code> 同级目录 <code>move_and_update.bat</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line">REM 获取当前wechatgame目录的路径</span><br><span class="line"><span class="built_in">set</span> <span class="string">&quot;wechatgame_path=%cd%\wechatgame&quot;</span></span><br><span class="line"></span><br><span class="line">REM 检查是否存在remote文件夹</span><br><span class="line"><span class="keyword">if</span> exist <span class="string">&quot;%wechatgame_path%\remote&quot;</span> (</span><br><span class="line">    REM 移动remote文件夹到和wechatgame文件夹同目录</span><br><span class="line">    move <span class="string">&quot;%wechatgame_path%\remote&quot;</span> <span class="string">&quot;%cd%\remote&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">REM 检查是否存在cocos文件夹</span><br><span class="line"><span class="keyword">if</span> exist <span class="string">&quot;%wechatgame_path%\cocos&quot;</span> (</span><br><span class="line">    REM 删除wechatgame下的cocos文件夹及其内容</span><br><span class="line">    <span class="built_in">rmdir</span> /s /q <span class="string">&quot;%wechatgame_path%\cocos&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">REM 修改wechatgame目录下的game.json文件</span><br><span class="line"><span class="keyword">if</span> exist <span class="string">&quot;%wechatgame_path%\game.json&quot;</span> (</span><br><span class="line">    REM 使用powershell替换字符串</span><br><span class="line">    powershell -Command <span class="string">&quot;(Get-Content &#x27;%wechatgame_path%\game.json&#x27; -Raw) -replace &#x27;(\&quot;version\&quot;: \&quot;2\.4\.13\&quot;,\r?\n\s*\&quot;path\&quot;: \&quot;cocos\&quot;)&#x27;, &#x27;\&quot;version\&quot;: \&quot;2.4.13\&quot;&#x27; | Set-Content &#x27;%wechatgame_path%\game.json&#x27;&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>下面再给一个 shell 脚本实现了同样的功能</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取当前wechatgame目录的路径</span></span><br><span class="line">wechatgame_path=&quot;$(pwd)/wechatgame&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">检查是否存在remote文件夹</span></span><br><span class="line">if [ -d &quot;$&#123;wechatgame_path&#125;/remote&quot; ]; then</span><br><span class="line">    # 移动remote文件夹到和wechatgame文件夹同目录</span><br><span class="line">    mv &quot;$&#123;wechatgame_path&#125;/remote&quot; &quot;$&#123;wechatgame_path&#125;/../remote&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">检查是否存在cocos文件夹</span></span><br><span class="line">if [ -d &quot;$&#123;wechatgame_path&#125;/cocos&quot; ]; then</span><br><span class="line">    # 删除wechatgame下的cocos文件夹及其内容</span><br><span class="line">    rm -r &quot;$&#123;wechatgame_path&#125;/cocos&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">修改wechatgame目录下的game.json文件</span></span><br><span class="line">if [ -f &quot;$&#123;wechatgame_path&#125;/game.json&quot; ]; then</span><br><span class="line">    # 使用sed替换字符串，第一次替换</span><br><span class="line">    sed -i &#x27;s/&quot;version&quot;: &quot;2.4.13&quot;,/&quot;version&quot;: &quot;2.4.13&quot;/&#x27; &quot;$&#123;wechatgame_path&#125;/game.json&quot;</span><br><span class="line">    </span><br><span class="line">    # 使用sed删除字符串，第二次修改</span><br><span class="line">    sed -i &#x27;/&quot;path&quot;: &quot;cocos&quot;/d&#x27; &quot;$&#123;wechatgame_path&#125;/game.json&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>脚本将执行所需的操作：移动<code>remote</code>文件夹，删除<code>cocos</code>文件夹及其内容，并分两步修改<code>game.json</code>文件。</p>
+<h2 id="小游戏备份"><a href="#小游戏备份" class="headerlink" title="小游戏备份"></a>小游戏备份</h2><p>有时候我们游戏构建后希望备份一个zip包，有个脚本可以双击打包，带上日期时间最好不过。于是下面的脚本应运而生。</p>
+<p><code>zip_wechatgame.bat</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"></span><br><span class="line">REM 获取当前wechatgame目录的路径</span><br><span class="line"><span class="built_in">set</span> <span class="string">&quot;wechatgame_path=%cd%\wechatgame&quot;</span></span><br><span class="line"></span><br><span class="line">REM 获取当前日期和时间，并设置输出ZIP文件名</span><br><span class="line"><span class="keyword">for</span> /f <span class="string">&quot;tokens=2-4 delims=/ &quot;</span> %%a <span class="keyword">in</span> (<span class="string">&quot;%DATE%&quot;</span>) <span class="keyword">do</span> (</span><br><span class="line">    <span class="built_in">set</span> <span class="string">&quot;year=%%c&quot;</span></span><br><span class="line">    <span class="built_in">set</span> <span class="string">&quot;month=%%a&quot;</span></span><br><span class="line">    <span class="built_in">set</span> <span class="string">&quot;day=%%b&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> /f <span class="string">&quot;tokens=1-3 delims=:. &quot;</span> %%a <span class="keyword">in</span> (<span class="string">&quot;%TIME%&quot;</span>) <span class="keyword">do</span> (</span><br><span class="line">    <span class="built_in">set</span> <span class="string">&quot;hour=%%a&quot;</span></span><br><span class="line">    <span class="built_in">set</span> <span class="string">&quot;minute=%%b&quot;</span></span><br><span class="line">    <span class="built_in">set</span> <span class="string">&quot;second=%%c&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">REM 修复小时格式</span><br><span class="line"><span class="keyword">if</span> %hour% lss 10 (<span class="built_in">set</span> <span class="string">&quot;hour=0%hour:~-1%&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> <span class="string">&quot;output_zip=%cd%\%year%_%month%_%day%_%hour%_%minute%_%second%_wechatgame.zip&quot;</span></span><br><span class="line"></span><br><span class="line">REM 压缩wechatgame文件夹为ZIP文件</span><br><span class="line">powershell -Command <span class="string">&quot;Add-Type -A &#x27;System.IO.Compression.FileSystem&#x27;; [IO.Compression.ZipFile]::CreateFromDirectory(&#x27;%wechatgame_path%&#x27;, &#x27;%output_zip%&#x27;)&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>shell</code> 版本 <code>zip_7_zip_wechatgame.sh</code>  我这里安装了 <a target="_blank" rel="noopener" href="https://www.7-zip.org/">7-zip</a> 软件 需要这个支持 配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取当前wechatgame目录的路径</span></span><br><span class="line">wechatgame_path=&quot;$(pwd)/wechatgame&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">获取当前日期和时间</span></span><br><span class="line">current_time=$(date &#x27;+%Y_%m_%d_%H_%M_%S&#x27;)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置输出ZIP文件名</span></span><br><span class="line">output_zip=&quot;$(pwd)/$&#123;current_time&#125;_wechatgame.zip&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">使用7z命令压缩wechatgame文件夹为ZIP文件</span></span><br><span class="line">7z a -tzip &quot;$&#123;output_zip&#125;&quot; &quot;$&#123;wechatgame_path&#125;&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/5e9e4b2e/image-20230413000204769.png" alt="image-20230413000204769"></p>
+<p>以上就是 把文件夹 快速压缩成带时间和日期的zip压缩包</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/faee496f.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Webstorm解决CocosCreator3.7.2无法代码智能提示</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/628059d7.html">
+        <span>Windows10如何使用Charles抓包PC微信小游戏</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/5e9e4b2e.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91"><span class="toc-number">1.1.</span> <span class="toc-text">小游戏开发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A"><span class="toc-number">3.</span> <span class="toc-text">解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8"><span class="toc-number">4.</span> <span class="toc-text">小游戏快速启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%80%81%E7%94%9F%E5%B8%B8%E8%B0%88%E7%9A%84%E8%AF%9D%E9%A2%98"><span class="toc-number">4.1.</span> <span class="toc-text">老生常谈的话题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.</span> <span class="toc-text">小游戏备份</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

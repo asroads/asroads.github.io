@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator构建出web-mobile项目的时候自动刷新定向index.html | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/f50efc19.html">CocosCreator构建出web-mobile项目的时候自动刷新定向index.html</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-07-29
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator构建出web-mobile项目的时候自动刷新定向index.html&url=http://blog.asroads.com/post/f50efc19.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator构建出web-mobile项目的时候自动刷新定向index.html&url=http://blog.asroads.com/post/f50efc19.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/f50efc19.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/f50efc19.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/f50efc19.html&title=CocosCreator构建出web-mobile项目的时候自动刷新定向index.html" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator构建出web-mobile项目的时候自动刷新定向index.html&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/f50efc19.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/f50efc19.html&text=CocosCreator构建出web-mobile项目的时候自动刷新定向index.html" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Web/ >Web</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>这里是你博客列表显示的摘要文字这几年虽然做的都是小游戏平台或者<code>App</code>平台的游戏，但是有时候会提前给内部测试或者外面的人看游戏的功能，就会用到<code>web-mobile</code> 版本的发布，但是<code>web-mobile</code>发布后，后续的更新，往往由于打开的人员的宿主浏览器存在缓存机制，导致有时候不会更新到最新内容，之前常见的做法有两种，一种是更换连接。另外一种是后面添加一个随机值，让浏览器重新请求，但是依旧比较麻烦，下面就记录一下，如何让用户自己直接点击刷新按钮，自动更换随机值。</p>
+<span id="more"></span>
+<p>我们知道<code>CocosCreator</code>可以<a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/publish/custom-project-build-template.html">自定义构建模板</a> 这样可以在构建完成后，自动使用我们的模板文件替换原来的文件。</p>
+<p>这里我们就使用这个功能，实现上面的功能。</p>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><ol>
+<li>首先我们需要在我们的项目下 新建一个文件夹 <code>build-templates</code> 目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">project-folder</span><br><span class="line"> |--assets</span><br><span class="line"> |--build</span><br><span class="line"> |--build-templates</span><br><span class="line">      |--web-mobile</span><br><span class="line">            // 用户需要添加的文件，如 index.html</span><br><span class="line">            |--index.html</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>这样如果当前构建的平台是 <strong>web-mobile</strong> 的话，那么 <code>build-templates/web-mobile/index.html</code> 就会在构建后被拷贝到 <code>build/web-mobile/index.html</code>。</li>
+<li>下面就是我们的详细的 index.html 内容。</li>
+</ol>
+<p><img src="/post/f50efc19/image-20230806013006920.png" alt="image-20230806013006920"></p>
+<ol start="4">
+<li><code>index.html</code> 完整内容：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>游戏测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--http://www.html5rocks.com/en/mobile/mobifying/--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">content</span>=<span class="string">&quot;width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;apple-mobile-web-app-capable&quot;</span> <span class="attr">content</span>=<span class="string">&quot;yes&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="attr">content</span>=<span class="string">&quot;black-translucent&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attr">content</span>=<span class="string">&quot;telephone=no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- force webkit on 360 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;renderer&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;force-rendering&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>/&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- force edge on IE --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;msapplication-tap-highlight&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- force full screen on some browser --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;full-screen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;yes&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;360-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- force screen orientation on some browser --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;screen-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--fix fireball/issues/3568 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--&lt;meta name=&quot;browsermode&quot; content=&quot;application&quot;&gt;--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-page-mode&quot;</span> <span class="attr">content</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;.png&quot; /&gt;--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;.png&quot; /&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;style-mobile.css&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;GameCanvas&quot;</span> <span class="attr">oncontextmenu</span>=<span class="string">&quot;event.preventDefault()&quot;</span> <span class="attr">tabindex</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;splash&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress-bar stripes&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;width: 0%&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 当前URL</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">let</span> url = location.<span class="property">href</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 如果浏览器支持 window.performance 并且页面是通过刷新按钮加载的</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">performance</span> &amp;&amp; <span class="variable language_">window</span>.<span class="property">performance</span>.<span class="title function_">getEntriesByType</span>(<span class="string">&quot;navigation&quot;</span>)[<span class="number">0</span>].<span class="property">type</span> === <span class="string">&quot;reload&quot;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;用户点击刷新，重新定向&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 生成随机数和时间戳</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 如果URL已经包含查询字符串</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (location.<span class="property">search</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 正则替换已存在的v和t参数</span></span></span><br><span class="line"><span class="language-javascript">        url = url.<span class="title function_">replace</span>(<span class="regexp">/([?&amp;])v=\d*/</span>, <span class="string">&#x27;$1v=&#x27;</span> + randomNumber);</span></span><br><span class="line"><span class="language-javascript">        url = url.<span class="title function_">replace</span>(<span class="regexp">/([?&amp;])t=\d*/</span>, <span class="string">&#x27;$1t=&#x27;</span> + timestamp);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果URL中没有v和t参数，那么添加它们</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (!url.<span class="title function_">includes</span>(<span class="string">&#x27;?v=&#x27;</span>) &amp;&amp; !url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;v=&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">          url += <span class="string">&#x27;&amp;v=&#x27;</span> + randomNumber;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (!url.<span class="title function_">includes</span>(<span class="string">&#x27;?t=&#x27;</span>) &amp;&amp; !url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;t=&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">          url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果URL没有查询字符串，那么添加v和t参数</span></span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;?v=&#x27;</span> + randomNumber + <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 重定向到新的URL</span></span></span><br><span class="line"><span class="language-javascript">      location.<span class="property">href</span> = url;</span></span><br><span class="line"><span class="language-javascript">    &#125;<span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;首次进入或用户非刷新的方式进入页面&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 随机数和时间戳</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 如果URL已经包含查询字符串</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (location.<span class="property">search</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果URL中已经有了随机数和时间戳参数，就不再进行重定向</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (url.<span class="title function_">includes</span>(<span class="string">&#x27;?v=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;v=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;?t=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;t=&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Already redirected, won&#x27;t redirect again&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="comment">// 如果URL中没有随机数和时间戳参数，添加它们</span></span></span><br><span class="line"><span class="language-javascript">          url += <span class="string">&#x27;&amp;v=&#x27;</span> + randomNumber;</span></span><br><span class="line"><span class="language-javascript">          url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">          <span class="comment">// 重定向到新的URL</span></span></span><br><span class="line"><span class="language-javascript">          location.<span class="property">href</span> = url;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果URL没有查询字符串，那么添加随机数和时间戳参数，并进行重定向</span></span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;?v=&#x27;</span> + randomNumber;</span></span><br><span class="line"><span class="language-javascript">        url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span></span><br><span class="line"><span class="language-javascript">        location.<span class="property">href</span> = url;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;src/settings.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;main.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// open web debugger console</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">VConsole</span> !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">vConsole</span> = <span class="keyword">new</span> <span class="title class_">VConsole</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> debug = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>.<span class="property">debug</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> splash = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;splash&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    splash.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;block&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">loadScript</span> (moduleName, cb) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">function</span> <span class="title function_">scriptLoaded</span> () &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(domScript);</span></span><br><span class="line"><span class="language-javascript">          domScript.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;load&#x27;</span>, scriptLoaded, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">          cb &amp;&amp; <span class="title function_">cb</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> domScript = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="property">async</span> = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="property">src</span> = moduleName;</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>, scriptLoaded, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(domScript);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">loadScript</span>(debug ? <span class="string">&#x27;cocos2d-js.js&#x27;</span> : <span class="string">&#x27;cocos2d-js-min.js&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (<span class="variable constant_">CC_PHYSICS_BUILTIN</span> || <span class="variable constant_">CC_PHYSICS_CANNON</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">loadScript</span>(debug ? <span class="string">&#x27;physics.js&#x27;</span> : <span class="string">&#x27;physics-min.js&#x27;</span>, <span class="variable language_">window</span>.<span class="property">boot</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="title function_">boot</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">&#125;)();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>其中核心代码是 <script></script> 中间的内容</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当前URL</span></span><br><span class="line">   <span class="keyword">let</span> url = location.<span class="property">href</span>;</span><br><span class="line">   <span class="comment">// 如果浏览器支持 window.performance 并且页面是通过刷新按钮加载的</span></span><br><span class="line">   <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">performance</span> &amp;&amp; <span class="variable language_">window</span>.<span class="property">performance</span>.<span class="title function_">getEntriesByType</span>(<span class="string">&quot;navigation&quot;</span>)[<span class="number">0</span>].<span class="property">type</span> === <span class="string">&quot;reload&quot;</span>) &#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;用户点击刷新，重新定向&quot;</span>);</span><br><span class="line">     <span class="comment">// 生成随机数和时间戳</span></span><br><span class="line">     <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">     <span class="comment">// 如果URL已经包含查询字符串</span></span><br><span class="line">     <span class="keyword">if</span> (location.<span class="property">search</span>) &#123;</span><br><span class="line">       <span class="comment">// 正则替换已存在的v和t参数</span></span><br><span class="line">       url = url.<span class="title function_">replace</span>(<span class="regexp">/([?&amp;])v=\d*/</span>, <span class="string">&#x27;$1v=&#x27;</span> + randomNumber);</span><br><span class="line">       url = url.<span class="title function_">replace</span>(<span class="regexp">/([?&amp;])t=\d*/</span>, <span class="string">&#x27;$1t=&#x27;</span> + timestamp);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 如果URL中没有v和t参数，那么添加它们</span></span><br><span class="line">       <span class="keyword">if</span> (!url.<span class="title function_">includes</span>(<span class="string">&#x27;?v=&#x27;</span>) &amp;&amp; !url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;v=&#x27;</span>)) &#123;</span><br><span class="line">         url += <span class="string">&#x27;&amp;v=&#x27;</span> + randomNumber;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (!url.<span class="title function_">includes</span>(<span class="string">&#x27;?t=&#x27;</span>) &amp;&amp; !url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;t=&#x27;</span>)) &#123;</span><br><span class="line">         url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="comment">// 如果URL没有查询字符串，那么添加v和t参数</span></span><br><span class="line">       url += <span class="string">&#x27;?v=&#x27;</span> + randomNumber + <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// 重定向到新的URL</span></span><br><span class="line">     location.<span class="property">href</span> = url;</span><br><span class="line">   &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;首次进入或用户非刷新的方式进入页面&quot;</span>);</span><br><span class="line">     <span class="comment">// 随机数和时间戳</span></span><br><span class="line">     <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span><br><span class="line">     <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">     <span class="comment">// 如果URL已经包含查询字符串</span></span><br><span class="line">     <span class="keyword">if</span> (location.<span class="property">search</span>) &#123;</span><br><span class="line">       <span class="comment">// 如果URL中已经有了随机数和时间戳参数，就不再进行重定向</span></span><br><span class="line">       <span class="keyword">if</span> (url.<span class="title function_">includes</span>(<span class="string">&#x27;?v=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;v=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;?t=&#x27;</span>) || url.<span class="title function_">includes</span>(<span class="string">&#x27;&amp;t=&#x27;</span>)) &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Already redirected, won&#x27;t redirect again&quot;</span>);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         <span class="comment">// 如果URL中没有随机数和时间戳参数，添加它们</span></span><br><span class="line">         url += <span class="string">&#x27;&amp;v=&#x27;</span> + randomNumber;</span><br><span class="line">         url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span><br><span class="line">         <span class="comment">// 重定向到新的URL</span></span><br><span class="line">         location.<span class="property">href</span> = url;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="comment">// 如果URL没有查询字符串，那么添加随机数和时间戳参数，并进行重定向</span></span><br><span class="line">       url += <span class="string">&#x27;?v=&#x27;</span> + randomNumber;</span><br><span class="line">       url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span><br><span class="line">       location.<span class="property">href</span> = url;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/post/f50efc19/image-20230806013504633-1256905.png" alt="image-20230806013504633"></p>
+<p>点击刷新或者重新按<code>Enter</code>键进入：<br><img src="/post/f50efc19/image-20230806013545544.png" alt="image-20230806013545544"></p>
+<p>我们发现此时 后面的随机数字和 时间戳都发生了变化，内容就随之更新。</p>
+<h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>版本更新日期：2024年07月20日</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>游戏测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--http://www.html5rocks.com/en/mobile/mobifying/--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">content</span>=<span class="string">&quot;width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;apple-mobile-web-app-capable&quot;</span> <span class="attr">content</span>=<span class="string">&quot;yes&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="attr">content</span>=<span class="string">&quot;black-translucent&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attr">content</span>=<span class="string">&quot;telephone=no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- force webkit on 360 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;renderer&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;force-rendering&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>/&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- force edge on IE --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge,chrome=1&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;msapplication-tap-highlight&quot;</span> <span class="attr">content</span>=<span class="string">&quot;no&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- force full screen on some browser --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;full-screen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;yes&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;360-fullscreen&quot;</span> <span class="attr">content</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">&lt;!-- force screen orientation on some browser --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;screen-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-orientation&quot;</span> <span class="attr">content</span>=<span class="string">&quot;portrait&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--fix fireball/issues/3568 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--&lt;meta name=&quot;browsermode&quot; content=&quot;application&quot;&gt;--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;x5-page-mode&quot;</span> <span class="attr">content</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;.png&quot; /&gt;--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;.png&quot; /&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">href</span>=<span class="string">&quot;style-mobile.css&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;GameCanvas&quot;</span> <span class="attr">oncontextmenu</span>=<span class="string">&quot;event.preventDefault()&quot;</span> <span class="attr">tabindex</span>=<span class="string">&quot;0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;splash&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress-bar stripes&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;width: 0%&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 获取当前 URL 和查询参数</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">let</span> url = <span class="keyword">new</span> <span class="title function_">URL</span>(<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> params = url.<span class="property">searchParams</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 生成随机数和时间戳</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 设置或更新查询参数 v 和 t</span></span></span><br><span class="line"><span class="language-javascript">    params.<span class="title function_">set</span>(<span class="string">&#x27;v&#x27;</span>, randomNumber);</span></span><br><span class="line"><span class="language-javascript">    params.<span class="title function_">set</span>(<span class="string">&#x27;t&#x27;</span>, timestamp);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 检查页面是否通过刷新按钮加载</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">performance</span> &amp;&amp; <span class="variable language_">window</span>.<span class="property">performance</span>.<span class="title function_">getEntriesByType</span>(<span class="string">&quot;navigation&quot;</span>)[<span class="number">0</span>].<span class="property">type</span> === <span class="string">&quot;reload&quot;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;用户点击刷新，重新定向&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = url.<span class="title function_">toString</span>(); <span class="comment">// 重定向到更新后的 URL</span></span></span><br><span class="line"><span class="language-javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// //方法一 --------------------- 开始</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// // 即使参数已经在脚本中更新，但由于没有执行重定向或页面刷新，</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// // 地址栏的 URL 没有显示这些更新。这是因为更改 URLSearchParams 并不会自动更新浏览器的地址栏，</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// // 如果原来没有查询字符串，也进行重定向</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// console.log(&quot;首次进入或用户非刷新的方式进入页面&quot;);</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// if (!window.location.search) &#123;</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//   // 如果原来没有查询字符串，也进行重定向</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//   window.location.href = url.toString();</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// &#125; else &#123;</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//   // 如果已经有查询字符串且包含 v 或 t，不进行重定向</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//   console.log(&quot;URL 已包含更新的参数，无需重定向&quot;);</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// //方法一 --------------------- 结束</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//方法二 --------------------- 开始</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 使用 history.replaceState： 该方法用于在不重新加载页面的情况下修改浏览器的历史记录。</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// replaceState 会替换当前的历史记录条目，使地址栏中的 URL 更新为给定的 URL，而不会触发页面重新加载。</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;首次进入或用户非刷新的方式进入页面&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (!<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">search</span> || url.<span class="title function_">toString</span>() !== <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果原来没有查询字符串，或参数有更新，也进行重定向</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">history</span>.<span class="title function_">replaceState</span>(<span class="literal">null</span>, <span class="string">&#x27;&#x27;</span>, url.<span class="title function_">toString</span>());  <span class="comment">// 使用 history.replaceState 更新地址栏</span></span></span><br><span class="line"><span class="language-javascript">      &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 如果已经有查询字符串且包含 v 或 t，不进行重定向</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;URL 已包含更新的参数，无需重定向&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">//方法二 --------------------- 结束</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;src/settings.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;main.js&quot;</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// open web debugger console</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">VConsole</span> !== <span class="string">&#x27;undefined&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">vConsole</span> = <span class="keyword">new</span> <span class="title class_">VConsole</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> debug = <span class="variable language_">window</span>.<span class="property">_CCSettings</span>.<span class="property">debug</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> splash = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;splash&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    splash.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;block&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">loadScript</span> (moduleName, cb) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">function</span> <span class="title function_">scriptLoaded</span> () &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">removeChild</span>(domScript);</span></span><br><span class="line"><span class="language-javascript">          domScript.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;load&#x27;</span>, scriptLoaded, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">          cb &amp;&amp; <span class="title function_">cb</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> domScript = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="property">async</span> = <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="property">src</span> = moduleName;</span></span><br><span class="line"><span class="language-javascript">      domScript.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>, scriptLoaded, <span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(domScript);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">loadScript</span>(debug ? <span class="string">&#x27;cocos2d-js.js&#x27;</span> : <span class="string">&#x27;cocos2d-js-min.js&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (<span class="variable constant_">CC_PHYSICS_BUILTIN</span> || <span class="variable constant_">CC_PHYSICS_CANNON</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">loadScript</span>(debug ? <span class="string">&#x27;physics.js&#x27;</span> : <span class="string">&#x27;physics-min.js&#x27;</span>, <span class="variable language_">window</span>.<span class="property">boot</span>);</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="title function_">boot</span>();</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">&#125;)();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="更新说明"><a href="#更新说明" class="headerlink" title="更新说明"></a>更新说明</h3><p>方法一：即使参数已经在脚本中更新，但由于没有执行重定向或页面刷新，地址栏的 URL 没有显示这些更新。这是因为更改 <code>URLSearchParams</code> 并不会自动更新浏览器的地址栏，除非进行重定向或重新加载页面。<br>方法二：</p>
+<ol>
+<li><strong>使用 <code>history.replaceState</code>：</strong> 该方法用于在不重新加载页面的情况下修改浏览器的历史记录。<code>replaceState</code> 会替换当前的历史记录条目，使地址栏中的 URL 更新为给定的 URL，而不会触发页面重新加载。</li>
+<li><strong>条件检查：</strong> 代码中添加了检查来确定是否需要更新历史记录。如果页面首次加载并且参数实际上发生了变化（即生成的 URL 与当前的 URL 不同），则使用 <code>replaceState</code> 更新地址栏。</li>
+</ol>
+<p>这样修改后，地址栏将反映出参数的更新，而不需要进行页面的重载，从而提高了用户体验并减少了不必要的服务器请求。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/8fa65a01.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator2.4.x构建华为快游戏</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/86294191.html">
+        <span>一些工作里常用的正则小技巧(持续更新)</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/f50efc19.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">具体操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E7%89%88%E6%9C%AC"><span class="toc-number">3.</span> <span class="toc-text">更新版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">3.1.</span> <span class="toc-text">更新说明</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

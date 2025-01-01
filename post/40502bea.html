@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Android Gradle 多渠道打包 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/40502bea.html">Android Gradle 多渠道打包</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-01-30
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Android Gradle 多渠道打包&url=http://blog.asroads.com/post/40502bea.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Android Gradle 多渠道打包&url=http://blog.asroads.com/post/40502bea.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/40502bea.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/40502bea.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/40502bea.html&title=Android Gradle 多渠道打包" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Android Gradle 多渠道打包&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/40502bea.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/40502bea.html&text=Android Gradle 多渠道打包" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>之前的文章都是讲Cocos Creator 如何在原生上通信和踩坑以及一些小技巧的，这篇文章简单的说说如何多渠道打包，由于学习时间有限，这篇文章简单的说说如何多渠道配置包名和更改app名字和App图标样式。</p>
+<span id="more"></span>
+<p>首先，我们需要用Cocos Creator 正常出安卓包，然后才能进行下面操作</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Cocos Creator 2.4.3</li>
+<li>Gradle 4.1.10 （cocos 默认构建输出）</li>
+<li>gradle 插件版本 3.2.0 （cocos 默认构建输出）</li>
+</ul>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="配置Gradle-文件"><a href="#配置Gradle-文件" class="headerlink" title="配置Gradle 文件"></a>配置Gradle 文件</h3><p>在项目的 <code>gradle</code> 文件的<code>android</code>对象添加 多渠道配置</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()</span><br><span class="line">    buildToolsVersion PROP_BUILD_TOOLS_VERSION</span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">&quot;org.cocos2d.demo&quot;</span></span><br><span class="line">        minSdkVersion PROP_MIN_SDK_VERSION</span><br><span class="line">        targetSdkVersion PROP_TARGET_SDK_VERSION</span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">&quot;1.0&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渠道的维度，支持不同维度的渠道</span></span><br><span class="line">    flavorDimensions <span class="string">&quot;app&quot;</span></span><br><span class="line">    productFlavors &#123;</span><br><span class="line">        common &#123;</span><br><span class="line">            manifestPlaceholders = [</span><br><span class="line">                    <span class="symbol">youmi_channel:</span> <span class="string">&quot;common&quot;</span>,</span><br><span class="line">                    <span class="attr">app_name     :</span> <span class="string">&quot;默认commonApp&quot;</span>,</span><br><span class="line">                    <span class="attr">app_icon     :</span> <span class="string">&quot;@mipmap/ic_launcher&quot;</span>]</span><br><span class="line">            dimension <span class="string">&quot;app&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        baidu &#123;</span><br><span class="line">            applicationId <span class="string">&quot;org.cocos2d.demo.baidu&quot;</span></span><br><span class="line">            <span class="comment">//这样最终的包名是 org.cocos2d.demo.baidu</span></span><br><span class="line">            manifestPlaceholders = [</span><br><span class="line">                    <span class="symbol">youmi_channel:</span> <span class="string">&quot;baidu&quot;</span>,</span><br><span class="line">                    <span class="attr">app_name     :</span> <span class="string">&quot;测试baiduApp&quot;</span>,</span><br><span class="line">                    <span class="attr">app_icon     :</span> <span class="string">&quot;@mipmap/ic_launcher&quot;</span>]</span><br><span class="line">            dimension <span class="string">&quot;app&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        sougou &#123;</span><br><span class="line">            applicationId <span class="string">&quot;org.cocos2d.demo.sougou&quot;</span></span><br><span class="line">            <span class="comment">//这样最终的包名是 org.cocos2d.demo.sougou</span></span><br><span class="line">            manifestPlaceholders = [</span><br><span class="line">                    <span class="symbol">youmi_channel:</span> <span class="string">&quot;sougou&quot;</span>,</span><br><span class="line">                    <span class="attr">app_name     :</span> <span class="string">&quot;测试sougouApp&quot;</span>,</span><br><span class="line">                    <span class="attr">app_icon     :</span> <span class="string">&quot;@mipmap/hykb_ic_launcher&quot;</span>]</span><br><span class="line">            dimension <span class="string">&quot;app&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中值得注意的是 <code>youmi_channe</code>、<code>app_name</code>、<code>app_icon</code> 这三个都分别是三个变量名字，因为是变量，所以会跟随渠道不同而变成不同的值。</p>
+<p>ic_launcher 和 hykb_ic_launcher 是图标素材 默认生成了一份 ic_launcher的图标 我们在 生成 hykb_ic_launcher 一套这样素材 放到 对应目录，比如我的：</p>
+<p><img src="/post/40502bea/image-20210130144228763.png" alt="image-20210130144228763"></p>
+<h3 id="配置AndroidManifest-xml"><a href="#配置AndroidManifest-xml" class="headerlink" title="配置AndroidManifest.xml"></a>配置AndroidManifest.xml</h3><p>根据前面我们的配置 接下来配置AndroidManifest.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:allowBackup</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">&quot;$&#123;app_name&#125;&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:usesCleartextTraffic</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:icon</span>=<span class="string">&quot;$&#123;app_icon&#125;&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:replace</span>=<span class="string">&quot;android:label&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Tell Cocos2dxActivity the name of our .so --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;android.app.lib_name&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:value</span>=<span class="string">&quot;cocos2djs&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">&quot;youmi_channel&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:value</span>=<span class="string">&quot;$&#123;youmi_channel&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">&quot;app_name&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:value</span>=<span class="string">&quot;$&#123;app_name&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">&quot;app_icon&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:value</span>=<span class="string">&quot;$&#123;app_icon&#125;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">&quot;org.cocos2dx.javascript.AppActivity&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:screenOrientation</span>=<span class="string">&quot;portrait&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:configChanges</span>=<span class="string">&quot;orientation|keyboardHidden|screenSize|screenLayout&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">&quot;$&#123;app_name&#125;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">&quot;@android:style/Theme.NoTitleBar.Fullscreen&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:launchMode</span>=<span class="string">&quot;singleTask&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:taskAffinity</span>=<span class="string">&quot;&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中核心代码是</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:name</span>=<span class="string">&quot;youmi_channel&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:value</span>=<span class="string">&quot;$&#123;youmi_channel&#125;&quot;</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:name</span>=<span class="string">&quot;app_name&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:value</span>=<span class="string">&quot;$&#123;app_name&#125;&quot;</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:name</span>=<span class="string">&quot;app_icon&quot;</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:value</span>=<span class="string">&quot;$&#123;app_icon&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	android:label=&quot;$&#123;app_name&#125;&quot;</span><br><span class="line">    android:icon=&quot;$&#123;app_icon&#125;&quot;</span><br><span class="line">tools:replace=&quot;android:label&quot;//如果报错 Suggestion: add &#x27;tools:replace=&quot;android:label&quot;&#x27; to <span class="tag">&lt;<span class="name">application</span>&gt;</span> element at AndroidManifest.xml 加上这一行</span><br></pre></td></tr></table></figure>
+
+<p>上面说了 把对应的变量在这个文件读取的时候 赋值即可，<code>youmi_channe</code> 这个属性暂时没有用到，先做保留使用。</p>
+<h2 id="构建App"><a href="#构建App" class="headerlink" title="构建App"></a>构建App</h2><p>我们打开Android Studio 的右侧 Gradle 窗口 选择自己要的构建类型 这里 我们选择的 release 类型</p>
+<p><img src="/post/40502bea/image-20210130144422588.png" alt="image-20210130144422588"></p>
+<p>等待打包结果。这个过程根据渠道多少和 项目大小以及电脑性能有关，一般是5-30分钟不等。</p>
+<p><img src="/post/40502bea/image-20210130144959419.png" alt="image-20210130144959419"></p>
+<p><img src="/post/40502bea/image-20210130145010378.png" alt="image-20210130145010378"></p>
+<p>上面这样就是打包成功了！</p>
+<p>打包好的路径是<code>jsb-default/frameworks/runtime-src/proj.android-studio/app/build/outputs/apk/渠道</code></p>
+<p><img src="/post/40502bea/image-20210130145209964.png" alt="image-20210130145209964"></p>
+<h2 id="安装照验证"><a href="#安装照验证" class="headerlink" title="安装照验证"></a>安装照验证</h2><p><img src="/post/40502bea/image-20210130145529575.png" alt="image-20210130145529575"></p>
+<h2 id="项目代码里获取渠道信息"><a href="#项目代码里获取渠道信息" class="headerlink" title="项目代码里获取渠道信息"></a>项目代码里获取渠道信息</h2><h3 id="先运行一下项目"><a href="#先运行一下项目" class="headerlink" title="先运行一下项目"></a>先运行一下项目</h3><p><img src="/post/40502bea/image-20210130150007558.png" alt="image-20210130150007558"></p>
+<p>这样才能生成 <code>BuildConfig.java</code>信息</p>
+<h3 id="AppActivity写代码"><a href="#AppActivity写代码" class="headerlink" title="AppActivity写代码"></a>AppActivity写代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.cocos2d.demo.BuildConfig;</span><br><span class="line"></span><br><span class="line">Log.e(<span class="string">&quot;TEST&quot;</span>,<span class="built_in">this</span>.getPackageName());</span><br><span class="line">       </span><br><span class="line">Log.e(<span class="string">&quot;TEST&quot;</span>, BuildConfig.APPLICATION_ID);</span><br><span class="line">       </span><br><span class="line">Log.e(<span class="string">&quot;TEST-&gt;FLAVOR&quot;</span>, BuildConfig.FLAVOR);</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以查看其他信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.cocos2d.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">BuildConfig</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="variable">DEBUG</span> <span class="operator">=</span> Boolean.parseBoolean(<span class="string">&quot;true&quot;</span>);</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">APPLICATION_ID</span> <span class="operator">=</span> <span class="string">&quot;org.cocos2d.demo.baidu&quot;</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">BUILD_TYPE</span> <span class="operator">=</span> <span class="string">&quot;debug&quot;</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">FLAVOR</span> <span class="operator">=</span> <span class="string">&quot;baidu&quot;</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">VERSION_CODE</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">VERSION_NAME</span> <span class="operator">=</span> <span class="string">&quot;1.0.0&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="记录一-Error-Execution-failed-for-task-‘-app-processXXXDebugManifest’"><a href="#记录一-Error-Execution-failed-for-task-‘-app-processXXXDebugManifest’" class="headerlink" title="记录一 Error:Execution failed for task ‘:app:processXXXDebugManifest’."></a>记录一 Error:Execution failed for task ‘:app:processXXXDebugManifest’.</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error:Execution failed for task &#x27;:app:processXXXDebugManifest&#x27;.</span><br><span class="line">&gt; Manifest merger failed with multiple errors, see logs</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决办法</strong>： app的module里面的AndroidManifest.xml文件有冲突的地方，排查一下冲突的字段删除</p>
+<h3 id="记录二-Execution-failed-for-task-‘-CnMetro-processCczsReleaseManifest’"><a href="#记录二-Execution-failed-for-task-‘-CnMetro-processCczsReleaseManifest’" class="headerlink" title="记录二 Execution failed for task ‘:CnMetro:processCczsReleaseManifest’"></a>记录二 Execution failed for task ‘:CnMetro:processCczsReleaseManifest’</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Execution failed for task &#x27;:CnMetro:processCczsReleaseManifest&#x27;.</span><br><span class="line">&gt; Manifest merger failed : Attribute application@label value=(进站请刷卡) from AndroidManifest.xml:32:13-40</span><br><span class="line">  	is also present at [GameSdk.aar] AndroidManifest.xml:34:9-41 value=(@string/app_name).</span><br><span class="line">  	Suggestion: add &#x27;tools:replace=&quot;android:label&quot;&#x27; to &lt;application&gt; element at AndroidManifest.xml:30:5-80:19 to override.</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决办法</strong>：根据提示 添加 <code>tools:replace=&quot;android:label</code>到<application>元素内</application></p>
+<h3 id="报Entry-name-‘res-layout-notification-action-xml’-collided错"><a href="#报Entry-name-‘res-layout-notification-action-xml’-collided错" class="headerlink" title="报Entry name ‘res/layout/notification_action.xml’ collided错"></a>报Entry name ‘res/layout/notification_action.xml’ collided错</h3><p><strong>解决办法</strong>： 进入build菜单，clear project 清除一下缓存就好了！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012551350/article/details/62041833">Gradle多渠道打包(动态设定App名称，应用图标，背景图片，状态栏颜色)</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a23006239/article/details/84977279?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control">Android 多渠道打包实操（更改包名、图标、主题资源 、替换常量、第三方SDK Appkey配置</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013474104/article/details/62445309">Android Studio Gradle多渠道打包(动态设定App名称，应用图标，背景图片，状态栏颜色)、配置签名文件</a></p>
+</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/5e37acf8.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>微信小游戏日期函数(Date)的一次踩坑日记</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/3358e0c4.html">
+        <span>如何查看APK的MD5签名及无法显示MD5签名的解决办法</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/40502bea.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEGradle-%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">配置Gradle 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEAndroidManifest-xml"><span class="toc-number">2.2.</span> <span class="toc-text">配置AndroidManifest.xml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BAApp"><span class="toc-number">3.</span> <span class="toc-text">构建App</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%85%A7%E9%AA%8C%E8%AF%81"><span class="toc-number">4.</span> <span class="toc-text">安装照验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E9%87%8C%E8%8E%B7%E5%8F%96%E6%B8%A0%E9%81%93%E4%BF%A1%E6%81%AF"><span class="toc-number">5.</span> <span class="toc-text">项目代码里获取渠道信息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%88%E8%BF%90%E8%A1%8C%E4%B8%80%E4%B8%8B%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.1.</span> <span class="toc-text">先运行一下项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AppActivity%E5%86%99%E4%BB%A3%E7%A0%81"><span class="toc-number">5.2.</span> <span class="toc-text">AppActivity写代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="toc-number">6.</span> <span class="toc-text">踩坑记录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80-Error-Execution-failed-for-task-%E2%80%98-app-processXXXDebugManifest%E2%80%99"><span class="toc-number">6.1.</span> <span class="toc-text">记录一 Error:Execution failed for task ‘:app:processXXXDebugManifest’.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E4%BA%8C-Execution-failed-for-task-%E2%80%98-CnMetro-processCczsReleaseManifest%E2%80%99"><span class="toc-number">6.2.</span> <span class="toc-text">记录二 Execution failed for task ‘:CnMetro:processCczsReleaseManifest’</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%A5Entry-name-%E2%80%98res-layout-notification-action-xml%E2%80%99-collided%E9%94%99"><span class="toc-number">6.3.</span> <span class="toc-text">报Entry name ‘res&#x2F;layout&#x2F;notification_action.xml’ collided错</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

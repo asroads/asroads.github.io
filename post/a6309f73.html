@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            小游戏优化内存使用压缩纹理 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/a6309f73.html">小游戏优化内存使用压缩纹理</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-08-28
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=小游戏优化内存使用压缩纹理&url=http://blog.asroads.com/post/a6309f73.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=小游戏优化内存使用压缩纹理&url=http://blog.asroads.com/post/a6309f73.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/a6309f73.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/a6309f73.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/a6309f73.html&title=小游戏优化内存使用压缩纹理" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=小游戏优化内存使用压缩纹理&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/a6309f73.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/a6309f73.html&text=小游戏优化内存使用压缩纹理" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>随着小游戏体量增加后，需要进一步对游戏内存优化，一般来说，如果小游戏的设计初期考虑了小游戏平台，一般来说内存都可以接受，但实际的开发工作中，很多游戏是先上线了原生平台，发现游戏数据不错，想继续在小游戏平台分一杯羹。于是就把游戏移植到了小游戏平台。这样的游戏一般存在加载问题，性能渲染问题，内存优化问题，导致手机发热，启动慢，游戏卡等现象，下面说一下如何使用纹理格式。</p>
+<span id="more"></span>
+<p>目前来说，小游戏纹理很成熟了，截止目前，微信、抖音、QQ 都支持ASTC纹理格式，虽然说，小游戏使用纹理整体来说不算麻烦，但是牵扯到好几个细节操作，还是记录一下，便于后面查阅。</p>
+<h2 id="文章内环境"><a href="#文章内环境" class="headerlink" title="文章内环境"></a>文章内环境</h2><ul>
+<li>Cocos Creator 2.4.11</li>
+<li>Mac电脑</li>
+<li>CDN</li>
+<li>微信/抖音/QQ 小游戏平台</li>
+</ul>
+<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><ol>
+<li><p>新建一个Cocos Creator项目，然后随便找几张图片 这里测试使用Png格式</p>
+<p><img src="/post/a6309f73/image-20230828172008893.png" alt="image-20230828172008893"></p>
+</li>
+<li><p>如上图所示 添加两个选择 分别为 ASTC 6X6 和 PNG格式</p>
+</li>
+<li><p>重新构建游戏，就可以看到我们构建的文件里素材存在两个后缀格式</p>
+<p><img src="/post/a6309f73/image-20230828172142110.png" alt="image-20230828172142110"></p>
+</li>
+<li><p>此时，我们就可以通过预览游戏看到游戏正常使用纹理（上面的设置为 优先使用ASTC）</p>
+</li>
+</ol>
+<h2 id="优化构建步骤"><a href="#优化构建步骤" class="headerlink" title="优化构建步骤"></a>优化构建步骤</h2><p>由于我们项目没有使用 纹理格式，牵扯到小游戏和原生分支合并到问题，于是，便考虑到，能否在构建前 改变png 到 meta 文件信息，构建结束后，再重置回去。于是便使用脚本实现。</p>
+<p>下面说一个简单的脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_meta_file</span>(<span class="params">file_path</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Processing file: <span class="subst">&#123;file_path&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            data = json.load(file)</span><br><span class="line">            data[<span class="string">&quot;platformSettings&quot;</span>] = &#123;</span><br><span class="line">                <span class="string">&quot;minigame&quot;</span>: &#123;</span><br><span class="line">                    <span class="string">&quot;formats&quot;</span>: [</span><br><span class="line">                        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;astc_6x6&quot;</span>, <span class="string">&quot;quality&quot;</span>: <span class="string">&quot;medium&quot;</span>&#125;,</span><br><span class="line">                        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;png&quot;</span>, <span class="string">&quot;quality&quot;</span>: <span class="number">80</span>&#125;,</span><br><span class="line">                    ]</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="string">&quot;default&quot;</span>: &#123;<span class="string">&quot;formats&quot;</span>: [&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;png&quot;</span>, <span class="string">&quot;quality&quot;</span>: <span class="number">80</span>&#125;]&#125;,</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            json.dump(data, file, indent=<span class="number">2</span>)</span><br><span class="line">            <span class="comment"># print(f&quot;Updated file: &#123;file_path&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">except</span> json.JSONDecodeError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error parsing JSON in file <span class="subst">&#123;file_path&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error updating file <span class="subst">&#123;file_path&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">update_meta_file_2</span>(<span class="params">file_path</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Processing file: <span class="subst">&#123;file_path&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;r&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            data = json.load(file)</span><br><span class="line">            data[<span class="string">&quot;platformSettings&quot;</span>] = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            json.dump(data, file, indent=<span class="number">2</span>)</span><br><span class="line">            <span class="comment"># print(f&quot;Updated file: &#123;file_path&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">except</span> json.JSONDecodeError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error parsing JSON in file <span class="subst">&#123;file_path&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Error updating file <span class="subst">&#123;file_path&#125;</span>: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recursive_update</span>(<span class="params">directory</span>):</span><br><span class="line">    <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(directory):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.png.meta&quot;</span>) <span class="keyword">or</span> file.endswith(<span class="string">&quot;.jpg.meta&quot;</span>):</span><br><span class="line">                file_path = os.path.join(root, file)</span><br><span class="line">                update_meta_file(file_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">recursive_update_2</span>(<span class="params">directory</span>):</span><br><span class="line">    <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(directory):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.png.meta&quot;</span>) <span class="keyword">or</span> file.endswith(<span class="string">&quot;.jpg.meta&quot;</span>):</span><br><span class="line">                file_path = os.path.join(root, file)</span><br><span class="line">                update_meta_file_2(file_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    target_directory = <span class="string">&quot;../assets/&quot;</span>  <span class="comment"># 使用相对路径，表示当前目录下的assets目录</span></span><br><span class="line">    <span class="comment"># 改meta</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;开始——————————————————————————————批量修改meta文件!!!&quot;</span>)</span><br><span class="line">    recursive_update(target_directory)</span><br><span class="line">    time.sleep(<span class="number">1</span>)  <span class="comment"># 休眠1秒</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 执行构建</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;结束——————————————————————————————执行构建脚本&quot;</span>)</span><br><span class="line"></span><br><span class="line">    build_args = <span class="built_in">list</span>(sys.argv.copy())</span><br><span class="line">    isBackMeta = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&quot;--publish&quot;</span> <span class="keyword">in</span> build_args:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;发布版本&quot;</span>)</span><br><span class="line">        build_args.append(<span class="string">&quot;--gitcheck&quot;</span>)</span><br><span class="line">        build_args.append(<span class="string">&quot;false&quot;</span>)</span><br><span class="line">        isBackMeta = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;开发版本&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;build_args&quot;</span>, build_args)</span><br><span class="line">    <span class="comment">#command = &quot;./build.py --env 2 --server 18 --release&quot;</span></span><br><span class="line">    build_args = <span class="string">&quot; &quot;</span>.join(build_args[<span class="number">1</span>:])</span><br><span class="line">    command = <span class="string">f&quot;./build.py <span class="subst">&#123;build_args&#125;</span>&quot;</span></span><br><span class="line">    subprocess.run(command, shell=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    time.sleep(<span class="number">1</span>)  <span class="comment"># 休眠1秒</span></span><br><span class="line">    <span class="keyword">if</span> isBackMeta:</span><br><span class="line">        <span class="comment"># 还原</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;——————————————————————————————批量还原meta文件&quot;</span>)</span><br><span class="line">        recursive_update_2(target_directory)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;——————————————————————————————结束&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>注意 上面脚本内 的 build.py 其实内容就是 构建游戏的具体命令 这里考虑到篇幅，不再展示</p>
+<h2 id="CDN自动解压"><a href="#CDN自动解压" class="headerlink" title="CDN自动解压"></a>CDN自动解压</h2><h3 id="如何设置智能压缩配置"><a href="#如何设置智能压缩配置" class="headerlink" title="如何设置智能压缩配置"></a>如何设置智能压缩配置</h3><p>看到上面图片，我们发现，ASTC的体积和没有压缩的png 图片大小几乎相当，但是PNG 格式说可以压缩的，如果使用了ASTC 格式那么将带来一个问题，就是传输下载时间变长。于是便有了这个CDN自动解压。</p>
+<p>我们这里使用的是腾讯云服务。<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/228/41736">智能压缩配置</a></p>
+<p><img src="/post/a6309f73/image-20230828173613116.png" alt="image-20230828173613116"></p>
+<h3 id="如何检查智能压缩配置生效"><a href="#如何检查智能压缩配置生效" class="headerlink" title="如何检查智能压缩配置生效"></a>如何检查智能压缩配置生效</h3><p>这里给出 几个个网站 都可以在线验证 如果失效了 搜索  gzip test tool</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.giftofspeed.com/gzip-test/">https://www.giftofspeed.com/gzip-test/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.gidnetwork.com/tools/gzip-test.php">https://www.gidnetwork.com/tools/gzip-test.php</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.websiteplanet.com/webtools/gzip-compression/">https://www.websiteplanet.com/webtools/gzip-compression/</a></li>
+<li><a target="_blank" rel="noopener" href="https://base64.guru/tools/gzip-test">https://base64.guru/tools/gzip-test</a></li>
+</ul>
+<p>下面给出 可以成功支持 和 不支持的 结果</p>
+<p><img src="/post/a6309f73/image-20230828174300529.png" alt="image-20230828174300529"></p>
+<p><img src="/post/a6309f73/image-20230828174321542.png" alt="image-20230828174321542"></p>
+<h2 id="CDN预热"><a href="#CDN预热" class="headerlink" title="CDN预热"></a>CDN预热</h2><p>如果项目传到CDN的资源服务器后，如果最开始下载的人，会因为CDN节点没有预热，资源下载节点少，而引发用户下载时长比较长，需要我们对资源进行预热。</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/228/40273">缓存预热</a></p>
+<blockquote>
+<h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h2><p>腾讯云 CDN 提供资源预热功能，可将指定资源主动从源站加载至 CDN 加速节点并缓存。当用户首次请求资源时，可直接从 CDN 加速节点获取缓存的资源，无需再次回源。</p>
+<h2 id="操作指南"><a href="#操作指南" class="headerlink" title="操作指南"></a>操作指南</h2><p>登录 <a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/cdn">CDN 控制台</a>，单击左侧目录的<strong>刷新预热</strong>，进入后可按需提交 <strong>URL 预热</strong>任务：</p>
+<ul>
+<li>内容分发网络 CDN 与 全站加速 ECDN 域名的 URL支持混合填写提交。</li>
+<li>支持输入内容和上传 txt 文件两种提交方式。</li>
+<li>支持指定预热区域：预热地域对应域名的加速区域，请按需选择。</li>
+</ul>
+<p><img src="/post/a6309f73/4a3df1414af97f94bd2d49617f602fb5.png" alt="img"></p>
+</blockquote>
+<h2 id="微信小游戏高性能模式"><a href="#微信小游戏高性能模式" class="headerlink" title="微信小游戏高性能模式"></a>微信小游戏高性能模式</h2><p>微信小游戏平台推出了高性能模式。高性能模式下，安卓端拥有更好的渲染性能和表现，无需特殊适配，iOS 端需要进行一定的适配以保证两种模式兼容。</p>
+<h4 id="开通高性能模式开关"><a href="#开通高性能模式开关" class="headerlink" title="开通高性能模式开关"></a>开通高性能模式开关</h4><p>开通高性能模式的方式为：登录微信公众平台 -&gt; 首页能力地图模块 -&gt; 点击进入”生产提效包” -&gt; 点击开通高性能模式。 开通成功后，过配置 game.json 的 iOSHighPerformance 为 true 则可进入高性能模式，通过去掉此开关可以正常回退到普通模式，以便两种模式对比</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;deviceOrientation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;portrait&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;networkTimeout&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="number">15000</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;connectSocket&quot;</span><span class="punctuation">:</span> <span class="number">15000</span><span class="punctuation">,</span>Cocos 微信小游戏内存与性能优化指南（iOS端）</span><br><span class="line">        <span class="attr">&quot;uploadFile&quot;</span><span class="punctuation">:</span> <span class="number">15000</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;downloadFile&quot;</span><span class="punctuation">:</span> <span class="number">25000</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iOSHighPerformance&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/a6309f73/image-20230828180218542.png" alt="image-20230828180218542"></p>
+<p>注意，使用这个功能 需要Cocos Creator版本 大于 2.4.9</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>astc 纹理对下降内存和提高加载速度是有效的，但是手机具体是否支持 astc 比较复杂，和手机 的 soc(cpu、gpu)，安卓系统版本等等相关。 最好导出多种格式的图比如 png 和 astc 等，让 引擎自动判断使用的图片格式。构建后 发现 astc 和 png 数量对不上，其实是引擎内置的png 图片导致的，故而可以忽略。</p>
+<h2 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/guide/minigame/optimization">普通小游戏接入指南-性能优化</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/u9MWq0d-bZukwwFjlf2_-w">Cocos 微信小游戏内存与性能优化指南（iOS端）</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/6e809dfe.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator微信小游戏封面插件使用</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/339e6f6c.html">
+        <span>CocosCreator微信小游戏真机ttf字体不能正常显示</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/a6309f73.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E5%86%85%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">文章内环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">具体步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%9E%84%E5%BB%BA%E6%AD%A5%E9%AA%A4"><span class="toc-number">3.</span> <span class="toc-text">优化构建步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CDN%E8%87%AA%E5%8A%A8%E8%A7%A3%E5%8E%8B"><span class="toc-number">4.</span> <span class="toc-text">CDN自动解压</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E6%99%BA%E8%83%BD%E5%8E%8B%E7%BC%A9%E9%85%8D%E7%BD%AE"><span class="toc-number">4.1.</span> <span class="toc-text">如何设置智能压缩配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%A3%80%E6%9F%A5%E6%99%BA%E8%83%BD%E5%8E%8B%E7%BC%A9%E9%85%8D%E7%BD%AE%E7%94%9F%E6%95%88"><span class="toc-number">4.2.</span> <span class="toc-text">如何检查智能压缩配置生效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CDN%E9%A2%84%E7%83%AD"><span class="toc-number">5.</span> <span class="toc-text">CDN预热</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="toc-number">6.</span> <span class="toc-text">功能介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97"><span class="toc-number">7.</span> <span class="toc-text">操作指南</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E9%AB%98%E6%80%A7%E8%83%BD%E6%A8%A1%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">微信小游戏高性能模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E9%80%9A%E9%AB%98%E6%80%A7%E8%83%BD%E6%A8%A1%E5%BC%8F%E5%BC%80%E5%85%B3"><span class="toc-number">8.0.1.</span> <span class="toc-text">开通高性能模式开关</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E7%9F%A5%E8%AF%86"><span class="toc-number">10.</span> <span class="toc-text">拓展知识</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

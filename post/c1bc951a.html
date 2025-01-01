@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            腾讯优量汇以及DMP系统接入SDK | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/c1bc951a.html">腾讯优量汇以及DMP系统接入SDK</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-08-01
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=腾讯优量汇以及DMP系统接入SDK&url=http://blog.asroads.com/post/c1bc951a.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=腾讯优量汇以及DMP系统接入SDK&url=http://blog.asroads.com/post/c1bc951a.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/c1bc951a.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/c1bc951a.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/c1bc951a.html&title=腾讯优量汇以及DMP系统接入SDK" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=腾讯优量汇以及DMP系统接入SDK&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/c1bc951a.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/c1bc951a.html&text=腾讯优量汇以及DMP系统接入SDK" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/iOS/ >iOS</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>本篇文章简单的说一下，如何使用Cocos Creator项目导出iOS 项目后 接入腾讯的优量汇和DMP系统。话不多说，下面看具体操作。</p>
+<span id="more"></span>概述
+
+<h3 id="DMP-数据上报"><a href="#DMP-数据上报" class="headerlink" title="DMP 数据上报"></a>DMP 数据上报</h3><p>地址：<a target="_blank" rel="noopener" href="https://developers.e.qq.com/docs/user_actions/app">https://developers.e.qq.com/docs/user_actions/app</a></p>
+<h3 id="优量汇-banner广告-激励视频-流量变现的SDK"><a href="#优量汇-banner广告-激励视频-流量变现的SDK" class="headerlink" title="优量汇 banner广告 /激励视频 流量变现的SDK"></a>优量汇 banner广告 /激励视频 流量变现的SDK</h3><p>地址： <a target="_blank" rel="noopener" href="https://developers.adnet.qq.com/doc/ios/guide">https://developers.adnet.qq.com/doc/ios/guide</a></p>
+<h2 id="DMP-信息汇总"><a href="#DMP-信息汇总" class="headerlink" title="DMP 信息汇总"></a>DMP 信息汇总</h2><p><img src="/post/c1bc951a/image-20200526170337054.png" alt="image-20200526170337054"></p>
+<p><img src="/post/c1bc951a/image-20200526170500147.png" alt="image-20200526170500147"></p>
+<p><img src="/post/c1bc951a/image-20200526170555779.png" alt="image-20200526170555779"></p>
+<p>找到应用的 信息</p>
+<ul>
+<li>App store ID xxxxx</li>
+<li>行为数据源ID xxxxx</li>
+<li>数据接入密钥 xxxxxxxxxxxx</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="SDK添加依赖"><a href="#SDK添加依赖" class="headerlink" title="SDK添加依赖"></a>SDK添加依赖</h4><p><img src="/post/c1bc951a/image-20200526170952124.png" alt="image-20200526170952124"></p>
+<h3 id="SDK-初始化"><a href="#SDK-初始化" class="headerlink" title="SDK 初始化"></a>SDK 初始化</h3><p>文档地址：<a target="_blank" rel="noopener" href="https://www.eyrefree.org/GDTActionSDK/">https://www.eyrefree.org/GDTActionSDK/</a></p>
+<h4 id="必须接入事件-初始化和启动-AppController-mm-文件"><a href="#必须接入事件-初始化和启动-AppController-mm-文件" class="headerlink" title="必须接入事件 初始化和启动 AppController.mm 文件"></a>必须接入事件 初始化和启动 AppController.mm 文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions &#123;</span><br><span class="line">    /*</span><br><span class="line">     * 在接入广点通行为数据SDK时，请在App启动的时候调用初始化方法</span><br><span class="line">     * 初始化方法调用时请传入数据源UserActionSetId和在后台看到的secretKey密钥串</span><br><span class="line">     */</span><br><span class="line">    [GDTAction init:@&quot;yourActionSetId&quot; secretKey:@&quot;yourSecretKey&quot;];</span><br><span class="line"></span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)applicationDidBecomeActive:(UIApplication *)application &#123;</span><br><span class="line"></span><br><span class="line">    /*</span><br><span class="line">     * 在应用启动的时候请上报GDTSDKActionNameStartApp行为</span><br><span class="line">     * SDK内部会判断此次启动行为是否为激活行为并上报，开发者无需另外作判断逻辑</span><br><span class="line">     */</span><br><span class="line">    [GDTAction logAction:GDTSDKActionNameStartApp actionParam:@&#123;@&quot;value&quot;:@(123)&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="接入自定义的事件："><a href="#接入自定义的事件：" class="headerlink" title="接入自定义的事件："></a>接入自定义的事件：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    自定义打点参数为 NSString 事件</span><br><span class="line">*/</span><br><span class="line">+(NSString *)setGameEventWithParam:(NSString*)actionName withContent:(NSString*)actionParamStr&#123;</span><br><span class="line">    NSLog(@&quot;OC收到：setGameEventWithParam 有参数 %@：&quot;,actionParamStr);</span><br><span class="line">      NSData *data = [actionParamStr dataUsingEncoding:NSUTF8StringEncoding];</span><br><span class="line">      id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];</span><br><span class="line">    NSLog(@&quot;%@&quot;,[json objectForKey:@&quot;id&quot;]);</span><br><span class="line">    NSLog(@&quot;转换后：setGameEventWithParam %@：&quot;,json);</span><br><span class="line">    [GDTAction logAction:actionName actionParam:json];</span><br><span class="line">    return @&quot;setGameEventWithParam OK&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="优量汇信息汇总"><a href="#优量汇信息汇总" class="headerlink" title="优量汇信息汇总"></a>优量汇信息汇总</h2><p>官网地址：<a target="_blank" rel="noopener" href="https://adnet.qq.com/">https://adnet.qq.com/</a></p>
+<p>首页界面：</p>
+<p><img src="/post/c1bc951a/image-20200526164127008.png" alt="image-20200526164127008"></p>
+<p>sdk 接入界面：<a target="_blank" rel="noopener" href="https://adnet.qq.com/resource/sdk">https://adnet.qq.com/resource/sdk</a></p>
+<p><img src="/post/c1bc951a/image-20200526164256308.png" alt="image-20200526164256308"></p>
+<p>sdk 接入文档引导：<a target="_blank" rel="noopener" href="https://developers.adnet.qq.com/doc/ios/guide">https://developers.adnet.qq.com/doc/ios/guide</a></p>
+<h4 id="新建媒体"><a href="#新建媒体" class="headerlink" title="新建媒体"></a>新建媒体</h4><p><img src="/post/c1bc951a/image-20200526165554068.png" alt="image-20200526165554068"></p>
+<h4 id="新建广告位"><a href="#新建广告位" class="headerlink" title="新建广告位"></a>新建广告位</h4><p><img src="/post/c1bc951a/image-20200526165651160.png" alt="image-20200526165651160"></p>
+<h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h3><h4 id="构建ios-项目"><a href="#构建ios-项目" class="headerlink" title="构建ios 项目"></a>构建ios 项目</h4><p><img src="/post/c1bc951a/image-20200526164801273.png" alt="image-20200526164801273"></p>
+<h4 id="添加依赖文件"><a href="#添加依赖文件" class="headerlink" title="添加依赖文件"></a>添加依赖文件</h4><p><img src="/post/c1bc951a/image-20200526165941953.png" alt="image-20200526165941953"></p>
+<ol>
+<li><table>
+<thead>
+<tr>
+<th><strong>需要引入的依赖库</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>libGDTMobSDK.a</td>
+</tr>
+<tr>
+<td>GDTMobBannerView.h</td>
+</tr>
+<tr>
+<td>GDTNativeExpressAd.h</td>
+</tr>
+<tr>
+<td>GDTNativeExpressAdView.h</td>
+</tr>
+<tr>
+<td>GDTMobInterstitial.h</td>
+</tr>
+<tr>
+<td>GDTNativeAd.h</td>
+</tr>
+<tr>
+<td>GDTSplashAd.h</td>
+</tr>
+<tr>
+<td>GDTRewardVideoAd.h</td>
+</tr>
+<tr>
+<td>GDTUnifiedNativeAd.h</td>
+</tr>
+<tr>
+<td>GDTUnifiedNativeAdView.h</td>
+</tr>
+<tr>
+<td>GDTUnifiedNativeAdDataObject.h</td>
+</tr>
+<tr>
+<td>GDTLogoView.h</td>
+</tr>
+<tr>
+<td>GDTMediaView.h</td>
+</tr>
+<tr>
+<td>GDTSDKDefines.h</td>
+</tr>
+</tbody></table>
+<h5 id="需要引入的系统库"><a href="#需要引入的系统库" class="headerlink" title="需要引入的系统库"></a>需要引入的系统库</h5><table>
+<thead>
+<tr>
+<th>库名称</th>
+<th>SDK</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AdSupport.framework</td>
+<td>4.7.2及以后版本</td>
+<td></td>
+</tr>
+<tr>
+<td>CoreLocation.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>QuartzCore.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>SystemConfiguration.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>CoreTelephony.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>libz.tbd</td>
+<td>同上</td>
+<td>或者是libz.dylib</td>
+</tr>
+<tr>
+<td>Security.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>StoreKit.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>libxml2.tbd</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>AVFoundation.framework</td>
+<td>同上</td>
+<td></td>
+</tr>
+<tr>
+<td>WebKit.framework</td>
+<td>同上</td>
+<td>可选</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p><strong>说明：</strong></p>
+<ol>
+<li>SystemConfiguration.framework、CoreTelephony.framework、Security.framework是为了统计app信息使用</li>
+<li>iOS9以后的版本，需要把libz.dylib替换成libz.tbd</li>
+<li>引入系统库的操作过程如下：<br>在Xcode中选中工程名，在Target-&gt;Build Phases-&gt;Link Binary With Libraries中点击“+”,在弹出窗口输入库名称，出现后点击“Add”则将库引入到系统中。</li>
+</ol>
+<h4 id="接入原生代码"><a href="#接入原生代码" class="headerlink" title="接入原生代码"></a>接入原生代码</h4><p>AppDelegate.cpp 文件的 applicationDidFinishLaunching 方法添加 内容</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//优量汇 ----开始</span></span><br><span class="line">AdNetSDKHelper *sdk = AdNetSDKHelper::<span class="built_in">Singleton</span>();</span><br><span class="line">sdk-&gt;<span class="built_in">Init</span>();</span><br><span class="line"><span class="comment">//优量汇 ----结束</span></span><br></pre></td></tr></table></figure>
+
+<p>改后大概这样</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;AppDelegate.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;AdNetSDKHelper.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos2d.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos/scripting/js-bindings/manual/jsb_module_register.hpp&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos/scripting/js-bindings/manual/jsb_global.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos/scripting/js-bindings/jswrapper/SeApi.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos/scripting/js-bindings/event/EventDispatcher.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;cocos/scripting/js-bindings/manual/jsb_classtype.hpp&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">AppDelegate::applicationDidFinishLaunching</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    se::ScriptEngine* se = se::ScriptEngine::<span class="built_in">getInstance</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">jsb_set_xxtea_key</span>(<span class="string">&quot;d9e4fffe-7009-45&quot;</span>);</span><br><span class="line">    <span class="built_in">jsb_init_file_operation_delegate</span>();</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> defined(COCOS2D_DEBUG) &amp;&amp; (COCOS2D_DEBUG &gt; 0)</span></span><br><span class="line">    <span class="comment">// Enable debugger here</span></span><br><span class="line">    <span class="built_in">jsb_enable_debugger</span>(<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">6086</span>, <span class="literal">false</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    se-&gt;<span class="built_in">setExceptionCallback</span>([](<span class="type">const</span> <span class="type">char</span>* location, <span class="type">const</span> <span class="type">char</span>* message, <span class="type">const</span> <span class="type">char</span>* stack)&#123;</span><br><span class="line">        <span class="comment">// Send exception information to server like Tencent Bugly.</span></span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">jsb_register_all_modules</span>();</span><br><span class="line"></span><br><span class="line">    se-&gt;<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">    se::AutoHandleScope hs;</span><br><span class="line">    <span class="built_in">jsb_run_script</span>(<span class="string">&quot;jsb-adapter/jsb-builtin.js&quot;</span>);</span><br><span class="line">    <span class="built_in">jsb_run_script</span>(<span class="string">&quot;main.js&quot;</span>);</span><br><span class="line"></span><br><span class="line">    se-&gt;<span class="built_in">addAfterCleanupHook</span>([]()&#123;</span><br><span class="line">        JSBClassType::<span class="built_in">destroy</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//优量汇 ----开始</span></span><br><span class="line">    AdNetSDKHelper *sdk = AdNetSDKHelper::<span class="built_in">Singleton</span>();</span><br><span class="line">    sdk-&gt;<span class="built_in">Init</span>();</span><br><span class="line">    <span class="comment">//优量汇 ----结束</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AdNetSDKHelper.h</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  ChannelSDK.h</span><br><span class="line">//  myysx-mobile</span><br><span class="line">//</span><br><span class="line">//  Created by smile on 2019/11/12.</span><br><span class="line">//</span><br><span class="line">#ifndef SanGuo_xy_ChannelSDK_h</span><br><span class="line">#define SanGuo_xy_ChannelSDK_h</span><br><span class="line">#include &quot;cocos2d.h&quot;</span><br><span class="line"></span><br><span class="line">USING_NS_CC;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">class AdNetSDKHelper</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    static AdNetSDKHelper* Singleton();</span><br><span class="line">    virtual void Init();</span><br><span class="line">    virtual void Login();</span><br><span class="line">    virtual void initRewardVideo(std::string name);</span><br><span class="line">    virtual void playRewardVideo(std::string name);</span><br><span class="line">    std::string channelName;</span><br><span class="line">    bool        ok;</span><br><span class="line">    bool        needLogin;</span><br><span class="line">    bool        isLogin;</span><br><span class="line">    int         user_id;</span><br><span class="line">private:</span><br><span class="line">    static AdNetSDKHelper* __instance__;</span><br><span class="line">&#125;;</span><br><span class="line">#endif</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>AdNetSDKHelper.mm</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  AdNetSDKHelper.mm</span><br><span class="line">//  myysx-mobile</span><br><span class="line">//</span><br><span class="line">//  Created by smile on 2019/11/12.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#include &quot;AdNetSDKHelper.h&quot;</span><br><span class="line">#include &quot;cocos2d.h&quot;</span><br><span class="line">#include &quot;AdSdkConnector.h&quot;</span><br><span class="line">#import &quot;GDTSDKConfig.h&quot;</span><br><span class="line">#ifdef  CHANNEL_MUYOUZYJ</span><br><span class="line">@interface AdNetSDKHelperCallbackHandler:UIViewController</span><br><span class="line">#else</span><br><span class="line">@interface AdNetSDKHelperCallbackHandler:UIViewController</span><br><span class="line">#endif</span><br><span class="line">+ (AdNetSDKHelperCallbackHandler*)sharedHandler;</span><br><span class="line">@end</span><br><span class="line">static NSString *kGDTMobSDKAppId = @&quot;123456789&quot;;//应用 iOS id</span><br><span class="line">static NSString *kGDTMobSDKVideoId = @&quot;1223345666666&quot;;// 激励视频 id</span><br><span class="line">AdNetSDKHelper* AdNetSDKHelper::__instance__ = NULL;</span><br><span class="line">AdNetSDKHelper* AdNetSDKHelper::Singleton()&#123;</span><br><span class="line">     if(AdNetSDKHelper::__instance__ == NULL)</span><br><span class="line">     &#123;</span><br><span class="line">         AdNetSDKHelper::__instance__ = new AdNetSDKHelper();</span><br><span class="line">     &#125;</span><br><span class="line">     return AdNetSDKHelper::__instance__;</span><br><span class="line">&#125;;</span><br><span class="line"> void AdNetSDKHelper::Init()&#123;</span><br><span class="line">     CCLOG(&quot;AdNetSDKHelper::Init&quot;);</span><br><span class="line">//     this-&gt;needLogin = false;</span><br><span class="line">//     this-&gt;ok = false;</span><br><span class="line">//     this-&gt;isLogin = false;</span><br><span class="line">//     this-&gt;user_id = 0;</span><br><span class="line">     BOOL result = [GDTSDKConfig registerAppId:kGDTMobSDKAppId];</span><br><span class="line">     if (result) &#123;</span><br><span class="line">         NSLog(@&quot;注册成功&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">    AdSdkConnector *adsdk = [AdSdkConnector getInstance];</span><br><span class="line">    [adsdk initBuAdSdkWarpper:kGDTMobSDKVideoId];</span><br><span class="line"></span><br><span class="line"> &#125;;</span><br><span class="line"></span><br><span class="line">void AdNetSDKHelper::Login()&#123;</span><br><span class="line">    printf(&quot;登录成功\n&quot;);</span><br><span class="line"></span><br><span class="line">//    [[AdSdkConnector getInstance] initBuAdSdkWarpper];</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void AdNetSDKHelper::initRewardVideo(std::string name)&#123;</span><br><span class="line">    AdSdkConnector *adsdk = [AdSdkConnector getInstance];</span><br><span class="line">    [adsdk loadVideo:kGDTMobSDKVideoId autoPlay:@&quot;not play&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void AdNetSDKHelper::playRewardVideo(std::string name)&#123;</span><br><span class="line">    AdSdkConnector *adsdk = [AdSdkConnector getInstance];</span><br><span class="line">    [adsdk playVideo:kGDTMobSDKVideoId];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AdSdkConnector.h</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  AdSdkConnector.h</span><br><span class="line">//  subway-mobile</span><br><span class="line">//</span><br><span class="line">//  Created by smile on 2020/05/25.</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#import &quot;GDTRewardVideoAd.h&quot;</span><br><span class="line">#import &quot;RootViewController.h&quot;</span><br><span class="line">@interface AdSdkConnector  : RootViewController&lt;GDTRewardedVideoAdDelegate&gt;&#123;</span><br><span class="line">        bool isRewardedVideoPlayFinish;</span><br><span class="line">        bool isRewardedVideoAutoPlay;</span><br><span class="line">        NSString* rewardPlacementId;</span><br><span class="line">&#125;</span><br><span class="line">@property (nonatomic, strong) GDTRewardVideoAd *rewardVideoAd;</span><br><span class="line">+ (AdSdkConnector *) getInstance;            //用来获取实例的方法</span><br><span class="line">- (void) loadVideo: (NSString *)placementId autoPlay: (NSString *)autoPlayFlag;</span><br><span class="line">- (void) initBuAdSdkWarpper: (NSString *)placementId;</span><br><span class="line">- (void) playVideo: (NSString *)placementId;</span><br><span class="line">@end</span><br><span class="line">//</span><br><span class="line">//#if defined(__cplusplus)</span><br><span class="line">//extern &quot;C&quot; &#123;</span><br><span class="line">//#endif</span><br><span class="line">//</span><br><span class="line">////    virtual (void)initBuAdSdkWarpper();</span><br><span class="line">////    virtual void initBuAdSdkWarpper();</span><br><span class="line">//    void initAndCacheFullscreenVideo();</span><br><span class="line">//</span><br><span class="line">//    bool hasCachedFullscreenVideo();</span><br><span class="line">//    void showFullscreenVideo();</span><br><span class="line">//    void initAndCacheRewardVideosWithDeviceId();</span><br><span class="line">//    void initAndCacheInterVideosWithDeviceId();</span><br><span class="line">//    void initAndCacheRewardVideoWithName(const char* name);</span><br><span class="line">//    void initAndCacheInterVideoWithName(const char* name);</span><br><span class="line">//    bool hasCachedRewardVideoWithName(const char* name);</span><br><span class="line">//    bool hasCachedInterVideoWithName(const char* name);</span><br><span class="line">//    void showRewardVideoWithName(const char* name, const char* orderId);</span><br><span class="line">//    void showInterVideoWithName(const char* name, const char* orderId);</span><br><span class="line">//</span><br><span class="line">////    void showRewardVideoWithName(NSString* name, NSString* orderId);</span><br><span class="line">//    void showBanner();</span><br><span class="line">//    void hideBanner();</span><br><span class="line">//    void checkState();</span><br><span class="line">//#if defined(__cplusplus)</span><br><span class="line">//&#125;</span><br><span class="line">//#endif</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>AdSdkConnector.mm</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  AdSdkConnector.mm</span><br><span class="line">//  subway-mobile</span><br><span class="line">//</span><br><span class="line">//  Created by smile on 2020/05/25.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#import &quot;AdSdkConnector.h&quot;</span><br><span class="line">#import &quot;AppController.h&quot;</span><br><span class="line">#import &quot;RootViewController.h&quot;</span><br><span class="line">#import &quot;AppController.h&quot;</span><br><span class="line">#import &quot;GDTRewardVideoAd.h&quot;</span><br><span class="line">#import &quot;GDTSDKConfig.h&quot;</span><br><span class="line">#include &quot;cocos/scripting/js-bindings/jswrapper/SeApi.h&quot;</span><br><span class="line">#import &quot;cocos2d.h&quot;</span><br><span class="line">#import &quot;GDTAction.h&quot;</span><br><span class="line">static AdSdkConnector *instance;    //这里声明一下静态实例，方便javascript层调用</span><br><span class="line">@implementation AdSdkConnector</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//获取实例的方法，方便javascript层调用</span><br><span class="line">+(AdSdkConnector *) getInstance&#123;</span><br><span class="line">    if (!instance) &#123;</span><br><span class="line">           instance = [[AdSdkConnector alloc] init];</span><br><span class="line">       &#125;</span><br><span class="line">       return instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)init&#123;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">////初始化，根着SDK文档照做就好了</span><br><span class="line">//- (void) viewDidLoad &#123;</span><br><span class="line">//    NSLog(@&quot;viewDidLoad&quot;);</span><br><span class="line">//    instance=self;</span><br><span class="line">//&#125;</span><br><span class="line"></span><br><span class="line">//</span><br><span class="line">//打开激励视频的方法</span><br><span class="line">-(void) initBuAdSdkWarpper: (NSString *)placementId&#123;</span><br><span class="line">// NSString* appidString = [[NSString alloc] initWithUTF8String: name];</span><br><span class="line">// NSLog(@&quot;initBuAdSdkWarppers %@&quot;,appidString);</span><br><span class="line">    NSLog(@&quot;initBuAdSdkWarppers&quot;);</span><br><span class="line">    rewardPlacementId = placementId;</span><br><span class="line">    self.rewardVideoAd.delegate = self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//</span><br><span class="line">//打开激励视频的方法</span><br><span class="line">-(void) loadVideo: (NSString *)placementId autoPlay: (NSString *)autoPlayFlag&#123;</span><br><span class="line">// NSString* appidString = [[NSString alloc] initWithUTF8String: name];</span><br><span class="line">// NSLog(@&quot;initBuAdSdkWarppers %@&quot;,appidString);</span><br><span class="line">    NSLog(@&quot;loadVideo %@&quot;,placementId);</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    self.rewardVideoAd = [[GDTRewardVideoAd alloc] initWithPlacementId:placementId];</span><br><span class="line">    self.rewardVideoAd.delegate = self;</span><br><span class="line">    self.rewardVideoAd.videoMuted = NO; // 设置激励视频是否静音</span><br><span class="line">    [self.rewardVideoAd loadAd];</span><br><span class="line">    BOOL res =  [autoPlayFlag isEqualToString:@&quot;play&quot;];</span><br><span class="line">    if(res)&#123;</span><br><span class="line">        isRewardedVideoAutoPlay = res;</span><br><span class="line">            NSLog(@&quot;需要播放广告了&quot;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">         isRewardedVideoAutoPlay = res;</span><br><span class="line">          NSLog(@&quot;不需要播放广告&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 确认激励视频广告有效性之后，在合适的时机展示广告</span><br><span class="line">- (void)playVideo: (NSString *)placementId &#123;</span><br><span class="line">   if (self.rewardVideoAd.expiredTimestamp &lt;= [[NSDate date] timeIntervalSince1970]) &#123;</span><br><span class="line">        NSLog(@&quot;广告已过期，请重新拉取&quot;);</span><br><span class="line">        [self loadVideo:placementId autoPlay:@&quot;play&quot;];</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!self.rewardVideoAd.isAdValid) &#123;</span><br><span class="line">        NSLog(@&quot;广告失效!，请重新拉取&quot;);</span><br><span class="line">        [self loadVideo:placementId autoPlay:@&quot;play&quot;];</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;</span><br><span class="line">    if (rootViewController != nil) &#123;</span><br><span class="line">        isRewardedVideoPlayFinish = false;</span><br><span class="line">        [self.rewardVideoAd showAdFromRootViewController:rootViewController];</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        NSLog(@&quot;视图空了 拉取&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">//     [self.rewardVideoAd showAdFromRootViewController:self];</span><br><span class="line">     </span><br><span class="line">//     if (self.audioSessionSwitch.on) &#123;</span><br><span class="line">//         [[AVAudioSession sharedInstance] setActive:NO error:nil];</span><br><span class="line">//         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];</span><br><span class="line">//         [[AVAudioSession sharedInstance] setActive:YES error:nil];</span><br><span class="line">//     &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - GDTRewardVideoAdDelegate</span><br><span class="line">- (void)gdt_rewardVideoAdDidLoad:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;广告数据加载成功&quot;);</span><br><span class="line">    NSLog(@&quot;eCPM:%ld eCPMLevel:%@&quot;, [rewardedVideoAd eCPM], [rewardedVideoAd eCPMLevel]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdVideoDidLoad:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;视频文件加载成功&quot;);</span><br><span class="line">    if(isRewardedVideoAutoPlay)&#123;</span><br><span class="line">        NSLog(@&quot;需要播放广告了!!&quot;);</span><br><span class="line">        isRewardedVideoAutoPlay = NO;</span><br><span class="line">//        [self.rewardVideoAd showAdFromRootViewController:self];</span><br><span class="line">        UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;</span><br><span class="line">        if (rootViewController != nil) &#123;</span><br><span class="line">            isRewardedVideoPlayFinish = false;</span><br><span class="line">            [self.rewardVideoAd showAdFromRootViewController:rootViewController];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            NSLog(@&quot;视图空了 拉取&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        NSLog(@&quot;不需要播放广告!!&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdWillVisible:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;视频播放页即将打开&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdDidExposed:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;广告已曝光&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdDidClose:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">//    广告关闭后释放ad对象</span><br><span class="line">    self.rewardVideoAd = nil;</span><br><span class="line">    NSLog(@&quot;广告已关闭&quot;);</span><br><span class="line">    [GDTAction logAction:@&quot;VideoClick&quot; actionParam:@&#123;@&quot;value&quot;:@&quot;VideoAdClick&quot;&#125;];</span><br><span class="line">    [self callJsEngineCallBack:isRewardedVideoPlayFinish name:@&quot;video&quot;];</span><br><span class="line">    [self loadVideo:rewardPlacementId autoPlay:@&quot;not play&quot;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdDidClicked:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;广告已点击&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdDidRewardEffective:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;播放达到激励条件&quot;);</span><br><span class="line">    isRewardedVideoPlayFinish = true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAdDidPlayFinish:(GDTRewardVideoAd *)rewardedVideoAd</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">    NSLog(@&quot;视频播放结束&quot;);</span><br><span class="line">//    if (self.audioSessionSwitch.on) &#123;</span><br><span class="line">//        [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];</span><br><span class="line">//    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)gdt_rewardVideoAd:(GDTRewardVideoAd *)rewardedVideoAd didFailWithError:(NSError *)error</span><br><span class="line">&#123;</span><br><span class="line">    if (error.code == 4014) &#123;</span><br><span class="line">        NSLog(@&quot;请拉取到广告后再调用展示接口&quot;);</span><br><span class="line"> </span><br><span class="line">    &#125; else if (error.code == 4016) &#123;</span><br><span class="line">        NSLog(@&quot;应用方向与广告位支持方向不一致&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else if (error.code == 5012) &#123;</span><br><span class="line">        NSLog(@&quot;广告已过期&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else if (error.code == 4015) &#123;</span><br><span class="line">        NSLog(@&quot;广告已经播放过，请重新拉取&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else if (error.code == 5002) &#123;</span><br><span class="line">        NSLog(@&quot;视频下载失败&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else if (error.code == 5003) &#123;</span><br><span class="line">        NSLog(@&quot;视频播放失败&quot;);</span><br><span class="line"></span><br><span class="line">    &#125; else if (error.code == 5004) &#123;</span><br><span class="line">        NSLog(@&quot;没有合适的广告&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;ERROR: %@&quot;, error);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(void)callJsEngineCallBack:(BOOL) successful  name:(NSString*) name &#123;</span><br><span class="line">    NSLog(@&quot;callJsEngineCallBack...&quot;);</span><br><span class="line">    NSString *funcNameStr = @&quot;finishRewardVideo&quot;;</span><br><span class="line">    std::string funcName = [funcNameStr UTF8String];</span><br><span class="line">//    NSNumber *successfulNumber = [NSNumber numberWithBool:successful];</span><br><span class="line">    std::string finish = &quot;fail&quot;;</span><br><span class="line">    if(successful == true)&#123;</span><br><span class="line">        finish = &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    std::string jsCallStr = cocos2d::StringUtils::format(&quot;%s(\&quot;%s\&quot;);&quot;,funcName.c_str(),finish.c_str());</span><br><span class="line">    NSLog(@&quot;jsCallStr = %s&quot;, jsCallStr.c_str());</span><br><span class="line">    se::ScriptEngine::getInstance()-&gt;evalString(jsCallStr.c_str());</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="小插曲"><a href="#小插曲" class="headerlink" title="小插曲"></a>小插曲</h3><p>本地预览正常，导出项目的时候 报错 ios-出现 reference to “point” is ambiguous</p>
+<p>出现原因：</p>
+<p>C++代码与OC代码混编导致；</p>
+<p>解决方法：</p>
+<p>将包含进来的系统头文件优先import&lt;.h&gt; 或者include&lt;.h&gt;</p>
+<p>再将自定义的头文件 import”.h” 或者 include “.h”</p>
+<p>原文链接 <a target="_blank" rel="noopener" href="https://blog.csdn.net/u010679565/article/details/75071043">ios-出现 reference to “point” is ambiguous</a></p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3>
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/fa59c736.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>LayaBox项目日志显示路径为TypeScript文件</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/7abef73b.html">
+        <span>Cocos Creator bilibili小游戏接入</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/c1bc951a.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#DMP-%E6%95%B0%E6%8D%AE%E4%B8%8A%E6%8A%A5"><span class="toc-number">1.</span> <span class="toc-text">DMP 数据上报</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E9%87%8F%E6%B1%87-banner%E5%B9%BF%E5%91%8A-%E6%BF%80%E5%8A%B1%E8%A7%86%E9%A2%91-%E6%B5%81%E9%87%8F%E5%8F%98%E7%8E%B0%E7%9A%84SDK"><span class="toc-number">2.</span> <span class="toc-text">优量汇 banner广告 &#x2F;激励视频 流量变现的SDK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DMP-%E4%BF%A1%E6%81%AF%E6%B1%87%E6%80%BB"><span class="toc-number"></span> <span class="toc-text">DMP 信息汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SDK%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="toc-number">1.1.</span> <span class="toc-text">SDK添加依赖</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SDK-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">SDK 初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%85%E9%A1%BB%E6%8E%A5%E5%85%A5%E4%BA%8B%E4%BB%B6-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%90%AF%E5%8A%A8-AppController-mm-%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">必须接入事件 初始化和启动 AppController.mm 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E4%BA%8B%E4%BB%B6%EF%BC%9A"><span class="toc-number">2.2.</span> <span class="toc-text">接入自定义的事件：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E9%87%8F%E6%B1%87%E4%BF%A1%E6%81%AF%E6%B1%87%E6%80%BB"><span class="toc-number"></span> <span class="toc-text">优量汇信息汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AA%92%E4%BD%93"><span class="toc-number">0.1.</span> <span class="toc-text">新建媒体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%B9%BF%E5%91%8A%E4%BD%8D"><span class="toc-number">0.2.</span> <span class="toc-text">新建广告位</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E5%BB%BAios-%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">构建ios 项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">添加依赖文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E5%BC%95%E5%85%A5%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%BA%93"><span class="toc-number">1.2.1.</span> <span class="toc-text">需要引入的系统库</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E5%85%A5%E5%8E%9F%E7%94%9F%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">接入原生代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%8F%92%E6%9B%B2"><span class="toc-number">2.</span> <span class="toc-text">小插曲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">总结：</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

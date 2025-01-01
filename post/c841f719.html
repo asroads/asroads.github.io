@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/c841f719.html">如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-10-19
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告&url=http://blog.asroads.com/post/c841f719.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告&url=http://blog.asroads.com/post/c841f719.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/c841f719.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/c841f719.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/c841f719.html&title=如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/c841f719.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/c841f719.html&text=如何解决&#39;libpng warning: iCCP: known incorrect sRGB profile&#39;警告" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/homebrew/ >homebrew</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>在使用Cocos Creator 开发游戏的时候，项目在模拟器下预览的时候 出现了 ”libpng warning: iCCP: known incorrect sRGB profile“ 这个警告，虽然没有影响运行，但是看起来太烦人了，于是去网上查找了原因和方案，得以解决。</p>
+<span id="more"></span>
+<p>首先这个虽然不影响运行的警告是什么原因造成的呢，原因：libpng 对<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://www.baidu.com/s?wd=GIMP&tn=44039180_cpr&fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1YLmH-Wmyu9PWbsujuhnhP-0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EnHb3rHDLnjc1PWbknj6srH6vPs">GIMP</a>生成的png报错 libpng warning: i: known incorrect sRGB profile 原因是新版的libpng增强了检查，发出警告。此警告可以忽略。</p>
+<p><img src="/post/c841f719/image-20191019102551815.png" alt="image-20191019102551815"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libpng warning: iCCP: known incorrect sRGB profile</span><br></pre></td></tr></table></figure>
+
+<p>虽然可以忽略无视，但是这个看起来太烦人了，于是乎，想看看网上有没有人有上面好的解决方案，一搜索，发现还真有，问题得以顺利解决。</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h4 id="安装-libpng"><a href="#安装-libpng" class="headerlink" title="安装 libpng"></a>安装 libpng</h4><p>ImageMagick 所依赖的库，因为我们的工程中仅仅用到了PNG的图，所以此处就以PNG库为例，其他类似。可以去官网下载。<a target="_blank" rel="noopener" href="http://www.imagemagick.org/download/delegates/">点击进入</a> 通过命令安装。也可以用 homebrew 安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install libpng</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装ImageMagick"><a href="#安装ImageMagick" class="headerlink" title="安装ImageMagick"></a>安装ImageMagick</h4><p>同样使用 homebrew</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ImageMagick</span><br></pre></td></tr></table></figure>
+
+<h4 id="处理素材目录"><a href="#处理素材目录" class="headerlink" title="处理素材目录"></a>处理素材目录</h4><p>安装好ImageMagick，convert函数便可以用了，在命令行 cd 到自己的工程资源目录，运行下面的 命令来解决上面提到的问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -<span class="built_in">type</span> f -name <span class="string">&quot;*.png&quot;</span> -<span class="built_in">exec</span> convert &#123;&#125; -strip &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<p>比如我的 目录</p>
+<p><img src="/post/c841f719/image-20191019103804413.png" alt="image-20191019103804413"></p>
+<p>运行后，报警错误消除，因为这个是处理文件目录下面所有的 png 格式，有些正确的也被改变了，我就一个个还原，直到找到报错的几个图片，剩下的 都重置回去了，当然了，ImageMagick 的功能远远不至于此，还有很多强大的功能。</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><h3 id="homebrew-常用的操作"><a href="#homebrew-常用的操作" class="headerlink" title="homebrew 常用的操作"></a>homebrew 常用的操作</h3><p>最后附加一些 homebrew 常用的操作</p>
+<blockquote>
+<p>安装软件</p>
+<p><code>brew install 软件名</code>，如<code>brew install git</code>。</p>
+<p>卸载软件</p>
+<p><code>brew uninstall 软件名</code>，如<code>brew uninstall git</code>。</p>
+<p>查找软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew search 查询内容</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>普通查询，<code>brew search git</code></li>
+<li>正则查询，<code>brew search /gi*/</code></li>
+</ol>
+<p>升级软件</p>
+<ul>
+<li><code>brew upgrade 软件名</code>：更新指定软件，如<code>brew update git</code>。</li>
+<li><code>brew upgrade</code>：更新所有软件。</li>
+</ul>
+<p>清理软件</p>
+<ul>
+<li><code>brew cleanup -n</code>：查看哪些软件包要被清除。</li>
+<li><code>brew cleanup 软件名</code>：清除指定软件包的所有老版本。</li>
+<li><code>brew cleanup</code>：清除所有软件包的所有老版本。</li>
+</ul>
+<p>关联软件</p>
+<ul>
+<li><code>brew prune</code>：清理无用的symlink，且清理与之相关的位于<code>/Applications</code>和<code>~/Applications</code>中的无用App链接。</li>
+<li><code>brew link 软件名</code>：将指定软件的安装文件symlink到Homebrew上。</li>
+</ul>
+<blockquote>
+<p><code>brew install</code>安装的软件会自动执行link操作；<br>DIY安装的需要手动执行link操作；<br>加上<code>--overwrite</code>选项，会先删除旧的symlink，再进行新的link操作。</p>
+</blockquote>
+<p>信息查询</p>
+<ul>
+<li><code>brew -v</code>：查看Homebrew版本号。</li>
+<li><code>brew list</code>：列出已安装的软件。</li>
+<li><code>brew home</code>：用浏览器打开homebrew官网。</li>
+<li><code>brew info</code>：显示软件信息。</li>
+</ul>
+<p>其他操作</p>
+<ul>
+<li><code>brew update</code>：升级Homebrew自身。</li>
+<li><code>brew doctor</code>：检测系统中与Homebrew有关的潜在问题。</li>
+</ul>
+</blockquote>
+<p><strong>注意：如果遇到文件权限问题</strong> （Permission denied）</p>
+<p>解决的办法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">chmod</span> -R 777 某一目录</span><br></pre></td></tr></table></figure>
+
+<h3 id="告别龟速更新或者安装"><a href="#告别龟速更新或者安装" class="headerlink" title="告别龟速更新或者安装"></a>告别龟速更新或者安装</h3><p>由于某些原因，Homebrew 下载速度一直是无数国内开发者的一块心头病，处理好这个问题的最简单方法，就是更改 Homebrew 的安装源，将其替换成国内镜像。</p>
+<p>目前市面上用到的镜像很多，这里推荐 中科大负责托管维护的 Homebrew 镜像。更多镜像 <a target="_blank" rel="noopener" href="https://gitee.com/gsls200808/chinese-opensource-mirror-site">国内开源镜像站点汇总</a></p>
+<p>下面跟大家分享下具体配置方式。</p>
+<p>第一步，替换 brew.git：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>&quot;</span></span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/brew.git</span><br></pre></td></tr></table></figure>
+
+<p>第二步，替换 homebrew-core.git：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(brew --repo)</span>/Library/Taps/homebrew/homebrew-core&quot;</span></span><br><span class="line">git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git</span><br></pre></td></tr></table></figure>
+
+<p>以上，完成 Homebrew 的默认镜像配置了，基本已经满足日常使用不成问题。</p>
+<p>若你想更进一步优化下载速度，可以为 Homebrew Bottles 配置上镜像。</p>
+<p>中科大所提供的 Homebrew 镜像服务，官网查看详情信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="srcRGB-was-GL-CONTEXT-FLAG-DEBUG-BIT-KHR"><a href="#srcRGB-was-GL-CONTEXT-FLAG-DEBUG-BIT-KHR" class="headerlink" title="srcRGB was GL_CONTEXT_FLAG_DEBUG_BIT_KHR"></a>srcRGB was GL_CONTEXT_FLAG_DEBUG_BIT_KHR</h2><p>Sprite Blend 模式错误  报错：</p>
+<p><img src="/post/c841f719/image-20211126110323058.png" alt="image-20211126110323058"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[.WebGL-0x7f8cff15e800]GL ERROR :GL_INVALID_ENUM : glBlendFuncSeparate: srcRGB was GL_CONTEXT_FLAG_DEBUG_BIT_KHR</span><br></pre></td></tr></table></figure>
+
+<p>原因：</p>
+<p><img src="/post/c841f719/image-20211126110210609.png" alt="image-20211126110210609"></p>
+<p>修改成默认的即可，或者删除组件，重新挂载一个新的即可。</p>
+<h2 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://discuss.cocos2d-x.org/t/cocos2d-x-3-0-and-libpng/12451">cocos2d-x 3.0 and libpng</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ggband/p/10665312.html">Permission denied的解决办法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3016f1897e31">Mac软件包管理神器Homebrew</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.imagemagick.com.cn/">ImageMagick 中文站</a></li>
+<li><a target="_blank" rel="noopener" href="https://lug.ustc.edu.cn/wiki/mirrors/help">中科大开源的镜像服务</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/gsls200808/chinese-opensource-mirror-site">国内开源镜像站点汇总</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/2XDmh2vUjRHtATktfLv61w">教你一招搞定 Homebrew 下载加速</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/2cb5d315.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator 手动安装更新 SDKBox</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/d130eaa6.html">
+        <span>Mac系统Cocos Creator Native 原生Android和ios打包</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/c841f719.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-libpng"><span class="toc-number">1.0.1.</span> <span class="toc-text">安装 libpng</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85ImageMagick"><span class="toc-number">1.0.2.</span> <span class="toc-text">安装ImageMagick</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E7%B4%A0%E6%9D%90%E7%9B%AE%E5%BD%95"><span class="toc-number">1.0.3.</span> <span class="toc-text">处理素材目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-number">2.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#homebrew-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">homebrew 常用的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%8A%E5%88%AB%E9%BE%9F%E9%80%9F%E6%9B%B4%E6%96%B0%E6%88%96%E8%80%85%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">告别龟速更新或者安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#srcRGB-was-GL-CONTEXT-FLAG-DEBUG-BIT-KHR"><span class="toc-number">3.</span> <span class="toc-text">srcRGB was GL_CONTEXT_FLAG_DEBUG_BIT_KHR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-number">4.</span> <span class="toc-text">参考地址</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

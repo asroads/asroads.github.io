@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/11bf4707.html">如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-01-08
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库&url=http://blog.asroads.com/post/11bf4707.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库&url=http://blog.asroads.com/post/11bf4707.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/11bf4707.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/11bf4707.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/11bf4707.html&title=如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/11bf4707.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/11bf4707.html&text=如何实现敏感词过滤(Aho–Corasick)推荐一个不错的类库" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/js/ >js</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>社交已经成为网络游戏的必配功能，最直接的社交莫过于聊天，社群聊天，经常会出现素质低的骂人，或者涉及ZF的惊天言论，为了净化聊天环境，于是乎一个功能产生了屏蔽过滤敏感词需求，程序员社区最好的就是开源精神，避免了后来的人重复造轮子，节省了工期，事半功倍也。闻道有先后，术业有专攻，站在巨人的肩膀上就可以望的更远，荀子曰：“君子生非异也，善假于物也。”下面介绍一个第三方库，如何在游戏内屏蔽敏感词功能的使用。</p>
+<span id="more"></span>
+<p>我们先看看效果：</p>
+<p><img src="/post/11bf4707/carbon.png" alt="carbon"></p>
+<p><img src="/post/11bf4707/image-20220108100221775.png" alt="image-20220108100221775"></p>
+<p>好了，看了结果，下面开始正文吧。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><h3 id="电脑环境"><a href="#电脑环境" class="headerlink" title="电脑环境"></a>电脑环境</h3><ul>
+<li>Mac </li>
+<li>Cocos Creator 2.4.7</li>
+</ul>
+<h3 id="技术支持"><a href="#技术支持" class="headerlink" title="技术支持"></a>技术支持</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ZhelinCheng/mint-filter">mint-filter</a></li>
+</ul>
+<p>类库介绍：掘金社区：<a target="_blank" rel="noopener" href="https://juejin.im/post/5cfa6bb6f265da1b8a4f0ed8">《TypeScript：Aho–Corasick算法实现敏感词过滤》</a></p>
+<h2 id="类库介绍"><a href="#类库介绍" class="headerlink" title="类库介绍"></a>类库介绍</h2><p>先引用一段类库的介绍：</p>
+<blockquote>
+<p>基于<code>Aho–Corasick</code>算法实现的敏感词过滤方案，<code>Aho–Corasick</code>算法是由Alfred V. Aho和Margaret J.Corasick 发明的字符串搜索算法，用于在输入的一串字符串中匹配有限组“字典”中的子串。它与普通字符串匹配的不同点在于同时与所有字典串进行匹配。算法均摊情况下具有近似于线性的时间复杂度，约为字符串的长度加所有匹配的数量。</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>使用20000个随机敏感词实例化的平均时间：&lt; 96ms</p>
+<p>测试字符串包含随机生成的汉字、字母、数字。 以下测试均在20000个随机敏感词构建的树下进行测试，每组测试6次取平均值：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>字符串长度</th>
+<th>不替换敏感词[replace:false]</th>
+<th>替换敏感词</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1000</td>
+<td>&lt; 1.35ms</td>
+<td>&lt; 1.55ms</td>
+</tr>
+<tr>
+<td>2</td>
+<td>5000</td>
+<td>&lt; 3.60ms</td>
+<td>&lt; 3.60ms</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10000</td>
+<td>&lt; 8.10ms</td>
+<td>&lt; 9.81ms</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20000</td>
+<td>&lt; 15.03ms</td>
+<td>&lt; 16.03ms</td>
+</tr>
+<tr>
+<td>5</td>
+<td>50000</td>
+<td>&lt; 20.83ms</td>
+<td>&lt; 21.18ms</td>
+</tr>
+<tr>
+<td>6</td>
+<td>100000</td>
+<td>&lt; 29.02ms</td>
+<td>&lt; 34.45ms</td>
+</tr>
+</tbody></table>
+<p>需要注意的是，实际生产环境运行速度会比上面测试数据更快。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="CommonJS-引用"><a href="#CommonJS-引用" class="headerlink" title="CommonJS 引用"></a>CommonJS 引用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Mint导出是 export default Mint</span><br><span class="line">// 所以在使用require引用的时，Mint可能挂载在default下面</span><br><span class="line">const Mint = require(&#x27;mint-filter&#x27;).default</span><br><span class="line">const mint = new Mint([&#x27;敏感词数组&#x27;])</span><br><span class="line"></span><br><span class="line">// 异步方法，该方法返回的是一个Promise对象</span><br><span class="line">mint.filter(&#x27;word&#x27;).then((res) =&gt; &#123;&#125;)</span><br><span class="line"></span><br><span class="line">// 同步方法</span><br><span class="line">mint.filterSync(&#x27;word&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="TypeScript-ES-Module引用"><a href="#TypeScript-ES-Module引用" class="headerlink" title="TypeScript / ES Module引用"></a>TypeScript / ES Module引用</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import Mint from &#x27;mint-filter&#x27;</span><br><span class="line">const mint = new Mint([&#x27;敏感词数组&#x27;])</span><br><span class="line"></span><br><span class="line">// 异步方法，该方法返回的是一个Promise对象</span><br><span class="line">mint.filter(&#x27;word&#x27;).then((res) =&gt; &#123;&#125;)</span><br><span class="line"></span><br><span class="line">// 同步方法</span><br><span class="line">mint.filterSync(&#x27;word&#x27;)</span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h2 id="Cocos-Creator结合步骤"><a href="#Cocos-Creator结合步骤" class="headerlink" title="Cocos Creator结合步骤"></a>Cocos Creator结合步骤</h2><ol>
+<li>首先我们用<code>Cocos Creator</code> 新建一个项目 叫做 <code>safeMessageDemo</code>。</li>
+<li>然后去<code>github</code> 上把 类库<a target="_blank" rel="noopener" href="https://github.com/ZhelinCheng/mint-filter">mint-filter</a>下载到本地。</li>
+<li>我们找到目录下的 <code>src</code> 文件夹结构如下 如果是<code>javascript</code> 项目 可以使用 <code>dist</code> 项目下的文件 这里选择 <code>typescript</code>使用。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/mint-filter-master/src</span><br><span class="line">├── core</span><br><span class="line">|  ├── index.ts</span><br><span class="line">|  ├── node.ts</span><br><span class="line">|  └── tree.ts</span><br><span class="line">└── index.ts</span><br><span class="line"></span><br><span class="line">directory: 1 file: 4</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>把文件复制到新建的项目下  我这里修改 index.ts 为MintFilter.ts ，这个根据自己意愿即可。</li>
+</ol>
+<p><img src="/post/11bf4707/image-20220108101037253.png" alt="image-20220108101037253"></p>
+<ol start="5">
+<li>然后编写我们的测试代码，内容如下：</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2022/1/7  2:33 PM</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Mint</span> <span class="keyword">from</span> <span class="string">&quot;./libs/mint/MintFilter&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">MainScene</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="keyword">async</span> <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> mint = <span class="keyword">new</span> <span class="title class_">Mint</span>([<span class="string">&quot;中央电视台&quot;</span>, <span class="string">&quot;阿弥陀佛&quot;</span>, <span class="string">&quot;观世音&quot;</span>, <span class="string">&quot;普贤&quot;</span>, <span class="string">&quot;文殊&quot;</span>, <span class="string">&quot;地藏&quot;</span>]);</span><br><span class="line">        <span class="comment">// 异步方法，该方法返回的是一个Promise对象</span></span><br><span class="line">        mint.<span class="title function_">filter</span>(<span class="string">&#x27;这句话是测试屏蔽字的中央电视台的，普贤是错误的&#x27;</span>, &#123;</span><br><span class="line">            <span class="attr">replaceWith</span>: <span class="string">&quot;@&quot;</span></span><br><span class="line">        &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;输出结果1:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res));</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 同步方法</span></span><br><span class="line">        <span class="keyword">let</span> res = <span class="keyword">await</span> mint.<span class="title function_">filterSync</span>(<span class="string">&#x27;这句话也是是测试屏蔽字的观世音的，地藏是错误的&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;输出结果2:&quot;</span> + <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(res));</span><br><span class="line">        <span class="keyword">const</span> mint2 = <span class="keyword">new</span> <span class="title class_">Mint</span>([<span class="string">&#x27;敏感词&#x27;</span>]);</span><br><span class="line">        mint2.<span class="title function_">filter</span>(<span class="string">&#x27;这是一个敏感词字符串&#x27;</span>)</span><br><span class="line">            .<span class="title function_">then</span>(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(data); <span class="comment">// &#123; text: &#x27;这是一个***字符串&#x27;, words: [ &#x27;敏感词&#x27; ], pass: false &#125;</span></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        mint2.<span class="title function_">filter</span>(<span class="string">&#x27;这是一个敏感词字符串&#x27;</span>, &#123;<span class="attr">replace</span>: <span class="literal">false</span>&#125;)</span><br><span class="line">            .<span class="title function_">then</span>(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">log</span>(data); <span class="comment">// &#123; text: &#x27;这是一个敏感词字符串&#x27;, words: [ &#x27;敏感词&#x27; ], pass: false &#125;</span></span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>查看输出结果：</li>
+</ol>
+<p><img src="/post/11bf4707/image-20220108100221775.png" alt="image-20220108100221775"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里只是做了一个搬运，没有什么技术难点，唯一要提醒的要注意引入路径，有的项目需要完整路径，特别是我重命名<code>index.ts</code>后 需要有完整路径才能正常引入。是如果是<code>js</code> 项目还要注意一下源码里面的 <code>require</code> 路径。</p>
+<h2 id="其他同类相关拓展"><a href="#其他同类相关拓展" class="headerlink" title="其他同类相关拓展"></a>其他同类相关拓展</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/toolgood/ToolGood.Words">ToolGood.Words</a> 一款高性能非法词(敏感词)检测组件，附带繁体简体互换，支持全角半角互换，获取拼音首字母，获取拼音字母，拼音模糊搜索等功能。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>【作者博客】<a target="_blank" rel="noopener" href="https://zhelin.me/47627553bd09576fbdeafc11dc93bfbf/">TypeScript：Aho–Corasick算法实现敏感词过滤</a></li>
+<li>【掘金】<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903861493170189">JavaScript：Aho–Corasick算法实现敏感词过滤</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/52c17b4d.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator ScrollBar(滑动按钮)增强组件</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/a6033d45.html">
+        <span>CocosCreator如何设置游戏不熄屏休眠(Android和iOS)</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/11bf4707.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E8%84%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">电脑环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81"><span class="toc-number">1.2.</span> <span class="toc-text">技术支持</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%BA%93%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">类库介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-number">2.1.</span> <span class="toc-text">性能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS-%E5%BC%95%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text">CommonJS 引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TypeScript-ES-Module%E5%BC%95%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">TypeScript &#x2F; ES Module引用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cocos-Creator%E7%BB%93%E5%90%88%E6%AD%A5%E9%AA%A4"><span class="toc-number">4.</span> <span class="toc-text">Cocos Creator结合步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%90%8C%E7%B1%BB%E7%9B%B8%E5%85%B3%E6%8B%93%E5%B1%95"><span class="toc-number">6.</span> <span class="toc-text">其他同类相关拓展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

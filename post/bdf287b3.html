@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator 采坑日记，看看你有没有遇到过 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/bdf287b3.html">Cocos Creator 采坑日记，看看你有没有遇到过</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-12-25
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator 采坑日记，看看你有没有遇到过&url=http://blog.asroads.com/post/bdf287b3.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator 采坑日记，看看你有没有遇到过&url=http://blog.asroads.com/post/bdf287b3.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/bdf287b3.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/bdf287b3.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/bdf287b3.html&title=Cocos Creator 采坑日记，看看你有没有遇到过" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator 采坑日记，看看你有没有遇到过&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/bdf287b3.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/bdf287b3.html&text=Cocos Creator 采坑日记，看看你有没有遇到过" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>在开发游戏的过程中，多多少少都会采坑，有时候是自己对API理解的不够透彻，引起的误解，有时候是问题报错查找起来很费功夫，总的来讲，很多问题值得记录和分析参考，故而记下来，那么看看你再开发的过程中有没有遇到这样的坑呢？</p>
+<span id="more"></span>
+<p>本文主要说Cocos Creator 引擎在开发游戏中遇到的点点滴滴，后面会不定时更新，及时添加遇到的新的问题。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="网页不报错，小游戏模拟器报错"><a href="#网页不报错，小游戏模拟器报错" class="headerlink" title="网页不报错，小游戏模拟器报错"></a>网页不报错，小游戏模拟器报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught ReferenceError: loadBabelMod is not defined</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/bdf287b3/image-20191226092601253.png" alt="image-20191226092601253"></p>
+<p><strong>原因：</strong>游戏内我使用了ES6开发，编辑器内我勾选了 增强编译：</p>
+<p>关于增强编译可以参考这个地址：<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/community/develop/doc/00066877c54eb0ff5488b54885b801">微信开发者工具 1.02.1905081 更新说明</a></p>
+<blockquote>
+<p>新版工具增加了<code>增强编译</code>的选项来增强<code>ES6转ES5</code>的能力，启用后会使用新的编译逻辑以及提供额外的选项供开发者使用。</p>
+<p>启用<code>增强编译</code>后的编译能力的对比：</p>
+<table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="center">原有逻辑</th>
+<th align="center">增强编译</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Babel版本</td>
+<td align="center">babel6</td>
+<td align="center">babel7</td>
+</tr>
+<tr>
+<td align="left">Presets</td>
+<td align="center">es2015、stage0</td>
+<td align="center">env {chrome:53, ios:8}</td>
+</tr>
+<tr>
+<td align="left">Helpers</td>
+<td align="center">单文件内联</td>
+<td align="center">跨文件共享</td>
+</tr>
+<tr>
+<td align="left">Async/Await</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="left">严格模式开关</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="left">忽略文件目录</td>
+<td align="center">不支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="left">代码压缩</td>
+<td align="center">uglify-js</td>
+<td align="center">terser</td>
+</tr>
+<tr>
+<td align="left">Babel插件</td>
+<td align="center">-</td>
+<td align="center">一系列proposal<code>*</code></td>
+</tr>
+<tr>
+<td align="left">polyfill</td>
+<td align="center">大部分es6</td>
+<td align="center">新增三个polyfill<code>*</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用<code>preset-env</code>,支持最新的<code>ECMAScript</code>语法</li>
+<li>共享helpers函数，默认放在项目<code>@babel/runtime</code>目录，可通过<code>项目配置文件</code>配置</li>
+<li>支持async/await语法，按需注入<code>regeneratorRuntime</code>，目录位置与helpers函数一致</li>
+<li>文件首行是<code>// use strict disable;</code>时，即可禁用文件严格模式</li>
+<li>可通过<code>项目配置文件</code>指定任意文件、目录不经过编译（如：miniprogram_npm）</li>
+<li>原有逻辑是支持<code>stage0</code>语法的，为了向前兼容，<a target="_blank" rel="noopener" href="https://github.com/babel/babel/blob/master/packages/babel-preset-stage-0/README.md">引入了一系列proposal插件</a></li>
+<li>关于polyfill，基础库中已经引入了大量的<code>es6</code>相关的polyfill <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/guide/runtime/js-support.html">可参考文档</a>，增强编译下，新增：Array.prototype.includes<code>(es7)</code>、Object.entries<code>(es8)</code>、Object.values<code>(es8)</code></li>
+</ul>
+<h5 id="开启增强编译"><a href="#开启增强编译" class="headerlink" title="开启增强编译"></a>开启增强编译</h5><p>项目详情页中，勾选<code>增强编译</code>选项<br><img src="/post/bdf287b3/0.jpeg" alt="img"></p>
+<p>打开后，即可在项目中使用最新的js语法</p>
+<p><img src="/post/bdf287b3/0-20191226091649636.jpeg" alt="img"></p>
+<p>工具运行时，会按需注入一些辅助函数和regeneratorRuntime， 注入的目录路径可通过配置修改，上传代码时（包括预览时）这些文件会作为代码包的一部分</p>
+<p><img src="/post/bdf287b3/0-20191226091654928.jpeg" alt="img"></p>
+<h5 id="其他选项"><a href="#其他选项" class="headerlink" title="其他选项"></a>其他选项</h5><p>其他可选项详情请参考<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html">项目配置文档</a></p>
+</blockquote>
+<p>其实 看了上面的说明和解释，问题基本明了，就是开放域也要使用ES6 才行，解决问题大概有两个方向</p>
+<ul>
+<li>游戏内不用ES6语法，取消勾选 增强编译</li>
+<li>继续使用，语法格式保持统一</li>
+</ul>
+<p>作为追求进步的编码者，肯定是想尽办法也是用第二种策略，于是我找到我开放域的代码，重新写了一遍，代码成功运行，此处，也遇到一个问题是</p>
+<p><code>this is undefined</code> 这个错误，之前一直都是正常的，怎么突然就报了这个错呢，后面我再阅读文档遇到了一段解释，才算是 明白了。地址（<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions">点击前往</a>）</p>
+<blockquote>
+<p>在箭头函数出现之前，每一个新函数根据它是被如何调用的来定义这个函数的this值：</p>
+<ul>
+<li>如果是该函数是一个构造函数，this指针指向一个新的对象</li>
+<li>在严格模式下的函数调用下，this指向undefined</li>
+<li>如果是该函数是一个对象的方法，则它的this指针指向这个对象</li>
+<li>等等</li>
+</ul>
+<p><code>This</code>被证明是令人厌烦的面向对象风格的编程。</p>
+</blockquote>
+<h3 id="Button-的-interactable-属性设置-不生效"><a href="#Button-的-interactable-属性设置-不生效" class="headerlink" title="Button 的 interactable 属性设置 不生效"></a>Button 的 interactable 属性设置 不生效</h3><p>编辑设置 这个属性，是正常的，但是在代码里 我动态调用后，输出值是正确的，但是UI没有生效</p>
+<p><img src="/post/bdf287b3/image-20191226093032830.png" alt="image-20191226093032830"></p>
+<p>我更改后输出打印的值：</p>
+<p><img src="/post/bdf287b3/image-20191226093106999.png" alt="image-20191226093106999"></p>
+<p>怪哉，怪哉！很奇怪，但是我再编辑器里 如果一开始设置了 就是正确的，其实后面通过我和之前正常的仔仔细细对比之后，得出结论是：</p>
+<p><strong>原因：</strong>我动态调用的代码运行在 这个脚本组件的 <code>onLoad</code> 函数之前，此时虽然我代码调用了这个属性，但是我的组件的<code>onLoad</code>函数还没有执行，我把调用的代码 放到 <code>onLoad</code> 函数调用 后 就可以正常显示！！这个是对组件的渲染和运行的模型了解不够透彻，才入坑，基本遇到后续这样的调用，都应该改成，提前调用只更改数据，等onLoad调用的时候，再去用数据 驱动UI的改变。</p>
+<h3 id="模拟器报错-Cannot-read-property-‘0’-of-undefined"><a href="#模拟器报错-Cannot-read-property-‘0’-of-undefined" class="headerlink" title="模拟器报错 Cannot read property ‘0’ of undefined"></a>模拟器报错 Cannot read property ‘0’ of undefined</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught TypeError: Cannot read property &#x27;0&#x27; of undefined</span><br></pre></td></tr></table></figure>
+
+<p>其实从错误 我们 看不太明白是什么问题 </p>
+<p><img src="/post/bdf287b3/image-20191226093700223.png" alt="image-20191226093700223"></p>
+<p>我们点击错误 看看报错的代码的地方</p>
+<p><img src="/post/bdf287b3/image-20191226093910764.png" alt="image-20191226093910764"></p>
+<p><strong>原因：</strong>既然直接指向了 这个组件脚本，那么肯定是这个脚本有问题，后面经过查找得知是 import的时候，文件的路径写的不正确，平时我自己写 引入 都是用 编辑器自动引入的，这个应该是别人从别的地方 复制，粘贴，导致的错误</p>
+<p>解决办法：既然是引入错误，修复引入路径即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">GameData</span> <span class="keyword">from</span> <span class="string">&quot;../../GameData&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>修改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">GameData</span> <span class="keyword">from</span> <span class="string">&quot;../GameData&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其实可以看出，如果 引入路径不正确，都会引发这个错误，所以我们再引入文件对象的时候，对文件路径要仔细校对。善用工具（快捷键 or 自动引入都是比较好的办法）。</p>
+<h3 id="Cannot-read-property-‘updateRenderData’-of-null"><a href="#Cannot-read-property-‘updateRenderData’-of-null" class="headerlink" title="Cannot read property ‘updateRenderData’ of null"></a>Cannot read property ‘updateRenderData’ of null</h3><p>在Chome 里面 正常的，打包发布到 微信小游戏后 报错 打印了 很多条这个信息</p>
+<p><img src="/post/bdf287b3/image-20200103151417985.png" alt="image-20200103151417985"></p>
+<p>原因：</p>
+<p><img src="/post/bdf287b3/image-20200103151520578.png" alt="image-20200103151520578"></p>
+<p>我的游戏内使用了 3D旋转的功能</p>
+<p><img src="/post/bdf287b3/image-20200103151557573.png" alt="image-20200103151557573"></p>
+<p>但是项目设置里面 没有勾选 这个 3D 的模块</p>
+<p><img src="/post/bdf287b3/image-20200103151657533.png" alt="image-20200103151657533"></p>
+<p>勾选这个 类库 或者 取消使用这个 功能即可。</p>
+<p>分析 ：这类Bug 比较隐蔽，需要细心才能发觉异常，毕竟没有栈信息 看</p>
+<h3 id="Creator在修改模拟器的默认显示模式"><a href="#Creator在修改模拟器的默认显示模式" class="headerlink" title="Creator在修改模拟器的默认显示模式"></a>Creator在修改模拟器的默认显示模式</h3><p>修改 ：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CocosCreator\resources\cocos2d-x\simulator\win32\config.json</span><br></pre></td></tr></table></figure>
+
+<h3 id="Cocos-Creator-2-2-2-无法使用cc-Material-getBuiltinMaterial-‘gray-sprite’"><a href="#Cocos-Creator-2-2-2-无法使用cc-Material-getBuiltinMaterial-‘gray-sprite’" class="headerlink" title="Cocos Creator 2.2.2 无法使用cc.Material.getBuiltinMaterial(‘gray-sprite’)"></a>Cocos Creator 2.2.2 无法使用cc.Material.getBuiltinMaterial(‘gray-sprite’)</h3><p>有时候我们需要让一个图片或者一个 Sprite对象 变成灰色，新版本的官方已经自带了这个功能只是按照网上给的办法调用发现报错，后面得知升级后，这个名字也改了，新版本应该这么用：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="attr">mat</span>: cc.<span class="property">Material</span> = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (isGray) &#123;</span><br><span class="line">            mat = cc.<span class="property">Material</span>.<span class="title function_">getBuiltinMaterial</span>(<span class="string">&#x27;2d-gray-sprite&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            mat = cc.<span class="property">Material</span>.<span class="title function_">getBuiltinMaterial</span>(<span class="string">&#x27;2d-sprite&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        sprite.<span class="title function_">setMaterial</span>(<span class="number">0</span>, mat);</span><br></pre></td></tr></table></figure>
+
+<p>name前面加上<code>2d-</code>即可。</p>
+<h3 id="Can-not-find-class-‘cc-EditBox’"><a href="#Can-not-find-class-‘cc-EditBox’" class="headerlink" title="Can not find class ‘cc.EditBox’"></a>Can not find class ‘cc.EditBox’</h3><p>有时候游戏在本地调试环境不报错，打出web版本或者微信版本，Native包后就报 找不到某个系统自带的类，这个时候很多人都是根据栈信息去查找原因：</p>
+<p>注意：此时最佳操作是赶紧看看我们的项目设置—&gt;模块设置 有没有勾选 这个没有找到的class</p>
+<p><img src="/post/bdf287b3/image-20200323132905658.png" alt="image-20200323132905658"></p>
+<p>这样 就第一时间 缩短了寻找的时间。</p>
+<h3 id="loadScene-Failed-to-load-scene-‘1208’-because-‘mainMenu’-is-already-loading"><a href="#loadScene-Failed-to-load-scene-‘1208’-because-‘mainMenu’-is-already-loading" class="headerlink" title="loadScene: Failed to load scene ‘1208’ because ‘mainMenu’ is already loading"></a>loadScene: Failed to load scene ‘1208’ because ‘mainMenu’ is already loading</h3><p>短时间内 钮触发了两次，已经在加载了  此时应该查看代码逻辑 是否有事件派发重复，或者重复执行的逻辑，应该避免此行为的发生。</p>
+<h3 id="Chrome下无法用window-close-关闭非脚本打开的页面"><a href="#Chrome下无法用window-close-关闭非脚本打开的页面" class="headerlink" title="Chrome下无法用window.close()关闭非脚本打开的页面"></a>Chrome下无法用window.close()关闭非脚本打开的页面</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">window.location.href=&quot;about:blank&quot;;</span><br><span class="line">window.close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="场景中-获取常驻节点"><a href="#场景中-获取常驻节点" class="headerlink" title="场景中 获取常驻节点"></a>场景中 获取常驻节点</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="title function_">find</span>(<span class="string">&quot;myNode&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>或者：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">director</span>.<span class="title function_">getScene</span>().<span class="title function_">getChildByName</span>(<span class="string">&quot;你要找的常驻节点&quot;</span>).<span class="title function_">getComponent</span>(<span class="string">&quot;你的脚本&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>注意：常驻节点的父对象 必须是根目录</p>
+<h3 id="左下角-显示-FPS信息或者关闭"><a href="#左下角-显示-FPS信息或者关闭" class="headerlink" title="左下角 显示 FPS信息或者关闭"></a>左下角 显示 FPS信息或者关闭</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">debug</span>.<span class="title function_">setDisplayStats</span>(<span class="literal">true</span>)<span class="comment">//true or false</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">debug</span>.<span class="title function_">isDisplayStats</span>()<span class="comment">//获取FPS状态</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Cocos-Creator-TypeError-Cannot-read-property-‘gizmo’-of-null-解决方案"><a href="#Cocos-Creator-TypeError-Cannot-read-property-‘gizmo’-of-null-解决方案" class="headerlink" title="Cocos Creator TypeError: Cannot read property ‘gizmo’ of null 解决方案"></a>Cocos Creator TypeError: Cannot read property ‘gizmo’ of null 解决方案</h3><p>1.最近在做一个微信小游戏，选择使用Cocos Creator 来制作，当项目解决尾声的时候，不知操作了什么，疯狂输出 TypeError: Cannot read property ‘gizmo’ of null。</p>
+<p>2.解决办法：用记事本打开报错场景搜索    “_components”: [ null ], 如有删除此项，保存再打开场景。</p>
+<h3 id="当代码混淆后，-ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到"><a href="#当代码混淆后，-ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到" class="headerlink" title="当代码混淆后， ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到"></a>当代码混淆后， ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将类名赋给该类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> <span class="variable">target</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">cccExtensionClass</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> frameInfo = cc[<span class="string">&#x27;_RF&#x27;</span>].<span class="title function_">peek</span>();</span><br><span class="line">    <span class="keyword">let</span> script = frameInfo.<span class="property">script</span>;</span><br><span class="line">    cc.<span class="property">js</span>.<span class="title function_">setClassName</span>(script, target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Cannot-read-property-‘-assembler’-of-null"><a href="#Cannot-read-property-‘-assembler’-of-null" class="headerlink" title="Cannot read property ‘_assembler’ of null"></a>Cannot read property ‘_assembler’ of null</h3><p>2020年8月——采坑</p>
+<p>这个错误 报错显示是引擎文件报错，好多错误然后一连串的一大堆错误 后面弹出一个 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/Users/smile/Library…cocos2d-js-min.js:1 Uncaught TypeError: Cannot read property &#x27;_assembler&#x27; of null</span><br><span class="line">    at T.193.A._updateRenderData (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._children (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._children (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._render (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._updateRenderData (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._children (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">    at T.193.A._worldTransform (/Users/smile/Library…cocos2d-js-min.js:1)</span><br><span class="line">/Users/smile/Library…cocos2d-js-min.js:1 Error 9000, please go to https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000 to see details. Arguments: 8</span><br><span class="line">/Users/smile/Library…cocos2d-js-min.js:1 Error 9000, please go to https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000 to see details. Arguments: 8</span><br><span class="line">/User</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000">https://github.com/cocos-creator/engine/blob/master/EngineErrorMap.md#9000</a></p>
+<p>我打开地址 显示 ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">9000</span><br><span class="line">Stencil manager does not support level bigger than %d in this device.</span><br></pre></td></tr></table></figure>
+
+<p>于是我按图索骥，结果找了半天，没有找到解决方案，论坛倒是有人也遇到类似的，最后都模棱两可的解决，那也要继续找问题啊：</p>
+<p>直到 看到这个帖子  我才知道我的方向错了！！！</p>
+<p><a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cannot-read-property--assembler-of-null/74030">Cannot read property ‘_assembler’ of null,谢谢帮忙看下，谢谢</a></p>
+<p><img src="/post/bdf287b3/image-20200827133052775.png" alt="image-20200827133052775"></p>
+<p>看到这个，我就想到，这个问题只有这个分支报错，其他分支是正常的，应该是合并代码的时候，分组丢失， 去看了一下，果然如此，重新配置分组，然后编译，预览，搞定！</p>
+<h4 id="cc-assetManager-loadRemote加载不了微信头像"><a href="#cc-assetManager-loadRemote加载不了微信头像" class="headerlink" title="cc.assetManager.loadRemote加载不了微信头像"></a>cc.assetManager.loadRemote加载不了微信头像</h4><p>问题环境：升级了2.4.3，发现cc.assetManager.loadRemote这个接口微信头像加载不出来。</p>
+<p>解决方案：</p>
+<h5 id="A方案"><a href="#A方案" class="headerlink" title="A方案"></a>A方案</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> <span class="title function_">loadWeiXinHead</span>(<span class="params">avatarurl:<span class="built_in">string</span></span>)&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>&lt;cc.<span class="property">SpriteFrame</span>&gt;(<span class="function">(<span class="params">resolve</span>)=&gt;</span>&#123;</span><br><span class="line">cc.<span class="property">assetManager</span>.<span class="title function_">loadRemote</span>(avatarurl, &#123;<span class="attr">ext</span>: ‘.<span class="property">png</span>’&#125;, <span class="function">(<span class="params">err, data:cc.Texture2D</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (!err &amp;&amp; data) &#123;</span><br><span class="line"><span class="title function_">resolve</span>(<span class="keyword">new</span> cc.<span class="title class_">SpriteFrame</span>(data));</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;loadWeiXinHead &quot;</span>, err);</span><br><span class="line"><span class="title function_">resolve</span>(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="B方案"><a href="#B方案" class="headerlink" title="B方案"></a>B方案</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cc.<span class="property">assetManager</span>.<span class="property">loadRemote</span>&lt;cc.<span class="property">Texture2D</span>&gt;(<span class="string">&quot;http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ1E1XEicr8vAj5o8DMT7GTfCtFyC6vok9TImPjf6BfKBKLFA8hKBS6Wiaz2GJyQQWoV5lA7fhqS4SA/96&quot;</span>, &#123;<span class="attr">ext</span>: <span class="string">&#x27;.png&#x27;</span>&#125;, <span class="function">(<span class="params">err, res</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> newSpriteFrame = <span class="keyword">new</span> cc.<span class="title class_">SpriteFrame</span>(res);</span><br><span class="line">            <span class="keyword">var</span> newNode = <span class="keyword">new</span> cc.<span class="title class_">Node</span>();</span><br><span class="line">            newNode.<span class="title function_">addComponent</span>(cc.<span class="property">Sprite</span>).<span class="property">spriteFrame</span> = newSpriteFrame;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">addChild</span>(newNode);</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>其实就是缺少 {ext: ‘.png’} 这个参数</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/cc-assetmanager-loadremote/99201">cc.assetManager.loadRemote加载不了微信头像</a></p>
+<h3 id="creator-2-1-2-Label组件在字数达到一定程度会出现十分严重排版问题"><a href="#creator-2-1-2-Label组件在字数达到一定程度会出现十分严重排版问题" class="headerlink" title="creator 2.1.2 Label组件在字数达到一定程度会出现十分严重排版问题"></a>creator 2.1.2 Label组件在字数达到一定程度会出现十分严重排版问题</h3><p>是整个 Label 超过 2048 的尺寸限制了。抱歉这个目前暂时没有特别好的解决方式，建议切换至 CHAR 模式，就可以解决。</p>
+<p><img src="/post/bdf287b3/5721faa5d53ea86ed4f1ce23dccd36e9941a0fa8.png" alt="undefined"></p>
+<p>参考地址 ：<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/creator-2-1-2-label/81328/4">https://forum.cocos.org/t/creator-2-1-2-label/81328/4</a></p>
+<h3 id="启动游戏报错"><a href="#启动游戏报错" class="headerlink" title="启动游戏报错"></a>启动游戏报错</h3><p>问题出现，有时候启动游戏，一开始就报错，心中不免疑惑，影响打包吗？哪里出错了？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Window &quot;main&quot; unresponsive: [object Object]</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/bdf287b3/image-20220630103510037.png" alt="image-20220630103510037"></p>
+<p>解决方案：暂无，不影响打包</p>
+<p>群友回复<br><img src="/post/bdf287b3/image-20220630103830709.png" alt="image-20220630103830709"></p>
+<p>官方回复：</p>
+<p><img src="/post/bdf287b3/image-20220630103426417.png" alt="image-20220630103426417"></p>
+<h3 id="分包加载报错"><a href="#分包加载报错" class="headerlink" title="分包加载报错"></a>分包加载报错</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span>项目资源引用错误<span class="punctuation">]</span> 项目资源 subpackages/firstRes/raw-assets/<span class="number">58</span>/<span class="number">582</span>c1f41<span class="number">-2</span>b52<span class="number">-4</span>d83<span class="number">-873</span>f-f8adcb46f1c6<span class="number">.5</span>d3ac.jpg 所在的分包尚未加载</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/bdf287b3/image-20220628204904851.png" alt="image-20220628204904851"></p>
+<p>报错原因：子包中的资源不要在主包中有引用关系，可以找找子包中有哪些图片在主包的场景或者预制中有挂载。不嫌麻烦就在子包的资源中查找引用，看看是否是在主包的资源上使用。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://forum.cocos.org/t/subpackages-png/93805">项目资源 subpackages/…png 所在的分包尚未加载【Cocos论坛】</a></p>
+<h3 id="图片尺寸过大"><a href="#图片尺寸过大" class="headerlink" title="图片尺寸过大"></a>图片尺寸过大</h3><p><img src="/post/bdf287b3/image-20220628203416799.png" alt="image-20220628203416799"></p>
+<p>解决办法：把图切成合格的，比如2份 或者 4份</p>
+<h3 id="JSON-parse方法-报错"><a href="#JSON-parse方法-报错" class="headerlink" title="JSON.parse方法 报错"></a>JSON.parse方法 报错</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;SyntaxError: Unexpected end of JSON input</span></span><br><span class="line"><span class="string">    at JSON.parse (&lt;anonymous&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;SyntaxError: Unexpected token u in JSON at position 0</span></span><br><span class="line"><span class="string">    at JSON.parse (&lt;anonymous&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<p>原因是 取到了 空字符串 或者 undefined</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="literal">null</span>)<span class="comment">//正常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="literal">false</span>)<span class="comment">//正常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&quot;[]&quot;</span>)<span class="comment">//正常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&quot;&quot;</span>)<span class="comment">//异常</span></span><br><span class="line"><span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="literal">undefined</span>)<span class="comment">//异常</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发过程中，遇到问题，不要逃避。这样问题会积少成多，后面不利于自己的技术的进步和成长，知其然，知其所以然，才是靠近真相的最佳途径。成长是一个渐进式的厚积薄发的过程，只有点点滴滴的努力，去查找，去分析，去思考问题的本质。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9dc2752194b8">Chrome下无法用window.close()关闭非脚本打开的页面</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/496928553576">Cocos Creator TypeError: Cannot read property ‘gizmo’ of null 解决方案</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/2cba936f.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>ThinkPad笔记本WiFi打不开怎么解决</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/c3a12e4a.html">
+        <span>LayaAir2.0(2.4)IDE里面设置滤镜项目运行报错解决办法</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/bdf287b3.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E9%A1%B5%E4%B8%8D%E6%8A%A5%E9%94%99%EF%BC%8C%E5%B0%8F%E6%B8%B8%E6%88%8F%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99"><span class="toc-number">1.1.</span> <span class="toc-text">网页不报错，小游戏模拟器报错</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E5%A2%9E%E5%BC%BA%E7%BC%96%E8%AF%91"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">开启增强编译</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%80%89%E9%A1%B9"><span class="toc-number">1.1.0.2.</span> <span class="toc-text">其他选项</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Button-%E7%9A%84-interactable-%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE-%E4%B8%8D%E7%94%9F%E6%95%88"><span class="toc-number">1.2.</span> <span class="toc-text">Button 的 interactable 属性设置 不生效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99-Cannot-read-property-%E2%80%980%E2%80%99-of-undefined"><span class="toc-number">1.3.</span> <span class="toc-text">模拟器报错 Cannot read property ‘0’ of undefined</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cannot-read-property-%E2%80%98updateRenderData%E2%80%99-of-null"><span class="toc-number">1.4.</span> <span class="toc-text">Cannot read property ‘updateRenderData’ of null</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Creator%E5%9C%A8%E4%BF%AE%E6%94%B9%E6%A8%A1%E6%8B%9F%E5%99%A8%E7%9A%84%E9%BB%98%E8%AE%A4%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.5.</span> <span class="toc-text">Creator在修改模拟器的默认显示模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cocos-Creator-2-2-2-%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8cc-Material-getBuiltinMaterial-%E2%80%98gray-sprite%E2%80%99"><span class="toc-number">1.6.</span> <span class="toc-text">Cocos Creator 2.2.2 无法使用cc.Material.getBuiltinMaterial(‘gray-sprite’)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Can-not-find-class-%E2%80%98cc-EditBox%E2%80%99"><span class="toc-number">1.7.</span> <span class="toc-text">Can not find class ‘cc.EditBox’</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#loadScene-Failed-to-load-scene-%E2%80%981208%E2%80%99-because-%E2%80%98mainMenu%E2%80%99-is-already-loading"><span class="toc-number">1.8.</span> <span class="toc-text">loadScene: Failed to load scene ‘1208’ because ‘mainMenu’ is already loading</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome%E4%B8%8B%E6%97%A0%E6%B3%95%E7%94%A8window-close-%E5%85%B3%E9%97%AD%E9%9D%9E%E8%84%9A%E6%9C%AC%E6%89%93%E5%BC%80%E7%9A%84%E9%A1%B5%E9%9D%A2"><span class="toc-number">1.9.</span> <span class="toc-text">Chrome下无法用window.close()关闭非脚本打开的页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%AD-%E8%8E%B7%E5%8F%96%E5%B8%B8%E9%A9%BB%E8%8A%82%E7%82%B9"><span class="toc-number">1.10.</span> <span class="toc-text">场景中 获取常驻节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E4%B8%8B%E8%A7%92-%E6%98%BE%E7%A4%BA-FPS%E4%BF%A1%E6%81%AF%E6%88%96%E8%80%85%E5%85%B3%E9%97%AD"><span class="toc-number">1.11.</span> <span class="toc-text">左下角 显示 FPS信息或者关闭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cocos-Creator-TypeError-Cannot-read-property-%E2%80%98gizmo%E2%80%99-of-null-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.12.</span> <span class="toc-text">Cocos Creator TypeError: Cannot read property ‘gizmo’ of null 解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86%E5%90%8E%EF%BC%8C-ccclass%E8%A3%85%E9%A5%B0%E8%BF%87%E7%9A%84%E7%B1%BB%E6%98%AF%E8%83%BD%E9%80%9A%E8%BF%87%E8%AF%A5%E6%96%B9%E6%B3%95%E6%8B%BF%E5%88%B0%E7%B1%BB%E5%90%8D%EF%BC%8C%E4%BD%86%E6%98%AF%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E7%B1%BB%E5%B0%B1%E6%8B%BF%E4%B8%8D%E5%88%B0"><span class="toc-number">1.13.</span> <span class="toc-text">当代码混淆后， ccclass装饰过的类是能通过该方法拿到类名，但是自定义的类就拿不到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cannot-read-property-%E2%80%98-assembler%E2%80%99-of-null"><span class="toc-number">1.14.</span> <span class="toc-text">Cannot read property ‘_assembler’ of null</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cc-assetManager-loadRemote%E5%8A%A0%E8%BD%BD%E4%B8%8D%E4%BA%86%E5%BE%AE%E4%BF%A1%E5%A4%B4%E5%83%8F"><span class="toc-number">1.14.1.</span> <span class="toc-text">cc.assetManager.loadRemote加载不了微信头像</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#A%E6%96%B9%E6%A1%88"><span class="toc-number">1.14.1.1.</span> <span class="toc-text">A方案</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#B%E6%96%B9%E6%A1%88"><span class="toc-number">1.14.1.2.</span> <span class="toc-text">B方案</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#creator-2-1-2-Label%E7%BB%84%E4%BB%B6%E5%9C%A8%E5%AD%97%E6%95%B0%E8%BE%BE%E5%88%B0%E4%B8%80%E5%AE%9A%E7%A8%8B%E5%BA%A6%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%8D%81%E5%88%86%E4%B8%A5%E9%87%8D%E6%8E%92%E7%89%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.15.</span> <span class="toc-text">creator 2.1.2 Label组件在字数达到一定程度会出现十分严重排版问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B8%B8%E6%88%8F%E6%8A%A5%E9%94%99"><span class="toc-number">1.16.</span> <span class="toc-text">启动游戏报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%85%E5%8A%A0%E8%BD%BD%E6%8A%A5%E9%94%99"><span class="toc-number">1.17.</span> <span class="toc-text">分包加载报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8%E8%BF%87%E5%A4%A7"><span class="toc-number">1.18.</span> <span class="toc-text">图片尺寸过大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-parse%E6%96%B9%E6%B3%95-%E6%8A%A5%E9%94%99"><span class="toc-number">1.19.</span> <span class="toc-text">JSON.parse方法 报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.20.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">1.21.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

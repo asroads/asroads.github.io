@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Mac环境下配置不同的账号和邮箱信息 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/d2d883a7.html">Mac环境下配置不同的账号和邮箱信息</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-09-18
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Mac环境下配置不同的账号和邮箱信息&url=http://blog.asroads.com/post/d2d883a7.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Mac环境下配置不同的账号和邮箱信息&url=http://blog.asroads.com/post/d2d883a7.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/d2d883a7.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/d2d883a7.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/d2d883a7.html&title=Mac环境下配置不同的账号和邮箱信息" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Mac环境下配置不同的账号和邮箱信息&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/d2d883a7.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/d2d883a7.html&text=Mac环境下配置不同的账号和邮箱信息" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/git/ >git</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>对于经常程序开发的人来说，有时候面对的是不同的<code>Git</code>仓库和信息，此时账号密码都不一样，有时候提交信息很不方便，经常会使用一个全局默认账号信息，到账我们提交的仓库没有权限，导致<code>push</code> 失败。同一台电脑往往只配置哟个<code>Git</code> 账号，只能<code>Push</code>一个网站，如果面对多个账号的时候很不方便，下面就说说如何切换账号信息。</p>
+<span id="more"></span>
+
+<h2 id="步骤概要"><a href="#步骤概要" class="headerlink" title="步骤概要"></a>步骤概要</h2><ol>
+<li>查看当前电脑的<code>Git</code>全局配置</li>
+<li>查看当前<code>Git</code>账户和邮箱</li>
+<li>设置当前项目设置的名称和邮箱</li>
+</ol>
+<h2 id="步骤细节"><a href="#步骤细节" class="headerlink" title="步骤细节"></a>步骤细节</h2><h4 id="查看全局Git账户和邮箱："><a href="#查看全局Git账户和邮箱：" class="headerlink" title="查看全局Git账户和邮箱："></a>查看全局Git账户和邮箱：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name</span><br><span class="line">git config --global user.email</span><br></pre></td></tr></table></figure>
+
+<h4 id="清除全局邮箱和全局名称"><a href="#清除全局邮箱和全局名称" class="headerlink" title="清除全局邮箱和全局名称"></a>清除全局邮箱和全局名称</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global --unset user.name</span><br><span class="line">git config --global --unset user.email</span><br></pre></td></tr></table></figure>
+
+<h4 id="针对每个项目进行单独的设置"><a href="#针对每个项目进行单独的设置" class="headerlink" title="针对每个项目进行单独的设置"></a>针对每个项目进行单独的设置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.email &quot;XXX@XX.com&quot;</span><br><span class="line">git config user.name &quot;XXX&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看当前项目设置的名称和邮箱"><a href="#查看当前项目设置的名称和邮箱" class="headerlink" title="查看当前项目设置的名称和邮箱"></a>查看当前项目设置的名称和邮箱</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config user.email</span><br><span class="line">git config user.name</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="文件大小写"><a href="#文件大小写" class="headerlink" title="文件大小写"></a>文件大小写</h3><h4 id="查看是否忽略大小写"><a href="#查看是否忽略大小写" class="headerlink" title="查看是否忽略大小写"></a>查看是否忽略大小写</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase</span><br></pre></td></tr></table></figure>
+
+<p>  <code>true</code>为忽略大小写   <code>false</code>为不忽略大小写</p>
+<h4 id="关闭git忽略大小写配置"><a href="#关闭git忽略大小写配置" class="headerlink" title="关闭git忽略大小写配置"></a>关闭git忽略大小写配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config core.ignorecase false</span><br></pre></td></tr></table></figure>
+
+<h3 id="放弃本地修改-强制更新"><a href="#放弃本地修改-强制更新" class="headerlink" title="放弃本地修改 强制更新"></a>放弃本地修改 强制更新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git fetch --all</span><br><span class="line">git reset --hard origin/master</span><br></pre></td></tr></table></figure>
+
+<p><code>git fetch</code> 只是下载远程的库的内容，不做任何的合并 <code>git reset</code> 把<code>HEAD</code>指向刚刚下载的最新的版本,<code>master</code>为分支名字</p>
+<h3 id="git报错HTTP-Basic-Access-denied"><a href="#git报错HTTP-Basic-Access-denied" class="headerlink" title="git报错HTTP Basic: Access denied"></a>git报错HTTP Basic: Access denied</h3><h4 id="具体错误如下"><a href="#具体错误如下" class="headerlink" title="具体错误如下:"></a>具体错误如下:</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">remote: HTTP Basic: Access denied fatal: Authentication failed for &quot;xxx你的远程仓库&quot;</span><br></pre></td></tr></table></figure>
+
+<p>另外一种情况：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git Failed to connect to port xxxx: Connection refused</span><br></pre></td></tr></table></figure>
+
+<p>这两种情况, 很大程度是第一次使用的时候登的帐户和密码跟现用的仓库帐户密码对不上, 所以就提示用户无权限连接, 或者拒绝访问. 这时, 最好的方法是将<code>git</code>帐户密码重置!</p>
+<h4 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h4><p>进入到本地仓库目录下, 终端命令行里面 , 在弹出里输入如下指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --system --unset credential.helper</span><br></pre></td></tr></table></figure>
+
+<p>重新操作<code>git</code>, 再次输入帐户和密码, OK, 成功!</p>
+<h4 id="remote-Permission-to-xxx-xxx-git-denied-to-xxx"><a href="#remote-Permission-to-xxx-xxx-git-denied-to-xxx" class="headerlink" title="remote: Permission to xxx/xxx.git denied to xxx"></a>remote: Permission to xxx/xxx.git denied to xxx</h4><p>push的时候报错remote: Permission to xxx/xxx.git denied to xxx</p>
+<p>问题出现环境：当你在命令行push一个项目的时候<code>git push origin master</code>出现此报错</p>
+<h5 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h5><p>翻译一下这个错误：用户&lt;旧的github名&gt;没有权限访问用户&lt;新的github名&gt;的存储库&lt;项目名&gt;。<br>就是说：现在电脑登录的是用户&lt;旧的github名&gt;，需要切换到用户&lt;新的github名&gt;。<br>那么，怎么切换账号呢，看操作</p>
+<h5 id="mac版解决方法"><a href="#mac版解决方法" class="headerlink" title="mac版解决方法"></a>mac版解决方法</h5><p>搜索钥匙串访问</p>
+<p><img src="/post/d2d883a7/image-20211110102126160.png" alt="image-20211110102126160"></p>
+<p>删除后 重新 <code>git push origin master</code> 即可。</p>
+<h3 id="Sourcetree-删除账号密码"><a href="#Sourcetree-删除账号密码" class="headerlink" title="Sourcetree 删除账号密码"></a>Sourcetree 删除账号密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --system --<span class="built_in">unset</span> credential.helper</span><br></pre></td></tr></table></figure>
+
+<p>如果没用 可以到sourcetree 的文件里面清除密码配置文件 修改用户配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## windows路径</span></span><br><span class="line">/username/admin/AppData/Local/Atlassian/SourceTree/passwd</span><br><span class="line">/username/admin/AppData/Local/Atlassian/SourceTree/userhosts</span><br><span class="line"><span class="comment">## mac环境 用钥匙串解决</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="SourceTree避免输入密码方法"><a href="#SourceTree避免输入密码方法" class="headerlink" title="SourceTree避免输入密码方法"></a>SourceTree避免输入密码方法</h3><h5 id="方式一：利用命令行"><a href="#方式一：利用命令行" class="headerlink" title="方式一：利用命令行"></a>方式一：利用命令行</h5><p>已经拉取完代码,在sourcetree 的界面打开终端:终端输入 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global credential.helper store</span><br></pre></td></tr></table></figure>
+
+<h5 id="方式二：在git的congfig的url字段里加入账号密码"><a href="#方式二：在git的congfig的url字段里加入账号密码" class="headerlink" title="方式二：在git的congfig的url字段里加入账号密码"></a>方式二：在git的congfig的url字段里加入账号密码</h5><ol>
+<li><p><a target="_blank" rel="noopener" href="https://git.coding.net/%E9%A1%B9%E7%9B%AE.git">https://git.coding.net/项目.git</a></p>
+</li>
+<li><p>https://账号:密码@git.coding.net/项目.git</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://zhansan:123456@git.coding.net/test.git</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows版本"><a href="#Windows版本" class="headerlink" title="Windows版本"></a>Windows版本</h3><h5 id="git-push-origin-xxx-报错："><a href="#git-push-origin-xxx-报错：" class="headerlink" title="git push origin xxx  报错："></a>git push origin xxx  报错：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable to access &#x27;https://github.com/xxxx/mylibs.git/&#x27;: OpenSSL SSL_read: Connection was reset, errno 10054</span><br></pre></td></tr></table></figure>
+
+<p><strong>解决办法</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.sslVerify &quot;false&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>参考</strong>：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43945983/article/details/110882074">Git报错解决：OpenSSL SSL_read: Connection was reset, errno 10054 错误解决</a></p>
+<h5 id="报错：remote-Permission-to-xxx-xxx-git-denied-to-xxx"><a href="#报错：remote-Permission-to-xxx-xxx-git-denied-to-xxx" class="headerlink" title="报错：remote: Permission to xxx/xxx.git denied to xxx."></a>报错：<code>remote: Permission to xxx/xxx.git denied to xxx.</code></h5><p><strong>解决方法</strong>：</p>
+<p>找到 凭证管理器</p>
+<p><img src="/post/d2d883a7/image-20220613144516845.png" alt="image-20220613144516845"></p>
+<p>找到 <code>github</code> 网站的凭证，删除 重新 <code>git push origin main</code></p>
+<p><img src="/post/d2d883a7/image-20220613144641741.png" alt="image-20220613144641741"></p>
+<p>   成功解决。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25835645/article/details/84390221">使用git报错 - remote: HTTP Basic: Access denied</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/692a79beca0d">mac 下配置多个Git账户</a></li>
+<li><a target="_blank" rel="noopener" href="https://my.oschina.net/huibaifa/blog/3096818">修改文件名大小写造成的git上传文件丢失</a></li>
+<li><a target="_blank" rel="noopener" href="http://events.jianshu.io/p/2f63bb001f68">Sourcetree 删除账号密码</a>-简书</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jancywen/article/details/107232328">SourceTree避免输入密码方法</a>-CSDN</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/943b5d3c.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Mac安装homebrew修改国内源及其他操作</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/209a8f2.html">
+        <span>从一个UI左右无限翻页组件说起</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/d2d883a7.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E6%A6%82%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">步骤概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E7%BB%86%E8%8A%82"><span class="toc-number">2.</span> <span class="toc-text">步骤细节</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%85%A8%E5%B1%80Git%E8%B4%A6%E6%88%B7%E5%92%8C%E9%82%AE%E7%AE%B1%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">查看全局Git账户和邮箱：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%85%E9%99%A4%E5%85%A8%E5%B1%80%E9%82%AE%E7%AE%B1%E5%92%8C%E5%85%A8%E5%B1%80%E5%90%8D%E7%A7%B0"><span class="toc-number">2.0.2.</span> <span class="toc-text">清除全局邮箱和全局名称</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E6%AF%8F%E4%B8%AA%E9%A1%B9%E7%9B%AE%E8%BF%9B%E8%A1%8C%E5%8D%95%E7%8B%AC%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.0.3.</span> <span class="toc-text">针对每个项目进行单独的设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E9%A1%B9%E7%9B%AE%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%90%8D%E7%A7%B0%E5%92%8C%E9%82%AE%E7%AE%B1"><span class="toc-number">2.0.4.</span> <span class="toc-text">查看当前项目设置的名称和邮箱</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">3.</span> <span class="toc-text">其他</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="toc-number">3.1.</span> <span class="toc-text">文件大小写</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%AF%E5%90%A6%E5%BF%BD%E7%95%A5%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="toc-number">3.1.1.</span> <span class="toc-text">查看是否忽略大小写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%97%ADgit%E5%BF%BD%E7%95%A5%E5%A4%A7%E5%B0%8F%E5%86%99%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text">关闭git忽略大小写配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BE%E5%BC%83%E6%9C%AC%E5%9C%B0%E4%BF%AE%E6%94%B9-%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0"><span class="toc-number">3.2.</span> <span class="toc-text">放弃本地修改 强制更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E6%8A%A5%E9%94%99HTTP-Basic-Access-denied"><span class="toc-number">3.3.</span> <span class="toc-text">git报错HTTP Basic: Access denied</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E9%94%99%E8%AF%AF%E5%A6%82%E4%B8%8B"><span class="toc-number">3.3.1.</span> <span class="toc-text">具体错误如下:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.2.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remote-Permission-to-xxx-xxx-git-denied-to-xxx"><span class="toc-number">3.3.3.</span> <span class="toc-text">remote: Permission to xxx&#x2F;xxx.git denied to xxx</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0"><span class="toc-number">3.3.3.1.</span> <span class="toc-text">问题原因</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mac%E7%89%88%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.3.2.</span> <span class="toc-text">mac版解决方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sourcetree-%E5%88%A0%E9%99%A4%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-number">3.4.</span> <span class="toc-text">Sourcetree 删除账号密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SourceTree%E9%81%BF%E5%85%8D%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E6%96%B9%E6%B3%95"><span class="toc-number">3.5.</span> <span class="toc-text">SourceTree避免输入密码方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%88%A9%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="toc-number">3.5.0.1.</span> <span class="toc-text">方式一：利用命令行</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E5%9C%A8git%E7%9A%84congfig%E7%9A%84url%E5%AD%97%E6%AE%B5%E9%87%8C%E5%8A%A0%E5%85%A5%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-number">3.5.0.2.</span> <span class="toc-text">方式二：在git的congfig的url字段里加入账号密码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E7%89%88%E6%9C%AC"><span class="toc-number">3.6.</span> <span class="toc-text">Windows版本</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#git-push-origin-xxx-%E6%8A%A5%E9%94%99%EF%BC%9A"><span class="toc-number">3.6.0.1.</span> <span class="toc-text">git push origin xxx  报错：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8A%A5%E9%94%99%EF%BC%9Aremote-Permission-to-xxx-xxx-git-denied-to-xxx"><span class="toc-number">3.6.0.2.</span> <span class="toc-text">报错：remote: Permission to xxx&#x2F;xxx.git denied to xxx.</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

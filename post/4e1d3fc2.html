@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Python3如何将文件夹内文件名汉字转拼音 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/4e1d3fc2.html">Python3如何将文件夹内文件名汉字转拼音</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-05-10
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Python3如何将文件夹内文件名汉字转拼音&url=http://blog.asroads.com/post/4e1d3fc2.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Python3如何将文件夹内文件名汉字转拼音&url=http://blog.asroads.com/post/4e1d3fc2.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/4e1d3fc2.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/4e1d3fc2.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/4e1d3fc2.html&title=Python3如何将文件夹内文件名汉字转拼音" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Python3如何将文件夹内文件名汉字转拼音&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/4e1d3fc2.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/4e1d3fc2.html&text=Python3如何将文件夹内文件名汉字转拼音" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏开发中项目内大家沟通基本都是使用汉字，但是程序内基本使用英文，很多游戏道具或者物品，这个时候有时候为了便于查找都是用拼音配置图标名字或者人物图片等，这个时候我们需要对文件重新命名，把汉字一个个修改成拼音，此时问题来了，这样道具要存两份吗，显然是不必要的，那么一个需求就产生了，如何批量修改文件的名字的呢，下面就说说使用<code>Python</code>如何操作。</p>
+<span id="more"></span>
+
+<h2 id="使用xpinyin"><a href="#使用xpinyin" class="headerlink" title="使用xpinyin"></a>使用xpinyin</h2><ul>
+<li>确保 <code>Python3</code>环境</li>
+<li>pip 安装 <a target="_blank" rel="noopener" href="https://pypi.org/project/xpinyin/">xpinyin</a> </li>
+</ul>
+<p>首先确保 <code>pip install xpinyin</code></p>
+<p>下面是我们ReName.py 的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding=utf8-*-</span></span><br><span class="line"><span class="keyword">from</span> xpinyin <span class="keyword">import</span> Pinyin</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">renameCurrentDirectory</span>():</span><br><span class="line">    resume_rootdir = <span class="string">&#x27;.&#x27;</span></span><br><span class="line">    renameDirectoryByPath(resume_rootdir)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">renameDirectoryByPath</span>(<span class="params">dirPath</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&#x27;dirPath：&#x27;</span>+dirPath)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&#x27;重命名开始！&#x27;</span>)</span><br><span class="line">    pin = Pinyin()</span><br><span class="line">    llist = os.listdir(dirPath)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(llist)):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">u&#x27;现在进行第&#123;&#125;个&#x27;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">        resume = os.path.join(dirPath, llist[i])</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(resume):</span><br><span class="line">            obj = os.path.basename(resume)</span><br><span class="line">            <span class="keyword">if</span> obj[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">u&#x27;开始处理  &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(obj))</span><br><span class="line">            pinyin_name = pin.get_pinyin(obj, <span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">u&#x27;&#123;&#125; 新名字是:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(obj, pinyin_name))</span><br><span class="line">            Newdir = os.path.join(dirPath, pinyin_name)  <span class="comment"># 新的文件路径</span></span><br><span class="line">            os.rename(resume, Newdir)  <span class="comment"># 重命名</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&#x27;重命名结束！&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    args = sys.argv</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args) == <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;没有传入路径，当前目录执行&quot;</span>)</span><br><span class="line">        renameCurrentDirectory()</span><br><span class="line">        <span class="comment"># sys.exit()</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;传入路径:&quot;</span>,args[<span class="number">1</span>])</span><br><span class="line">        execel_path = args[<span class="number">1</span>]</span><br><span class="line">        renameDirectoryByPath(execel_path)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>不传入路径参数  直接修改当前目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ReName.py <span class="comment"># ReName.py 为脚本名称</span></span><br></pre></td></tr></table></figure>
+
+<p>或者 传入路径参数  修改传入路径的目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python3 ReName.py /Users/smile/work/文档/我的小镇/trunk/美术/ui/物品图标 </span><br><span class="line"></span><br><span class="line"><span class="comment"># ReName.py 为脚本名称</span></span><br><span class="line"><span class="comment"># /Users/smile/work/文档/我的小镇/trunk/美术/ui/物品图标 为修改的目录路径</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="执行结果："><a href="#执行结果：" class="headerlink" title="执行结果："></a>执行结果：</h3><p><img src="/post/4e1d3fc2/image-20210510131720859.png" alt="image-20210510131720859"></p>
+<h3 id="多音字问题"><a href="#多音字问题" class="headerlink" title="多音字问题"></a>多音字问题</h3><p><code>xpinyin</code> 带来一个问题 就是 多音字的问题</p>
+<p>比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = Pinyin()</span><br><span class="line"><span class="built_in">print</span>(p.get_pinyin(<span class="string">&quot;卡牌&quot;</span>,splitter=<span class="string">&#x27; &#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>会输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qia pai <span class="comment"># 我们想要的是 kapai</span></span><br></pre></td></tr></table></figure>
+
+<p>此时我们可以用第二个方案：</p>
+<h2 id="使用pypinyin"><a href="#使用pypinyin" class="headerlink" title="使用pypinyin"></a>使用pypinyin</h2><ul>
+<li>确保 <code>Python3</code>环境</li>
+<li>pip 安装 <a target="_blank" rel="noopener" href="https://pypi.org/project/pypinyin/">pypinyin</a> </li>
+</ul>
+<p>首先确保 <code>pip install pypinyin</code></p>
+<p>下面是我们ReName2.py 的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding=utf8-*-</span></span><br><span class="line"><span class="keyword">from</span> pypinyin <span class="keyword">import</span> pinyin, lazy_pinyin, Style</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">renameCurrentDirectory</span>():</span><br><span class="line">    resume_rootdir = <span class="string">&#x27;.&#x27;</span></span><br><span class="line">    renameDirectoryByPath(resume_rootdir)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">renameDirectoryByPath</span>(<span class="params">dirPath</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&#x27;dirPath：&#x27;</span>+dirPath)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&#x27;重命名开始！&#x27;</span>)</span><br><span class="line">    llist = os.listdir(dirPath)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(llist)):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">u&#x27;现在进行第&#123;&#125;个&#x27;</span>.<span class="built_in">format</span>(i))</span><br><span class="line">        resume = os.path.join(dirPath, llist[i])</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(resume):</span><br><span class="line">            obj = os.path.basename(resume)</span><br><span class="line">            <span class="keyword">if</span> obj[<span class="number">0</span>] == <span class="string">&#x27;.&#x27;</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">u&#x27;开始处理  &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(obj))</span><br><span class="line">            pinyin_name = <span class="string">&quot;&quot;</span>.join(lazy_pinyin(obj))</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">u&#x27;&#123;&#125; 新名字是:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(obj, pinyin_name))</span><br><span class="line">            Newdir = os.path.join(dirPath, pinyin_name)  <span class="comment"># 新的文件路径</span></span><br><span class="line">            os.rename(resume, Newdir)  <span class="comment"># 重命名</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">u&#x27;重命名结束！&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    args = sys.argv</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(args) == <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;没有传入路径，当前目录执行&quot;</span>)</span><br><span class="line">        renameCurrentDirectory()</span><br><span class="line">        <span class="comment"># sys.exit()</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;传入路径:&quot;</span>,args[<span class="number">1</span>])</span><br><span class="line">        execel_path = args[<span class="number">1</span>]</span><br><span class="line">        renameDirectoryByPath(execel_path)</span><br></pre></td></tr></table></figure>
+
+<h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><p>不传入路径参数  直接修改当前目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ReName.py <span class="comment"># ReName.py 为脚本名称</span></span><br></pre></td></tr></table></figure>
+
+<p>或者 传入路径参数  修改传入路径的目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python3 ReName.py /Users/smile/work/文档/我的小镇/trunk/美术/ui/物品图标 </span><br><span class="line"></span><br><span class="line"><span class="comment"># ReName.py 为脚本名称</span></span><br><span class="line"><span class="comment"># /Users/smile/work/文档/我的小镇/trunk/美术/ui/物品图标 为修改的目录路径</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="执行结果：-1"><a href="#执行结果：-1" class="headerlink" title="执行结果："></a>执行结果：</h3><p><img src="/post/4e1d3fc2/image-20210510180508163.png" alt="image-20210510180508163"></p>
+<p>使用xpinyin 带来一个问题 就是 多音字的问题</p>
+<p>比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="string">&quot;&quot;</span>.join(lazy_pinyin(<span class="string">&quot;卡牌&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(p)</span><br></pre></td></tr></table></figure>
+
+<p>会输出结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kapai <span class="comment"># 正确输出 kapai</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<h2 id="风格转换"><a href="#风格转换" class="headerlink" title="风格转换"></a>风格转换</h2><p>我们可以对结果进行一些风格转换，比如不带声调风格、标准声调风格、声调在拼音之后、声调在韵母之后、注音风格等等，比如我们想要声调放在拼音后面，可以这么来实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pypinyin <span class="keyword">import</span> lazy_pinyin, Style</span><br><span class="line"></span><br><span class="line">style = Style.TONE3</span><br><span class="line"><span class="built_in">print</span>(lazy_pinyin(<span class="string">&#x27;聪明的小兔子&#x27;</span>, style=style))</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;cong1&#x27;</span>, <span class="string">&#x27;ming2&#x27;</span>, <span class="string">&#x27;de&#x27;</span>, <span class="string">&#x27;xiao3&#x27;</span>, <span class="string">&#x27;tu4&#x27;</span>, <span class="string">&#x27;zi&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到运行结果每个拼音后面就多了一个声调，这就是其中的一个风格，叫做 TONE3，其实还有很多风格，下面是我从源码里面找出来的定义：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#: 普通风格，不带声调。如： 中国 -&gt; ``zhong guo``</span></span><br><span class="line">NORMAL = <span class="number">0</span></span><br><span class="line"><span class="comment">#: 标准声调风格，拼音声调在韵母第一个字母上（默认风格）。如： 中国 -&gt; ``zhōng guó``</span></span><br><span class="line">TONE = <span class="number">1</span></span><br><span class="line"><span class="comment">#: 声调风格2，即拼音声调在各个韵母之后，用数字 [1-4] 进行表示。如： 中国 -&gt; ``zho1ng guo2``</span></span><br><span class="line">TONE2 = <span class="number">2</span></span><br><span class="line"><span class="comment">#: 声调风格3，即拼音声调在各个拼音之后，用数字 [1-4] 进行表示。如： 中国 -&gt; ``zhong1 guo2``</span></span><br><span class="line">TONE3 = <span class="number">8</span></span><br><span class="line"><span class="comment">#: 声母风格，只返回各个拼音的声母部分（注：有的拼音没有声母，详见 `#27`_）。如： 中国 -&gt; ``zh g``</span></span><br><span class="line">INITIALS = <span class="number">3</span></span><br><span class="line"><span class="comment">#: 首字母风格，只返回拼音的首字母部分。如： 中国 -&gt; ``z g``</span></span><br><span class="line">FIRST_LETTER = <span class="number">4</span></span><br><span class="line"><span class="comment">#: 韵母风格，只返回各个拼音的韵母部分，不带声调。如： 中国 -&gt; ``ong uo``</span></span><br><span class="line">FINALS = <span class="number">5</span></span><br><span class="line"><span class="comment">#: 标准韵母风格，带声调，声调在韵母第一个字母上。如：中国 -&gt; ``ōng uó``</span></span><br><span class="line">FINALS_TONE = <span class="number">6</span></span><br><span class="line"><span class="comment">#: 韵母风格2，带声调，声调在各个韵母之后，用数字 [1-4] 进行表示。如： 中国 -&gt; ``o1ng uo2``</span></span><br><span class="line">FINALS_TONE2 = <span class="number">7</span></span><br><span class="line"><span class="comment">#: 韵母风格3，带声调，声调在各个拼音之后，用数字 [1-4] 进行表示。如： 中国 -&gt; ``ong1 uo2``</span></span><br><span class="line">FINALS_TONE3 = <span class="number">9</span></span><br><span class="line"><span class="comment">#: 注音风格，带声调，阴平（第一声）不标。如： 中国 -&gt; ``ㄓㄨㄥ ㄍㄨㄛˊ``</span></span><br><span class="line">BOPOMOFO = <span class="number">10</span></span><br><span class="line"><span class="comment">#: 注音风格，仅首字母。如： 中国 -&gt; ``ㄓ ㄍ``</span></span><br><span class="line">BOPOMOFO_FIRST = <span class="number">11</span></span><br><span class="line"><span class="comment">#: 汉语拼音与俄语字母对照风格，声调在各个拼音之后，用数字 [1-4] 进行表示。如： 中国 -&gt; ``чжун1 го2``</span></span><br><span class="line">CYRILLIC = <span class="number">12</span></span><br><span class="line"><span class="comment">#: 汉语拼音与俄语字母对照风格，仅首字母。如： 中国 -&gt; ``ч г``</span></span><br><span class="line">CYRILLIC_FIRST = <span class="number">13</span></span><br></pre></td></tr></table></figure>
+
+<p>有了这些，我们就可以轻松地实现风格转换了。 好，再回到原来的问题，为什么 pinyin 的方法默认带声调，而 lazy_pinyin 方法不带声调，答案就是：它们二者使用的默认风格不同，我们看下它的函数定义就知道了： pinyin 方法的定义如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">pinyin</span>(<span class="params">hans, style=Style.TONE, heteronym=<span class="literal">False</span>, errors=<span class="string">&#x27;default&#x27;</span>, strict=<span class="literal">True</span></span>)</span><br></pre></td></tr></table></figure>
+
+<p>lazy_pinyin 方法的定义如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">lazy_pinyin</span>(<span class="params">hans, style=Style.NORMAL, errors=<span class="string">&#x27;default&#x27;</span>, strict=<span class="literal">True</span></span>)</span><br></pre></td></tr></table></figure>
+
+<p>这下懂了吧，因为 pinyin 方法默认使用了 TONE 的风格，而 lazy_pinyin 方法默认使用了 NORMAL 的风格，所以就导致二者返回风格不同了。 好了，有了这两个函数的定义，我们再来研究下其他的参数，比如定义里面的 errors 和 strict 参数又怎么用呢？</p>
+</blockquote>
+<p>关于更多<a target="_blank" rel="noopener" href="https://pypi.org/project/pypinyin/">pypinyin</a> 的用法可以看这里：<a target="_blank" rel="noopener" href="https://cuiqingcai.com/6519.html">Python 中拼音库 PyPinyin 的用法</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44870139/article/details/109541704">Python将文件夹内文件名汉字转拼音</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mozillazg/python-pinyin">python-pinyin</a></li>
+<li><a target="_blank" rel="noopener" href="https://cuiqingcai.com/6519.html">Python 中拼音库 PyPinyin 的用法</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/3fb18aea.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Mac关闭Microsoft AutoUpdate更新弹框提示</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/b02e85.html">
+        <span>SnailGitLite或SnailSVN无法将difftool.sh安装到脚本目录</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/4e1d3fc2.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8xpinyin"><span class="toc-number">1.</span> <span class="toc-text">使用xpinyin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">执行结果：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E9%9F%B3%E5%AD%97%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">多音字问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8pypinyin"><span class="toc-number">2.</span> <span class="toc-text">使用pypinyin</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95-1"><span class="toc-number">2.1.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C%EF%BC%9A-1"><span class="toc-number">2.2.</span> <span class="toc-text">执行结果：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A3%8E%E6%A0%BC%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">风格转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

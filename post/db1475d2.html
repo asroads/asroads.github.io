@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Layabox 学习笔记(2) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/db1475d2.html">Layabox 学习笔记(2)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2018-08-07
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Layabox 学习笔记(2)&url=http://blog.asroads.com/post/db1475d2.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Layabox 学习笔记(2)&url=http://blog.asroads.com/post/db1475d2.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/db1475d2.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/db1475d2.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/db1475d2.html&title=Layabox 学习笔记(2)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Layabox 学习笔记(2)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/db1475d2.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/db1475d2.html&text=Layabox 学习笔记(2)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <h3 id="学习遇到的困惑"><a href="#学习遇到的困惑" class="headerlink" title="学习遇到的困惑"></a>学习遇到的困惑</h3><p>初步学习Layabox，既陌生又熟悉，遇到问题很困惑，解决问题时很兴奋。下面重点说说我这几天学习遇到的一些问题和我解决办法。</p>
+<span id="more"></span>
+
+<hr>
+<h4 id="问题一：Laya-Ide-无法调试"><a href="#问题一：Laya-Ide-无法调试" class="headerlink" title="问题一：Laya Ide 无法调试"></a>问题一：Laya Ide 无法调试</h4><p>问题描述：我刚刚装上IDE就遇到这样的悲催，实在是头疼</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cannot connect to runtime process,timeout after 10000ms -(reason: cannot connect to the target :connect to the target :connect Econnrefused 127.0.0.1:9222)</span><br></pre></td></tr></table></figure>
+
+<p>错误:Debug adapter process has terminated unexpectedly</p>
+<p>layabox ide 无法调试 ，console.log 打印无效，不知道是什么情况！</p>
+<p>后来才知道，原来是我第一次调试结束之后没有正常关闭页面，我需要点击工具栏的停止按钮</p>
+<p>项目运行完后没有在LayaAirIDE上结束运行，而是直接关闭了运行效果窗口。<br>因为是新手，免不了直接关闭，最好是在下图上面关闭，快捷键是  Shift+F5</p>
+<h4 id="问题二：LayaAir提示：版本不匹配-全局tsc-2-7-2-VS-Code的语言服务-2-1-5-。可能出现不一致的编译错误"><a href="#问题二：LayaAir提示：版本不匹配-全局tsc-2-7-2-VS-Code的语言服务-2-1-5-。可能出现不一致的编译错误" class="headerlink" title="问题二：LayaAir提示：版本不匹配!全局tsc(2.7.2)!=VS Code的语言服务(2.1.5)。可能出现不一致的编译错误"></a>问题二：LayaAir提示：版本不匹配!全局tsc(2.7.2)!=VS Code的语言服务(2.1.5)。可能出现不一致的编译错误</h4><p>问题描述：上面的第一个问题刚刚解决，就入了第二个坑，实在是“有福啦！”</p>
+<h5 id="第一种办法："><a href="#第一种办法：" class="headerlink" title="第一种办法："></a>第一种办法：</h5><p>这个错误意思是VS Code内置的TypeScript与本地安装的TypeScript版本号不匹配；</p>
+<p>在cmd窗口输入：tsc -v，发现当前本地的TypeScript版本号是2.7.2</p>
+<p>为此，需要修改本地TypeScript版本号为2.1.5，在cmd中输入下面的命令重新安装下就好了：</p>
+<p>npm install -g <a href="mailto:&#x74;&#121;&#112;&#x65;&#115;&#x63;&#114;&#105;&#112;&#116;&#64;&#50;&#x2e;&#49;&#46;&#53;">&#x74;&#121;&#112;&#x65;&#115;&#x63;&#114;&#105;&#112;&#116;&#64;&#50;&#x2e;&#49;&#46;&#53;</a></p>
+<p>重新查看版本号，发现已经改过来了</p>
+<p>重启LayaAir就正常了。</p>
+<h5 id="第二种办法"><a href="#第二种办法" class="headerlink" title="第二种办法"></a>第二种办法</h5><p>因为ide内置的是2.1.5 只是用来代码提示 编译时候还是用的开发者自己电脑安装的版本，对项目编译不会造成任何影响，不用管就可以了！</p>
+<p>用户设置里面可以配置对应的属性，配置下就好了。对应的属性是：<br>“typescript.tsdk”: “XXX/node_modules/typescript/lib”</p>
+<p>XXX为各位的npm酷的路径位置</p>
+<p>如果你非要改，针对mac和windows我分别说一下：<br>1、mac<br>文件－》首选项－》用户设置，搜索typescript，会发现<br>“typescript.tsdk”: null,这一条<br>在右面选中   用户设置，在下面添加这么一行：<br>“<code>typescript.tsdk&quot;:&quot;/usr/local/lib/node_modules/typescript/lib</code>“<br>/usr/local/lib/node_modules/typescript这个路径是你安装typescript的路径，如果找不到，可以敲命令看看它安装在哪里了：npm list -g typescript<br>command+s保存一下</p>
+<p>2、windows<br>windows和mac基本上是一样的，找到那个配置然后也是在那个用户设置区域里添加一行：<br>“typescript.tsdk”:”C:/<strong>path</strong>/npm/node_modules/typescript/lib”</p>
+<p>上面这个路径是个示例，你可以在命令行里同样敲打命令<code>npm list -g typescript</code> 来找一下你<code>windows</code>里typescript安装在了哪里。</p>
+<p><strong>注意：</strong>对于我来讲喜欢拥抱新事物，我用的是方法二的修改配置文件,另外如果是Windows系统，注意路径是<code>/</code>而不是<code>\</code></p>
+<h3 id="问题三：Webstorm中如何指定编译后的JavaScript目录"><a href="#问题三：Webstorm中如何指定编译后的JavaScript目录" class="headerlink" title="问题三：Webstorm中如何指定编译后的JavaScript目录"></a>问题三：Webstorm中如何指定编译后的JavaScript目录</h3><p>问题描述：用了Webstorm 需要实时编译ts，而且要遵守Layabox 指定的目录，这个知识，之前我是模糊了解</p>
+<p>这次遇到坑，找了很久才找到，其实之前看到过，知识走马观花，没有认真学习</p>
+<h4 id="方法："><a href="#方法：" class="headerlink" title="方法："></a>方法：</h4><p>需要修改项目下的 <code>tsconfig.json</code>文件里 指定一个    “outDir”: “bin/js”,</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;commonjs&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bin/js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;removeComments&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;node_modules&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="问题四-我成功发布后的Web-却无法-在本地打开"><a href="#问题四-我成功发布后的Web-却无法-在本地打开" class="headerlink" title="问题四 我成功发布后的Web 却无法 在本地打开"></a>问题四 我成功发布后的Web 却无法 在本地打开</h3><p>问题描述：我本地已经把游戏调试成功，我也成功发布了Web版本，但是我打开release目录下的web 发现不能打开。</p>
+<p>问题理解：网上说这个是因为Chome 跨域访问问题。</p>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><p>我打算在本地搭建一个服务器环境，虽然对于我做前端的来讲有点陌生，但是有石头，挡住了路，就得把石头搬开啊！</p>
+<p>使用Tomcat 解决。</p>
+<ul>
+<li>先去下载Tomcat文件，然后解压后（需要有JDK环境）修改<code>conf</code>文件夹下面的“tomcat-users.xml”</li>
+</ul>
+<p><img src="/post/db1475d2/image-20180917203547345.png" alt="image-20180917203547345"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">&quot;manager-gui&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">&quot;tomcat&quot;</span> <span class="attr">password</span>=<span class="string">&quot;tomcat&quot;</span> <span class="attr">roles</span>=<span class="string">&quot;manager-gui&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tomcat-users</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加 username 和 密码  我这里都是 “tomcat”</p>
+<p>然后把 web项目 放到“webapps”下面</p>
+<p><img src="/post/db1475d2/image-20180917203958758.png" alt="image-20180917203958758"></p>
+<p>然后启动Tomcat </p>
+<p><img src="/post/db1475d2/image-20180917204213407.png" alt="image-20180917204213407"></p>
+<p>（就是运行Tomcat的bin目录下的 startup.sh 或者startup.bat，shutdown.bat或shutdown.sh是关闭服务器）</p>
+<p>现在打开 <code>http://localhost:8080/</code> 就看到</p>
+<p><img src="/post/db1475d2/image-20180917204442567.png" alt="image-20180917204442567"></p>
+<p>点击登录 就打开我们的项目 </p>
+<p><img src="/post/db1475d2/image-20180917204540500.png" alt="image-20180917204540500"></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/c20f4493.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Layabox 学习笔记(3)</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/f0392611.html">
+        <span>Layabox 学习笔记(1)</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/db1475d2.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E9%81%87%E5%88%B0%E7%9A%84%E5%9B%B0%E6%83%91"><span class="toc-number">1.</span> <span class="toc-text">学习遇到的困惑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9ALaya-Ide-%E6%97%A0%E6%B3%95%E8%B0%83%E8%AF%95"><span class="toc-number">1.1.</span> <span class="toc-text">问题一：Laya Ide 无法调试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9ALayaAir%E6%8F%90%E7%A4%BA%EF%BC%9A%E7%89%88%E6%9C%AC%E4%B8%8D%E5%8C%B9%E9%85%8D-%E5%85%A8%E5%B1%80tsc-2-7-2-VS-Code%E7%9A%84%E8%AF%AD%E8%A8%80%E6%9C%8D%E5%8A%A1-2-1-5-%E3%80%82%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF"><span class="toc-number">1.2.</span> <span class="toc-text">问题二：LayaAir提示：版本不匹配!全局tsc(2.7.2)!&#x3D;VS Code的语言服务(2.1.5)。可能出现不一致的编译错误</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E5%8A%9E%E6%B3%95%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">第一种办法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E5%8A%9E%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">第二种办法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E4%B8%89%EF%BC%9AWebstorm%E4%B8%AD%E5%A6%82%E4%BD%95%E6%8C%87%E5%AE%9A%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84JavaScript%E7%9B%AE%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">问题三：Webstorm中如何指定编译后的JavaScript目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">2.1.</span> <span class="toc-text">方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%9B%9B-%E6%88%91%E6%88%90%E5%8A%9F%E5%8F%91%E5%B8%83%E5%90%8E%E7%9A%84Web-%E5%8D%B4%E6%97%A0%E6%B3%95-%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%89%93%E5%BC%80"><span class="toc-number">3.</span> <span class="toc-text">问题四 我成功发布后的Web 却无法 在本地打开</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">解决方案：</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

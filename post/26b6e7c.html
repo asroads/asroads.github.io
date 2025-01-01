@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.4.x发布VIVO小游戏 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/26b6e7c.html">CocosCreator2.4.x发布VIVO小游戏</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-10-20
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.4.x发布VIVO小游戏&url=http://blog.asroads.com/post/26b6e7c.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.4.x发布VIVO小游戏&url=http://blog.asroads.com/post/26b6e7c.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/26b6e7c.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/26b6e7c.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/26b6e7c.html&title=CocosCreator2.4.x发布VIVO小游戏" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.4.x发布VIVO小游戏&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/26b6e7c.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/26b6e7c.html&text=CocosCreator2.4.x发布VIVO小游戏" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>很多手机厂商都开启了小游戏平台，从最初的微信小游戏，抖音小游戏，后面有百度、快手、B站、VIVO、OPPO和华为，以及新开启的支付宝小游戏，大家都开始在这个赛道抢流量，作为游戏开发方，尽可能的多上几个平台，给自己更多的流量，意味着更多的收入和用户量。下面简单的说说VIVO小游戏的开发。</p>
+<span id="more"></span>
+
+<h2 id="相关文档地址"><a href="#相关文档地址" class="headerlink" title="相关文档地址"></a>相关文档地址</h2><p>VIVO小游戏官方地址：<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/base/start">https://minigame.vivo.com.cn/documents/#/lesson/base/start</a></p>
+<p>Cocos Creator 发布到 vivo 小游戏 <a target="_blank" rel="noopener" href="https://docs.cocos.com/creator/2.4/manual/zh/publish/publish-vivo-instant-games.html">https://docs.cocos.com/creator/2.4/manual/zh/publish/publish-vivo-instant-games.html</a></p>
+<blockquote>
+<h2 id="接入前须知"><a href="#接入前须知" class="headerlink" title="接入前须知"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/base/start?id=%E6%8E%A5%E5%85%A5%E5%89%8D%E9%A1%BB%E7%9F%A5">接入前须知</a></h2><ol>
+<li>包名格式要求： com.公司名.游戏名.vivominigame</li>
+<li>小游戏是否接内购，请在对接组内告知。</li>
+<li>小游戏的icon不超过100k，包体不超过4M。</li>
+<li>记得签名做好妥善保存，以后更新都不能变更签名。每次更新版本时版本名称和版本号都要升级。</li>
+<li>支付和账号的对接，账号和支付各自有不同的appsecret的，要各自使用，不能混用。</li>
+<li>游戏包审核时间：1-2个工作日。</li>
+<li>提交审核建议写最新的全量版本，在/src/manifest.json文件minPlatformVersion字段配置，审核时，会按照这个最低版本引擎去审核，这个字段的<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/configuration?id=%E6%94%AF%E6%8C%81%E7%9A%84%E6%9C%80%E5%B0%8F%E5%B9%B3%E5%8F%B0%E7%89%88%E6%9C%AC%E5%8F%B7">具体含义</a>，全量版本的<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/download/">更新日志</a></li>
+<li>审核被打回日志查找具体报错日志的方法 <a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/dev/dev-log?id=%E5%AE%A1%E6%A0%B8%E6%89%93%E5%9B%9E%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B%E8%B7%AF%E5%BE%84">点击跳转</a></li>
+<li>屏幕保持常亮<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/device/brightness?id=qgsetkeepscreenonobject-object">api地址</a></li>
+<li>游戏强更接口<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/check-update?id=qgapplyupdate">api地址</a></li>
+</ol>
+</blockquote>
+<h2 id="基本环境搭建"><a href="#基本环境搭建" class="headerlink" title="基本环境搭建"></a>基本环境搭建</h2><h3 id="需要安装-nodejs版本-gt-8-9-0"><a href="#需要安装-nodejs版本-gt-8-9-0" class="headerlink" title="需要安装 nodejs版本&gt;=8.9.0"></a>需要安装 nodejs版本&gt;=8.9.0</h3><p><img src="/post/26b6e7c/image-20231024160019424.png" alt="image-20231024160019424"></p>
+<p><strong>注意</strong>：安装 nodejs 后，需要注意 npm 源地址是否为 <a target="_blank" rel="noopener" href="https://registry.npmjs.org/">https://registry.npmjs.org/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前 npm 源地址</span></span><br><span class="line">npm config get registry</span><br><span class="line"><span class="comment"># 若不是，重新设置 npm 源地址</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+
+<h3 id="需要安装-vivo-minigame-cli"><a href="#需要安装-vivo-minigame-cli" class="headerlink" title="需要安装 vivo-minigame/cli"></a>需要安装 <code>vivo-minigame/cli</code></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vivo-minigame/cli</span><br></pre></td></tr></table></figure>
+
+<p>若 <code>vivo-minigame/cli</code> 安装失败，可能是因为 nodejs 版本过低导致的，请检查 node 版本并升级。</p>
+<p>查看所有全局安装的软件包 <strong>npm list -g</strong></p>
+<p><img src="/post/26b6e7c/image-20231024160143060.png" alt="image-20231024160143060"></p>
+<h2 id="渠道修改"><a href="#渠道修改" class="headerlink" title="渠道修改"></a>渠道修改</h2><p><img src="/post/26b6e7c/image-20231024163127974.png" alt="image-20231024163127974"></p>
+<p><img src="/post/26b6e7c/image-20231024163159451.png" alt="image-20231024163159451"></p>
+<p><strong>这里选择内联，减少多次请求带来的时间过长问题。</strong></p>
+<h2 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h2><h3 id="构建vivo-渠道小游戏"><a href="#构建vivo-渠道小游戏" class="headerlink" title="构建vivo 渠道小游戏"></a>构建vivo 渠道小游戏</h3><p><strong>菜单栏 -&gt; 项目</strong> 中打开 <strong>构建发布</strong> 面板，<strong>发布平台</strong> 选择 <strong>vivo 小游戏</strong></p>
+<p><img src="/post/26b6e7c/image-20231024160308440.png" alt="image-20231024160308440"></p>
+<p>构建日志：</p>
+<p><img src="/post/26b6e7c/image-20231024175811822.png" alt="image-20231024175811822"></p>
+<p>具体的配置信息：<code>settings/vivo-runtime.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;package&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.zichen.snake.vivominigame&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;贪吃蛇无尽大作战&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/ydc012/Work/WorkSpace/VIVO/SnakeWar/channelConfig/vivo/logo.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;versionName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.6&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;versionCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;6&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;minPlatformVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1091&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;deviceOrientation&quot;</span><span class="punctuation">:</span> <span class="string">&quot;portrait&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;logLevel&quot;</span><span class="punctuation">:</span> <span class="string">&quot;log&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;npmPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tinyPackageServer&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://cdnminigame.lightlygame.com/tcs/test/vivo/publish/qgame_release&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;useDebugKey&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;privatePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/ydc012/Work/WorkSpace/VIVO/SnakeWar/channelConfig/vivo/private.pem&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;certificatePath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/ydc012/Work/WorkSpace/VIVO/SnakeWar/channelConfig/vivo/certificate.pem&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;disabledMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;showNpmPath&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;packFirstScreenRes&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;separateEngineMode&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何调试游戏"><a href="#如何调试游戏" class="headerlink" title="如何调试游戏"></a>如何调试游戏</h2><h3 id="签名文件缺失"><a href="#签名文件缺失" class="headerlink" title="签名文件缺失"></a>签名文件缺失</h3><p><img src="/post/26b6e7c/image-20231027181428141.png" alt="image-20231027181428141"></p>
+<ol>
+<li>正常构建版本后，构建目录sign目录下缺少 debug目录 导致快应用工具一致卡住 编译界面</li>
+</ol>
+<p><img src="/post/26b6e7c/image-20231027181840909.png" alt="image-20231027181840909"></p>
+<ol start="2">
+<li>添加debug 签名（复制release 一份命名为 debug）</li>
+</ol>
+<p><img src="/post/26b6e7c/image-20231027182131109.png" alt="image-20231027182131109"></p>
+<p><img src="/post/26b6e7c/image-20231027182239705.png" alt="image-20231027182239705"></p>
+<ol start="3">
+<li>此时 可以正常编译</li>
+</ol>
+<h2 id="如何调试游戏-1"><a href="#如何调试游戏-1" class="headerlink" title="如何调试游戏"></a>如何调试游戏</h2><blockquote>
+<h3 id="调试游戏"><a href="#调试游戏" class="headerlink" title="调试游戏"></a>调试游戏</h3><p>1、下载快应用开发工具<a target="_blank" rel="noopener" href="https://www.quickapp.cn/docCenter/post/97">3.9.0及以上版本</a></p>
+<p>2、安装小游戏引擎<a target="_blank" rel="noopener" href="https://vassets.vvstc.com/vassets/og2pg/o/com.vivo.hybrid_v1.9.1.402_1e600efc4_202105311534.apk">1091</a>及其<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/download/engine">以上</a>，安装小游戏调试器<a target="_blank" rel="noopener" href="https://vassets.vvstc.com/vassets/og2pg/o/com.vivo.hybrid.debugger_v10900200_202105102109.apk">10900200</a>及其<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/download/debugger">以上</a></p>
+<p>3、安装vivo小游戏插件</p>
+</blockquote>
+<h2 id="开发者工具"><a href="#开发者工具" class="headerlink" title="开发者工具"></a>开发者工具</h2><p>功能介绍 ：<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/ide/ide_func">https://minigame.vivo.com.cn/documents/#/ide/ide_func</a></p>
+<h4 id="局域网调试"><a href="#局域网调试" class="headerlink" title="局域网调试"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/dev/dev-chrome?id=%E5%B1%80%E5%9F%9F%E7%BD%91%E8%B0%83%E8%AF%95">局域网调试</a></h4><ol>
+<li><strong>手机电脑一定要在局域网内</strong></li>
+<li>在<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/dev/dev-chrome?id=%E6%80%8E%E4%B9%88%E5%8E%BB%E6%89%BEvivo%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%9A%84%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95">游戏工程目录</a>下，启动server服务 <code>npm run server</code></li>
+<li>打开“快应用调试器”，点击“扫码安装”<ul>
+<li>调试器的【调试模式】如果已经打开，那么会自动拉起Chrome浏览器打开调试页面</li>
+<li>调试器的【调试模式】如果未打开，扫码安装完成后，点击back键退出，再点击开始调试即可拉起Chrome浏览器并打开调试页面</li>
+<li>如果想调试其他游戏，扫码安装完成后，点击back键退出；点击“本地安装”后选择本地rpk包即可拉起Chrome浏览器并打开调试页面（注意打开调试模式，或者再次back键退出后点击开始调试）</li>
+</ul>
+</li>
+</ol>
+<p><img src="/post/26b6e7c/image-20231024165324250.png" alt="image-20231024165324250"></p>
+<h4 id="扫码调试"><a href="#扫码调试" class="headerlink" title="扫码调试"></a>扫码调试</h4><p>1.点击右边按钮</p>
+<p><img src="/post/26b6e7c/image-20231027182458033.png" alt="image-20231027182458033"></p>
+<p>2.使用手机小游戏调试工具</p>
+<p><img src="/post/26b6e7c/image-20231027182527879.png" alt="image-20231027182527879"></p>
+<h3 id="添加VIVO-vConsole日志"><a href="#添加VIVO-vConsole日志" class="headerlink" title="添加VIVO vConsole日志"></a>添加VIVO vConsole日志</h3><h4 id="使用方式一"><a href="#使用方式一" class="headerlink" title="使用方式一"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/dev/vConsole?id=%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%E4%B8%80">使用方式一</a></h4><ul>
+<li>修改manifest.json配置文件，路径规则跟icon一致，是在src目录下</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   ......</span><br><span class="line">   <span class="string">&quot;vConsole&quot;</span>: <span class="string">&quot;true&quot;</span>, <span class="comment">//注意&#x27;vConsole&#x27;单词区分大小写 </span></span><br><span class="line">   ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<strong>新版调试器打开审核模式开关</strong>，点击VConsole按钮查看运行时的所有log</li>
+</ul>
+<h4 id="使用方式二"><a href="#使用方式二" class="headerlink" title="使用方式二"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/dev/vConsole?id=%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%E4%BA%8C">使用方式二</a></h4><ul>
+<li>使用<strong>新版调试器打开审核模式开关</strong></li>
+<li>使用最新的小游戏引擎版本</li>
+</ul>
+<h2 id="出包验证"><a href="#出包验证" class="headerlink" title="出包验证"></a>出包验证</h2><p>重点关注 打包：</p>
+<blockquote>
+<p>打包的功能键在开发者工具右上角，支持的功能如下，<strong>发布时请务必选择「打包」「正式版」</strong>：</p>
+<ul>
+<li>选择构建类型，支持「正式版」、「开发版」、「测试版」、「体验版」</li>
+<li>打包，此时编译出release包，用于发布</li>
+<li>重新构建，此时编译出debug包，用于调试</li>
+</ul>
+</blockquote>
+<p><strong>查看构建类型</strong></p>
+<p>titlebar打开菜单弹窗，可以查看当前构建类型。<strong>PS：正式版不显示后缀</strong></p>
+<p><img src="/post/26b6e7c/image-20231024171102456.png" alt="image-20231024171102456"></p>
+<p>开发版包 显示 游戏名后面带 开发版</p>
+<p><img src="/post/26b6e7c/image-20231024171131360.png" alt="image-20231024171131360"></p>
+<p>正式版本</p>
+<p><img src="/post/26b6e7c/image-20231025171847135.png" alt="image-20231025171847135"></p>
+<p><img src="/post/26b6e7c/image-20231024171157755.png" alt="image-20231024171157755"></p>
+<h2 id="分包设置"><a href="#分包设置" class="headerlink" title="分包设置"></a>分包设置</h2><p>官网文档地址：<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/lesson/base/subpackage?id=%e5%88%86%e5%8c%85%e5%8a%a0%e8%bd%bd">分包加载</a></p>
+<p>其实核心就是在 <code>manifest.json</code> 文件下配置，因这里使用<code>CocosCreator</code> 直接设置构建即可。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><h3 id="文件过多导致加载时间过长"><a href="#文件过多导致加载时间过长" class="headerlink" title="文件过多导致加载时间过长"></a>文件过多导致加载时间过长</h3><p>由于我所在的项目是一个App项目，开发设计的时候，并没有考虑小游戏环境，故而有很多个文件，在微信和抖音上面表现还能勉强接受，到了Vivo小游戏上面后，加载时间就特别长，后面通过修改 内联所有<code>SpriteFrame</code>选项，效果就可以接受了。</p>
+<p><img src="/post/26b6e7c/image-20231122201233984.png" alt="image-20231122201233984"></p>
+<h2 id="使用官方快应用工具构建包"><a href="#使用官方快应用工具构建包" class="headerlink" title="使用官方快应用工具构建包"></a>使用官方快应用工具构建包</h2><p>由于项目有些操作是构建后需要的操作，故而我们使用了 <code>VIVO</code>官方的构建工具去构建包体，后面发现包体大了，当时解包发现是打包时候把<code>sourcemap</code>文件打进去了，故而包体变大。</p>
+<p>后面反馈给官方后，官方目前给出的建议是使用命令打包：具体操作就是在 <code>Cocos Creator</code> 构建好的文件目录下，这里是 <code>qgame</code>文件夹下 运行命令 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run release</span><br></pre></td></tr></table></figure>
+
+<p>和 上面调试命令  <code>npm run server</code> 运行目录一样。</p>
+<h3 id="使用平台自带的小游戏自定义Loading组件"><a href="#使用平台自带的小游戏自定义Loading组件" class="headerlink" title="使用平台自带的小游戏自定义Loading组件"></a>使用平台自带的小游戏自定义Loading组件</h3><p>文档地址：<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=%e5%b0%8f%e6%b8%b8%e6%88%8f%e8%87%aa%e5%ae%9a%e4%b9%89loading%e7%bb%84%e4%bb%b6">小游戏自定义Loading组件</a> 后面会特意写一个文章单独介绍这个功能。</p>
+<h3 id="构建包失败-清理缓存"><a href="#构建包失败-清理缓存" class="headerlink" title="构建包失败 清理缓存"></a>构建包失败 清理缓存</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm cache clean --force</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R 501:20 /Users/ydc012/.nvm</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami) ~/.npm</span><br></pre></td></tr></table></figure>
+
+<h2 id="构建的包重新打包报错"><a href="#构建的包重新打包报错" class="headerlink" title="构建的包重新打包报错"></a>构建的包重新打包报错</h2><p>项目里运行安装 <code>npm install @vivo-minigame/cli-service</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vivo-minigame/cli-service</span><br></pre></td></tr></table></figure>
+
+<p>然后重新构建：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run release</span><br></pre></td></tr></table></figure>
+
+<h2 id="构建出的包一直构建无法完成"><a href="#构建出的包一直构建无法完成" class="headerlink" title="构建出的包一直构建无法完成"></a>构建出的包一直构建无法完成</h2><p><img src="/post/26b6e7c/image-20241101160858344.png" alt="image-20241101160858344"></p>
+<p><img src="/post/26b6e7c/image-20241101160930998.png" alt="image-20241101160930998"></p>
+<p>原因是：<strong>打包版本为开发版 需要开发版签名文件</strong><br><img src="/post/26b6e7c/image-20241101161004950.png" alt="image-20241101161004950"></p>
+<p>解决：把release签名复制一份 命名为debug 即可成功编译打包<br><img src="/post/26b6e7c/image-20241101161043739.png" alt="image-20241101161043739"></p>
+<h2 id="构建成功后-无法正常唤起Chrome"><a href="#构建成功后-无法正常唤起Chrome" class="headerlink" title="构建成功后 无法正常唤起Chrome"></a>构建成功后 无法正常唤起Chrome</h2><p>原因：</p>
+<ol>
+<li>手机和电脑不在同一个局域网 比如需要同在同一个Wi-Fi下就可以</li>
+<li>还有一个原因就是：需要关闭VIVO官方自带的打包工具 然后开启 node run server 就可以正常</li>
+</ol>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/3dab5a00.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>VIVO小游戏首屏加载</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/2c94d2d6.html">
+        <span>最近写的一个下载和复制的Python脚本</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/26b6e7c.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E6%A1%A3%E5%9C%B0%E5%9D%80"><span class="toc-number">1.</span> <span class="toc-text">相关文档地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%85%A5%E5%89%8D%E9%A1%BB%E7%9F%A5"><span class="toc-number">2.</span> <span class="toc-text">接入前须知</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">基本环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85-nodejs%E7%89%88%E6%9C%AC-gt-8-9-0"><span class="toc-number">3.1.</span> <span class="toc-text">需要安装 nodejs版本&gt;&#x3D;8.9.0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85-vivo-minigame-cli"><span class="toc-number">3.2.</span> <span class="toc-text">需要安装 vivo-minigame&#x2F;cli</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%A0%E9%81%93%E4%BF%AE%E6%94%B9"><span class="toc-number">4.</span> <span class="toc-text">渠道修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">构建项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BAvivo-%E6%B8%A0%E9%81%93%E5%B0%8F%E6%B8%B8%E6%88%8F"><span class="toc-number">5.1.</span> <span class="toc-text">构建vivo 渠道小游戏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%B8%B8%E6%88%8F"><span class="toc-number">6.</span> <span class="toc-text">如何调试游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%BE%E5%90%8D%E6%96%87%E4%BB%B6%E7%BC%BA%E5%A4%B1"><span class="toc-number">6.1.</span> <span class="toc-text">签名文件缺失</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95%E6%B8%B8%E6%88%8F-1"><span class="toc-number">7.</span> <span class="toc-text">如何调试游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%B8%B8%E6%88%8F"><span class="toc-number">7.1.</span> <span class="toc-text">调试游戏</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="toc-number">8.</span> <span class="toc-text">开发者工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E5%9F%9F%E7%BD%91%E8%B0%83%E8%AF%95"><span class="toc-number">8.0.1.</span> <span class="toc-text">局域网调试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E7%A0%81%E8%B0%83%E8%AF%95"><span class="toc-number">8.0.2.</span> <span class="toc-text">扫码调试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0VIVO-vConsole%E6%97%A5%E5%BF%97"><span class="toc-number">8.1.</span> <span class="toc-text">添加VIVO vConsole日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="toc-number">8.1.1.</span> <span class="toc-text">使用方式一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="toc-number">8.1.2.</span> <span class="toc-text">使用方式二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E5%8C%85%E9%AA%8C%E8%AF%81"><span class="toc-number">9.</span> <span class="toc-text">出包验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8C%85%E8%AE%BE%E7%BD%AE"><span class="toc-number">10.</span> <span class="toc-text">分包设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">11.</span> <span class="toc-text">注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%BF%87%E5%A4%9A%E5%AF%BC%E8%87%B4%E5%8A%A0%E8%BD%BD%E6%97%B6%E9%97%B4%E8%BF%87%E9%95%BF"><span class="toc-number">11.1.</span> <span class="toc-text">文件过多导致加载时间过长</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%98%E6%96%B9%E5%BF%AB%E5%BA%94%E7%94%A8%E5%B7%A5%E5%85%B7%E6%9E%84%E5%BB%BA%E5%8C%85"><span class="toc-number">12.</span> <span class="toc-text">使用官方快应用工具构建包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B9%B3%E5%8F%B0%E8%87%AA%E5%B8%A6%E7%9A%84%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%87%AA%E5%AE%9A%E4%B9%89Loading%E7%BB%84%E4%BB%B6"><span class="toc-number">12.1.</span> <span class="toc-text">使用平台自带的小游戏自定义Loading组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%8C%85%E5%A4%B1%E8%B4%A5-%E6%B8%85%E7%90%86%E7%BC%93%E5%AD%98"><span class="toc-number">12.2.</span> <span class="toc-text">构建包失败 清理缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%9D%83%E9%99%90"><span class="toc-number">12.3.</span> <span class="toc-text">添加权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E7%9A%84%E5%8C%85%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%E6%8A%A5%E9%94%99"><span class="toc-number">13.</span> <span class="toc-text">构建的包重新打包报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E5%87%BA%E7%9A%84%E5%8C%85%E4%B8%80%E7%9B%B4%E6%9E%84%E5%BB%BA%E6%97%A0%E6%B3%95%E5%AE%8C%E6%88%90"><span class="toc-number">14.</span> <span class="toc-text">构建出的包一直构建无法完成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E6%88%90%E5%8A%9F%E5%90%8E-%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E5%94%A4%E8%B5%B7Chrome"><span class="toc-number">15.</span> <span class="toc-text">构建成功后 无法正常唤起Chrome</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

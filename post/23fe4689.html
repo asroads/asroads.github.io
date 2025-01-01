@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/23fe4689.html">CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-04-25
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法&url=http://blog.asroads.com/post/23fe4689.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法&url=http://blog.asroads.com/post/23fe4689.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/23fe4689.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/23fe4689.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/23fe4689.html&title=CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/23fe4689.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/23fe4689.html&text=CocosCreator2.x和CocosCreator3.x开发一个简单的抽奖玩法" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>最近遇到一个面试题，是个抽奖的玩法，于是就用<code>CocosCreator2.4.11</code>和<code>CocosCreator3.7.2</code>分别实现了一下。虽然整个看起来没有什么难度，但还是有些细节值得玩味的，干脆就记录一下，后面可以嵌入到游戏的运营活动里面去。</p>
+<span id="more"></span>
+
+<h2 id="考题分析"><a href="#考题分析" class="headerlink" title="考题分析"></a>考题分析</h2><h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><blockquote>
+<p>用<code>Cocoscreator</code> 实现一个简单的转盘抽奖页面。如下图：</p>
+<p><img src="/post/23fe4689/clip_image002.gif" alt="img"></p>
+<p> 要求。转盘启动后 每个数字依次顺时针被点亮为红色， 速度从每秒点亮20个数字（设定最高频率为20个/秒），持续1-3秒，逐步（中间频率自定义，每个频率的持续时间都是1-3秒之间，总频率数不得少于5个频率）降低到每秒点亮2个数字，并等待2秒后，落到最终设定的停止的位置的数字上，并显示为绿色。 转盘停止转动时 所有格子内的数字都要同时变成100。</p>
+<p>每次启动转盘都从数字1开始，。</p>
+<p>要求：</p>
+<p><code>Cocoscreator</code> 任意版本均可，</p>
+<p>交付最终的所有工程项目文件。</p>
+</blockquote>
+<h3 id="完成效果"><a href="#完成效果" class="headerlink" title="完成效果"></a>完成效果</h3><p>看看最后的效果吧！</p>
+<p>2.4.11版本</p>
+<p><img src="/post/23fe4689/2411.gif" alt="2411"></p>
+<p>3.7.2版本</p>
+<p><img src="/post/23fe4689/372.gif" alt="372"></p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>要使用<code>CocosCreator</code>实现一个简单的转盘抽奖页面，你需要遵循以下步骤：</p>
+<ol>
+<li><p>创建项目： 首先，使用<code>CocosCreator</code>创建一个新的项目。在编辑器中，使用Canvas节点，用作转盘的容器。</p>
+</li>
+<li><p>设计转盘： 将转盘的背景图片和数字图片添加到Turntable节点下。创建一个名为“<code>TurntableItem</code>”的Prefab，包含一个数字精灵和一个文本标签。将这个Prefab放在Turntable节点下，并为每个数字分配一个唯一的位置。确保所有数字都是顺时针排列的。</p>
+<p><img src="/post/23fe4689/image-20230425143822598.png" alt="image-20230425143822598"></p>
+</li>
+<li><p>编写脚本： 在项目中创建一个名为“<code>TurntableController</code>”的脚本，并将其添加到Turntable节点。在脚本中，首先定义一些变量和常量来控制转盘的行为。例如，最大频率、最小频率、频率持续时间等。然后，在<code>start</code>方法中，初始化转盘的状态。</p>
+</li>
+<li><p>控制转盘： 编写一个名为<code>startTurntable</code>的方法来启动转盘。该方法首先将所有数字设置为初始状态。然后，使用<code>schedule</code>函数来控制转盘的速度。根据要求，需要在1-3秒内从最大频率逐渐降低到最小频率。使用<code>Math.floor(Math.random() * (max - min + 1)) + min</code>计算随机持续时间。在每个频率持续时间内，将数字按顺时针顺序点亮为红色。</p>
+</li>
+<li><p>停止转盘： 当达到最小频率时，等待2秒后，停止转盘并落到最终设定的停止位置的数字上。使用<code>unschedule</code>函数来取消计划任务。将最终停止位置的数字显示为绿色，并将所有其他数字设置为100。</p>
+</li>
+<li><p>重置转盘： 为了确保每次启动转盘都从数字1开始，需要在<code>startTurntable</code>方法开始时重置所有数字。</p>
+</li>
+</ol>
+<p>这个示例脚本可作为实现这个功能的参考。您可能需要根据实际项目需求对其进行修改和优化。同时，确保已经在项目中导入了必要的资源，如数字精灵和背景图片等。</p>
+<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><p><code>TurntableController.ts</code>这里只贴出<code>2.4</code>版本，<code>3.7</code> 版本最后看源码地址</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ccclass, property&#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">GRID_SIZE</span>: <span class="built_in">number</span> = <span class="number">80</span>; <span class="comment">// 转盘格子尺寸</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">TURNTABLE_SIZE</span>: <span class="built_in">number</span> = <span class="number">5</span>; <span class="comment">// 横向纵向格子数</span></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">TurntableController</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(&#123;<span class="attr">type</span>: cc.<span class="property">Prefab</span>&#125;)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">itemPrefab</span>: cc.<span class="property">Prefab</span> = <span class="literal">null</span>; <span class="comment">// 转盘格子预制体</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">EditBox</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">inputField</span>: cc.<span class="property">EditBox</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">Button</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">button</span>: cc.<span class="property">Button</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">itemList</span>: cc.<span class="property">Node</span>[] = []; <span class="comment">// 转盘格子节点列表</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">currentNumberIndex</span>: <span class="built_in">number</span> = <span class="number">0</span>; <span class="comment">// 当前点亮的数字索引</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">targetNumberIndex</span>: <span class="built_in">number</span> = <span class="number">0</span>; <span class="comment">// 转盘停止时的目标数字索引</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">remainNumberIndex</span>: <span class="built_in">number</span> = <span class="number">0</span>; <span class="comment">// 倒计时个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">frequencyLevels</span>: <span class="built_in">number</span>[] = [<span class="number">20</span>, <span class="number">16</span>, <span class="number">12</span>, <span class="number">8</span>, <span class="number">4</span>, <span class="number">2</span>]; <span class="comment">// 转盘转动的频率等级</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">currentFrequencyLevel</span>: <span class="built_in">number</span> = <span class="number">0</span>; <span class="comment">// 当前频率等级</span></span><br><span class="line">    <span class="keyword">private</span> <span class="attr">currentBg</span>: cc.<span class="property">Node</span> = <span class="literal">null</span>;<span class="comment">// 前一个显示对象</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">initTurntable</span>(); <span class="comment">// 初始化转盘</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">initTurntable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> array = <span class="variable language_">this</span>.<span class="title function_">generateArrayWithZeros</span>(<span class="variable constant_">TURNTABLE_SIZE</span>); <span class="comment">// 生成数组</span></span><br><span class="line">        <span class="keyword">const</span> offsetX = (<span class="variable constant_">GRID_SIZE</span> * <span class="variable constant_">TURNTABLE_SIZE</span> - <span class="variable constant_">GRID_SIZE</span>) / <span class="number">2</span>; <span class="comment">// 计算x轴偏移量</span></span><br><span class="line">        <span class="keyword">const</span> offsetY = (<span class="variable constant_">GRID_SIZE</span> * <span class="variable constant_">TURNTABLE_SIZE</span> - <span class="variable constant_">GRID_SIZE</span>) / <span class="number">2</span> + <span class="number">200</span>; <span class="comment">// 计算y轴偏移量</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="variable constant_">TURNTABLE_SIZE</span> * <span class="variable constant_">TURNTABLE_SIZE</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">const</span> itemNode = cc.<span class="title function_">instantiate</span>(<span class="variable language_">this</span>.<span class="property">itemPrefab</span>); <span class="comment">// 实例化预制体</span></span><br><span class="line">            <span class="comment">// 设置节点位置</span></span><br><span class="line">            itemNode.<span class="property">position</span> = cc.<span class="title function_">v3</span>(</span><br><span class="line">                <span class="variable constant_">GRID_SIZE</span> * (i % <span class="variable constant_">TURNTABLE_SIZE</span>) - offsetX,</span><br><span class="line">                offsetY - <span class="variable constant_">GRID_SIZE</span> * <span class="title class_">Math</span>.<span class="title function_">floor</span>(i / <span class="variable constant_">TURNTABLE_SIZE</span>),</span><br><span class="line">                <span class="number">0</span></span><br><span class="line">            );</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">node</span>.<span class="title function_">addChild</span>(itemNode); <span class="comment">// 添加节点</span></span><br><span class="line">            <span class="keyword">if</span> (array[i]) &#123;</span><br><span class="line">                itemNode.<span class="title function_">getChildByName</span>(<span class="string">&quot;num&quot;</span>).<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">string</span> = array[i] + <span class="string">&quot;&quot;</span>;</span><br><span class="line">                itemNode.<span class="property">name</span> = array[i] + <span class="string">&quot;&quot;</span>;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">itemList</span>.<span class="title function_">push</span>(itemNode);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                itemNode.<span class="title function_">getChildByName</span>(<span class="string">&quot;num&quot;</span>).<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">string</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对 itemList 按数字排序</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">itemList</span>.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">parseInt</span>(a.<span class="property">name</span>) - <span class="built_in">parseInt</span>(b.<span class="property">name</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始转动转盘</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">startTurntable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">button</span>.<span class="property">interactable</span> = <span class="literal">false</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">resetNumbers</span>(); <span class="comment">// 重置数字显示</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">currentNumberIndex</span> = <span class="number">0</span>; <span class="comment">// 初始化当前数字索引</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">currentFrequencyLevel</span> = <span class="number">0</span>; <span class="comment">// 初始化当前频率等级</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">remainNumberIndex</span> = <span class="number">0</span>; <span class="comment">// 倒计时个数</span></span><br><span class="line">        <span class="keyword">const</span> <span class="attr">inputNumber</span>: <span class="built_in">number</span> = <span class="built_in">parseInt</span>(<span class="variable language_">this</span>.<span class="property">inputField</span>.<span class="property">string</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">targetNumberIndex</span> = <span class="title class_">Number</span>.<span class="built_in">isNaN</span>(inputNumber) ? <span class="variable language_">this</span>.<span class="title function_">calculateTargetNumberIndex</span>() : inputNumber - <span class="number">1</span>; <span class="comment">// 计算目标数字索引</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">remainNumberIndex</span> = <span class="variable language_">this</span>.<span class="property">targetNumberIndex</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(inputNumber)) <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;没有输入数字本次随机:&quot;</span>, inputNumber);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;幸运数字:&quot;</span>, <span class="variable language_">this</span>.<span class="property">targetNumberIndex</span> + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 定时更新转盘</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">schedule</span>(<span class="variable language_">this</span>.<span class="property">updateTurntable</span>, <span class="number">1</span> / <span class="variable language_">this</span>.<span class="property">frequencyLevels</span>[<span class="variable language_">this</span>.<span class="property">currentFrequencyLevel</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重置数字显示</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">resetNumbers</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">currentBg</span> = <span class="literal">null</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">itemList</span>.<span class="title function_">forEach</span>(<span class="function">(<span class="params">value, index</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> bg = value.<span class="title function_">getChildByName</span>(<span class="string">&quot;bg&quot;</span>);</span><br><span class="line">            bg.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">WHITE</span>;</span><br><span class="line">            <span class="comment">// 设置数字节点的文本为对应的数字</span></span><br><span class="line">            value.<span class="title function_">getChildByName</span>(<span class="string">&quot;num&quot;</span>).<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">string</span> = value.<span class="property">name</span>;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新转盘状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">updateTurntable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 重置上一个数字颜色</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">currentBg</span>) <span class="variable language_">this</span>.<span class="property">currentBg</span>.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">WHITE</span>;</span><br><span class="line">        <span class="comment">// 点亮当前数字</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">highlightNumber</span>(<span class="variable language_">this</span>.<span class="property">currentNumberIndex</span>, cc.<span class="property">Color</span>.<span class="property">RED</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">currentNumberIndex</span>++;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">currentNumberIndex</span> &gt;= <span class="variable language_">this</span>.<span class="property">itemList</span>.<span class="property">length</span>) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">currentNumberIndex</span> = <span class="number">0</span>;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">currentFrequencyLevel</span>++;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">currentFrequencyLevel</span> &gt;= <span class="variable language_">this</span>.<span class="property">frequencyLevels</span>.<span class="property">length</span> - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">unschedule</span>(<span class="variable language_">this</span>.<span class="property">updateTurntable</span>); <span class="comment">// 取消定时更新转盘</span></span><br><span class="line">                <span class="comment">// const interval = 2 / this.targetNumberIndex;</span></span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">schedule</span>(<span class="variable language_">this</span>.<span class="property">lastTurntable</span>, <span class="number">1</span> / <span class="variable language_">this</span>.<span class="property">frequencyLevels</span>[<span class="variable language_">this</span>.<span class="property">currentFrequencyLevel</span>], <span class="variable language_">this</span>.<span class="property">remainNumberIndex</span>); <span class="comment">// 降低到每秒点亮2个数字</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">unschedule</span>(<span class="variable language_">this</span>.<span class="property">updateTurntable</span>); <span class="comment">// 取消定时更新转盘</span></span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">schedule</span>(<span class="variable language_">this</span>.<span class="property">updateTurntable</span>, <span class="number">1</span> / <span class="variable language_">this</span>.<span class="property">frequencyLevels</span>[<span class="variable language_">this</span>.<span class="property">currentFrequencyLevel</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">lastTurntable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 重置上一个数字颜色</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">currentBg</span>) <span class="variable language_">this</span>.<span class="property">currentBg</span>.<span class="property">color</span> = cc.<span class="property">Color</span>.<span class="property">WHITE</span>;</span><br><span class="line">        <span class="comment">// 点亮当前数字</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">highlightNumber</span>(<span class="variable language_">this</span>.<span class="property">currentNumberIndex</span>, cc.<span class="property">Color</span>.<span class="property">RED</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">remainNumberIndex</span>--;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;转盘:&quot;</span>, <span class="variable language_">this</span>.<span class="property">remainNumberIndex</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">currentNumberIndex</span>++;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">remainNumberIndex</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;转盘结束:&quot;</span>, <span class="variable language_">this</span>.<span class="property">remainNumberIndex</span>);</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">scheduleOnce</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">stopTurntable</span>();</span><br><span class="line">            &#125;, <span class="number">2</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 停止转盘</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">stopTurntable</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">highlightNumber</span>(<span class="variable language_">this</span>.<span class="property">targetNumberIndex</span>, cc.<span class="property">Color</span>.<span class="property">GREEN</span>); <span class="comment">// 点亮目标数字</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setAllNumbersTo100</span>(); <span class="comment">// 将所有数字设置为100</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">button</span>.<span class="property">interactable</span> = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 点亮指定数字</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">highlightNumber</span>(<span class="params">index: <span class="built_in">number</span>, color: cc.Color</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> numberNode = <span class="variable language_">this</span>.<span class="property">itemList</span>[index];</span><br><span class="line">        <span class="keyword">if</span> (numberNode) &#123;</span><br><span class="line">            <span class="keyword">const</span> bg = numberNode.<span class="title function_">getChildByName</span>(<span class="string">&quot;bg&quot;</span>);</span><br><span class="line">            bg.<span class="property">color</span> = color;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">currentBg</span> = bg;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算目标数字索引</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">calculateTargetNumberIndex</span>(): <span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="comment">// 计算转盘最终停止位置的数字索引</span></span><br><span class="line">        <span class="comment">// 用您想要的逻辑替换此处</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="variable language_">this</span>.<span class="property">itemList</span>.<span class="property">length</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">setAllNumbersTo100</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> numberNode <span class="keyword">of</span> <span class="variable language_">this</span>.<span class="property">itemList</span>) &#123;</span><br><span class="line">            <span class="comment">// 设置数字节点的文本为100</span></span><br><span class="line">            numberNode.<span class="title function_">getChildByName</span>(<span class="string">&quot;num&quot;</span>).<span class="title function_">getComponent</span>(cc.<span class="property">Label</span>).<span class="property">string</span> = <span class="string">&quot;100&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成带有0的数组</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">generateArrayWithZeros</span>(<span class="attr">size</span>: <span class="built_in">number</span>): <span class="built_in">number</span>[] &#123;</span><br><span class="line">        <span class="keyword">const</span> array = <span class="keyword">new</span> <span class="title class_">Array</span>(size * size).<span class="title function_">fill</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> currentNum = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="title function_">fillLayer</span> = (<span class="params">layer: <span class="built_in">number</span></span>) =&gt; &#123;</span><br><span class="line">            <span class="keyword">const</span> maxIndex = size - layer - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 顶部行</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> x = layer; x &lt;= maxIndex; x++) &#123;</span><br><span class="line">                array[layer * size + x] = currentNum++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 右侧列</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> y = layer + <span class="number">1</span>; y &lt;= maxIndex; y++) &#123;</span><br><span class="line">                array[y * size + maxIndex] = currentNum++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 底部行</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> x = maxIndex - <span class="number">1</span>; x &gt;= layer; x--) &#123;</span><br><span class="line">                array[maxIndex * size + x] = currentNum++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 左侧列</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> y = maxIndex - <span class="number">1</span>; y &gt; layer; y--) &#123;</span><br><span class="line">                array[y * size + layer] = currentNum++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> layer = <span class="number">0</span>; layer &lt; <span class="number">1</span>; layer++) &#123;</span><br><span class="line">            <span class="title function_">fillLayer</span>(layer);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中值得一提的是这个 生成0 的数组，这里面用了一个算法，便于拓展，比如 4X4 或者6X6 这样的</p>
+<p>当然如果仅考虑这个题目，想省事可以直接这么写：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="title function_">generateArray</span>(): <span class="built_in">number</span>[] &#123;</span><br><span class="line">    <span class="keyword">const</span> result = [</span><br><span class="line">        <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>,</span><br><span class="line">        <span class="number">16</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">6</span>,</span><br><span class="line">        <span class="number">15</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">7</span>,</span><br><span class="line">        <span class="number">14</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">8</span>,</span><br><span class="line">        <span class="number">13</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">10</span>, <span class="number">9</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> generatedArray = <span class="title function_">generateArray</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(generatedArray);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="文本输入限制"><a href="#文本输入限制" class="headerlink" title="文本输入限制"></a>文本输入限制</h3><p>有一个细节这边也做了一个限制，就是文本的输入，限制<code>EditBox</code>输入内容的组件，希望用户只能输入1-16之间的整数，组件实现：</p>
+<p>您可以通过创建一个新的<code>TypeScript</code>组件并为其添加一个事件监听器来实现这一功能。以下是一个简单示例，展示了如何在<code>CocosCreator</code>中使用<code>TypeScript</code>限制<code>EditBox</code>输入内容：</p>
+<ol>
+<li>首先，在您的项目中创建一个新的<code>TypeScript</code>脚本，并将其命名为<code>InputRestrictor.ts</code>。</li>
+<li>打开刚刚创建的<code>InputRestrictor.ts</code>文件，并替换其内容为以下代码：</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; ccclass, property &#125; = cc.<span class="property">_decorator</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ccclass</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">InputRestrictor</span> <span class="keyword">extends</span> <span class="title class_ inherited__">cc.Component</span> &#123;</span><br><span class="line">    <span class="meta">@property</span>(cc.<span class="property">EditBox</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="attr">inputField</span>: cc.<span class="property">EditBox</span> = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">start</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">inputField</span>.<span class="property">string</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">inputField</span>.<span class="property">node</span>.<span class="title function_">on</span>(<span class="string">&quot;text-changed&quot;</span>, <span class="variable language_">this</span>.<span class="property">onTextChanged</span>, <span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">onTextChanged</span>(<span class="params">editbox: cc.EditBox</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> num = <span class="built_in">parseInt</span>(editbox.<span class="property">string</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">isNaN</span>(num) || num &lt; <span class="number">1</span> || num &gt; <span class="number">16</span>) &#123;</span><br><span class="line">            editbox.<span class="property">string</span> = <span class="string">&quot;&quot;</span>; <span class="comment">// 清除输入</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            editbox.<span class="property">string</span> = num.<span class="title function_">toString</span>(); <span class="comment">// 保留有效输入</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后 源码地址   2.4.11 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/TurntableDemo/Turntable24">点击前往</a>    3.7.2 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/TurntableDemo/Turntable">点击前往</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总的来说这个功能包含了对按钮组件，输入文本组件，定时器，循环，以及布局和随机的考察。算是一个比较经典的一个玩法测试。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b653ee9.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>介绍一个还不错的Javascript日期处理库datex</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/faee496f.html">
+        <span>Webstorm解决CocosCreator3.7.2无法代码智能提示</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/23fe4689.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">考题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E8%A6%81%E6%B1%82"><span class="toc-number">1.1.</span> <span class="toc-text">题目要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%95%88%E6%9E%9C"><span class="toc-number">1.2.</span> <span class="toc-text">完成效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%AE%97%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">核心算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E8%BE%93%E5%85%A5%E9%99%90%E5%88%B6"><span class="toc-number">2.2.</span> <span class="toc-text">文本输入限制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

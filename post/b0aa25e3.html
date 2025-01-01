@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Layabox2.0贝塞尔曲线运动引入TweenMax | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/b0aa25e3.html">Layabox2.0贝塞尔曲线运动引入TweenMax</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-08-13
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Layabox2.0贝塞尔曲线运动引入TweenMax&url=http://blog.asroads.com/post/b0aa25e3.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Layabox2.0贝塞尔曲线运动引入TweenMax&url=http://blog.asroads.com/post/b0aa25e3.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/b0aa25e3.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/b0aa25e3.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/b0aa25e3.html&title=Layabox2.0贝塞尔曲线运动引入TweenMax" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Layabox2.0贝塞尔曲线运动引入TweenMax&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/b0aa25e3.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/b0aa25e3.html&text=Layabox2.0贝塞尔曲线运动引入TweenMax" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/TweenMax/ >TweenMax</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>游戏开发的同学都有同感，在物体运动的时候，曲线运动一直是一个常见的需求，常见的曲线运动有规则的，比如圆周运动，椭圆运动，加速减速运动，使用Layabox引擎的时候，官方已经提供了一个关于缓动的类，Tween，作为从AS3开发起步的人，一定会想到当年的greensock缓动库，基本解决了很多头疼动画需求，而且关键是这个类库文件小，效率还高。从AS3转到H5行业后，greensock 也升级到了2.0 更改了名字。</p>
+<span id="more"></span>
+
+<h3 id="引入原因："><a href="#引入原因：" class="headerlink" title="引入原因："></a>引入原因：</h3><ul>
+<li>Laya自带的Tween类动效特别弱，仅仅相当于TweenLite的阉割版本，比如 yoyo 这样的都没有提供</li>
+<li>曲线运动的时候，官方提供的Tween类显然是无力支撑</li>
+<li>多个物体 做同一套动效的时候，这个时候，需要开发者自己去写一大块业务逻辑处理，如果写的粗糙，会造成动画僵硬不连贯，甚至会造成内存问题。</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>首先我们去网上下载一个类库文件，我恰好搜到一个中文网站，里面文档都是中文的，作为一个英文不是很强的人，当然选择驻足学习。<a target="_blank" rel="noopener" href="https://www.tweenmax.com.cn/">Tweenmax中文网站</a></li>
+<li>我们选择需要的TweenMax下载 地址是<a target="_blank" rel="noopener" href="https://www.tweenmax.com.cn/source/%EF%BC%88[%E7%82%B9%E5%87%BB%E6%88%91%E4%B8%8B%E8%BD%BD](https://www.tweenmax.com.cn/download/greensock-js-2.1.2.zip)%EF%BC%89">https://www.tweenmax.com.cn/source/（[点击我下载](https://www.tweenmax.com.cn/download/greensock-js-2.1.2.zip)）</a></li>
+<li>这个类库是JavaScript 类库，我用的是typescript 语言开发项目 所以需要编写声明文件（后面会给出）</li>
+<li>我们在项目内引入我们的TweenMax类库，查看<a target="_blank" rel="noopener" href="https://www.tweenmax.com.cn/api/tweenmax/">TweenMax文档</a>和<a target="_blank" rel="noopener" href="https://www.tweenmax.com.cn/BezierPlugin/">贝塞尔曲线文档</a></li>
+<li>在项目内实现我们需要的功能，贝塞尔曲线如果想提前可视化 可以借助官方给的工具<a target="_blank" rel="noopener" href="https://www.tweenmax.com.cn/tool/bezier/">贝塞尔曲线生成工具</a></li>
+<li>编写我们需要的效果，完成需求。</li>
+</ol>
+<h3 id="文档相关源文件"><a href="#文档相关源文件" class="headerlink" title="文档相关源文件"></a>文档相关源文件</h3><p><code>TweenMax.d.ts</code> 声明文件</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by jsroads on 2019-08-23.16:59</span></span><br><span class="line"><span class="comment"> * Note:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">class</span> <span class="title class_">TweenMax</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *构造函数</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> target 应该影响其属性的目标对象（或对象数组）</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> duration 持续时间（以秒为单位）</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> vars 参数对象，用于定义应该补间的每个属性的结束值以及任何特殊属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">target:<span class="built_in">any</span>, duration:<span class="built_in">Number</span>, vars:<span class="built_in">any</span> </span>);</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">to</span>(<span class="attr">target</span>:<span class="built_in">any</span>, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">vars</span>:<span class="built_in">any</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">from</span>(<span class="attr">target</span>:<span class="built_in">any</span>, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">vars</span>:<span class="built_in">any</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">fromTo</span>(<span class="attr">target</span>:<span class="built_in">any</span>, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">fromVars</span>:<span class="built_in">any</span>, <span class="attr">toVars</span>:<span class="built_in">any</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">staggerFrom</span>(<span class="attr">target</span>:<span class="built_in">any</span>, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">fromVars</span>:<span class="built_in">any</span>, <span class="attr">toVars</span>:<span class="built_in">any</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">staggerTo</span>(<span class="attr">targets</span>:<span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">vars</span>:<span class="built_in">any</span>, stagger?:<span class="title class_">Number</span>, onCompleteAll?:<span class="title class_">Function</span>, onCompleteAllParams?:<span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, onCompleteAllScope?:<span class="built_in">any</span> ) : <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">staggerFromTo</span>(<span class="attr">targets</span>:<span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, <span class="attr">duration</span>:<span class="title class_">Number</span>, <span class="attr">fromVars</span>:<span class="built_in">any</span>, <span class="attr">toVars</span>:<span class="built_in">any</span>, stagger?:<span class="title class_">Number</span>, onCompleteAll?:<span class="title class_">Function</span>, onCompleteAllParams?:<span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, onCompleteAllScope?:<span class="built_in">any</span> ) : <span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">getTweensOf</span>(<span class="attr">target</span>:<span class="built_in">any</span>, <span class="attr">onlyActive</span>:<span class="title class_">Boolean</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">delayedCall</span>(<span class="attr">delay</span>:<span class="title class_">Number</span>, <span class="attr">callback</span>:<span class="title class_">Function</span>, params?:<span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, scope?:<span class="built_in">any</span>, useFrames?:<span class="title class_">Boolean</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killDelayedCallsTo</span>(<span class="attr">func</span>:<span class="title class_">Function</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killTweensOf</span>(<span class="attr">target</span>:<span class="built_in">any</span>, vars?:<span class="built_in">any</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killAll</span>(complete?:<span class="title class_">Boolean</span>, tweens?:<span class="title class_">Boolean</span>, delayedCalls?:<span class="title class_">Boolean</span>, timelines?:<span class="title class_">Boolean</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">killChildTweensOf</span>(<span class="attr">parent</span>:<span class="built_in">any</span>, complete?:<span class="title class_">Boolean</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">pauseAll</span>(<span class="attr">tweens</span>:<span class="title class_">Boolean</span>, <span class="attr">delayedCalls</span>:<span class="title class_">Boolean</span>, <span class="attr">timelines</span>:<span class="title class_">Boolean</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">resumeAll</span>(<span class="attr">tweens</span>:<span class="title class_">Boolean</span>, <span class="attr">delayedCalls</span>:<span class="title class_">Boolean</span>, <span class="attr">timelines</span>:<span class="title class_">Boolean</span> );</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">set</span>(<span class="attr">target</span>:<span class="built_in">any</span>, <span class="attr">vars</span>:<span class="built_in">any</span> ) : <span class="title class_">TweenMax</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">isActive</span>() : <span class="title class_">Boolean</span>;</span><br><span class="line">    <span class="title function_">delay</span>(value?:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">duration</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">eventCallback</span>(<span class="attr">type</span>:<span class="title class_">String</span>, callback?:<span class="title class_">Function</span>, params?:<span class="title class_">Array</span>&lt;<span class="built_in">any</span>&gt;, scope?:<span class="built_in">any</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">endTime</span>(<span class="attr">includeRepeats</span>:<span class="title class_">Boolean</span> ) : <span class="title class_">Number</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 刷新任何内部记录的开始/结束值，如果您想要重新启动动画而不恢复任何先前记录的起始值，这将非常有用。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">invalidate</span>();</span><br><span class="line">    <span class="title function_">kill</span>(vars?:<span class="built_in">any</span>, target?:<span class="built_in">any</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">pause</span>(<span class="attr">atTime</span>:<span class="built_in">any</span>, <span class="attr">suppressEvents</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">paused</span>(<span class="attr">value</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">play</span>(<span class="attr">from</span>:<span class="built_in">any</span>, <span class="attr">suppressEvents</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">progress</span>(<span class="attr">value</span>:<span class="title class_">Number</span>, <span class="attr">suppressEvents</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重启</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> includeDelay（default =  false） - 确定重新启动时是否遵循延迟（如果有）</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> suppressEvents（default =  true） - 如果  true （默认值），当播放头移动到time 参数中定义的新位置时，不会触发任何事件或回调。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">restart</span>(includeDelay?:<span class="title class_">Boolean</span>, suppressEvents?:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">resume</span>(<span class="keyword">from</span>?:<span class="built_in">any</span>, suppressEvents?:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反转播放，以便动画的所有方面都向后定向，包括例如补间的简易性。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> from （default =  null） - 动画开始反向播放的时间（或TimelineLite / TimelineMax实例的标签）（如果没有定义，它将从播放头当前所在的任何地方开始播放）。要从动画的最后开始，请使用  0。负数相对于动画结束，因此-1将从结尾开始为1秒</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">reverse</span>(<span class="keyword">from</span>?:<span class="built_in">any</span>, suppressEvents?:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取或设置动画的反转状态，指示是否应该向后播放动画。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> value （default =  false） - 省略参数返回当前值（getter），而定义参数则设置值（setter）并返回实例本身以便于链接</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">reversed</span>(value?:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重复动画</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> value 次数（第一次不计算在内）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">repeat</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取或设置重复之间的秒数（或基于帧的补间的帧）的时间量。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">repeatDelay</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 跳转到指定时间(不影响实例是暂停还是反转)</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> time 要去的时间</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> suppressEvents（default = true）-如果true（默认值），当播放头移动到time 参数中定义的新位置时，不会触发任何事件或回调。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">seek</span>(<span class="attr">time</span>:<span class="built_in">any</span>, suppressEvents?:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">startTime</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">time</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">timeScale</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取或设置补间的总持续时间（以秒为单位）（或基于帧的补间的帧），包括任何重复或repeatDelay。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> value （default =  NaN） - 省略参数返回当前值（getter），而定义参数则设置值（setter）并返回实例本身以便于链接。负值将从 动画的END开始解释</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">totalDuration</span>(<span class="attr">value</span>:<span class="title class_">Number</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">totalProgress</span>(<span class="attr">value</span>:<span class="title class_">Number</span>, <span class="attr">suppressEvents</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="title function_">totalTime</span>(<span class="attr">time</span>:<span class="title class_">Number</span>, <span class="attr">suppressEvents</span>:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态更新补间值，即使补间正在进行中，它们也会无缝地改变路线。</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> vars 包含应具有udpated的目标值的属性的对象。但如果你改变一个插件值，则需要完全定义它,例如，要将目标值更新x为300并将目标值更新y为500，请传递:&#123;x:300, y:500&#125;</span></span><br><span class="line"><span class="comment">     *<span class="doctag">@param</span> resetDuration （默认值=  false） -如果补间已开始（或成品），并  resetDuration 是  true，补间将重新启动。如果  resetDuration 是  false，则补间的时间将被接受（不重启），并且将调整每个补间属性的起始值，使其看起来无缝地重定向到新的目标值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">updateTo</span>(<span class="attr">vars</span>:<span class="built_in">object</span>, resetDuration?:<span class="title class_">Boolean</span> ) :<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ease: Ease;// (or Function or String);</span></span><br><span class="line">    <span class="comment">// onComplete: Function;</span></span><br><span class="line">    <span class="comment">/**可用于存储你需要的数据*/</span></span><br><span class="line">    <span class="attr">data</span>: <span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**获取动画的目标对象*/</span></span><br><span class="line">    <span class="attr">target</span>: <span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**获取动画的父级时间轴对象（只读）*/</span></span><br><span class="line">    <span class="keyword">readonly</span> <span class="attr">timeline</span>: <span class="built_in">any</span>;</span><br><span class="line">    <span class="comment">/**一个存储了传递给构造器的配置变量的对象。包含动画选项和回调函数等。例如delay、paused、onComplete*/</span></span><br><span class="line">    <span class="attr">vars</span>: <span class="built_in">any</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置LayaNative屏幕方向，可设置以下值</span></span><br><span class="line"><span class="comment"> * landscape           横屏</span></span><br><span class="line"><span class="comment"> * portrait            竖屏</span></span><br><span class="line"><span class="comment"> * sensor_landscape    横屏(双方向)</span></span><br><span class="line"><span class="comment"> * sensor_portrait     竖屏(双方向)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">screenOrientation</span> = <span class="string">&quot;sensor_landscape&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----libs-begin-----</span></span><br><span class="line"><span class="title function_">loadLib</span>(<span class="string">&quot;libs/laya.core.js&quot;</span>)</span><br><span class="line"><span class="title function_">loadLib</span>(<span class="string">&quot;libs/laya.ui.js&quot;</span>)</span><br><span class="line"><span class="title function_">loadLib</span>(<span class="string">&quot;libs/laya.physics.js&quot;</span>)</span><br><span class="line"><span class="title function_">loadLib</span>(<span class="string">&quot;libs/TweenMax.js&quot;</span>)</span><br><span class="line"><span class="comment">//-----libs-end-------</span></span><br><span class="line"><span class="title function_">loadLib</span>(<span class="string">&quot;js/bundle.js&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>测试代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">sp</span>.<span class="title function_">pos</span>(<span class="number">50</span>,<span class="number">500</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">myBtn</span>.<span class="title function_">on</span>(<span class="title class_">Event</span>.<span class="property">CLICK</span>,<span class="variable language_">this</span>,<span class="function">()=&gt;</span>&#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">sp</span>.<span class="title function_">pos</span>(<span class="number">50</span>,<span class="number">500</span>);</span><br><span class="line">            <span class="title class_">TweenMax</span>.<span class="title function_">to</span>(<span class="variable language_">this</span>.<span class="property">sp</span>, <span class="number">0.75</span>, &#123;</span><br><span class="line">                <span class="attr">bezier</span>:&#123;<span class="attr">type</span>:<span class="string">&quot;soft&quot;</span>,<span class="attr">values</span>:[&#123;<span class="attr">x</span>:<span class="number">50</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">300</span>, <span class="attr">y</span>:<span class="number">300</span>&#125;, &#123;<span class="attr">x</span>:<span class="number">600</span>, <span class="attr">y</span>:<span class="number">500</span>&#125;], <span class="attr">autoRotate</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">                <span class="attr">ease</span>:<span class="title class_">Ease</span>.<span class="property">linearOut</span>,<span class="attr">overwrite</span>:<span class="literal">true</span>,<span class="attr">repeat</span>:-<span class="number">1</span>,<span class="attr">yoyo</span>:<span class="literal">true</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>最终效果如下：</p>
+<p><img src="/post/b0aa25e3/record-6635568.gif" alt="record"></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>程序开发的过程中，要学会学以致用，前面的东西后面能够借用，省事省力。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b4731b58.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>文件循环引用以及属性的延迟定义</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/9912c4a7.html">
+        <span>微信小游戏Laya2.0粒子特效实现</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/b0aa25e3.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E5%8E%9F%E5%9B%A0%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">引入原因：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E7%9B%B8%E5%85%B3%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">文档相关源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

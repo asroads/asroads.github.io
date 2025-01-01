@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            谈谈工作的设计与实践 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/7ab13ee0.html">谈谈工作的设计与实践</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-10-27
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/life/">life</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=谈谈工作的设计与实践&url=http://blog.asroads.com/post/7ab13ee0.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=谈谈工作的设计与实践&url=http://blog.asroads.com/post/7ab13ee0.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/7ab13ee0.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/7ab13ee0.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/7ab13ee0.html&title=谈谈工作的设计与实践" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=谈谈工作的设计与实践&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/7ab13ee0.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/7ab13ee0.html&text=谈谈工作的设计与实践" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E7%94%9F%E6%B4%BB/ >生活</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>工作的时候，很多时候理想很丰满，现实骨感的要死，受限于时间，成本，团队成员的参差不齐，各种理想的乌托邦被打破，有时候不得不为了照顾大家而在一些地方做出让步和妥协，也许这才是真正的人生与工作。工作里，很多时候创新和传统之间如何做到平衡是一门艺术，上下级，同事间的协调是一门学问。下面简单的谈谈自己对工作上的设计和实践的一些认识。</p>
+<span id="more"></span>
+
+<h3 id="工作原则"><a href="#工作原则" class="headerlink" title="工作原则"></a>工作原则</h3><p>软件工程的存在的意义是如何让整个项目持续高效的安全运行。</p>
+<p>在工作中，我们需要有一些基本的工作原则：</p>
+<h4 id="实现优先"><a href="#实现优先" class="headerlink" title="实现优先"></a>实现优先</h4><p>代码始终是要跑起来的，无法正常运行的代码几乎相当于废品，无论如何一定要让自己的编码是能够运行的。</p>
+<h4 id="设计前置"><a href="#设计前置" class="headerlink" title="设计前置"></a>设计前置</h4><p>苏格拉底说过：“未经审视的人生是不值得过的” 同理，如何代码没有过审视和设计，写出的代码很难做到易于拓展和易于维护。</p>
+<p>故而，在功能实现前，一定要思考一下，如何编码。</p>
+<h4 id="逐步优化，重构贯穿整个周期"><a href="#逐步优化，重构贯穿整个周期" class="headerlink" title="逐步优化，重构贯穿整个周期"></a>逐步优化，重构贯穿整个周期</h4><p>编码是一份持续的工作，精力是有限的，早期的时候要抓大放小，中期的时候要粗中有细，后期的时候要善于从细节着手重构优化，优化和重构是一个程序员成长的记事本，荀子曰：“不积跬步，无以至千里”</p>
+<h4 id="效率和优雅的平衡"><a href="#效率和优雅的平衡" class="headerlink" title="效率和优雅的平衡"></a>效率和优雅的平衡</h4><p>很多时候，无论是个人效率还是团队效率，都和编码的风格，规范密切相关，编码可能只是一次，但是会被后面的人阅读N次，如果自己不愿意阅读晦涩难懂的代码，从自己做起，开始让代码优雅的活着。</p>
+<h4 id="持续学习，与时俱进"><a href="#持续学习，与时俱进" class="headerlink" title="持续学习，与时俱进"></a>持续学习，与时俱进</h4><p>尝试学习新的用法，学习新的知识，不代表放弃旧的API，只是在遇到问题的时候，会多一种选择方案。很多时候，解决问题的方式有很多种，若没得选择，我们只能做自己熟悉的那种。</p>
+<h4 id="推荐大于限制，限制强于禁止"><a href="#推荐大于限制，限制强于禁止" class="headerlink" title="推荐大于限制，限制强于禁止"></a>推荐大于限制，限制强于禁止</h4><p>人际关系里最好的关系莫过于，我不说话，一个眼神，你便懂得。项目里亦是如此，如何让自己的API能够易于让人使用，是需要反复锤炼的工作，写简单的API。在规范制定方面，推荐 要比限制 好推广，禁止最难以执行。</p>
+<h4 id="生活原则"><a href="#生活原则" class="headerlink" title="生活原则"></a>生活原则</h4><h5 id="极简主义"><a href="#极简主义" class="headerlink" title="极简主义"></a>极简主义</h5><p>这两年突然喜欢了做减法的生活，觉得简单的生活更容易让人快乐，快乐来源于一杯午后的香茗，来自于周末的半刻休闲。有时候追求统一，简洁，会让自己减少很多焦虑，内心多一些平静和安逸。</p>
+<h5 id="拒绝快餐文化"><a href="#拒绝快餐文化" class="headerlink" title="拒绝快餐文化"></a>拒绝快餐文化</h5><p>尽管如今的生活节奏让人疲于奔波，但还是希望能够获取到生活的本质的步伐，不要什么都讲究快，极速。该有的生活仪式感，还是要有的，仪式感就像一个校对时间一样，让自己懂得，自己在生命的长河里处于何处，社会的宏图里，找准自己的位置。</p>
+<h5 id="切记盲目跟风"><a href="#切记盲目跟风" class="headerlink" title="切记盲目跟风"></a>切记盲目跟风</h5><p>随波逐流要比独立思考容易的多，懒惰是人的天性，如果能克服部分身上的坏习惯，自己很容易变得优秀，让优秀成为一种习惯，不妨从小事做起，从身边的习惯做起，尝试着学习，小制作，培养新的爱好，兴趣，试着陶冶情操。除了每天的吃喝，生活里还有很多地方，值得我们下心思好好活着。</p>
+<h3 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h3><p>总的来讲，让自己变得强大不是一件容易的事，学习如同逆水行舟，不进则退，业精于勤荒于嬉，行成于思毁于随。加油！</p>
+<h3 id="2021-11-26-续"><a href="#2021-11-26-续" class="headerlink" title="2021-11-26-续"></a>2021-11-26-续</h3><p>这些天经历了一些生活的波折，看到了很多工作之外的东西，本想开贴写一些感受，奈何没有什么头绪，就写个续吧</p>
+<h4 id="公司不是家"><a href="#公司不是家" class="headerlink" title="公司不是家"></a>公司不是家</h4><p>无论工作文化是好还是不好，千万不要依附，要冷静的去对待，凡事一旦投入了过量的情绪，都会让自己的判断失去智慧，团队是组建的，将帅无能，累死三军。无论再好的兵书，都没有施展的地方，只会沦为布满灰尘的废纸。</p>
+<h4 id="建立双赢思维"><a href="#建立双赢思维" class="headerlink" title="建立双赢思维"></a>建立双赢思维</h4><p>工作中创造财富的同时，要记得为下一次投入成本，就像庄稼人每个季节收获之后，都会挑选一部分好的作为来年的种子。工作亦是如此，学会持续投入。</p>
+<h4 id="学会支配时间"><a href="#学会支配时间" class="headerlink" title="学会支配时间"></a>学会支配时间</h4><p>到了一定年纪，人的事情就会逐步增加，以至于很多时候无法抽身处理自己的事情，无论是去年看的《高效能人士的七个习惯》还是今年看的《卓有成效的管理者》里面都有一个要事第一的原则，生活里也应该这样，永远做重要的事情。</p>
+<h4 id="试着拓展人脉"><a href="#试着拓展人脉" class="headerlink" title="试着拓展人脉"></a>试着拓展人脉</h4><p>作为一个技术人，这个恐怕是最难的，当然，并不是因为难，就不去做，而是一点点的去突破，适当的拓展自己的视野，边界，人治思维，有时候机遇就在不经意的改变之中。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/b307f88.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>使用Python脚本生成git某天的提交日志记录</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/ee0a6913.html">
+        <span>CocosCreator扩展内置组件做Checkbox</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/7ab13ee0.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E5%88%99"><span class="toc-number">1.</span> <span class="toc-text">工作原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%85%88"><span class="toc-number">1.1.</span> <span class="toc-text">实现优先</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%89%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">设计前置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%90%E6%AD%A5%E4%BC%98%E5%8C%96%EF%BC%8C%E9%87%8D%E6%9E%84%E8%B4%AF%E7%A9%BF%E6%95%B4%E4%B8%AA%E5%91%A8%E6%9C%9F"><span class="toc-number">1.3.</span> <span class="toc-text">逐步优化，重构贯穿整个周期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%88%E7%8E%87%E5%92%8C%E4%BC%98%E9%9B%85%E7%9A%84%E5%B9%B3%E8%A1%A1"><span class="toc-number">1.4.</span> <span class="toc-text">效率和优雅的平衡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%81%E7%BB%AD%E5%AD%A6%E4%B9%A0%EF%BC%8C%E4%B8%8E%E6%97%B6%E4%BF%B1%E8%BF%9B"><span class="toc-number">1.5.</span> <span class="toc-text">持续学习，与时俱进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E5%A4%A7%E4%BA%8E%E9%99%90%E5%88%B6%EF%BC%8C%E9%99%90%E5%88%B6%E5%BC%BA%E4%BA%8E%E7%A6%81%E6%AD%A2"><span class="toc-number">1.6.</span> <span class="toc-text">推荐大于限制，限制强于禁止</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%B4%BB%E5%8E%9F%E5%88%99"><span class="toc-number">1.7.</span> <span class="toc-text">生活原则</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%81%E7%AE%80%E4%B8%BB%E4%B9%89"><span class="toc-number">1.7.1.</span> <span class="toc-text">极简主义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8B%92%E7%BB%9D%E5%BF%AB%E9%A4%90%E6%96%87%E5%8C%96"><span class="toc-number">1.7.2.</span> <span class="toc-text">拒绝快餐文化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%87%E8%AE%B0%E7%9B%B2%E7%9B%AE%E8%B7%9F%E9%A3%8E"><span class="toc-number">1.7.3.</span> <span class="toc-text">切记盲目跟风</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">综述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2021-11-26-%E7%BB%AD"><span class="toc-number">3.</span> <span class="toc-text">2021-11-26-续</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E5%8F%B8%E4%B8%8D%E6%98%AF%E5%AE%B6"><span class="toc-number">3.1.</span> <span class="toc-text">公司不是家</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E5%8F%8C%E8%B5%A2%E6%80%9D%E7%BB%B4"><span class="toc-number">3.2.</span> <span class="toc-text">建立双赢思维</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A6%E4%BC%9A%E6%94%AF%E9%85%8D%E6%97%B6%E9%97%B4"><span class="toc-number">3.3.</span> <span class="toc-text">学会支配时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%95%E7%9D%80%E6%8B%93%E5%B1%95%E4%BA%BA%E8%84%89"><span class="toc-number">3.4.</span> <span class="toc-text">试着拓展人脉</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

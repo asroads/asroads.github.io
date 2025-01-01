@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Android新特性自适应图标(Adaptive Icons) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/9f03c1f.html">Android新特性自适应图标(Adaptive Icons)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-09-24
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Android新特性自适应图标(Adaptive Icons)&url=http://blog.asroads.com/post/9f03c1f.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Android新特性自适应图标(Adaptive Icons)&url=http://blog.asroads.com/post/9f03c1f.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/9f03c1f.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/9f03c1f.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/9f03c1f.html&title=Android新特性自适应图标(Adaptive Icons)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Android新特性自适应图标(Adaptive Icons)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/9f03c1f.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/9f03c1f.html&text=Android新特性自适应图标(Adaptive Icons)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Android O 引入了<strong>“自适应桌面图标”</strong>，能在不同的设备型号上显示不同的图标形状。比如同一个桌面图标在一家 OEM 厂商的设备上显示为圆形，在另一家则可以显示为方形。各个 OEM 厂商可提供一个标准形状，交给系统将所有应用的自适应图标渲染为相同形状。新的桌面图标还将应用在快捷方式、“设置”应用、分享对话框等地方。</p>
+<span id="more"></span>
+
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="为什么要进行应用图标适配？"><a href="#为什么要进行应用图标适配？" class="headerlink" title="为什么要进行应用图标适配？"></a>为什么要进行应用图标适配？</h3><p>可能有些朋友觉得困惑，应用图标这种东西从Android远古时代就已经有了，而且功能格外的简单，就是放张图片而已，这有什么好适配的呢？但实际上，在当前Android环境下，应用图标功能是极其混乱的。因此，在2007年一代iPhone诞生的时候，所有应用程序的图标都毫不出乎意料地使用了圆角矩形图标，即使是第三方应用也被强制要求使用圆角矩形图标，并且这一规则一直延续到了今天。相反，Android系统在设计的时候就不喜欢苹果这样的封闭与强制，而是选择了自由与开放，对应用图标的形状不做任何强制要求，开发者们可以自由进行选择，在Android上，应用图标可以是方形、圆形、圆角矩形、或者是其他任意不规则图形。</p>
+<p>本来就是两家公司不同的设计理念，也说不上孰高孰低。但由于Android操作系统是开源的，国内一些手机厂商在定制操作系统的时候就把这一特性给改了。比如小米手机，就选择了向苹果靠拢，强制要求应用图标圆角化。如果某些应用的图标不是圆角矩形的呢？小米系统会自动给它加上一个圆角的效果</p>
+<h3 id="8-0系统的应用图标适配"><a href="#8-0系统的应用图标适配" class="headerlink" title="8.0系统的应用图标适配"></a>8.0系统的应用图标适配</h3><p>这个问题对于Google来说还是挺难解决的。因为Google一直在强调自由与开放，那么小米强制要求所有应用图标都必须圆角化也是人家的自由呀，你不准人家这么干是不是本身就违背了自由和开放的理念呢？当然我们在这里讨论这个，有点像讨论先有鸡还是先有蛋的感觉，不过Google还是想出了一套完美的解决方案。</p>
+<p>从Android 8.0系统开始，应用程序的图标被分为了两层：前景层和背景层。也就是说，我们在设计应用图标的时候，需要将前景和背景部分分离，前景用来展示应用图标的Logo，背景用来衬托应用图标的Logo。需要注意的是，背景层在设计的时候只允许定义颜色和纹理，但是不能定义形状。</p>
+<p>那么应用图标的形状由谁来定义呢？Google将这个权利就交给手机厂商了。不是有些手机厂商喜欢学习苹果的圆角图标吗？没问题，由于应用图标的设计分为了两层，手机厂商只需要在这两层之上再盖上一层mask，这个mask可以是圆角矩形、圆形或者是方形等等，视具体手机厂商而定，就可以瞬间让手机上的所有应用图标都变成相同的规范。原理示意图如下：<br><img src="/post/9f03c1f/2018030520555291.gif" alt="img"></p>
+<h3 id="一定要适配吗？"><a href="#一定要适配吗？" class="headerlink" title="一定要适配吗？"></a>一定要适配吗？</h3><p>有些朋友可能会觉得这种分成两层的应用图标设计太过于麻烦，不适配可以吗？也有些朋友可能会说，自己的APP并没有做过应用图标适配，在Android 8.0手机上也照样跑得好好的。</p>
+<p>事实上，这个新功能Google是准备让它慢慢过渡的，而不是一次性就强推给所有的开发者。如果你的APP中的targetSdkVersion是低于26的，那么就可以不用进行应用图标适配，Android 8.0系统仍然是向下兼容的。但是如果你将targetSdkVersion指定到了26或者更高，那么Android系统就会认为你的APP已经做好了8.0系统的适配工作，当然包括了应用图标的适配。</p>
+<p>如果你将targetSdkVersion指定到了26，但是却没有进行Android 8.0系统的应用图标适配，那么会出现什么样的效果呢？这里我举几个反面示例：<br><img src="/post/9f03c1f/image-20240924145522047.png" alt="image-20240924145522047"></p>
+<h3 id="官方相关文档"><a href="#官方相关文档" class="headerlink" title="官方相关文档"></a>官方相关文档</h3><p>自适应图标：<a target="_blank" rel="noopener" href="https://developer.android.com/develop/ui/views/launch/icon_design_adaptive?hl=zh-cn">https://developer.android.com/develop/ui/views/launch/icon_design_adaptive?hl=zh-cn</a></p>
+<p>在以前的 Android 版本中，桌面图标大小定义为 48 x 48 dp。从 Android 13（API 级别 33）开始，用户可以设置主题 自适应图标。如果用户通过打开 系统设置中的<strong>带主题的图标</strong>切换开关，启动器支持此功能 功能时，系统会使用用户所选壁纸的颜色，并 主题来确定色调颜色。设计自适应图标：为确保自适应图标支持不同的形状、视觉效果和 用户主题设置，则设计必须符合以下要求：</p>
+<p><img src="/post/9f03c1f/image-20240924144801167.png" alt="image-20240924144801167"></p>
+<ul>
+<li>两张图层大小都必须为 <strong>108 x 108 dp</strong>。</li>
+<li>使用尺寸至少为 48x48 dp 的徽标。尺寸不得超过 66x66dp， 因为图标的内部 66x66 dp 显示在遮罩内 视口。</li>
+</ul>
+<p>层四条边外侧的 18dp 分别是 以及创建视差或脉冲等视觉效果。</p>
+<p><img src="/post/9f03c1f/image-20240924144910844.png" alt="image-20240924144910844"></p>
+<p><img src="/post/9f03c1f/image-20240924144935327.png" alt="image-20240924144935327"></p>
+<h2 id="CocosCreator适配图标"><a href="#CocosCreator适配图标" class="headerlink" title="CocosCreator适配图标"></a>CocosCreator适配图标</h2><h3 id="Cocos构建安卓项目"><a href="#Cocos构建安卓项目" class="headerlink" title="Cocos构建安卓项目"></a>Cocos构建安卓项目</h3><p>我们这里的项目是使用Cocos Creator生成的，那么如何适配呢？</p>
+<p>我们发现长这样：</p>
+<p><img src="/post/9f03c1f/image-20240924150052164.png" alt="image-20240924150052164"></p>
+<p><img src="/post/9f03c1f/image-20240924150117112.png" alt="image-20240924150117112"></p>
+<h3 id="配置文件-mipmap-anydpi-v26"><a href="#配置文件-mipmap-anydpi-v26" class="headerlink" title="配置文件 mipmap-anydpi-v26"></a>配置文件 mipmap-anydpi-v26</h3><p>此时我们需要添加一个新目录：mipmap-anydpi-v26<br><img src="/post/9f03c1f/image-20240924150237489.png" alt="image-20240924150237489"></p>
+<p>ic_launcher_round.xml 内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">adaptive-icon</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">background</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@color/ic_launcher_background&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreground</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@mipmap/ic_launcher_foreground&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">adaptive-icon</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>ic_launcher.xml 内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">adaptive-icon</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">background</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@color/ic_launcher_background&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreground</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@mipmap/ic_launcher_foreground&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">adaptive-icon</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用图标生成工具"><a href="#使用图标生成工具" class="headerlink" title="使用图标生成工具"></a>使用图标生成工具</h3><p>AndroidStudio生成图标，经试验，AS 的 Image Asset 生成的图标主要保存在以下5个文件夹中，每个文件夹下都保存着名称为 ic_launcher.png（圆角方形）、ic_launcher_round.png（圆形）两个图标，各文件夹下的图标尺寸分别为：<br>mipmap-mdpi: 48X48<br>mipmap-hdpi: 72X72<br>mipmap-xhdpi: 96X96<br>mipmap-xxhdpi: 144X144<br>mipmap-xxxhdpi: 192X192<br>对于很多对美术不是很熟悉的朋友，肯定觉得制作起来比较麻烦，于是想到聊第三方在线制作，这些网站生成和AndroidStudio生成的效果几乎没有差别，能够生成在线图标网址如下:</p>
+<p><a target="_blank" rel="noopener" href="https://romannurik.github.io/AndroidAssetStudio/">https://romannurik.github.io/AndroidAssetStudio/</a><br><a target="_blank" rel="noopener" href="https://makeappicon.com/">https://makeappicon.com/</a><br><a target="_blank" rel="noopener" href="http://iconion.com/">http://iconion.com/</a></p>
+<p>我这里选择第二个：<a target="_blank" rel="noopener" href="https://makeappicon.com/">https://makeappicon.com/</a></p>
+<p><img src="/post/9f03c1f/image-20240924151742404.png" alt="image-20240924151742404"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── mipmap-hdpi</span><br><span class="line">│   ├── ic_launcher.png</span><br><span class="line">│   ├── ic_launcher_foreground.png</span><br><span class="line">│   └── ic_launcher_round.png</span><br><span class="line">├── mipmap-mdpi</span><br><span class="line">│   ├── ic_launcher.png</span><br><span class="line">│   ├── ic_launcher_foreground.png</span><br><span class="line">│   └── ic_launcher_round.png</span><br><span class="line">├── mipmap-xhdpi</span><br><span class="line">│   ├── ic_launcher.png</span><br><span class="line">│   ├── ic_launcher_foreground.png</span><br><span class="line">│   └── ic_launcher_round.png</span><br><span class="line">├── mipmap-xxhdpi</span><br><span class="line">│   ├── ic_launcher.png</span><br><span class="line">│   ├── ic_launcher_foreground.png</span><br><span class="line">│   └── ic_launcher_round.png</span><br><span class="line">├── mipmap-xxxhdpi</span><br><span class="line">│   ├── ic_launcher.png</span><br><span class="line">│   ├── ic_launcher_foreground.png</span><br><span class="line">│   └── ic_launcher_round.png</span><br><span class="line">└── playstore-icon.png</span><br><span class="line"></span><br><span class="line">6 directories, 16 files</span><br></pre></td></tr></table></figure>
+
+<p>修改AndroidManifest.xml文件，代码如下所示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">&quot;com.example.icontest&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">&quot;@mipmap/ic_launcher&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">&quot;@string/app_name&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">&quot;@mipmap/ic_launcher_round&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">&quot;@style/AppTheme&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/9f03c1f/image-20240924152918252.png" alt="image-20240924152918252"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://objectville.github.io/2018/05/16/Android-8-0-%E7%B3%BB%E7%BB%9F%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87%E9%80%82%E9%85%8D/">Android 8.0 系统应用图标适配</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/guolin_blog/article/details/79417483">Android应用图标微技巧，8.0系统中应用图标的适配</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/c2soft/articles/16038114.html">Android生成app应用图标（转）</a></li>
+<li><a target="_blank" rel="noopener" href="https://icon.wuruihong.com/">一键生成所有尺寸的应用图标</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/64a9a637.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>iOS微信开发如何运行官方demo</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/f5eb8e99.html">
+        <span>ironsource海外试玩广告踩坑指南</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/9f03c1f.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87%E9%80%82%E9%85%8D%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">为什么要进行应用图标适配？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-0%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87%E9%80%82%E9%85%8D"><span class="toc-number">1.2.</span> <span class="toc-text">8.0系统的应用图标适配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%AE%9A%E8%A6%81%E9%80%82%E9%85%8D%E5%90%97%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">一定要适配吗？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E7%9B%B8%E5%85%B3%E6%96%87%E6%A1%A3"><span class="toc-number">1.4.</span> <span class="toc-text">官方相关文档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CocosCreator%E9%80%82%E9%85%8D%E5%9B%BE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">CocosCreator适配图标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cocos%E6%9E%84%E5%BB%BA%E5%AE%89%E5%8D%93%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.1.</span> <span class="toc-text">Cocos构建安卓项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-mipmap-anydpi-v26"><span class="toc-number">2.2.</span> <span class="toc-text">配置文件 mipmap-anydpi-v26</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%BE%E6%A0%87%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7"><span class="toc-number">2.3.</span> <span class="toc-text">使用图标生成工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

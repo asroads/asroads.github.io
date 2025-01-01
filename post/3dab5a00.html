@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            VIVO小游戏首屏加载 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/3dab5a00.html">VIVO小游戏首屏加载</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2023-11-13
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=VIVO小游戏首屏加载&url=http://blog.asroads.com/post/3dab5a00.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=VIVO小游戏首屏加载&url=http://blog.asroads.com/post/3dab5a00.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/3dab5a00.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/3dab5a00.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/3dab5a00.html&title=VIVO小游戏首屏加载" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=VIVO小游戏首屏加载&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/3dab5a00.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/3dab5a00.html&text=VIVO小游戏首屏加载" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/%E5%B0%8F%E6%B8%B8%E6%88%8F/ >小游戏</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/vivo/ >vivo</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>这里是你博客列表显示的摘要文字最近项目要发布VIVO小游戏，由于游戏是从App转到小游戏的，在微信和抖音的平台表现已经是要做很多优化和品质牺牲，到了VIVO小游戏效果更是不乐观，于是按照官方的优化指导接入了他们的<a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%87%AA%E5%AE%9A%E4%B9%89loading%E7%BB%84%E4%BB%B6">小游戏自定义Loading组件</a>。</p>
+<span id="more"></span>
+<p><img src="/post/3dab5a00/q9qou4sp.png" alt="q9qou4sp"></p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>首先我们先看官方文档的说明：</p>
+<blockquote>
+<h3 id="qg-createCustomizeLoading-Object-object"><a href="#qg-createCustomizeLoading-Object-object" class="headerlink" title="qg.createCustomizeLoading(Object object)"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=qgcreatecustomizeloadingobject-object">qg.createCustomizeLoading(Object object)</a></h3><h4 id="1、参数"><a href="#1、参数" class="headerlink" title="1、参数"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=_1%E3%80%81%E5%8F%82%E6%95%B0">1、参数</a></h4><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">必填</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">background</td>
+<td align="left">string</td>
+<td align="left">否</td>
+<td align="left">背景图片，可以为网络图片或本地图片</td>
+</tr>
+<tr>
+<td align="left">text</td>
+<td align="left">string</td>
+<td align="left">否</td>
+<td align="left">加载进度文本</td>
+</tr>
+<tr>
+<td align="left">textColor</td>
+<td align="left">string</td>
+<td align="left">否</td>
+<td align="left">文本的颜色。必须是 16 进制格式的颜色字符串，例如：‘#999999’。</td>
+</tr>
+<tr>
+<td align="left">loadingColorTop</td>
+<td align="left">string</td>
+<td align="left">否</td>
+<td align="left">loading进度条渐变色顶部颜色。必须是 16 进制格式的颜色字符串，默认无背景色，例如：‘#999999’。</td>
+</tr>
+<tr>
+<td align="left">loadingColorBottom</td>
+<td align="left">string</td>
+<td align="left">否</td>
+<td align="left">loading进度条渐变色底部颜色。必须是 16 进制格式的颜色字符串，默认无背景色，例如：‘#999999’。</td>
+</tr>
+<tr>
+<td align="left">loadingProgress</td>
+<td align="left">Number</td>
+<td align="left">否</td>
+<td align="left">进度条的进度</td>
+</tr>
+<tr>
+<td align="left">flow</td>
+<td align="left">Number</td>
+<td align="left">否</td>
+<td align="left">首屏所需资源大小，显示流量消耗提示，单位Mb。若首屏所需资源超过30Mb，则必须提供该值，否则可能审核不通过</td>
+</tr>
+</tbody></table>
+<p><strong>返回值</strong></p>
+<p>创建CustomizeLoading组件</p>
+<h3 id="CustomizeLoading-update-Object-object"><a href="#CustomizeLoading-update-Object-object" class="headerlink" title="CustomizeLoading.update(Object object)"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=customizeloadingupdateobject-object">CustomizeLoading.update(Object object)</a></h3><p>更新CustomizeLoading样式，传入参数与createCustomizeLoading一致</p>
+<h3 id="CustomizeLoading-getProgress-Object-object"><a href="#CustomizeLoading-getProgress-Object-object" class="headerlink" title="CustomizeLoading.getProgress(Object object)"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=customizeloadinggetprogressobject-object">CustomizeLoading.getProgress(Object object)</a></h3><p>获取CustomizeLoading组件的进度</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=%E5%8F%82%E6%95%B0">参数</a></h4><p>Object object</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">必填</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">success</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">成功回调</td>
+</tr>
+<tr>
+<td align="left">fail</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">失败回调</td>
+</tr>
+</tbody></table>
+<h5 id="success回调参数：Object-data"><a href="#success回调参数：Object-data" class="headerlink" title="success回调参数：Object data"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=success%E5%9B%9E%E8%B0%83%E5%8F%82%E6%95%B0%EF%BC%9Aobject-data">success回调参数：Object data</a></h5><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">currentProgress</td>
+<td align="left">Number</td>
+<td align="left">当前loading进度</td>
+</tr>
+</tbody></table>
+<h3 id="CustomizeLoading-remove"><a href="#CustomizeLoading-remove" class="headerlink" title="CustomizeLoading.remove()"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=customizeloadingremove">CustomizeLoading.remove()</a></h3><p>销毁CustomizeLoading组件</p>
+<h3 id="CustomizeLoading-resetLoading-1092"><a href="#CustomizeLoading-resetLoading-1092" class="headerlink" title="CustomizeLoading.resetLoading() 1092+"></a><a target="_blank" rel="noopener" href="https://minigame.vivo.com.cn/documents/#/api/system/loadingView?id=customizeloadingresetloading-1092">CustomizeLoading.resetLoading() <code>1092+</code></a></h3><p>重置CustomizeLoading组件进度</p>
+</blockquote>
+<p>我们可以看出，其实需要开发者 给出一张图片，本地相对路径或者网络远程地址作为显示，可以设置进度条的颜色，然后通过自己调用<code>update</code> 更新进度，当更新完成的时候，或者适当的时机，可以调用 <code>remove</code>函数，移除自定义加载组件。</p>
+<p>下面给出我写的一个用例代码脚本名字: <code>vivo-custom-loading.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">boot</span>();</span><br><span class="line"><span class="comment">//使用该功能时，需判断引擎是否支持</span></span><br><span class="line"><span class="comment">//创建CustomizeLoading组件</span></span><br><span class="line"><span class="keyword">if</span> (qg.<span class="property">createCustomizeLoading</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;VIVO 添加 createCustomizeLoading&quot;</span>);</span><br><span class="line">    <span class="comment">// 生成随机数和时间戳</span></span><br><span class="line">    <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">let</span> url = <span class="string">&quot;https://xxxx/xxxx/cover4.jpg&quot;</span>;</span><br><span class="line">    <span class="comment">// let url = &quot;screen/cover5.jpg&quot;;</span></span><br><span class="line">    url += <span class="string">&#x27;?&#x27;</span>;</span><br><span class="line">    url += <span class="string">&#x27;v=&#x27;</span> + randomNumber;</span><br><span class="line">    url += <span class="string">&#x27;&amp;t=&#x27;</span> + timestamp;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;url------&quot;</span>, url)</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] = qg.<span class="title function_">createCustomizeLoading</span>(&#123;</span><br><span class="line">        <span class="attr">background</span>: <span class="string">&#x27;/cover.jpg&#x27;</span>,</span><br><span class="line">        <span class="attr">text</span>: <span class="string">&#x27;正在加载中...&#x27;</span>,</span><br><span class="line">        <span class="attr">textColor</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">        <span class="attr">loadingColorTop</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">        <span class="attr">loadingColorBottom</span>: <span class="string">&#x27;#000000&#x27;</span>,</span><br><span class="line">        <span class="attr">loadingProgress</span>: <span class="number">0</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//获取CustomizeLoading进度</span></span><br><span class="line">    <span class="comment">//根据实际场景进行更新进度（只能增加）、背景、文字以及文字颜色</span></span><br><span class="line">    <span class="comment">//更新CustomizeLoading样式</span></span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">CustomizeLoadingId</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] === <span class="literal">null</span> || <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] === <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;已经提前完成任务&quot;</span>);</span><br><span class="line">            <span class="built_in">clearInterval</span>(<span class="title class_">CustomizeLoadingId</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] += (<span class="number">1</span>*<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>]);</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] = <span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="number">100</span>,<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>]);</span><br><span class="line">            <span class="keyword">const</span> progress = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>]);</span><br><span class="line">            <span class="comment">// console.log(&quot;VIVOCustomizeLoadingCount------&quot;, window[&#x27;VIVOCustomizeLoadingRate&#x27;]);</span></span><br><span class="line">            <span class="keyword">if</span>( <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>]&gt;<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>]*=<span class="number">1.25</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>].<span class="title function_">update</span>(&#123;</span><br><span class="line">                <span class="attr">background</span>: <span class="string">&#x27;/cover.jpg&#x27;</span>,</span><br><span class="line">                <span class="attr">text</span>: <span class="string">&#x27;正在加载中...&#x27;</span>,</span><br><span class="line">                <span class="attr">textColor</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">                <span class="attr">loadingColorTop</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">                <span class="attr">loadingColorBottom</span>: <span class="string">&#x27;#000000&#x27;</span>,</span><br><span class="line">                <span class="attr">loadingProgress</span>: progress</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>].<span class="title function_">getProgress</span>(&#123;</span><br><span class="line">                <span class="attr">success</span>: <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`handling success: <span class="subst">$&#123;data.currentProgress&#125;</span>`</span>)</span><br><span class="line">                    <span class="keyword">if</span> (data.<span class="property">currentProgress</span> &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;VIVO模拟加载完成&quot;</span>);</span><br><span class="line">                        <span class="built_in">clearInterval</span>(<span class="title class_">CustomizeLoadingId</span>);</span><br><span class="line">                        <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] &amp;&amp; <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>].<span class="title function_">remove</span>();</span><br><span class="line">                        <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] = <span class="literal">null</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">fail</span>: <span class="function">(<span class="params">data, code</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`handling fail, code = <span class="subst">$&#123;code&#125;</span>`</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">75</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;系统不支持&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里值得注意的是 <code>window[&#39;VIVOCustomizeLoadingRate&#39;]</code> 这个属性，游戏在正常打开第一个场景后 我会在游戏内调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(如果是vivo小游戏)&#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>]) &#123;</span><br><span class="line">              <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;游戏内提前显示要移除自定义loading&quot;</span>);</span><br><span class="line">              <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>] = <span class="number">1.25</span>;</span><br><span class="line">              <span class="comment">// window[&#x27;VIVOCustomizeLoading&#x27;] &amp;&amp; window[&#x27;VIVOCustomizeLoading&#x27;].remove();</span></span><br><span class="line">              <span class="comment">// window[&#x27;VIVOCustomizeLoading&#x27;] = null;</span></span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>如果 进入游戏 马上调用<br><img src="/post/3dab5a00/2f23406b359b414109555f5c6273da79.png" alt="2f23406b359b414109555f5c6273da79"></p>
+<p>游戏会报错 ：<br><img src="/post/3dab5a00/image-20231113212221810.png" alt="image-20231113212221810"></p>
+<p>原因是：创建之后就进行获取导致的，可以延迟调用即可。</p>
+<h2 id="2024-11-01更新加载"><a href="#2024-11-01更新加载" class="headerlink" title="2024-11-01更新加载"></a>2024-11-01更新加载</h2><p>vivo-custom-loading.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">boot</span>();</span><br><span class="line"><span class="comment">//使用该功能时，需判断引擎是否支持</span></span><br><span class="line"><span class="comment">//创建CustomizeLoading组件</span></span><br><span class="line"><span class="keyword">if</span> (qg.<span class="property">createCustomizeLoading</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;VIVO 添加 createCustomizeLoading&quot;</span>);</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingOK&#x27;</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// 生成随机数和时间戳</span></span><br><span class="line">    <span class="keyword">const</span> randomNumber = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="title class_">Math</span>.<span class="title function_">random</span>() * <span class="number">100000</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> timestamp = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line"><span class="comment">//    let url = &quot;https://tcs-cdn.galsanggame.com/tcs/miniv2/com/share/config/vivo/screen/cover4.jpg&quot;;</span></span><br><span class="line"><span class="comment">//    url += &#x27;?&#x27;;</span></span><br><span class="line"><span class="comment">//    url += &#x27;v=&#x27; + randomNumber;</span></span><br><span class="line"><span class="comment">//    url += &#x27;&amp;t=&#x27; + timestamp;</span></span><br><span class="line">    <span class="keyword">let</span> url = <span class="string">&quot;image/cover.jpg&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;url------&quot;</span>, url)</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] = qg.<span class="title function_">createCustomizeLoading</span>(&#123;</span><br><span class="line">        <span class="attr">background</span>: url,</span><br><span class="line">        <span class="attr">text</span>: <span class="string">&#x27;正在初始化加载数据...&#x27;</span>,</span><br><span class="line">        <span class="attr">textColor</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">        <span class="attr">loadingColorTop</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">        <span class="attr">loadingColorBottom</span>: <span class="string">&#x27;#000000&#x27;</span>,</span><br><span class="line">        <span class="attr">loadingProgress</span>: <span class="number">0</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//获取CustomizeLoading进度</span></span><br><span class="line">    <span class="comment">//根据实际场景进行更新进度（只能增加）、背景、文字以及文字颜色</span></span><br><span class="line">    <span class="comment">//更新CustomizeLoading样式</span></span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingStage&#x27;</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingProgress&#x27;</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingOK&#x27;</span>] = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> stages = [</span><br><span class="line">        <span class="string">&#x27;正在初始化加载数据...&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;游戏主包资源正在加载中...&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;游戏分包正在加载中...&#x27;</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">const</span> <span class="title class_">CustomizeLoadingId</span> = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] === <span class="literal">null</span> || <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] === <span class="literal">undefined</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;已经提前完成任务&quot;</span>);</span><br><span class="line">            <span class="built_in">clearInterval</span>(<span class="title class_">CustomizeLoadingId</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] += (<span class="number">1</span> * <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>]);</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] = <span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="number">100</span>, <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>]);</span><br><span class="line">            <span class="keyword">const</span> progress = <span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>]);</span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingProgress&#x27;</span>] = progress;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>] *= <span class="number">1.25</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>].<span class="title function_">update</span>(&#123;</span><br><span class="line">                <span class="attr">background</span>: url,</span><br><span class="line">                <span class="attr">text</span>: stages[<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingStage&#x27;</span>] - <span class="number">1</span>],</span><br><span class="line">                <span class="attr">textColor</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">                <span class="attr">loadingColorTop</span>: <span class="string">&#x27;#ffffff&#x27;</span>,</span><br><span class="line">                <span class="attr">loadingColorBottom</span>: <span class="string">&#x27;#000000&#x27;</span>,</span><br><span class="line">                <span class="attr">loadingProgress</span>: progress</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (progress &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">                <span class="comment">// 检查 VIVOCustomizeLoadingOK 状态</span></span><br><span class="line">                <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingOK&#x27;</span>] || <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingStage&#x27;</span>] === <span class="number">3</span>) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;VIVO模拟加载完成&quot;</span>);</span><br><span class="line">                    <span class="built_in">clearInterval</span>(<span class="title class_">CustomizeLoadingId</span>);</span><br><span class="line">                    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] &amp;&amp; <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>].<span class="title function_">remove</span>();</span><br><span class="line">                    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>] = <span class="literal">null</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 进入下一阶段</span></span><br><span class="line">                    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>].<span class="title function_">resetLoading</span>();</span><br><span class="line">                    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingStage&#x27;</span>] += <span class="number">1</span>;</span><br><span class="line">                    <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingCount&#x27;</span>] = <span class="number">1</span>; <span class="comment">// 重置进度</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">50</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;系统不支持&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的 游戏内逻辑：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title class_">Browser</span>.<span class="property">onVivoMiniGame</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>]) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;游戏内提前显示要移除自定义loading&quot;</span>);</span><br><span class="line">        <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingOK&#x27;</span>] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title class_">Browser</span>.<span class="property">onVivoMiniGame</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoading&#x27;</span>]) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;游戏内提前显示要移除自定义loading&quot;</span>);</span><br><span class="line">        <span class="variable language_">window</span>[<span class="string">&#x27;VIVOCustomizeLoadingRate&#x27;</span>] = <span class="number">1.25</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>python逻辑：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 使用方法 替换 签名文件 VIVO小游戏</span></span><br><span class="line">sign_release = os.path.join(release_folder, <span class="string">&#x27;sign&#x27;</span>, <span class="string">&quot;release&quot;</span>)</span><br><span class="line">sign_debug = os.path.join(release_folder, <span class="string">&#x27;sign&#x27;</span>, <span class="string">&quot;debug&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制文件和配置加载文件到新目录</span></span><br><span class="line">source_subpackages = os.path.join(release_folder, <span class="string">&#x27;subpackages&#x27;</span> , <span class="string">&#x27;main&#x27;</span>)</span><br><span class="line">destination_src = os.path.join(release_folder, <span class="string">&#x27;src&#x27;</span> , <span class="string">&#x27;main&#x27;</span> )</span><br><span class="line">vivio_build_dir = os.path.join(release_folder, <span class="string">&#x27;build&#x27;</span>,<span class="string">&#x27;main&#x27;</span>)</span><br><span class="line"></span><br><span class="line">destination_src_cfg_json = os.path.join(release_folder, <span class="string">&#x27;src&#x27;</span> , <span class="string">&#x27;main&#x27;</span> , <span class="string">&quot;index.js&quot;</span>)</span><br><span class="line">vivio_build_dir_cfg_json = os.path.join(release_folder, <span class="string">&#x27;build&#x27;</span>,<span class="string">&#x27;main&#x27;</span> , <span class="string">&quot;index.js&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用方法 替换 首屏自定义加载 VIVO小游戏</span></span><br><span class="line">js_main_path = os.path.join(release_folder, <span class="string">&quot;main.js&quot;</span>)  <span class="comment"># main.js</span></span><br><span class="line">js_boot_path = os.path.join(release_folder, <span class="string">&#x27;engine&#x27;</span>, <span class="string">&quot;src&quot;</span>, <span class="string">&quot;boot.js&quot;</span>)  <span class="comment"># boot.js</span></span><br><span class="line">vivo_custom_loading_path = os.path.join(cmd_folder, <span class="string">&quot;builder&quot;</span>,<span class="string">&quot;vivo-custom-loading.js&quot;</span>)  <span class="comment"># vivo-custom-loading.js</span></span><br><span class="line"></span><br><span class="line">loading_directory = os.path.join(cmd_folder, <span class="string">&quot;builder&quot;</span>,<span class="string">&#x27;config&#x27;</span>,<span class="string">&#x27;loading&#x27;</span>)</span><br><span class="line">loading_directory_src = os.path.join(release_folder, <span class="string">&quot;src&quot;</span>,<span class="string">&quot;image&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> args.c == <span class="string">&#x27;vivo&#x27;</span> <span class="keyword">or</span> args.c == <span class="string">&#x27;oppo&#x27;</span> <span class="keyword">or</span> args.c == <span class="string">&#x27;hw&#x27;</span>:</span><br><span class="line">    <span class="comment"># VIVO 签名复制操作</span></span><br><span class="line">    FUtils.recursive_copy(sign_release, sign_debug, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">if</span> args.c == <span class="string">&#x27;vivo&#x27;</span>:</span><br><span class="line">        <span class="comment"># VIVO 目前自定义加载也废弃掉</span></span><br><span class="line">        FUtils.recursive_copy(source_subpackages, destination_src, <span class="number">0</span>)</span><br><span class="line">        FUtils.recursive_copy(source_subpackages, vivio_build_dir, <span class="number">0</span>)</span><br><span class="line">        FUtils.recursive_copy(loading_directory, loading_directory_src, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">if</span> os.path.exists(destination_src_cfg_json):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                os.remove(destination_src_cfg_json)</span><br><span class="line">            <span class="keyword">except</span> OSError <span class="keyword">as</span> e:</span><br><span class="line">                <span class="comment"># 如果无法删除，可能是因为文件正在被使用，打印错误并继续</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;无法删除 <span class="subst">&#123;destination_src_cfg_json&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> os.path.exists(vivio_build_dir_cfg_json):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                os.remove(vivio_build_dir_cfg_json)</span><br><span class="line">            <span class="keyword">except</span> OSError <span class="keyword">as</span> e:</span><br><span class="line">                <span class="comment"># 如果无法删除，可能是因为文件正在被使用，打印错误并继续</span></span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;无法删除 <span class="subst">&#123;vivio_build_dir_cfg_json&#125;</span>, 错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># FUtils.recursive_copy(loading_directory, loading_directory_src, 0)</span></span><br><span class="line">        <span class="comment"># FUtils.recursive_copy(loading_directory, vivio_build_dir, 0)</span></span><br><span class="line">        <span class="comment"># 使用示例</span></span><br><span class="line">        js_main_result = FUtils.replace_content_in_file(js_main_path, vivo_custom_loading_path, <span class="string">&#x27;window.boot();&#x27;</span>,</span><br><span class="line">                                                 <span class="string">&#x27;console.log(&quot;VIVO 添加 createCustomizeLoading&quot;);&#x27;</span>)</span><br><span class="line">        <span class="comment"># 使用示例</span></span><br><span class="line">        js_boot_result = FUtils.replace_content_in_file(js_boot_path, vivo_custom_loading_path, <span class="string">&#x27;window.boot();&#x27;</span>,</span><br><span class="line">                                                 <span class="string">&#x27;console.log(&quot;VIVO 添加 createCustomizeLoading&quot;);&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;VIVO渠道构建修改:&quot;</span>,js_main_result,js_boot_result)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;非VIVO渠道 不需要复制操作&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改内容"><a href="#修改内容" class="headerlink" title="修改内容"></a>修改内容</h3><ul>
+<li><p><strong>进度重置</strong>：每当达到 100% 时，进度条会重置为 1，直到第三阶段完成为止。</p>
+</li>
+<li><p><strong>立即完成加载</strong>：在进度达到 100% 时，检查 <code>window[&#39;VIVOCustomizeLoadingOK&#39;]</code> 的状态；若为 <code>true</code>，则直接完成加载并清除组件。</p>
+</li>
+<li><p><strong>阶段推进</strong>：只有当 <code>window[&#39;VIVOCustomizeLoadingOK&#39;]</code> 为 <code>false</code> 时才会推进到下一个阶段，否则立即终止。</p>
+</li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/69c1fc44.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator2.4.x构建支付宝小游戏</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/26b6e7c.html">
+        <span>CocosCreator2.4.x发布VIVO小游戏</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/3dab5a00.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#qg-createCustomizeLoading-Object-object"><span class="toc-number">1.1.</span> <span class="toc-text">qg.createCustomizeLoading(Object object)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%8F%82%E6%95%B0"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CustomizeLoading-update-Object-object"><span class="toc-number">1.2.</span> <span class="toc-text">CustomizeLoading.update(Object object)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CustomizeLoading-getProgress-Object-object"><span class="toc-number">1.3.</span> <span class="toc-text">CustomizeLoading.getProgress(Object object)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#success%E5%9B%9E%E8%B0%83%E5%8F%82%E6%95%B0%EF%BC%9AObject-data"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">success回调参数：Object data</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CustomizeLoading-remove"><span class="toc-number">1.4.</span> <span class="toc-text">CustomizeLoading.remove()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CustomizeLoading-resetLoading-1092"><span class="toc-number">1.5.</span> <span class="toc-text">CustomizeLoading.resetLoading() 1092+</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-number">2.</span> <span class="toc-text">拓展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2024-11-01%E6%9B%B4%E6%96%B0%E5%8A%A0%E8%BD%BD"><span class="toc-number">3.</span> <span class="toc-text">2024-11-01更新加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%86%85%E5%AE%B9"><span class="toc-number">3.1.</span> <span class="toc-text">修改内容</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

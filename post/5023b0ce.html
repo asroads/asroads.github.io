@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            如何获取文件夹内所有图片的物理大小以及宽高 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/5023b0ce.html">如何获取文件夹内所有图片的物理大小以及宽高</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2022-07-25
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=如何获取文件夹内所有图片的物理大小以及宽高&url=http://blog.asroads.com/post/5023b0ce.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=如何获取文件夹内所有图片的物理大小以及宽高&url=http://blog.asroads.com/post/5023b0ce.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/5023b0ce.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/5023b0ce.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/5023b0ce.html&title=如何获取文件夹内所有图片的物理大小以及宽高" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=如何获取文件夹内所有图片的物理大小以及宽高&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/5023b0ce.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/5023b0ce.html&text=如何获取文件夹内所有图片的物理大小以及宽高" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/nodejs/ >nodejs</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>项目大了之后，很多时候都是多个部门用一个项目，更新资源代码，大家的能力和认知有区别的时候，导致有时候美术提交了不合尺寸的图片，前端使用的同事也粗心大意没有第二次查找，web端正常，结果在手机上就导致报错，如何查找图片的尺寸和物理内存大小呢，于是写了个查找工具，下面记录一下。</p>
+<span id="more"></span>
+
+<p>在项目 根目录 运行 ：下面代表 找出其中最大边 大于 2048的 图片先看看效果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node main.js -side D:\Refactor\client_wbqj\assets D:\Helper\Tool\AssetCleanerForCocosCreator-master\out\out.txt 2048</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/5023b0ce/image-20220801140638966.png" alt="image-20220801140638966"></p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>nodejs</li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/image-size">image-size</a></li>
+<li>Windows10</li>
+</ul>
+<h3 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h3><p>main.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* Usage:</span></span><br><span class="line"><span class="comment">* node main.js -size d:\myproject\assets d:\out.txt</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">AssetBytesSize</span> = <span class="built_in">require</span>(<span class="string">&#x27;./AssetBytesSize&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">AssetWHSize</span> = <span class="built_in">require</span>(<span class="string">&#x27;./AssetWHSize&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> command = process.<span class="property">argv</span>[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> sourceFile = process.<span class="property">argv</span>[<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> destFile = process.<span class="property">argv</span>[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">const</span> compareSize = process.<span class="property">argv</span>[<span class="number">5</span>];</span><br><span class="line"><span class="variable language_">global</span>.<span class="property">_delete</span> = process.<span class="property">argv</span>.<span class="title function_">includes</span>(<span class="string">&#x27;-d&#x27;</span>) || process.<span class="property">argv</span>.<span class="title function_">includes</span>(<span class="string">&#x27;-delete&#x27;</span>) <span class="comment">// 删除未引用的资源</span></span><br><span class="line"><span class="variable language_">global</span>.<span class="property">_excludes</span> = process.<span class="property">argv</span>.<span class="title function_">filter</span>(<span class="function"><span class="params">n</span> =&gt;</span> n.<span class="title function_">includes</span>(<span class="string">&#x27;-e=&#x27;</span>) || n.<span class="title function_">includes</span>(<span class="string">&#x27;-excludes=&#x27;</span>)).<span class="title function_">map</span>(<span class="function"><span class="params">node</span> =&gt;</span> &#123; <span class="comment">// 删除未引用的资源时，需要排除的文件或路径，支持字符串或正则</span></span><br><span class="line">    <span class="keyword">let</span> _i = node.<span class="title function_">replace</span>(<span class="string">&#x27;-e=&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (_i !== node) <span class="keyword">return</span> _i</span><br><span class="line">    _i = node.<span class="title function_">replace</span>(<span class="string">&#x27;-excludes=&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> (_i !== node) <span class="keyword">return</span> _i</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">&#125;)[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">let</span> <span class="title class_">Version</span> = <span class="string">&#x27;PicHelper 1.0&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> parseCommand = <span class="keyword">function</span> (<span class="params">cmd</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!cmd || cmd.<span class="property">length</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;main: command is invalid&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (cmd) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-size&#x27;</span>:</span><br><span class="line">            <span class="title class_">AssetBytesSize</span>.<span class="title function_">start</span>(sourceFile, destFile);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-side&#x27;</span>:</span><br><span class="line">            <span class="title class_">AssetWHSize</span>.<span class="title function_">start</span>(sourceFile, destFile, compareSize || <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="attr">default</span>:</span><br><span class="line">            <span class="keyword">let</span> strHelp = <span class="title class_">Version</span> + <span class="string">&#x27;\n&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;Usage: node main.js &lt;command&gt;\n&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;Examples:\n&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;  node main.js -side d:/myproject/assets d:/out.txt\n&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;  node main.js -size d:/myproject/assets d:/out.txt&#x27;</span>;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(strHelp);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">parseCommand</span>(command);</span><br></pre></td></tr></table></figure>
+
+<p>Utils.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">Utils</span> = &#123;</span><br><span class="line">    <span class="comment">// 字节数转换为MB</span></span><br><span class="line">    <span class="title function_">byte2Mb</span>(<span class="params">byte</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> byte / (<span class="number">1024</span> * <span class="number">1024</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 字节数转换为按MB表示的字符串，保留小数点后4位</span></span><br><span class="line">    <span class="title function_">byte2MbStr</span>(<span class="params">byte</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">byte2Mb</span>(byte).<span class="title function_">toFixed</span>(<span class="number">4</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 字节数转换为KB</span></span><br><span class="line">    <span class="title function_">byte2Kb</span>(<span class="params">byte</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> byte / <span class="number">1024</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 字节数转换为按KB表示的字符串，保留小数点后2位</span></span><br><span class="line">    <span class="title function_">byte2KbStr</span>(<span class="params">byte</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">byte2Kb</span>(byte).<span class="title function_">toFixed</span>(<span class="number">2</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">Utils</span>;</span><br></pre></td></tr></table></figure>
+
+<p>FileHelper.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">﻿<span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> sizeOf = <span class="built_in">require</span>(<span class="string">&#x27;image-size&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> <span class="title class_">FileHelper</span> = &#123;</span><br><span class="line">    <span class="comment">// 返回图片尺寸</span></span><br><span class="line">    <span class="title function_">getImageWH</span>(<span class="params">filePath, ext</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> dimensions = &#123;<span class="attr">width</span>:<span class="number">0</span>,<span class="attr">height</span>:<span class="number">0</span>,<span class="attr">max</span>:<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&#x27;.png&#x27;</span> === ext || <span class="string">&#x27;.jpg&#x27;</span> === ext || <span class="string">&#x27;.webp&#x27;</span> === ext) &#123;</span><br><span class="line">            <span class="keyword">let</span> fileSize = <span class="title function_">sizeOf</span>(filePath);</span><br><span class="line">            dimensions.<span class="property">width</span> = fileSize.<span class="property">width</span>;</span><br><span class="line">            dimensions.<span class="property">height</span> = fileSize.<span class="property">height</span>;</span><br><span class="line">            dimensions.<span class="property">max</span>  =  <span class="title class_">Math</span>.<span class="title function_">max</span>(dimensions.<span class="property">width</span>,dimensions.<span class="property">height</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dimensions;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回图片占用内存(width*height*4)</span></span><br><span class="line">    <span class="title function_">getImageMem</span>(<span class="params">filePath, ext</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> memBytes = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// if (&#x27;.png&#x27; === ext || &#x27;.jpg&#x27; === ext || &#x27;.webp&#x27; === ext) &#123;</span></span><br><span class="line">        <span class="comment">//     memBytes = images(filePath).width() * images(filePath).height() * 4;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="keyword">return</span> memBytes;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getFullPath</span>(<span class="params">filePath</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!path.<span class="title function_">isAbsolute</span>(filePath)) &#123;</span><br><span class="line">            filePath = path.<span class="title function_">join</span>(__dirname, filePath); <span class="comment">// 非绝对路径则加上当前目录</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> filePath;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 输出到文件</span></span><br><span class="line">    <span class="title function_">writeFile</span>(<span class="params">fullPath, content</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!fullPath || !content) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;writeFile: invalid params&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fs.<span class="title function_">writeFile</span>(fullPath, content, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(content);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Success to write file: &#x27;</span> + fullPath);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回文件内容的json对象</span></span><br><span class="line">    <span class="title function_">getObjectFromFile</span>(<span class="params">fullPath</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> retObj = &#123;&#125;;</span><br><span class="line">        <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(fullPath)) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;getObjectFromFile: NoExist path=&#x27;</span> +fullPath);</span><br><span class="line">            <span class="keyword">return</span> retObj;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> str = <span class="variable language_">this</span>.<span class="title function_">getFileString</span>(fullPath);</span><br><span class="line">        <span class="keyword">if</span> (!str) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;getObjectFromFile: invalid file=&#x27;</span> +fullPath);</span><br><span class="line">            <span class="keyword">return</span> retObj;   </span><br><span class="line">        &#125;</span><br><span class="line">        retObj = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(str);</span><br><span class="line">        <span class="keyword">if</span> (!retObj) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;getObjectFromFile: invalid object=&#x27;</span> +fullPath);</span><br><span class="line">            <span class="keyword">return</span> retObj;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> retObj;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回文件内容的字符串形式</span></span><br><span class="line">    <span class="title function_">getFileString</span>(<span class="params">fullPath</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> fs.<span class="title function_">readFileSync</span>(fullPath).<span class="title function_">toString</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 函数防抖</span></span><br><span class="line">    <span class="title function_">debounce</span>(<span class="params">fn, wait = <span class="number">1000</span></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> timeout = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            timeout &amp;&amp; <span class="built_in">clearTimeout</span>(timeout);</span><br><span class="line">            timeout = <span class="built_in">setTimeout</span>(fn, wait);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">FileHelper</span>;</span><br></pre></td></tr></table></figure>
+
+<p>AssetBytesSize.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">FileHelper</span> = <span class="built_in">require</span>(<span class="string">&#x27;./FileHelper&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Utils</span> = <span class="built_in">require</span>(<span class="string">&#x27;./Utils&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title class_">AssetBytesSize</span> = &#123;</span><br><span class="line">    <span class="attr">fileMap</span>: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">start</span>(<span class="params">sourceFile, destFile</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!sourceFile || sourceFile.<span class="property">length</span> &lt;= <span class="number">0</span> || !destFile || destFile.<span class="property">length</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Cleaner: invalid source or dest&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">fileMap</span> = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"></span><br><span class="line">        sourceFile = <span class="title class_">FileHelper</span>.<span class="title function_">getFullPath</span>(sourceFile);</span><br><span class="line">        destFile = <span class="title class_">FileHelper</span>.<span class="title function_">getFullPath</span>(destFile);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">lookupAssetDir</span>(sourceFile, <span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">let</span> outStr = <span class="variable language_">this</span>.<span class="title function_">getSortedResult</span>(<span class="variable language_">this</span>.<span class="property">fileMap</span>, sourceFile);</span><br><span class="line">        <span class="title class_">FileHelper</span>.<span class="title function_">writeFile</span>(destFile, outStr);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历文件夹</span></span><br><span class="line">    <span class="title function_">lookupAssetDir</span>(<span class="params">srcDir, callback</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!srcDir || !fs.<span class="title function_">existsSync</span>(srcDir)) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;AssetBytesSize: invalid srcDir=&quot;</span> +srcDir);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> files = fs.<span class="title function_">readdirSync</span>(srcDir);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = files.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> file = files[i];</span><br><span class="line">            <span class="keyword">let</span> curPath = path.<span class="title function_">join</span>(srcDir, file);</span><br><span class="line">            <span class="keyword">let</span> stats = fs.<span class="title function_">statSync</span>(curPath);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (stats.<span class="title function_">isDirectory</span>()) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">lookupAssetDir</span>(curPath);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> pathObj = path.<span class="title function_">parse</span>(curPath);</span><br><span class="line">            <span class="keyword">let</span> value = <span class="variable language_">this</span>.<span class="property">fileMap</span>.<span class="title function_">get</span>(pathObj.<span class="property">ext</span>);</span><br><span class="line">            <span class="keyword">if</span> (!value) &#123;</span><br><span class="line">                value = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">fileMap</span>.<span class="title function_">set</span>(pathObj.<span class="property">ext</span>, value);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> memBytes = <span class="title class_">FileHelper</span>.<span class="title function_">getImageMem</span>(curPath, pathObj.<span class="property">ext</span>);</span><br><span class="line">            value.<span class="title function_">set</span>(curPath, &#123; <span class="attr">path</span>:curPath, <span class="attr">size</span>:stats.<span class="property">size</span>, memBytes &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getSortedResult</span>(<span class="params">fileMap, srcDir</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> allTypes = [];</span><br><span class="line">        </span><br><span class="line">        fileMap.<span class="title function_">forEach</span>(<span class="function">(<span class="params">files, ext</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> &#123; totalSize, totalMem, outStr &#125; = <span class="variable language_">this</span>.<span class="title function_">formatByByte</span>(files);</span><br><span class="line">            allTypes.<span class="title function_">push</span>(&#123; <span class="attr">size</span>:<span class="built_in">parseFloat</span>(totalSize), <span class="attr">mem</span>:<span class="built_in">parseFloat</span>(totalMem), ext, <span class="attr">count</span>:files.<span class="property">size</span>, outStr &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        allTypes.<span class="title function_">sort</span>(<span class="keyword">function</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> b.<span class="property">size</span> - a.<span class="property">size</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> content = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">let</span> allSize = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出汇总</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = allTypes.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> data = allTypes[i];</span><br><span class="line">            content += <span class="string">&#x27;类型=&#x27;</span> + data.<span class="property">ext</span> + <span class="string">&#x27;, 个数=&#x27;</span> + data.<span class="property">count</span> + <span class="string">&#x27;, 占用空间=&#x27;</span> + data.<span class="property">size</span> + <span class="string">&#x27;MB&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (data.<span class="property">mem</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                content += <span class="string">&#x27;, 预计内存=&#x27;</span> + data.<span class="property">mem</span> + <span class="string">&#x27;MB&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            content += <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">            allSize += data.<span class="property">size</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> totalStr = <span class="string">&#x27;总空间=&#x27;</span> + allSize.<span class="title function_">toFixed</span>(<span class="number">4</span>) + <span class="string">&#x27;MB, &#x27;</span> + <span class="string">&#x27;目录=&#x27;</span> + srcDir + <span class="string">&#x27;\n\n&#x27;</span>;</span><br><span class="line">        totalStr += content + <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出分类型信息</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = allTypes.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> data = allTypes[i];</span><br><span class="line">            totalStr += data.<span class="property">outStr</span> + <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> totalStr;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式化为从大到小按MB表示</span></span><br><span class="line">    <span class="title function_">formatByByte</span>(<span class="params">files</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> totalSize = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> totalMem = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> newFiles = [];</span><br><span class="line"></span><br><span class="line">        files.<span class="title function_">forEach</span>(<span class="keyword">function</span>(<span class="params">file, path</span>) &#123;</span><br><span class="line">            totalSize += file.<span class="property">size</span>;</span><br><span class="line">            totalMem += file.<span class="property">memBytes</span>;</span><br><span class="line">            newFiles.<span class="title function_">push</span>(file);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 按占用空间从大到小排序</span></span><br><span class="line">        newFiles.<span class="title function_">sort</span>(<span class="keyword">function</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> b.<span class="property">size</span> - a.<span class="property">size</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> outStr = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = newFiles.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> file = newFiles[i];</span><br><span class="line">            outStr += <span class="string">&#x27;空间=&#x27;</span> + <span class="title class_">Utils</span>.<span class="title function_">byte2KbStr</span>(file.<span class="property">size</span>) + <span class="string">&#x27;KB, 文件=&#x27;</span> + file.<span class="property">path</span>;</span><br><span class="line">            <span class="keyword">if</span> (file.<span class="property">memBytes</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                outStr += <span class="string">&#x27;, 内存=&#x27;</span> + <span class="title class_">Utils</span>.<span class="title function_">byte2MbStr</span>(file.<span class="property">memBytes</span>) + <span class="string">&#x27;MB&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            outStr += <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        totalSize = <span class="title class_">Utils</span>.<span class="title function_">byte2MbStr</span>(totalSize);</span><br><span class="line">        totalMem = <span class="title class_">Utils</span>.<span class="title function_">byte2MbStr</span>(totalMem);</span><br><span class="line">        <span class="keyword">return</span> &#123; totalSize, totalMem, outStr &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">AssetBytesSize</span>;</span><br></pre></td></tr></table></figure>
+
+<p>AssetWHSize.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line">﻿<span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">FileHelper</span> = <span class="built_in">require</span>(<span class="string">&#x27;./FileHelper&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Utils</span> = <span class="built_in">require</span>(<span class="string">&#x27;./Utils&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> compareSize  = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title class_">AssetWHSize</span> = &#123;</span><br><span class="line">    <span class="attr">fileMap</span>: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">start</span>(<span class="params">sourceFile, destFile,size</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!sourceFile || sourceFile.<span class="property">length</span> &lt;= <span class="number">0</span> || !destFile || destFile.<span class="property">length</span> &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Cleaner: invalid source or dest&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        compareSize = size;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">fileMap</span> = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line"></span><br><span class="line">        sourceFile = <span class="title class_">FileHelper</span>.<span class="title function_">getFullPath</span>(sourceFile);</span><br><span class="line">        destFile = <span class="title class_">FileHelper</span>.<span class="title function_">getFullPath</span>(destFile);</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">lookupAssetDir</span>(sourceFile, <span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">let</span> outStr = <span class="variable language_">this</span>.<span class="title function_">getSortedResult</span>(<span class="variable language_">this</span>.<span class="property">fileMap</span>, sourceFile);</span><br><span class="line">        <span class="title class_">FileHelper</span>.<span class="title function_">writeFile</span>(destFile, outStr);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历文件夹</span></span><br><span class="line">    <span class="title function_">lookupAssetDir</span>(<span class="params">srcDir, callback</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!srcDir || !fs.<span class="title function_">existsSync</span>(srcDir)) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;AssetWHSize: invalid srcDir=&quot;</span> + srcDir);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> files = fs.<span class="title function_">readdirSync</span>(srcDir);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = files.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> file = files[i];</span><br><span class="line">            <span class="keyword">let</span> curPath = path.<span class="title function_">join</span>(srcDir, file);</span><br><span class="line">            <span class="keyword">let</span> stats = fs.<span class="title function_">statSync</span>(curPath);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (stats.<span class="title function_">isDirectory</span>()) &#123;</span><br><span class="line">                <span class="variable language_">this</span>.<span class="title function_">lookupAssetDir</span>(curPath);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> pathObj = path.<span class="title function_">parse</span>(curPath);</span><br><span class="line">            <span class="keyword">let</span> value = <span class="variable language_">this</span>.<span class="property">fileMap</span>.<span class="title function_">get</span>(pathObj.<span class="property">ext</span>);</span><br><span class="line">            <span class="keyword">if</span> (!value) &#123;</span><br><span class="line">                value = <span class="keyword">new</span> <span class="title class_">Map</span>();</span><br><span class="line">                <span class="variable language_">this</span>.<span class="property">fileMap</span>.<span class="title function_">set</span>(pathObj.<span class="property">ext</span>, value);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ([<span class="string">&quot;.png&quot;</span>, <span class="string">&quot;.jpg&quot;</span>, <span class="string">&quot;.webp&quot;</span>].<span class="title function_">includes</span>(pathObj.<span class="property">ext</span>)) &#123;</span><br><span class="line">                <span class="keyword">let</span> dimensions = <span class="title class_">FileHelper</span>.<span class="title function_">getImageWH</span>(curPath, pathObj.<span class="property">ext</span>);</span><br><span class="line">                <span class="comment">// console.log(JSON.stringify(dimensions))</span></span><br><span class="line">                <span class="keyword">if</span>(dimensions.<span class="property">max</span>&gt;compareSize)&#123;</span><br><span class="line">                    value.<span class="title function_">set</span>(curPath, &#123;<span class="attr">path</span>: curPath, <span class="attr">size</span>: stats.<span class="property">size</span>, dimensions, <span class="attr">max</span>: dimensions.<span class="property">max</span>&#125;);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="title function_">getSortedResult</span>(<span class="params">fileMap, srcDir</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> allTypes = [];</span><br><span class="line"></span><br><span class="line">        fileMap.<span class="title function_">forEach</span>(<span class="function">(<span class="params">files, ext</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> &#123;totalSize, outStr&#125; = <span class="variable language_">this</span>.<span class="title function_">formatByByte</span>(files);</span><br><span class="line">            allTypes.<span class="title function_">push</span>(&#123;<span class="attr">size</span>: <span class="built_in">parseFloat</span>(totalSize), ext, <span class="attr">count</span>: files.<span class="property">size</span>, outStr&#125;);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        allTypes.<span class="title function_">sort</span>(<span class="keyword">function</span> (<span class="params">a, b</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> b.<span class="property">size</span> - a.<span class="property">size</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> content = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">let</span> allSize = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        allTypes = allTypes.<span class="title function_">filter</span>(<span class="function">(<span class="params">value</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> value.<span class="property">count</span>&gt;<span class="number">0</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// 输出汇总</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = allTypes.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> data = allTypes[i];</span><br><span class="line">            content += <span class="string">&#x27;类型=&#x27;</span> + data.<span class="property">ext</span> + <span class="string">&#x27;, 个数=&#x27;</span> + data.<span class="property">count</span> + <span class="string">&#x27;, 占用空间=&#x27;</span> + data.<span class="property">size</span> + <span class="string">&#x27;MB&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span> (data.<span class="property">max</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                content += <span class="string">&#x27;, 宽度=&#x27;</span> + data.<span class="property">width</span> + <span class="string">&#x27;px&#x27;</span> + <span class="string">&#x27;, 高度=&#x27;</span> + data.<span class="property">height</span> + <span class="string">&#x27;px&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            content += <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">            allSize += data.<span class="property">size</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> totalStr = <span class="string">&#x27;总空间=&#x27;</span> + allSize.<span class="title function_">toFixed</span>(<span class="number">4</span>) + <span class="string">&#x27;MB, &#x27;</span> + <span class="string">&#x27;目录=&#x27;</span> + srcDir + <span class="string">&#x27;\n\n&#x27;</span>;</span><br><span class="line">        totalStr += content + <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出分类型信息</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = allTypes.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> data = allTypes[i];</span><br><span class="line">            totalStr += data.<span class="property">outStr</span> + <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> totalStr;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式化为从大到小按MB表示</span></span><br><span class="line">    <span class="title function_">formatByByte</span>(<span class="params">files</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> totalSize = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> newFiles = [];</span><br><span class="line">        files.<span class="title function_">forEach</span>(<span class="keyword">function</span> (<span class="params">file, path</span>) &#123;</span><br><span class="line">            totalSize += file.<span class="property">size</span>;</span><br><span class="line">            newFiles.<span class="title function_">push</span>(file);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 按占用空间从大到小排序</span></span><br><span class="line">        newFiles.<span class="title function_">sort</span>(<span class="keyword">function</span> (<span class="params">a, b</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> b.<span class="property">max</span> - a.<span class="property">max</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> outStr = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = newFiles.<span class="property">length</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">let</span> file = newFiles[i];</span><br><span class="line">            outStr += <span class="string">&#x27;最大边=&#x27;</span> + file.<span class="property">dimensions</span>.<span class="property">max</span> + <span class="string">&#x27;宽=&#x27;</span> + file.<span class="property">dimensions</span>.<span class="property">width</span> + <span class="string">&#x27;高=&#x27;</span> + file.<span class="property">dimensions</span>.<span class="property">height</span> + <span class="string">&#x27;px, 文件=&#x27;</span> + file.<span class="property">path</span>;</span><br><span class="line">            outStr += <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        totalSize = <span class="title class_">Utils</span>.<span class="title function_">byte2MbStr</span>(totalSize);</span><br><span class="line">        <span class="keyword">return</span> &#123;totalSize, outStr&#125;;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">AssetWHSize</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>需要添加 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/image-size">image-size</a> 依赖 </li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install image-size</span><br></pre></td></tr></table></figure>
+
+<p>最后源码地址 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/pic-size-tool">点击前往</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/foupwang/AssetCleanerForCocosCreator">AssetCleanerForCocosCreator</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/61e73eb2.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator如何使用async.js</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/aa0cec47.html">
+        <span>初试Windows常用命令脚本</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/5023b0ce.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81"><span class="toc-number">1.1.</span> <span class="toc-text">核心代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

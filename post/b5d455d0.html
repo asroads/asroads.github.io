@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            使用ts-node编写一个简单的git对比脚本工具 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/b5d455d0.html">使用ts-node编写一个简单的git对比脚本工具</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-04-19
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=使用ts-node编写一个简单的git对比脚本工具&url=http://blog.asroads.com/post/b5d455d0.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=使用ts-node编写一个简单的git对比脚本工具&url=http://blog.asroads.com/post/b5d455d0.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/b5d455d0.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/b5d455d0.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/b5d455d0.html&title=使用ts-node编写一个简单的git对比脚本工具" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=使用ts-node编写一个简单的git对比脚本工具&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/b5d455d0.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/b5d455d0.html&text=使用ts-node编写一个简单的git对比脚本工具" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/npm/ >npm</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>最近的工作经常会合并分支到小游戏渠道，一下子几千个文件变更，其中很多是合图资源的冲突，由于项目使用了<code>TexturePacker</code>的静态合同工具，之前的做法是所有的合同重新批量导出，但是为了避免后面减少和其他分支冲突文件的个数，于是尽可能的保持和其他分支变更的文件个数和内容。于是下面的工具诞生了，这个工具主要是使用<code>ts-node</code>编写<code>Typescript</code>实现<code>node</code>脚本批量对比文件作出对不需要变化的文件进行git还原。</p>
+<span id="more"></span>
+
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>使用<code>ts-node</code>编写<code>Typescript</code>实现<code>node</code>脚本批量对比文件作出对不需要变化的文件进行git还原。</p>
+<h2 id="涉及知识以及环境"><a href="#涉及知识以及环境" class="headerlink" title="涉及知识以及环境"></a>涉及知识以及环境</h2><ul>
+<li><code>npm</code></li>
+<li><a target="_blank" rel="noopener" href="https://typestrong.org/ts-node/">ts-node</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/simple-git">simple-git</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/shelljs">shelljs</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cpy">cpy</a></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">全局安装 ts-node、simple-git、shelljs</span></span><br><span class="line">npm install -g ts-node simple-git shelljs cpy</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在您的项目中本地安装这些包</span></span><br><span class="line">npm install ts-node simple-git shelljs cpy</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><p><img src="/post/b5d455d0/image-20240419150353816.png" alt="image-20240419150353816"></p>
+<p><code>package.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;shelljs-demo&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;index.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node copy-files.mjs &amp;&amp; tsc&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;keywords&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;@types/fs-extra&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^11.0.4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@types/shelljs&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.8.15&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;fs-extra&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^11.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;shelljs&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^0.8.5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;simple-git&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^3.24.0&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;devDependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;@types/node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^20.11.30&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cpy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^11.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ts-node&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^10.9.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tslib&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.6.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^5.4.3&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>copy-files.mjs</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fileURLToPath &#125; <span class="keyword">from</span> <span class="string">&#x27;url&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> cpy <span class="keyword">from</span> <span class="string">&#x27;cpy&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> fse <span class="keyword">from</span> <span class="string">&#x27;fs-extra&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取当前文件所在的目录路径</span></span><br><span class="line"><span class="keyword">const</span> __filename = <span class="title function_">fileURLToPath</span>(<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">url</span>);</span><br><span class="line"><span class="keyword">const</span> __dirname = path.<span class="title function_">dirname</span>(__filename);</span><br><span class="line"><span class="keyword">const</span> distDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> targetDir = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>,<span class="string">&quot;src&quot;</span>,<span class="string">&#x27;config&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除 dist 目录</span></span><br><span class="line">fse.<span class="title function_">remove</span>(distDir)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Deleted dist directory successfully!&#x27;</span>);</span><br><span class="line">        <span class="comment">// 复制文件到 dist 目录</span></span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">cpy</span>([<span class="string">&#x27;src/config/app.json&#x27;</span>], targetDir, &#123; <span class="attr">concurrency</span>: <span class="number">10</span> &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;app.json copied successfully!&#x27;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error:&#x27;</span>, err);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>Main.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> fse <span class="keyword">from</span> <span class="string">&#x27;fs-extra&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> simpleGit, &#123; <span class="title class_">SimpleGit</span>, <span class="title class_">StatusResult</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;simple-git&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; exec &#125; <span class="keyword">from</span> <span class="string">&#x27;shelljs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">DiffResultTextFile</span> &#125; <span class="keyword">from</span> <span class="string">&quot;simple-git/dist/typings/response&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> appConfigRootObject &#123;</span><br><span class="line">    <span class="attr">localPath</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">remoteUrl</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">branch</span>: <span class="built_in">string</span>;</span><br><span class="line">    <span class="attr">fileTypes</span>: <span class="built_in">string</span>[]; <span class="comment">// 修改为数组</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getModifiedFiles</span>(<span class="params">git: SimpleGit</span>): <span class="title class_">Promise</span>&lt;<span class="title class_">StatusResult</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> statusSummary = <span class="keyword">await</span> git.<span class="title function_">status</span>();</span><br><span class="line">    <span class="keyword">return</span> statusSummary;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">hasSingleLineDifference</span>(<span class="params">git: SimpleGit, branch: <span class="built_in">string</span>, filePath: <span class="built_in">string</span></span>): <span class="title class_">Promise</span>&lt;<span class="built_in">boolean</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> diffSummary = <span class="keyword">await</span> git.<span class="title function_">diffSummary</span>([<span class="string">`<span class="subst">$&#123;branch&#125;</span>:<span class="subst">$&#123;filePath&#125;</span>`</span>, filePath]);</span><br><span class="line">    <span class="keyword">if</span> (diffSummary.<span class="property">files</span>.<span class="property">length</span> !== <span class="number">1</span> || diffSummary.<span class="property">files</span>[<span class="number">0</span>].<span class="property">binary</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="attr">fileDiff</span>: <span class="title class_">DiffResultTextFile</span> = diffSummary.<span class="property">files</span>[<span class="number">0</span>] <span class="keyword">as</span> <span class="title class_">DiffResultTextFile</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fileDiff.<span class="property">changes</span> === <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">abandonFiles</span>(<span class="params">git: SimpleGit, files: <span class="built_in">string</span>[]</span>): <span class="title class_">Promise</span>&lt;<span class="built_in">void</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">await</span> git.<span class="title function_">checkout</span>(files);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">compareFiles</span>(<span class="params"></span>): <span class="title class_">Promise</span>&lt;<span class="built_in">void</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> configFile = <span class="keyword">await</span> fse.<span class="title function_">readFile</span>(path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;config/app.json&#x27;</span>), <span class="string">&#x27;utf-8&#x27;</span>);</span><br><span class="line">        <span class="keyword">const</span> <span class="attr">config</span>: appConfigRootObject = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(configFile);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> &#123; localPath, branch, fileTypes &#125; = config;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> git = <span class="title function_">simpleGit</span>(localPath);</span><br><span class="line">        <span class="keyword">await</span> git.<span class="title function_">pull</span>(<span class="string">&#x27;origin&#x27;</span>, branch);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="attr">status</span>: <span class="title class_">StatusResult</span> = <span class="keyword">await</span> <span class="title function_">getModifiedFiles</span>(git);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="attr">filesToAbandon</span>: <span class="built_in">string</span>[] = [];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> <span class="attr">localModifiedFiles</span>: <span class="built_in">string</span>[] = status.<span class="property">modified</span>.<span class="title function_">filter</span>(<span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> fileTypes.<span class="title function_">some</span>(<span class="function"><span class="params">type</span> =&gt;</span> file.<span class="title function_">endsWith</span>(<span class="keyword">type</span>));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> file <span class="keyword">of</span> localModifiedFiles) &#123;</span><br><span class="line">            <span class="keyword">const</span> hasDiff = <span class="keyword">await</span> <span class="title function_">hasSingleLineDifference</span>(git, branch, file);</span><br><span class="line">            <span class="keyword">if</span> (hasDiff) &#123;</span><br><span class="line">                <span class="keyword">const</span> content = <span class="keyword">await</span> fse.<span class="title function_">readFile</span>(path.<span class="title function_">join</span>(localPath, file), <span class="string">&#x27;utf-8&#x27;</span>);</span><br><span class="line">                <span class="keyword">const</span> regex = <span class="regexp">/&lt;string&gt;\$TexturePacker:SmartUpdate:[0-9a-fA-F]&#123;32&#125;:[0-9a-fA-F]&#123;32&#125;:[0-9a-fA-F]&#123;32&#125;\$&lt;\/string&gt;/</span>;</span><br><span class="line">                <span class="keyword">if</span> (regex.<span class="title function_">test</span>(content)) &#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`文件路径：<span class="subst">$&#123;file&#125;</span>`</span>);</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;---------------------&#x27;</span>);</span><br><span class="line">                    filesToAbandon.<span class="title function_">push</span>(file)</span><br><span class="line">                    <span class="comment">// 检查同目录下是否存在同名的 PNG 文件</span></span><br><span class="line">                    <span class="keyword">const</span> pngFile = file.<span class="title function_">replace</span>(<span class="regexp">/\.\w+$/</span>, <span class="string">&#x27;.png&#x27;</span>);</span><br><span class="line">                    <span class="keyword">const</span> pngStatus = <span class="keyword">await</span> git.<span class="title function_">status</span>([pngFile]);</span><br><span class="line">                    <span class="keyword">if</span> (pngStatus &amp;&amp; pngStatus.<span class="property">files</span> &amp;&amp; pngStatus.<span class="property">files</span>.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="keyword">const</span> pngChanges = pngStatus.<span class="property">files</span>.<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> item.<span class="property">path</span> === pngFile);</span><br><span class="line">                        <span class="keyword">if</span> (pngChanges &amp;&amp; pngChanges.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                            filesToAbandon.<span class="title function_">push</span>(pngFile);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (filesToAbandon.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// console.log(&#x27;需要放弃的文件列表：&#x27;, filesToAbandon);</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">table</span>(filesToAbandon);</span><br><span class="line">            <span class="keyword">await</span> <span class="title function_">abandonFiles</span>(git, filesToAbandon);</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;放弃操作完成。&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;没有需要放弃的文件。&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="title function_">exec</span>(<span class="string">&#x27;echo &quot;这是一个示例命令&quot;&#x27;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;读取配置或比较文件时出现错误：&#x27;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">compareFiles</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>src/config/app.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;localPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/smile/Work/WorkSpace/WechatPlus&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;remoteUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://xxxxx.net/xxxxxx/xxxx/xxxx-client.git&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;branch&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mini/wx_light3&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;fileTypes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;.plist&quot;</span><span class="punctuation">,</span><span class="string">&quot;.png&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本运行"><a href="#脚本运行" class="headerlink" title="脚本运行"></a>脚本运行</h2><h3 id="Ts-node运行"><a href="#Ts-node运行" class="headerlink" title="Ts-node运行"></a>Ts-node运行</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ts-node src/Main.ts</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用npm-Sripts构建项目"><a href="#使用npm-Sripts构建项目" class="headerlink" title="使用npm Sripts构建项目"></a>使用npm Sripts构建项目</h3><p>我这里使用<code>Webstorm</code>打开项目（你可以根据自己的编辑器而定）</p>
+<ol>
+<li>选中<code>package.json</code>文件 右键选择 <code>Show npm Scripts</code></li>
+</ol>
+<p>​    <img src="/post/b5d455d0/image-20240419151641301.png" alt="image-20240419151641301"></p>
+<ol start="2">
+<li>此时 下面出现了 我们的构建任务</li>
+</ol>
+<p><img src="/post/b5d455d0/image-20240419151923383.png" alt="image-20240419151923383"></p>
+<p>​    对应的脚本：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node copy-files.mjs &amp;&amp; tsc&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>解释，之所以先进行脚本复制 后进行编译 是因为 复制脚本会删除之前的脚本。</p>
+<p>源码地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/ComparedGitPlist">点击前往</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这个脚本主要是判断<code>TexturePacker</code> 批量导出合图后 判断生成的plist文件如果有且仅有一行有更改且这一行的代码是关于文件时间戳的，就认为这个合图没有变化，就会把对应<code>plist</code>和<code>png</code>文件还原。</p>
+<p>其实，之所以写这篇文章，是之前一直没有研究过使用node运行Typescript脚本，工程化构建，本次写这个小的功能算是一次小的尝试。功能需求是可以变化的，但有了对这个项目和环境的熟悉和深入学习，就会创建出更多的功能，实现更复杂的需求。故不积跬步，无以至千里；不积小流，无以成江海。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/3ddc6ccc.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Cocos Creator远程加载BMFont(位图字体)方案</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/2a567506.html">
+        <span>一个好用的管理npm注册源插件nrm</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/b5d455d0.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD"><span class="toc-number">1.</span> <span class="toc-text">功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E7%9F%A5%E8%AF%86%E4%BB%A5%E5%8F%8A%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">涉及知识以及环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">文件结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E8%BF%90%E8%A1%8C"><span class="toc-number">4.</span> <span class="toc-text">脚本运行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ts-node%E8%BF%90%E8%A1%8C"><span class="toc-number">4.1.</span> <span class="toc-text">Ts-node运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8npm-Sripts%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.2.</span> <span class="toc-text">使用npm Sripts构建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

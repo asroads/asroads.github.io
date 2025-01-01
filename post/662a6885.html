@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Typescript继承属性和super(父类)优先级的一些知识 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/662a6885.html">Typescript继承属性和super(父类)优先级的一些知识</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-03-05
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/other/">other</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Typescript继承属性和super(父类)优先级的一些知识&url=http://blog.asroads.com/post/662a6885.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Typescript继承属性和super(父类)优先级的一些知识&url=http://blog.asroads.com/post/662a6885.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/662a6885.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/662a6885.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/662a6885.html&title=Typescript继承属性和super(父类)优先级的一些知识" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Typescript继承属性和super(父类)优先级的一些知识&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/662a6885.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/662a6885.html&text=Typescript继承属性和super(父类)优先级的一些知识" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/ts/ >ts</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>做游戏的时候有时候为了对应多个平台，需要对父类抽象化，但是在自对象调用具体的API的时候我们希望能够具体化，比如一些子类的属性，在父类里可能用any 类型但是子类里面我们希望是具体的类型，比如和平台SDK对应的类型，下面就是这几天遇到的一个坑，在填坑后顺便分析了一下结果，作为后面的一个避免入坑法则。</p>
+<span id="more"></span>
+
+<p>下面用几次测试 结果对比：</p>
+<h2 id="测试一-普通函数"><a href="#测试一-普通函数" class="headerlink" title="测试一  普通函数"></a>测试一  普通函数</h2><p>方法调用</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">dog.<span class="title function_">run</span>()</span><br><span class="line">dog.<span class="title function_">test</span>()</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="attr">info</span>:<span class="built_in">any</span> = &#123;<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">name</span>:<span class="string">&quot;unknown&quot;</span>&#125;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">//this.run();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------------Animal run ------------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;Animal类&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal after run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="attr">info</span>:<span class="built_in">any</span> = &#123;<span class="attr">age</span>:<span class="number">20</span>,<span class="attr">name</span>:<span class="string">&quot;Dog&quot;</span>&#125;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`------重点是这个------ Dog2 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="comment">//console.log(&quot;----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---&quot;)</span></span><br><span class="line">        <span class="comment">//this.run();</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog run----------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;哈士奇&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog1 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog test----------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;金毛&quot;</span>;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog4 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">dog.<span class="title function_">run</span>()</span><br><span class="line">dog.<span class="title function_">test</span>()</span><br></pre></td></tr></table></figure>
+
+<p>编译后代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span> = &#123; <span class="attr">age</span>: <span class="number">18</span>, <span class="attr">name</span>: <span class="string">&quot;unknown&quot;</span> &#125;;</span><br><span class="line">        <span class="comment">//this.run();</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------------Animal run ------------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;Animal类&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal after run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span> = &#123; <span class="attr">age</span>: <span class="number">20</span>, <span class="attr">name</span>: <span class="string">&quot;Dog&quot;</span> &#125;;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`------重点是这个------ Dog2 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="comment">//console.log(&quot;----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---&quot;)</span></span><br><span class="line">        <span class="comment">//this.run();</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog run----------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;哈士奇&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog1 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog test----------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;金毛&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog4 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line">dog.<span class="title function_">run</span>();</span><br><span class="line">dog.<span class="title function_">test</span>();</span><br></pre></td></tr></table></figure>
+
+<p>结果是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;------重点是这个------ Dog2 run ! age:20 name:Dog&quot;</span></span><br><span class="line"><span class="string">&quot;Dog3 run ! age:20 name:Dog&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;--------------Dog run----------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;------------Animal run ------------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;Animal pre run ! age:20 name:Dog&quot;</span></span><br><span class="line"><span class="string">&quot;Animal after run ! age:20 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog pre run ! age:20 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;Dog1 after run  ! age:20 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;--------------Dog test----------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;Dog3 pre run ! age:20 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;Dog4 after run  ! age:20 name:金毛&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="测试二-构造函数"><a href="#测试二-构造函数" class="headerlink" title="测试二  构造函数"></a>测试二  构造函数</h2><p>方法调用</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="attr">info</span>:<span class="built_in">any</span> = &#123;<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">name</span>:<span class="string">&quot;unknown&quot;</span>&#125;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------------Animal run ------------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;Animal类&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal after run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="attr">info</span>:<span class="built_in">any</span> = &#123;<span class="attr">age</span>:<span class="number">20</span>,<span class="attr">name</span>:<span class="string">&quot;Dog&quot;</span>&#125;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`------重点是这个------ Dog2 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---&quot;</span>)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog run----------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;哈士奇&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog1 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog test----------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;金毛&quot;</span>;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog4 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line"><span class="comment">//dog.test()</span></span><br></pre></td></tr></table></figure>
+
+<p>编译后 js 代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span> = &#123; <span class="attr">age</span>: <span class="number">18</span>, <span class="attr">name</span>: <span class="string">&quot;unknown&quot;</span> &#125;;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------------Animal run ------------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;Animal类&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal after run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span> = &#123; <span class="attr">age</span>: <span class="number">20</span>, <span class="attr">name</span>: <span class="string">&quot;Dog&quot;</span> &#125;;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`------重点是这个------ Dog2 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog run----------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;哈士奇&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog1 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog test----------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;金毛&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog4 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line"><span class="comment">//dog.test()</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>输出结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;--------------Dog run----------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;------------Animal run ------------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;Animal pre run ! age:18 name:unknown&quot;</span></span><br><span class="line"><span class="string">&quot;Animal after run ! age:18 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog pre run ! age:18 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;Dog1 after run  ! age:18 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;------重点是这个------ Dog2 run ! age:20 name:Dog&quot;</span></span><br><span class="line"><span class="string">&quot;----本来我以为这个应该是 name 是 哈士奇  结果是 子类默认值 Dog---&quot;</span></span><br><span class="line"><span class="string">&quot;--------------Dog run----------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;------------Animal run ------------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;Animal pre run ! age:20 name:Dog&quot;</span></span><br><span class="line"><span class="string">&quot;Animal after run ! age:20 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog pre run ! age:20 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;Dog1 after run  ! age:20 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog3 run ! age:20 name:哈士奇&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="测试三-去掉子类的复写属性"><a href="#测试三-去掉子类的复写属性" class="headerlink" title="测试三  去掉子类的复写属性"></a>测试三  去掉子类的复写属性</h2><p>方法调用：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line"><span class="comment">//dog.test()</span></span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="attr">info</span>:<span class="built_in">any</span> = &#123;<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">name</span>:<span class="string">&quot;unknown&quot;</span>&#125;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------------Animal run ------------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;Animal类&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal after run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`------重点是这个------ Dog2 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;----一些如我所愿 当下 name 是 哈士奇 子类默认值 Dog---&quot;</span>)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog run----------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;哈士奇&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog1 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog test----------------------------&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;金毛&quot;</span>;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog4 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line"><span class="comment">//dog.test()</span></span><br></pre></td></tr></table></figure>
+
+<p>编译结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span> = &#123; <span class="attr">age</span>: <span class="number">18</span>, <span class="attr">name</span>: <span class="string">&quot;unknown&quot;</span> &#125;;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;------------Animal run ------------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;Animal类&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Animal after run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Animal</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`------重点是这个------ Dog2 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;----一些如我所愿 当下 name 是 哈士奇 子类默认值 Dog---&quot;</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog run----------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">super</span>.<span class="title function_">run</span>();</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;哈士奇&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog1 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;                                          &quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;--------------Dog test----------------------------&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog3 pre run ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">info</span>.<span class="property">name</span> = <span class="string">&quot;金毛&quot;</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Dog4 after run  ! age:<span class="subst">$&#123;<span class="variable language_">this</span>.info.age&#125;</span> name:<span class="subst">$&#123;<span class="variable language_">this</span>.info.name&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> dog = <span class="keyword">new</span> <span class="title class_">Dog</span>();</span><br><span class="line"><span class="comment">//dog.test()</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>输出结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;--------------Dog run----------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;------------Animal run ------------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;Animal pre run ! age:18 name:unknown&quot;</span></span><br><span class="line"><span class="string">&quot;Animal after run ! age:18 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog pre run ! age:18 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;Dog1 after run  ! age:18 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;------重点是这个------ Dog2 run ! age:18 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;----一些如我所愿 当下 name 是 哈士奇 子类默认值 Dog---&quot;</span></span><br><span class="line"><span class="string">&quot;--------------Dog run----------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;------------Animal run ------------------------------&quot;</span></span><br><span class="line"><span class="string">&quot;Animal pre run ! age:18 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;Animal after run ! age:18 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog pre run ! age:18 name:Animal类&quot;</span></span><br><span class="line"><span class="string">&quot;Dog1 after run  ! age:18 name:哈士奇&quot;</span></span><br><span class="line"><span class="string">&quot;                                          &quot;</span></span><br><span class="line"><span class="string">&quot;Dog3 run ! age:18 name:哈士奇&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>去掉了Dog 类里面的 info 属性。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Typescript 函数里面 constructor里面 super 初始化优先级 高于自身属性默认值 初始化的优先级 ，一句话就是 constructor函数里面的super类的调用 比自身属性默认值初始化调用要早。核心知识：<strong>注意父类已经定义的属性（public 或者 protected）子类不要重复定义即可避免这样的代码调用和自己臆想不一致的问题。</strong></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/a484008f.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>PureMVC-Typescript框架如何编译</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/535121e9.html">
+        <span>取消Git子模块submodule</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/662a6885.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80-%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">测试一  普通函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BA%8C-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">测试二  构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%89-%E5%8E%BB%E6%8E%89%E5%AD%90%E7%B1%BB%E7%9A%84%E5%A4%8D%E5%86%99%E5%B1%9E%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">测试三  去掉子类的复写属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

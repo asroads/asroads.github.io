@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Mac下开启Chrome非安全模式 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/6b229175.html">Mac下开启Chrome非安全模式</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2019-04-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Mac下开启Chrome非安全模式&url=http://blog.asroads.com/post/6b229175.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Mac下开启Chrome非安全模式&url=http://blog.asroads.com/post/6b229175.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/6b229175.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/6b229175.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/6b229175.html&title=Mac下开启Chrome非安全模式" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Mac下开启Chrome非安全模式&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/6b229175.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/6b229175.html&text=Mac下开启Chrome非安全模式" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Chrome/ >Chrome</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Mac/ >Mac</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Windows/ >Windows</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>以前开发游戏的时候都是单机游戏呀，现在开发有服务器的游戏。调试的时候，就发现了跨域的问题。非安全模式要才可以，但是很网上给的例子，当时一试运行，每次都带打开命令有点麻烦。                                                                                                                                                                       </p>
+<span id="more"></span>
+
+<h3 id="Mac环境打开非安全模式"><a href="#Mac环境打开非安全模式" class="headerlink" title="Mac环境打开非安全模式"></a>Mac环境打开非安全模式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Chrome &lt; 48</span></span><br><span class="line">open /Applications/Google\ Chrome.app --args -disable-web-security</span><br><span class="line"></span><br><span class="line"><span class="comment"># Chrom &gt; 48</span></span><br><span class="line">open -a Google\ Chrome --args --disable-web-security --user-data-dir</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2020年9月22更新:</strong></p>
+<h4 id="后续更新步骤"><a href="#后续更新步骤" class="headerlink" title="后续更新步骤"></a>后续更新步骤</h4><ol>
+<li>先打开我们的Chrome 输入：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome://version</span><br></pre></td></tr></table></figure>
+
+<p><img src="/post/6b229175/image-20200922113428763.png" alt="image-20200922113428763"></p>
+<p>找到个人路径:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/smile/Library/Application Support/Google/Chrome/Default</span><br></pre></td></tr></table></figure>
+
+<p>简单修改一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/smile/Library/Application\Support/Google/Chrome</span><br></pre></td></tr></table></figure>
+
+<p>最后组装一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -a Google\ Chrome --args --disable-web-security --user-data-dir=/Users/smile/Library/Application\Support/Google/Chrome</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>smile</code> 是你 Mac电脑的名字 比如 <code>admin</code> 或者 xxx</p>
+<p>输入 查看效果：</p>
+<p><img src="/post/6b229175/image-20200922113706684.png" alt="image-20200922113706684"></p>
+<p>成功出现 非安全模式：</p>
+<p><img src="/post/6b229175/image-20200922114112833.png" alt="image-20200922114112833"></p>
+<p>小插曲：</p>
+<p>如果大家觉得 这样干扰了自己的Chrome 那么 可以这样</p>
+<p>如果代码编辑器是 Webstorm  可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=/Users/smile/Library/Application Support/JetBrains/WebStorm2020.1/chrome-user-data</span><br></pre></td></tr></table></figure>
+
+<p>如果是 VSCode可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir=/Users/smile/Library/Application\Support/Code/User/workspaceStorage/6085425d9b8abe60ebddec525bacfa5d/ms-vscode.js-debug/.profile</span><br></pre></td></tr></table></figure>
+
+<p><em>里面的路径的信息 一定修改成自己电脑本地环境的真实路径！！</em></p>
+<p><strong>注意：一定要关闭所有的 Chrome 浏览器和Chome 再打开</strong></p>
+<h2 id="webstorm-打开Chome-非安全模式"><a href="#webstorm-打开Chome-非安全模式" class="headerlink" title="webstorm  打开Chome 非安全模式"></a>webstorm  打开Chome 非安全模式</h2><ul>
+<li><p>打开 webstorm</p>
+<p><img src="/post/6b229175/image-20190412193030932.png" alt="image-20190412193030932"></p>
+</li>
+<li><p>设置 如下 </p>
+</li>
+</ul>
+<p><img src="/post/6b229175/image-20190412193122773.png" alt="image-20190412193122773"></p>
+<p>内容是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--args --disable-web-security --user-data-dir </span><br></pre></td></tr></table></figure>
+
+<p>然后重启Chome  就搞定了</p>
+<h4 id="2022-11-28-更新"><a href="#2022-11-28-更新" class="headerlink" title="2022-11-28 更新"></a>2022-11-28 更新</h4><ol>
+<li>打开终端</li>
+<li>输入命令后，会自动打开可跨域浏览器</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=/Users/XXX/MyChromeDevUserData</span><br></pre></td></tr></table></figure>
+
+<p>其中：<code>/Users/XXX/MyChromeDevUserData</code> 为跨域浏览器数据存储的地方，XXX为用户名，<strong>根据实际修改</strong>。</p>
+<h3 id="附上-Windows-和Mac-简易-操作"><a href="#附上-Windows-和Mac-简易-操作" class="headerlink" title="附上 Windows 和Mac 简易 操作"></a>附上 Windows 和Mac 简易 操作</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><ol>
+<li>克隆Chrome应用，重命名为 <code>【跨域】Google Chrome</code> 或任意一个容易识别的名字。</li>
+</ol>
+<p><img src="/post/6b229175/image-20221128200046884.png" alt="image-20221128200046884"></p>
+<ol start="2">
+<li>右击打开属性，找到 <code>目标</code> 字段，并在目标字段后面加上参数：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--disable-web-security --user-data-dir=D:\ChromeData\MyChromeDevUserData</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>D:\ChromeData\MyChromeDevUserData</code> 为跨域浏览器数据存储的地方，可以根据需要修改。</p>
+<p><img src="/post/6b229175/image-20221128200247323.png" alt="image-20221128200247323"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;C:\Program Files\Google\Chrome\Application\chrome.exe&quot;</span> --disable-web-security --user-data-dir=D:\ChromeData\MyChromeDevUserData</span><br></pre></td></tr></table></figure>
+
+<p>第三步：打开浏览器，如果出现这个横幅，就说明非安全模式开启完成。</p>
+<p><img src="/post/6b229175/image-20200205203615488.png" alt="image-20200205203615488"></p>
+<h4 id="MAC-解除chrome安全模式"><a href="#MAC-解除chrome安全模式" class="headerlink" title="MAC 解除chrome安全模式"></a>MAC 解除chrome安全模式</h4><p>打开终端输入</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> -a /Applications/Google\ Chrome.app --args --disable-web-security --user-<span class="keyword">data</span>-dir</span><br></pre></td></tr></table></figure>
+
+<p>OK  输入地址即可 。</p>
+<h3 id="Chome-插件"><a href="#Chome-插件" class="headerlink" title="Chome 插件"></a>Chome 插件</h3><ol>
+<li><p>LocalStorage Manager</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/localstorage-manager/fkhoimdhngkiicbjobkinobjkoefhkap">https://chrome.google.com/webstore/detail/localstorage-manager/fkhoimdhngkiicbjobkinobjkoefhkap</a></p>
+</li>
+<li><p>Clear Cache</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn">https://chrome.google.com/webstore/detail/clear-cache/cppjkneekbjaeellbfkmgnhonkkjfpdn</a></p>
+</li>
+<li><p>octotree</p>
+<p><a target="_blank" rel="noopener" href="https://www.octotree.io/">https://www.octotree.io/</a></p>
+</li>
+<li><p>GitZip for github</p>
+<p><a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn">https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn</a></p>
+</li>
+</ol>
+<h3 id="Chrome的插件扩展程序安装目录是什么？在哪个文件夹？"><a href="#Chrome的插件扩展程序安装目录是什么？在哪个文件夹？" class="headerlink" title="Chrome的插件扩展程序安装目录是什么？在哪个文件夹？"></a>Chrome的插件扩展程序安装目录是什么？在哪个文件夹？</h3><p>正常情况下，Chrome插件扩展程序的默认安装目录如下：</p>
+<ol>
+<li><p>windows xp中chrome插件默认安装目录位置:  <code>C:\Documents and Settings\用户名\Local Settings\Application Data\Google\Chrome\User Data\Default\Extensions</code></p>
+</li>
+<li><p>windows7中chrome插件默认安装目录位置:  <code>C:\Users\用户名\AppData\Local\Google\Chrome\User Data\Default\Extensions</code></p>
+</li>
+<li><p>MAC中chrome插件默认安装目录位置：<code>~/Library/Application Support/Google/Chrome/Default/Extensions</code></p>
+</li>
+<li><p>Ubuntu中chrome插件默认安装目录位置：      <code>~/.config/google-chrome/Default/Extensions</code></p>
+</li>
+</ol>
+<h4 id="如果在这些不同操作系统中的chrome插件默认安装位置，没有找到插件。那么请通过下面的方式查看-如下图所示："><a href="#如果在这些不同操作系统中的chrome插件默认安装位置，没有找到插件。那么请通过下面的方式查看-如下图所示：" class="headerlink" title="如果在这些不同操作系统中的chrome插件默认安装位置，没有找到插件。那么请通过下面的方式查看,如下图所示："></a>如果在这些不同操作系统中的chrome插件默认安装位置，没有找到插件。那么请通过下面的方式查看,如下图所示：</h4><ol>
+<li><p>地址栏输入chrome:version 回车</p>
+</li>
+<li><p>用资源管理器打开”个人资料路径”栏的路径,该路径下的Extensions文件夹即默认的扩展安装路径</p>
+<p><img src="/post/6b229175/image-20200618121458351.png" alt="image-20200618121458351"></p>
+</li>
+</ol>
+<h4 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h4><p><code>⌘+⌥+J</code> 快速打开 Console 界面</p>
+<p><code>⌘+⌥+I</code> 快速打开开发者工具</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/callmelaoda/communicate/issues/8">Mac下开启Chrome非安全模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2db73311fcbe">Mac上解决Chrome浏览器跨域问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/fd214333890/article/details/39401677">WebStorm中配置浏览器方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/935a37d9af8b">chrome 非安全模式解决开发跨域问题(windows与mas)</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7019171779478290463">解决Chrome浏览器的跨域问题</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/45f550f6.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>如何下载微信公众号的文章和媒体文件</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/1ccda286.html">
+        <span>LayaBox2.0 圆形进度条制作</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/6b229175.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac%E7%8E%AF%E5%A2%83%E6%89%93%E5%BC%80%E9%9D%9E%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">Mac环境打开非安全模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E6%9B%B4%E6%96%B0%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.1.</span> <span class="toc-text">后续更新步骤</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#webstorm-%E6%89%93%E5%BC%80Chome-%E9%9D%9E%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number"></span> <span class="toc-text">webstorm  打开Chome 非安全模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2022-11-28-%E6%9B%B4%E6%96%B0"><span class="toc-number">0.1.</span> <span class="toc-text">2022-11-28 更新</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E4%B8%8A-Windows-%E5%92%8CMac-%E7%AE%80%E6%98%93-%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">附上 Windows 和Mac 简易 操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-number">1.1.</span> <span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MAC-%E8%A7%A3%E9%99%A4chrome%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">MAC 解除chrome安全模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chome-%E6%8F%92%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">Chome 插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome%E7%9A%84%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95%E7%A8%8B%E5%BA%8F%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%9C%A8%E5%93%AA%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">Chrome的插件扩展程序安装目录是什么？在哪个文件夹？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%9C%A8%E8%BF%99%E4%BA%9B%E4%B8%8D%E5%90%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84chrome%E6%8F%92%E4%BB%B6%E9%BB%98%E8%AE%A4%E5%AE%89%E8%A3%85%E4%BD%8D%E7%BD%AE%EF%BC%8C%E6%B2%A1%E6%9C%89%E6%89%BE%E5%88%B0%E6%8F%92%E4%BB%B6%E3%80%82%E9%82%A3%E4%B9%88%E8%AF%B7%E9%80%9A%E8%BF%87%E4%B8%8B%E9%9D%A2%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9F%A5%E7%9C%8B-%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">如果在这些不同操作系统中的chrome插件默认安装位置，没有找到插件。那么请通过下面的方式查看,如下图所示：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">3.2.</span> <span class="toc-text">快捷键</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number"></span> <span class="toc-text">参考文章</span></a>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

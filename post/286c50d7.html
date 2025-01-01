@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            如何同时安装多个版本的Python3 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/286c50d7.html">如何同时安装多个版本的Python3</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2024-08-09
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=如何同时安装多个版本的Python3&url=http://blog.asroads.com/post/286c50d7.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=如何同时安装多个版本的Python3&url=http://blog.asroads.com/post/286c50d7.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/286c50d7.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/286c50d7.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/286c50d7.html&title=如何同时安装多个版本的Python3" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=如何同时安装多个版本的Python3&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/286c50d7.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/286c50d7.html&text=如何同时安装多个版本的Python3" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>安装多个版本的Python3是一种常见需求，特别是在开发过程中，由于不同项目可能依赖于不同的Python版本。使用<strong>pyenv</strong>可以让你在同一台机器上安装并管理多个Python版本。<code>pyenv</code>通过改变环境变量来切换全局Python版本，同时它也支持项目级别的Python版本管理。</p>
+<span id="more"></span>
+
+<h2 id="如何安装"><a href="#如何安装" class="headerlink" title="如何安装"></a>如何安装</h2><p><code>pyenv</code> 是一个用于管理多个 Python 版本的工具，它使得在同一台机器上轻松切换和管理不同的 Python 版本成为可能。下面是使用 <code>pyenv</code> 的一些基本步骤：</p>
+<h3 id="1-安装-pyenv"><a href="#1-安装-pyenv" class="headerlink" title="1. 安装 pyenv"></a>1. 安装 <code>pyenv</code></h3><p>在大多数 Linux 和 macOS 系统上，你可以通过以下命令安装 <code>pyenv</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://pyenv.run | bash</span><br></pre></td></tr></table></figure>
+
+<p>之后，你需要将 <code>pyenv</code> 添加到 shell 环境中。在 <code>~/.bashrc</code>, <code>~/.bash_profile</code>, <code>~/.zshrc</code> 等文件中添加以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$HOME</span>/.pyenv/bin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(pyenv init --path)</span>&quot;</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(pyenv init -)</span>&quot;</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">&quot;<span class="subst">$(pyenv virtualenv-init -)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后重新加载 shell 配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc  <span class="comment"># 如果你使用的是 Bash</span></span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line"><span class="built_in">source</span> ~/.zshrc   <span class="comment"># 如果你使用的是 Zsh</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-安装-Python-版本"><a href="#2-安装-Python-版本" class="headerlink" title="2. 安装 Python 版本"></a>2. 安装 Python 版本</h3><p>使用 <code>pyenv install</code> 命令来安装你需要的 Python 版本。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pyenv install 3.9.6</span><br><span class="line">pyenv install 2.7.18</span><br></pre></td></tr></table></figure>
+
+<p>安装<code>pyenv</code>之后，可以通过<code>pyenv install 3.x.x</code>来安装不同版本的Python。其中“3.x.x”是你需要安装的Python版本号。安装完成后，可以使用<code>pyenv global 3.x.x</code>命令来设置系统级别的Python版本，或者使用<code>pyenv local 3.x.x</code>为当前目录设置特定的Python版本，这使得在不同项目之间切换Python版本变得非常容易。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><h3 id="1-列出已安装的-Python-版本"><a href="#1-列出已安装的-Python-版本" class="headerlink" title="1. 列出已安装的 Python 版本"></a>1. 列出已安装的 Python 版本</h3><p>使用 <code>pyenv versions</code> 命令可以查看当前已安装的 Python 版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv versions</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-设置全局-Python-版本"><a href="#2-设置全局-Python-版本" class="headerlink" title="2. 设置全局 Python 版本"></a>2. 设置全局 Python 版本</h3><p>你可以使用 <code>pyenv global</code> 命令设置一个全局的 Python 版本，这个版本将用于系统的默认 Python 解释器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv global 3.9.6</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-为某个项目设置本地-Python-版本"><a href="#3-为某个项目设置本地-Python-版本" class="headerlink" title="3. 为某个项目设置本地 Python 版本"></a>3. 为某个项目设置本地 Python 版本</h3><p>你还可以在某个项目目录下为该项目设置专用的 Python 版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> your_project_directory</span><br><span class="line">pyenv <span class="built_in">local</span> 3.8.10</span><br></pre></td></tr></table></figure>
+
+<p>这样，在该目录下的所有 Python 操作都会使用指定的版本。</p>
+<p>如果在你的项目内，出现 <code>python</code> 和 <code>python3</code> 都指向同一个 Python 版本的原因，是因为 <code>pyenv</code> 在项目中优先使用 <code>.python-version</code> 文件来设置 Python 版本，而这个文件的配置同时影响了 <code>python</code> 和 <code>python3</code>。</p>
+<h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv <span class="built_in">local</span> 2.7.18 3.9.19</span><br></pre></td></tr></table></figure>
+
+<p>这样，<code>python</code> 会默认使用第一个版本（2.7.18），而 <code>python3</code> 会使用 Python 3.9.19。</p>
+<p>还可以  使用 <code>pyenv shell</code> 临时设置版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv shell 2.7.18 3.9.19</span><br></pre></td></tr></table></figure>
+
+<p>此时：</p>
+<ul>
+<li><code>python</code> 会指向 2.7.18</li>
+<li><code>python3</code> 会指向 3.9.19</li>
+</ul>
+<h3 id="4-使用不同的-Python-版本"><a href="#4-使用不同的-Python-版本" class="headerlink" title="4. 使用不同的 Python 版本"></a>4. 使用不同的 Python 版本</h3><p>如果你需要临时切换到另一个 Python 版本，可以使用 <code>pyenv shell</code> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv shell 2.7.18</span><br></pre></td></tr></table></figure>
+
+<p>这个设置只会在当前的 shell 会话中生效。</p>
+<h3 id="5-卸载-Python-版本"><a href="#5-卸载-Python-版本" class="headerlink" title="5. 卸载 Python 版本"></a>5. 卸载 Python 版本</h3><p>如果你不再需要某个 Python 版本，可以使用 <code>pyenv uninstall</code> 命令来卸载它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv uninstall 3.9.6</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-使用-pyenv-管理虚拟环境"><a href="#6-使用-pyenv-管理虚拟环境" class="headerlink" title="6. 使用 pyenv 管理虚拟环境"></a>6. 使用 <code>pyenv</code> 管理虚拟环境</h3><p><code>pyenv</code> 还可以与 <code>pyenv-virtualenv</code> 插件一起使用来管理虚拟环境。你可以使用 <code>pyenv virtualenv</code> 命令来创建和管理虚拟环境。</p>
+<p>例如，创建一个基于 Python 3.8.10 的虚拟环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv virtualenv 3.8.10 my-virtual-env</span><br></pre></td></tr></table></figure>
+
+<p>激活该虚拟环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv activate my-virtual-env</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-常见问题和调试"><a href="#7-常见问题和调试" class="headerlink" title="7. 常见问题和调试"></a>7. 常见问题和调试</h3><p>如果在安装 Python 版本时遇到问题，通常是因为缺少依赖项。你可以参考 <code>pyenv</code> 提示的信息安装必要的依赖项。</p>
+<p>通过这些基本步骤，你就可以开始使用 <code>pyenv</code> 来管理你的 Python 环境了。</p>
+<p>在 <code>pyenv</code> 中，你可以使用以下命令来查看可以安装的 Python 版本列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list</span><br></pre></td></tr></table></figure>
+
+<p>这将列出所有可以通过 <code>pyenv</code> 安装的 Python 版本，包括官方发布的版本、开发版本、Anaconda 版本等。你可以从列表中选择你想要安装的版本。</p>
+<p>如果你只想查看某个特定版本的可用版本，例如 <code>3.8</code>，你可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv install --list | grep 3.8</span><br></pre></td></tr></table></figure>
+
+<p>这将只显示与 <code>3.8</code> 相关的版本。</p>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><h3 id="demjson-报错-use-2to3-is-invalid"><a href="#demjson-报错-use-2to3-is-invalid" class="headerlink" title="demjson 报错 use_2to3 is invalid"></a>demjson 报错 use_2to3 is invalid</h3><p>在配置 Python3 环境时，安装 demjson 2.2.4 出现以下报错：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error in demjson setup command: use_2to3 is invalid</span><br></pre></td></tr></table></figure>
+
+<p>网上搜着查看了一下报错的位置，发现是由于 demjson 2.2.4 兼容 Python2 和 Python3 ，当安装环境为 Python3 时，有一部分代码需要做相应的转换, 而 Setuptools 从版本 58.0.0 开始不再支持 2to3 的 builds ，所以导致 demjson 2.2.4 安装后不再可用，需要降级 setuptools 版本即可解决</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade setuptools==57.5.0</span><br></pre></td></tr></table></figure>
+
+<h4 id="强制安装（不推荐）"><a href="#强制安装（不推荐）" class="headerlink" title="强制安装（不推荐）"></a>强制安装（不推荐）</h4><p>你可以使用 <code>--break-system-packages</code> 选项强制安装包，但这可能会导致系统的 Python 环境出现问题，不推荐使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install yagmail --break-system-packages</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他方案"><a href="#其他方案" class="headerlink" title="其他方案"></a>其他方案</h4><p>js2py替换demjson</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> js2py</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">convert_js_to_json</span>(<span class="params">js_content</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    使用 js2py 将 JavaScript 对象转换为 Python 字典（相当于 JSON）</span></span><br><span class="line"><span class="string">    :param js_content: JavaScript 对象的字符串</span></span><br><span class="line"><span class="string">    :return: Python 字典</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 将 JavaScript 对象代码封装在一个表达式中</span></span><br><span class="line">    js_code = <span class="string">f&quot;var obj = <span class="subst">&#123;js_content&#125;</span>; obj;&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 使用 js2py 执行 JavaScript 并获取结果</span></span><br><span class="line">    js_result = js2py.eval_js(js_code)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将 JavaScript 对象转换为 Python 字典</span></span><br><span class="line">    json_obj = js_result.to_dict()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> json_obj</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例</span></span><br><span class="line">js_content = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    platform: &quot;ios&quot;,</span></span><br><span class="line"><span class="string">    groupList: [</span></span><br><span class="line"><span class="string">        &quot;default&quot;</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    collisionMatrix: [</span></span><br><span class="line"><span class="string">        [</span></span><br><span class="line"><span class="string">            true</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    hasResourcesBundle: false,</span></span><br><span class="line"><span class="string">    hasStartSceneBundle: false,</span></span><br><span class="line"><span class="string">    remoteBundles: [],</span></span><br><span class="line"><span class="string">    subpackages: [],</span></span><br><span class="line"><span class="string">    launchScene: &quot;db://assets/Scene/helloworld.fire&quot;,</span></span><br><span class="line"><span class="string">    orientation: &quot;&quot;,</span></span><br><span class="line"><span class="string">    server: &quot;&quot;,</span></span><br><span class="line"><span class="string">    debug: true,</span></span><br><span class="line"><span class="string">    jsList: [],</span></span><br><span class="line"><span class="string">    bundleVers: &#123;</span></span><br><span class="line"><span class="string">        internal: &quot;d36c4&quot;,</span></span><br><span class="line"><span class="string">        main: &quot;b6176&quot;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用示例</span></span><br><span class="line">json_obj = convert_js_to_json(js_content)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;json_obj&quot;</span>, json_obj)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="brew安装的版本抢占了pyenv版本"><a href="#brew安装的版本抢占了pyenv版本" class="headerlink" title="brew安装的版本抢占了pyenv版本"></a>brew安装的版本抢占了pyenv版本</h3><h4 id="确认-pyenv-的设置在你的-shell-环境中优先"><a href="#确认-pyenv-的设置在你的-shell-环境中优先" class="headerlink" title="确认 pyenv 的设置在你的 shell 环境中优先"></a>确认 <code>pyenv</code> 的设置在你的 shell 环境中优先</h4><p>确保 <code>pyenv init</code> 在你的 shell 配置文件（例如 <code>.bashrc</code>、<code>.zshrc</code> 或 <code>.bash_profile</code>）中被正确初始化。在末尾添加以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Enable pyenv automatically</span></span><br><span class="line">export PATH=&quot;$HOME/.pyenv/bin:$PATH&quot;</span><br><span class="line">eval &quot;$(pyenv init --path)&quot;</span><br><span class="line">eval &quot;$(pyenv init -)&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="保存并关闭文件后，运行以下命令重新加载验证是否正确配置："><a href="#保存并关闭文件后，运行以下命令重新加载验证是否正确配置：" class="headerlink" title="保存并关闭文件后，运行以下命令重新加载验证是否正确配置："></a>保存并关闭文件后，运行以下命令重新加载验证是否正确配置：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> python3</span><br></pre></td></tr></table></figure>
+
+<h5 id="你应该看到路径类似于："><a href="#你应该看到路径类似于：" class="headerlink" title="你应该看到路径类似于："></a>你应该看到路径类似于：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/your-username/.pyenv/shims/python3</span><br></pre></td></tr></table></figure>
+
+<h5 id="接着检查-Python-版本是否由-pyenv-控制："><a href="#接着检查-Python-版本是否由-pyenv-控制：" class="headerlink" title="接着检查 Python 版本是否由 pyenv 控制："></a>接着检查 Python 版本是否由 <code>pyenv</code> 控制：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 --version</span><br></pre></td></tr></table></figure>
+
+<h5 id="输出应该是你在-pyenv-中设置的版本，例如-3-9-19"><a href="#输出应该是你在-pyenv-中设置的版本，例如-3-9-19" class="headerlink" title="输出应该是你在 pyenv 中设置的版本，例如 3.9.19"></a>输出应该是你在 <code>pyenv</code> 中设置的版本，例如 <code>3.9.19</code></h5><h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><h4 id="安装包错误"><a href="#安装包错误" class="headerlink" title="安装包错误"></a>安装包错误</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">error: externally-managed-environment</span><br><span class="line"></span><br><span class="line">× This environment is externally managed</span><br><span class="line">╰─&gt; To install Python packages system-wide, try brew install</span><br><span class="line">    xyz, where xyz is the package you are trying to</span><br><span class="line">    install.</span><br><span class="line"></span><br><span class="line">    If you wish to install a Python library that isn&#x27;t in Homebrew,</span><br><span class="line">    use a virtual environment:</span><br><span class="line"></span><br><span class="line">    python3 -m venv path/to/venv</span><br><span class="line">    source path/to/venv/bin/activate</span><br><span class="line">    python3 -m pip install xyz</span><br><span class="line"></span><br><span class="line">    If you wish to install a Python application that isn&#x27;t in Homebrew,</span><br><span class="line">    it may be easiest to use &#x27;pipx install xyz&#x27;, which will manage a</span><br><span class="line">    virtual environment for you. You can install pipx with</span><br><span class="line"></span><br><span class="line">    brew install pipx</span><br><span class="line"></span><br><span class="line">    You may restore the old behavior of pip by passing</span><br><span class="line">    the &#x27;--break-system-packages&#x27; flag to pip, or by adding</span><br><span class="line">    &#x27;break-system-packages = true&#x27; to your pip.conf file. The latter</span><br><span class="line">    will permanently disable this error.</span><br><span class="line"></span><br><span class="line">    If you disable this error, we STRONGLY recommend that you additionally</span><br><span class="line">    pass the &#x27;--user&#x27; flag to pip, or set &#x27;user = true&#x27; in your pip.conf</span><br><span class="line">    file. Failure to do this can result in a broken Homebrew installation.</span><br><span class="line"></span><br><span class="line">    Read more about this behavior here: &lt;https://peps.python.org/pep-0668/&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>错误表明在使用一个 <strong>Homebrew 管理的 Python 环境</strong>。Homebrew 出于系统完整性考虑，不允许直接使用 <code>pip</code> 全局安装包。</p>
+<hr>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a><strong>解决方案</strong></h5><p> 禁用 Homebrew 限制 (不推荐)</p>
+<p>如果你希望直接全局安装 Python 包，可以通过以下方法禁用 Homebrew 的限制：</p>
+<ol>
+<li><p>临时禁用限制：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install your_package --break-system-packages</span><br></pre></td></tr></table></figure></li>
+<li><p>永久禁用限制：<br>编辑或创建 <code>~/.config/pip/pip.conf</code> 文件，添加以下内容：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[global]</span></span><br><span class="line"><span class="attr">break-system-packages</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>注意</strong>：禁用限制可能会破坏 Homebrew 的安装环境，不建议长期使用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.pingcode.com/ask/ask-ask/174272.html">如何同时安装多个版本的Python3</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/bd90a3.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>CocosCreator2.4.13接入Jest测试</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/dec86a14.html">
+        <span>Node.js项目打包为Mac可执行文件和Windows可执行文件exe</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/286c50d7.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">如何安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85-pyenv"><span class="toc-number">1.1.</span> <span class="toc-text">1. 安装 pyenv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85-Python-%E7%89%88%E6%9C%AC"><span class="toc-number">1.2.</span> <span class="toc-text">2. 安装 Python 版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">如何使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%97%E5%87%BA%E5%B7%B2%E5%AE%89%E8%A3%85%E7%9A%84-Python-%E7%89%88%E6%9C%AC"><span class="toc-number">2.1.</span> <span class="toc-text">1. 列出已安装的 Python 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E5%85%A8%E5%B1%80-Python-%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.</span> <span class="toc-text">2. 设置全局 Python 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%B8%BA%E6%9F%90%E4%B8%AA%E9%A1%B9%E7%9B%AE%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0-Python-%E7%89%88%E6%9C%AC"><span class="toc-number">2.3.</span> <span class="toc-text">3. 为某个项目设置本地 Python 版本</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-number">2.3.0.1.</span> <span class="toc-text">解决方案：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%90%8C%E7%9A%84-Python-%E7%89%88%E6%9C%AC"><span class="toc-number">2.4.</span> <span class="toc-text">4. 使用不同的 Python 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8D%B8%E8%BD%BD-Python-%E7%89%88%E6%9C%AC"><span class="toc-number">2.5.</span> <span class="toc-text">5. 卸载 Python 版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BD%BF%E7%94%A8-pyenv-%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="toc-number">2.6.</span> <span class="toc-text">6. 使用 pyenv 管理虚拟环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E8%B0%83%E8%AF%95"><span class="toc-number">2.7.</span> <span class="toc-text">7. 常见问题和调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95"><span class="toc-number">3.</span> <span class="toc-text">拓展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#demjson-%E6%8A%A5%E9%94%99-use-2to3-is-invalid"><span class="toc-number">3.1.</span> <span class="toc-text">demjson 报错 use_2to3 is invalid</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E5%AE%89%E8%A3%85%EF%BC%88%E4%B8%8D%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="toc-number">3.1.1.</span> <span class="toc-text">强制安装（不推荐）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%A1%88"><span class="toc-number">3.1.2.</span> <span class="toc-text">其他方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#brew%E5%AE%89%E8%A3%85%E7%9A%84%E7%89%88%E6%9C%AC%E6%8A%A2%E5%8D%A0%E4%BA%86pyenv%E7%89%88%E6%9C%AC"><span class="toc-number">3.2.</span> <span class="toc-text">brew安装的版本抢占了pyenv版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AE%E8%AE%A4-pyenv-%E7%9A%84%E8%AE%BE%E7%BD%AE%E5%9C%A8%E4%BD%A0%E7%9A%84-shell-%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BC%98%E5%85%88"><span class="toc-number">3.2.1.</span> <span class="toc-text">确认 pyenv 的设置在你的 shell 环境中优先</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E5%B9%B6%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6%E5%90%8E%EF%BC%8C%E8%BF%90%E8%A1%8C%E4%BB%A5%E4%B8%8B%E5%91%BD%E4%BB%A4%E9%87%8D%E6%96%B0%E5%8A%A0%E8%BD%BD%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">保存并关闭文件后，运行以下命令重新加载验证是否正确配置：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%A0%E5%BA%94%E8%AF%A5%E7%9C%8B%E5%88%B0%E8%B7%AF%E5%BE%84%E7%B1%BB%E4%BC%BC%E4%BA%8E%EF%BC%9A"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">你应该看到路径类似于：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A5%E7%9D%80%E6%A3%80%E6%9F%A5-Python-%E7%89%88%E6%9C%AC%E6%98%AF%E5%90%A6%E7%94%B1-pyenv-%E6%8E%A7%E5%88%B6%EF%BC%9A"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">接着检查 Python 版本是否由 pyenv 控制：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E5%BA%94%E8%AF%A5%E6%98%AF%E4%BD%A0%E5%9C%A8-pyenv-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%89%88%E6%9C%AC%EF%BC%8C%E4%BE%8B%E5%A6%82-3-9-19"><span class="toc-number">3.2.1.4.</span> <span class="toc-text">输出应该是你在 pyenv 中设置的版本，例如 3.9.19</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98"><span class="toc-number">3.3.</span> <span class="toc-text">其他问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%8C%85%E9%94%99%E8%AF%AF"><span class="toc-number">3.3.1.</span> <span class="toc-text">安装包错误</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">3.3.1.1.</span> <span class="toc-text">解决方案</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

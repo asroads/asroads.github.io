@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            Cocos Creator|Android 实战开发（上） | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/3e50bf38.html">Cocos Creator|Android 实战开发（上）</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-02-06
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=Cocos Creator|Android 实战开发（上）&url=http://blog.asroads.com/post/3e50bf38.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=Cocos Creator|Android 实战开发（上）&url=http://blog.asroads.com/post/3e50bf38.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/3e50bf38.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/3e50bf38.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/3e50bf38.html&title=Cocos Creator|Android 实战开发（上）" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=Cocos Creator|Android 实战开发（上）&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/3e50bf38.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/3e50bf38.html&text=Cocos Creator|Android 实战开发（上）" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Android/ >Android</a>
+      </i>
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Cocos/ >Cocos</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>前面已经简单的介绍了如何配置Cocos Creator 原生平台环境，顺便简单的聊了聊导出包后的采坑，已经部分解决方案，接下来说说一些常见的游戏开发操作，记下来便于后续开发的时候查找。</p>
+<span id="more"></span>
+<p>首先关于如何配置原生环境和导出包的可以参考另外两篇文章：</p>
+<ul>
+<li><a href="http://blog.asroads.com/post/d130eaa6.html">Mac系统Cocos Creator Native 原生Android和ios打包</a></li>
+<li><a href="http://blog.asroads.com/post/d5575747.html">CocosCreator导出Android项目采坑指南</a></li>
+</ul>
+<p>其实最好的学习文档莫过于官方文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn">Android Gradle 插件版本说明</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.google.cn/ndk/downloads/">NDK 下载</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/studio/intro?hl=zh-cn">探索 Android Studio</a></li>
+</ul>
+<p>虽然官网写了很详细，但有时候我们只是用常见的几种，而且对于 Cocos Creator 生成的项目，最好是有关于 Cocos Creator 定制的 操作 前面介绍的知识点 本文不再赘述，下面介绍一些常见的操作。</p>
+<p>首先 我们要了解一下 Android API 版本情况</p>
+<h3 id="Android-的-API-Levels对应表"><a href="#Android-的-API-Levels对应表" class="headerlink" title="Android 的 API Levels对应表"></a>Android 的 API Levels对应表</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>版本号</th>
+<th>发行日期</th>
+<th>API等级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Android 11</td>
+<td>11</td>
+<td>2020-09-08</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Android 10</td>
+<td>10</td>
+<td>2019-09-03</td>
+<td>29</td>
+</tr>
+<tr>
+<td>Pie</td>
+<td>9</td>
+<td>2018-08-06</td>
+<td>28</td>
+</tr>
+<tr>
+<td>Oreo</td>
+<td>8.0 – 8.1</td>
+<td>2017-08-21</td>
+<td>26 – 27</td>
+</tr>
+<tr>
+<td>Nougat</td>
+<td>7.0 – 7.1.2</td>
+<td>2016-08-22</td>
+<td>24 – 25</td>
+</tr>
+<tr>
+<td>Marshmallow</td>
+<td>6.0 – 6.0.1</td>
+<td>2015-10-05</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Lollipop</td>
+<td>5.0 – 5.1.1</td>
+<td>2014-11-12</td>
+<td>21 – 22</td>
+</tr>
+<tr>
+<td>KitKat</td>
+<td>4.4 – 4.4.4</td>
+<td>2013-10-31</td>
+<td>19 – 20</td>
+</tr>
+<tr>
+<td>Jelly Bean</td>
+<td>4.1 – 4.3.1</td>
+<td>2012-07-09</td>
+<td>16 – 18</td>
+</tr>
+<tr>
+<td>Ice Cream Sandwich</td>
+<td>4.0 – 4.0.4</td>
+<td>2011-10-18</td>
+<td>14 – 15</td>
+</tr>
+<tr>
+<td>Honeycomb</td>
+<td>3.0 – 3.2.6</td>
+<td>2011-02-22</td>
+<td>11 – 13</td>
+</tr>
+<tr>
+<td>Gingerbread</td>
+<td>2.3 – 2.3.7</td>
+<td>2010-12-06</td>
+<td>9 – 10</td>
+</tr>
+<tr>
+<td>Froyo</td>
+<td>2.2 – 2.2.3</td>
+<td>2010-05-20</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Eclair</td>
+<td>2.0 – 2.1</td>
+<td>2009-10-26</td>
+<td>5 – 7</td>
+</tr>
+<tr>
+<td>Donut</td>
+<td>1.6</td>
+<td>2009-09-15</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Cupcake</td>
+<td>1.5</td>
+<td>2009-04-27</td>
+<td>3</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>1.1</td>
+<td>2009-02-09</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>1.0</td>
+<td>2008-09-23</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h3 id="构建项目-日志查看-更换图标-amp-名字"><a href="#构建项目-日志查看-更换图标-amp-名字" class="headerlink" title="构建项目-日志查看-更换图标&amp;名字"></a>构建项目-日志查看-更换图标&amp;名字</h3><p>首先我们假设Cocos Creator 环境已经配置好 我们开始 构建项目。</p>
+<p><img src="/post/3e50bf38/image-20200206143123924.png" alt="image-20200206143123924"></p>
+<p>项目构建成功后 我们使用 Android Studio 打开 项目 项目路径是 build/jsb-link/frameworks/runtime-src/proj.android-studio</p>
+<p><img src="/post/3e50bf38/image-20200206143453770.png" alt="image-20200206143453770"></p>
+<p>一般来说 打开项目 后 会自动构建一次 </p>
+<p><img src="/post/3e50bf38/image-20200206143759598.png" alt="image-20200206143759598"></p>
+<p><img src="/post/3e50bf38/image-20200206143821558.png" alt="image-20200206143821558"></p>
+<p>如果 没有出现构建 这个进程  可以自己选择 File -&gt;Sync Project With Gradle Files</p>
+<p><img src="/post/3e50bf38/image-20200206143911086.png" alt="image-20200206143911086"></p>
+<p>此时 我们连上 我们的设备后 （需要开始开发者模式 USB调试 ）<img src="/post/3e50bf38/image-20200206144126101.png" alt="image-20200206144126101"></p>
+<p>这个时候 我们可以点击 <img src="/post/3e50bf38/image-20200206144154437.png" alt="image-20200206144154437">debug  或者 <img src="/post/3e50bf38/image-20200206144245375.png" alt="image-20200206144245375">运行游戏 此时 我们可以简单的预览游戏效果</p>
+<p><img src="/post/3e50bf38/image-20200206145116268.png" alt="image-20200206145116268"></p>
+<p>如果 出现这个 安装提示 点击 继续安装 即可 </p>
+<p><img src="/post/3e50bf38/image-20200206145151198.png" alt="image-20200206145151198"></p>
+<p>此时 我们可以看到 我们打出的 日志 Log 显示出来了</p>
+<p><img src="/post/3e50bf38/image-20200206150622467.png" alt="image-20200206150622467"></p>
+<p>此时 游戏 可以正常预览。但是 此时 我们游戏 在 安装的后的图标是 </p>
+<p><img src="/post/3e50bf38/image-20200206145502192.png" alt="image-20200206145502192"></p>
+<p>接下来 我们要修改一下我们的游戏的名字，比如我的游戏叫指南针 我们需要更换自定义的</p>
+<h3 id="更换-图标-amp-名字"><a href="#更换-图标-amp-名字" class="headerlink" title="更换 图标&amp;名字"></a>更换 图标&amp;名字</h3><h4 id="图标更换"><a href="#图标更换" class="headerlink" title="图标更换"></a>图标更换</h4><p>首先我们自己准备一张 1024X1024 的png 图片 然后打开这个网站 一键生成我们的图标</p>
+<p><a target="_blank" rel="noopener" href="http://icon.wuruihong.com/">图标工厂</a>    网站 <a target="_blank" rel="noopener" href="http://icon.wuruihong.com/">点击进入</a></p>
+<p><img src="/post/3e50bf38/image-20200206145759880.png" alt="image-20200206145759880"></p>
+<p><img src="/post/3e50bf38/image-20200206150013609.png" alt="image-20200206150013609"></p>
+<p>此时 我们这个 android 的文件夹 里面就是我们的图标</p>
+<p><img src="/post/3e50bf38/image-20200206145931912.png" alt="image-20200206145931912"></p>
+<p>这个是我们项目原来的图标文件 我们选择替换即可</p>
+<h4 id="更换游戏名字"><a href="#更换游戏名字" class="headerlink" title="更换游戏名字"></a>更换游戏名字</h4><p>首先 原来 游戏的名字是在这里配置的</p>
+<p><img src="/post/3e50bf38/image-20200206150810518.png" alt="image-20200206150810518"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;app_name&quot;</span> <span class="attr">translatable</span>=<span class="string">&quot;false&quot;</span>&gt;</span>ccsyx<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们修改 “ccsyx” 即可 比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;app_name&quot;</span> <span class="attr">translatable</span>=<span class="string">&quot;false&quot;</span>&gt;</span>指南针<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="卸载原来安装的-app-重新构建-运行"><a href="#卸载原来安装的-app-重新构建-运行" class="headerlink" title="卸载原来安装的 app 重新构建 运行"></a>卸载原来安装的 app 重新构建 运行</h3><p><img src="/post/3e50bf38/image-20200206151153513.png" alt="image-20200206151153513"></p>
+<p>以上我们成功的 更换了自定义的 游戏名字 和游戏图标。</p>
+<h3 id="更改Cocos-Creator-apk-默认输出的名字"><a href="#更改Cocos-Creator-apk-默认输出的名字" class="headerlink" title="更改Cocos Creator apk 默认输出的名字"></a>更改Cocos Creator apk 默认输出的名字</h3><p>这个网上有很多方法：</p>
+<p>我这边 最后验证成功的是：需要在 <code>build.gradle</code>文件内的 <code>android.applicationVariants.all</code> 里面配置</p>
+<p>大概结构：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android.applicationVariants.all &#123; variant -&gt;</span><br><span class="line">    <span class="comment">// delete previous files first</span></span><br><span class="line">    delete <span class="string">&quot;$&#123;buildDir&#125;/intermediates/merged_assets/$&#123;variant.dirName&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">    variant.mergeAssets.doLast &#123;</span><br><span class="line">        <span class="keyword">def</span> sourceDir = <span class="string">&quot;$&#123;buildDir&#125;/../../../../..&quot;</span></span><br><span class="line">        .........</span><br><span class="line">        .........</span><br><span class="line">        <span class="keyword">if</span> (variant.buildType.name == <span class="string">&#x27;release&#x27;</span>) &#123;</span><br><span class="line">        ..........</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体细节：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">if</span> (variant.buildType.name == <span class="string">&#x27;release&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">def</span> buildTypeName = variant.buildType.name</span><br><span class="line">        <span class="keyword">def</span> createTime = <span class="keyword">new</span> Date().format(<span class="string">&quot;YYYY-MM-dd HH-mm-ss&quot;</span>, TimeZone.getTimeZone(<span class="string">&quot;GMT+08:00&quot;</span>))</span><br><span class="line">        <span class="keyword">def</span> releaseFileName = <span class="string">&quot;$&#123;buildTypeName&#125;-mobile $&#123;createTime&#125;&quot;</span></span><br><span class="line"><span class="comment">//        def releaseApkName = &quot;$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;android.defaultConfig.versionCode&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line">        <span class="keyword">def</span> releaseApkName = <span class="string">&quot;$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line">        println(<span class="string">&quot;版本名称---&gt;&quot;</span> + android.defaultConfig.versionName + <span class="string">&quot; 版本号---&gt;&quot;</span> + android.defaultConfig.versionCode)</span><br><span class="line"><span class="comment">//        println(variant.getPackageApplication().outputDirectory)</span></span><br><span class="line"><span class="comment">//        println(createTime)</span></span><br><span class="line"><span class="comment">//        println(project.name)</span></span><br><span class="line"><span class="comment">//        println(rootProject.name)</span></span><br><span class="line">        <span class="comment">//新建一个文件夹 然后把输出app 放到新建的文件夹内</span></span><br><span class="line">        variant.getPackageApplication().outputDirectory = <span class="keyword">new</span> File(variant.getPackageApplication().outputDirectory,releaseFileName)</span><br><span class="line">        variant.getPackageApplication().outputScope.apkDatas.forEach &#123; apkData -&gt;</span><br><span class="line">            <span class="comment">//这个修改输出APK的文件名</span></span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">            apkData.outputFileName = releaseApkName</span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>最初的输出路径：是在原有的  “release”目录下新建一个带时间 目录 （参考Xcode）然后修改APK 名字</p>
+<p>效果如下：</p>
+<p><img src="/post/3e50bf38/image-20200326201039411.png" alt="image-20200326201039411"></p>
+<h4 id="Grade-升级后对应的改变-2021-01-08-更新"><a href="#Grade-升级后对应的改变-2021-01-08-更新" class="headerlink" title="Grade 升级后对应的改变  2021-01-08 更新"></a>Grade 升级后对应的改变  2021-01-08 更新</h4><p>主要就是路径的修改 </p>
+<p>将<code>variant.getPackageApplication()</code>替换为<code>variant.getPackageApplicationProvider().get()</code></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (variant.buildType.name == <span class="string">&#x27;release&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">def</span> buildTypeName = variant.buildType.name</span><br><span class="line">        <span class="comment">//渠道名称</span></span><br><span class="line">        <span class="keyword">def</span> flavorName = variant.flavorName</span><br><span class="line">        <span class="keyword">def</span> createTime = <span class="keyword">new</span> Date().format(<span class="string">&quot;YYYY-MM-dd HH-mm-ss&quot;</span>, TimeZone.getTimeZone(<span class="string">&quot;GMT+08:00&quot;</span>))</span><br><span class="line">        <span class="keyword">def</span> releaseFileName = <span class="string">&quot;$&#123;buildTypeName&#125;-$&#123;variant.versionName&#125;-mobile-$&#123;createTime&#125;&quot;</span></span><br><span class="line">        <span class="comment">//def releaseApkName = &quot;$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;android.defaultConfig.versionCode&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line">        <span class="comment">//def releaseApkName = &quot;$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line">        <span class="keyword">def</span> releaseApkName = <span class="string">&quot;$&#123;project.name&#125;-$&#123;variant.versionName&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line"><span class="comment">//        println(&quot;版本名称---&gt;&quot; + android.defaultConfig.versionName + &quot; 版本号---&gt;&quot; + android.defaultConfig.versionCode)</span></span><br><span class="line">        println(<span class="string">&quot;版本名称---&gt;&quot;</span> + variant.versionName + <span class="string">&quot; 版本号---&gt;&quot;</span> + variant.versionCode)</span><br><span class="line"><span class="comment">//        println(project.rootDir.absolutePath)</span></span><br><span class="line"><span class="comment">//        println(flavorName)</span></span><br><span class="line"><span class="comment">//        println(releaseFileName)</span></span><br><span class="line"><span class="comment">//        println(variant.dirName)</span></span><br><span class="line"><span class="comment">//        println(releaseApkName)</span></span><br><span class="line"><span class="comment">//        println(variant.versionName)</span></span><br><span class="line"><span class="comment">//        println(buildDir.getAbsolutePath())</span></span><br><span class="line"><span class="comment">//        println(buildDir.getCanonicalPath())</span></span><br><span class="line"><span class="comment">//        println(buildDir.getParentFile().path)</span></span><br><span class="line">        <span class="comment">//如果是正式包,将其输入到指定文件夹</span></span><br><span class="line"><span class="comment">//        def apkDir = buildDir.getAbsolutePath()+&quot;\\outputs\\apk\\&quot;+flavorName+&quot;\\&quot;+buildType</span></span><br><span class="line">        <span class="comment">//设置build安装包输出路径</span></span><br><span class="line"><span class="comment">//        variant.getPackageApplicationProvider().get().outputDirectory =  file(apkDir)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//println(project.name)</span></span><br><span class="line">        <span class="comment">//println(rootProject.name)</span></span><br><span class="line">        <span class="comment">//新建一个文件夹 然后把输出app 放到新建的文件夹内</span></span><br><span class="line"><span class="comment">//        variant.getPackageApplication().outputDirectory = new File(variant.getPackageApplication().outputDirectory,releaseFileName)</span></span><br><span class="line"><span class="comment">//        variant.getPackageApplicationProvider().get().outputDirectory = new File(variant.getPackageApplicationProvider().get().outputDirectory,releaseFileName)</span></span><br><span class="line"><span class="comment">//        def apkDir = &quot;$&#123;project.projectDir.absolutePath&#125;/$&#123;variant.buildType.name&#125;/$&#123;variant.flavorName&#125;/$&#123;variant.versionName&#125;&quot;</span></span><br><span class="line">        <span class="keyword">def</span> apkDir = <span class="string">&quot;$&#123;project.projectDir.absolutePath&#125;/$&#123;variant.buildType.name&#125;/$&#123;releaseFileName&#125;&quot;</span></span><br><span class="line">        println(apkDir)</span><br><span class="line">        variant.packageApplicationProvider.get().outputDirectory = <span class="keyword">new</span> File(apkDir)</span><br><span class="line">        variant.outputs.all &#123; apkData -&gt;</span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">            apkData.outputFileName = releaseApkName</span><br><span class="line">            println(apkData.outputFileName)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 不同版本更改输出apk文件名方式</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  gradleVersion 小于4.0</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">/*  variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach &#123; apkData -&gt;</span></span><br><span class="line"><span class="comment">              apkData.outputFileName = path</span></span><br><span class="line"><span class="comment">          &#125;*/</span></span><br><span class="line">        <span class="comment">/*      */</span><span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  gradleVersion 大于4.0</span></span><br><span class="line"><span class="comment">         */</span><span class="comment">/*</span></span><br><span class="line"><span class="comment">        variant.outputs.forEach &#123;</span></span><br><span class="line"><span class="comment">            it.apkData.outputFileName = path</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  gradleVersion 大于4.1</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"><span class="comment">//        variant.outputs.forEach &#123;apkData -&gt;</span></span><br><span class="line"><span class="comment">//            println(apkData.outputFileName)</span></span><br><span class="line"><span class="comment">//            apkData.outputFileName = releaseApkName</span></span><br><span class="line"><span class="comment">//            println(apkData.outputFileName)</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        variant.getPackageApplication().outputScope.apkDatas.forEach &#123; apkData -&gt;</span></span><br><span class="line"><span class="comment">//            //这个修改输出APK的文件名</span></span><br><span class="line"><span class="comment">//            println(apkData.outputFileName)</span></span><br><span class="line"><span class="comment">//            apkData.outputFileName = releaseApkName</span></span><br><span class="line"><span class="comment">//            println(apkData.outputFileName)</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Cocos-Creator-2-4-7-配置-2021-12-10-更新"><a href="#Cocos-Creator-2-4-7-配置-2021-12-10-更新" class="headerlink" title="Cocos Creator 2.4.7 配置 2021-12-10 更新"></a>Cocos Creator 2.4.7 配置 2021-12-10 更新</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改带时间戳带apk</span></span><br><span class="line"><span class="keyword">if</span> (variant.buildType.name == <span class="string">&#x27;release&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">def</span> buildTypeName = variant.buildType.name</span><br><span class="line">    <span class="keyword">def</span> flavorName = variant.flavorName</span><br><span class="line">    <span class="keyword">if</span>(flavorName == <span class="string">&quot;&quot;</span>)&#123;</span><br><span class="line">        flavorName = <span class="string">&quot;default&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">def</span> createTime = <span class="keyword">new</span> Date().format(<span class="string">&quot;YYYY-MM-dd HH-mm-ss&quot;</span>, TimeZone.getTimeZone(<span class="string">&quot;GMT+08:00&quot;</span>))</span><br><span class="line">    <span class="keyword">def</span> releaseFileName = <span class="string">&quot;$&#123;buildTypeName&#125;-mobile $&#123;createTime&#125;&quot;</span></span><br><span class="line">    <span class="comment">//def releaseApkName = &quot;$&#123;project.name&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;android.defaultConfig.versionCode&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line">    <span class="keyword">def</span> releaseApkName = <span class="string">&quot;$&#123;project.name&#125;-$&#123;flavorName&#125;-$&#123;android.defaultConfig.versionName&#125;-$&#123;buildTypeName&#125;.apk&quot;</span></span><br><span class="line">    println(<span class="string">&quot;版本名称---&gt;&quot;</span> + android.defaultConfig.versionName + <span class="string">&quot; 版本号---&gt;&quot;</span> + android.defaultConfig.versionCode)</span><br><span class="line">    <span class="comment">//println(project.name)</span></span><br><span class="line">    <span class="comment">//println(rootProject.name)</span></span><br><span class="line">    println(flavorName)</span><br><span class="line">    <span class="comment">//新建一个文件夹 然后把输出app 放到新建的文件夹内</span></span><br><span class="line">    <span class="keyword">def</span> apkDir = <span class="string">&quot;$&#123;project.projectDir.absolutePath&#125;/$&#123;variant.buildType.name&#125;/$&#123;releaseFileName&#125;&quot;</span></span><br><span class="line">    println(apkDir)</span><br><span class="line">    println(releaseApkName)</span><br><span class="line">    variant.packageApplicationProvider.get().outputDirectory = <span class="keyword">new</span> File(apkDir)</span><br><span class="line">    <span class="comment">//gradleVersion 大于4.1</span></span><br><span class="line">    variant.outputs.forEach &#123;</span><br><span class="line">        <span class="comment">//这个修改输出APK的文件名</span></span><br><span class="line">        println(it.outputFileName)</span><br><span class="line">        it.outputFileName = releaseApkName</span><br><span class="line">        println(it.outputFileName)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>附录：参考链接代码引用</strong></p>
+<blockquote>
+<p>参考1<br>Gradle升级了3.0后，output.outputFile变成了只读属性，不能再往里面写东西了</p>
+<p>Gradle3.0之后的配置</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android.applicationVariants.all &#123; v -&gt;</span><br><span class="line">    v.outputs.all &#123;</span><br><span class="line">        <span class="comment">/*指定输出到 $&#123;project&#125;/outputs/apk/release文件夹下*/</span></span><br><span class="line">        v.getPackageApplication().outputDirectory = <span class="keyword">new</span> File(project.rootDir.absolutePath + <span class="string">&quot;/outputs/apk/release&quot;</span>)</span><br><span class="line">        <span class="comment">/*修改输出apk名字*/</span></span><br><span class="line">        outputFileName = <span class="string">&quot;testAPP.apk&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参考2</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    applicationVariants.all &#123; variant -&gt;</span><br><span class="line">        variant.outputs.all &#123; output -&gt;</span><br><span class="line">            variant.packageApplicationProvider.get().outputDirectory = <span class="keyword">new</span> File(<span class="string">&quot;path/to/output/dir&quot;</span>)</span><br><span class="line">            outputFileName = <span class="string">&quot;output_file_name.apk&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意：</p>
+<p>1.如果是多种build type或多种flavor同时打包，记得在输出文件夹路径或文件名中引用相关变量。</p>
+<p>2.Android Studio调试时，并不认输出目录，也就是编译打包会输出到指定目录下，但是Android Studio还是会在默认目录寻找apk，找不到就会报错，不会自动安装。</p>
+<p>参考3 csdn 博客（文章有权限需要关注）</p>
+</blockquote>
+<blockquote>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">   applicationVariants.all &#123; variant -&gt;</span><br><span class="line">   <span class="comment">// 打包完成后复制到的目录</span></span><br><span class="line">        <span class="keyword">def</span> outputFileDir = <span class="string">&quot;$&#123;project.projectDir.absolutePath&#125;/$&#123;variant.buildType.name&#125;/$&#123;variant.flavorName&#125;/$&#123;variant.versionName&#125;&quot;</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="comment">//  此处可以根据需求配置相关渠道的默认输出路径,默认输出路径为“app/build/outputs/apk/$&#123;variant.flavorName&#125;“”</span></span><br><span class="line"><span class="comment">//        if (variant.buildType.name == &quot;release&quot;&amp;&amp;variant.flavorName == &quot;online&quot;) &#123;</span></span><br><span class="line"><span class="comment">//            println(&quot;outputDirectory1:$&#123;variant.getPackageApplicationProvider().get().outputDirectory&#125;&quot;)</span></span><br><span class="line"><span class="comment">//            variant.getPackageApplicationProvider().get().outputDirectory = new File(outputFileDir)</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">      <span class="comment">//确定输出文件名</span></span><br><span class="line">        <span class="keyword">def</span> today = <span class="keyword">new</span> Date()</span><br><span class="line">        <span class="keyword">def</span> path = ((project.name != <span class="string">&quot;app&quot;</span>) ? project.name : rootProject.name.replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;&quot;</span>)) + <span class="string">&quot;_&quot;</span> +</span><br><span class="line">                variant.flavorName + <span class="string">&quot;_&quot;</span> +</span><br><span class="line">                variant.buildType.name + <span class="string">&quot;_&quot;</span>+</span><br><span class="line">                variant.versionName + <span class="string">&quot;_&quot;</span> +</span><br><span class="line">                today.format(<span class="string">&#x27;yyyyMMddhhmm&#x27;</span>) +</span><br><span class="line">                <span class="string">&quot;.apk&quot;</span></span><br><span class="line">        <span class="comment">// 不同版本更改输出apk文件名方式</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  gradleVersion 小于4.0</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">/*  variant.getPackageApplicationProvider().get().outputScope.apkDatas.forEach &#123; apkData -&gt;</span></span><br><span class="line"><span class="comment">              apkData.outputFileName = path</span></span><br><span class="line"><span class="comment">          &#125;*/</span></span><br><span class="line">  <span class="comment">/*      */</span><span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  gradleVersion 大于4.0</span></span><br><span class="line"><span class="comment">         */</span><span class="comment">/*</span></span><br><span class="line"><span class="comment">        variant.outputs.forEach &#123;</span></span><br><span class="line"><span class="comment">            it.apkData.outputFileName = path</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *  gradleVersion 大于4.1</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        variant.outputs.forEach &#123;</span><br><span class="line">            it.outputFileName = path</span><br><span class="line">        &#125;</span><br><span class="line">	<span class="comment">// 打包完成后做的一些事,复制apk到指定文件夹,复制mapping等</span></span><br><span class="line">        variant.assemble.doLast &#123;</span><br><span class="line">            File out = <span class="keyword">new</span> File(outputFileDir)</span><br><span class="line">            copy &#123;</span><br><span class="line">                from variant.mappingFile</span><br><span class="line">                into  out</span><br><span class="line">                rename &#123;</span><br><span class="line">                    String fileName -&gt; <span class="string">&quot;$&#123;variant.buildType.name&#125;-$&#123;variant.flavorName&#125;-mapping-$&#123;variant.versionName&#125;.txt&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">                variant.outputs.forEach&#123; file-&gt;</span><br><span class="line">                    copy&#123;</span><br><span class="line">                        from file.outputFile</span><br><span class="line">                        into out</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+</blockquote>
+<h3 id="API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’"><a href="#API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’" class="headerlink" title="API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’."></a>API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’.</h3><p><img src="/post/3e50bf38/image-20210111151834224.png" alt="image-20210111151834224"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">API &#x27;variant.getMergeAssets()&#x27; is obsolete and has been replaced with &#x27;variant.getMergeAssetsProvider()&#x27;.</span><br><span class="line">It will be removed at the end of 2019.</span><br><span class="line">For more information, see https://d.android.com/r/tools/task-configuration-avoidance.</span><br><span class="line">To determine what is calling variant.getMergeAssets(), use -Pandroid.debug.obsoleteApi=true on the command line to display more information.</span><br></pre></td></tr></table></figure>
+
+<p>这个是升级 gradle 插件 和 gradle 版本后遇到的，直接打包后的不会遇到这个问题</p>
+<p>看到这个警告的时候，我全局搜索了这个 <code>variant.getMergeAssets()</code>并没有找到这个，很奇怪，后面去网上搜索了才知道是</p>
+<p>需要把  <code>variant.mergeAssets.doLast &#123;</code><br>换成<br><code>variant.mergeAssetsProvider.get().doLast &#123;</code></p>
+<p>这样 警告就消失了！</p>
+<p>参考地址 <a target="_blank" rel="noopener" href="https://discuss.cocos2d-x.org/t/cocos2d-x-3-17-and-android-studio-3-3-build-issue-or-error/45503">Cocos2d-x 3.17 and android studio 3.3 build Issue or Error?</a></p>
+<blockquote>
+<p>Just change string <code>variant.mergeAssets.doLast &#123;</code><br>to<br><code>variant.mergeAssetsProvider.get().doLast &#123;</code></p>
+</blockquote>
+<h3 id="警告API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’"><a href="#警告API-‘variant-getMergeAssets-’-is-obsolete-and-has-been-replaced-with-‘variant-getMergeAssetsProvider-’" class="headerlink" title="警告API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’."></a>警告API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’.</h3><p>解决方法：<code>variant.mergeAssets.doLast</code> 替换为 <code>variant.mergeAssetsProvider.get().doLast</code></p>
+<h3 id="错误：Error-Invoke-customs-are-only-supported-starting-with-Android-O-–min-api-26"><a href="#错误：Error-Invoke-customs-are-only-supported-starting-with-Android-O-–min-api-26" class="headerlink" title="错误：Error: Invoke-customs are only supported starting with Android O (–min-api 26)"></a>错误：Error: Invoke-customs are only supported starting with Android O (–min-api 26)</h3><p>将代码添加到app的build.gradle的android节点下</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">compileOptions &#123;</span><br><span class="line">        sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="升级完-打release包出现的错误"><a href="#升级完-打release包出现的错误" class="headerlink" title="升级完 打release包出现的错误"></a>升级完 打release包出现的错误</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error:Execution failed <span class="keyword">for</span> task <span class="string">&#x27;:app:lintVitalRelease&#x27;</span>. &gt; Invalid main APK outputs : BuildOutput&#123;apkInfo=&#123;<span class="built_in">type</span>=MAIN, versionCode=0, filters=[]&#125;, path=/Users/junan/Desktop/svnall/android/youcai_android/app/release/.DS_Store, properties=&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="解决方法1："><a href="#解决方法1：" class="headerlink" title="解决方法1："></a>解决方法1：</h4><p>参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/62801499/android-studio-4-0-update-is-giving-lint-infrastructure-error-when-used-with-gr">Android studio 4.0 update is giving lint infrastructure error, when used with gradle 6.1.1</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.shuzhiduo.com/A/MyJxX8XeJn/">Android Studio Build APK没有报错，但是Generate signed apk报错</a></p>
+<p>在<code>app</code>的<code>build.gradle</code>文件中添加</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">android &#123; </span><br><span class="line">    compileSdkVersion <span class="number">28</span></span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//Invoke-customs are only supported starting with Android O (--min-api 26)</span></span><br><span class="line">    android&#123;</span><br><span class="line">        compileOptions&#123;</span><br><span class="line">            sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">            targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="解决方法2："><a href="#解决方法2：" class="headerlink" title="解决方法2："></a>解决方法2：</h4><p>参考 <a target="_blank" rel="noopener" href="https://www.codetd.com/article/11976085">Caused by: java.lang.reflect.InvocationTargetException</a></p>
+<p>解决方法：删除release目录下所有文件（这个其实是打出包的地方，因为我用了自定义修改名字，以前是支持多个包同时存在）</p>
+<p>这样重新打包，正常出包。网上有人说打release包前，先打个debug包就好了，这个我没有测试，大家自己可以试试看。</p>
+<blockquote>
+<p>里面并没有报是哪行代码或者哪些配置出错，搞得一脸懵。</p>
+<p>搜索了下，基本上都是提示<code>Java反射异常</code>，What？？？之前打包都没问题，而且近期没有新增 Java 反射代码。</p>
+<p>真是无从入手。</p>
+<p>后面仔细看了异常日志，发现还报了这个异常：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.RuntimeException: Invalid main APK outputs : </span><br><span class="line">EarlySyncBuildOutput(<span class="built_in">type</span>=com.android.build.gradle.internal.scope.InternalArtifactType<span class="variable">$APK</span>@1c0767aa, </span><br><span class="line">apkType=MAIN, filtersData=[], version=0, </span><br><span class="line">output=/Users/bujinshidemao/Desktop/release/.DS_Store),</span><br><span class="line">EarlySyncBuildOutput(<span class="built_in">type</span>=com.android.build.gradle.internal.scope.InternalArtifactType<span class="variable">$APK</span>@1c0767aa, </span><br><span class="line">apkType=MAIN, filtersData=[], version=0, </span><br><span class="line">output=/Users/bujinshidemao/Desktop/release/灵感.apk),</span><br><span class="line">EarlySyncBuildOutput(<span class="built_in">type</span>=com.android.build.gradle.internal.scope.InternalArtifactType<span class="variable">$APK</span>@1c0767aa, </span><br><span class="line">apkType=MAIN, filtersData=[], version=0, </span><br><span class="line">output=/Users/bujinshidemao/Desktop/release/灵感_正式_26.apk)</span><br></pre></td></tr></table></figure>
+
+<p>初步看了下，是输出 Apk 的时候报的异常，并且关联到了之前的打包版本，于是，我采取了以下操作：</p>
+<ul>
+<li><strong>删除输出路径</strong></li>
+<li><strong>重新打包</strong></li>
+</ul>
+<p>打包成功！</p>
+</blockquote>
+<h3 id="Could-not-resolve-all-files-for-configuration-‘-app-debugCompileClasspath’-解决方案"><a href="#Could-not-resolve-all-files-for-configuration-‘-app-debugCompileClasspath’-解决方案" class="headerlink" title="Could not resolve all files for configuration ‘:app:debugCompileClasspath’.解决方案"></a>Could not resolve all files for configuration ‘:app:debugCompileClasspath’.解决方案</h3><p>解决方案如下：<br>在project级别下的build.gradle文件中添加如下代码：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line"> </span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">&#x27;com.android.tools.build:gradle:3.1.1&#x27;</span> <span class="comment">//这里不用和我一样，和你项目里面的版本一样就行</span></span><br><span class="line">        classpath <span class="string">&#x27;com.google.gms:google-services:4.0.1&#x27;</span>  <span class="comment">//这行对谷歌服务库进行依赖</span></span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral ()</span><br><span class="line">        maven &#123;url <span class="string">&#x27;https://dl.bintray.com/jetbrains/anko&#x27;</span>&#125; <span class="comment">//这是你需要加入的，这个是解决这个问题的关键地方，我就是添加这个maven后不再报上面的错误了</span></span><br><span class="line">        maven &#123;url <span class="string">&quot;https://maven.google.com&quot;</span>&#125; <span class="comment">//谷歌广告</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">task clean(<span class="attr">type:</span> Delete) &#123;</span><br><span class="line">    delete rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hqq39/article/details/49821607">【cocos2dx】改安装包名、app名、图标、包名</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b6c3f951b281">gradle脚本配置 记录</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.flysnow.org/2015/03/30/manage-your-android-project-with-gradle.html">使用Gradle管理你的Android Studio工程</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/swer0808/article/details/78999949">android studio 打包自动生成版本号与日期，apk输入路径</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e088b6f1a59a">gradle 3.3 修改打包apk路径</a></li>
+<li><a target="_blank" rel="noopener" href="https://imlushen.com/custom-gradle-apk-output-dir-and-filename/">Gradle 3.4.0以上版本自定义apk输出目录和输出文件名</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiabaokang/article/details/97772767">解决Android更新Gradle 报 ‘variantOutput.getPackageApplication()’ is obsolete replace getPackageApplicati-CSDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/smallbabylong/article/details/111276762">最新最全Android Gradle 自定义打包输出路径和文件名,并复制到某一文件夹</a></li>
+<li><a target="_blank" rel="noopener" href="https://discuss.cocos2d-x.org/t/cocos2d-x-3-17-and-android-studio-3-3-build-issue-or-error/45503">Cocos2d-x 3.17 and android studio 3.3 build Issue or Error?</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yechaoa/article/details/91040006">Android Studio 升级3.4，Gradle升级5.1遇到的问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/csdn9228/article/details/90905430">Error: Invoke-customs are only supported starting with Android O (–min-api 26)- CSDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/aj2722465/article/details/79876885">Execution failed for task ‘:app:lintVitalRelease’. Invalid main APK outputs- CSDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://discuss.cocos2d-x.org/t/android-studio-error-api-variant-getmergeassets-is-obsolete/46978">Android studio error : API ‘variant.getMergeAssets()’ is obsolete-cocos论坛</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.codetd.com/article/11976085">Caused by: java.lang.reflect.InvocationTargetException</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yangaiyu/article/details/91411739">Could not resolve all files for configuration ‘:app:debugCompileClasspath’.解决方案</a></li>
+</ul>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/d9ac0497.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>Sourcetree操作Gitlab的项目</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/db04f0eb.html">
+        <span>字节跳动头条小游戏更多游戏跳转</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/3e50bf38.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-%E7%9A%84-API-Levels%E5%AF%B9%E5%BA%94%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text">Android 的 API Levels对应表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE-%E6%97%A5%E5%BF%97%E6%9F%A5%E7%9C%8B-%E6%9B%B4%E6%8D%A2%E5%9B%BE%E6%A0%87-amp-%E5%90%8D%E5%AD%97"><span class="toc-number">2.</span> <span class="toc-text">构建项目-日志查看-更换图标&amp;名字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2-%E5%9B%BE%E6%A0%87-amp-%E5%90%8D%E5%AD%97"><span class="toc-number">3.</span> <span class="toc-text">更换 图标&amp;名字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE%E6%A0%87%E6%9B%B4%E6%8D%A2"><span class="toc-number">3.1.</span> <span class="toc-text">图标更换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%8D%A2%E6%B8%B8%E6%88%8F%E5%90%8D%E5%AD%97"><span class="toc-number">3.2.</span> <span class="toc-text">更换游戏名字</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E5%8E%9F%E6%9D%A5%E5%AE%89%E8%A3%85%E7%9A%84-app-%E9%87%8D%E6%96%B0%E6%9E%84%E5%BB%BA-%E8%BF%90%E8%A1%8C"><span class="toc-number">4.</span> <span class="toc-text">卸载原来安装的 app 重新构建 运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9Cocos-Creator-apk-%E9%BB%98%E8%AE%A4%E8%BE%93%E5%87%BA%E7%9A%84%E5%90%8D%E5%AD%97"><span class="toc-number">5.</span> <span class="toc-text">更改Cocos Creator apk 默认输出的名字</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Grade-%E5%8D%87%E7%BA%A7%E5%90%8E%E5%AF%B9%E5%BA%94%E7%9A%84%E6%94%B9%E5%8F%98-2021-01-08-%E6%9B%B4%E6%96%B0"><span class="toc-number">5.1.</span> <span class="toc-text">Grade 升级后对应的改变  2021-01-08 更新</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cocos-Creator-2-4-7-%E9%85%8D%E7%BD%AE-2021-12-10-%E6%9B%B4%E6%96%B0"><span class="toc-number">6.</span> <span class="toc-text">Cocos Creator 2.4.7 配置 2021-12-10 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API-%E2%80%98variant-getMergeAssets-%E2%80%99-is-obsolete-and-has-been-replaced-with-%E2%80%98variant-getMergeAssetsProvider-%E2%80%99"><span class="toc-number">7.</span> <span class="toc-text">API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AD%A6%E5%91%8AAPI-%E2%80%98variant-getMergeAssets-%E2%80%99-is-obsolete-and-has-been-replaced-with-%E2%80%98variant-getMergeAssetsProvider-%E2%80%99"><span class="toc-number">8.</span> <span class="toc-text">警告API ‘variant.getMergeAssets()’ is obsolete and has been replaced with ‘variant.getMergeAssetsProvider()’.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%EF%BC%9AError-Invoke-customs-are-only-supported-starting-with-Android-O-%E2%80%93min-api-26"><span class="toc-number">9.</span> <span class="toc-text">错误：Error: Invoke-customs are only supported starting with Android O (–min-api 26)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E5%AE%8C-%E6%89%93release%E5%8C%85%E5%87%BA%E7%8E%B0%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-number">10.</span> <span class="toc-text">升级完 打release包出现的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%951%EF%BC%9A"><span class="toc-number">10.1.</span> <span class="toc-text">解决方法1：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%952%EF%BC%9A"><span class="toc-number">10.2.</span> <span class="toc-text">解决方法2：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Could-not-resolve-all-files-for-configuration-%E2%80%98-app-debugCompileClasspath%E2%80%99-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">11.</span> <span class="toc-text">Could not resolve all files for configuration ‘:app:debugCompileClasspath’.解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">12.</span> <span class="toc-text">参考</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

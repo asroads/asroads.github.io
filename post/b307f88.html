@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            使用Python脚本生成git某天的提交日志记录 | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/b307f88.html">使用Python脚本生成git某天的提交日志记录</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2021-11-09
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/tool/">tool</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=使用Python脚本生成git某天的提交日志记录&url=http://blog.asroads.com/post/b307f88.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=使用Python脚本生成git某天的提交日志记录&url=http://blog.asroads.com/post/b307f88.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/b307f88.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/b307f88.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/b307f88.html&title=使用Python脚本生成git某天的提交日志记录" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=使用Python脚本生成git某天的提交日志记录&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/b307f88.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/b307f88.html&text=使用Python脚本生成git某天的提交日志记录" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Python/ >Python</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>项目人多了，于是乎，领导开始想让大家每日写日报。作为程序员来说，写日志显得很扯，但是，领导说的，就得支持，哪怕自己不喜欢这个规则。没办法，于是乎想到能不能把每天的工作中，提交的日志的部分内容，作为日报，这样形式上总算有了，也能看看自己一天下来都做了哪些功能。</p>
+<span id="more"></span>
+
+<h3 id="最后效果"><a href="#最后效果" class="headerlink" title="最后效果"></a>最后效果</h3><p><img src="/post/b307f88/0001-6463034.gif" alt="0001"></p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>先说一下我的思路，总体来说，需要配置几个东西</p>
+<ul>
+<li>作者</li>
+<li>仓库地址</li>
+<li>生成某天</li>
+</ul>
+<p>能够用到的几个类 大概是 <code>json</code> 、<code>os</code> 等类，于是乎开干吧，以前让同事写过一个类似的功能，于是站在别人的肩膀上开始修改，就容易的多。</p>
+<p>先说说配置文件：我这里使用json 名字叫 config.json。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;log_paths&quot;</span><span class="punctuation">:</span> <span class="string">&quot;自己日志的目录&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;自己的名字&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;source_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;自己仓库的地址&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>比如这样</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;log_paths&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/smile/work/helper/tool/GitLogParsePlus/log&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;asroads&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;source_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Users/smile/work/ccc/demo&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>python 文件 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> strftime,gmtime</span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br><span class="line"></span><br><span class="line">CONST = &#123;</span><br><span class="line">    <span class="string">&quot;LOG_FILE&quot;</span>: <span class="string">&quot;.log&quot;</span>, <span class="comment"># 保存日志的文件名</span></span><br><span class="line">    <span class="comment"># 正则</span></span><br><span class="line">    <span class="string">&quot;REGEX&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;COMMIT&quot;</span>: <span class="string">&quot;^commit&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AUTHOR&quot;</span>: <span class="string">&quot;^Author&quot;</span>,</span><br><span class="line">        <span class="string">&quot;DATE&quot;</span>: <span class="string">&quot;^Date&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Merge&quot;</span>: <span class="string">&quot;^Merge&quot;</span>,</span><br><span class="line">        <span class="string">&quot;#&quot;</span>: <span class="string">&quot;#&quot;</span>,<span class="comment">#Merge 代码内容不显示</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">gAfter = <span class="string">&quot;&quot;</span> <span class="comment"># 开始时间</span></span><br><span class="line">gBefore = <span class="string">&quot;&quot;</span> <span class="comment"># 结束时间</span></span><br><span class="line"><span class="comment"># 获取git日志</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getGitLog</span>():</span><br><span class="line">    <span class="keyword">global</span> gAfter</span><br><span class="line">    <span class="keyword">global</span> gBefore</span><br><span class="line">    <span class="keyword">global</span> gDays</span><br><span class="line">    cwd = os.getcwd()</span><br><span class="line">    configPath = os.path.join(cwd, <span class="string">&quot;config.json&quot;</span>)</span><br><span class="line">    f = <span class="built_in">open</span>(configPath, encoding=<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment"># 打开‘copyConfig.json’的json文件</span></span><br><span class="line">    res = f.read()  <span class="comment"># 读文件</span></span><br><span class="line">    author = json.loads(res)[<span class="string">&quot;author&quot;</span>]</span><br><span class="line">    log_paths = json.loads(res)[<span class="string">&quot;log_paths&quot;</span>]</span><br><span class="line">    source_path = json.loads(res)[<span class="string">&quot;source_path&quot;</span>]</span><br><span class="line">    cmd = <span class="string">&quot;&quot;</span></span><br><span class="line">    today_date = time.strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>, time.localtime())</span><br><span class="line">    my_file_name = today_date+CONST[<span class="string">&quot;LOG_FILE&quot;</span>]</span><br><span class="line">    <span class="comment"># 默认为今天的时间</span></span><br><span class="line">    <span class="keyword">if</span> gAfter == <span class="literal">None</span> <span class="keyword">and</span> gBefore == <span class="literal">None</span> <span class="keyword">and</span> gDays ==<span class="literal">None</span>:</span><br><span class="line">        nowTime = strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>, gmtime())</span><br><span class="line">        cmd = <span class="string">&quot;cd \&quot;&#123;0&#125;\&quot;;git log --author=\&quot;&#123;1&#125;\&quot; --after=\&quot;&#123;2&#125; 00:00:00\&quot; --before=\&quot;&#123;3&#125; 24:00:00\&quot; &gt; &#123;4&#125;/&#123;5&#125;&quot;</span>.<span class="built_in">format</span>(source_path, author, nowTime, nowTime, getRunPath(), my_file_name)</span><br><span class="line">    <span class="keyword">elif</span> gDays:</span><br><span class="line">        ticks = time.time()</span><br><span class="line">        timeStamp = ticks-<span class="built_in">int</span>(gDays)*<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span></span><br><span class="line">        localtime = time.strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>, time.localtime(timeStamp))</span><br><span class="line">        my_file_name = localtime+CONST[<span class="string">&quot;LOG_FILE&quot;</span>]</span><br><span class="line">        cmd = <span class="string">&quot;cd \&quot;&#123;0&#125;\&quot;;git log --author=\&quot;&#123;1&#125;\&quot; --after=\&quot;&#123;2&#125; 00:00:00\&quot; --before=\&quot;&#123;3&#125; 24:00:00\&quot; &gt; &#123;4&#125;/&#123;5&#125;&quot;</span>.<span class="built_in">format</span>(source_path, author, localtime, localtime, getRunPath(), my_file_name)</span><br><span class="line">    <span class="comment"># 根据参数的时间</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cmd = <span class="string">&quot;cd \&quot;&#123;0&#125;\&quot;;git log --author=\&quot;&#123;1&#125;\&quot;&quot;</span>.<span class="built_in">format</span>(source_path, author)</span><br><span class="line">        <span class="keyword">if</span> gBefore:</span><br><span class="line">            cmd = <span class="string">&quot;&#123;0&#125; --before=\&quot;&#123;1&#125;\&quot;&quot;</span>.<span class="built_in">format</span>(cmd, gBefore)</span><br><span class="line">        <span class="keyword">if</span> gAfter:</span><br><span class="line">            cmd = <span class="string">&quot;&#123;0&#125; --after=\&quot;&#123;1&#125;\&quot;&quot;</span>.<span class="built_in">format</span>(cmd, gAfter)</span><br><span class="line">        my_file_name = gAfter+CONST[<span class="string">&quot;LOG_FILE&quot;</span>]</span><br><span class="line">        cmd = <span class="string">&quot;&#123;0&#125; &gt; &#123;1&#125;/&#123;2&#125;&quot;</span>.<span class="built_in">format</span>(cmd, getRunPath(), my_file_name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;执行命令：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(cmd))</span><br><span class="line">    os.system(cmd)</span><br><span class="line">    parseLog(my_file_name,log_paths)</span><br><span class="line"><span class="comment">#获取运行目录</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getRunPath</span>():</span><br><span class="line">   <span class="keyword">return</span> os.path.split(os.path.realpath(__file__))[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析日志</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parseLog</span>(<span class="params">my_file_name,log_paths</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;================LOG====================&quot;</span>)</span><br><span class="line">    logPath = getRunPath() + <span class="string">&quot;/&quot;</span> + my_file_name</span><br><span class="line">    savePath = log_paths + <span class="string">&quot;/&quot;</span> + my_file_name</span><br><span class="line">    tempPath = getRunPath() + <span class="string">&quot;/temp&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(tempPath):</span><br><span class="line">        os.makedirs(tempPath)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(log_paths):</span><br><span class="line">        os.makedirs(log_paths)</span><br><span class="line">    saveFile = <span class="built_in">open</span>(savePath,<span class="string">&quot;w+&quot;</span>)</span><br><span class="line">    saveFile.writelines(<span class="string">&quot;今日工作内容：\n&quot;</span>)</span><br><span class="line">    idx = <span class="number">1</span></span><br><span class="line">    logFile = <span class="built_in">open</span>(logPath)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> logFile:</span><br><span class="line">        line = line.strip()</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(line) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        reCommit = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;COMMIT&quot;</span>], line)</span><br><span class="line">        reAuthor = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;AUTHOR&quot;</span>], line)</span><br><span class="line">        reDate = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;DATE&quot;</span>], line)</span><br><span class="line">        reMerge = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;Merge&quot;</span>], line)</span><br><span class="line">        reSpec = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;#&quot;</span>], line)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> reCommit <span class="keyword">or</span> reAuthor <span class="keyword">or</span> reDate <span class="keyword">or</span> reMerge <span class="keyword">or</span> reSpec:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(line)</span><br><span class="line">            saveFile.writelines(<span class="built_in">str</span>(idx)+<span class="string">&quot;.&quot;</span>+line+<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">            idx = idx+<span class="number">1</span></span><br><span class="line">    saveFile.close()</span><br><span class="line">    logFile.close()</span><br><span class="line">    shutil.move(logPath,tempPath+<span class="string">&quot;/&quot;</span>+my_file_name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;=======================================&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;汪~赶快粘贴到每天的日报吧^_^&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 进行参数解析</span></span><br><span class="line">    parser = OptionParser()</span><br><span class="line">    parser.add_option(</span><br><span class="line">        <span class="string">&quot;--after&quot;</span>,</span><br><span class="line">        action=<span class="string">&quot;store&quot;</span>,</span><br><span class="line">        dest=<span class="string">&quot;after&quot;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&quot;开始时间(如果after和before都不填写，默认为当天时间)&quot;</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_option(</span><br><span class="line">        <span class="string">&quot;--before&quot;</span>,</span><br><span class="line">        action=<span class="string">&quot;store&quot;</span>,</span><br><span class="line">        dest=<span class="string">&quot;before&quot;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&quot;结束时间(如果after和before都不填写，默认为当天时间)&quot;</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_option(</span><br><span class="line">        <span class="string">&quot;--days&quot;</span>,</span><br><span class="line">        action=<span class="string">&quot;store&quot;</span>,</span><br><span class="line">        dest=<span class="string">&quot;days&quot;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&quot;距离当前日期的天数(比如1代表昨天，2代表前天)&quot;</span></span><br><span class="line">    )</span><br><span class="line">    (opts, args) = parser.parse_args()</span><br><span class="line">    gAfter = opts.after</span><br><span class="line">    gBefore = opts.before</span><br><span class="line">    gDays = opts.days</span><br><span class="line">    getGitLog()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>生成几个 常用的 命令行文件 比如当天的 <code>today_setup. command</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;Shell 脚本开始执行 \n&quot;</span></span><br><span class="line">base_dir=$(<span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>&quot;</span>;<span class="built_in">pwd</span>)</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;当前路径:%s \n&quot;</span> <span class="variable">$base_dir</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$base_dir</span></span><br><span class="line">python3 GitLogParse.py</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;Shell 脚本开始执行 完毕！！！ \n&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>昨天的 <code>yesterday_setup. command</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;Shell 脚本开始执行 \n&quot;</span></span><br><span class="line">base_dir=$(<span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>&quot;</span>;<span class="built_in">pwd</span>)</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;当前路径:%s \n&quot;</span> <span class="variable">$base_dir</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$base_dir</span></span><br><span class="line">python3 GitLogParse.py --days 1</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;Shell 脚本开始执行 完毕！！！ \n&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>前天的 <code>before_yesterday_setup. command</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;Shell 脚本开始执行 \n&quot;</span></span><br><span class="line">base_dir=$(<span class="built_in">cd</span> <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span>&quot;</span>;<span class="built_in">pwd</span>)</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;当前路径:%s \n&quot;</span> <span class="variable">$base_dir</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$base_dir</span></span><br><span class="line">python3 GitLogParse.py --days 2</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;Shell 脚本开始执行 完毕！！！ \n&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果直接使用命令行 ：<code>--days</code> 2 表示 2天前的某天 如果是5 就是5天前那天</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 GitLogParse.py --days 2</span><br></pre></td></tr></table></figure>
+
+<p>具体的说明如下：</p>
+<p><img src="/post/b307f88/image-20211109150554730.png" alt="image-20211109150554730"></p>
+<p>生成路径</p>
+<p><img src="/post/b307f88/image-20211109150753407.png" alt="image-20211109150753407"></p>
+<p>最后源码地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/GitLogParsePlus">点击进入</a></p>
+<h3 id="2022-08-15-windows-版本"><a href="#2022-08-15-windows-版本" class="headerlink" title="2022-08-15 windows 版本"></a>2022-08-15 windows 版本</h3><p>脚本变化不大，但是遇到了问题：</p>
+<ol>
+<li>调用脚本的时候 遇到 <code>文件名、目录名或卷标语法不正确</code> 错误 我的修改方法是 将命令拆成两个分别执行</li>
+<li><code>os.system cd</code>无效  原因是 <code>python</code>中和<code>os.system</code>实现机制有关系。</li>
+</ol>
+<p>修复方法 修改用 os.chdir(‘/home/data)  代替</p>
+<ol start="3">
+<li><code>UnicodeDecodeError: &#39;gbk&#39; codec can&#39;t decode byte 0x80 in position 78: illegal multibyte sequence</code></li>
+</ol>
+<p>修复方法 <code>open(logPath, &#39;r&#39;, encoding=&#39;utf-8&#39;)</code></p>
+<p>下面是<code>GitLogParse.py</code>源码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> strftime,gmtime</span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br><span class="line"></span><br><span class="line">CONST = &#123;</span><br><span class="line">    <span class="string">&quot;LOG_FILE&quot;</span>: <span class="string">&quot;.log&quot;</span>, <span class="comment"># 保存日志的文件名</span></span><br><span class="line">    <span class="comment"># 正则</span></span><br><span class="line">    <span class="string">&quot;REGEX&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;COMMIT&quot;</span>: <span class="string">&quot;^commit&quot;</span>,</span><br><span class="line">        <span class="string">&quot;AUTHOR&quot;</span>: <span class="string">&quot;^Author&quot;</span>,</span><br><span class="line">        <span class="string">&quot;DATE&quot;</span>: <span class="string">&quot;^Date&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Merge&quot;</span>: <span class="string">&quot;^Merge&quot;</span>,</span><br><span class="line">        <span class="string">&quot;#&quot;</span>: <span class="string">&quot;#&quot;</span>,<span class="comment">#Merge 代码内容不显示</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">gAfter = <span class="string">&quot;&quot;</span> <span class="comment"># 开始时间</span></span><br><span class="line">gBefore = <span class="string">&quot;&quot;</span> <span class="comment"># 结束时间</span></span><br><span class="line"><span class="comment"># 获取git日志</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getGitLog</span>():</span><br><span class="line">    <span class="keyword">global</span> gAfter</span><br><span class="line">    <span class="keyword">global</span> gBefore</span><br><span class="line">    <span class="keyword">global</span> gDays</span><br><span class="line">    cwd = os.getcwd()</span><br><span class="line">    configPath = os.path.join(cwd, <span class="string">&quot;config.json&quot;</span>)</span><br><span class="line">    f = <span class="built_in">open</span>(configPath, encoding=<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment"># 打开‘copyConfig.json’的json文件</span></span><br><span class="line">    res = f.read()  <span class="comment"># 读文件</span></span><br><span class="line">    author = json.loads(res)[<span class="string">&quot;author&quot;</span>]</span><br><span class="line">    log_paths = json.loads(res)[<span class="string">&quot;log_paths&quot;</span>]</span><br><span class="line">    source_path = json.loads(res)[<span class="string">&quot;source_path&quot;</span>]</span><br><span class="line">    cmd1 = <span class="string">&quot;&quot;</span></span><br><span class="line">    cmd2 = <span class="string">&quot;&quot;</span></span><br><span class="line">    today_date = time.strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>, time.localtime())</span><br><span class="line">    my_file_name = today_date+CONST[<span class="string">&quot;LOG_FILE&quot;</span>]</span><br><span class="line">    <span class="comment"># 默认为今天的时间</span></span><br><span class="line">    <span class="keyword">if</span> gAfter == <span class="literal">None</span> <span class="keyword">and</span> gBefore == <span class="literal">None</span> <span class="keyword">and</span> gDays ==<span class="literal">None</span>:</span><br><span class="line">        nowTime = strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>, gmtime())</span><br><span class="line">        cmd1 = <span class="string">&quot;&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(source_path)</span><br><span class="line">        cmd2 = <span class="string">&quot;git log --author=\&quot;&#123;0&#125;\&quot; --after=\&quot;&#123;1&#125; 00:00:00\&quot; --before=\&quot;&#123;2&#125; 24:00:00\&quot; &gt; &#123;3&#125;/&#123;4&#125;&quot;</span>.<span class="built_in">format</span>(author, nowTime, nowTime, getRunPath(), my_file_name)</span><br><span class="line">    <span class="keyword">elif</span> gDays:</span><br><span class="line">        ticks = time.time()</span><br><span class="line">        timeStamp = ticks-<span class="built_in">int</span>(gDays)*<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span></span><br><span class="line">        localtime = time.strftime(<span class="string">&quot;%Y-%m-%d&quot;</span>, time.localtime(timeStamp))</span><br><span class="line">        my_file_name = localtime+CONST[<span class="string">&quot;LOG_FILE&quot;</span>]</span><br><span class="line">        cmd1 = <span class="string">&quot;&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(source_path)</span><br><span class="line">        cmd2 = <span class="string">&quot;git log --author=\&quot;&#123;0&#125;\&quot; --after=\&quot;&#123;1&#125; 00:00:00\&quot; --before=\&quot;&#123;2&#125; 24:00:00\&quot; &gt; &#123;3&#125;/&#123;4&#125;&quot;</span>.<span class="built_in">format</span>(author, localtime, localtime, getRunPath(), my_file_name)</span><br><span class="line">    <span class="comment"># 根据参数的时间</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        cmd1 = <span class="string">&quot;&#123;0&#125;&quot;</span>.<span class="built_in">format</span>(source_path)</span><br><span class="line">        cmd2 = <span class="string">&quot;git log --author=\&quot;&#123;0&#125;\&quot;&quot;</span>.<span class="built_in">format</span>(author)</span><br><span class="line">        <span class="keyword">if</span> gBefore:</span><br><span class="line">            cmd2 = <span class="string">&quot;&#123;0&#125; --before=\&quot;&#123;1&#125;\&quot;&quot;</span>.<span class="built_in">format</span>(cmd2, gBefore)</span><br><span class="line">        <span class="keyword">if</span> gAfter:</span><br><span class="line">            cmd2 = <span class="string">&quot;&#123;0&#125; --after=\&quot;&#123;1&#125;\&quot;&quot;</span>.<span class="built_in">format</span>(cmd2, gAfter)</span><br><span class="line">        my_file_name = gAfter+CONST[<span class="string">&quot;LOG_FILE&quot;</span>]</span><br><span class="line">        cmd2 = <span class="string">&quot;&#123;0&#125; &gt; &#123;1&#125;/&#123;2&#125;&quot;</span>.<span class="built_in">format</span>(cmd2, getRunPath(), my_file_name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;执行命令：&#123;&#125;&quot;</span>.<span class="built_in">format</span>(cmd2))</span><br><span class="line">    os.chdir(cmd1)</span><br><span class="line">    os.system(cmd2)</span><br><span class="line">    parseLog(my_file_name,log_paths)</span><br><span class="line"><span class="comment">#获取运行目录</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getRunPath</span>():</span><br><span class="line">   <span class="keyword">return</span> os.path.split(os.path.realpath(__file__))[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析日志</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parseLog</span>(<span class="params">my_file_name,log_paths</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;================LOG====================&quot;</span>)</span><br><span class="line">    logPath = getRunPath() + <span class="string">&quot;/&quot;</span> + my_file_name</span><br><span class="line">    savePath = log_paths + <span class="string">&quot;/&quot;</span> + my_file_name</span><br><span class="line">    tempPath = getRunPath() + <span class="string">&quot;/temp&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(tempPath):</span><br><span class="line">        os.makedirs(tempPath)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(log_paths):</span><br><span class="line">        os.makedirs(log_paths)</span><br><span class="line">    saveFile = <span class="built_in">open</span>(savePath,<span class="string">&quot;w+&quot;</span>)</span><br><span class="line">    saveFile.writelines(<span class="string">&quot;今日工作内容：\n&quot;</span>)</span><br><span class="line">    idx = <span class="number">1</span></span><br><span class="line">    logFile = <span class="built_in">open</span>(logPath, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> logFile:</span><br><span class="line">        line = line.strip()</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(line) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        reCommit = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;COMMIT&quot;</span>], line)</span><br><span class="line">        reAuthor = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;AUTHOR&quot;</span>], line)</span><br><span class="line">        reDate = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;DATE&quot;</span>], line)</span><br><span class="line">        reMerge = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;Merge&quot;</span>], line)</span><br><span class="line">        reSpec = re.<span class="keyword">match</span>(CONST[<span class="string">&quot;REGEX&quot;</span>][<span class="string">&quot;#&quot;</span>], line)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> reCommit <span class="keyword">or</span> reAuthor <span class="keyword">or</span> reDate <span class="keyword">or</span> reMerge <span class="keyword">or</span> reSpec:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(line)</span><br><span class="line">            saveFile.writelines(<span class="built_in">str</span>(idx)+<span class="string">&quot;.&quot;</span>+line+<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">            idx = idx+<span class="number">1</span></span><br><span class="line">    saveFile.close()</span><br><span class="line">    logFile.close()</span><br><span class="line">    shutil.move(logPath,tempPath+<span class="string">&quot;/&quot;</span>+my_file_name)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;=======================================&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;汪~赶快粘贴到每天的日报吧^_^&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 进行参数解析</span></span><br><span class="line">    parser = OptionParser()</span><br><span class="line">    parser.add_option(</span><br><span class="line">        <span class="string">&quot;--after&quot;</span>,</span><br><span class="line">        action=<span class="string">&quot;store&quot;</span>,</span><br><span class="line">        dest=<span class="string">&quot;after&quot;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&quot;开始时间(如果after和before都不填写，默认为当天时间)&quot;</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_option(</span><br><span class="line">        <span class="string">&quot;--before&quot;</span>,</span><br><span class="line">        action=<span class="string">&quot;store&quot;</span>,</span><br><span class="line">        dest=<span class="string">&quot;before&quot;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&quot;结束时间(如果after和before都不填写，默认为当天时间)&quot;</span></span><br><span class="line">    )</span><br><span class="line">    parser.add_option(</span><br><span class="line">        <span class="string">&quot;--days&quot;</span>,</span><br><span class="line">        action=<span class="string">&quot;store&quot;</span>,</span><br><span class="line">        dest=<span class="string">&quot;days&quot;</span>,</span><br><span class="line">        <span class="built_in">help</span>=<span class="string">&quot;距离当前日期的天数(比如1代表昨天，2代表前天)&quot;</span></span><br><span class="line">    )</span><br><span class="line">    (opts, args) = parser.parse_args()</span><br><span class="line">    gAfter = opts.after</span><br><span class="line">    gBefore = opts.before</span><br><span class="line">    gDays = opts.days</span><br><span class="line">    getGitLog()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>config.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;log_paths&quot;</span><span class="punctuation">:</span> <span class="string">&quot;D:\\Test\\PycharmProjects\\WindowsGitLogHelper\\log&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;jsroads&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;source_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;D:/Refactor/client&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>windows 源码 <a target="_blank" rel="noopener" href="https://github.com/jsroads/mylibs/tree/main/GitLogParsePlus/windows">点击进入</a></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24920947/article/details/81979397">python中os.system cd无效</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_31267769/article/details/109128882">Python读取文件时出现UnicodeDecodeError: ‘gbk‘ codec can‘t decode byte 0x80 in position …</a></li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>代码没有什么难度，主要是一点点拼凑的，一点点进步吧！加油。</p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/30ffd5aa.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>TextEncoder和TextDecoder的原生环境Polyfill</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/7ab13ee0.html">
+        <span>谈谈工作的设计与实践</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/b307f88.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">最后效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">具体实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2022-08-15-windows-%E7%89%88%E6%9C%AC"><span class="toc-number">3.</span> <span class="toc-text">2022-08-15 windows 版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">3.1.</span> <span class="toc-text">参考</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

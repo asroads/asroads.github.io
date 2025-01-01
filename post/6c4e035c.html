@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+
+    
+    
+        
+<link rel="stylesheet" href="/css/mdui.min.v1.0.0.css">
+
+    
+    
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            LayaBox2.X如何使用bignumber.js(decimal.js) | Asroads&#39;Blog
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Asroads'Blog" type="application/atom+xml">
+</head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">Asroads&#39;Blog</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">君子不器</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-1">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">首页</div>
+                </a>
+            
+                
+                <a href="/categories/game" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">手游</div>
+                </a>
+            
+                
+                <a href="/categories/tool/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-tools"></i>
+                    </div>
+                    <div class="mdui-list-item-content">技术</div>
+                </a>
+            
+                
+                <a href="/categories/other" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-gallery"></i>
+                    </div>
+                    <div class="mdui-list-item-content">杂项</div>
+                </a>
+            
+                
+                <a href="/categories/life" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-blog"></i>
+                    </div>
+                    <div class="mdui-list-item-content">感悟</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+                
+                <a href="/about/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-user"></i>
+                    </div>
+                    <div class="mdui-list-item-content">关于</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-1">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.png"/>
+                
+            </div>
+            <div class="sidebar-author-name">asroads</div>
+            <div class="sidebar-description">自信是成功第一法宝</div>
+        </div>
+        <div class="sidebar-links">
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-mail"></i></span>
+                    <a href="/jsroads@163.com" class="mdui-chip-title">E-Mail</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/jsroads" class="mdui-chip-title">jsroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-github"></i></span>
+                    <a target="_blank" rel="noopener" href="https://github.com/asroads" class="mdui-chip-title">asroads</a>
+                </div>
+            
+                
+                <div class="mdui-chip">
+                    <span class="mdui-chip-icon"><i class="iconfont icon-qq"></i></span>
+                    <a target="_blank" rel="noopener" href="https://jq.qq.com/?_wv=1027&k=fTVxmSSA" class="mdui-chip-title">QQ群</a>
+                </div>
+            
+        </div>
+        <ul class="mdui-list" mdui-collapse="{accordion: true}">
+            <li class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-link"></i>
+                    </div>
+                    <div class="mdui-list-item-content">友情链接</div>
+                    <div class="mdui-collapse-item-arrow">
+                        <i class="mdui-list-item-icon iconfont icon-angle-down"></i>
+                    </div>
+                </div>
+                <ul id="linksList" class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    
+                        <a target="_blank" rel="noopener" href="https://seazhang.github.io/" class="mdui-list-item mdui-ripple">
+                            麦田守望者
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://zhaoyabo.github.io/" class="mdui-list-item mdui-ripple">
+                            YABO的博客
+                        </a>
+                    
+                        <a target="_blank" rel="noopener" href="https://dreamheavenyang.github.io/" class="mdui-list-item mdui-ripple">
+                            DreamHeaven
+                        </a>
+                    
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/post/6c4e035c.html">LayaBox2.X如何使用bignumber.js(decimal.js)</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-09-30
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2025-01-01
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;<a class="category-link" href="/categories/game/">game</a>
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=LayaBox2.X如何使用bignumber.js(decimal.js)&url=http://blog.asroads.com/post/6c4e035c.html&pic=http://blog.asroads.com/icons/favicon.ico&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=LayaBox2.X如何使用bignumber.js(decimal.js)&url=http://blog.asroads.com/post/6c4e035c.html&via=asroads" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://blog.asroads.com/post/6c4e035c.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://blog.asroads.com/post/6c4e035c.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://blog.asroads.com/post/6c4e035c.html&title=LayaBox2.X如何使用bignumber.js(decimal.js)" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=Asroads&#39;Blog&title=LayaBox2.X如何使用bignumber.js(decimal.js)&summary=自信是成功第一法宝&pics=http://blog.asroads.com/icons/favicon.ico&url=http://blog.asroads.com/post/6c4e035c.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://blog.asroads.com/post/6c4e035c.html&text=LayaBox2.X如何使用bignumber.js(decimal.js)" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/Layabox/ >Layabox</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>关于大数字使用，前面已经系统的介绍过这个，<a href="http://blog.asroads.com/post/5aa84949.html">大数字BigNumber.js使用</a>  在Laya1.x的时候也使用这个类库，只是当时项目比较忙，加上我疏于记录，后面就不了了之，昨天下班后，群里一个群友问我Layabox2.x关于(<a target="_blank" rel="noopener" href="https://mikemcl.github.io/bignumber.js">bignumber.js</a>)使用报错，才有了今天这个文章。</p>
+<span id="more"></span>
+
+<p>下面就说说这个类库如何在Layabox2.x里面使用，以及报错  Error: Could not resolve ‘../../libs/bignumber’ from ../../../../../Users/smile/my/test/laya/demo/BNTestdemo/src/script/GameUI.ts. 后如果修改</p>
+<p>首先我们还是按照Layabox 正常的添加类库</p>
+<p>首先我们还是按照Layabox 正常的添加类库</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="新建一个项目"><a href="#新建一个项目" class="headerlink" title="新建一个项目"></a>新建一个项目</h4><p>这里新建了一个示例项目</p>
+<p><img src="/post/6c4e035c/image-20200930120915849.png" alt="image-20200930120915849"></p>
+<h4 id="下载bignumber-js"><a href="#下载bignumber-js" class="headerlink" title="下载bignumber.js"></a>下载bignumber.js</h4><p>去官方地址下载 (<a target="_blank" rel="noopener" href="https://mikemcl.github.io/bignumber.js">bignumber.js</a>)到本地</p>
+<p><img src="/post/6c4e035c/image-20200930121113814.png" alt="image-20200930121113814"></p>
+<p>由于项目选择的是Typescript项目所以我们接下来要先把声明文件放到 项目的 libs 下面</p>
+<p><img src="/post/6c4e035c/image-20200930121252022.png" alt="image-20200930121252022"></p>
+<p>然后把 <code>bignumber.js</code>文件放到 bin下面的libs 并且去 LayaIDE里面设置 勾选类库</p>
+<p><img src="/post/6c4e035c/image-20200930121438183.png" alt="image-20200930121438183"></p>
+<p>勾选类库</p>
+<p><img src="/post/6c4e035c/image-20200930121555007.png" alt="image-20200930121555007"></p>
+<h4 id="项目内写测试代码"><a href="#项目内写测试代码" class="headerlink" title="项目内写测试代码"></a>项目内写测试代码</h4><p>这里我们选择 GameUI.ts 文件的 onEnable 函数下写测试代码</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ui &#125; <span class="keyword">from</span> <span class="string">&quot;./../ui/layaMaxUI&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">GameControl</span> <span class="keyword">from</span> <span class="string">&quot;./GameControl&quot;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BigNumber</span> <span class="keyword">from</span> <span class="string">&quot;../../libs/bignumber&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line">    ......</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">onEnable</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_control</span> = <span class="variable language_">this</span>.<span class="title function_">getComponent</span>(<span class="title class_">GameControl</span>);</span><br><span class="line">        <span class="comment">//点击提示文字，开始游戏</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tipLbll</span>.<span class="title function_">on</span>(<span class="title class_">Laya</span>.<span class="property">Event</span>.<span class="property">CLICK</span>, <span class="variable language_">this</span>, <span class="variable language_">this</span>.<span class="property">onTipClick</span>);</span><br><span class="line">        <span class="keyword">let</span> bn = <span class="keyword">new</span> <span class="title class_">BigNumber</span>(<span class="string">&quot;10000&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(bn.<span class="title function_">valueOf</span>())</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候我们编译代码 发现报错！！！</p>
+<p><img src="/post/6c4e035c/image-20200930121832803.png" alt="image-20200930121832803"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">开始编译: Wed Sep 30 2020 12:49:29 GMT+0800 (CST)</span><br><span class="line">--------------------------------------</span><br><span class="line">[12:49:30] Working directory changed to /Applications/LayaAirIDE_2_7_0_beta.app/Contents/Resources/app</span><br><span class="line">[12:49:31] Using gulpfile ~/my/test/laya/demo/BNTestdemo/.laya/compile.js</span><br><span class="line">[12:49:31] Starting &#x27;compile&#x27;...</span><br><span class="line">&#123; Error: Could not resolve &#x27;../../libs/bignumber&#x27; from ../../../../../Users/smile/my/test/laya/demo/BNTestdemo/src/script/GameUI.ts</span><br><span class="line">at error (/Applications/LayaAirIDE_2_7_0_beta.app/Contents/Resources/app/node_modules/rollup/dist/rollup.js:9402:30)</span><br><span class="line">at ModuleLoader.handleMissingImports (/Applications/LayaAirIDE_2_7_0_beta.app/Contents/Resources/app/node_modules/rollup/dist/rollup.js:16396:17)</span><br><span class="line">at ModuleLoader. (/Applications/LayaAirIDE_2_7_0_beta.app/Contents/Resources/app/node_modules/rollup/dist/rollup.js:16447:26)</span><br><span class="line">at Generator.next ()</span><br><span class="line">at fulfilled (/Applications/LayaAirIDE_2_7_0_beta.app/Contents/Resources/app/node_modules/rollup/dist/rollup.js:15428:28)</span><br><span class="line">at code: &#x27;UNRESOLVED_IMPORT&#x27; &#125;</span><br><span class="line">[12:49:34] Finished &#x27;compile&#x27; after 2.87 s</span><br><span class="line">--------------------------------------</span><br><span class="line">编译结束，gulp编译耗时: 4.057s</span><br><span class="line">编译结束，总耗时: 4.129s</span><br></pre></td></tr></table></figure>
+
+<p>这个 怎么回事？难道是路径错了？还是这样加载不对，经过两个小时的搜索和本地测试，发现了问题！</p>
+<p><img src="/post/6c4e035c/image-20200930122052641.png" alt="image-20200930122052641"></p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>原来是声明文件 需要修改才行</p>
+<p>原来的声明长这样：代码收缩后</p>
+<p><img src="/post/6c4e035c/image-20200930122151362.png" alt="image-20200930122151362"></p>
+<p>应该修改为 代码收缩后</p>
+<p><img src="/post/6c4e035c/image-20200930122242165.png" alt="image-20200930122242165"></p>
+<h5 id="主要操作"><a href="#主要操作" class="headerlink" title="主要操作"></a>主要操作</h5><ol>
+<li><p>注释掉 第一行 // export default BigNumber;</p>
+</li>
+<li><p>把 第二行的 export 修改为 declare</p>
+</li>
+<li><p>删掉 export</p>
+</li>
+</ol>
+<p>然后去修改  GameUI.ts  因为类直接导出了，所以不需要 import BigNumber from “../../libs/bignumber”;</p>
+<h5 id="删除引用导入"><a href="#删除引用导入" class="headerlink" title="删除引用导入"></a>删除引用导入</h5><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ui &#125; <span class="keyword">from</span> <span class="string">&quot;./../ui/layaMaxUI&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">GameControl</span> <span class="keyword">from</span> <span class="string">&quot;./GameControl&quot;</span></span><br><span class="line">......</span><br><span class="line">......</span><br><span class="line">    <span class="title function_">onEnable</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_control</span> = <span class="variable language_">this</span>.<span class="title function_">getComponent</span>(<span class="title class_">GameControl</span>);</span><br><span class="line">        <span class="comment">//点击提示文字，开始游戏</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">tipLbll</span>.<span class="title function_">on</span>(<span class="title class_">Laya</span>.<span class="property">Event</span>.<span class="property">CLICK</span>, <span class="variable language_">this</span>, <span class="variable language_">this</span>.<span class="property">onTipClick</span>);</span><br><span class="line">        <span class="keyword">let</span> bn = <span class="keyword">new</span> <span class="title class_">BigNumber</span>(<span class="string">&quot;10000&quot;</span>)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(bn.<span class="title function_">valueOf</span>())</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们再次编译 正常通过 </p>
+<p><img src="/post/6c4e035c/image-20200930122616556.png" alt="image-20200930122616556"></p>
+<p>最后运行项目 查看输出</p>
+<p><img src="/post/6c4e035c/image-20200930122702863.png" alt="image-20200930122702863"></p>
+<h4 id="2020年10月24日微信报错更新"><a href="#2020年10月24日微信报错更新" class="headerlink" title="2020年10月24日微信报错更新"></a>2020年10月24日微信报错更新</h4><p>有群友反馈 在微信平台报错 测试了一下 确实如此 在Chome环境是OK的，在微信小游戏报错</p>
+<p>报错如下：</p>
+<p><img src="/post/6c4e035c/F93F90D97AD4EFB6742D3C624DC248D3.jpg" alt="F93F90D97AD4EFB6742D3C624DC248D3"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">MiniProgramError</span></span><br><span class="line"><span class="title class_">BigNumber</span> is not defined</span><br><span class="line"><span class="title class_">ReferenceError</span>: <span class="title class_">BigNumber</span> is not defined</span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">onEnable</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/js/bundle.js:74:22)</span></span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">_activeHierarchy</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:245524)</span></span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">_processActive</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:245022)</span></span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">_onAdded</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:246738)</span></span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">_setParent</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:242101)</span></span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">_setParent</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:261694)</span></span><br><span class="line">    at we.<span class="property">addChild</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:239859)</span></span><br><span class="line">    at <span class="title class_">GameUI</span>.<span class="property">open</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:414537)</span></span><br><span class="line">    at _onSceneLoaded (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:416882)</span></span><br><span class="line">    at T.<span class="property">runWith</span> (<span class="attr">http</span>:<span class="comment">//127.0.0.1:42957/game/libs/min/laya.core.min.js:1:15541)</span></span><br></pre></td></tr></table></figure>
+
+<p>看到这里 相信大部分人都知道是咋回事就是全部变量里没有 <code>BigNumber</code> 这个对象，怎么回事呢？根据以往的解决经验 我们这里给出两个方案：</p>
+<h5 id="方案一："><a href="#方案一：" class="headerlink" title="方案一："></a>方案一：</h5><p>修改 libs/bignumber.js  文末</p>
+<p><img src="/post/6c4e035c/image-20201024111236758.png" alt="image-20201024111236758"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">BigNumber</span> = <span class="title class_">BigNumber</span>;</span><br></pre></td></tr></table></figure>
+
+<p>修改 libs/bignumber.min.js  文末</p>
+<p><img src="/post/6c4e035c/image-20201024112009382.png" alt="image-20201024112009382"></p>
+<p>然后 重新导出项目 运行：正常啦</p>
+<p><img src="/post/6c4e035c/image-20201024112125898.png" alt="image-20201024112125898"></p>
+<h5 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h5><p>A方法:修改 导出的小游戏项目 release目录下的 index </p>
+<p><img src="/post/6c4e035c/image-20201024112340126.png" alt="image-20201024112340126"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">BigNumber</span> = <span class="title function_">loadLib</span>(<span class="string">&quot;libs/min/bignumber.min.js&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>B方法:或者 直接在 game.js 修改为下面这样 这个和修改 index.js 道理一样 用哪个都行</p>
+<p><img src="/post/6c4e035c/image-20201024112518926.png" alt="image-20201024112518926"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">BigNumber</span> = <span class="built_in">require</span>(<span class="string">&quot;libs/min/bignumber.min.js&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>相对来讲 我更喜欢第方案一，当然方案二也不错 大家根据各自偏好 修改即可</p>
+<p>以上 bignumber.js 正常被项目引入 项目地址：<a target="_blank" rel="noopener" href="https://github.com/jsroads/LayaBoxDemos/tree/master/BNTestdemo">https://github.com/jsroads/LayaBoxDemos/tree/master/BNTestdemo</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jsroads/LayaBoxDemos/tree/master/BNTestdemo">点击进入</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>问题不是什么大问题，但对第三方库不是很了解的，特别容易采坑，一不小心就很难解决。</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import YQBCommon = require(&quot;../../libs/pb2&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>引用这个没必要，而且路径也是错的。删除这行，pb2.d.ts没问题后，即可正常使用。。</p>
+<p>pb2.d.ts和protobufjs.d.ts也有问题，别用export as namespace 用 declare module</p>
+<p>代码已改。下载改后的项目你试试。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://ask.layabox.com/file/download/file_name-bXlMYXlhMkQuemlw__url-aHR0cHM6Ly9pbWcubGF5YWJveC5jb20vYW5zd2VyLzIwMTkwMjIwLzg4ZDQ3NzdkODQ1MGRjNDJiODNjNDliNzY1M2ZkYmNm">myLaya2D.zip</a></li>
+</ul>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://ask.layabox.com/question/41139?token=37_xuvr6CbtPl4GOvU9q4mU2A6kG4ZHstwtxm8nUwj-hRXN8pR_AymqEzjVplLLUsZazfveY_TbLzTD9wNJScU11fW7oIiWnuNSQJr2npebL5k">laya2.0引入第三方库失败</a></p>
+
+  </div>
+  <!--文末结束语-->
+  
+    <div style="text-align:center;color: #ccc;font-size:24px;"> --- 本文结束 <i class="iconfont icon-heartbeat" style="font-size:24px;"></i> The End --- </div>
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/post/27482d4a.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>2020，谈谈生活</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/post/a8fbd3f4.html">
+        <span>Ohayoo广告变现SDK_iOS激励视频接入指南</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/post/6c4e035c.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.</span> <span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">新建一个项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDbignumber-js"><span class="toc-number">1.2.</span> <span class="toc-text">下载bignumber.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">项目内写测试代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.1.</span> <span class="toc-text">主要操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%BC%95%E7%94%A8%E5%AF%BC%E5%85%A5"><span class="toc-number">1.4.2.</span> <span class="toc-text">删除引用导入</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2020%E5%B9%B410%E6%9C%8824%E6%97%A5%E5%BE%AE%E4%BF%A1%E6%8A%A5%E9%94%99%E6%9B%B4%E6%96%B0"><span class="toc-number">1.5.</span> <span class="toc-text">2020年10月24日微信报错更新</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A"><span class="toc-number">1.5.1.</span> <span class="toc-text">方案一：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="toc-number">1.5.2.</span> <span class="toc-text">方案二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">参考链接</span></a></li></ol>
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="https://beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2018 - 2025 
+        
+          <span style="color:#d9333f" class="iconfont icon-heart"></span>
+        
+        asroads
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+    
+<script src="/js/mdui.min.v1.0.0.js"></script>
+
+
+
+
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >
