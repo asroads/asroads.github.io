@@ -105,7 +105,7 @@ npm install hexo-cli -g
 
 `hexo d` 命令执行的时候报错
 
-```
+```bash
 The authenticity of host 'github.com (20.205.243.166)' can't be established.
 ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
 This key is not known by any other names.
@@ -128,7 +128,7 @@ Error: Spawn failed
 
 解决方案：
 
-```
+```bash
 git config --global user.name "your github user name"
 git config --global user.email "your github 注册邮箱"
 ```
@@ -139,7 +139,7 @@ git config --global user.email "your github 注册邮箱"
 ssh-keygen -t rsa -b 4096 -C "asroads@163.com"
 ```
 
-```
+```bash
 D:\asroads\blog\asroads.github.io>ssh-keygen -t rsa -b 4096 -C "asroads@163.com"
 Generating public/private rsa key pair.
 Enter file in which to save the key (C:\Users\jsroads/.ssh/id_rsa):
@@ -243,3 +243,58 @@ INFO  Deploy done: git
 D:\asroads\blog\asroads.github.io>
 ```
 
+## git 推送远端失败
+
+```bash
+D:\asroads\blog\asroads.github.io>git push origin back
+fatal: unable to access 'https://github.com/asroads/asroads.github.io.git/': OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 0
+
+D:\asroads\blog\asroads.github.io>ping github.com
+
+正在 Ping github.com [20.205.243.166] 具有 32 字节的数据:
+来自 20.205.243.166 的回复: 字节=32 时间=96ms TTL=108
+来自 20.205.243.166 的回复: 字节=32 时间=96ms TTL=108
+来自 20.205.243.166 的回复: 字节=32 时间=96ms TTL=108
+来自 20.205.243.166 的回复: 字节=32 时间=95ms TTL=108
+
+20.205.243.166 的 Ping 统计信息:
+    数据包: 已发送 = 4，已接收 = 4，丢失 = 0 (0% 丢失)，
+往返行程的估计时间(以毫秒为单位):
+    最短 = 95ms，最长 = 96ms，平均 = 95ms
+
+D:\asroads\blog\asroads.github.io
+```
+
+**方法一：改用 SSH 协议**
+
+HTTPS 遇到问题时，可以切换到 SSH 协议：
+
+1. **切换远程仓库 URL 到 SSH**：
+
+   ```bash
+   git remote set-url origin git@github.com:asroads/asroads.github.io.git
+   ```
+
+2. **测试 SSH 连接**：
+
+   ```bash
+   ssh -T git@github.com
+   ```
+
+3. **推送代码**：
+
+   ```bash
+   git push origin back
+   ```
+
+**方法二强制使用 HTTP/1.1**
+
+某些网络环境下，Git 的 HTTP/2 协议可能会导致问题。可以尝试强制使用 HTTP/1.1：
+
+```bash
+git config --global http.version HTTP/1.1
+```
+
+## 总结
+
+总的来说每次博客或者更换系统环境多少都会遇到问题，基本可以归结为两种问题，一种是权限问题，另外一种就是网络问题。遇到这些问题，可以简单的搜索一下，基本这些问题都能找到对应的解决方法。
